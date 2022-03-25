@@ -1,0 +1,1045 @@
+
+\makeatletter
+\ifx \nauthor\undefined
+  \def\nauthor{Ignacio Rojas}
+\else
+\fi
+
+\ifx \nextra \undefined
+\author{Basado en las clases impartidas por \nprofesor \\\small Notas tomadas por \nauthor}
+\else
+\author{\nauthor}
+\fi
+\date{\nterm\ \nyear}
+
+%%%%%%%%%%%%%
+%% 1. Pacotes
+%%%%%%%%%%%%%
+
+\usepackage{alltt}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{array}
+\newcommand\hmmax{0} % default 3
+\newcommand\bmmax{0} % default 4 %%tex.se/3676,219310
+%\usepackage{bbold}
+\usepackage{bm}
+\usepackage{booktabs}
+%\usepackage{caption}
+\usepackage{cancel}
+%\usepackage{dsfont}
+\usepackage{esint}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{mathabx}
+\usepackage[cal=euler]{mathalfa}
+%\usepackage[cal=euler,frak=euler]{mathalfa} % mathcal (JIRR) precisabamos correr initexmf --mkmaps en cmd JCVDG
+\usepackage{mathdots}
+\usepackage{mathrsfs}
+%\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[theoremfont,largesc,tighter,osf]{newpxtext} %JCV Diff
+\let\widering\undefined
+%\usepackage[bigdelims,vvarbb]{newpxmath} %JCVDG
+%por alguna razón esto afectaba las tildes en \min, \lim y demás
+%\usepackage{pdflscape}
+\usepackage{pgfplots}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{slashed}
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+%\usepackage{subfigure}
+\usepackage{tabularx}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage{textcomp} %%JCVDG
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usepackage[normalem]{ulem}
+\usepackage[all]{xy}
+\usepackage{imakeidx}
+\usepackage[spanish]{babel}
+
+%%%%%%%%%%%%%%%%%%%%
+%% 2. Document Setup
+%%%%%%%%%%%%%%%%%%%%
+
+\ifx \nextra \undefined
+\makeindex[intoc, title=Índice Analítico] %Título de índice analítico
+%El índice general es aquel en el que se indican los capítulos, títulos y subtítulos del libro.
+%Índice onomástico es donde aparece el nombre de personas mencionadas en el texto, por orden alfabético con el número de las páginas donde aparecen.
+%El índice analítico se refiere a los temas y conceptos que aparecen en el libro
+\indexsetup{othercode={\fancyhead[LE]{\emph{Índice Analítico}}}}
+  \usepackage[pdftex,
+    hidelinks,
+    pdfauthor={\nauthor},
+    pdfsubject={Notas: \nsiglahead\ \nsemestre-\nyear},
+    pdftitle={Semestre \nsemestre\ - \nsigla},
+  pdfkeywords={UCR Costa Rica Matem\'aticas Mate \nsemestre\ \nterm\ \nyear\ \nsiglahead}]{hyperref}
+  \title{\nsigla\ --- \nsiglahead}
+\else
+  \usepackage[pdftex,
+     hidelinks,
+    pdfauthor={\nauthor},
+    pdfsubject={\nextra \nsiglahead\ \nsemestre-\nyear},
+    pdftitle={Semestre \nsemestre\ - \nsigla},
+  pdfkeywords={UCR Costa Rica Matem\'aticas Mate \nsemestre\ \nterm\ \nyear\ \nsiglahead\ \nextra}]{hyperref}
+
+  \title{\nsigla\ --- \nsiglahead \\ {\Large \nextra}}
+  \renewcommand\printindex{}
+\fi
+
+\pgfplotsset{compat=1.12}
+
+
+\pagestyle{fancy}
+\setlength{\headheight}{15.72pt} %preceding warning said make it at least this
+
+\ifx \nsiglahead \undefined
+\def\nsiglahead{\nsigla}
+\fi
+
+\lhead{} %%%empty lhead
+\rfoot{\thepage}
+
+\ifx \nextra \undefined
+  \chead{
+    \ifnum\thepage=1
+    \else
+      \textbf{Notas \nsiglahead\ \nsemestre-\nyear}
+    \fi}
+  \rhead{}%\firstxmark} % Top right header
+\else
+%    \chead{
+%    \ifnum\thepage=1
+%    \else
+%      \textbf{Notas \nsiglahead\ \nsemestre-\nyear \ (\nextra)}
+%    \fi}
+     \chead{
+       \textbf{\nextra\ \nsigla\ \nsemestre-\nyear}
+     }
+     \rhead{
+       \textbf{\nauthor}
+     }
+\fi
+\lfoot{}%\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fadings}
+\usetikzlibrary{intersections}
+\usetikzlibrary{cd}
+
+\ifx \nhtml \undefined
+\else
+  \renewcommand\printindex{}
+  \DisableLigatures[f]{family = *}
+  \let\Contentsline\contentsline
+  \renewcommand\contentsline[3]{\Contentsline{#1}{#2}{}}
+  \renewcommand{\@dotsep}{10000}
+  \newlength\currentparindent
+  \setlength\currentparindent\parindent
+
+  \newcommand\@minipagerestore{\setlength{\parindent}{\currentparindent}}
+  \usepackage[active,tightpage,pdftex]{preview}
+  \renewcommand{\PreviewBorder}{0.1cm}
+
+  \newenvironment{stretchpage}%
+  {\begin{preview}\begin{minipage}{\hsize}}%
+    {\end{minipage}\end{preview}}
+  \AtBeginDocument{\begin{stretchpage}}
+  \AtEndDocument{\end{stretchpage}}
+
+  \newcommand{\@@newpage}{\end{stretchpage}\begin{stretchpage}}
+
+  \let\@real@section\section
+  \renewcommand{\section}{\@@newpage\@real@section}
+  \let\@real@subsection\subsection
+  \renewcommand{\subsection}{\@ifstar{\@real@subsection*}{\@@newpage\@real@subsection}}
+\fi
+\ifx \ntrim \undefined
+\usepackage[shortlabels]{enumitem} %mfw package order matters por savetrees
+\else
+  \usepackage{geometry}
+  \geometry{
+    papersize={379pt, 699pt},
+    textwidth=345pt,
+    textheight=596pt,
+    left=17pt,
+    top=54pt,
+    right=17pt
+  }
+ \usepackage[extreme]{savetrees}
+\fi
+
+\ifx \darktheme\undefined
+\else
+\pagecolor[rgb]{0.2,0.231,0.302}%{0.23,0.258,0.321}
+\color[rgb]{1,1,1}
+\fi
+
+\ifx \nextra \undefined
+\let\@real@maketitle\maketitle
+\renewcommand{\maketitle}{\@real@maketitle\begin{center}\begin{minipage}[c]{0.9\textwidth}\centering\footnotesize Estas notas no están respaldadas por los profesores y han sido modificadas (a menudo de manera significativa) después de las clases. No están lejos de ser representaciones precisas de lo que realmente se dio en clase y en particular todos los errores son casi seguramente míos.\end{minipage}\end{center}}
+\else
+\fi
+
+\def\moverlay{\mathpalette\mov@rlay}
+\def\mov@rlay#1#2{\leavevmode\vtop{%
+   \baselineskip\z@skip \lineskiplimit-\maxdimen
+   \ialign{\hfil$\m@th#1##$\hfil\cr#2\crcr}}}
+\newcommand{\charfusion}[3][\mathord]{
+    #1{\ifx#1\mathop\vphantom{#2}\fi
+        \mathpalette\mov@rlay{#2\cr#3}
+      }
+    \ifx#1\mathop\expandafter\displaylimits\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2.1 Some internal machinery
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+							 {-3.25ex \@plus -1ex \@minus -.2ex}%
+							 {1.5ex \@plus.2ex}%
+							 {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+							 {-3.25ex \@plus -1ex \@minus -.2ex}%
+							 {1.5ex \@plus .2ex}%
+               {\normalfont\normalsize\bfseries}}
+\newcommand*{\defeq}{\mathrel{\rlap{%
+             \raisebox{0.3ex}{$\m@th\cdot$}}%
+             \raisebox{-0.3ex}{$\m@th\cdot$}}%
+                    =}
+\makeatother
+\ifx\ntrim\undefined
+\newcommand{\coursetitle}{\nsigla: \nsiglahead}
+\ifx\nextra\undefined
+\pagestyle{ruled}
+\makeoddhead{ruled}{\coursetitle}{}{\rightmark}
+\else\fi
+\settypeblocksize{49pc}{37pc}{*}
+\setlrmargins{*}{*}{1.2}
+\setulmargins{*}{*}{0.8}
+\setheadfoot{16pt}{30pt}
+\setheaderspaces{*}{1.5pc}{1}
+\setmarginnotes{1pt}{1pt}{1pt}
+\checkandfixthelayout
+
+\setlength{\unitlength}{3pt}
+\setlength{\hfuzz}{1pt}
+
+\setlength{\fboxsep}{6pt}
+
+\setlength{\footskip}{17pt}
+
+\linespread{1.1}
+\else\fi
+\renewcommand{\cftdotsep}{\cftnodots} %%% no dots in ToC
+\setpnumwidth{2em}  %%% width of page-number box in ToC
+
+
+\newcommand{\stophere}{\relax} %% can be changed to `\endinput'
+% \newcommand{\stophere}{\endinput} %% can be changed to `\relax'
+
+
+\DeclareRobustCommand{\qned}{\ifmmode
+  \else \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill \fi
+  \quad\hbox{\qnedsymbol}}
+\newcommand{\qnedsymbol}{$\boxminus$} %% No-proofs end with `\qned'
+
+\DeclareRobustCommand{\qef}{\ifmmode
+  \else \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill \fi
+  \quad\hbox{\qefsymbol}}
+\newcommand{\qefsymbol}{$\lozenge$} %% Examples end with `\qef'
+\def\enddefn{\qef\endtrivlist}      %% `\qef' automático en defns
+\def\endejem{\qef\endtrivlist}      %% `\qef' automático en ejemplos
+
+\newcommand{\hideqed}{\renewcommand{\qed}{}} %% to suppress `\qed'
+\newcommand{\hideqef}{\renewcommand{\qef}{}} %% to suppress `\qef'
+
+% \newcommand{\ldbrack}{\ensuremath{[\mskip-2.5mu[}} %% corchetes [[
+% \newcommand{\rdbrack}{\ensuremath{]\mskip-2.5mu]}} %% corchetes ]]
+
+\newcommand{\stroke}{\mathbin|}     %% (for `\bbraket' and such)
+
+\newcommand{\rtri}{\blacktriangleright} %% (for `\marker' and such)
+\newcommand{\tribar}{|\mkern-2mu|\mkern-2mu|} %% norma triple: |||
+
+
+%% Formatting changes:
+
+\renewcommand{\labelitemi}{$\diamond$} %% instead of bullets
+
+\renewcommand{\theenumi}{\alph{enumi}}  %% use lowercase letters
+\renewcommand{\labelenumi}{\textup{(\theenumi)}} %% inside parentheses
+
+%%%%%%%%%%%%%%
+%% 2.2. Colors
+%%%%%%%%%%%%%%
+
+\definecolor{MATLABgreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{MATLABlila}{RGB}{170,55,241}
+\definecolor{dankBlue}{RGB}{51,60,77} % color values Red, Green, Blue
+\definecolor{dankBlueLite}{RGB}{82,97,125} % color values Red, Green, Blue
+\definecolor{celesUCR}{RGB}{0,192,243}
+\definecolor{azulUCR}{RGB}{0,93,164}
+\definecolor{verdeUCR}{RGB}{109,192,103}
+\definecolor{yelloUCR}{RGB}{255,224,106}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3. Theorems and suchlike
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\theoremstyle{plain}
+\ifx \nextra \undefined
+\newtheorem{Th}{Teorema}[section]      %%% Theorem 1.1.1
+\newtheorem{Tmon}[Th]{Teoremón}
+\newtheorem{Prop}[Th]{Proposición}     %%% Proposition 1.1.2
+\newtheorem{Lem}[Th]{Lema}             %%% Lemma 1.1.3
+\newtheorem{Cor}[Th]{Corolario}        %%% Corollary 1.1.4
+\else
+\newtheorem{Th}{Teorema}               %%% Theorem 1.1.1
+\newtheorem{Tmon}{Teoremón}
+\newtheorem{Prop}{Proposición}         %%% Proposition 1.1.2
+\newtheorem{Lem}{Lema}                 %%% Lemma 3
+\newtheorem{Cor}{Corolario}            %%% Corollary 4
+\fi
+\newtheorem*{nonum-Th}{Teorema}        %%% No-numbered Theorem
+\newtheorem*{nonum-Cor}{Corolario}     %%% No-numbered Corollary
+
+\theoremstyle{definition}
+\ifx \nextra \undefined
+\newtheorem{Def}[Th]{Definición}       %%% Definition 1.1.5
+\newtheorem{Ex}[Th]{Ejemplo}           %%% Example 1.1.6
+\newtheorem{Ej}[Th]{Ejercicio}         %%% Ejercicio 1.1.7
+\else
+\newtheorem{Def}{Definición}           %%% Definition 5
+\newtheorem{Ex}{Ejemplo}               %%% Example 6
+\newtheorem{Ej}{Ejercicio}             %%% Ejercicio 7
+\fi
+\newtheorem{Hec}[Th]{Hecho}            %%% Hecho 1.1.8
+\newtheorem*{nonum-Def}{Definición}    %%% No number Definition
+\newtheorem*{nonum-Ex}{Ejemplo}        %%% No number Example
+\newtheorem*{nonum-Ej}{Ejercicio}      %%% No number Ejercicio
+\newtheorem*{nonum-Hec}{Hecho}         %%% No number Fact
+
+
+\theoremstyle{remark}
+\newtheorem{Rmk}[Th]{Observación}      %%%Remark 1.1.9
+\newtheorem*{nonum-Rmk}{Observación}         %%% No number Fact
+\newtheorem*{Notn}{Notaci\'on}        %% Notaciones
+\newtheorem*{Warn}{Advertencia}       %% Advertencias
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{3ex}
+
+% \renewcommand{\labelitemi}{--}
+% \renewcommand{\labelitemii}{$\circ$}
+% \renewcommand{\labelenumi}{(\roman{*})}
+
+%\let\stdsection\section
+%\renewcommand\section{\newpage\stdsection}
+
+\newcommand\qedsym{\hfill\ensuremath{\square}}
+% Strike through
+\def\st{\bgroup \ULdepth=-.55ex \ULset}
+
+%%%%%%%%% === My T Color Box === %%%%%%%%%%%%%%
+
+\ifx \darktheme\undefined
+\newtcolorbox{ptcb}{
+colframe = black,
+colback = white,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbp}{
+colframe = black,
+colback = white,
+coltitle = black,
+colbacktitle = black!40,
+title = Prueba,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbr}{
+colframe = blue,
+colback = white,
+coltitle = blue,
+colbacktitle = blue!40,
+title = Respuesta,
+breakable,
+enhanced
+}
+\else
+\newtcolorbox{ptcb}{
+colframe = white,
+colback = dankBlue,
+colupper = white,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbp}{
+colframe = white,
+colback = dankBlue,
+colupper = white,
+coltitle = white,
+colbacktitle = dankBlueLite,
+title = Prueba,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbr}{
+colframe = white,
+colback = white,
+coltitle = blue,
+colbacktitle = blue!40,
+title = Respuesta,
+breakable,
+enhanced
+}
+\fi
+
+
+
+
+
+
+
+%%%%%%%%% === Listings === %%%%%%%%%%%%%%
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{MATLABlila},
+    commentstyle=\color{MATLABgreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+   % emph=[1]{for,end,break,function,if,elseif,else},emphstyle=[1]\color{blue}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4. Simple abbreviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Operator names:
+
+\DeclareMathOperator{\area}{area}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\ccl}{ccl}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Conv}{Conv}   %%Convex hull
+\DeclareMathOperator{\cosec}{cosec}
+\DeclareMathOperator{\cosech}{cosech}
+\DeclareMathOperator{\covol}{covol}
+\DeclareDocumentCommand\curl{}{\operatorname{curl}} 
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareDocumentCommand\div{}{\operatorname{div}} 
+\DeclareMathOperator{\energy}{energy}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\fst}{fst}
+\DeclareMathOperator{\Fit}{Fit}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\hcf}{hcf}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\like}{like}
+\DeclareMathOperator{\Lk}{Lk}
+\DeclareMathOperator{\Maps}{Maps}
+\DeclareMathOperator{\mcd}{mcd}
+\DeclareMathOperator{\mcm}{mcm}
+\DeclareMathOperator{\Min}{Min}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\otp}{otp}
+\DeclareMathOperator{\pr}{pr}       %% proyector
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Rad}{Rad}
+\DeclareMathOperator*{\res}{res}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Rees}{Rees}
+\DeclareMathOperator{\Root}{Root}
+\DeclareMathOperator{\rot}{rot}         %% rotacional
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\vol}{vol}
+
+% not-math
+\newcommand{\bolds}[1]{{\bfseries #1}}
+\newcommand{\cat}[1]{\mathsf{#1}}
+\newcommand{\ph}{\,\cdot\,}
+\newcommand{\term}[1]{\un{#1}\index{#1}}
+\newcommand{\phantomeq}{\hphantom{{}={}}}
+\newcommand{\ttt}{\texttt}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\prp}[1]{\textcolor{purple}{#1}}
+\newcommand{\blu}[1]{\textcolor{azulUCR}{#1}}
+\newcommand{\green}[1]{\textcolor{verdeUCR}{#1}}
+\newcommand{\yelo}[1]{\textcolor{yelloUCR}{#1}}
+\newcommand{\cele}[1]{\textcolor{celesUCR}{#1}}
+
+%functions
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand*{\Cdot}{{\raisebox{-0.25ex}{\scalebox{1.5}{$\cdot$}}}}      %% cdot más grande
+\newcommand{\ind}{\mathbf{1}}       %%%indicator function
+\newcommand{\mm}{\mathfrak{m}}      %%%metric
+
+
+% Greek letters:
+
+\newcommand{\al}{\alpha}                %% short for  \alpha
+\newcommand{\bt}{\beta}                 %% short for  \beta
+\newcommand{\Dl}{\Delta}                %% short for  \Delta
+\newcommand{\dl}{\delta}                %% short for  \delta
+\newcommand{\eps}{\varepsilon}          %% short for  \varepsilon
+\newcommand{\Ga}{\Gamma}                %% short for  \Gamma
+\newcommand{\ga}{\gamma}                %% short for  \gamma
+\newcommand{\kp}{\kappa}                %% short for  \kappa
+\newcommand{\La}{\Lambda}               %% short for  \Lambda
+\newcommand{\la}{\lambda}               %% short for  \lambda
+\newcommand{\Om}{\Omega}                %% short for  \Omega
+\newcommand{\om}{\omega}                %% short for  \omega
+\newcommand{\Sg}{\Sigma}                %% short for  \Sigma
+\newcommand{\sg}{\sigma}                %% short for  \sigma
+\newcommand{\Te}{\Theta}                %% short for  \Theta
+\newcommand{\te}{\theta}                %% short for  \theta
+\newcommand{\ups}{\upsilon}             %% short for  \upsilon
+\newcommand{\vf}{\varphi}               %% short for  \varphi
+\newcommand{\ze}{\zeta}                 %% short for  \zeta
+\newcommand{\vsg}{\varsigma}            %% short for  \varsigma
+\newcommand{\vte}{\vartheta}            %% short for  \vartheta
+
+%Boldface letters
+
+\newcommand{\bA}{\mathbb{A}}        %% antisimetrizador
+\newcommand{\bB}{\mathbb{B}}        %% bola unitaria
+\newcommand{\bC}{\mathbb{C}}    %%% números complejos
+\newcommand{\bCP}{\mathbb{CP}}  %%% espacio proyectivo complejo
+\newcommand{\bD}{\mathbb{D}}        %% Poincaré disk
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}        %% un cuerpo
+\newcommand{\bH}{\mathbb{H}}        %% cuaterniones
+\newcommand{\bK}{\mathbb{K}}            %% ein korper
+\newcommand{\bN}{\mathbb{N}}    %%% números naturales
+\newcommand{\bP}{\mathbb{P}}        %% números enteros positivos
+\newcommand{\bQ}{\mathbb{Q}}    %%% números racionales
+\newcommand{\bR}{\mathbb{R}}    %%% números reales
+\newcommand{\bRP}{\mathbb{RP}}  %%% espacio proyectivo real
+\newcommand{\bS}{\mathbb{S}}    %%% esfera
+\newcommand{\bT}{\mathbb{T}}        %% círculo o toro
+\newcommand{\bZ}{\mathbb{Z}}    %%% números enteros
+
+%Script letters:
+
+\newcommand{\cA}{\mathcal{A}}           %% formas diferenciales
+\newcommand{\cB}{\mathcal{B}}           %% una base vectorial
+\newcommand{\cC}{\mathcal{C}}           %% otra base vectorial
+\newcommand{\cD}{\mathcal{D}}           %% funciones de prueba
+\newcommand{\cE}{\mathcal{E}}           %% un modulo proyectivo
+\newcommand{\cF}{\mathcal{F}}           %% espacio de Fock
+\newcommand{\cG}{\mathcal{G}}           %% funtor de Gelfand
+\newcommand{\cH}{\mathcal{H}}           %% espacio de Hilbert
+\newcommand{\cI}{\mathcal{I}}           %% un funtor de inclusion
+\newcommand{\cJ}{\mathcal{J}}           %% otro funtor
+\newcommand{\cK}{\mathcal{K}}           %% otro espacio de Hilbert
+\newcommand{\cL}{\mathcal{L}}           %% operadores lineales
+\newcommand{\cM}{\mathcal{M}}           %% multiplicadores
+\newcommand{\cN}{\mathcal{N}}           %% funciones nulas
+\newcommand{\cO}{\mathcal{O}}           %% funciones de crec-to lento
+\newcommand{\cP}{\mathcal{P}}           %% una particion
+\newcommand{\cR}{\mathcal{R}}           %% funciones representativas
+\newcommand{\cQ}{\mathcal{Q}}           %% otra particion
+\newcommand{\cS}{\mathcal{S}}           %% funciones de Schwartz
+\newcommand{\cT}{\mathcal{T}}           %% una topologia
+\newcommand{\cU}{\mathcal{U}}           %% cubrimiento abierto
+\newcommand{\cV}{\mathcal{V}}           %% vecindarioas
+\newcommand{\cW}{\mathcal{W}}           %% grupo de Weyl
+
+%%% Fraktur letters:
+
+\newcommand{\gA}{\mathfrak{A}}      %% un atlas
+\newcommand{\g}{\mathfrak{g}}       %% un álgebra de Lie
+\newcommand{\gB}{\mathfrak{B}}      %% otro atlas
+\newcommand{\ggl}{\mathfrak{gl}}    %% álg de Lie general lineal
+\newcommand{\gsl}{\mathfrak{sl}}    %% álg de Lie especial lineal
+\newcommand{\gso}{\mathfrak{so}}    %% álg de Lie especial ortogonal
+\newcommand{\gsu}{\mathfrak{su}}    %% álg de Lie especial unitaria
+\newcommand{\gX}{\mathfrak{X}}      %% campos vectoriales
+
+%%% Roman letters:
+
+\newcommand{\dR}{\mathrm{dR}}       %% cohomología de de Rham
+\newcommand{\rGL}{\mathrm{GL}}      %% grupo general lineal
+\newcommand{\rO}{\mathrm{O}}        %% grupo ortogonal
+\newcommand{\rSL}{\mathrm{SL}}      %% grupo especial lineal
+\newcommand{\rSO}{\mathrm{SO}}      %% grupo ortogonal especial
+\newcommand{\rSp}{\mathrm{Sp}}      %% grupo simpléctico
+\newcommand{\rSU}{\mathrm{SU}}      %% grupo unitario especial
+\newcommand{\rU}{\mathrm{U}}        %% grupo unitario
+\newcommand{\rUH}{\mathrm{UH}}      %% cuaterniones unitarias
+\newcommand{\rT}{\mathrm{T}}        %% grupo triangular
+
+% Sanserif letters:
+
+\newcommand{\sA}{\mathsf{A}}            %% algebras de Lie A_n
+\newcommand{\sB}{\mathsf{B}}            %% grupo como categoria
+\newcommand{\sC}{\mathsf{C}}            %% una categoria
+\newcommand{\sD}{\mathsf{D}}            %% otra categoria
+\newcommand{\sE}{\mathsf{E}}            %% otra categoria mas
+\newcommand{\sF}{\mathsf{F}}            %% algebra de Lie F_4
+\newcommand{\sG}{\mathsf{G}}            %% algebra de Lie G_2
+\newcommand{\sJ}{\mathsf{J}}            %% un poset
+\newcommand{\sK}{\mathsf{K}}            %% un poset
+\newcommand{\sL}{\mathcal{L}}           %% derivada de Lie
+\newcommand{\sN}{\mathsf{N}}            %% categoría con objetos \bN
+\newcommand{\sT}{\mathsf{T}}            %% transpuesta
+
+%%% Boldface letters:
+
+\bmdefine{\CC}{C}                       %% C negrilla
+\bmdefine{\cc}{c}
+%\bmdefine{\dd}{d}                       %% d negrilla
+\bmdefine{\ee}{e}                       %% vector e
+\bmdefine{\eeps}{\varepsilon}           %% basic form \eps
+\bmdefine{\FF}{F}                       %% vector F
+\bmdefine{\ff}{f}                       %% vector f
+\bmdefine{\ii}{i}                       %% cuaternion i
+\bmdefine{\jj}{j}                       %% cuaternion j
+\bmdefine{\kk}{k}                       %% cuaternion k
+\bmdefine{\lla}{\lambda}                %% sucesion \la
+\bmdefine{\mmu}{\mu}                    %% sucesion \mu
+\bmdefine{\pp}{p}                       %% vector p
+\bmdefine{\qq}{q}                       %% vector q
+\bmdefine{\rr}{r}                       %% vector r
+\bmdefine{\ssg}{\sigma}                 %% vector \sg
+%\bmdefine{\sss}{s}
+%\bmdefine{\ttt}{t}
+\bmdefine{\VV}{V}                       %% V negrilla
+\bmdefine{\xx}{x}                       %% sucesion x
+\bmdefine{\xxi}{\xi}                    %% vector \xi
+\bmdefine{\yy}{y}                       %% sucesion y
+\bmdefine{\zz}{z}                       %% sucesion z
+
+% Matrix groups
+\DeclareMathOperator{\GL}{GL}   %%% grupo general lineal
+\DeclareMathOperator{\Or}{O}    %%% grupo ortogonal
+\DeclareMathOperator{\PGL}{PGL} %%% grupo proyectivo lineal
+\DeclareMathOperator{\PSL}{PSL} %%% grupo proyectivo lineal especial
+\DeclareMathOperator{\PSO}{PSO} %%% grupo proyectivo ortogonal
+\DeclareMathOperator{\PSU}{PSU} %%% grupo proyectivo unitario
+\DeclareMathOperator{\SL}{SL}   %%% grupo especial lineal
+\DeclareMathOperator{\SO}{SO}   %%% grupo especial ortogonal
+\DeclareMathOperator{\SU}{SU}   %%% grupo especial unitario
+
+% Numericc
+\newcommand{\argmin}{\text{argm\'in}}
+\DeclareMathOperator{\dof}{dof}
+
+%% Brackets
+\newcommand{\conj}[1]{\left\lbrace#1\right\rbrace}
+\newcommand{\bonj}[1]{\left\lbrack#1\right\rbrack}
+\newcommand{\obonj}[1]{\left\rbrack#1\right\lbrack}
+\newcommand{\rbonj}[1]{\left\rbrack#1\right\rbrack}
+\newcommand{\lbonj}[1]{\left\lbrack#1\right\lbrack}
+\newcommand{\snm}[1]{\|#1\|}           %small norma
+\newcommand{\nm}[1]{\left\|#1\right\|} %norma pegadita
+\newcommand{\pnm}[1]{\biggl|\biggl|#1\biggr|\biggr|}
+\let\oldvec=\vec
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand\quot[2]{
+        \mathchoice
+            {% \displaystyle
+                \text{\raise1ex\hbox{$#1$}\Big/\lower1ex\hbox{$#2$}}%
+            }
+            {% \textstyle
+                {^{ #1}/_{ #2}}
+            }
+            {% \scriptstyle
+                {^{ #1}/_{ #2}}
+            }
+            {% \scriptscriptstyle
+                {^{ #1}/_{ #2}}
+            }
+    }
+%\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}}
+\newcommand*\squot[2]{{^{ #1}/_{ #2}}}%%%small quotient
+
+% Probability
+\DeclareMathOperator{\Bernoulli}{Bernoulli}
+\DeclareMathOperator{\betaD}{beta}
+\DeclareMathOperator{\bias}{bias}
+\DeclareMathOperator{\binomial}{binomial}
+\DeclareMathOperator{\corr}{corr}
+\DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\gammaD}{gamma}
+\DeclareMathOperator{\mse}{mse}
+\DeclareMathOperator{\multinomial}{multinomial}
+\DeclareMathOperator{\Poisson}{Poisson}
+\DeclareMathOperator{\Var}{Var}     %%%variance
+\DeclareMathOperator{\Cov}{Cov}     %%%Covariance
+\renewcommand{\mid}{\;\ifnum\currentgrouptype=16 \middle\fi|\;}
+
+% Algebra
+\DeclareMathOperator{\Ad}{Ad}       %% acción adjunta
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\Ann}{Ann}     %% aniquilador o anulador de módulos
+\DeclareMathOperator{\Ass}{Ass}     %% ideales asociados
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\End}{End}     %%%space of endomorphisms
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\gen}{gen}     %%%set generated by...
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\image}{image}
+\DeclareMathOperator{\Nil}{Nil}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Quot}{Quot}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Stab}{Stab}
+
+% Analysis
+\DeclareMathOperator*{\esssup}{ess\hspace{0.5mm}sup}
+\DeclareMathOperator*{\essinf}{ess\hspace{0.5mm}inf}
+%\DeclareMathOperator{\Int}{Int}     %%%interior vacilon funcional
+
+\newcommand{\loc}{\text{loc}}
+\newcommand{\LB}{\cL_\cB}           %%%bounded linear operator
+
+% Logic
+\newcommand{\cleq}{\preccurlyeq}
+\newcommand{\cgeq}{\succcurlyeq}
+
+% Others
+\DeclareMathOperator{\ebal}{ev}     %%%evalutation
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\Cdot}} %%JCVDG
+%\renewcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\Cdot}}
+\newcommand{\cupdot}{\charfusion[\mathbin]{\cup}{\Cdot}}
+\newcommand{\exterior}{\mathchoice{{\textstyle\bigwedge}}{{\bigwedge}}{{\textstyle\wedge}}{{\scriptstyle\wedge}}}
+\newcommand{\hol}{\mathfrak{hol}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\lie}[1]{\mathfrak{#1}}
+\newcommand{\qeq}{\mathrel{``{=}"}}
+\newcommand{\wsto}{\stackrel{\mathrm{w}^*}{\to}}
+\newcommand{\wt}{\mathrm{wt}}
+
+\let\Im\relax
+\let\Re\relax
+
+%%% Shorter symbol names:
+
+\newcommand{\bull}{{\scriptstyle\bullet}}  %% vertice en figuras
+\newcommand{\del}{\partial}             %% short for  \partial
+\newcommand{\downto}{\downarrow}        %% limite a la derecha
+\newcommand{\dsp}{\displaystyle}        %% despliegue en texto
+\renewcommand{\geq}{\geqslant}          %% mayor o igual (variante)
+\newcommand{\hookto}{\hookrightarrow}     %% inclusion arrow
+\newcommand{\isom}{\simeq}              %% isomorfismo
+\renewcommand{\l}{\ell}                   %% ele cursiva
+\renewcommand{\leq}{\leqslant}          %% menor o igual (variante)
+\newcommand{\less}{\setminus}           %% set difference
+\newcommand{\otto}{\leftrightarrow}     %% bijection
+\newcommand{\ox}{\otimes}               %% producto tensorial
+\newcommand{\rt}{\triangleleft}         %% un orden parcial
+\newcommand{\rteq}{\trianglelefteq}     %% normal subgroup
+\newcommand{\up}{{\mathord{\uparrow}}}  %% espinor `up'
+\newcommand{\upto}{\uparrow}            %% left hand limit
+\newcommand{\w}{\wedge}                 %% producto exterior
+\newcommand{\wto}{\rightharpoonup}      %% convergencia debil
+\newcommand{\x}{\times}                 %% producto vectorial
+\renewcommand{\.}{\Cdot}                %% producto escalar
+\renewcommand{\:}{\mathbin{:}}          %% colon in  f: A -> B
+\newcommand{\into}{\rightarrowtail}     %% injection arrow
+\newcommand{\lr}{\dashv}                %% adjunction
+\newcommand{\lt}{\triangleright}        %% a left action
+\newcommand{\lteq}{\trianglerighteq}    %% normal supergroup
+\newcommand{\nb}{\nabla}                %% homomorfismo de suma
+\newcommand{\nisom}{\not\simeq}         %% negacion de isomorfismo
+%\newcommand{\oast}{\circledast}         %% variante de * (ya existe en stmaryrd)
+\newcommand{\onto}{\twoheadrightarrow}  %% surjection arrow
+\newcommand{\opp}{\circ}                %% objeto opuesto
+\newcommand{\ottto}{\longleftrightarrow} %% bijection in display
+\newcommand{\pullb}{\lrcorner}          %% simbolo de pullback
+\newcommand{\pushf}{\ulcorner}          %% simbolo de pushout
+\newcommand{\rx}{\rtimes}               %% producto semidirecto
+\newcommand{\To}{\Rightarrow}           %% entre funtores
+\newcommand{\tofro}{\rightleftarrows}   %% pair of opposed maps
+\newcommand{\toto}{\rightrightarrows}   %% pair of parallel maps
+
+\renewcommand{\2}{\flat}                  %% marcador de sucesiones
+\newcommand{\3}{\sharp}                 %% marcador de sucesiones
+\newcommand{\4}{\natural}               %% marcador de morfismos
+% \newcommand{\5}{\diamond}               %% for roots of trees
+% \newcommand{\7}{\dagger}                %% adjunto de operador
+\newcommand{\8}{\bullet}                %% anonymous degree
+
+%%% Useful abbreviations:
+
+\newcommand{\Coo}{\cC^\infty}         %% funciones suaves
+\newcommand{\ctr}{\mathbin{\lrcorner\,}} %% contraction symbol
+\newcommand{\nbf}{{\vec\nabla}}     %% short for  \vec\nabla
+
+\newcommand{\as}{\quad\text{cuando}\enspace} %% `cuando' en límites
+\newcommand{\bCoo}{{\bC_\infty}}    %% esfera de Riemann
+% \newcommand{\bRoo}{{\bR_\infty}}    %% círculo real extendido
+
+%%% Repeated relations:
+
+\newcommand{\cupycup}{\cup\cdots\cup} %% unión repetida
+\newcommand{\capycap}{\cap\cdots\cap} %% intersección repetida
+\newcommand{\sys}{\subset\cdots\subset}%% subconjunto propio repetido
+\newcommand{\subysub}{\subseteq\cdots\subseteq} %%subconjunto repetido
+\newcommand{\oxyox}{\otimes\cdots\otimes} %% prod tensorlal repetido
+\newcommand{\wyw}{\wedge\cdots\wedge} %% producto exterior repetido
+\newcommand{\opyop}{\oplus\cdots\oplus} %% suma directa repetida
+\newcommand{\xyx}{\times\cdots\times} %% producto directo repetido
+
+%%% Arrows with riders:
+
+\newcommand{\longto}{\mathop{\longrightarrow}\limits}
+
+%%% Small fractions in displays:
+
+\newcommand{\half}{{\mathchoice{\nhalf}{\thalf}{\shalf}{\shalf}}} %%display text script script^2
+\newcommand{\happi}{{\tfrac{\pi}{2}}} %% small fraction  \pi/2
+\newcommand{\quarter}{\tfrac{1}{4}} %% small fraction  1/4
+\newcommand{\nhalf}{\frac{1}{2}}
+\newcommand{\shalf}{{\scriptstyle\frac{1}{2}}} %% tiny fraction 1/2
+\newcommand{\thalf}{{\tfrac{1}{2}}} %% small fraction  1/2
+\renewcommand{\third}{\tfrac{1}{3}}   %% small fraction  1/3 %Hay que renew porque mathabx toma second y third como x'' y x''' por ejemplo
+
+\newcommand{\ihalf}{{\tfrac{i}{2}}} %% small fraction  i/2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 5. Commands with arguments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Accent-like commands, abbreviated:
+
+\newcommand{\ov}{\overline}        %% short for  \overline
+\newcommand{\un}{\underline}       %% short for  \underline
+\newcommand{\wh}{\widehat}          %% short for  \widehat
+
+%%% Separate words in displays:
+
+\newcommand{\word}[1]{\quad\text{#1}\quad} %% texto intercalado
+
+%%% Webpage locator:
+
+\newcommand{\zelda}[1]{$\langle${\footnotesize\texttt{#1}}$\rangle$}
+
+%% Symbol placement:
+
+\newcommand{\pre}[1]{{}^{#1\!}} %% upper left exponent
+
+%%% Proof-part labels:
+
+\newcommand{\Adiff}[2]{\ensuremath{\Ad\,(\mathrm{#1})\Longleftrightarrow
+    (\mathrm{#2})}:\enspace}
+\newcommand{\Adimp}[2]{\ensuremath{\Ad\,(\mathrm{#1})\Longrightarrow
+    (\mathrm{#2})}:\enspace}
+\newcommand{\Adit}[1]{\ensuremath{\Ad\,(\mathrm{#1})}:\enspace}
+
+%%% Enclose one argument with delimiters:
+
+\newcommand{\bool}[1]{\llbracket#1\rrbracket} %% condición booleana
+\newcommand{\combo}[1]{\operatorname{co}(#1)} %% convex combo
+\newcommand{\lin}[1]{\operatorname{lin}\langle#1\rangle} %% `span'
+\newcommand{\set}[1]{\{\,#1\,\}}    %% set notation
+
+\newcommand{\floor}[1]{\lfloor#1\rfloor} %% mayor entero <= x
+\newcommand{\Set}[1]{\biggl\{\,#1\,\biggr\}} %% set notation (large)
+\newcommand{\roof}[1]{\lceil#1\rceil} %% menor entero >= x
+\newcommand{\genr}[1]{\left\langle #1\right\rangle}     %% grupo generado por #1
+
+%%% Asides:
+
+\newcommand{\aside}[1]{$\llbracket$\,#1\,$\rrbracket$} % nota lateral
+\newcommand{\hint}[1]{$\llbracket$\,In\-di\-ca\-ci\'on: #1\,$\rrbracket$}
+
+%%% Matrices:
+
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+   #1 \\ #2 \end{pmatrix}}
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+   #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
+   #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
+   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
+\newcommand{\fourbyone}[4]{\begin{pmatrix} %% 2 x 1 matrix
+   #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 6. Hyphenation exceptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hyphenation{auto-va-lor auto-va-lo-res auto-vec-tor auto-vec-to-res
+car-di-na-li-dad ce-rra-da ce-rra-do ce-rra-das ce-rra-dos cons-tan-te
+cons-tan-tes cons-truc-ci cons-truir con-ti-nua con-ti-nua-mente
+con-ti-nuas con-ti-nui-dad con-ti-nuo con-ti-nuos co-rres-pon-den-cia
+co-rres-pon-de co-rres-pon-den co-rres-pon-dien-te
+co-rres-pon-dien-tes co-va-rian-te cual-quier cual-quiera
+cu-bri-mien-to desa-rro-lla-do desa-rro-llar des-pu dia-go-nal
+dia-go-na-les di-fe-ren-cia-ble di-fe-ren-cia-bles di-fe-ren-cial
+di-fe-ren-cia-les di-fe-ren-te di-fe-ren-tes dis-cre-ta dis-cre-tas
+dis-cre-to dis-cre-tos di-vi-si-bi-li-dad di-vi-si-ble ele-men-tal
+ele-men-ta-les ele-men-to ele-men-tos equi-va-len-cia equi-va-lente
+equi-va-lentes equi-va-rian-te equi-va-rian-tes eu-cli-dia-na
+eu-cli-dia-nas eu-cli-dia-no eu-cli-dia-nos Fi-gu-ra Gal-ois
+gal-oi-sia-na ge-ne-rada ge-ne-rado ge-ne-ra-dor ge-ne-ra-do-res
+ge-ne-ral ge-ne-ra-les ge-ne-ra-li-dad ge-ne-ra-li-za ge-ne-ra-li-zan
+ge-ne-ran ge-ne-rar geo-me-tr geo-me-try Ha-da-mard ho-meo-mor-fis-mo
+ho-meo-mor-fo idea-les in-de-pen-dien-te in-de-pen-dien-tes
+in-va-rian-cia in-va-rian-te in-va-rian-tes li-ne-a-les
+li-ne-al-men-te ma-ne-ra me-dian-te mo-der-no nin-gu-no nues-tra
+nues-tro nu-me-ra-ble ope-ra-ci ope-ra-cio-nes ope-ra-dor
+ope-ra-do-res or-to-go-nal par-ti-cu-lar pro-ce-di-mien-to pro-duc-to
+pro-duc-tos pro-pie-dad pro-pie-da-des pro-po-si-ci re-fe-ren-cia
+re-fle-xi-va re-fle-xi-vas re-fle-xi-vo re-fle-xi-vos re-so-lu-ble
+res-pec-ti-va-men-te res-pec-ti-vo res-pec-ti-vos res-pec-to
+sa-tis-fa-ce sepa-ra-ble sepa-ra-bles si-guien-te si-guien-tes
+subes-pa-cio subes-pa-cios te-dra-edro te-tra-edros tri-vial
+tri-via-les uti-lidad va-lo-res va-ria-ble va-ria-bles va-rie-dad
+va-rie-da-des ve-cin-da-rio ve-cin-da-rios vec-to-rial vec-to-ria-les
+vice-versa}
+
+
+%%% TikZ arrows and such
+
+\pgfarrowsdeclarecombine{twolatex'}{twolatex'}{latex'}{latex'}{latex'}{latex'}
+\tikzset{->/.style = {decoration={markings,
+                                  mark=at position 1 with {\arrow[scale=2]{latex'}}},
+                      postaction={decorate}}}
+\tikzset{<-/.style = {decoration={markings,
+                                  mark=at position 0 with {\arrowreversed[scale=2]{latex'}}},
+                      postaction={decorate}}}
+\tikzset{<->/.style = {decoration={markings,
+                                   mark=at position 0 with {\arrowreversed[scale=2]{latex'}},
+                                   mark=at position 1 with {\arrow[scale=2]{latex'}}},
+                       postaction={decorate}}}
+\tikzset{->-/.style = {decoration={markings,
+                                   mark=at position #1 with {\arrow[scale=2]{latex'}}},
+                       postaction={decorate}}}
+\tikzset{-<-/.style = {decoration={markings,
+                                   mark=at position #1 with {\arrowreversed[scale=2]{latex'}}},
+                       postaction={decorate}}}
+\tikzset{->>/.style = {decoration={markings,
+                                  mark=at position 1 with {\arrow[scale=2]{latex'}}},
+                      postaction={decorate}}}
+\tikzset{<<-/.style = {decoration={markings,
+                                  mark=at position 0 with {\arrowreversed[scale=2]{twolatex'}}},
+                      postaction={decorate}}}
+\tikzset{<<->>/.style = {decoration={markings,
+                                   mark=at position 0 with {\arrowreversed[scale=2]{twolatex'}},
+                                   mark=at position 1 with {\arrow[scale=2]{twolatex'}}},
+                       postaction={decorate}}}
+\tikzset{->>-/.style = {decoration={markings,
+                                   mark=at position #1 with {\arrow[scale=2]{twolatex'}}},
+                       postaction={decorate}}}
+\tikzset{-<<-/.style = {decoration={markings,
+                                   mark=at position #1 with {\arrowreversed[scale=2]{twolatex'}}},
+                       postaction={decorate}}}
+
+\tikzset{circ/.style = {fill, circle, inner sep = 0, minimum size = 3}}
+\tikzset{scirc/.style = {fill, circle, inner sep = 0, minimum size = 1.5}}
+\tikzset{mstate/.style={circle, draw, blue, text=black, minimum width=0.7cm}}
+
+\tikzset{eqpic/.style={baseline={([yshift=-.5ex]current bounding box.center)}}}
+\tikzset{commutative diagrams/.cd,cdmap/.style={/tikz/column 1/.append style={anchor=base east},/tikz/column 2/.append style={anchor=base west},row sep=tiny}}
+
+\definecolor{mblue}{rgb}{0.2, 0.3, 0.8}
+\definecolor{morange}{rgb}{1, 0.5, 0}
+\definecolor{mgreen}{rgb}{0.1, 0.4, 0.2}
+\definecolor{mred}{rgb}{0.5, 0, 0}
+
+\def\drawcirculararc(#1,#2)(#3,#4)(#5,#6){%
+    \pgfmathsetmacro\cA{(#1*#1+#2*#2-#3*#3-#4*#4)/2}%
+    \pgfmathsetmacro\cB{(#1*#1+#2*#2-#5*#5-#6*#6)/2}%
+    \pgfmathsetmacro\cy{(\cB*(#1-#3)-\cA*(#1-#5))/%
+                        ((#2-#6)*(#1-#3)-(#2-#4)*(#1-#5))}%
+    \pgfmathsetmacro\cx{(\cA-\cy*(#2-#4))/(#1-#3)}%
+    \pgfmathsetmacro\cr{sqrt((#1-\cx)*(#1-\cx)+(#2-\cy)*(#2-\cy))}%
+    \pgfmathsetmacro\cA{atan2(#2-\cy,#1-\cx)}%
+    \pgfmathsetmacro\cB{atan2(#6-\cy,#5-\cx)}%
+    \pgfmathparse{\cB<\cA}%
+    \ifnum\pgfmathresult=1
+        \pgfmathsetmacro\cB{\cB+360}%
+    \fi
+    \draw (#1,#2) arc (\cA:\cB:\cr);%
+}
+\newcommand\getCoord[3]{\newdimen{#1}\newdimen{#2}\pgfextractx{#1}{\pgfpointanchor{#3}{center}}\pgfextracty{#2}{\pgfpointanchor{#3}{center}}}
+
+\newcommand\qedshift{\vspace{-17pt}}
+\newcommand\fakeqed{\pushQED{\qed}\qedhere}
+
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+\newcommand\separator{{\centering\rule{2cm}{0.2pt}\vspace{2pt}\par}}
+
+\newenvironment{own}{\color{gray!70!black}}{}
+
+\newcommand\makecenter[1]{\raisebox{-0.5\height}{#1}}
+
+\mathchardef\mdash="2D
+
+\newenvironment{significant}{\begin{center}\begin{minipage}{0.9\textwidth}\centering\em}{\end{minipage}\end{center}}
+\DeclareRobustCommand{\rvdots}{%
+  \vbox{
+    \baselineskip4\p@\lineskiplimit\z@
+    \kern-\p@
+    \hbox{.}\hbox{.}\hbox{.}
+  }}
+\DeclareRobustCommand\tph[3]{{\texorpdfstring{#1}{#2}}}
+\def\BState{\State\hskip-\ALG@thistlm}
+
+\makeatother 

@@ -1,0 +1,31 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Primer Semestre}
+\def\nyear {2022}
+\def\nprofesor {Roberto Ulloa}
+\def\nsigla {OPT742}
+\def\nsiglahead {Geometr\'ia Algebraica}
+\def\nextra {C1-GW}
+\input{../headerVarillyDiff}
+
+\begin{document}
+\begin{multicols}{2}
+
+\begin{Ej}
+  Sea $\emptyset\neq E\subsetneq\cC(\bR)$, muestre que
+  $$I_E=\set{f\in\cC(\bR)\mid\forall x\in E(f(x)=0)}$$
+  no es un ideal principal.
+\end{Ej}
+
+\begin{ptcbp}
+Suponga a manera de contradicción que $I_E=\gen(g)$ para $g\in\cC(\bR)$. Luego toda función en $I_E$ se puede escribir como $f=gh$ y $g(x)=0$ para $x\in E$. Suponga adicionalmente que $E$ no es denso. De esta manera hay un abierto $U$ tal que $U\cap E =\emptyset$. Dadas las condiciones $g$ se anula en la frontera de $U$.\par
+Considere así la función
+$$h=\sqrt{|g|}\ind(U)+g\ind(U^c)$$
+que es positiva en $U$ y además $h\in I_E$. Así $h=fg$ para alguna $f$ continua y de inmediato vemos que
+$$f\upharpoonright_{U}=\frac{\sqrt{|g|}}{g}\sim\frac{1}{\sqrt{g}}\xrightarrow[x\to\del U]{}\infty.$$
+Esto contradice la continuidad de $f$ por lo que nuestra suposición está errada. Así $I_E$ no es principal.
+\end{ptcbp}
+
+\end{multicols}
+\end{document} 
