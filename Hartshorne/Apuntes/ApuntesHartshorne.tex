@@ -16,18 +16,18 @@
 
 \section{Variedades Afines}
 
-\begin{Def}
+\begin{Def}\label{def:espacio-afin}
 El \term{espacio afín} $\bA^n(k)$ sobre $k$, un cuerpo algebraicamente cerrado es el conjunto de todas las $n$-tuplas de elementos de $k$.
 \end{Def}
 
 Los elementos del espacio afín son puntos $x$ que se representan con coordenadas $\vec x=(x_1,\dots,x_n)$. No debemos confundir el punto con sus coordenadas.
 
-\begin{Def}
+\begin{Def}\label{def:variedad}
    Un subconjunto $Y\subseteq\bA^n(k)$ se dice ser un \term{conjunto algebraico} (también llamado \term{variedad afín}) si existe un subconjunto $T\subseteq k[\vec x]$ tal que 
    $$Y=V(T)\defeq\set{\vec a\in\bA^n(k):\ \forall p\in T(p(\vec a)=0)}.$$
 \end{Def}
 
-\begin{Prop}
+\begin{Prop}\label{prop:propiedades-variedades}
   Supongamos que $M,N\subseteq\bA^n(k)$, vale lo siguiente:
   \begin{enumerate}
     \item Si $M\subseteq N$, entonces $V(N)\subseteq V(M)$.
@@ -56,8 +56,23 @@ Los elementos del espacio afín son puntos $x$ que se representan con coordenada
 \end{enumerate}
 \end{ptcbp}
 
-\begin{Def}
+\begin{Def}\label{def:top-zariski}
   La \term{topología de Zariski} se define tomando como cerrados a las variedades. Los abiertos son los complementos de las variedades. De acuerdo con la proposición anterior, esta colección forma una topología.
+\end{Def}
+
+\begin{Ex}{Topología de Zariski en dimensión 1}
+Recordemos que en $k[x]$ todo ideal es principal. Entonces vale para cualquier variedad:
+$$V(M)=V(\gen(M))=V(p),$$
+donde $p$ es el único generador del ideal en cuestión. Es decir, cualquier variedad es el conjunto de ceros de un único polinomio. A su vez
+$$p(x)=c(x-a_1)\cdots(x-a_n),\ c,a_j\in k\To V(p)=\set{a_j}_{j=1}^n.$$
+Así cualquier variedad en $\bA^1(k)$ es un conjunto finito.\par 
+Esto nos dice que la topología de Zariski en dimensión 1 corresponde con la topología cofinita que de hecho no es de Hausdorff.
+\end{Ex}
+
+Para hablar de ejemplos en dimensión superior precisamos otros conceptos topológicos.
+
+\begin{Def}\label{def:conj-irreducible}
+  Un subconjunto $Y\subseteq X$ de un espacio topológico es \term{irreducible} si no es posible escribir $Y=Y_1\cup Y_2$ con $Y_1,Y_2\subseteq Y$ cerrados. El vacío \emph{no} es irreducible.
 \end{Def}
 %\end{multicols}
 \end{document} 
