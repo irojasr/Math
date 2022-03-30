@@ -1,0 +1,63 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Primer Semestre}
+\def\nyear {2022}
+\def\nprofesor {Javier Carvajal y Roberto Ulloa}
+\def\nsigla {SP1313}
+\def\nsiglahead {Geometr\'ia Algebraica}
+\def\darktheme{}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+%\begin{multicols}{2}
+
+\chapter{Variedades}
+
+\section{Variedades Afines}
+
+\begin{Def}
+El \term{espacio afín} $\bA^n(k)$ sobre $k$, un cuerpo algebraicamente cerrado es el conjunto de todas las $n$-tuplas de elementos de $k$.
+\end{Def}
+
+Los elementos del espacio afín son puntos $x$ que se representan con coordenadas $\vec x=(x_1,\dots,x_n)$. No debemos confundir el punto con sus coordenadas.
+
+\begin{Def}
+   Un subconjunto $Y\subseteq\bA^n(k)$ se dice ser un \term{conjunto algebraico} (también llamado \term{variedad afín}) si existe un subconjunto $T\subseteq k[\vec x]$ tal que 
+   $$Y=V(T)\defeq\set{\vec a\in\bA^n(k):\ \forall p\in T(p(\vec a)=0)}.$$
+\end{Def}
+
+\begin{Prop}
+  Supongamos que $M,N\subseteq\bA^n(k)$, vale lo siguiente:
+  \begin{enumerate}
+    \item Si $M\subseteq N$, entonces $V(N)\subseteq V(M)$.
+    \item Si $\lie i =\gen(M)$, entonces $V(\lie i)=V(M)$.
+    \item La unión de finita de variedades es una variedad. Más específicamente 
+    $$V(M)\cup V(N)=V(M\cap N)=V(M\.N).$$
+    \item La intersección de variedades es variedad. Específicamente vale:
+    $$\bigcap_{i\in I}V(M_i)=V\left(\bigcup_{i\in I}M_i\right).$$
+    \item El vacío y el espacio afín son variedades.
+  \end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+\begin{enumerate}
+  \item Si $\vec x\in V(N)$, entonces $\vec{x}$ anula a cualquier polinomio de $N$. En particular, anula a cualquier polinomio de $M$. Es decir $\vec{x}\in V(M)$.
+  \item Como $M\subseteq\lie i$, entonces $V(\lie i)\subseteq V(M)$. Por otro lado, si $\vec{a}\in V(M)$ entonces $\vec{a}$ anula a cualquier polinomio de $M$. Como $M$ genera a $\lie i$, entonces todo elemento $g\in\lie i$ es de la forma
+  $$g=\sum_{f\in M} hf\To g(\vec{a})=\sum_{f\in M}h(\vec a)f(\vec a)=0.$$
+  Por lo tanto tenemos la otra inclusión.
+  \item Como $M\.N\subseteq M\cap N\subseteq M,N$ entonces valen las inclusiones de izquierda a derecha.\par 
+  Si $\vec a\in V(M\.N)$ pero $\vec a\not\in V(M)$ entonces para algún $f\in M$ vale que $f(\vec{a})\neq 0$. Sin embargo para $g\in N$ vale $(f\.g)(\vec{a})=0$. Como $g$ es arbitrario, entonces $\vec a\in V(N)$. Así concluimos la igualdad.
+  \item Como $M_i\subseteq\bigcup_{i\in I}M_i$ para todo $i$, entonces vale la inclusión $\supseteq$.\par 
+  Mientras tanto si $\vec{a}\in\bigcap_{i\in I}V(M_i)$, entonces
+  $$\forall i\in I\left(\vec{a}\in V(M_i)\right)\To\forall i\in I\forall f\in M_i(f(\vec{a})=0).$$
+  Es decir, $\vec{a}$ anula a cualquier polinomio dentro de cualquier $M_i$. Entonces $\vec{a}$ anula a cualquier polinomio en $\bigcup_{i\in I}M_i$. \yelo{Esta justificación no me gusta.}
+  \item Finalmente vale que $V(\set{0})=\bA^n(k)$ y $V(k[\vec{x}])=\emptyset$.
+\end{enumerate}
+\end{ptcbp}
+
+\begin{Def}
+  La \term{topología de Zariski} se define tomando como cerrados a las variedades. Los abiertos son los complementos de las variedades. De acuerdo con la proposición anterior, esta colección forma una topología.
+\end{Def}
+%\end{multicols}
+\end{document} 
