@@ -22,8 +22,8 @@ El \term{espacio afín} $\bA^n(k)$ sobre $k$, un cuerpo algebraicamente cerrado 
 
 Los elementos del espacio afín son puntos $x$ que se representan con coordenadas $\vec x=(x_1,\dots,x_n)$. No debemos confundir el punto con sus coordenadas.
 
-\begin{Def}\label{def:variedad}
-   Un subconjunto $Y\subseteq\bA^n(k)$ se dice ser un \term{conjunto algebraico} (también llamado \term{variedad afín}) si existe un subconjunto $T\subseteq k[\vec x]$ tal que 
+\begin{Def}\label{def:conj-algebraico}
+   Un subconjunto $Y\subseteq\bA^n(k)$ se dice ser un \term{conjunto algebraico} si existe un subconjunto $T\subseteq k[\vec x]$ tal que 
    $$Y=V(T)\defeq\set{\vec a\in\bA^n(k):\ \forall p\in T(p(\vec a)=0)}.$$
 \end{Def}
 
@@ -72,7 +72,38 @@ Esto nos dice que la topología de Zariski en dimensión 1 corresponde con la to
 Para hablar de ejemplos en dimensión superior precisamos otros conceptos topológicos.
 
 \begin{Def}\label{def:conj-irreducible}
-  Un subconjunto $Y\subseteq X$ de un espacio topológico es \term{irreducible} si no es posible escribir $Y=Y_1\cup Y_2$ con $Y_1,Y_2\subseteq Y$ cerrados. El vacío \emph{no} es irreducible.
+  Un espacio topológico no vacío es \term{irreducible} si no puede ser expresado como la unión de dos subconjuntos cerrados propios. Un subconjunto es irreducible si visto con la topología inducida es irreducible.
 \end{Def}
+
+Viendo la definición extraemos lo siguiente:
+\begin{itemize}
+  \item El conjunto vacío \emph{no} es irreducible.
+  \item Si $Y\subseteq X$ es no vacío, entonces es irreducible si no es posible escribir $Y=F_1\cup F_2$ con $F_1,F_2\subset Y$ cerrados en $Y$.
+\end{itemize}
+
+\begin{Ex}
+  A manera de ejemplo, $\bA^1(k)$ es irreducible. Todo cerrado de $\bA^1(k)$ es un conjunto finito.\par 
+  Si quisiéramos que $\bA^1(k)=F_1\cup F_2$, precisamos que alguno de estos conjuntos sea infinito. Pero esto no es posible, pues todos los cerrados son finitos.
+\end{Ex}
+
+A esta definición un poco nueva le agregamos algunas equivalencias que aún no conocíamos.
+
+\begin{Prop}\label{prop:equivs-irreducible}
+  Si $X$ es un espacio topológico no vacío entonces lo siguiente es equivalente:
+  \begin{enumerate}
+    \item $X$ es irreducible.
+    \item Cualesquiera dos abiertos no vacíos de $X$ tienen intersección no vacía.
+    \item Cualquier abierto no vacío de $X$ es denso, conexo e irreducible.
+  \end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+  Las primeras dos condiciones son equivalentes pues
+  $$X=F_1\cup F_2\iff \emptyset=G_1\cap G_2.$$
+  Si no existen los cerrados $F_1,F_2$ que satisfacen la primera igualdad, entonces cualesquiera abiertos $G_1,G_2$ satisfacen la segunda igualdad.\par 
+  Inmediatamente cualquier abierto es denso pues todos los abiertos se tocan. Para conexidad supongamos que dos abiertos sí tienen intersección vacía, por lo que su unión es un abierto disconexo.
+\end{ptcbp}
+
+\yelo{TODO: finish esta prueba y agregar archivo .bib}
 %\end{multicols}
 \end{document} 
