@@ -17,7 +17,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
 
-%\def\darktheme
+\def\darktheme
 %%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
 
 \pagestyle{fancy}
@@ -139,8 +139,14 @@ enhanced
 \DeclareMathOperator{\Proy}{Proy}   %%%proyección
 
 \newcommand{\la}{\lambda}           %%%short for \lambda
-
 \newcommand{\sg}{\sigma}            %%%short for \sigma
+\newcommand{\te}{\theta}                %% short for  \theta
+\renewcommand{\l}{\ell}
+
+\newcommand{\thickhat}[1]{\mathbf{\hat{\text{$#1$}}}}
+\newcommand{\ii}{\vu{\imath}}
+\newcommand{\jj}{\vu{\jmath}}
+\newcommand{\kk}{\thickhat{k}}
 
 \newcommand{\bC}{\mathbb{C}}        %%%complex numbers
 \newcommand{\bN}{\mathbb{N}}        %%%natural numbers
@@ -173,11 +179,6 @@ enhanced
   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
 
 \newcommand{\To}{\Rightarrow}
-
-\newcommand{\thickhat}[1]{\mathbf{\hat{\text{$#1$}}}}
-\newcommand{\ii}{\vu{\imath}}
-\newcommand{\jj}{\vu{\jmath}}
-\newcommand{\kk}{\thickhat{k}}
 
 \newcommand{\vaf}{\overrightarrow}
 
@@ -247,18 +248,18 @@ $$
 \left\lbrace
 \begin{aligned}
   &x=t\\
-  &y=\frac23t-2
+  &y=2/3t-2
 \end{aligned}
 \right.
 $$
 En 3D la ecuación tiene $z$ como variable libre, $(3,0,0)$ resuelve la ecuación, pero también lo hace $(3,0,2022)$. Vemos que la misma ecuación define un \emph{plano} en 3D.\par 
 Esto ve con la inclusión de un parámetro más en la \un{forma paramétrica} del plano:
 \begin{align*}
-  (x,y,z)&=\left(x,\frac23x-2,z\right)\\
-  &=\left(1,\frac23,0\right)x+(0,0,1)z+(0,-2,0).
+  (x,y,z)&=\left(x,2x/3-2,z\right)\\
+  &=\left(1,2/3,0\right)x+(0,0,1)z+(0,-2,0).
 \end{align*}
 Los vectores directores del plano son los que acompañan a la $x$ y a la $z$. El vector normal de este plano será:
-$$\vec{n}=\left(1,\frac23,0\right)\x(0,0,1)=\det\threebythree{\ii}{\jj}{\kk}{1}{2/3}{0}{0}{0}{1}=\threebyone{2/3}{-1}{0}.$$
+$$\vec{n}=\left(1,2/3,0\right)\x(0,0,1)=\det\threebythree{\ii}{\jj}{\kk}{1}{2/3}{0}{0}{0}{1}=\threebyone{2/3}{-1}{0}.$$
 Finalmente observemos que este vector y el normal del plano son paralelos pues 
 $$3\vec{n}=(2,-3,0)\parallel(2,-3).$$
 \end{Ex}
@@ -308,8 +309,153 @@ $$
 $$
 Y por lo tanto la solución es
 $$(x,y,z)=\left(-z/2+2,3z/4,z\right)=\left(-1/2,3/4,1\right)z+(2,0,0).$$
+Esto es una recta con vector director $\vec{v}_\l=\left(-1/2,3/4,1\right)$ que atraviesa el punto $P=(2,0,0)$.
 \end{Ex}
 
+\begin{Rmk}
+  Notemos que la dirección de la recta es ortogonal a ambas direcciones normales de los planos en cuestión. Entonces otra forma de encontrar el vector director $\vec v_\l$ es con el producto cruz de los vectores normales:
+  $$\vec v_\l\parallel\vec n_1\x\vec n_2=\det\threebythree{\ii}{\jj}{\kk}{17}{2}{7}{23}{-6}{16}=(74, -111, -148).$$
+  Observemos que $-148\vec v_\l=\vec n_1\x\vec n_2$.
+\end{Rmk}
+
+Es importante recordar que dos vectores son paralelos si y sólo si uno es múltiplo del otro.
+
+\begin{Ex}
+  Consideremos los planos 
+  $$
+\left\lbrace
+\begin{aligned}
+  &\pi_1=\set{6x+8y-3z=12},\\
+  &\pi_2=\set{9x+2y+3z=-12}.
+\end{aligned}
+\right.
+$$
+Si queremos encontrar el ángulo formado entre ellos, aprovechamos los vectores normales. Observe que el ángulo entre $\vec n_1$ y $\vec n_2$ es el mismo ángulo que hay entre $\pi_1$ y $\pi_2$:
+\begin{center}
+
+
+  \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+  \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+  %uncomment if require: \path (0,231); %set diagram left start at 0, and has height of 231
+  
+  %Straight Lines [id:da0994319358352318] 
+  \draw    (300,130) -- (350,130) ;
+  %Straight Lines [id:da5452438015129433] 
+  \draw    (350,130) -- (380,100) ;
+  %Straight Lines [id:da33334264214999165] 
+  \draw    (330,100) -- (380,100) ;
+  %Straight Lines [id:da563271022118635] 
+  \draw    (250,130) -- (300,130) ;
+  %Straight Lines [id:da867268690506326] 
+  \draw    (250,130) -- (280,100) ;
+  %Straight Lines [id:da9945567476910919] 
+  \draw  [dash pattern={on 4.5pt off 4.5pt}]  (280,100) -- (330,100) ;
+  %Straight Lines [id:da38351081882114957] 
+  \draw    (300,130) -- (270,80) ;
+  %Straight Lines [id:da6645403990161602] 
+  \draw    (270,80) -- (300,50) ;
+  %Straight Lines [id:da458783257797331] 
+  \draw  [dash pattern={on 4.5pt off 4.5pt}]  (300,130) -- (330,100) ;
+  %Straight Lines [id:da07292245962307775] 
+  \draw    (330,100) -- (300,50) ;
+  %Straight Lines [id:da5698543420005264] 
+  \draw    (300,130) -- (315,155) ;
+  %Straight Lines [id:da2723004524957362] 
+  \draw  [dash pattern={on 4.5pt off 4.5pt}]  (330,100) -- (345,125) ;
+  %Straight Lines [id:da6784333644618068] 
+  \draw    (315,155) -- (345,125) ;
+  %Straight Lines [id:da8158667125784482] 
+  \draw    (315,115) -- (315,57) ;
+  \draw [shift={(315,55)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Straight Lines [id:da7133545166441528] 
+  \draw    (315,115) -- (378.3,76.05) ;
+  \draw [shift={(380,75)}, rotate = 148.39] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Shape: Arc [id:dp37285144311992235] 
+  \draw  [draw opacity=0][line width=0.75]  (315.58,85.01) .. controls (326.29,85.21) and (335.65,91.04) .. (340.8,99.68) -- (315,115) -- cycle ; \draw  [line width=0.75]  (315.58,85.01) .. controls (326.29,85.21) and (335.65,91.04) .. (340.8,99.68) ;  
+  %Shape: Arc [id:dp9897935732618544] 
+  \draw  [draw opacity=0][line width=0.75]  (270.01,129.39) .. controls (270.22,118.67) and (276.06,109.32) .. (284.71,104.18) -- (300,130) -- cycle ; \draw  [line width=0.75]  (270.01,129.39) .. controls (270.22,118.67) and (276.06,109.32) .. (284.71,104.18) ;  
+  
+  % Text Node
+  \draw (288,126.27) node [anchor=south east] [inner sep=0.75pt]  [font=\normalsize]  {$\theta $};
+  % Text Node
+  \draw (316.67,47) node [anchor=west] [inner sep=0.75pt]  [font=\normalsize]  {$\vec{n}_{1}$};
+  % Text Node
+  \draw (327.57,87.01) node [anchor=south west] [inner sep=0.75pt]  [font=\normalsize]  {$\theta $};
+  % Text Node
+  \draw (383,71.6) node [anchor=south east] [inner sep=0.75pt]  [font=\normalsize]  {$\vec{n}_{2}$};
+  % Text Node
+  \draw (352,133.4) node [anchor=north west][inner sep=0.75pt]    {$\pi _{1}$};
+  % Text Node
+  \draw (268,76.6) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{2}$};
+  
+  
+  \end{tikzpicture}
+  \end{center}
+  De esta forma tenemos que el ángulo $\te$ se obtiene de la ecuación
+  $$\braket{\vec{n}_1}{\vec{n}_2}=\norm{\vec{n}_1}\norm{\vec{n}_2}\cos(\te)\To\te=\arccos\left(\frac{61}{\sqrt{109}\sqrt{94}}\right).$$
+  Este valor es irracional pero una aproximación es $\te\approx53^\circ$.
+\end{Ex}
+
+\begin{Ex}
+  Considere las rectas 
+  $$
+  \left\lbrace
+  \begin{aligned}
+    &\l_1=\set{\vec{x}=t(-2,-2,-3)+(-2,2,3)},\\
+    &\l_2=\set{\vec{x}=t(-2,4,4)+(-4,0,0)}.
+  \end{aligned}
+  \right.
+  $$
+  El ángulo entre $\l_1$ y $\l_2$ es el mismo que entre sus vectores directores. Usando la identidad del producto punto tenemos que
+  $$\braket{\vec{v}_1}{\vec{v}_2}=\norm{\vec{v}_1}\norm{\vec{v}_2}\cos(\te)\To\te=\arccos\left(\frac{16}{\sqrt{17}\.6}\right).$$
+  Es valor es aproximadamente $\te\approx 50^\circ$.
+\end{Ex}
+
+\begin{Rmk}
+  El ángulo entre una recta y un plano es importante para determinar si son paralelos o perpendiculares entre si. En general vale que:
+  \begin{align*}
+    &\l\parallel\pi\iff\vec v_\l\perp\vec n_\pi,&\l\perp\pi\iff\vec v_\l\parallel\vec n_\pi.
+  \end{align*}
+  En cualquier otro caso diremos que las rectas y los planos son \un{oblicuos}. 
+\end{Rmk}
 \subsection*{Distancias}
+Para encontrar distancias entre conjuntos algebraicos consideramos los casos más básicos:
+\begin{enumerate}[i)]
+  \item Si $P$ es un punto fuera de una \un{recta} $\l$ que contiene a $Q$, entonces la distancia entre $P$ y $\l$ es 
+  $$d(P,\l)=\frac{\norm{\vaf{QP}\x\vec{v}_l}}{\norm{\vec{v}_l}}.$$
+  \item Si $P$ es un punto fuera de un \un{plano} $\pi$ que contiene a $Q$, entonces la distancia entre $P$ y $\pi$ es 
+  $$d(P,\pi)=\frac{\left|\braket{\vaf{QP}}{\vec{n}_\pi}\right|}{\norm{\vec{n}_\pi}}.$$
+  \item Si $\l_1:\ t\vec{v}_1+P$ y $\l_2:\ t\vec{v}_2+Q$, con $\vec{v}_1\not\parallel\vec{v}_2$, entonces
+  $$d(\l_1,\l_2)=\frac{\left|\braket{\vaf{QP}}{\vec{v}_1\x\vec{v}_2}\right|}{\norm{\vec{v}_1\x\vec{v}_2}}.$$
+  %%https://math.stackexchange.com/questions/2213165/find-shortest-distance-between-lines-in-3d
+\end{enumerate}
+La distancia entre una recta y un plano paralelos, dos planos paralelos o dos rectas paralelas se encuentra utilizando la \emph{primera fórmula}.
+
+\begin{ptcbP}
+  Considere los puntos $P=(1,2,0), Q=(1,0,1)$ y $R=(2,1,0)$. Si $\l$ es la recta que contiene a $P$ y $Q$, encuentre $d(R,\l)$. También encuentre $\angle(R,\l)$.
+\end{ptcbP}
+
+\begin{ptcbP}
+  Encuentre la distancia entre los planos 
+  $$
+  \left\lbrace
+  \begin{aligned}
+    &\pi_1=\set{x+3y+5z=-4},\\
+    &\pi_2=\set{x+3y+5z=16}.
+  \end{aligned}
+  \right.
+  $$
+\end{ptcbP}
+\subsubsection*{Resumen}
+\begin{itemize}
+  \itemsep=-0.4em
+  \item El vector normal de $ax+by+cz=d$ es $\vec{n}=(a,b,c)$.
+  \item Encontrar intersecciones es resolver sistemas lineales.
+  \item La dirección de la recta de intersección de dos planos es $\vec n_1\x\vec n_2$.
+  \item El ángulo formado por dos planos es el mismo que hay entre $\vec n_1,\ \vec n_2$.
+  \item El ángulo formado por dos rectas es el mismo que hay entre $\vec v_1,\ \vec v_2$.
+  \item Las distancias entre conjuntos algebraicos dependen de un punto fuera del conjunto y del vector director o normal de ese conjunto.
+\end{itemize}
 \end{multicols}
 \end{document}
