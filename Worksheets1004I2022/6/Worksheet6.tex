@@ -150,6 +150,7 @@ enhanced
 
 \newcommand{\bC}{\mathbb{C}}        %%%complex numbers
 \newcommand{\bN}{\mathbb{N}}        %%%natural numbers
+\newcommand{\bP}{\mathbb{P}}        %%%polynomials
 \newcommand{\bR}{\mathbb{R}}        %%%real numbers
 \newcommand{\bZ}{\mathbb{Z}}        %%%integer numbers
 \newcommand{\cB}{\mathcal{B}}       %%%basis
@@ -162,6 +163,7 @@ enhanced
 \renewcommand{\leq}{\leqslant}      %%%(to save typing)
 \newcommand{\x}{\times}             %%%product
 \renewcommand{\:}{\colon}           %%%colon in  f: A -> B
+\newcommand{\isom}{\simeq}              %% isomorfismo
 
 \newcommand{\un}[1]{\underline{#1}}
 \newcommand{\half}{\frac12}
@@ -190,8 +192,229 @@ enhanced
 %----------------------------------------------------------------------------------------
 
 \begin{document}
+
 \begin{multicols}{2}
 \subsection*{Espacios Vectoriales}
 
+Recordemos las propiedades de la suma y producto escalar:
+
+\begin{multicols}{2}
+  \textbf{Props. Suma}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item $\vec{x}+\vec{y}=\vec{y}+\vec x$.
+    \item {\footnotesize{$(\vec{x}+\vec y)+\vec z=\vec x+(\vec y+\vec z)$.}}
+    \item $\vec x+0=\vec x$.
+    \item $\vec x+(-\vec x)=0$.
+  \end{enumerate}
+  \textbf{Props. Mult.}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item $1\vec{x}=\vec x$.
+    \item $(cd)\vec x=c(d\vec x)$.
+    \item $c(\vec x+\vec y)=c\vec x+c\vec y$.
+    \item $(c+d)\vec x=c\vec x+d\vec x$.
+  \end{enumerate}
+\end{multicols}
+
+Al considerar $\bR^n$ con ``$+$'' y ``$\.$'', entonces valen estas propiedades para la suma y producto. Como $\bR^n$ satisface estas propiedades entonces podemos decir que es un espacio vectorial.
+
+\begin{Def}
+Un \un{espacio vectorial} (\textbf{e.v.}) es un conjunto $V$ con 2 operaciones ``$+$'' y ``$\.$'' (\textbf{suma vectorial y producto escalar}) que obedecen las propiedades anteriores.\par 
+En ese caso un \un{vector} es un elemento de un espacio vectorial.
+\end{Def}
+
+\begin{Ex}
+  $\bR$ es un espacio vectorial.
+  \begin{itemize}
+    \itemsep=-0.4em
+    \item Suma vectorial: Suma usual de números reales.
+    \item Producto escalar: Multiplicación usual.
+  \end{itemize}
+  Claramente estas operaciones satisfacen las propiedades.
+\end{Ex}
+
+\begin{Ex} 
+El conjunto $\set{2n+1:\ n\in\bN}$ de los enteros impares \textbf{no forma un espacio vectorial} con la suma y producto usual. $3+5=8$ y $8$ no es impar. Además $0$ no es impar.
+\end{Ex}
+
+\begin{Ex}
+  $\cM_{m\x n}$ es un espacio vectorial. 
+  \begin{itemize}
+    \itemsep=-0.4em
+    \item Suma vectorial: Suma de matrices.
+    \item Producto escalar: Multiplicación de una matriz por un escalar.
+  \end{itemize}
+\end{Ex}
+
+\begin{Ex}
+  Las funciones continuas sobre $\bR$, $\cC(\bR)$, forman un espacio vectorial. 
+  \begin{itemize}
+    \itemsep=-0.4em
+    \item Suma vectorial: $(f+g)(x)=f(x)+g(x)$.
+    \item Producto escalar: $(cf)(x)=c\.f(x)$.
+  \end{itemize}
+\end{Ex}
+
+\begin{Rmk}
+Nuestros vectores originales eran \emph{arreglos de datos}, como $(a,b,c)\in\bR^3$. Veamos los arreglos en estos ejemplos.
+\begin{itemize}
+  \itemsep=-0.4em
+  \item En $\bR$ el tamaño del arreglo es \textbf{1}, cada número es un vector. 
+  \item En $\bR^n$ los arreglos son $(x_1,x_2,\dots,x_n)$, es decir, tienen \textbf{tamaño $\mathbf{n}$}.
+  \item Las $m$ filas de longitud $n$ de una matriz $[m\x n]$ se pueden acomodar en un arreglo enorme de \textbf{tamaño} $\mathbf{mn}$.
+  \item En el caso de una función continua\dots\\¿Cómo armamos un arreglo? ¿Cómo vemos $e^x$ o $x^3+2\sin(5x)$ como un arreglo?
+\end{itemize}
+\end{Rmk}
+
+A este \emph{tamaño} le llamaremos \un{dimensión}. Precisaremos la definición más adelante. Denotamos $\dim(V)$.
+
+\begin{Rmk}
+  Esto quiere decir que $\bR,\bR^n$ y $\cM_{m\x n}$ tienen dimensión finita. Respectivamente $1,n$ y $mn$. Nos preguntamos ¿cuál es la dimensión de $\cC(\bR)$?
+\end{Rmk}
+
+\subsection*{Subespacios}
+
+Denotamos $\bP_n$ al conjunto de polinomios de grado $n$. Observemos lo siguiente:
+
+\begin{itemize}
+  \itemsep=-0.4em
+  \item Todos lo polinomios son funciones continuas, entonces $\bP_n\subseteq \cC(\bR)$.
+  \item Ocurre que $\dim(\bP_n)\leq \dim(\cC(\bR))$.
+  \item \textbf{Suave}, ¿acaso $\bP_n$ es un espacio vectorial? No podemos hablar de dimensión sin que lo sea.
+\end{itemize}
+
+\begin{Th}[$\ast\ast$]
+Supongamos que $W\subseteq V$ ya siendo $V$ un espacio vectorial. Entonces $W$ es espacio vectorial si valen las condiciones:
+\begin{enumerate}[i)]
+  \itemsep=-0.4em 
+  \item $x,y\in W\To x+y\in W$. (\textbf{suma permanece})
+  \item $x\in W\To cx\in W$. (\textbf{múltiplos permanecen})
+\end{enumerate}
+En este caso diremos que $W$ es \un{subespacio} de $V$. Denotamos $W\leq V$.
+\end{Th}
+
+Verifiquemos que $\bP_n\subseteq\cC(\bR)$ es un espacio vectorial aplicando el teorema. 
+\begin{enumerate}
+  \itemsep=-0.4em
+  \item ¿Primero, $\cC(\bR)$ es un espacio vectorial? Eso lo sabemos de supuesto.
+  \item Ahora, si $p,q\in\bP_n$, entonces ¿$p+q\in\bP_n$? ($\star$)
+  \item Y si $p\in\bP_n$, ¿vale que $cp\in\bP_n$? ($\star$)
+\end{enumerate}
+
+Si $p\in\bP_n$ entonces 
+\begin{align*}
+  p(x)&=a_nx^n+a_{n-1}x^{n-1}+\dots+a_1x+a_0\\
+  &=a_0+a_1x+\dots+a_{n-1}x^{n-1}+a_nx^n.
+\end{align*}
+Asociamos a $p$ el arreglo $(a_0,a_1,\dots,a_{n-1},a_n)$. Entonces $\dim(\bP_n)=n+1$. 
+
+\begin{Ex}
+  En $\bP_2$ consideramos $p(x)=x^2+5x+6$ asociado al vector $(6,5,1)$, mientras que $q(x)=2x^2-6x+8$ sería $(8,-6,2)$.\par 
+  El vector $\jj=(0,1,0)$ corresponde con el polinomio $r(x)=x$ y $x^2$ corresponde con $\kk$.
+\end{Ex}
+
+\begin{Rmk}
+  Lo que ocurre detrás del telón es que $\bP_n\isom\bR^{n+1}$.
+\end{Rmk}
+
+\subsection*{Bases y Dimensión}
+\begin{itemize}
+  \itemsep=-0.4em
+  \item Nuestro concepto de dimensión es\\
+  \emph{Dimensión  = Long. del arreglo vectorial.}
+  \item ¿Podemos definir dimensión sin coordenadas?
+\end{itemize} %https://math.stackexchange.com/questions/2508165/how-dimensions-for-vector-space-of-functions-are-computed
+
+\begin{Ex}[$\star$]
+  Para familiarizarnos con algunos conceptos hacemos una analogía. Imaginemos un mapa:
+  \begin{itemize}
+    \itemsep=-0.4em
+    \item Hay distintos marcos de referencia (\textbf{bases}) para guiarse distintos al marco \emph{canónico} $(\ii,\jj)$.
+    \item Los distintos puntos a los que llegamos con esas direcciones son las \textbf{combinaciones lineales}.
+    \item Y en un mapa plano no precisamos más de dos direcciones para guiarnos. Una tercera es superflua. (\textbf{dependencia lineal}) 
+  \end{itemize}
+\end{Ex}
+
+\begin{Def}
+  Si $C=\set{\vec{v}_1,\dots,\vec{v}_n}$ es un conjunto de vectores, una \un{combinación lineal} de vectores de $C$ es cualquier vector $\vec{v}$ de la forma 
+  $$\vec{v}=c_1\vec{v}_1+\dots+c_n\vec v_n.$$
+\end{Def}
+
+\begin{Ex}
+  $(2,-3,3)$ es combinación lineal de $(1,0,0)$ y de $(0,1,-1)$ pues 
+ $$(2,-3,3)=2\.(1,0,0)+(-3)\.(0,1,-1).$$
+\end{Ex}
+
+\begin{Def}
+  El \un{conjunto generado} por una colección de vectores $C=\set{\vec{v}_1,\dots,\vec{v}_n}$ es el conjunto de \textbf{todas} las combinaciones lineales de $C$. Denotamos $\gen(C)$.
+\end{Def}
+
+\begin{Prop}
+Si $C\subseteq\bR^n$, entonces $\gen(C)\leq \bR^n$.
+\end{Prop}
+
+\begin{Ex}
+  Dentro de $\gen((1,0,0),(0,-1,1))$ está $(2,-3,3)$. También $(19,31,-31)$, $(4,0,0)$, $(0,-5,5)$ y $(-8,7,-7)$. ¡El conjunto es infinito!
+\end{Ex}
+
+\begin{Def}
+  Un vector $\vec v$ es \un{linealmente dependendiente} (\textbf{l.d.}) de conjunto de vectores $C=\set{\vec{v}_1,\dots,\vec{v}_n}$ si $\vec{v}$ es combinación lineal de $C$.\\
+  Un conjunto es linealmente dependiente si posee al menos un vector linealmente dependendiente.\\ 
+  Por el contrario, un vector es \un{linealmente independiente} (\textbf{l.i.}) de un conjunto si no es l.d. Análogamente para conjuntos.
+\end{Def}
+
+\begin{Ex}
+  $(2,-3,3)$ es l.d. de $(1,0,0)$ y $(0,-1,1)$, pues
+  $$(2,-3,3)=2(1,0,0)+3(0,-1,1).$$
+  En consecuencia $\set{(2,-3,3),(1,0,0),(0,-1,1)}$ es un conjunto l.d.\\
+  Pero a su vez ocurre que 
+  $$(1,0,0)=\half(2,-3,3)-\frac32(0,-1,1).$$
+  Es decir los demás vectores son c.l. de los otros.
+\end{Ex}
+
+\begin{Rmk}
+  Notemos que si $\vec u,\vec v$ son l.d. entonces $\vec u=c\vec v$. Tenemos entonces las siguientes equivalencias, dos vectores son:
+ $$ \textbf{l.d.}\iff \textbf{paralelos}\iff\textbf{ múltiplos uno del otro}.$$
+\end{Rmk}
+
+\subsubsection*{El teorema resumen de independencia lineal}
+
+\begin{Th}
+  Considere $\set{\vec v_1,\dots,\vec{v}_m}\subseteq \bR^n$ con $m\leq n$. Si $A$ es la matriz cuyas filas son los vectores, entonces la \textbf{cantidad de vectores l.i.} es $\Rng(A)$.\\
+  Cuando $m>n$, el conjunto es l.d.
+\end{Th}
+
+\begin{Ex}
+Si $C=\Set{\threebyone{3}{5}{-8},\threebyone{1}{1}{-2},\threebyone{0}{-1}{1},\threebyone{1}{-3}{2}}$, y queremos ver cuantos vectores l.i. hay en $C$, consideramos la matriz
+  $$A=\begin{pmatrix}
+    3&5&-8\\1&1&-2\\ 0&-1&1\\ 1&-3&2
+  \end{pmatrix}$$
+  Al reducir vemos que $\Rng(A)=2$. Es decir, sólo dos vectores son l.i. \textbf{¿Cuáles dos?} \begin{itemize}
+    \itemsep=-0.4em
+    \item Tomamos $(0,-1,1)$ primero.
+    \item Luego uno que no sea múltiplo, como $(1,1,-2)$.
+  \end{itemize}
+  Si queremos escribir $(3,5,-8)$ como c.l. de $(1,1,-2)$ y $(0,-1,1)$ debemos encontrar $a,b$ reales tales que 
+  $$(3,5,-8)=a(1,1,-2)+b(0,-1,1)\To\left\lbrace\begin{aligned}
+    &3=a\\
+    &5=a-b\\
+    &-8=-2a+b
+  \end{aligned}\right.$$
+  Con esto llegamos a $a=3$ y $b=-2$.
+\end{Ex}
+
+\begin{Def}
+  Una \un{base} de un espacio vectorial es un conjunto generador que es l.i.\\
+  La \un{dimensión} de un espacio vectorial es la cantidad de elementos en una base.
+\end{Def}
+
+\begin{Ex}
+  La base canónica de $\bR^2$ es $\cC=\set{\ii,\jj}$. Pero también $\set{(1,1),\jj}$ y $\set{\ii,(-1,-2)}$ son bases de $\bR^2$. Como vimos anteriormente, $\dim(\bR^n)=n$, entonces cualquier base de $\bR^n$ tiene $n$ vectores l.i.
+\end{Ex}
+\begin{ptcbP}
+Encuentre $\dim(\gen(C))$ donde $C\subseteq\bR^3$ es
+$$\Set{\threebyone{-2}{2}{0},\threebyone{-1}{0}{1},\threebyone{0}{-1}{1},\threebyone{0}{-3}{3},\threebyone{-1}{-3}{4},\threebyone{1}{0}{-1}}.$$
+\end{ptcbP}
 \end{multicols}
 \end{document}
