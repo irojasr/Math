@@ -17,7 +17,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
 
-%\def\darktheme
+\def\darktheme
 %%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
 
 \pagestyle{fancy}
@@ -204,21 +204,35 @@ enhanced
 
 \subsubsection*{Diagonalización}
 
-Al principio del curso mencionamos que trabajar con matrices diagonales era de lo más sencillo. Con el proceso de diagonalización vamos a tomar una matriz y la despedazaremos para ver qué es lo que hace que funcione.\par 
-Supongamos que $T$ es una T.L. con $n$ autovectores $\cB=\set{\vec v_1,\dots,\vec v_n}$. Si forman una base podemos representar $T$ en $\cB$ como una matriz:
+Las matrices diagonales son las más sencillas de todas.
+
+\begin{itemize}
+  \itemsep=-0.5em
+  \item Los sistemas $D\vec{x}=\vec{b}$ son fáciles de resolver.
+  \item El determinante de $D$ es el producto de su diagonal.
+  \item Sus autovalores están en la diagonal.
+\end{itemize}
+
+Queremos despedazar una matriz para ver su \emph{forma diagonal} y ver cómo es que funciona.\par 
+Comenzamos con $T:\bR^n\to\bR^n$ una T.L. y $\cB=\set{\vec v_1,\dots,\vec v_n}$ sus autovectores. Si $\cB$ es base, podemos representar $T$ en $\cB$ como una matriz:
 $$[T]_\cB=\begin{pmatrix}
   [T\vec v_1]_\cB&[T\vec v_2]_\cB&\cdots&[T\vec v_n]_\cB
 \end{pmatrix}.$$
-Esto que tenemos aquí en palabras es: \emph{la representación en $T$ en $\cB$ es la matriz cuyas columnas son los $T\vec{v}_i$ escritos en base $\cB$}. Adicionalmente recordemos que en $\cB$ cada $\vec{v}_i$ se escribe como
-\begin{gather*}
-  \vec{v}_i=0\.\vec{v}_1+0\.\vec{v}_2+\dots+1\.\vec{v}_1+\dots+0\.\vec{v}_n\\
-  \To[\vec{v}_i]_\cB=(0,0,\dots,1,\dots,0).
-\end{gather*}
-Ahora como $\vec{v}_i$ es un autovector de $T$, entonces $T\vec{v_i}=\la_i\vec{v}_i$. Pero escribiendo eso en coordenadas de $\cB$ obtenemos
-$$[T\vec{v}_i]_\cB=\la_i(0,0,\dots,1,\dots,0)=(0,0,\dots,\la_i,\dots,0).$$
-Este vector es la columna $i$ de $[T]_\cB$, entonces repitiendo el proceso para todos los demás autovectores obtenemos la representación en base $\cB$ de $T$ como
+Aquí cada $[T\vec v_i]_\cB$ es una columna. Y veamos una cosa:
+\begin{itemize}
+  \itemsep=-0.5em
+  \item En $\cB$ vale que 
+  \begin{gather*}
+    \vec{v}_i=0\.\vec{v}_1+0\.\vec{v}_2+\dots+1\.\vec{v}_1+\dots+0\.\vec{v}_n\\
+    \To[\vec{v}_i]_\cB=(0,0,\dots,1,\dots,0).
+  \end{gather*}
+  \item La ecuación $T\vec{v_i}=\la_i\vec{v}_i$ en base $\cB$ es 
+  $$[T\vec{v}_i]_\cB=\la_i(0,0,\dots,1,\dots,0)=(0,0,\dots,\la_i,\dots,0).$$
+\end{itemize}
+
+Repitiendo el proceso para todos los demás autovectores obtenemos la representación en base $\cB$ de $T$ como
 $$[T]_\cB=\threebythree{\la_1}{\cdots}{0}{\vdots}{\ddots}{\vdots}{0}{\cdots}{\la_n}=\text{diag}(\la_1,\la_2,\dots,\la_n).$$
-En resumen podemos ver que diagonalizar es un proceso de cambio de base a final de cuentas. Sin embargo, hay una condición que asumimos \textbf{que los autovectores de $T$ forman una base}.
+En resumen podemos ver que diagonalizar es un proceso de \emph{cambio de base} a final de cuentas. Sin embargo, hay una condición que asumimos \textbf{que los autovectores de $T$ forman una base}.
 
 \begin{Th}
 Una T.L. $T$ se puede representar en \un{forma diagonal} cuando alguna de las siguientes condiciones vale:
@@ -241,7 +255,8 @@ Tenemos $C=\twobytwo{1}{3}{0}{1}$, un cizallamiento.
 \end{itemize}
 \end{Ex}
 %https://ece.uwaterloo.ca/~dwharder/Integer_eigenvalues/
-
+\vfill\null
+\columnbreak
 \begin{Ex}
   Consideremos $A=\twobytwo{2}{1}{1}{2}$. Buscamos sus autovectores con el fin de diagonalizar.
   \begin{enumerate}
@@ -307,11 +322,59 @@ Y elevar una matriz diagonal a una potencia es lo mismo que elevar sus entradas 
   \end{align*}
   Para factorizar este polinomio podemos usar el teorema de raices racionales. Sus posibles raices son $\set{\pm 1,\pm 2,\pm 3,\pm 6\pm 9,\pm 18}$.\par 
   Evaluando en $1$ vemos que $f_A(1)=0$ por lo que factorizamos 
-  $$f_A(\la)=(\la-1)(-\la^2+9\la-18)=-(\la-1)(\la-3)(\la-6).$$
-  Los autovalores de $A$ son entonces $\la_1=1$, $\la_2=3$ y $\la_3=6$.
-  \item El espacio invariante asociado 
-  
+  \begin{align*}
+    f_A(\la)&=(\la-1)(-\la^2+9\la-18)\\
+    &=-(\la-1)(\la-3)(\la-6).
+  \end{align*}
+  Los autovalores de $A$ son $\la_1=1$, $\la_2=3$ y $\la_3=6$.
+  \item El espacio invariante asociado a $\la_1$ es 
+  $$E_{\la_1}=\ker\threebythree{3}{-1}{1}{-1}{2}{-2}{1}{-2}{2}=\ker\threebythree{1}{0}{0}{0}{1}{-1}{0}{0}{0}.$$
+  Esto resulta en las ecuaciones
+  $$\left\lbrace
+  \begin{aligned}
+    &x=0\\
+    &y-z=0
+  \end{aligned}
+  \right.
+  $$
+  La solución es $(x,y,z)=(0,y,y)=y(0,1,1)$. Y así $\vec{v}_1=(0,1,1)$ es un autovector de $A$ asociado a $\la_1$.
+  \item $E_{\la_2}$ se obtiene a partir de
+  $$E_{\la_2}=\ker\threebythree{1}{-1}{1}{-1}{0}{-2}{1}{-2}{0}=\ker\threebythree{1}{0}{2}{0}{1}{1}{0}{0}{0}.$$
+  Reescribiendo como un sistema obtenemos 
+  $$\left\lbrace
+  \begin{aligned}
+    &x+2z=0\\
+    &y+z=0
+  \end{aligned}
+  \right.
+  $$
+  y así obtenemos la solución $(-2z,-z,z)$. El autovector $\vec{v}_2=(-2,-1,1)$ está asociado entonces a $\la_2$.
+  \item El tercer autovector es $\vec{v}_3=(1,-1,1)$ asociado a $\la_3=6$. \emph{A manera de ejercicio, ¡verifíquelo!}
+  \item Tomando los autovectores como columnas encontramos la matriz de cambio de base $[\id]^\cB_\cC$ a la que llamamos $P$:
+  $$P=\threebythree{0}{-2}{1}{1}{-1}{-1}{1}{1}{1}\To P^{-1}=\frac16\threebythree{0}{3}{3}{-2}{-1}{1}{2}{-2}{2}.$$ 
+  Y la forma diagonal de $A$ es $D=\text{diag}(1,3,6)$.
 \end{enumerate}
+Con esta información encontramos $D^5$ fácilmente pues
+$$D^5=\text{diag}(1^5,3^5,6^5)=\text{diag}(1,243,7776)$$
+y por lo tanto 
+\begin{align*}
+  A^5&=P^{-1}D^5P\\
+  &=\frac16\threebythree{0}{3}{3}{-2}{-1}{1}{2}{-2}{2}\threebythree{1}{0}{0}{0}{243}{0}{0}{0}{7776}\threebythree{0}{-2}{1}{1}{-1}{-1}{1}{1}{1}\\
+  &=\threebythree{2754}{-2511}{2511}{-2511}{2633}{-2632}{2511}{-2632}{2633}
+\end{align*}
 \end{Ex}
+
+\subsection*{BONUS: Exponencial Matricial}
+
+Podríamos pensar, ¿se puede aplicar la función $e^x$ a una matriz? Ordinariamente no, pero es que hay que recordar el nombre completo de la función exponencial. Recordemos que 
+$$e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\dots+\frac{x^n}{n!}+\dots$$
+A pesar de ser infinitas operaciones podemos aplicarlas a una matriz de forma ordinaria y luego llamar a lo que resulte ¡$e^A$! Más fácil todavía si $A$ es diagonalizable, haciendo una manipulación algebraica podemos ver que 
+$$e^A=e^{P^{-1}DP}=P^{-1}(e^D)P.$$
+Además $e^{\text{diag}(d_1,\dots,d_n)}=\text{diag}(e^{d_1},e^{d_2},\dots,e^{d_n})$. 
+
+\begin{ptcbP}
+  Encuentre $e^A$ donde $A=\twobytwo{2}{-2}{-2}{5}$.
+\end{ptcbP}
+
 \end{multicols}
 \end{document}
