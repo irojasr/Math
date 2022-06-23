@@ -174,13 +174,13 @@ enhanced
 
 \newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
   #1 \\ #2 \end{pmatrix}}
-  \newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
     #1 & #2 \\ #3 & #4 \end{pmatrix}}
-    \newcommand{\twobythree}[6]{\begin{pmatrix} %% 2 x 3 matrix
+\newcommand{\twobythree}[6]{\begin{pmatrix} %% 2 x 3 matrix
         #1 & #2 & #3\\ #4 & #5 & #6 \end{pmatrix}}
 \newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
   #1 \\ #2 \\ #3 \end{pmatrix}}
-  \newcommand{\threebytwo}[6]{\begin{pmatrix} %% 3 x 1 matrix
+\newcommand{\threebytwo}[6]{\begin{pmatrix} %% 3 x 1 matrix
     #1 & #2\\ #3 & #4\\ #5&#6 \end{pmatrix}}
 \newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
@@ -275,6 +275,43 @@ es decir la base $\cB$ es \emph{ortogonal}.
 \end{Th}
 \begin{ptcbP}
 Realice el mismo proceso para diagonalizar la matriz $A=\twobytwo{2}{-2}{-2}{5}$.
+\iffalse
+\begin{enumerate}
+  \itemsep=-0.5em 
+  \item Encuentre los autovalores de $A$.
+  \item Calcule los espacios invariantes respectivos.
+  \item Realice la multiplicación de matrices para corroborar.
+\end{enumerate}
+\fi
 \end{ptcbP}
+\newpage
+\subsection*{Aplicaciones}
+
+\begin{Ex}
+Consideremos la matriz
+$$A=\threebythree{4}{-1}{1}{-1}{3}{-2}{1}{-2}{3},$$
+si queremos encontrar $A^5$ podríamos multiplicar lentamente. Pero diagonalizando lo hacemos más rápido.\par 
+Si diagonalizamos $A$ entonces 
+\begin{align*}
+  A^5&=(P^{-1}DP)^5\\
+  &=(P^{-1}DP)(P^{-1}DP)\cdots (P^{-1}DP)\\
+  &=P^{-1}D^5P
+\end{align*}
+Y elevar una matriz diagonal a una potencia es lo mismo que elevar sus entradas a la misma potencia.
+\begin{enumerate}[i)]
+  \itemsep=-0.4em
+  \item El polinomio característico de $A$ es 
+  \begin{align*}
+    f_A(\la)=\det(A-\la I)&=\det\threebythree{4-\la}{-1}{1}{-1}{3-\la}{-2}{1}{-2}{3-\la}\\
+    &=-\la^3+10^2-27\la+18.
+  \end{align*}
+  Para factorizar este polinomio podemos usar el teorema de raices racionales. Sus posibles raices son $\set{\pm 1,\pm 2,\pm 3,\pm 6\pm 9,\pm 18}$.\par 
+  Evaluando en $1$ vemos que $f_A(1)=0$ por lo que factorizamos 
+  $$f_A(\la)=(\la-1)(-\la^2+9\la-18)=-(\la-1)(\la-3)(\la-6).$$
+  Los autovalores de $A$ son entonces $\la_1=1$, $\la_2=3$ y $\la_3=6$.
+  \item El espacio invariante asociado 
+  
+\end{enumerate}
+\end{Ex}
 \end{multicols}
 \end{document}
