@@ -1,0 +1,46 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Jamie Juul}
+\def\nsigla {MATH566}
+\def\nsiglahead {Abstract Algebra}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+%\begin{multicols}{2}
+
+\begin{Ej}Do the following exercises from Artin's Algebra:
+  \begin{enumerate}[i)]
+    \item Consider
+    $$\vec a=\threebyone{a_1}{\vdots}{a_n},\ \vec b=(b_1,\dots,b_n)$$
+    be a column and row vector respectively. Compute the products $\vec{a}\vec{b}$ and $\vec{b}\vec{a}$.
+    \item Consider $A=\threebythree{1}{1}{1}{0}{1}{1}{0}{0}{1}$. Find a formula for $A^n$ and prove it by induction.
+    \item Verify the rule 
+    $$\det AB = (\det A)(\det B)$$ 
+    for the matrices $A=\twobytwo{2}{3}{1}{4}$ and $B=\twobytwo{1}{1}{5}{-2}$.
+  \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+\begin{enumerate}[i)]
+    \item $\vec a\vec b$ turns into a $[1\x 1]$ matrix. This is the inner product of this vectors. The result is $a_1b_1+\dots+a_nb_n$.\par 
+    On the other hand $\vec b\vec a$ is a $[n\x n]$ matrix, the outer product of $\vec a$ and $\vec b$. This is a rank 1 matrix whose entries are given by $(a_ib_j)_{i,j\in[n]}$.
+    \item Computing some powers of $A$ we see that
+    $$A^2=\threebythree{1}{2}{3}{0}{1}{2}{0}{0}{1},\ A^3=\threebythree{1}{3}{6}{0}{1}{3}{0}{0}{1},\ A^4=\threebythree{1}{4}{10}{0}{1}{4}{0}{0}{1}.$$
+    The numbers in the first row of $A$ are easy to characterize, one, $n$ itself, and the $n^{\text{th}}$ triangular number. The formula for $A^n$ must be 
+    $$A^n=\threebythree{1}{n}{\binom{n+1}{2}}{0}{1}{n}{0}{0}{1}.$$
+    With the matrices above we have the base case, so if we suppose that the formula is valid up to $n$, we would like to check it for $n+1$. In this case 
+    $$A^nA=\threebythree{1}{n+1}{\binom{n+1}{2}+(n+1)}{0}{1}{n+1}{0}{0}{1}$$
+    and since $\binom{n+1}{2}+(n+1)=\binom{n+2}{2}$, we have proven our result.
+    \item We can see that
+    $$AB=\twobytwo{17}{-4}{21}{-7}\To \det(AB)=-35.$$
+    And by themselves, $\det A=5$ and $\det B= -7$ so the formula holds. 
+\end{enumerate}
+\end{ptcbr}
+
+%\end{multicols}
+\end{document} 

@@ -302,6 +302,8 @@
 %% 3. Theorems and suchlike
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\ifx\nlang\undefined
+
 \theoremstyle{plain}
 \ifx \nextra \undefined
 \newtheorem{Th}{Teorema}[section]      %%% Theorem 1.1.1
@@ -342,6 +344,50 @@
 \newtheorem*{Notn}{Notaci\'on}        %% Notaciones
 \newtheorem*{Warn}{Advertencia}       %% Advertencias
 
+\else
+
+\theoremstyle{plain}
+\ifx \nextra \undefined
+\newtheorem{Th}{Theorem}[section]      %%% Theorem 1.1.1
+\newtheorem{Tmon}[Th]{Teoremón}
+\newtheorem{Prop}[Th]{Proposition}     %%% Proposition 1.1.2
+\newtheorem{Lem}[Th]{Lemma}             %%% Lemma 1.1.3
+\newtheorem{Cor}[Th]{Corollary}        %%% Corollary 1.1.4
+\else
+\newtheorem{Th}{Theorem}               %%% Theorem 1.1.1
+\newtheorem{Tmon}{Teoremón}
+\newtheorem{Prop}{Proposition}         %%% Proposition 1.1.2
+\newtheorem{Lem}{Lemma}                 %%% Lemma 3
+\newtheorem{Cor}{Corollary}            %%% Corollary 4
+\fi
+\newtheorem*{nonum-Th}{Theorem}        %%% No-numbered Theorem
+\newtheorem*{nonum-Cor}{Corollary}     %%% No-numbered Corollary
+
+\theoremstyle{definition}
+\ifx \nextra \undefined
+\newtheorem{Def}[Th]{Definition}       %%% Definition 1.1.5
+\newtheorem{Ex}[Th]{Example}           %%% Example 1.1.6
+\newtheorem{Ej}[Th]{Exercise}         %%% Exercise 1.1.7
+\else
+\newtheorem{Def}{Definition}           %%% Definition 5
+\newtheorem{Ex}{Example}               %%% Example 6
+\newtheorem{Ej}{Exercise}             %%% Exercise 7
+\fi
+\newtheorem{Hec}[Th]{Fact}            %%% Fact 1.1.8
+\newtheorem*{nonum-Def}{Definition}    %%% No number Definition
+\newtheorem*{nonum-Ex}{Example}        %%% No number Example
+\newtheorem*{nonum-Ej}{Exercise}      %%% No number Exercise
+\newtheorem*{nonum-Hec}{Fact}         %%% No number Fact
+
+
+\theoremstyle{remark}
+\newtheorem{Rmk}[Th]{Remark}      %%%Remark 1.1.9
+\newtheorem*{nonum-Rmk}{Remark}         %%% No number Fact
+\newtheorem*{Notn}{Notation}        %% Notaciones
+\newtheorem*{Warn}{Warning}       %% Warnings
+
+\fi 
+
 \numberwithin{equation}{section}
 
 \setlength{\parindent}{3ex}
@@ -359,6 +405,7 @@
 
 %%%%%%%%% === My T Color Box === %%%%%%%%%%%%%%
 
+\ifx\nlang\undefined
 \ifx \darktheme\undefined
 \newtcolorbox{ptcb}{
 colframe = black,
@@ -413,10 +460,61 @@ enhanced
 }
 \fi
 
-
-
-
-
+\else
+\ifx \darktheme\undefined
+\newtcolorbox{ptcb}{
+colframe = black,
+colback = white,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbp}{
+colframe = black,
+colback = white,
+coltitle = black,
+colbacktitle = black!40,
+title = Proof,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbr}{
+colframe = blue,
+colback = white,
+coltitle = blue,
+colbacktitle = blue!40,
+title = Answer,
+breakable,
+enhanced
+}
+\else
+\newtcolorbox{ptcb}{
+colframe = white,
+colback = dankBlue,
+colupper = white,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbp}{
+colframe = white,
+colback = dankBlue,
+colupper = white,
+coltitle = white,
+colbacktitle = dankBlueLite,
+title = Proof,
+breakable,
+enhanced
+}
+\newtcolorbox{ptcbr}{
+colframe = white,
+colback = white,
+coltitle = blue,
+colbacktitle = blue!40,
+title = Answer,
+breakable,
+enhanced
+}
+\fi
+\fi
 
 
 %%%%%%%%% === Listings === %%%%%%%%%%%%%%
