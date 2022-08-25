@@ -16,6 +16,7 @@
 \begin{Ej}
   Do the following:
   \begin{enumerate}[i)]
+    \itemsep=-0.4em
     \item Give a simple description of the closed sets in $\bA^1$ (with respect to the Zariski
     topology).
     \item Use your previous answer to prove that $\bA^1$ is not Hausdorff.
@@ -24,6 +25,7 @@
 
 \begin{ptcbr}
 \begin{enumerate}[i)]
+  \itemsep=-0.4em
     \item If we consider $\bA^1$ over an algebraically closed field $k$ of characteristic zero then every closed set is of the form $V(I)$ where $I\in\Spec(k[x])$. Since $k[x]$ is a PID, then $I=\gen(p)$ for a polynomial $p\in k[x]$. Then $V(I)$ would be the set of roots inside $k$ of $p$. Since $p$ is arbitrary, every closed set $V(I)$ of $\bA^1$ is a finite set.\par 
     This means that the open sets are the complement of the finite sets. In essence, the Zariski topology coincides with the cofinite topology over $\bA^1$.
     \item The cofinite topology is not Hausdorff, so it follows that the Zariski topology isn't Hausdorff as well.
@@ -35,6 +37,27 @@
   Show that the Zariski topology on $\bA^2$ is not the product topology on $\bA^1\x\bA^1$. (Hint: Consider the diagonal.)
 \end{Ej}
 
+%https://math.stackexchange.com/questions/3370037/product-of-non-hausdorff-spaces
+%https://proofwiki.org/wiki/Hausdorff_Space_iff_Diagonal_Set_on_Product_is_Closed
+%https://math.stackexchange.com/questions/1607060/show-that-the-zariski-topology-on-a2-is-not-the-product-topology-on-a1-tim
+
+\begin{ptcbr}
+Recall the following topological facts:
+\vspace{-0.4em}
+\begin{enumerate}[i)]
+  \itemsep=-0.4em
+  \item If $X,Y$ are not Hausdorff, it follows that $X\x Y$ is not Hausdorff.
+  \item $X$ is Hausdorff if and only if the diagonal set is closed.
+\end{enumerate}  
+To show that the Zariski topology and the product topology are different on $\bA^2$ we will show that the diagonal set $D$ in $\bA^2$ is closed. Then the argument is as follows:
+ $$ \left(D \text{ is closed in } \bA^2 \text{ with }\cZ_2\right)
+ \land\ \left(D \text{ is open in } \bA^2 \text{ with }\cZ_1\x\cZ_1\right)
+ \To \cZ_2\neq\cZ_1\x\cZ_1.$$
+ To show that $D$ is closed in $\bA^2$, we can see that it is the zero locus for the polynomial $x-y$. This is $D=V(x-y)$.\par 
+ On the other hand, the product topology $\cZ_1\x\cZ_1$ is not Hausdorff since $\cZ_1$ is not Hausdorff. Therefore $D$ is open in $\cZ_1\x\cZ_1$.\par 
+ We conclude that both topologies are different on $\bA^2$.
+\end{ptcbr}
+
 \begin{Ej}
   Let $F:V\to W$ be a morphism of affine algebraic varieties.
  Prove that $F$ is continuous in the Zariski topology. 
@@ -44,7 +67,12 @@
   Suppose $\cZ$ is the Zariski topology. Recall that
   $$F \text{ is continuous}\iff \forall U\in\cZ(F^{-1}[U\less W]\not\in\cZ).$$
   This means that $F$ sends closed sets back to closed sets. Since a morphism is a vector of polynomials we can easily check this result.\par 
-  Consider an arbitrary closed set $V_0\subseteq W$. Then there exists an ideal $I\rteq k[\vec{x}]$ such that $V_0=V(I)$.
+  Consider an arbitrary closed set $V_0\subseteq W$. Then there exists an ideal $I\rteq k[\vec{x}]$ such that $V_0=V(I)$. Now consider the following observation
+  $$\vec x\in V(I)\iff \forall p\in I(p(\vec x)=0)\iff\forall p\in I(\vec x\in V(p))\iff \vec x\in \bigcap_{p\in I}V(p).$$
+  Since the inverse image behaves well with intersections, it suffices to prove that for any polynomial $p$, $F^{-1}[V(p)]$ is also a closed set.\par 
+  By definition 
+  $$F^{-1}[V(p)]=\set{\vec x\in V:F(\vec x)\in V(p)},\ F(\vec x)\in V(p)\iff p(F(\vec x))=0.$$
+  This means that this set is precisely $V(p\circ F)$ and therefore is a closed set. Since $p$ was arbitrary, it holds for any closed set. Therefore $F$ is continuous in the Zariski topology.
 \end{ptcbr}
 
 \begin{Ej}
@@ -53,7 +81,14 @@
 
 \begin{Ej}
  Show that if $F:X\to Y$ is a surjective morphism of affine
- algebraic varieties, then the dimension of$ X $is at least as large as the dimension of $Y$. 
+ algebraic varieties, then the dimension of $ X $ is at least as large as the dimension of $Y$. 
 \end{Ej}
+%https://proofwiki.org/wiki/Surjection_iff_Right_Inverse
+
+\begin{ptcbr}
+  Recall that the dimension of an algebraic variety is the length of the longest chain of irreducible proper subvarieties. This is:
+  $$\dim X=\max_{n}\set{X\supsetneq V_n\supsetneq V_{n-1}\supsetneq\dots\supsetneq V_0=\set{\vec{x}_0}}.$$
+
+\end{ptcbr}
 %\end{multicols}
 \end{document} 
