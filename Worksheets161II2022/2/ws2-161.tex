@@ -202,6 +202,171 @@ enhanced
 \begin{document}
 \begin{multicols}{2}
 \section*{Trigonometric Substitution}
+We have seen integrals of the type
+$$
+\int x\sqrt{1-x^2}\dd x,\ \int\frac{x}{\sqrt{1-x^2}}\dd x
+$$
+which we are able to solve by direct $u$-substitution. In both, by taking $u=1-x^2$, we obtain the following integrals
+$$
+\int \sqrt{u}\left(\frac{-\dd u}{2}\right),\ \int\frac{-\dd u}{2\sqrt{u}}.
+$$
+However now we are going to face integrals like 
+$$\int\frac{\sqrt{1-x^2}}{x}\dd x.$$
+The typical $u$-sub, $u=1-x^2$ doesn't work here, this integral becomes 
+$$\int\frac{\sqrt{u}}{\sqrt{1-u}}\left(\frac{\dd u}{-2\sqrt{1-u}}\right)=-\frac{1}{2}\int\frac{\sqrt{u}}{1-u}\dd u.$$
+We will need a new technique to work this type of integrals out.
+\subsection*{Sine substitution}
+For now, let's take $x=\sin(\te)$ without worrying too much from where that came from.
 
+\begin{Ex} 
+The integral $\int\frac{\sqrt{1-x^2}}{x}\dd x$ can be found using the substitution $x=\sin(\te)$.\par 
+In this case $\dd x=\cos(\te)\dd\te$ after differentiating and so the integral becomes 
+$$\int\frac{\sqrt{1-\sin^2(\te)}}{\sin(\te)}(\cos(\te)\dd\te).$$
+By applying the Pythagorean identity we can simplify the square root:
+$$\sin^2(\te)+\cos^2(\te)=1\To\cos^2(\te)=1-\sin^2(\te).$$
+After taking this back into the integral we obtain
+$$\int\frac{\sqrt{\cos^2(\te)}}{\sin(\te)}(\cos(\te)\dd\te)=\int \frac{\cos^2(\te)}{\sin(\te)}\dd\te$$
+and by using the Pythagorean identity once more and changing the cosine to a sine we get 
+$$\frac{\cos^2(\te)}{\sin(\te)}=\frac{1-\sin^2(\te)}{\sin(\te)}=\frac{1}{\sin(\te)}-\sin(\te)=\csc(\te)-\sin(\te).$$
+By linearity the integral separates into 
+$$\int\csc(\te)\dd\te-\int\sin(\te)\dd\te=\un{-\log[\csc(\te)+\cot(\te)]+\cos(\te)}.$$
+The integral is not completely done at this point because we need to substitute back in our $x=\sin(\te)$ which would become a $\te=\arcsin(x)$. But \emph{for now} we will be satisfied.
+\end{Ex}
+
+\begin{Ex}
+  Consider the following integral
+  $$\int\frac{\dd x}{x^4\sqrt{4-x^2}}.$$
+  Since we are thinking in terms of a sine substitution we can take $x=\sin(\te)$ once more, however that would turn our root into a 
+  $4-\sin^2(\te)$ and \textbf{there's no identity for that expression}.\par
+  We want that to become a $\cos^2(\te)$ in some way so if we multiply our sine like this\dots
+  $$x=2\sin(\te)\To x^2=4\sin^2(\te)\To 4-x^2=4-4\sin^2(\te)$$
+  then we can factor out the $4$ and work the integral as before!\par 
+  Let us take the substitution
+  $$x=2\sin(\te)\To\dd x=2\cos(\te)\dd\te$$
+  and replacing inside the integral we obtain 
+  \begin{align*}
+    \int\frac{\dd x}{x^4\sqrt{4-x^2}}&=\int\frac{2\cos(\te)\dd\te}{(2\sin(\te))^4\sqrt{4-4\sin^2(\te)}}\\
+    &=\int\frac{2\cos(\te)\dd\te}{16\sin^4(\te)\sqrt{4\cos^2(\te)}}\\
+    &=\frac{1}{16}\int\csc^4(\te)\dd\te
+  \end{align*}
+This type of integral can be solved by separating the cosecant and using a trigonometric identity. Recall from the Pythagorean identity:
+$$\sin^2(\te)+\cos^2(\te)=1\To 1+\cot^2(\te)=\csc^2(\te).$$
+Then separating the cosecant into two squares we get:
+\begin{align*}
+  \frac{1}{16}\int\csc^4(\te)\dd\te&=\frac{1}{16}\int\csc^2(\te)\csc^2(\te)\dd\te\\
+  &=\frac{1}{16}\int(1+\cot^2(\te))\csc^2(\te)\dd\te\\
+  (\substack{u=\cot(\te)\\ \dd u=-\csc^2(\te)\dd\te})&=\frac{-1}{16}\int 1+u^2\dd u\\
+  &=\frac{1}{16}\left(u+\frac{1}{3}u^3\right)\\
+  &=\un{\frac{1}{16}\cot(\te)+\frac{1}{48}\cot^3(\te)}
+\end{align*}
+\end{Ex}
+
+\begin{Prop}
+Integrals with quadratic expressions inside of radicals such as \un{$\sqrt{a^2-b^2x^2}$} will be worked using the substitution \un{$x=\frac{a}{b}\sin(x)$}.
+\end{Prop}
+
+\begin{ptcbP}
+Consider the following integral:
+$$\int e^x\sqrt{1-9e^{2x}}\dd x.$$
+\begin{enumerate}[i)]
+  \itemsep=-0.4em
+  \item Transform this integral by using a $u$-substitution into another one that could be done with a trigonometric substitution.
+  \item Which of the following substitutions would lead to a correct answer? $u=3\sin(\te)$, $u=\sin(3\te)$ or $u=(1/3)\sin(\te)$. Discuss with your group members!
+\end{enumerate}
+\end{ptcbP}
+
+\subsection*{Tangent Substitution}
+
+When we have radicals involving an expression similar to $\sqrt{1+x^2}$ we will instead take $x=\tan(\te)$.
+\begin{Rmk}
+Notice the difference in the sign between the sine subs and the tangent subs. With sine it's a minus, and with tangent, a plus!
+\end{Rmk}
+\begin{Ex}
+  Consider the following integral
+  $$\int x^3\sqrt{1+x^2}\dd x.$$
+  The expression should remind us of the Pythagorean identity in another way. We have that 
+  $$\sin^2(\te)+\cos^2(\te)=1\To \tan^2(\te)+1=\sec^2(\te).$$
+  Let us substitute then 
+  $$x=\tan(\te)\To\dd x=\dd(\tan(\te))=\sec^2(\te)\dd\te.$$
+  Replacing this into the integral we obtain
+  $$\int(\tan(\te))^3\sqrt{1+\tan^2(\te)}(\sec^2(\te)\dd\te)=\int\tan^3(\te)\sec^3(\te)\dd\te.$$
+  This trigonometric integral can be done by using the Pythagorean identity and separating the cubes into smaller powers:
+  \begin{align*}
+    \tan^3(\te)\sec^3(\te)&=\tan^2(\te)\sec^2(\te)(\tan(\te)\sec(\te))\\
+    &=(\sec^2(\te)-1)\sec^2(\te)(\tan(\te)\sec(\te))\\
+    &=(\sec^4(\te)-\sec^2(\te))(\sec(\te)\tan(\te)).
+  \end{align*}
+  This is now the argument of our integral. We have an expression involving the secant and it's derivative so we will take:
+  $$u=\sec(\te)\To\dd u=\dd(\sec(\te))=(\sec(\te)\tan(\te))\dd\te.$$
+  Our integral finally becomes 
+  $$\int(u^4-u^2)\dd u=\un{\frac{\sec^5(\te)}{5}-\frac{\sec^3(\te)}{3}}$$
+\end{Ex}
+
+\begin{Prop}
+  Integrals with quadratic expressions inside of radicals such as \un{$\sqrt{a^2+b^2x^2}$} will be worked using the substitution \un{$x=\frac{a}{b}\tan(x)$}.
+\end{Prop}
+
+\begin{ptcbP}
+  Consider the integral 
+  $$\int e^{4x}\sqrt{1+e^{2x}}\dd x.$$
+  \begin{enumerate}
+   \itemsep=-0.4em
+   \item Would the substitution $u=e^{2x}$ transform this into a trigonometric integral?
+   \item What if we took $e^x=\tan(\te)$ at once? Can the integral be solved?
+   \item Compare with your group members either approach, first a $u$-sub and then a trig. one and the direct substitution $e^x=\tan(\te)$.
+  \end{enumerate}
+\end{ptcbP}
+
+\subsection*{Secant Substitution}
+
+The secant substitution comes into play with radicals of the form 
+$$\sqrt{x^2-1}\To x=\sec(\te)$$
+because of the identity $\tan^2(\te)=\sec^2(\te)-1$. When taking the secant inside, the root becomes a root of $\tan^2$.
+
+\begin{Ex}
+  Consider the integral 
+  $$\int\frac{\dd x}{\sqrt{x^2-2x-3}}.$$
+  This polynomial inside the radical can be simplified by completing the square:
+  \begin{align*}
+    x^2-2x-3=x^2-2x(+1-1)-3&=(x^2-2x+1)-1-3\\
+    &=(x-1)^2-4.
+  \end{align*}
+  Even if we have that $-1$ we will take the whole of it to become our secant:
+  \begin{align*}
+    x-1=2\sec(\te)&\To \dd(x-1)=\dd(2\sec(\te))\\
+    &\To\dd x=2\sec(\te)\tan(\te)\dd\te.
+  \end{align*}
+  Thus replacing in the integral we get 
+  \begin{align*}
+    \int\frac{\dd x}{\sqrt{(x-1)^2-4}}&=\int\frac{2\sec(\te)\tan(\te)}{\sqrt{(2\sec(\te))^2-4}}\dd\te\\
+    &=\int\frac{2\sec(\te)\tan(\te)}{\sqrt{4\tan^2(\te)}}\dd\te\\
+    &=\int\frac{2\sec(\te)\tan(\te)}{2\tan(\te)}\dd\te\\
+    &=\int\sec(\te)\dd\te=\un{\log(\sec(\te)+\tan(\te))}
+  \end{align*}
+\end{Ex}
+
+\begin{Prop}
+  We have the following summary
+  \vspace*{-0.5em}
+  \begin{itemize}
+    \itemsep=-0.2em
+    \item $\sqrt{a^2-b^2x^2}$ reminds us of $1-\sin^2(\te)=\cos^2(\te)$ so we take $x=\sin(\te)\To\dd x=\cos(\te)\dd\te$.
+    \item $\sqrt{a^2+b^2x^2}$ reminds us of $1+\tan^2(\te)=\sec^2(\te)$ so we take $x=\tan(\te)\To\dd x=\sec^2(\te)\dd\te$.
+    \item $\sqrt{b^2x^2-a^2}$ reminds us of $\sec^2(\te)-1=\tan^2(\te)$ so we take $x=\sec(\te)\To\dd x=\sec(\te)\tan(\te)\dd\te$.
+  \end{itemize}
+\end{Prop}
+
+\begin{Ej}
+Compute the following integrals, in some of them, it will be necessary to complete the square:
+\vspace*{-0.4em}
+\begin{enumerate}[i)]
+  \itemsep=-0.2em
+  \item $\displaystyle\int\frac{x}{\sqrt{x^2-4x}}\dd x$
+  \item $\displaystyle\int\sqrt{4x^2+4x+2}\dd x$
+  \item $\displaystyle\int\frac{x^3}{\sqrt{16-9x^2}}\dd x$
+\end{enumerate}
+Is there an easier way to compute the last integral? Discuss with your group members to know each other's approach.
+\end{Ej}
+\vfill\null
 \end{multicols}
 \end{document} 
