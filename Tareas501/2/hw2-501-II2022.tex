@@ -37,7 +37,7 @@ $$f:A\x(B\cupdot C)\to (A\x B)\cupdot(A\x C),\ (a,(x,n))\mapsto ((a,x),n)$$
 can be proven to be well-defined, injective and surjective. It is therefore bijective and its inverse is the function that follows the rule $((a,x),n)\mapsto (a,(x,n))$.\par 
 Since we have found the bijection in question, it follows that both sets have the same cardinalities and thus the quantities in question are equal.
 \end{ptcbr}
-
+\newpage
 \begin{Ej}[Exercise 2]
 Prove the binomial theorem using a combinatorial argument as follows.
 \begin{enumerate}[i)]
@@ -60,9 +60,53 @@ Prove the binomial theorem using a combinatorial argument as follows.
         %Consider finite sets $S,T$ with cardinalities $s,t$ respectively. The quantity $s+t$ is the cardinality of the set $S\cupdot T$ which can be realized as $(S\x\set{0})\cup(T\x\set{1})$. Now the $n^{\text{th}}$ power of that quantity counts the number of elements in the $n$-fold cartesian product of $S\cupdot T$.\par 
         %We can expand the sum of the equality to begin analyzing the sets
         %$$\binom{n}{0}t^n+\binom{n}{1}st^{n-1}+\dots+\binom{n}{n-1}s^{n-1}t+\binom{n}{n}s^n.$$
-        Consider finite sets $S,T$ with cardinalities $s,t$ respectively. The quantity $(s+t)^n$ counts the number of 
+        Consider a string\footnote{A password, for example} of length $n$, an alphabet $S$ with $s$ characters, and an alphabet $T$ with length $t$.\footnote{The idea to count strings came from \textbf{yourself}, but when you told me I only thought about strings with $0$'s and $1$'s. I asked \textbf{Kyle} about the strings and so he recommended using more than two characters, and that the terms in the sum were the ways to separate the string in two parts.}\par 
+        The quantity $(s+t)^n$ counts the number of strings of length $n$ that we can build with our alphabets $S$ and $T$. We can count this amount in another way.\par 
+        Suppose that $k\leq n$ is fixed, we can break up the string in two parts: the $k$ spots where we put a character from alphabet $S$ and the $n-k$ spots where we put a character from alphabet $T$. There's $s^k$ ways to pick a character from alphabet $S$ and $t^{n-k}$ ways to take a character from $T$. So in total there's $s^kt^{n-k}$ ways to construct a string with such a restriction.\par 
+        However, the $k$ spots are indifferent to the placement of the characters, we can \emph{choose} our $k$ spots in $\binom{n}{k}$ ways. So there are $\binom{n}{k}s^kt^{n-k}$ ways to construct a length $n$ string with $k$ characters from alphabet $S$ and the rest from $T$. Summing up all over $k$ gives us the desired result.
+        \item Consider the polynomial $p$ and $q$. Suppose $s\in\bN$, then replacing $t=1$ in our binomial formula we obtain $p(s)=q(s)$ for every $s\in\bN$.\par 
+        This means that the polynomial $q-p$ has infinitely many zeros, so it must be identically zero. Therefore $p=q$ as polynomials.
+        \item Since $p=q$ we have that 
+        \begin{align*}
+            p\left(\frac{x}{y}\right)=q\left(\frac{x}{y}\right)&\To \left(\frac{x}{y}+1\right)^n=\sum_{k=0}^n\binom{n}{k}\left(\frac{x}{y}\right)^k\\
+            &\To {y^n}\left(\frac{x}{y}+1\right)^n={y^n}\sum_{k=0}^n\binom{n}{k}\left(\frac{x}{y}\right)^k\\
+            &\To(x+y)^n=\sum_{k=0}^n\binom{n}{k}x^k\frac{y^n}{y^k}=\sum_{k=0}^n\binom{n}{k}x^ky^{n-k}
+        \end{align*}
     \end{enumerate}
 \end{ptcbr}
 
+\begin{Ej}[Exercise 3, Stanley 1.3.e]
+    Give a combinatorial proof of the identity $2\binom{2n-1}{n}=\binom{2n}{n}$.
+\end{Ej}
+%https://math.stackexchange.com/questions/528927/help-finding-a-combinatorial-proof-of-k-n-choose-k-n-n-1-choose-k-1
+\begin{ptcbr}
+    The quantity $\binom{2n}{n}$ counts the number of committees of length $n$ which can be formed from a group of $2n$ people. From our select group we can choose one president in $\binom{n}{1}=n$ ways. So the amount of ways we can choose a committee with a president is $n\binom{2n}{n}$.\par 
+    We can also choose the president first, and then select the rest of the committee members. This is done as follows:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item There are $\binom{2n}{1}=2n$ ways to choose the president from the whole group of people without the restriction of being in the committee first.
+        \item With the president out, there are $\binom{2n-1}{n-1}$ ways to pick the rest of the committee's members.
+    \end{itemize}
+    In total there would be $2n\binom{2n-1}{n-1}$ ways to form a committee with a president.\par 
+    Since both quantities count the same thing it follows that 
+    $$n\binom{2n}{n}=2n\binom{2n-1}{n-1}\To\binom{2n}{n}=2\binom{2n-1}{n-1}$$
+    and by symmetry of the binomial coefficient we get 
+    $$\binom{2n}{n}=2\binom{2n-1}{n}.$$
+\end{ptcbr}
 
+\begin{Ej}[Exercise 5, Stanley 1.13]
+    Let $p$ be a prime and $a\in\bN$. Show \emph{combinatorially} that $p\mid a^p-a$.\footnote{This is Fermat's Little Theorem.}
+\end{Ej}
+
+\begin{ptcbr}
+    Consider an alphabet $A$ with $a$ characters and a string of length $p$. We can construct $a^p$ possible strings. However, there are $a$ very special strings\footnote{Very unsafe passwords.} which are the strings which only contain one character from our alphabet. This means we have $a^p-a$ strings which contain two or more different characters.\par 
+    Let's now wrap around this strings to form \emph{necklaces}. We will say two strings are equivalent if any rotation of the necklace formed by the first string gives us the necklace formed by the second string. This is an equivalence relation:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Every string is equivalent to itself by the identity rotation.
+        \item Rotating has an inverse operation which makes the relation symmetric.
+        \item And the composition of rotations guarantees that the relation is transitive.
+    \end{itemize}
+    The set of strings is therefore partitioned into a certain number\footnote{Which is, of course, an integer} of equivalence classes with $p$ equivalent necklaces each. It follows that $p\mid a^p-a$.
+\end{ptcbr}
 \end{document} 
