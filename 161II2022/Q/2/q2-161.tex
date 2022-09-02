@@ -27,8 +27,8 @@
 \ifx \darktheme\undefined
 
 \lhead{Math161S1} % Nombre de autor
-\chead{\textbf{Quiz 2}} % Titulo
-\rhead{Name:\hspace{5cm}}%\firstxmark} 
+\chead{\textbf{Quiz 2 - Solutions}} % Titulo
+\rhead{Name: Solutions}%\firstxmark} 
 \lfoot{}%\lastxmark}
 \cfoot{}
 \rfoot{Page \thepage\ of\ \pageref{LastPage}} %A la derecha saldrá pág. 6 de 9. 
@@ -207,7 +207,7 @@ enhanced
 \end{Ej}
 
 \begin{ptcb}
-  \vspace*{2cm}
+  \textbf{LI(A/P)TE} is an acronym which means Logarithm, Inverse (trigonometric), Algebraic/Polynomial (function), Trigonometric, Exponential. It determines the order of precedence for which function to differentiate when using integration by parts.
   \end{ptcb}
 
   \begin{Ej}
@@ -216,7 +216,9 @@ enhanced
   
   
   \begin{ptcb}
-    \vspace*{2cm}
+    Any integral of the form $\int\log(x)\dd x$, $\int\arcsin(x)\dd x$, $\int\arctan(x)\dd x$ is a valid answer. Also the integral $\int\log^2(x)\dd x$, the third question of this quiz, is a valid answer.\par 
+    Answers such as $\int xe^x\dd x$, $\int x\sin(x)\dd x$ are not, because you have to take $\dd v=x\dd x$, for example.\par 
+    There are some edge cases where another integral will be accepted as an answer.
     \end{ptcb}
   
     \begin{Ej}
@@ -225,7 +227,16 @@ Find an antiderivative for the function $\log^2(x)$ using integration by parts.
     
     
     \begin{ptcb}
-      \vspace*{5.5cm}
+      By integration by parts:
+      $$
+      \left\lbrace
+      \begin{aligned}
+        &u=\log^2(x)\To\dd u=\frac{2\log(x)}{x}\dd x\\
+        &\dd v=\dd x\To v=x
+      \end{aligned}
+      \right.
+      \To I=x\log^2(x)-\int 2\log(x)\dd x=\un{x\log^2(x)-2x\log(x)+2x}
+      $$
       \end{ptcb}
     
       
@@ -235,7 +246,39 @@ Find an antiderivative for the function $\log^2(x)$ using integration by parts.
           
           
           \begin{ptcb}
-            \vspace*{5.5cm}
+            By integration by parts:
+            $$
+            \left\lbrace
+            \begin{aligned}
+              &u=\log^3(x)\To\dd u=\frac{3\log^2(x)}{x}\dd x\\
+              &\dd v=\frac{1}{x^3}\dd x\To v=\frac{-1}{2x^2}
+            \end{aligned}
+            \right.
+            \To I=\frac{-\log^3(x)}{2x^2}-\int \frac{-3\log^2(x)}{2x^3}\dd x=\frac{-\log^3(x)}{2x^2}+\frac{3}{2}I_2
+            $$
+            Applying parts to $I_2$ we get
+            $$
+            \left\lbrace
+            \begin{aligned}
+              &u_2=\log^2(x)\To\dd u_2=\frac{2\log(x)}{x}\dd x\\
+              &\dd v_2=\frac{1}{x^3}\dd x\To v_2=\frac{-1}{2x^2}
+            \end{aligned}
+            \right.
+            \To I_2=\frac{-\log^2(x)}{2x^2}-\int \frac{-\log(x)}{x^3}\dd x=-\frac{\log^2(x)}{2x^2}+I_3
+            $$
+            Once again we take
+            $$
+            \left\lbrace
+            \begin{aligned}
+              &u_3=\log(x)\To\dd u_3=\frac{1}{x}\dd x\\
+              &\dd v_3=\frac{1}{x^3}\dd x\To v_3=\frac{-1}{2x^2}
+            \end{aligned}
+            \right.
+            \To I_3=\frac{-\log(x)}{2x^2}-\int \frac{-1}{2x^3}\dd x=-\frac{\log(x)}{2x^2}+\frac{1}{2}\left(\frac{-1}{2x^2}\right)
+            $$
+            And collecting terms we get
+            $$I=\frac{-\log^3(x)}{2x^2}+\frac{3}{2}\left\lbrack-\frac{\log^2(x)}{2x^2}+\left(-\frac{\log(x)}{2x^2}+\frac{1}{2}\left(\frac{-1}{2x^2}\right)\right)\right\rbrack=\un{\frac{-\log^3(x)}{2x^2}-\frac{3\log^2(x)}{4x^2}-\frac{3\log(x)}{4x^2}-\frac{3}{8x^2}}$$
             \end{ptcb}
+
 %\end{multicols}
 \end{document} 
