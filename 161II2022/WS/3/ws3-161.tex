@@ -211,8 +211,7 @@ $$\frac{1}{(x-5)(x-4)}=\frac{A}{x-5}+\frac{B}{x-4},$$
 where $A,B$ are constants. To find these constants we multiply both side of the equation by the original denominator $(x-5)(x-4)$:
 \begin{align*}
   1=\frac{(x-5)(x-4)}{(x-5)(x-4)}&=\frac{A(x-5)(x-4)}{x-5}+\frac{B(x-5)(x-4)}{x-4}\\
-  &=A(x-4)+B(x-5) \\
-  \To 1&=A(x-4)+B(x-5).
+  &=A(x-4)+B(x-5).
 \end{align*}
 Expanding the expression in the right we obtain the equality
 $$1=Ax-4A+Bx-5B\To 1=(A+B)x+(-4A-5B)$$
@@ -223,10 +222,16 @@ $$
   &1=-4A-5B\\
   &0=A+B
 \end{aligned}
+\right.\To
+\left\lbrace
+\begin{aligned}
+  &1=-4A-5B\\
+  &B=-A
+\end{aligned}
 \right.
 $$
-The second equation tells us that $B=-A$ and therefore we can replace that in the first equation
-$$1=-4A-5(-A)\To1=A\To B=-1.$$
+We can replace the second equation into the first one
+$$1=-4A-5(-A)\To\un{1=A}\To \un{B=-1}.$$
 Thus it follows that 
 $$\frac{1}{(x-5)(x-4)}=\frac{(1)}{x-5}+\frac{(-1)}{x-4},$$
 and we can separate this expression using linearity of the integral:
@@ -240,7 +245,203 @@ and we can separate this expression using linearity of the integral:
 We will not always find ourselves with a factored polynomial. Consider the following example:
 
 \begin{Ex}
-  Compute the integral of $\frac{x+1}{(x-1)(x-2)}$.
+To compute the integral of $\frac{x+1}{(x-1)(x-2)}$ we will once again separate into partial fractions. Since the factors of the denominator are linear, we will separate into two fractions:
+\begin{align*}
+  &\frac{x+1}{(x-1)(x-2)}=\frac{A}{x-1}+\frac{B}{x-2}\\
+  \To&x+1=A(x-2)+B(x-1)\\
+  \To&x+1=(A+B)x+(-2A-B).
+\end{align*}
+This time the linear coefficient on the left hand side is \textbf{not zero}. Anyways equating coefficients is analogous
+$$
+\left\lbrace
+\begin{aligned}
+  &1=-2A-B\\
+  &1=A+B
+\end{aligned}
+\right.\To
+\left\lbrace
+\begin{aligned}
+  &1=-2A-B\\
+  &B=1-A
+\end{aligned}
+\right.\To
+1=-2A-(1-A)
+$$
+We solve to obtain $\un{A=-2}$ and $\un{B=3}$.\par 
+Replacing in the partial fraction decomposition we obtain 
+$$\frac{x+1}{(x-1)(x-2)}=\frac{(-2)}{x-1}+\frac{(3)}{x-2}.$$
+As we did before we can separate the integral by linearity
+\begin{align*}
+  \int\frac{x+1}{(x-1)(x-2)}\dd x&=\int\left(\frac{-2}{x-1}+\frac{3}{x-2}\right)\dd x\\
+  &=\int\frac{-2}{x-1}\dd x+\int\frac{3}{x-2}\dd x\\
+  &=\un{-2\log(x-1)+3\log(x-2)}
+\end{align*}
 \end{Ex}
+
+It can also occur that the polynomial in denominator is not factored. In that case, we have to factor and then decompose into partial fractions.
+
+\begin{Ex}
+Consider the rational function 
+$$f(x)=\frac{3x^2+2x+1}{x^3-6x^2+11x-6}$$ 
+To separate, we have to factor the denominator into irreducibles and so we use the rational roots theorem. \par
+The rational roots of the denominator are in the set 
+  $$R=\set{\pm 1,\pm 2,\pm 3},$$
+  and after trying $x=1$ we see that it is indeed a root. Thus 
+  \begin{align*}
+    x^3-6x^2+11x-6&=(x-1)(x^2-5x+6)\\
+    &=(x-1)(x-2)(x-3)
+  \end{align*}
+  We can now separate into partial fractions
+  \begin{align*}
+    &\frac{3x^2+2x+1}{(x-1)(x-2)(x-3)}=\frac{A}{x-1}+\frac{B}{x-2}+\frac{C}{x-3}.
+  \end{align*}
+  Cross multiplying the right hand side results in 
+  \begin{gather*}
+    A(x-2)(x-3)+B(x-1)(x-3)+C(x-1)(x-2)\\
+    =(A+B+C)x^2+(-5A-4B-3C)x+(6A+3B+2C)
+  \end{gather*}
+  We can now collect coefficients and mount our system of equations 
+  $$
+\left\lbrace
+\begin{aligned}
+  &3=A+B+C\\
+  &2=-5A-4B-3C\\
+  &1=6A+3B+2C
+\end{aligned}
+\right.\To
+\left\lbrace
+\begin{aligned}
+  &A=3\\
+  &B=-17\\
+  &C=17
+\end{aligned}
+\right.
+$$
+We can now separate into our partial fractions to obtain 
+$$\int f(x)\dd x=\un{3\log(x-1)-17\log(x-2)+17\log(x-3)}.$$
+\end{Ex}
+\newpage
+\subsection*{Higher Degrees and Repeated Roots}
+Let us summarize the terms in the partial fraction decomposition according the possible cases:\par
+\begin{ptcb}
+\begin{center}
+  \begin{tabular}{l|l}
+    \vspace*{1mm}Denominator & Partial Fraction Decomposition \\
+    \vspace*{1mm}
+    $ax+b$ & $\displaystyle\frac{A}{ax+b}$ \\
+    \vspace*{1mm}
+    $(ax+b)^n$ & $\displaystyle\frac{A_1}{ax+b}+\frac{A_2}{(ax+b)^2}+\dots+\frac{A_n}{(ax+b)^n}$ \\
+    \vspace*{1mm}
+    $ax^2+bx+c$&  $\displaystyle\frac{Ax+B}{ax^2+bx+c}$ \\
+    \vspace*{1mm}
+    $(ax^2+bx+c)^n$&  $\displaystyle\frac{A_1x+B_1}{ax^2+bx+c}+\dots+\frac{A_nx+B_n}{(ax^2+bx+c)^n}$
+    \end{tabular}
+\end{center}
+\end{ptcb}
+  \begin{Ex}
+    Let us decompose $f(x)=\frac{x^2-4x+12}{(x-2)^2(x-4)}$.
+    $$\frac{x^2-4x+12}{(x-2)^2(x-4)}=\frac{A}{x-2}+\frac{B}{(x-2)^2}+\frac{C}{x-4}$$
+    according to our table since we have a repeated root. 
+    Collecting terms on the right hand side we get the expression
+    \begin{align*}
+      &A(x-2)(x-4)+B(x-4)+C(x-2)^2\\
+      =&(A+C)x^2+(-6A+B-4C)x+(8A-4B+4C)
+    \end{align*}
+    Equating coefficients we get the system 
+    $$
+\left\lbrace
+\begin{aligned}
+  &1=A+C\\
+  &-4=-6A+B-4C\\
+  &12=8A-4B+4C
+\end{aligned}
+\right.\To
+\left\lbrace
+\begin{aligned}
+  &A=-2\\
+  &B=4\\
+  &C=3
+\end{aligned}
+\right.
+$$
+Thus it follows that 
+$$\frac{x^2-4x+12}{(x-2)^2(x-4)}=\frac{-2}{x-2}+\frac{4}{(x-2)^2}+\frac{3}{x-4}.$$
+If we wanted to integrate $f$, we could use the linearity on the integral to get 
+$$\int f(x)\dd x=\un{-2\log(x-2)+\frac{4}{x-2}+3\log(x-4)}.$$
+  \end{Ex}
+In case we have an irreducible quadratic, it's necessary to separate according to the $3^{\text{rd}}$ and $4^{\text{th}}$ rows of the table.
+\begin{Ex}
+  Let $f(x)=\frac{5x^3+x^2-x+7}{(x-2)(x^2+x+1)^2}$, we decompose into partial fractions:
+  $$f(x)=\frac{A}{x-2}+\frac{Bx+C}{x^2+x+1}+\frac{Dx+E}{(x^2+x+1)^2}.$$
+  Multiplying by $(x-2)(x^2+x+1)^2$ we get the expression
+  \vspace*{-0.9em}
+  \begin{center}
+    \resizebox{0.91\hsize}{!}{
+      $A(x^2+x+1)^2+(Bx+C)(x-2)(x^2+x+1)+(Dx+E)(x-2)$   
+            }
+  \end{center}
+  \vspace*{-0.9em}
+ After expanding and collecting in terms of $x$ we obtain
+ $$
+ \left\lbrace
+ \begin{aligned}
+   &0=A+B\\
+   &5=2A-B+C\\
+   &1=3A-B-C+D\\
+   &-1=2A-2B-C-2D+E\\
+   &7=A-2C-2E
+ \end{aligned}
+ \right.\To
+ \left\lbrace
+ \begin{aligned}
+   &A=1\\
+   &B=-1\\
+   &C=2\\
+   &D=-1\\
+   &E=-5
+ \end{aligned}
+ \right.
+ $$
+ This means that 
+ $$f(x)=\frac{1}{x-2}+\frac{-x+2}{x^2+x+1}+\frac{-x-5}{(x^2+x+1)^2}.$$
+ Let us integrate the quadratic fractions:
+ \begin{align*}
+  \int\frac{-x+2}{x^2+x+1}\dd x&=\int\frac{-2x+4\textbf{-5+5}}{2(x^2+x+1)}\dd x\\
+  &=-\frac{1}{2}\int\frac{2x+1}{x^2+x+1}\dd x+\frac{5}{2}\int\frac{\dd x}{x^2+x+1}\\
+  &=\un{-\frac{1}{2}\log(x^2+x+1)+\frac{5}{\sqrt{3}}\arctan\left(\frac{2x+1}{\sqrt{3}}\right)}
+ \end{align*}
+ We deal with other one in a similar manner
+ \vspace*{0.2em}
+ \begin{align*}
+  \int\frac{-x-5}{(x^2+x+1)^2}\dd x&=\int\frac{-2x-10\textbf{+9-9}}{2(x^2+x+1)^2}\dd x\\
+  &=\frac{1}{2}\int\frac{-(2x+1)}{(x^2+x+1)^2}\dd x-\frac{9}{2}\int\frac{\dd x}{(x^2+x+1)^2}\\
+  &=\un{-\frac{1}{2(x^2+x+1)}}-\frac{9}{2}I.
+ \end{align*}
+ \vspace*{0.2em}
+ For the last integral $I$ we shall complete the square
+ $$x^2+x+1=x^2+x+\frac{1}{4}+\frac{3}{4}=\left(x+\frac{1}{2}\right)^2+\frac{3}{4}.$$
+ With the trigonometric substitution $x+\frac{1}{2}=\frac{\sqrt{3}}{2}\tan(\te)$ we can simplify the integral into  \begin{align*}
+  I&=\int\frac{(\sqrt{3}/2)\sec^2(\te)\dd\te}{(9/16)\sec^4(\te)}=\frac{8\sqrt{3}}{9}\int\cos^2(\te)\dd\te\\
+  &=\frac{8\sqrt{3}}{9}\int\left(\frac{1+\cos(2\te)}{2}\right)\dd\te=\frac{8\sqrt{3}}{9}\left(\frac{\te}{2}+\frac{\sin(2\te)}{4}\right)\\
+  &=\un{\frac{4\sqrt{3}}{9}\arctan\left(\frac{2x+1}{\sqrt{3}}\right)+\frac{2x+1}{3(x^2+x+1)}}
+ \end{align*}
+ The result of this integral is the collected sum of all the underlined terms.
+\end{Ex}
+\begin{Ej}
+Compute the following integrals using their partial fraction decomposition. \emph{In some of the integrals it might be possible to simplify the fraction first.}
+\vspace*{-0.4em}
+\begin{multicols*}{2}
+  \begin{enumerate}[i)]
+    \itemsep=-0.2em
+    \item \resizebox{0.75\hsize}{!}{$\displaystyle\int\frac{2u^2+3u+1}{(u^2+2u+5)(u^2+3u+2)}\dd u$}
+    \item $\displaystyle\int\frac{8}{{3x^3+7x^2+4x}}\dd x$
+    \item $\displaystyle\int\frac{t^2+2t-8}{t^3-6t^2+4t-24}\dd t$
+    \item $\displaystyle\int\frac{4x-3}{{x^3-3x^2}}\dd x$
+    \item $\displaystyle\int\frac{2s-2}{s^4-1}\dd s$
+    \item \resizebox{0.8\hsize}{!}{$\displaystyle\int\frac{3x^5-4x^4+x^3+x^2-24x-2}{(x-1)^2(x^2+4)^2}\dd x$}
+  \end{enumerate}
+\end{multicols*}
+
+\end{Ej}
 \end{multicols}
 \end{document} 
