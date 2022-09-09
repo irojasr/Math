@@ -9,7 +9,7 @@
 \def\nextra {HW3}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-
+\DeclareMathOperator{\Im}{\text{Im}}
 \begin{document}
 
 \begin{Ej}[Exercise 8, Stanley 1.44.a]
@@ -61,7 +61,7 @@ Since at the end we are subtracting $O_n$ from $E_n$, then we should take into a
 In general, $\pi$ contributes with $\sgn(\pi)k$ cycles to $D_n$. Counting\footnote{The idea to count across all permutations given their cycle length using the Stirling numbers comes from stackexchange: \ttt{math.se/113202}.} across all the permutations with $k$ cycles we get 
 $$D_n=\sum_{k=1}^n\sgn(\pi)kc(n,k)=\sum_{k=1}^n(-1)^{\sum\ord(c_j)-k}kc(n,k)$$
 where the $c_j$'s are the decomposition in disjoint cycles of each permutation and $c(n,k)$ is the unsigned Stirling number of the first kind which counts the amount of permutations of $S_n$ with $k$ cycles in their decomposition.\par 
-This formula looks \emph{oddly similar} to the Pochammer symbol's generating function 
+This formula looks \emph{oddly similar} to the Pochammer symbol's generating function\footnote{I wrote this solution yesterday (0908) and I had not realized that this identity is part of the homework. I just tunnel-visioned the last problem since it was the 8 point one.} 
 $$(x)_n=\sum_{k=1}^ns(n,k)x^k$$
 evaluated at $x=1$. This is because $s(n,k)=(-1)^{n-k}c(n,k)$.
 \end{ptcbr}
@@ -91,6 +91,46 @@ We reach a conundrum at this stage because in general $\sum\ord(c_j)\neq n$. For
 \end{Ej}
 
 \begin{ptcbr}
-    
+    \footnote{This proof is in most part due to \textbf{Andrew}. He was the one who came up with each of the functions. I just had a vague idea on how to construct a parity-switching bijection, but he was the one who refined it and made it work.} Let us proceed inductively and create a sufficient number of bijections.\par 
+    Our base case is $S_4$\footnote{I literally went to \ttt{Groupprops Subwiki - Element Structure of symmetric group:$S_4$} and counted them.} in which $E_4=14$, and $O_4=12$. It holds that $D_4=2$, and according to the formula $D_4=(-1)^4(4-2)!=2$.\par 
+    Without losing generality, let us assume that $n$ is even. In that case our inductive hypothesis tells us that the difference in the number of cycles from evens to odds is negative. So if we have $A$ cycles among the even permutations, we have that:
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n-1}=A\\
+        &O_{n-1}=A+(n-3)!
+    \end{aligned}
+    \right.
+    $$ 
+    Now, let us come up with a function from $S_{n-1}$ to $S_n$ which adds the element $n$ to each permutation. Consider 
+    $$\vf_j:S_{n-1}\to S_n,\ \pi\mapsto\pi(jn)\footnote{When initially discussing this problem together with \textbf{Ian} on Wednesday, we also came up with a function which did this to every permutation in order to build a recurrence. The thing is that we were'nt clear on how to use it.},$$
+    this functions switches the parity of $\pi$. It is also an injective function since we can cancel the products inside of $S_n$ by right-multiplying the inverse of the transposition on the right. Thus $\vf_j$ is a bijection between $S_{n-1}\to\Im[\vf_j]$ and we can decompose $S_n$ in the following way 
+    $$S_{n}=\Im[\vf_1]\cup \Im[\vf_2]\cupycup\Im[\vf_{n-1}]\cup\Stab(n)$$
+    where the last set is the set of permutations which \emph{fix} $n$. We make a final map 
+    $$\vf_n:S_{n-1}\to\Stab(n),\ \pi\mapsto\pi(n)$$
+    which doesn't switch the parity of $\pi$ at all. Each of the sets inside the decomposition is disjoint from one another. If 
+    $$\pi\in\Im[\vf_i]\cap\Im[\vf_j]\To\exists \pi_1,\pi_2\in S_{n-1}(\pi_1(in)=\pi_2(jn)),$$
+    and this can't happen\footnote{I still need to prove this.}. So we are not missing nor over-counting anyone. \par 
+    Now that have our setup, let us count. Since the $\vf_j$ switch parities, we get the following
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n}=\underbrace{(A+(n-3)!)+(A+(n-3)!)+\dots+(A+(n-3)!)}_{\text{One from each }\Im[\vf_j]}+A\\
+        &O_{n-1}=\underbrace{A+A+\dots+A}_{\text{One from each }\Im[\vf_j]}+(A+(n-3)!)
+    \end{aligned}
+    \right.
+    $$ 
+    which we can summarize into the following system:
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n}=(n-1)O_{n-1}+E_{n-1}\\
+    &O_n=(n-1)E_{n-1}+O_{n-1}
+    \end{aligned}
+    \right.
+    $$
+    Finally we find that the difference of this quantities is 
+    $$D_n=(n-1)(-D_{n-1})+D_{n-1}=(2-n)D_{n-1}.$$
+    This is the same recurrence we arrived at on the last exercise. The result follows.
 \end{ptcbr}
 \end{document} 
