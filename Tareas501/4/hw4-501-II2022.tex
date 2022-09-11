@@ -1,0 +1,136 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH501}
+\def\nsiglahead {Combinatorics}
+\def\nextra {HW3}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\DeclareMathOperator{\Im}{\text{Im}}
+\begin{document}
+
+\begin{Ej}[Exercise 8, Stanley 1.44.a]
+    Show that the total number of cycles of all even permutations of $[n]$ and the
+    total number of cycles of all odd permutations of $[n]$ differ by $(-1)^n(n-2)!$. Use generating functions.    
+\end{Ej}
+ 
+I must start by making a review of group theory which has helped me throughout the solution of this problem.
+
+\begin{Def}
+Suppose $\pi$ is a permutation in $S_n$.\par
+The \un{order} of a permutation is the amount of times we need to compose it with itself to obtain the identity permutation.\par 
+The \un{parity} of a permutation depends on the number of transpositions which compose it. A permutation is \un{even} when it is a product of an \emph{even} number of transpositions. Likewise for odd permutations.\par 
+The \un{sign} of a permutation is $1$ when $\pi$ is even. When $\pi$ is odd, the sign is $-1$.
+\end{Def}
+
+For example, $\ord((123)=3$ since $(123)(123)(123)=(123)(132)=\id$. Also $(12)(34)$ is an even permutation since it's a product of two transpositions.
+
+\begin{Prop}
+For any cycle $c=(x_1x_2\dots x_\l)$, $\ord(c)=\l$ the length of the cycle.\par 
+The sign of the cycle $c$ can be computed as $(-1)^{\ord(c)-1}$.\par 
+The sign function is \emph{multiplicative}.
+\end{Prop}
+
+This is because one can decompose a cycle of order $\l$ can be decomposed into $\l-1$ transpositions.
+
+\begin{Th}
+Suppose $\pi\in S_n$ can be decomposed into a product of $k$ cycles, $c_1c_2\dots c_k$. Then the sign of $\pi$ is the product of the signs of $c_i$'s. The following formula holds:\footnote{\textbf{Sam} helped me out when verifying that this formula holds.}
+$$\sgn(\pi)=(-1)^{{\sum_{j=1}^k}\ord(c_j)-k}.$$
+\end{Th}
+
+This is because
+\vspace*{-0.5em}
+$$\sgn(\pi)=\sgn(c_1\dots c_k)=\sgn(c_1)\dots\sgn(c_k)=(1)^{\ord(c_1)-1}\dots(-1)^{\ord(c_k)-1}$$
+\vspace*{-0.5em}
+and by summing up the exponents we obtain the desired formula.
+
+\begin{Rmk}
+The formula holds \emph{even when the decomposition includes 1-cycles}. This is because the identity permutation has order 1.\par 
+The count of $\sum\ord(c)$ goes up by one, and the $k$ count (amount of cycles) also goes up by one. Therefore parity is preserved.\footnote{This observation is key when recognizing the generating function. \textbf{Ian} was the one who pointed me out the fact that I could use length 1 cycles to fill out some missing spaces.}
+\end{Rmk}
+
+With this in hand let us proceed.
+
+\begin{ptcbr}
+Let us call $E_n$ to be the amount of cycles across all of the even permutations in $S_n$. Likewise for $O_n$, the number of cycles across odd permutations.\par 
+The quantity we are interested in is $D_n=E_n-O_n$. Suppose $\pi=c_1\dots c_k$ is an even permutation, this means that $\pi$ adds $k$ cycles to the count of $E_n$. Likewise if $\pi$ were odd, it adds $k$ cycles to $O_n$.\par 
+Since at the end we are subtracting $O_n$ from $E_n$, then we should take into account the sign when adding. This is our first key point.\par 
+In general, $\pi$ contributes with $\sgn(\pi)k$ cycles to $D_n$. Counting\footnote{The idea to count across all permutations given their cycle length using the Stirling numbers comes from stackexchange: \ttt{math.se/113202}.} across all the permutations with $k$ cycles we get 
+$$D_n=\sum_{k=1}^n\sgn(\pi)kc(n,k)=\sum_{k=1}^n(-1)^{\sum\ord(c_j)-k}kc(n,k)$$
+where the $c_j$'s are the decomposition in disjoint cycles of each permutation and $c(n,k)$ is the unsigned Stirling number of the first kind which counts the amount of permutations of $S_n$ with $k$ cycles in their decomposition.\par 
+This formula looks \emph{oddly similar} to the Pochammer symbol's generating function\footnote{I wrote this solution yesterday (0908) and I had not realized that this identity is part of the homework. I just tunnel-visioned the last problem since it was the 8 point one.} 
+$$(x)_n=\sum_{k=1}^ns(n,k)x^k$$
+evaluated at $x=1$. This is because $s(n,k)=(-1)^{n-k}c(n,k)$.
+\end{ptcbr}
+
+We reach a conundrum at this stage because in general $\sum\ord(c_j)\neq n$. For example consider the transposition $(12)$, but in $S_{10^{10}}$. In this case, the sum of the orders is $2$. Because we are only counting the transposition. However $n=10^{10}$, which most definitely is not equal to 2.\par 
+\textbf{Ian}'s key observation comes at play here, we can count the $1$-cycles which are being multiplied tacitly to $(12)$. We have $(12)=(12)(3)(4)\dots(10^{10})$. All of this transpositions have order 1, save for the first one. Adding up all of the orders, we do indeed get $10^{10}$! Now, recall that adding the $1$-cycles to our representation does not alter the parity, so the theorem about the parity still holds. 
+
+\begin{ptcb}
+    Continuing on with the assumption that we are counting every permutation together with its $1$-cycles, our formula for $D_n$ becomes 
+    $$D_n=\sum_{k=1}^n(-1)^{n-k}kc(n,k)=\sum_{k=1}^nks(n,k)$$
+    which we recognize as the derivative of the Pochammer symbol's generating function evaluated at $x=1$.\par 
+    The derivative in question is precisely
+    \begin{align*}
+        &\dv{x}\eval_{x=1}(x)_n=\dv{x}\eval_{x=1}\left\lbrack(x)_{n-1}(x-(n-1))\right\rbrack\\
+        \To&\dv{x}\eval_{x=1}(x)_n=\left(\dv{x}\eval_{x=1}(x)_{n-1}\right)(x-(n-1))\mid_{x=1}+(x)_{n-1}\mid_{x=1}\\
+        \To&D_n=D_{n-1}(2-n)+\dl_{n1}.
+    \end{align*}
+    This recurrence relation allows us to find $D_n$ given the initial condition that $D_1=1$, because $E_1=1$ (the identity) and $O_1=0$. For $n\geq 1$ we have $\dl_{n1}=0$, so 
+    $$D_n=D_{n-1}(2-n)=[D_{n-2}(2-(n-1))](2-n)=D_{n-2}(3-n)(2-n).$$
+    Inductively we can see that this quantity is 
+    $$D_1\dots(4-n)(3-n)(2-n)=(-1)^{n-2}(n-2)!=(-1)^n(n-2)!$$
+    and therefore $E_n-O_n=(-1)^n(n-2)!$ as desired.
+\end{ptcb}
+
+\begin{Ej}[Exercise 9, Stanley 1.44.b]
+    Give a bijection proof of the previous fact.
+\end{Ej}
+
+\begin{ptcbr}
+    \footnote{This proof is in most part due to \textbf{Andrew}. He was the one who came up with each of the functions. I just had a vague idea on how to construct a parity-switching bijection, but he was the one who refined it and made it work.} Let us proceed inductively and create a sufficient number of bijections.\par 
+    Our base case is $S_4$\footnote{I literally went to \ttt{Groupprops Subwiki - Element Structure of symmetric group:$S_4$} and counted them.} in which $E_4=14$, and $O_4=12$. It holds that $D_4=2$, and according to the formula $D_4=(-1)^4(4-2)!=2$.\par 
+    Without losing generality, let us assume that $n$ is even. In that case our inductive hypothesis tells us that the difference in the number of cycles from evens to odds is negative. So if we have $A$ cycles among the even permutations, we have that:
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n-1}=A\\
+        &O_{n-1}=A+(n-3)!
+    \end{aligned}
+    \right.
+    $$ 
+    Now, let us come up with a function from $S_{n-1}$ to $S_n$ which adds the element $n$ to each permutation. Consider 
+    $$\vf_j:S_{n-1}\to S_n,\ \pi\mapsto\pi(jn)\footnote{When initially discussing this problem together with \textbf{Ian} on Wednesday, we also came up with a function which did this to every permutation in order to build a recurrence. The thing is that we were'nt clear on how to use it.},$$
+    this functions switches the parity of $\pi$. It is also an injective function since we can cancel the products inside of $S_n$ by right-multiplying the inverse of the transposition on the right. Thus $\vf_j$ is a bijection between $S_{n-1}\to\Im[\vf_j]$ and we can decompose $S_n$ in the following way 
+    $$S_{n}=\Im[\vf_1]\cup \Im[\vf_2]\cupycup\Im[\vf_{n-1}]\cup\Stab(n)$$
+    where the last set is the set of permutations which \emph{fix} $n$. We make a final map 
+    $$\vf_n:S_{n-1}\to\Stab(n),\ \pi\mapsto\pi(n)$$
+    which doesn't switch the parity of $\pi$ at all. Each of the sets inside the decomposition is disjoint from one another. If 
+    $$\pi\in\Im[\vf_i]\cap\Im[\vf_j]\To\exists \pi_1,\pi_2\in S_{n-1}(\pi_1(in)=\pi_2(jn)),$$
+    and this can't happen\footnote{I still need to prove this.}. So we are not missing nor over-counting anyone. \par 
+    Now that have our setup, let us count. Since the $\vf_j$ switch parities, we get the following
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n}=\underbrace{(A+(n-3)!)+(A+(n-3)!)+\dots+(A+(n-3)!)}_{\text{One from each }\Im[\vf_j]}+A\\
+        &O_{n-1}=\underbrace{A+A+\dots+A}_{\text{One from each }\Im[\vf_j]}+(A+(n-3)!)
+    \end{aligned}
+    \right.
+    $$ 
+    which we can summarize into the following system:
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &E_{n}=(n-1)O_{n-1}+E_{n-1}\\
+    &O_n=(n-1)E_{n-1}+O_{n-1}
+    \end{aligned}
+    \right.
+    $$
+    Finally we find that the difference of this quantities is 
+    $$D_n=(n-1)(-D_{n-1})+D_{n-1}=(2-n)D_{n-1}.$$
+    This is the same recurrence we arrived at on the last exercise. The result follows.
+\end{ptcbr}
+\end{document} 
