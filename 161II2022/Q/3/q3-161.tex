@@ -27,8 +27,8 @@
 \ifx \darktheme\undefined
 
 \lhead{Math161S1} % Nombre de autor
-\chead{\textbf{Quiz 3}} % Titulo
-\rhead{Name:\hspace*{5cm}}%\firstxmark} 
+\chead{\textbf{Quiz 3 - Solutions}} % Titulo
+\rhead{Name: Solutions}%\firstxmark} 
 \lfoot{}%\lastxmark}
 \cfoot{}
 \rfoot{Page \thepage\ of\ \pageref{LastPage}} %A la derecha saldrá pág. 6 de 9. 
@@ -207,7 +207,7 @@ enhanced
 \end{Ej}
 
 \begin{ptcb}
-  \vspace*{2.2cm}
+  $$x^2-4x+8=x^2-4x+4+4=(x-2)^2+4$$
   \end{ptcb}
 
   \begin{Ej}
@@ -217,9 +217,9 @@ enhanced
   
   \begin{ptcb}
 \begin{align*}
-      1.&\ \sqrt{4-x^2}&(\hspace*{0.25cm})&\ \tan(\te)\\
-      2.&\ \sqrt{9x^2-1}&(\hspace*{0.25cm})&\ 2\sec(\te)\\
-      3.&\ \sqrt{4+25x^2}&(\hspace*{0.25cm})&\ 2\sin(\te)\\
+      1.&\ \sqrt{4-x^2},\ x=2\cos(\te)&(2)&\ \tan(\te)\\
+      2.&\ \sqrt{9x^2-1},\ x=\frac13\sec(\te)&(3)&\ 2\sec(\te)\\
+      3.&\ \sqrt{4+25x^2},\ x=\frac25\tan(\te)&(1)&\ 2\sin(\te)\\
 \end{align*}
 \vspace*{-0.9cm}
     \end{ptcb}
@@ -230,7 +230,12 @@ Evaluate the integral $\displaystyle\int\frac{\sqrt{1-x^2}}{x}\dd x$ using the c
     
     
     \begin{ptcb}
-      \vspace*{5cm}
+      Take $x=\sin(\te)$, then $\dd x=\cos(\te)\dd\te$. The integrand becomes 
+      $$\frac{\sqrt{1-x^2}}{x}\dd x=\frac{\sqrt{1-\sin^2(\te)}}{\sin(\te)}(\cos(\te)\dd\te).$$
+      Then 
+      $$\int\frac{\cos^2(\te)}{\sin(\te)}\dd \te=\int\frac{1-\sin^2(\te)}{\sin(\te)}\dd \te=\int(\csc(\te)-\sin(\te))\dd \te=-\log(\csc(\te)+\cot(\te))+\cos(\te).$$
+      Since $\sin(\te)=O/H$, then $A=\sqrt{1-x^2}$, and thus
+      $$I=-\log\left(\frac{1}{x}+\frac{\sqrt{1-x^2}}{x}\right)+\sqrt{1-x^2}.$$
       \end{ptcb}
     
       
@@ -240,7 +245,14 @@ Evaluate the integral $\displaystyle\int\frac{\sqrt{1-x^2}}{x}\dd x$ using the c
           
           
           \begin{ptcb}
-      \vspace*{5cm}
+      We first convert the polynomial to vertex form $4x^2-4x+5=4x^2-4x+1+4=(2x-1)^2+4$. The first substitution to take $u=2x-1\To\dd u=2\dd x\To \dd x=\frac{\dd u}{2}$. The integral is now 
+      \begin{align*}
+        \int \frac{1}{\sqrt{u^2+4}}\left(\frac{\dd u}{2}\right)\xrightarrow[\dd u=2\sec^2(\te)]{u=2\tan(\te)}&\frac{1}{2}\int\frac{(2\sec^2(\te)\dd \te)}{\sqrt{(2\tan(\te))^2+4}}\\
+        =&\int\frac{\sec^2(\te)}{2\sec(\te)}\dd\te\\
+        =&\half\int\sec(\te)\dd\te.
+      \end{align*}
+      The integral of $\sec(\te)$ is $\log(\sec(\te)+\tan(\te))$ and now we use the fact that $\tan(\te)=O/A$, whence we obtain $O=u$ and $A=2$. Thus $H=\sqrt{u^2+4}$ and thus
+      $$I=\log\left(\frac{\sqrt{u^2+4}}{2}+\frac{u}{2}\right)=\log\left(\frac{\sqrt{(2x-1)^2+4}}{2}+\frac{2x-1}{2}\right).$$
             \end{ptcb}
 
 %\end{multicols}
