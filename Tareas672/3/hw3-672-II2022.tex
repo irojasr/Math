@@ -52,11 +52,40 @@
 \end{ptcbr}
 
 \begin{Ej}
-  Let $V\subseteq \bA^n$, $W\subseteq \bA^m$ be affine algebraic varieties. Let $\tilde{F}:\bA^n\to\bA^m$ be a morphism. Show that 
-  $$\tilde{F}(V)\subseteq W\iff \tilde{F}^\3:\bC[y_1,\dots,y_m]\to\bC[x_1,\dots,x_n]\ \text{sends } I(W)\ \text{to } I(V).$$
+  Let $V\subseteq \bA^n$, $W\subseteq \bA^m$ be affine algebraic varieties. Let $\widetilde{F}:\bA^n\to\bA^m$ be a morphism. Show that 
+  $$\widetilde{F}(V)\subseteq W\iff \widetilde{F}^\3:\bC[y_1,\dots,y_m]\to\bC[x_1,\dots,x_n]\ \text{sends } I(W)\ \text{to } I(V).$$
   \hint{W=V(I(W)).}
 \end{Ej}
 
+\begin{ptcbr}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Let us consider $q\in\widetilde{F}^\3(I(W))$, we want to show that $q(\vec a)=0$ for $\vec a\in V$.\par 
+    By definition of direct image, there exists a polynomial $p\in I(W)$ such that $\widetilde{F}^\3(p)=q$, thus if $\vec a\in V$
+    $$q(\vec{a})=\widetilde{F}^\3(p)(\vec a)=p(F(\vec a))=0$$
+    where the last equality follows from the fact that $F(\vec a)\in W$ and $p(\vec x)=0$ for any $\vec x\in W$. 
+    \item On the other hand, let us consider a $\vec b\in\widetilde{F}(V)$. We want to show that $\vec b\in W$. By the Nullstellensatz, this is equivalent to showing that $\vec b\in V(I(W))$. Or equivalently, that $q(\vec b)=0$ for $q\in I(W)$.\par 
+    Once again, using the definition of the direct image, we may find an element $\vec a\in V$ such that $\widetilde{F}(\vec a)=\vec b$. Thus if we take $q\in I(W)$, then
+    $$q(\vec b)=q(\widetilde{F}(\vec{a}))=(q\circ\widetilde{F})(\vec{a})=(\widetilde{F}^\3(q))(\vec{a})=0$$
+    where the last equality follows from the fact that $\widetilde{F}^\3(q)$ is a polynomial in $I(V)$.
+  \end{enumerate}
+\end{ptcbr}
+
+I wanted to answer the last exercise directly without separating the directions in the equivalence. However the proof would go along the lines of 
+$$\widetilde F(V)\subseteq W \iff I(F(V))\supseteq I(W)\iff I(V)\supseteq \widetilde{F}^\3(I(W))$$
+using $I$ as a contravariant functor. I feel that this diagram comes in handy:
+\begin{figure}[h]
+\centering
+  % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQA1EAX1PU1z5CKAEykR1Ok1bsAOrIC29HAAsARgDNgAQW4A9Qr37Y8BIgFYKkhizaIQ8pas079CnnxAYTQogGZSYmtpOxAAdQ9jQTMUAIkaGxl7R2V1DQACAEkACjCASkivAVNhZDEAFmDbOUVUzXSAYWQAD0pC72jSyz8qpJB6Afbi3xQyHoSQmqc04EzubI4C7kkYKABzeCJQDQAnCHdEMhAcCCRyCer7LELd-bOaE6QxKUuHWQB3LFg8RlhgADFuDc9gcAsdTohnox6GoYIwAArDGIgRgwDQ4EAXPrXIwgW4HI6PRB+XH4pBgonlUkg+7gpDmal3SEPCEANkZBJZSAA7BykKyuYhLC8+vIfrB0v89PI4Cp6Ds0MCmeVBezPGTENzBQz1TTECq6ZrltwgA
+\begin{tikzcd}
+  &  &  & W \arrow[rrd, "i"] \arrow[dd, "I"] & &\\
+V \arrow[rrd, "i"] \arrow[rrru] \arrow[dd, "I"] & & & & & \bA^m \arrow[dd, "I"] \\
+  &  & \bA^n \arrow[rrru, "\widetilde{F}"] \arrow[dd, "I"] & I(W) \arrow[rrd, "i"] \arrow[llld] & & \\
+{I}(V) \arrow[rrd, "i"] & & & & & {\bC[y_1,\dots,y_m]} \arrow[llld, "\tilde F^\sharp"] \\
+  &  & {\bC[x_1,\dots,x_n]} & & & 
+\end{tikzcd}
+\end{figure}
+My question is, can this statement be proven in a direct way? Using the equivalence of categories maybe?
 \begin{Ej}[2.6.1]
   Prove that the spectrum $\Spec(R)$ of a commutative ring $R$ can be given the structure of a topological space whose closed sets are of the form $V(I)=\set{\lie p\in\Spec(R):\ \lie p\supseteq I}$ for $I\rteq R$.
 \end{Ej}
@@ -86,7 +115,15 @@
     \itemsep=-0.4em
     \item Show that the pullback $\bC[W]\xrightarrow{F^\3}\bC[V]$ is injective if and only if $F$ is \emph{dominant}. This is, $F(V)$ is dense in $W$.
     \item Show that the pullback $\bC[W]\xrightarrow{F^\3}\bC[V]$ is surjective if and only if $F$ defines an isomorphism between $V$ and some algebraic subvariety of $W$.
-     
   \end{enumerate}
  \end{Ej}
+%https://math.stackexchange.com/questions/3452958/pullback-of-f-is-injective-if-and-only-if-the-image-of-f-is-dense-proof-check?rq=1
+ \begin{ptcbr}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Recall $F$ is dense in $E$ whenever $\ov F=E$. The Zariski closure operator is $V(I(\.))$, so it is equivalent to show that $F^\3$ is injective if and only if $V(I(F(V)))=W$. 
+    \item (Hmmm?)
+  \end{enumerate}
+  I must admit that this time I've got to optimize since there's 161 exam on Thursday and I haven't started my Combinatorics homework due Friday. Today is (202209131754).
+ \end{ptcbr}
 \end{document} 
