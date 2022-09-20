@@ -16,6 +16,7 @@
 \usepackage[customcolors]{hf-tikz}
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
+\usetikzlibrary{patterns}
 \usepackage{siunitx}
 
 %\def\darktheme
@@ -586,12 +587,284 @@ $$W=\underbrace{\int_0^{8} 12\dd y}_{\text{box}}+\underbrace{\int_0^{8}4(8-y)\dd
 \end{Ex}
 \vspace*{-1em}
 \begin{ptcbP}
-If the box is full of water and it's leaky $(2\ \si{\newton\per\second})$ and it wasn't raining, what is the work required to raise it?
+Instead of raining, the box is leaking $(2\ \si{\newton\per\second})$, what is the work required to raise it?
 \end{ptcbP}
 
-\subsection*{Hydrostatics}
-
-
 \subsection*{Mass}
+
+Recall that the density $\rho$ of a solid with mass $m$ and volume $V$ is given by $\rho= m/V$. In our planar case we will consider area $A$ instead of volume $V$. This means that $\rho=m/A$, and in consequence $m=\rho A$.\par 
+The problem of finding the mass of an object with \emph{variable density} can be solved by integrating.
+
+\begin{Ex}
+  Suppose we have a parabolic plate $y=4-x^2$ bounded by the $x$-axis. 
+  \begin{center}
+    
+
+% Pattern Info
+ 
+\tikzset{
+  pattern size/.store in=\mcSize, 
+  pattern size = 5pt,
+  pattern thickness/.store in=\mcThickness, 
+  pattern thickness = 0.3pt,
+  pattern radius/.store in=\mcRadius, 
+  pattern radius = 1pt}
+  \makeatletter
+  \pgfutil@ifundefined{pgf@pattern@name@_6zsndcugr}{
+  \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_6zsndcugr}
+  {\pgfqpoint{0pt}{0pt}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {
+  \pgfsetcolor{\tikz@pattern@color}
+  \pgfsetlinewidth{\mcThickness}
+  \pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
+  \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
+  \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+  \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+  \pgfusepath{stroke}
+  }}
+  \makeatother
+  \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+  
+  \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+  %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+  
+  %Straight Lines [id:da01403342387511397] 
+  \draw    (100,200) -- (200,200) ;
+  %Shape: Parabola [id:dp623511170858644] 
+  \draw  [pattern=_6zsndcugr,pattern size=7.5pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (120,200) .. controls (140,120) and (160,120) .. (180,200) ;
+  %Straight Lines [id:da22173840233412623] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (212,200) -- (308,200) ;
+  \draw [shift={(310,200)}, rotate = 180] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  \draw [shift={(210,200)}, rotate = 0] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Shape: Parabola [id:dp9632171600419536] 
+  \draw   (230,200) .. controls (250,120) and (270,120) .. (290,200) ;
+  %Straight Lines [id:da9535989798691262] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (260,200) -- (260,122) ;
+  \draw [shift={(260,120)}, rotate = 90] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Straight Lines [id:da7982538020098101] 
+  \draw    (260,140) -- (270,140) ;
+  %Straight Lines [id:da9664445066717691] 
+  \draw    (260,200) -- (270,190) ;
+  %Straight Lines [id:da018976009185489473] 
+  \draw    (285,205) -- (290,200) ;
+  %Straight Lines [id:da9822517712817638] 
+  \draw    (225,205) -- (230,200) ;
+  
+  % Text Node
+  \draw (272,136.6) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$y=4$};
+  % Text Node
+  \draw (270,186.6) node [anchor=south] [inner sep=0.75pt]  [font=\tiny]  {$( 0,0)$};
+  % Text Node
+  \draw (227,208.4) node [anchor=north west][inner sep=0.75pt]  [font=\tiny]  {$x=-2$};
+  % Text Node
+  \draw (287,208.4) node [anchor=north west][inner sep=0.75pt]  [font=\tiny]  {$x=2$};
+  
+  
+  \end{tikzpicture}
+  
+  \end{center}
+  If the plate's density was $\rho(x)=2x+1$ then 
+  \begin{align*}
+    m&=\int_{-2}^2\rho(x)(\text{up}-\text{down})\dd x\\
+    &=\int_{-2}^2(2x+1)\lbrack(4-x^2)-0\rbrack \dd x=32/3.
+  \end{align*}
+\end{Ex}
+
+\begin{Rmk}
+  We know that 
+  $$\text{Area}=\text{width}\.\text{height}.$$
+  Sometimes we will use up-down orientation, where we will use 
+  $$\text{Area}=\dd x\.(\text{up}-\text{down})=(g(x)-f(x))\dd x,$$
+  where $g(x)\geq f(x)$.\par 
+  Or in the other case
+  $$\text{Area}=(\text{right}-\text{left})\.\dd y=(g(y)-f(y))\dd y$$
+  where $g(y)\geq f(y)$.
+\end{Rmk}
+
+\begin{Ex}
+  Suppose that our plate is bounded by the curve $x=\cos(y)$ and the $y$-axis. If the plate has density $\rho(y)=y+1$, then we can find its mass by setting up the integral in the other way.
+  \begin{center}
+    
+
+% Pattern Info
+ 
+\tikzset{
+  pattern size/.store in=\mcSize, 
+  pattern size = 5pt,
+  pattern thickness/.store in=\mcThickness, 
+  pattern thickness = 0.3pt,
+  pattern radius/.store in=\mcRadius, 
+  pattern radius = 1pt}
+  \makeatletter
+  \pgfutil@ifundefined{pgf@pattern@name@_bzkjfgaxs}{
+  \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_bzkjfgaxs}
+  {\pgfqpoint{0pt}{0pt}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {
+  \pgfsetcolor{\tikz@pattern@color}
+  \pgfsetlinewidth{\mcThickness}
+  \pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
+  \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
+  \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
+  \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
+  \pgfusepath{stroke}
+  }}
+  \makeatother
+  \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+  
+  \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+  %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+  
+  %Straight Lines [id:da12651440644236667] 
+  \draw    (140,140) -- (140,240) ;
+  %Shape: Parabola [id:dp7666003413147079] 
+  \draw  [pattern=_bzkjfgaxs,pattern size=7.5pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (140,160) .. controls (166.67,180) and (166.67,200) .. (140,220) ;
+  %Straight Lines [id:da725213386458611] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (250,142) -- (250,238) ;
+  \draw [shift={(250,240)}, rotate = 270] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  \draw [shift={(250,140)}, rotate = 90] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Shape: Parabola [id:dp12165755900306918] 
+  \draw   (250,160) .. controls (276.9,179.69) and (277.13,199.69) .. (250.7,220) ;
+  %Straight Lines [id:da9650170220417672] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (250,190) -- (298,190) ;
+  \draw [shift={(300,190)}, rotate = 180] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Straight Lines [id:da8789159890287226] 
+  \draw    (245,215) -- (250.06,219.94) ;
+  %Straight Lines [id:da5047388227408768] 
+  \draw    (245,155) -- (250.06,159.94) ;
+  
+  % Text Node
+  \draw (243,151.6) node [anchor=south east] [inner sep=0.75pt]  [font=\tiny]  {$y=\pi /2$};
+  % Text Node
+  \draw (142,143.4) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$x=0$};
+  % Text Node
+  \draw (162,186.6) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$x=\cos( y)$};
+  % Text Node
+  \draw (243.33,209.93) node [anchor=south east] [inner sep=0.75pt]  [font=\tiny]  {$y=-\pi /2$};
+  
+  
+  \end{tikzpicture}
+  
+  \end{center}
+  In this case 
+  $$
+  \left\lbrace
+  \begin{aligned}
+    &\text{left}= x\ \text{axis} = 0,\\
+    &\text{right}=\text{curve} = \cos(y)
+  \end{aligned}
+  \right.
+  $$
+  the $\dd y$ is the height which goes from $-\pi/2$ to $\pi/2$ and so 
+  $$m=\int_{-\pi/2}^{\pi/2}\rho(y)\cos(y)\dd y=\int_{-\pi/2}^{\pi/2}(y+1)\cos(y)\dd y=2.$$
+\end{Ex}
+
+It might be the case that our plate might not have an axis as its boundary. Consider the following example:
+
+\begin{Ex}
+  Let us find the mass of the plate with density $\rho(x)=6-20x$ bounded by the equations
+  $$
+  \left\lbrace
+  \begin{aligned}
+    &f(x)=x+2,\\
+    &g(x)=-x^2+x+6.
+  \end{aligned}
+  \right.
+  $$
+  \begin{center}
+   
+
+% Pattern Info
+ 
+\tikzset{
+  pattern size/.store in=\mcSize, 
+  pattern size = 5pt,
+  pattern thickness/.store in=\mcThickness, 
+  pattern thickness = 0.3pt,
+  pattern radius/.store in=\mcRadius, 
+  pattern radius = 1pt}\makeatletter
+  \pgfutil@ifundefined{pgf@pattern@name@_rw7xxjw74}{
+  \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_rw7xxjw74}
+  {\pgfqpoint{-\mcThickness}{-\mcThickness}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {\pgfpoint{\mcSize}{\mcSize}}
+  {\pgfsetcolor{\tikz@pattern@color}
+  \pgfsetlinewidth{\mcThickness}
+  \pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{\mcSize}{0}}
+  \pgfpathmoveto{\pgfpointorigin}
+  \pgfpathlineto{\pgfpoint{0}{\mcSize}}
+  \pgfusepath{stroke}}}
+  \makeatother
+  \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+  
+  \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+  %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+  
+  %Straight Lines [id:da04112332353175807] 
+  \draw    (290,194.99) -- (295,189.99) ;
+  %Straight Lines [id:da7142455523953686] 
+  \draw    (200,189.99) -- (265,124.98) ;
+  %Shape: Parabola [id:dp025976677821947014] 
+  \draw  [pattern=_rw7xxjw74,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (265,124.98) .. controls (234.92,98.9) and (213.25,120.58) .. (200,189.99) ;
+  %Straight Lines [id:da39841673674945366] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (290,190) -- (370,190) ;
+  %Straight Lines [id:da429189967737566] 
+  \draw    (295,189.99) -- (360,124.98) ;
+  %Shape: Parabola [id:dp1986384203660576] 
+  \draw   (360,124.98) .. controls (329.92,98.9) and (308.25,120.58) .. (295,189.99) ;
+  %Straight Lines [id:da6366955993003761] 
+  \draw [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ]   (330,190) -- (330,102) ;
+  \draw [shift={(330,100)}, rotate = 90] [color={rgb, 255:red, 0; green, 93; blue, 164 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+  %Straight Lines [id:da22226597836229933] 
+  \draw  [dash pattern={on 4.5pt off 4.5pt}]  (360,124.98) -- (360,195) ;
+  
+  % Text Node
+  \draw (234.5,160.88) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$f( x)$};
+  % Text Node
+  \draw (224.19,118.27) node [anchor=south east] [inner sep=0.75pt]  [font=\scriptsize]  {$g( x)$};
+  % Text Node
+  \draw (292,198.39) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$x=-2$};
+  % Text Node
+  \draw (360,198.4) node [anchor=north] [inner sep=0.75pt]  [font=\scriptsize]  {$x=2$};
+  
+  
+  \end{tikzpicture}
+  
+  
+  \end{center}
+  To find the limits in the $x$-axis we have to equate both expressions. 
+  \begin{align*}
+    f(x)=g(x)&\iff x+2=-x^2+x+6\\
+    &\iff0=-x^2+4\iff x=\pm 2.
+  \end{align*}
+  It follows that the integral runs from $-2$ to $2$ and since the upper limit of the plate is $g$ and the lower is $f$, we obtain the following expression for the mass
+  \begin{align*}
+    m&=\int_{-2}^2\rho(x)(g(x)-f(x))\dd x\\
+    &=\int_{-2}^2(6-20x)\lbrack(-x^2+x+6)-(x+2)\rbrack\dd x=64.\\
+  \end{align*}
+\end{Ex}
+
+\begin{ptcbP}
+  Consider a plate bounded by the horizontal lines $y=1$ and $y=4$ and the oblique lines $y=2x+1$ and $y=2x+5$.
+  \vspace*{-0.5em}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em 
+    \item Draw the enclosed region.
+    \item If the density of the plate is $\rho(x)=x^2$, find its mass.
+    \item Now assume that $\rho$ is in terms of $y$, $\rho(y)=2y-1$. To calculate mass, does the setup of the integral change?
+  \end{enumerate}
+\end{ptcbP}
+
+\begin{Ej}
+Suppose you are pushing a box which weighs $20\ \si\newton$ across a path of length $15\ \si\metre$, at a speed of $2\ \si{\metre\per\second}$. If it's raining at a speed of $4\ \si{\newton\per\second}$ and the box has a capacity of $10\ \si{\newton}$, what is the work done on the box after displacing it?
+\end{Ej}
+
+\begin{Ej}
+  Find the mass of a plate with density $\rho(x)=1$ bounded below by the curves $y=2x$ and $y=8-2x$, and above by the curve $y=12x-3x^2$.
+\end{Ej}
 \end{multicols}
 \end{document} 
