@@ -15,11 +15,93 @@
 \DeclareMathOperator{\maj}{maj}
 \begin{document}
 
-\begin{Ej}[Exercise 2]
-
+\begin{Ej}[Exercise 4]
+Prove the generating function identity
+$$\frac{1}{(1-x)^n}=\sum_{k=0}^\infty \multinom{n}{k}x^k.$$
+You may either use induction on $n$, or a direct combinatorial argument about what the coefficients
+must be when you expand the product on the left
 \end{Ej}
 
 \begin{ptcbr}
-   
+   Differentiating both sides of the equality $\frac{1}{1-x}=\sum_{k=0}^\infty x^k$ $n$ times\footnote{Implicitly I'm using induction here} we get 
+   \begin{align*}
+    D^n\left(\frac{1}{1-x}\right)&=\frac{(n-1)!}{(1-x)^n},\\
+    D^n\left(\sum_{k=0}^\infty x^k\right)&=\sum_{k=n}^\infty (k)(k-1)(k-2)\dots(k-n+1)x^{k-n}\\
+    \left(\substack{k=\l+n\\k\to n\\\To \l\to 0}\right)&=\sum_{\l=0}^\infty (\l+n)(\l+n-1)(\l+n-2)\dots(\l+1)x^{\l}.
+   \end{align*}
+   We get the following equality
+   \begin{align*}
+    \frac{1}{(1-x)^n}&=\sum_{\l=0}^\infty \frac{(\l+n)(\l+n-1)(\l+n-2)\dots(\l+1)}{(n-1)!}x^{\l},
+   \end{align*}
+   and the coefficient in question is precisely
+   $$\frac{(\l+n)(\l+n-1)(\l+n-2)\dots(\l+1)}{(n-1)!}=\frac{(\l+n)!}{(n-1)!\l!}=\binom{n+\l-1}{\l}=\multinom{n}{\l}.$$
 \end{ptcbr}
- \end{document} 
+
+\begin{ptcb}
+    This fact can also be proven using the multiplication principle:
+    $$\frac{1}{(1-x)^n}=\prod_{k=1}^n\left(\frac{1}{1-x}\right).$$
+    If by induction we assume that the identity holds up to $n-1$, then the product on the right becomes
+    $$\left\lbrack\prod_{k=1}^{n-1}\left(\frac{1}{1-x}\right)\right\rbrack\left(\frac{1}{1-x}\right)=\left(\sum_{k=0}^\infty \multinom{n-1}{k}x^k\right)\left(\sum_{k=0}^\infty x^k\right).$$
+    After multiplying we obtain the sum 
+    $$\sum_{k=0}^\infty\left\lbrack\sum_{j=0}^k\multinom{n-1}{j}\right\rbrack x^k.$$
+    If we were to prove the identity $\sum_{j=0}^k\multinom{n-1}{j}=\multinom{n}{k}$, then we would be done.
+\end{ptcb}
+
+\begin{Lem}
+The following identity holds for $n,k$, positive integers:
+$$\sum_{j=0}^k\multinom{n-1}{j}=\multinom{n}{k}.$$
+\end{Lem}
+ This is a type of Pascal recurrence for the multichoose coefficient. We can state the first recurrence and the inductively prove this one, or we can prove this one by a counting argument. 
+\begin{ptcb}
+    Initially consider the recurrence
+    $$\multinom{n}{k}=\multinom{n-1}{k}+\multinom{n}{k-1}.$$
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item The quantity on the left counts the number of ways I can distribute $k$ \ttt{cookies} among $n$ \ttt{grad students}. 
+        \item For the quantity on the right, choose the $n^{\text{th}}$ \ttt{grad student}. There are two ways to give my $k$ \ttt{cookies}.
+        \vspace*{-0.4em}
+        \begin{itemize}
+            \itemsep=-0.4em
+            \item Either I exclude the last \ttt{grad student} and give out my $k$ \ttt{cookies} among the other $n-1$.
+            \item Or I give \emph{at least} 1 \ttt{cookie} to the last one, and I give out the remaining $k-1$ among all the $n$ \ttt{grad students}.
+        \end{itemize} 
+    \end{itemize}
+\end{ptcb}
+With this recurrence it is immediate to prove the identity:
+\begin{align*}
+    \multinom{n}{k}&=\multinom{n-1}{k}+\multinom{n}{k-1}\\
+    &=\multinom{n-1}{k}+\multinom{n-1}{k-1}+\multinom{n}{k-2}\\
+    &=\multinom{n-1}{k}+\multinom{n-1}{k-1}+\multinom{n-1}{k-2}+\dots+\multinom{n}{0}
+\end{align*}
+However we can prove the identity in another way:
+\begin{ptcb}
+    Consider the same situation where we label the $n^{\text{th}}$ \ttt{grad student}. Giving out $k$ \ttt{cookies} to $n$ \ttt{grad students} is the same as giving $k-j$ to the last \ttt{grad student} and distribute the remaining $j$ \ttt{cookies} among the $n-1$ other \ttt{grad students}.\par 
+    Since this events are disjoint, the total number of ways can be obtained by summing for each $j$, thus obtaining the identity.
+\end{ptcb}
+There are two more ways in which I'm certain that this problem can be proven:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em 
+    \item Using the $n$-fold multiplication principle. The sequence $\vec{1}=(1)_{n\in\bN}$'s generating function is precisely $1/(1-x)$ so 
+    $$\left(\frac{1}{1-x}\right)^n=\left(\sum_{k=0}^\infty x^k\right)^n=\sum_{k=0}^\infty \underbrace{(\vec{1}\ast\vec{1}\ast\dots\ast\vec{1})}_{n\ \text{times}}x^k.$$
+    Using induction and algebraic manipulation, it is possible to prove that the convolution in question is the multichoose coefficient.
+    \item The coefficient $\multinom{n}{k}$ also counts \emph{weak compositions} of $k$ into $n$ parts. This is in correspondence with the amount of ways one can form an $x^k$ monomial from the product
+    $$\left(\sum_{k=0}^\infty x^k\right)^n=(1+x+x^2+\dots)(1+x+x^2+\dots)\cdots(1+x+x^2+\dots)$$
+    since the exponents in the $n$ factors are the \emph{parts} of $k$.
+\end{enumerate}
+
+\begin{Ej}[Exercise 6]
+    Find a closed form for the generating function of the sequence $b_n$ defined by $b_0=1$ and for all $n\geq 0$, $b_{n+1}=\sum_{k=0}^nkb_{n-k}$. Use it to find an explicit formula for $b_n$ in terms of $n$.
+\end{Ej}
+
+\begin{ptcbr}
+Let us call $B(x)=\sum_{n=0}^\infty b_nx^n$. Then 
+$$B(x)=b_0+b_1x+b_2x^2+\dots\To \frac{B(x)-b_0}{x}=b_1+b_2x+b_3x^2+\dots=\sum_{n=0}^\infty b_{n+1}x^n.$$
+However, from the recurrence we have that 
+$$\sum_{n=0}^\infty b_{n+1}x^n=\sum_{n=0}^\infty (n\ast b_n)x^n=\left(\sum_{n=0}^\infty nx^n\right)B(x)=xD\left(\frac{1}{1-x}\right)B(x).$$
+Equating this quantities, and using the initial condition, we get
+\begin{align*}
+    \frac{B(x)-1}{x}=\frac{xB(x)}{(1-x)^2}&\To B(x)\left(\frac{1}{x}-\frac{x}{(1-x)^2}\right)=\frac{1}{x}\\
+    &\To B(x)=\frac{(1-x)^2}{1-2x}\\
+    &\To B(x)=\frac{1}{1-2x}-\frac{2x}{1-2x}+\frac{x^2}{1-2x}
+\end{align*}\end{ptcbr}
+\end{document} 
