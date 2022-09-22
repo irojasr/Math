@@ -102,6 +102,73 @@ Equating this quantities, and using the initial condition, we get
 \begin{align*}
     \frac{B(x)-1}{x}=\frac{xB(x)}{(1-x)^2}&\To B(x)\left(\frac{1}{x}-\frac{x}{(1-x)^2}\right)=\frac{1}{x}\\
     &\To B(x)=\frac{(1-x)^2}{1-2x}\\
-    &\To B(x)=\frac{1}{1-2x}-\frac{2x}{1-2x}+\frac{x^2}{1-2x}
-\end{align*}\end{ptcbr}
+    &\To B(x)=\frac{1}{1-2x}-\frac{2x}{1-2x}+\frac{x^2}{1-2x}.
+\end{align*}
+This is the generating function for the sequence $(b_n)$. After converting the functions into sums and rearranging the terms, the closed form of $b_n$ can be obtained. This is done as follows:
+\begin{align*}
+    B(x)&=\sum_{n=0}^\infty2^nx^n-\sum_{n=0}^\infty2^{n+1}x^{n+1}+\sum_{n=0}^\infty2^nx^{n+2}\\
+    &=\sum_{n=0}^\infty2^nx^n-\sum_{n=1}^\infty2^{n}x^{n}+\sum_{n=2}^\infty2^{n-2}x^{n}\\
+    &=1+(2-2)x+\sum_{n=2}^\infty2^{n-2}x^{n}
+\end{align*}
+From the last equality we extract that 
+$$b_n=\left\lbrace\begin{aligned}
+    &1,\ \text{when }n=0\\
+    &0,\ \text{when }n=1\\
+    &2^{n-2},\ \text{when }n\geq 2\\
+\end{aligned}\right.$$
+\end{ptcbr}
+
+\begin{Ej}[Exercise 8]
+    Let $p(n,k)$ be the number of partitions of $n$ into exactly $k$ nonzero parts. Show that 
+    $$\sum_{n,k}p(n,k)y^kx^n=\prod_{k=1}^\infty\frac{1}{1-yx^k}.$$
+\end{Ej}
+
+
+\begin{ptcbr}
+    
+\end{ptcbr}
+\iffalse
+\begin{ptcbr}
+    Suppose $\la+(\la_1,\dots,\la_k)\vdash n$ is a partition of $n$ into $k$ parts. We can separate every partition into two categories:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item One of the parts of $\la$ is 1.
+        \item All of the parts of $\la$ are greater than 1.
+    \end{itemize}
+    Then we can count $p(n,k)$ using a recurrence as follows:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item If $\la$ has a one, then we can remove that part and get $k-1$ parts. However we are no longer partitioning $n$, we now partition $n-1$.
+        \item If there's no one, we can subtract one from every part. Since there were $k$ parts, we have reduced $n$ by $k$ to get $n-k$. But we still have $k$ parts. 
+    \end{itemize}
+    It follows that 
+    $$p(n,k)=p(n-1,k-1)+p(n-k,k),\ p(n,1)=1,\ p(1,k)=\dl_{1k}$$
+    where the boundary conditions tell us the following. The term $p(n,1)$ is the number of ways to partition $n$ into a single part. There's only one way to so and that is by choosing the part equal to $n$.\par 
+    On the other hand $p(1,k)$ is the number of ways to partition $1$ into $k$ parts. Unless $k=1$, there's no way to partition $1$ into more than one part.\par 
+    Let us write this recurrence With this recurrence in hand, let us call 
+    $$P(x,y)=\sum_{n,k=1}^\infty p(n,k)x^ny^k$$
+\end{ptcbr}
+\fi 
+
+\begin{Ej}[Exercise 9]
+    Use generating functions to prove that 
+    $$\sum_{k=0}^n\binom{n}{k}^2=\binom{2n}{n}.$$
+    Do NOT give a combinatorial proof. Instead, give a proof by comparing coefficients of two equal generating functions or polynomials.
+\end{Ej}
+
+\begin{ptcbr}
+    Let us begin by considering the binomial formula:
+    $$(1+x)^n=\sum_{k=0}^n\binom{n}{k}x^k.$$
+    The square of this function can be computed in two ways:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Directly applying the formula 
+        $$(1+x)^{2n}=\sum_{k=0}^{2n}\binom{2n}{k}x^k.$$
+        \item Or by using the multiplication principle 
+        $$\left((1+x)^n\right)^2=\sum_{k=0}^{2n}\left\lbrack\sum_{j=0}^k\binom{n}{j}\binom{n}{n-j}\right\rbrack x^k.$$
+    \end{enumerate}
+    It follows that 
+    $$\binom{2n}{k}=\sum_{j=0}^k\binom{n}{j}\binom{n}{n-j}$$
+    since two equal polynomials must share the same coefficients. By setting $k=n$ and relabeling the counter from $j$ to $k$ we arrive at the desired identity.
+\end{ptcbr}
 \end{document} 
