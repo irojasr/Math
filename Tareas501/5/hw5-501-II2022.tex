@@ -88,7 +88,7 @@ There are two more ways in which I'm certain that this problem can be proven:
     $$\left(\sum_{k=0}^\infty x^k\right)^n=(1+x+x^2+\dots)(1+x+x^2+\dots)\cdots(1+x+x^2+\dots)$$
     since the exponents in the $n$ factors are the \emph{parts} of $k$.
 \end{enumerate}
-
+\newpage
 \begin{Ej}[Exercise 6]
     Find a closed form for the generating function of the sequence $b_n$ defined by $b_0=1$ and for all $n\geq 0$, $b_{n+1}=\sum_{k=0}^nkb_{n-k}$. Use it to find an explicit formula for $b_n$ in terms of $n$.
 \end{Ej}
@@ -125,8 +125,14 @@ $$b_n=\left\lbrace\begin{aligned}
 
 
 \begin{ptcbr}
-    
+    Let us first consider the case of counting the number of partitions without any restrictions. In this case it holds that 
+    $$\sum_{n=0}^\infty p(n)x^n=\prod_{k=1}^\infty\frac{1}{1-x^k}=(1+x+x^2+\dots)\cdots\left\lbrack (x^k)^0+(x^k)^1+(x^k)^2+\dots\right\rbrack\cdots$$
+    because each term in the  $k^{\text{th}}$ infinite sum tells us how many parts (or $\la_i$'s) are equal to $k$, then every $x^n$ monomial corresponds to one partition of $n$ and adding them all up we get $p(n)$.\par 
+    Let us now add a dummy variable $y$ which will count the number of parts in each $\la$. We can expand one of the factors of the product on the right as follows 
+    $$\frac{1}{1-yx^j}=\left\lbrack(yx^j)^0+(yx^j)^1+(yx^j)^2+\dots\right\rbrack.\footnote{I was overthinking this problem a lot and thinking like in the first homework. Because I wanted to use a dummy variable $(y_n)_{n\in\bN}$ for \emph{each} different number. But that is too much information. Once again, \textbf{Kyle} saved the day by helping me clear out my doubts about counting.}$$
+    Now this dummy variable appears in every other factor. It doesn't care about what \emph{type} of part we are counting, it only counts the total number of parts. So, in every monomial $x^ny^k$ the $x$'s exponent breaks down into the parts, for each $\la_i=j$, $y$'s exponent is the sum of the amount of parts we have collected. Collecting all the monomials of this type gives us a coefficient of $p(n,k)$. Thus the result follows.
 \end{ptcbr}
+
 \iffalse
 \begin{ptcbr}
     Suppose $\la+(\la_1,\dots,\la_k)\vdash n$ is a partition of $n$ into $k$ parts. We can separate every partition into two categories:
@@ -149,7 +155,7 @@ $$b_n=\left\lbrace\begin{aligned}
     $$P(x,y)=\sum_{n,k=1}^\infty p(n,k)x^ny^k$$
 \end{ptcbr}
 \fi 
-
+\newpage
 \begin{Ej}[Exercise 9]
     Use generating functions to prove that 
     $$\sum_{k=0}^n\binom{n}{k}^2=\binom{2n}{n}.$$
@@ -165,10 +171,12 @@ $$b_n=\left\lbrace\begin{aligned}
         \item Directly applying the formula 
         $$(1+x)^{2n}=\sum_{k=0}^{2n}\binom{2n}{k}x^k.$$
         \item Or by using the multiplication principle 
-        $$\left((1+x)^n\right)^2=\sum_{k=0}^{2n}\left\lbrack\sum_{j=0}^k\binom{n}{j}\binom{n}{n-j}\right\rbrack x^k.$$
+        $$\left\lbrack(1+x)^n\right\rbrack^2=\sum_{k=0}^{2n}\left\lbrack\sum_{j=0}^k\binom{n}{j}\binom{n}{n-j}\right\rbrack x^k.$$
     \end{enumerate}
     It follows that 
     $$\binom{2n}{k}=\sum_{j=0}^k\binom{n}{j}\binom{n}{n-j}$$
     since two equal polynomials must share the same coefficients. By setting $k=n$ and relabeling the counter from $j$ to $k$ we arrive at the desired identity.
 \end{ptcbr}
-\end{document} 
+
+The identity in question is an specific case of Vandermonde's identity which can be proven using the same strategy by multiplying $(1+x)^m$ with $(1+x)^n$.
+\end{document}
