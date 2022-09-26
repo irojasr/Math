@@ -1,0 +1,71 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH501}
+\def\nsiglahead {Combinatorics}
+\def\nextra {HW6}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\DeclareMathOperator{\des}{des}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\exc}{exc}
+\DeclareMathOperator{\maj}{maj}
+\begin{document}
+
+\begin{Ej}[Exercise 5]
+   A \textbf{binary tree} of length $n$ constructed recursively as follows.\par 
+   \vspace*{-0.6em}
+
+   \begin{itemize}
+      \itemsep=-0.4em
+      \item The empty set is a binary tree of length 0.
+      \item Otherwise a binary tree has a \emph{root vertex} $v$, a \emph{left subtree} $T_1$ and a \emph{right subtree} $T_2$, each of which is also a binary tree having a root vertex.\par 
+      \vspace*{-0.4em}
+      We draw the root vertex at the top with an edge going down to the root vertices of $T_1, T_2$. Then draw each tree recursively in the same manner.
+   \end{itemize}
+   \vspace*{-0.6em}
+
+   Prove that the number of binary trees on $n$ vertices is the $n^{\text{th}}$ Catalan number $C_n$.\hint{Show that they satisfy the recursion for the Dyck paths}
+   \end{Ej}
+   
+   \begin{ptcbr}
+Let us call $f(n)$ the number of binary trees on $n$ vertices. The initial condition is $f(0)=1$ because the empty set is a binary tree.\par 
+To create a binary tree with $n+1$ vertices we choose the root and then we still have $n$ vertices to go.\par 
+Fix $\l$ to be the number of vertices we assign to the left tree then, the the remaining $n-\l$ vertices go to the right tree. The number of ways to build right and left subtrees this way is $f(\l)f(n-\l)$.\par 
+However, running $\l$ through all possible options of $n$ gives us a plethora of disjoint events. We can sum those  possibilities to get the total number of binary trees on $n+1$ vertices which is 
+$$f(n+1)=\sum_{\l=0}^{n}f(\l)f(n-\l).$$
+It follows that $f(n)=C_n$. 
+      \end{ptcbr}
+
+\begin{Ej}[Exercise 6]
+   A \textbf{triangulation} of a convex $(n+2)$-gon is a collection $(n-1)$ diagonals that do not intersect each other. Show that the number of triangulations of a convex $(n+2)$-gon is the $n^{\text{th}}$ Catalan numbers $C_n$. \hint{Show that they satisfy the recursion for the Dyck paths}
+   \end{Ej}
+   
+   \begin{ptcbr}
+      In the same way we chose a \emph{left} and \emph{right} trees, here we will chose L-and-R triangulations.\par 
+      Once again let us begin by verifying the initial condition, for $n=0$ we have a $2$-gon which is a line. There's no possible triangulation there. The definition of triangulation starts making sense at $n=1$ because we have a triangle and $1-1=0$ diagonals.  
+      \end{ptcbr}
+
+   \begin{Ej}[Exercise 8]
+         A \textbf{derangement} of $[n]$ is a permutation $\pi\in S_n$ with no fixed points. That is $\forall i(\pi(i)\neq i)$. Let $D_n$ be the number of derangements of $[n]$. Prove that 
+         $$\sum_{n=0}^\infty\frac{D_n}{n!}x^n=\frac{e^{-x}}{1-x}.$$  
+         \end{Ej}
+%https://math.stackexchange.com/questions/203899/combinatorial-argument-to-prove-the-recurrence-relation-for-number-of-derangemen
+%https://math.stackexchange.com/questions/240357/exponential-generating-function-for-derangements
+   \begin{ptcbr}
+      Let us begin by establishing a recurrence relation for $D_n$. We will do this by considering \ttt{grad students} and their \ttt{preffered place to sit at}. Then the number $D_n$ is the number of ways not \ttt{grad student} sits at their \ttt{preffered desk}.\par 
+      Suppose that the first \ttt{grad student} enters the room and sits on desk $i$. When the $i^{\text{th}}$ \ttt{grad student} enters the room there are two possibilities:
+      \begin{itemize}
+         \itemsep=-0.4em
+         \item They sit on desk 1, and then the problem reduces to the case with $n-2$ \ttt{grad students}.
+         \item Otherwise we may relabel \ttt{grad student} $i$ as the first \ttt{grad student} and then say that desk 1 is $i$'s preferred desk. This reduces to the case of $n-1$ \ttt{grad students}.
+      \end{itemize}
+      Since this events are disjoint, the possibilities for each must be summed. But our choice for the first one's preference was arbitrary, there are other $n-1$ possible choices. It follows that 
+      $$D_n=(n-1)(D_{n-1}+D_{n-2}).$$
+      By taking the exponential generating function on both sides we get 
+      $$\sum_{n=0}^\infty D_n\frac{x^n}{n!}=\sum_{n=0}^\infty (n-1)D_{n-1}\frac{x^n}{n!}+\sum_{n=0}^\infty (n-1)D_{n-2}\frac{x^n}{n!}$$
+   \end{ptcbr}
+\end{document}
