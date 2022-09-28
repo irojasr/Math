@@ -84,9 +84,63 @@
     \left\lbrace
     \begin{aligned}
       &\ov W=\set{[1:t:1]:\ t\in\bC}\cup\set{[0:1:0]},\\
-      &\ov W=\set{[1:t:1]:\ t\in\bC}\cup\set{[0:1:0]}
+      &\ov Z=\set{[t:t^2:1]:\ t\in\bC}\cup\set{[0:1:0]}.
     \end{aligned}
     \right.
     $$
+    Now their intersections are 
+    $$
+    \left\lbrace
+    \begin{aligned}
+      &\ov V\cap \ov W=\set{[0:1:0]},\\
+      &\ov V\cap \ov Z=\set{[0:0:1],[0:1:0]},\\
+      &\ov V\cap \ov Z=\set{[1:1:1],[0:1:0]}.
+    \end{aligned}
+    \right.
+    $$
+    This coincides with our intuition. The lines only intersect at infinity, while the parabola and the lines intersect at the finite point and at infinity.
   \end{ptcbr}
+
+  \begin{Ej}
+    Do the following:
+    \begin{enumerate}[i)]
+      \itemsep=-0.4em 
+      \item Find a bijection between the set of all homogeneous polynomials in three variables of degree $d$ and the set of all polynomials in two variables of degree at most $d$. \hint{Set one the variables to the constant 1.}
+      \item Use this to show that the subspace topology induced by the affine patches $V\cap\bA^2$ from the Zariski topology on a variety $V\subseteq\bP^2$ is the same as the Zariski topology on the affine variety $V\cap\bA^2$.
+      \item Generalize to arbitrary dimension. 
+    \end{enumerate}
+  \end{Ej}
+
+
+  \begin{ptcbr}
+    \begin{enumerate}[i)]
+      \itemsep=-0.4em 
+      \item Let us call $\bC_h[X,Y,Z]$ the set of homogeneous polynomials and $\bC[x,y]$ the set of regular polynomials. Consider the mapping
+      $$\eps_{(x,y,1)}:\bC_h[X,Y,Z]\to \bC[x,y],\ F([X:Y:Z])\mapsto F(x,y,1)=f(x,y)$$
+      where we evaluate $z=1$ and consider the resulting polynomial as a non-homogeneous polynomial. The inverse mapping is 
+      $$\eps^{-1}:\bC[x,y]\to\bC_h[X,Y,Z],\ f(x,y)\mapsto z^df\left(\frac xz:\frac yz:1\right)$$
+      where we view the last polynomial as a homogeneous polynomial.\par 
+      These functions are inverses to one another:
+      $$\eps(\eps^{-1}(f))=\eps\left(z^df\left(\frac xz:\frac yz:1\right)\right)=f(x:y:1)$$
+      and the action of this function is the same as $f(x,y)$. The other direction is analogous.
+      \item Let us recall that $\bA^2$ can be viewed as a topological subspace of $\bP^2$ because $\bP^2=\bA^2\cup\bP^1$. So to show that the subspace topology is the same as the ordinary Zariski topology it is enough to show that 
+      $$V\subseteq\bP^2\ \text{is closed} \iff V\cap\bA^2\ \text{is the zero locus of a set of polynomials}.$$
+      \begin{enumerate}
+        \itemsep=-0.4em
+        \item[$\To$] Suppose $V=\bV(F_1,\dots,F_n)$, where $F_j\in\bC_h[X,Y,Z]$, we want to show that $V\cap \bA^2=\bV[\eps F_1,\dots,\eps F_n]$. For that effect, take $[a:b:c]\in V\cap\bA^2$, this means that $c\neq 0$, so we can take $c=1$ due to rescaling.
+        \begin{align*}
+          [a:b:1]\in V&\To \forall i(F_i([a:b:1])=0)\\
+          &\To\forall i[(\eps F_i)(a,b)=0]\\
+          &\To (a,b)\in \bV[\eps F_1,\dots,\eps F_n].
+        \end{align*}
+      \end{enumerate}
+    \end{enumerate}
+  \end{ptcbr}
+  \begin{Ej}
+    For the following coordinate rings, find affine varieties whose coordinate rings are isomorphic to the ones in questions.
+    \begin{enumerate}[i)]
+      \itemsep=-0.4em
+      \item $\bC[x,1/x,y]$ (this is, rational functions whose denominator is a polynomial in $x$. )
+    \end{enumerate}
+  \end{Ej}
 \end{document} 
