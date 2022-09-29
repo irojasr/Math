@@ -26,7 +26,7 @@
 \begin{ptcbr}
   \begin{enumerate}[i)]
     \itemsep=-0.4em
-    \item constants
+    \item \blu{I still need to think this one, it's giving me trouble. I thought about it on the real case and I can visualize it. I even tried using the stereographic projection with a computer program to look at it but I can't grasp it.}
     \item Let $L_1,L_2\subseteq\bP^2$ be two distinct lines with direction $(a,b,c)$ and $(d,e,f)$. Since they are distinct this means that $\not\exists\la((d,e,f)=\la(a,b,c))$. A point $[x:y:z]$ in the intersection of $L_1$ and $L_2$ must satisfy the system of equations
     $$
     \left\lbrace
@@ -48,7 +48,7 @@
     \end{aligned}
     \right.
     $$
-    There is an infinite number of solutions to this system for $(a,b,c)\in\bC^3$.aaaaaaa
+    There is an infinite number of solutions to this system for $(a,b,c)\in\bC^3$. The solution set for this system of equations is precisely the unique line which passes through $[x:y:z],[u:v:w]$
   \end{enumerate}
   \end{ptcbr}
 
@@ -127,20 +127,51 @@
       $$V\subseteq\bP^2\ \text{is closed} \iff V\cap\bA^2\ \text{is the zero locus of a set of polynomials}.$$
       \begin{enumerate}
         \itemsep=-0.4em
-        \item[$\To$] Suppose $V=\bV(F_1,\dots,F_n)$, where $F_j\in\bC_h[X,Y,Z]$, we want to show that $V\cap \bA^2=\bV[\eps F_1,\dots,\eps F_n]$. For that effect, take $[a:b:c]\in V\cap\bA^2$, this means that $c\neq 0$, so we can take $c=1$ due to rescaling.
+        \item[$(\To)$] Suppose $V=\bV(F_1,\dots,F_n)$, where $F_j\in\bC_h[X,Y,Z]$, we want to show that $V\cap \bA^2=\bV[\eps F_1,\dots,\eps F_n]$. For that effect, take $[a:b:c]\in V\cap\bA^2$, this means that $c\neq 0$, so we can take $c=1$ due to rescaling.
         \begin{align*}
           [a:b:1]\in V&\To \forall i(F_i([a:b:1])=0)\\
           &\To\forall i[(\eps F_i)(a,b)=0]\\
           &\To (a,b)\in \bV[\eps F_1,\dots,\eps F_n].
         \end{align*}
+        On the other hand, if $[a:b:c]\not\in V\cap\bA^2$, we can assume that $[a:b:c]\in \bA^2\less V$. Then there exists a homogenous polynomial $F_i$ such that $F_i([a:b:c])\neq 0$. Then $\eps F_i (a,b)\neq 0$ and so we have the contrapositive. Thus, a zero locus of homogeneous polynomials induces a zero locus of regular polynomials inside the affine patch.
+        \item[$(\Leftarrow)$] Let us now assume that we have a zero locus of polynomials $W=\bV(f_1,\dots,f_n)$. We want to find $V\subseteq\bP^2$ such that $V\cap\bA^2=W$.\par 
+        Take $V=\bV(\eps^{-1}f_1,\dots,\eps^{-1}f_n)$, we will prove both inclusions.
+        \begin{align*}
+          [a:b:c]\in V\cap\bA^2&\To\forall i(\eps^{-1}f_i([a:b:1])=0),\\
+          &\To\forall i(f_i(a,b)=0),\\
+          &\To(a,b)\in W.
+        \end{align*}
+        Following the identification inside projective space, this lets us conclude that $[a:b:1]$ is in $W$.\par 
+        On the other hand if $[a:b:c]\in\bA^2\less V$, then 
+        $$\exists i(\eps^{-1} f_i([a:b:c])\neq 0)\To \eps(\eps^{-1}f_i([a:b:c]))=f_i(a,b)\neq 0.$$
+        It follows that $[a:b:c]\not\in W$.
       \end{enumerate}
+      We have thus proven that any projective Zariski closed set induces an ordinary Zariski closed set inside the affine patch and vice-versa. Thus both topologies coincide.\footnote{I feel like this proof is SO messy and long, I want to polish it to a better version.}
+      
+    \item The generalization to higher dimension takes a point $[x_0:x_1:\dots:x_n]$ in projective space to $[1:x_1:\dots:x_n]$ which is in the affine patch. All of my previous arguments are analogous in this case.\par 
+    For the case of the bijection, we set one coordinate to one for the direction $\bC_h[\un{X}]\to\bC[\un{x}]$. The inverse of this function is analogous with the coordinate we set to one.
     \end{enumerate}
+    
   \end{ptcbr}
+\newpage
   \begin{Ej}
     For the following coordinate rings, find affine varieties whose coordinate rings are isomorphic to the ones in questions.
     \begin{enumerate}[i)]
       \itemsep=-0.4em
-      \item $\bC[x,1/x,y]$ (this is, rational functions whose denominator is a polynomial in $x$. )
+      \item $\bC[x,1/x,y]$ (this is, rational functions whose denominator is a polynomial in $x$.) \hint{See exercise 4.1.1 and the preceding paragraphs.}
+      \item $\bC[x,y,1/(x^2+y^2)]$, i.e. rational functions whose denominator is a polynomial is $x^2+y^2$.
     \end{enumerate}
   \end{Ej}
+
+  \begin{ptcbr}
+    \begin{enumerate}[i)]
+      \itemsep=-0.4em
+      \item If we consider $z=\frac{1}{x}$, then this is precisely the zero locus of the polynomial $xz-1$. In this sense, 
+      $$\bC[x,1/x,y]\isom\quot{\bC[x,z,y]}{\gen(xz-1)}.$$
+      Then this is the coordinate ring of $V=\bV(xz-1)$.
+      \item Once again let us consider the equation $z=\frac{1}{x^2+y^2}$. We get that $zx^2+zy^2-1=0$. It follows that 
+      $$\bC[x,y,1/(x^2+y^2)]\isom\quot{\bC[x,y,z]}{\gen(z(x^2+y^2)-1)}.$$
+      Then the variety $V=\bV(z(x^2+y^2)-1)$ has this ring as its coordinate ring.
+    \end{enumerate}
+  \end{ptcbr}
 \end{document} 
