@@ -46,7 +46,99 @@ It follows that $f(n)=C_n$.
    
    \begin{ptcbr}
       In the same way we chose a \emph{left} and \emph{right} trees, here we will chose L-and-R triangulations.\par 
-      Once again let us begin by verifying the initial condition, for $n=0$ we have a $2$-gon which is a line. There's no possible triangulation there. The definition of triangulation starts making sense at $n=1$ because we have a triangle and $1-1=0$ diagonals.  
+      The initial conditions don't match up until $T(2)=2=C_2$. Nonetheless we will form the recurrence for $n\geq 2$. Suppose we want to find $T(n)$, for that effect let us construct an $(n+2)$-gon labeling the vertices $1$ through $n+2$:
+      \begin{center}
+
+         \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+         
+         \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+         %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+         
+         %Straight Lines [id:da14032885786543736] 
+         \draw    (45.5,33.75) -- (93.5,17) ;
+         %Straight Lines [id:da18483984818254018] 
+         \draw    (93.5,17) -- (140,29.5) ;
+         %Straight Lines [id:da8230294269720508] 
+         \draw    (140,29.5) -- (163,65.5) ;
+         %Straight Lines [id:da7802267531570728] 
+         \draw    (113.5,158.5) -- (152.5,140) ;
+         %Straight Lines [id:da7717797702169771] 
+         \draw    (26,77) -- (45.5,33.75) ;
+         %Straight Lines [id:da6555889756570468] 
+         \draw    (76.5,150.5) -- (113.5,158.5) ;
+         %Straight Lines [id:da6388975755574837] 
+         \draw    (235.5,30.25) -- (293.5,17) ;
+         %Straight Lines [id:da14610674625034537] 
+         \draw    (293.5,17) -- (340,29.5) ;
+         %Straight Lines [id:da8227274811207295] 
+         \draw    (340,29.5) -- (363,65.5) ;
+         %Curve Lines [id:da8690431311277056] 
+         \draw  [dash pattern={on 4.5pt off 4.5pt}]  (363,65.5) .. controls (376.5,103.75) and (373.5,113.75) .. (352.5,140) ;
+         %Straight Lines [id:da2772128926893782] 
+         \draw    (313.5,158.5) -- (352.5,140) ;
+         %Straight Lines [id:da5820372167779093] 
+         \draw    (226,77) -- (235.5,30.25) ;
+         %Curve Lines [id:da32660025377744484] 
+         \draw  [dash pattern={on 4.5pt off 4.5pt}]  (226,77) .. controls (225,112.25) and (231,93.75) .. (242.5,114.75) .. controls (254,135.75) and (237.5,140.75) .. (254,149.25) ;
+         %Straight Lines [id:da6218021333670047] 
+         \draw    (254,149.25) -- (313.5,158.5) ;
+         %Straight Lines [id:da9052448245737825] 
+         \draw    (293.5,17) -- (313.5,158.5) ;
+         %Straight Lines [id:da35479330057110614] 
+         \draw    (340,29.5) -- (313.5,158.5) ;
+         %Curve Lines [id:da3753608201652048] 
+         \draw  [dash pattern={on 4.5pt off 4.5pt}]  (163,65.5) .. controls (170.25,86.04) and (172.74,98.44) .. (170.24,109.58) .. controls (168.08,119.18) and (162.22,127.85) .. (152.5,140) ;
+         %Curve Lines [id:da17362192875108295] 
+         \draw  [dash pattern={on 4.5pt off 4.5pt}]  (26,77) .. controls (25,112.25) and (33,95.75) .. (47.5,116.25) .. controls (62,136.75) and (43.5,140.25) .. (76.5,150.5) ;
+         
+         % Text Node
+         \draw (95.5,13.6) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{1}$};
+         % Text Node
+         \draw (142,26.1) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{2}$};
+         % Text Node
+         \draw (165,62.1) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{3}$};
+         % Text Node
+         \draw (154.5,143.4) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$v_{k-1}$};
+         % Text Node
+         \draw (115.5,161.9) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$v_{k}$};
+         % Text Node
+         \draw (74.5,153.9) node [anchor=north east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{k+1}$};
+         % Text Node
+         \draw (24,73.6) node [anchor=south east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{n+1}$};
+         % Text Node
+         \draw (43.5,30.35) node [anchor=south east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{n+2}$};
+         % Text Node
+         \draw (295.5,13.6) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{1}$};
+         % Text Node
+         \draw (342,26.1) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{2}$};
+         % Text Node
+         \draw (365,62.1) node [anchor=south west] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{3}$};
+         % Text Node
+         \draw (354.5,143.4) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$v_{k-1}$};
+         % Text Node
+         \draw (315.5,161.9) node [anchor=north west][inner sep=0.75pt]  [font=\scriptsize]  {$v_{k}$};
+         % Text Node
+         \draw (252,152.65) node [anchor=north east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{k+1}$};
+         % Text Node
+         \draw (224,73.6) node [anchor=south east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{n+1}$};
+         % Text Node
+         \draw (233.5,26.85) node [anchor=south east] [inner sep=0.75pt]  [font=\scriptsize]  {$v_{n+2}$};
+         % Text Node
+         \draw (51.5,80.4) node [anchor=north west][inner sep=0.75pt]    {$( n+2) -\text{gon}$};
+         % Text Node
+         \draw (253.59,25) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,rotate=-65.26]  {$[( n+2) -k+1+1] -\text{gon}$};
+         % Text Node
+         \draw (324.8,142.2) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize,rotate=-282.57]  {$( k-1) -\text{gon}$};
+         
+         
+         \end{tikzpicture}
+         \end{center} 
+      We take the first two vertices of our polygon, note that this choice is independent of the actual number of triangulations, and from them we pick vertex $k$ to draw a triangle.\par 
+      Given an \emph{nice orientation} we can see that we have a \emph{left}-gon and a \emph{right}-gon. The right one contains vertices from $2$ through $k$ which amount to $k-2+1=k-1$ vertices. While the left one runs from $k$ to $n+2$ and $1$. The number of vertices on the left is $(n+2)-k+1+1$. So the number of triangulations given that vertex $k$ we chose is 
+      $$T[(k-1)-2]T[(n-k+4)-2].$$
+      Summing through all the possible choices of $k$, we run from $3$ through $n+2$. This means that 
+      $$T(n)=\sum_{k=3}^{n+2}T(k-3)T(n-k+2)\xrightarrow[\substack{k\to 3\\\To\l\to 0\\k\to n+2\\\To\l\to n-1}]{\l=k-3}\sum_{\l=0}^{n-1}T(\l)T(n-\l-1)=\sum_{\l=0}^{n-1}T(\l)T[(n-1)-\l].$$ 
+      This is precisely the recurrence which defines the Catalan numbers and so $T(n)=C_n$ for $n\geq 2$.
       \end{ptcbr}
 
    \begin{Ej}[Exercise 8]
@@ -65,7 +157,29 @@ It follows that $f(n)=C_n$.
       \end{itemize}
       Since this events are disjoint, the possibilities for each must be summed. But our choice for the first one's preference was arbitrary, there are other $n-1$ possible choices. It follows that 
       $$D_n=(n-1)(D_{n-1}+D_{n-2}).$$
-      By taking the exponential generating function on both sides we get 
-      $$\sum_{n=0}^\infty D_n\frac{x^n}{n!}=\sum_{n=0}^\infty (n-1)D_{n-1}\frac{x^n}{n!}+\sum_{n=0}^\infty (n-1)D_{n-2}\frac{x^n}{n!}$$
+      Let us shift indices to obtain the recurrence $D_{n+2}=(n+1)(D_{n+1}+D_n)$. By taking the exponential generating function on both sides we get 
+      $$\sum_{n=0}^\infty D_{n+2}\frac{x^n}{n!}=\sum_{n=0}^\infty (n+1)D_{n+1}\frac{x^n}{n!}+\sum_{n=0}^\infty (n+1)D_{n}\frac{x^n}{n!}$$
+      and if we call $\cD(x)$, $D_n$'s e.g.f. then this equation translates to the differential equation
+      \begin{align*}
+         D^2\cD(x)&=(xD+1)D\cD(x)+(xD+1)\cD(x),\\
+         &=xD^2\cD(x)+D\cD(x)+xD\cD(x)+\cD(x).
+      \end{align*}  
+      Let's switch notation to make this equation a bit more refreshing to the eyes, say $y=y(x)=\cD(x)$ and we will change the differential operator by primes:
+      $$y''=xy''+y'+xy'+y.$$
+      Let us gather two initial conditions for this equation. By evaluating $\cD$ and $\cD'$ at $x=0$ we recover the following
+      $$\cD(0)=D_0=1,\ \cD'(0)=D_1=0$$
+      where we take $D_0=1$ by convention and $D_1$ tells us that there are no permutations on ${1}$ which do not fix $1$.\par 
+      Now we can solve the differential equation as follows:
+      \begin{align*}
+         (1-x)y''-y'=xy'+y&\To\dv{x}\left((1-x)y'\right)=\dv{x}(xy),\\
+         &\To (1-x)y'=xy+c_1,\\
+         (x\to 0)&\To (1-0)(0)=(0)(1)+c_1\To c_1=0,\\
+         &\To (1-x)y'=xy,\\
+         &\To \frac{y'}{y}=\frac{x}{1-x}=-\bonj{\frac{-x+1-1}{1-x}}=-\left(1-\frac{1}{1-x}\right),\\
+         &\To \log(y)=-x-\log(1-x)+c_2,\\
+         (x\to 0)&\To \log(1)=0-0+c_2\To c_2=0,\\
+         &\To y=e^{-x}\frac{1}{1-x}.
+      \end{align*}
+      We can conclude that $\cD(x)=\frac{e^{-x}}{1-x}$ as we wanted.
    \end{ptcbr}
 \end{document}
