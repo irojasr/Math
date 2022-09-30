@@ -13,7 +13,60 @@
 \DeclareMathOperator{\inv}{inv}
 \DeclareMathOperator{\exc}{exc}
 \DeclareMathOperator{\maj}{maj}
+\usepackage{lipsum}
 \begin{document}
+
+\begin{Ej}[Exercise 3]
+   Read the definition of alternating permutations in Section 1.4 of Stanley, and write out all 16 alternating permutations of size 5. Then, read Proposition 1.6.1 and its proof, and either (a)
+comment on how awesome it is and what you learned from it, OR (b) point out something you didn't fully understand about the proof.
+\end{Ej}
+
+\begin{ptcbr}
+An \un{alternating permutation} is a permutation that, when written in list notation, goes (\emph{down-up-down-up\dots}). On the other hand a \un{reverse-alternating permutatio} goes (\emph{up-down-up-down\dots}).\par 
+As in Section 1.4, call $E_n$ the set of alternating permutations of order $n$, we can construct some elements in $E_5$ with elements of $E_4$. We have the following permutations in $S_4$ which are alternating and reverse-alternating
+\begin{center}
+   \begin{tabular}{l|l}
+      \emph{down-up} & \emph{up-down} \\
+      \hline
+      2143&1324   \\
+      3142&1423   \\
+      3241&2314   \\
+        4132&2413   \\
+        4231&3412  
+      \end{tabular}
+\end{center}
+For this permutations we can either add a 5 at the end of the \emph{down-up}'s or a 5 at the beginning of the \emph{up-down}'s. We get some \emph{down-up} permutations in $S_5$ this way:
+
+$$\set{21435,31425,32415,41325,42315,51324,51423,52314,52413,53412}\subseteq E_5.$$
+
+We can also include 5 in the middle of the \emph{down-up}'s and reverse the last two elements. This adds other permutations to our count:
+
+$$\set{\un{21534},31524,32514,41523,42513}\subseteq E_5.$$
+
+By doing the same process with the \emph{up-down} permutations, but instead reversing the order of the first two elements we get the permutations 
+
+$$\set{31524,41523,32514,42513,\un{43512}}\subseteq E_5.$$
+
+This process gives us only one different permutation from the last process, in fact, the reverse process also gives us a permutation which is not on this set. So in total we have
+
+\begin{align*}
+   E_5=&\set{21435,31425,32415,41325,42315}\cup\set{51324,51423,52314,52413,53412}\\
+   &\cup\set{31524,32514,41523,42513}\cup\set{21534,43512}.
+\end{align*}
+
+These are the 16 alternating permutations in question.\par 
+Regarding the proof, what surprises me the most is the way that the permutations are counted. I only used the permutations one step before to mine, but in the proof, all the other permutations of lower orders are used.\par 
+On questions or doubts I still find the following troubling:
+
+\begin{enumerate}[i)]
+   \itemsep=-0.4em
+   \item I need to wrap the recursion around my head, I admit that still can't grasp it fully. 
+   \item Also, we get the factor of $2E_{n+1}$ since we are using both sets of \emph{down-up}'s and \emph{up-down}'s in the count, right?
+\end{enumerate}
+The differential equation is not a problem, \textbf{but afterwards...} The alternative proof after deriving the identity for secant, I don't understand how Stanley rewrites that equation as the one he names (1.56).\par 
+I also need to review what \emph{descent set} $D$ means, because I know what $\des(\pi)$ means, but not exactly what the descent set.\par 
+At the beginning of section 1.6 Stanley mentions that $\pi$ is \emph{alternating} or \emph{down-up} when $D(\pi)=\set{2n-1}_{n\geq 1}\cap[n-1]$. This equivalence makes intuitive sense for me, but I need to prove it.\footnote{I know I was only supposed to comment on the proposition, but why stop there? I must admit that afterwards when $f_k(n)$ is defined I got completely lost, I can't imagine a permutation with such descents.}
+\end{ptcbr}
 
 \begin{Ej}[Exercise 5]
    A \textbf{binary tree} of length $n$ constructed recursively as follows.\par 
