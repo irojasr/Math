@@ -33,7 +33,53 @@
 \end{Ej}
 
 \begin{ptcbr}
-
+\begin{enumerate}[i)]
+   \itemsep=-0.4em 
+   \item First, we can observe that the total number of sequences of length $n$ with characters $0,\dots,3$ is $4^n$. Dividing this amount into conditioned sequences and forbidden sequences we get the following 
+   $$4^n=c_n+f_n,$$
+   where $c_n$ is the quantity we are looking for and $f_n$ is the number of \emph{forbidden} sequences of length $n$. This is, sequences which do have $33$ as a substring.\par 
+   After considering the initial conditions:
+   $$f_0=0,\ f_1=0,\ f_2=1,\ f_3=7,\ f_4=40,$$
+   it is possible to conjecture that 
+   $$f_{n+2}=3f_{n+1}+3f_n+4^n.$$
+   To prove this recurrence we will append a digit to a length $(n+1)$ sequence. There are several ways to this:
+   \begin{itemize}
+      \itemsep=-0.4em
+      \item If the digit we are appending is either $0$, $1$ or $2$, we are not adding any more forbidden substrings. So for each of those digits, our count of forbidden sequences goes up by $f_{n+1}$. Right now we have $3f_{n+1}$ forbidden sequences.
+      \item If the digit we are appending is $3$, there are two cases:
+      \begin{itemize}
+         \itemsep=-0.4em
+         \item Either the last digit of the $(n+1)$ sequence is $0$, $1$ or $2$ in which case we are not adding more forbidden strings. Each of those possibilities accounts for $f_n$ forbidden sequences. This adds up to our past total to get $3f_{n+1}+3f_n$.
+         \item If the last digit of the $(n+1)$ sequence is $3$, then we just added a forbidden substring. Counting this is the same as counting all $(n+2)$ strings which end in $33$. This amount is $4^n$.
+      \end{itemize}
+   \end{itemize}
+   In total, we have $3f_{n+1}+3f_n+4^n$ forbidden sequences of length $n$. Then by our initial relation we have 
+   $$c_n=4^n-f_n=-(3f_{n+1}+3f_n),\ f_0=0,\ f_1=0.\footnote{Even though the recurrence is not in terms of $c$'s, it's still a recursive formula. The derivation for $c_n$'s recursive formula lies below this answer.}$$
+   \item Let us derive a generating function for $f_n$ and from that we will obtain $c_n$'s generating function.\par 
+   Call $F$, $(f_n)$'s generating function, then the recurrence 
+   $$f_{n+2}=3f_{n+1}+3f_n+4^n$$
+   translates to the equation 
+   $$\frac{F(x)-f_0-f_1x}{x^2}=\frac{3(F(x)-f_0)}{x}+3F(x)+\frac{1}{1-4x}.$$
+   Applying the initial conditions we get 
+   $$\frac{F(x)}{x^2}=\frac{3F(x)}{x}+3F(x)+\frac{1}{1-4x}.$$
+   We can solve for $F$ to obtain 
+   \begin{align*}
+      &F(x)\left(\frac{1}{x^2}-\frac{3}{x}-3\right)=\frac{1}{1-4x}\\
+      \To&F(x)\left(\frac{1-3x-3x^2}{x^2}\right)=\frac{1}{1-4x}\\
+      \To&F(x)=\frac{1}{1-4x}\\
+   \end{align*}
+   \item formula
+\end{enumerate}
 \end{ptcbr}
+
+\begin{ptcb}
+   We can also construct the recurrence in terms of the allowed sequences $c_n$. Take any length $n$ allowed sequence, then there are two possibilities:
+   \begin{itemize}
+      \itemsep=-0.4em
+      \item The last digit is $0$, $1$ or $2$, then the rest of the sequence is a length $(n-1)$ allowed sequence. For each digit we count $c_{n-1}$ allowed sequences. So in total we have $3c_{n-1}$ allowed sequences.
+      \item If the last digit is $3$, then the second-to-last digit can't be three. There are only $3$ other possibilities: $0$, $1$ or $2$. For each of these the remaining length $n$ sequence has to fullfil the condition. Which means we count $c_{n-2}$ allowed sequences per digit.
+   \end{itemize}
+   This total amounts to $c_n=3c_{n-1}+3c_{n-2}$. With this recurrence we have counted all the possibilities since the only options for the last digit are the ones mentioned above. 
+\end{ptcb}
 
 \end{document}
