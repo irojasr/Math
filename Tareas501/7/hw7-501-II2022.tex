@@ -64,10 +64,37 @@
    $$\frac{F(x)}{x^2}=\frac{3F(x)}{x}+3F(x)+\frac{1}{1-4x}.$$
    We can solve for $F$ to obtain 
    \begin{align*}
-      &F(x)\left(\frac{1}{x^2}-\frac{3}{x}-3\right)=\frac{1}{1-4x}\\
-      \To&F(x)\left(\frac{1-3x-3x^2}{x^2}\right)=\frac{1}{1-4x}\\
-      \To&F(x)=\frac{1}{1-4x}\\
+      &F(x)\left(\frac{1}{x^2}-\frac{3}{x}-3\right)=\frac{1}{1-4x},\\
+      \To&F(x)\left(\frac{1-3x-3x^2}{x^2}\right)=\frac{1}{1-4x},\\
+      \To&F(x)=\frac{1}{1-4x}\left(\frac{x^2}{1-3x-3x^2}\right).\\
    \end{align*}
+   Now let us factor $1-3x-3x^2$ by taking $x=\frac{-3\pm\sqrt{21}}{6}$, where $\al$ is the root with $+$ while $\bt$, the one with negative. Then 
+   \begin{align*}
+      (1-3x-3x^2)&=-3(x-\al)(x-\bt)=-3\al\bt\left(1-\frac{x}{\al}\right)\left(1-\frac{x}{\bt}\right)\\
+      &=\frac{-3}{ab}(1-ax)(1-bx),
+   \end{align*}
+   where $a,\al$ and $b,\bt$ are pairs of reciprocals. We can now continue to solve $F$ as a sum of partial fractions as follows
+   $$F(x)=\frac{-abx^2}{3(1-4x)(1-ax)(1-bx)}=\frac{A}{1-ax}+\frac{B}{1-bx}+\frac{C}{1-4x}.$$
+   Homogenizing the denominator on the equation to the right we get
+   $$\frac{-ab}{3}x^2=A(1-4x)(1-bx)+B(1-4x)(1-ax)+C(1-ax)(1-bx).$$
+   Since this equation holds for any value of $x$, we might substitute certain values to get cleaner equations for $A,B$ and $C$:
+   $$
+\left\lbrace
+\begin{aligned}
+   (x=\al)\To&\frac{-ab}{3}\al^2=A(1-4\al)(1-b\al)=A\al^2(4-a)(b-a),\\
+   \To&\frac{-ab}{3(4-a)(b-a)}=A,\\
+   (x=\bt)\To&\frac{-ab}{3}\bt^2=B(1-4\bt)(1-a\bt)=B\bt^2(4-b)(a-b),\\
+   \To&\frac{-ab}{3(4-b)(a-b)}=B,\\
+   (x=1/4)\To&\frac{-ab}{3\.16}=C(1-a/4)(1-b/4)=\frac{C}{16}(4-a)(4-b),\\
+   \To&\frac{-ab}{3(4-a)(4-b)}=C.\\
+\end{aligned}
+\right.
+$$
+Comparing coefficients $(1-ax)(1-bx)=1-(a+b)x+abx^2$, we have that $a+b=3$ and $ab=-3$. Expanding $(4-a)(4-b)=16-4(a+b)+ab=16-12-3=1$. From this we get \un{$C=1$}. Also, using the polarization identity it holds that 
+$$|a+b|^2-|a-b|^2=4ab\To|a-b|^2=-(-12-9)=21\To|a-b|=\sqrt{21}.$$
+We also have that $\bt<-\frac{1}{2}<\al$, so $b>-2>a$. This means that $a-b=-\sqrt{21}$. From this we can replace in $A$ and $B$'s expressions:
+$$A=$$
+
    \item formula
 \end{enumerate}
 \end{ptcbr}
