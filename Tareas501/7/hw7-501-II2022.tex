@@ -93,9 +93,14 @@ $$
 Comparing coefficients $(1-ax)(1-bx)=1-(a+b)x+abx^2$, we have that $a+b=3$ and $ab=-3$. Expanding $(4-a)(4-b)=16-4(a+b)+ab=16-12-3=1$. From this we get \un{$C=1$}. Also, using the polarization identity it holds that 
 $$|a+b|^2-|a-b|^2=4ab\To|a-b|^2=-(-12-9)=21\To|a-b|=\sqrt{21}.$$
 We also have that $\bt<-\frac{1}{2}<\al$, so $b>-2>a$. This means that $a-b=-\sqrt{21}$. From this we can replace in $A$ and $B$'s expressions:
-$$A=$$
-
-   \item formula
+$$A=\frac{1}{(4-a)\sqrt{21}},\ B=\frac{-1}{(4-b)\sqrt{21}}$$
+so in the end we have the expression for $F$:
+$$F(x)=\left(\frac{1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}+\left(\frac{-1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}+\frac{1}{1-4x}.$$
+If $C(x)$ is $(c_n)$'s generating function, then the following equation holds $C(x)+F(x)=1/(1-4x)$ which means that
+$$C(x)=\left(\frac{1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}
++\left(\frac{-1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}.$$
+\item Combining the terms in $F$'s generating function we get 
+$$F(x)=\sum_{n=0}$$
 \end{enumerate}
 \end{ptcbr}
 
@@ -109,4 +114,34 @@ $$A=$$
    This total amounts to $c_n=3c_{n-1}+3c_{n-2}$. With this recurrence we have counted all the possibilities since the only options for the last digit are the ones mentioned above. 
 \end{ptcb}
 
+\begin{Ej}[Exercise 5]
+Carlitz defined the \emph{$q$-Stirling numbers} of the second kind as follows:
+\par
+Given a set partition $B$ of $[n]$ into $k$ blocks, let its blocks be $B_1,B_2,\dots,B_k$ where the blocks are written in order by their minimum element from least to greatest. Then an inversion of $B$ is a pair $(b, B_j )$ where $b$ is in some block $B_i$ to the left of $B_j$ (that is, $i < j$) and $b > \min(B_j )$.\par 
+For instance, in the set partition
+$$\set{1,3,6},\set{2,4},\set{5,7},$$
+we have the inversions $(3,\set{2,4})$, $(6,\set{2,4})$ and $(6,\set{5,7})$. We write $\inv(B)$ to denote the total number of inversions in $B$, and define 
+$$S_q(n,k)=\sum_Bq^{\inv(B)}$$
+with $B$ ranging over all set partitions of $[n]$ into $k$ blocks.\par 
+Prove that the $q$-Stirling numbers satisfy the recursion
+$$S_q(n,k)=S_q(n-1,k-1)+(1+q+q^2+\dots+q^{k-1})S_q(n-1,k).$$
+\end{Ej}
+
+\begin{ptcbr}
+ It is paramount to understand that even if $S_q$ is ``$q$ounting'' the set partitions of $[n]$ into $k$ blocks by inversions, in the end $S_q$ is a polynomial. So to prove this identity we will separate the set of set partitions into partitions where $n$ is its own block, and partitions where $\exists j(n\in B_j)$. We have the following
+ $$S_q(n,k)=\sum_{B\in\cO}q^{\inv(B)}+\sum_{B\in \cI}q^{\inv(B)}$$
+ where we have defined sets $\cO,\cI$ in the following manner:
+ \begin{itemize}
+   \itemsep=-0.4em 
+   \item $\cO$ is the set of \emph{the set of set partitions of $[n]$ into $k$ blocks} such that $n$ is OUT of other blocks, in this sense $\exists j(B_j=\set{n})$ for $B\in\cO$. 
+   \item On the other hand $\cI$ is \emph{the set of set partitions of $[n]$ into $k$ blocks}  such that $n$ is IN one of the $k$ blocks. 
+   \item We can further decompose $\cI=\bigcupdot_{j=1}^k\cI_j$ where $\cI_j$ is \emph{the set of set partitions of $[n]$ into $k$ blocks} such that $n\in B_j$ (IN block $j$). (Recall that the $B_j$'s are ordered by $\min(B_j)$.)
+ \end{itemize}
+We can find a bijection between $\cO$ and \emph{the set of set partitions of $[n-1]$ into $k-1$ blocks} given by 
+$$F:\cO\to(\text{aforementioned set}),\ A\mapsto A\less\set{n}$$
+with its inverse being $B\mapsto B\cup\set{n}$. This function is well defined since every $A\in\cO$ can be seen as a set $\widetilde{A}\cup\set{n}$. Thus
+$$\sum_{B\in\cO}q^{\inv(B)}=\sum_{F(B)\in F[\cO]}q^{\inv(F(B))}=\sum_{B}q^{\inv(B)}=S_q(n-1,k-1),$$
+where the third sum runs $B$ through \emph{the set of set partitions of $[n-1]$ into $k-1$ blocks} and this, by definition, is $S_q(n-1,k-1)$.\par 
+Let us now consider a partition $B\in\cI_\l$, we can associate $B$ to a partition of $[n-1]$ with $k$ blocks by removing $n$ from $B_j$.
+\end{ptcbr}
 \end{document}
