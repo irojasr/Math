@@ -92,20 +92,24 @@
 $$
 Comparing coefficients $(1-ax)(1-bx)=1-(a+b)x+abx^2$, we have that $a+b=3$ and $ab=-3$. Expanding $(4-a)(4-b)=16-4(a+b)+ab=16-12-3=1$. From this we get \un{$C=1$}. Also, using the polarization identity it holds that 
 $$|a+b|^2-|a-b|^2=4ab\To|a-b|^2=-(-12-9)=21\To|a-b|=\sqrt{21}.$$
-We also have that $\bt<-\frac{1}{2}<\al$, so $b>-2>a$. This means that $a-b=-\sqrt{21}$. From this we can replace in $A$ and $B$'s expressions:
-$$A=\frac{1}{(4-a)\sqrt{21}},\ B=\frac{-1}{(4-b)\sqrt{21}}$$
+Now, let us compare $|-1/2|$ with $|\sqrt{21}/6|$, it holds that the latter is greater than $1/2$ because $9<21$. This lets us see that $\bt<0<\al$\footnote{I had a problem with this inequality, but \textbf{Sam} helped me correct it.}, from which follows the inequality $b<0<a$. Then $a-b=\sqrt{21}$.
+\iffalse
+We also have that $\bt<-\frac{1}{2}<\al$, so $b>-2>a$. This means that $a-b=-\sqrt{21}$.\fi 
+Replacing in $A$ and $B$'s expressions:
+$$A=\frac{-1}{(4-a)\sqrt{21}},\ B=\frac{1}{(4-b)\sqrt{21}}$$
 so in the end we have the expression for $F$:
-$$F(x)=\left(\frac{1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}+\left(\frac{-1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}+\frac{1}{1-4x}.$$
+$$F(x)=\left(\frac{-1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}+\left(\frac{1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}+\frac{1}{1-4x}.$$
 If $C(x)$ is $(c_n)$'s generating function, then the following equation holds $C(x)+F(x)=1/(1-4x)$ which means that
-$$C(x)=\left(\frac{1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}
-+\left(\frac{-1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}.$$
+$$C(x)=\left(\frac{1}{(4-a)\sqrt{21}}\right)\frac{1}{1-ax}
++\left(\frac{-1}{(4-b)\sqrt{21}}\right)\frac{1}{1-bx}.$$
 \item Combining the terms in $F$'s generating function we get 
-$$F(x)=\sum_{n=0}$$
+$$F(x)=\sum_{n=0}^\infty(Aa^n+Bb^n+4^n)x^n\To f_n=Aa^n+Bb^n+4^n.$$
+It follows that $c_n=-(Aa^n+Bb^n)$ where $A,B,a,b$ take the aforementioned values.
 \end{enumerate}
 \end{ptcbr}
 
 \begin{ptcb}
-   We can also construct the recurrence in terms of the allowed sequences $c_n$. Take any length $n$ allowed sequence, then there are two possibilities:
+   We\footnote{Understanding this recurrence was quite a collaborative effort. \textbf{Ian}, \textbf{Kylie}, \textbf{Clare} and \textbf{yourself} helped me out with this.} can also construct the recurrence in terms of the allowed sequences $c_n$. Take any length $n$ allowed sequence, then there are two possibilities:
    \begin{itemize}
       \itemsep=-0.4em
       \item The last digit is $0$, $1$ or $2$, then the rest of the sequence is a length $(n-1)$ allowed sequence. For each digit we count $c_{n-1}$ allowed sequences. So in total we have $3c_{n-1}$ allowed sequences.
@@ -142,6 +146,14 @@ $$F:\cO\to(\text{aforementioned set}),\ A\mapsto A\less\set{n}$$
 with its inverse being $B\mapsto B\cup\set{n}$. This function is well defined since every $A\in\cO$ can be seen as a set $\widetilde{A}\cup\set{n}$. Thus
 $$\sum_{B\in\cO}q^{\inv(B)}=\sum_{F(B)\in F[\cO]}q^{\inv(F(B))}=\sum_{B}q^{\inv(B)}=S_q(n-1,k-1),$$
 where the third sum runs $B$ through \emph{the set of set partitions of $[n-1]$ into $k-1$ blocks} and this, by definition, is $S_q(n-1,k-1)$.\par 
-Let us now consider a partition $B\in\cI_\l$, we can associate $B$ to a partition of $[n-1]$ with $k$ blocks by removing $n$ from $B_j$.
+Let us now consider a partition $B\in\cI_\l$, we can associate $B$ to a partition of $[n-1]$ with $k$ blocks by removing $n$ from $B_j$. This is done through a function 
+\begin{align*}
+   G_j:&\set{\text{set partitions of }[n-1]\ \text{into } k\ \text{blocks}}\to\cI_l,\\&(B_1,\dots,B_\l)\mapsto(B_1,\dots,B_j\cup\set{n},\dots,B_\l).
+\end{align*}
+However the introduction of $n$ into the $j^\text{th}$ guarantees that $\min(B_j)<n$ for all $j$ from $j+1$ to $\l$. Then including the inversions already counted by the Stirling number's $q$-analogue, we are introducing $\l-j$ new inversions. The associated polynomial in this case is $q^{\l-j}S_q(n-1,\l)$. This is the case for each $j$ running from $1$ through $\l$. It follows that\footnote{Before completely understanding the Stirling number recurrence I wouldn't have had an idea of how to approach the problem. \textbf{Kelsey} and \textbf{Daniel} initially reminded me of the recurrence and then I came to \textbf{you} to make sure I understood it.} 
+\begin{align*}
+   S_q(n,k)&=S_q(n-1,k-1)+q^{k-1}S_q(n-1,k)+\dots+q^0S_q(n-1,k)\\
+   &=S_q(n-1,k-1)+[k]_qS_q(n-1,k).
+\end{align*}
 \end{ptcbr}
 \end{document}
