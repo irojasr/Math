@@ -1,0 +1,92 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Mark Shoemaker}
+\def\nsigla {MATH672}
+\def\nsiglahead {Algebraic Geometry}
+\def\nextra {HW5}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+  Consider the parallel lines $L = \bV(x)$ and $L' = \bV(x-1)$ in $\bA^2$ Let $\ov L$ and $\ov L'$ denote their projective closures in $\bP^2$ (embed $\bA^2$ into $\bP^2$ via the map $(x, y)\mapsto [x : y : 1]$).\par 
+  Recall that $\bP^2$ is covered by the open charts $U_x=\set{x\neq 0}$, $U_y=\set{y\neq 0}$ and $U_z=\set{z\neq 0}$. Show that when restricted to the affine chart $U_y\isom\bA^2$, the lines $\ov L$
+  and $\ov{L'}$ are no longer parallel.
+\end{Ej}
+
+  \begin{ptcbr}
+    Recall that the projective closure of an affine variety $V$ is $V\cup\set{\text{limit points}}$. In our case we first embed into $\bP^2$: 
+    $$\left\lbrace
+    \begin{aligned}
+      &L=\set{[0:y:1]:\ y\neq 0}=\Set{\bonj{0:1:\frac{1}{y}}:\ y\neq 0},\\
+      &L'=\set{[1:y:1]:\ y\neq 0}=\Set{\bonj{\frac{1}{y}:1:\frac{1}{y}}:\ y\neq 0}.\\
+    \end{aligned}
+    \right.$$
+    By taking limits of $y$ to infinity we get that 
+    $$\left\lbrace
+    \begin{aligned}
+      &\ov L=L\cup\set{[0:1:0]},\\
+      &\ov L'=L'\cup\set{[0:1:0]}.\\
+    \end{aligned}
+    \right.$$
+    When restricting this varieties to $U_y$ we get the $\bV(x)$ and $\bV(x-z)$. These two lines will intersect at the origin and at $[0:1:0]$, it follows that they are not parallel.
+  \end{ptcbr}
+
+  \begin{Ej}
+    Let $f_i(\vec{x}),g_i(\vec{x})$ be polynomials for $1\leq i\leq m$. Consider the open subset $U\subseteq\bA^n$ defined by 
+    $$U=\bA^n\less\bV(g(\vec x)),\ g=\prod_{i=1}^m g_i.$$
+    Define $F(\vec{x})=\left(\frac{f_i(\vec{x})}{g_{i}(\vec{x})}\right)_{1\leq i\leq m}$. Prove that $F$ is a \emph{morphism of quasi-projective varieties}. (As defined in section 4.1)
+  \end{Ej}
+
+  Before beginning, let us recall the definition of morphism between quasi-projective varieties:
+
+  \begin{Def}
+    If $V\subseteq\bP^n$ and $W\subseteq\bP^m$ are quasi-projective varieties, then a function $F:V\to W$ is a morphism if 
+    $$\forall p\in V\exists (F_j)_{j=0}^m (F_j\in\bC[x_0,\dots,x_n])[(q\mapsto [F_j(q)]_{j=0}^m)\mid_{U_p}\equiv F].$$
+    In other words, a function $F:V\to W$ is a quasi-projective morphism If
+    \begin{enumerate}[i)]
+      \itemsep=-0.4em
+      \item $V$ and $W$ are quasi-projective varieties.
+      \item For any point $p\in V$, there exists an open neighborhood $U_p$ of $p$ and homogenous polynomials $F_j\in\bC[x_0,\dots,x_n]$ such that the function $\widetilde{F}:V\to\bP^m,\ q\mapsto[F_0(q):\dots:F_m(q)]$ coincides with $F$ in $U_p$. This is $\widetilde{F}\eval_{U_p}\equiv F$.
+    \end{enumerate}
+  \end{Def}
+
+  \begin{ptcbr}
+    Let us verify the conditions in the definition, first the function $F$ is defined as a map between quasi-projective varieties. We now want to construct a function whose components are homogenous polynomials that fulfills the second condition on our definition.\par 
+    For that effect embed $F$ from $\bA^n$ into $\bP^n$ and multiply everything by $g$, we get 
+    $$g\.F=[g_1g_2\cdots g_n:f_1g_2\cdots g_n:g_1f_2\cdots g_n:\dots:g_1g_2\cdots f_n]=(g)\cup\left(\frac{gf_i}{g_i}\right)_{i=1}^m.$$
+    Now let us homogenize each entry to degree $d$ is sufficiently big (bigger than all the degrees of the entries of $g\.F$). We will homogenize by taking using the map 
+    $$\eps^{-1}(F)={}^hF,\ {}^hF(\vec{x},z)= z^dF\left(\frac{1}{z}\vec{x}\right).$$
+    Now call $\widetilde{F}=\bonj{{}^hg:{}^h\left(\frac{gf_1}{g_1}\right):\dots:{}^h\left(\frac{gf_m}{g_m}\right)}$, we claim that inside $\bA^n\less\bV(g)$ the action of $F$ and $\widetilde{F}$ is the same.\par 
+    Note that inside this set, we have can project the image through $z=1$ and since we are not in the zero locus of $g$, we can cancel each one to recover our original function $F$. So, by construction, $F$ coincides with a function $\widetilde{F}$ whose entries are homogenous polynomials. It follows that $F$ is a morphism of quasi-projective varieties.
+  \end{ptcbr}
+
+  \begin{Ej}
+    Show that $\rGL_n(\bC)$. the set of invertible $[n\x n]$ matrices has the structure of an affine algebraic variety.
+  \end{Ej}
+
+  \begin{ptcbr}
+    We can initially see that $\rGL_n(\bC)=\bA^{n^2}\less\bV(\det)$. This means that it is not an affine algebraic variety in our initial sense. However, recall that now an affine variety is a quasi-projective variety which is isomorphic to a closed subset of affine space.\par 
+    For that effect let us go one dimension higher, then the function 
+    $$F:\rGL_n(\bC)\to\bA^{n^2+1},\ A\mapsto\left(A,\frac{1}{\det(A)}\right)$$
+    is well defined on $\rGL_n(\bC)$. If $z$ is our new coordinate, then the polynomial $z\det(A)-1$ vanishes on $\Im(\rGL_n(\bC))\subseteq\bA^{n^2+1}$. This set is precisely the affine algebraic variety $\bV(z\det-1)$ and so $\rGL_n(\bC)\isom \bV(z\det-1)$. We conclude that $\rGL_n(\bC)$ is an affine algebraic variety under the new sense. 
+  \end{ptcbr}
+  \begin{Ej}
+    If $U=\bA^2\less\set{(0,0),(1,1)}$, find a basis of $U$ consisting of affine varieties.
+  \end{Ej}
+
+  \begin{ptcbr}
+    Originally my thought was to take the varieties $\bV(x-y)$, $\bV(x+y)$ and $\bV(x+y-1)$ and then, their complements. However we reach an impasse because $\bA^2\less\bV(x+y)$ contains $(1,1)$, and $\bA^2\less V(x+y-1)$ contains the origin.\par 
+    To fix this issue we will take another polynomial instead of the last two. Let us consider $\bV(y-x^2)$, then 
+    $$\set{(0,0),(1,1)}=\bV(x-y)\cup\bV(y-x^2).$$
+    We claim that a basis for $U$ made up of affine varieties is $\bA^2\less \bV(x-y)$ and $\bA^2\less\bV(y-x^2)$. \red{FINISH}
+  \end{ptcbr}
+
+  \begin{Ej}
+    Couldn't get to it :(
+  \end{Ej}
+\end{document} 
