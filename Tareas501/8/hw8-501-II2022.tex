@@ -16,11 +16,40 @@
 
 \begin{document}
 
-\begin{Ej}[Exercise ]
-  
+\begin{Ej}[Exercise 6]
+  Each of $n$ (distinguishable) telephone poles is painted red, white, blue, or
+  yellow. An odd number are painted blue and an even number are painted yellow. In how many ways can this be done?
 \end{Ej}
 
 \begin{ptcbr}
+Let us consider a variable $z$ whose exponent will count the number of telephone poles painted in any color. Since we have no restrictions on our red and white telephone poles, the exponential generating function which encodes the number of ways to paint the poles in ONE of those colors is 
+$$1+z+\frac{z^2}{2}+\frac{z^3}{3!}+\dots=e^z$$
+because there is only one way to paint in one color all of the poles. The function which counts the number of ways to paint in either red or white is 
+$$(e^z)(e^z)=e^{2z}=1+2z+2^2\frac{z^2}{2}+2^3\frac{z^3}{3!}+\dots$$
+In general the coefficients count the number of functions $f$ 
+$$f:\set{\text{pole}_1,\text{pole}_2,\dots,\text{pole}_n}\to\set{\text{red},\text{white}}.$$
+Both sets are distinguishable so the number is $2^n$.\par 
+If we are painting only an odd number of poles in blue, then the exponential generating function looks like 
+$$0+z+0\frac{z^2}{2}+\frac{z^3}{3!}+\dots=\sinh(z),$$
+because if we are only painting poles in color blue, then there's no way to paint $2$ poles with only color blue since we need to paint an odd number of poles blue. By a similar reasoning we arrive at the fact the e.g.f. which encodes yellow colored telephone poles is $\cosh(z)$.\par 
+The function which encodes painting in any of these colors is 
+\begin{align*}
+    e^z\cosh(z)\sinh(z)&=e^z\left(\frac{e^z+e^{-z}}{2}\right)\left(\frac{e^z-e^{-z}}{2}\right),\\
+    &=\frac{1}{4}e^z(e^{2z}-e^{-2z}),\\
+    &=\frac{1}{4}(e^{3z}-e^{-z}).
+\end{align*}
+The value $t_n$ which counts the way to paint given the conditions is the coefficient which accompanies $z^n/n!$ in the expansion of $\frac{1}{4}(e^{3z}-e^{-z})$. We can find that value as follows:
+$$\frac{1}{4}(e^{3z}-e^{-z})=\sum_{n=0}^\infty\frac{3^n}{4}\frac{z^n}{n!}-\sum_{n=0}^\infty\frac{(-1)^n}{4}\frac{z^n}{n!}=\sum_{n=0}^\infty\frac{3^n-(-1)^n}{4}\frac{z^n}{n!}.$$
+Also, $3\equiv -1\bmod 4$ so $t_n$ is always an integer. We conclude that $t_n=\frac{3^n-(-1)^n}{4}$. 
+\end{ptcbr}
 
+\begin{Ej}[Exercise 7]
+    Suppose now the colors orange and purple are also used. The number of
+orange poles plus the number of purple poles is even. Now how many ways are there?
+\end{Ej}
+
+\begin{ptcbr}
+    Consider the now the number of ways to paint an even number of poles with ONLY purple and orange. That is equivalent to partition a set of $2n$ poles into two and that amount is $S(2n,2)$. This means the function which encodes the number of ways to paint in this way is 
+    $$\sum_{n=0}^\infty S(2n,2)\frac{z^n}{n!}=\sum_{n=0}^\infty (2^{2n-1}-1)\frac{z^n}{n!}=$$
 \end{ptcbr}
 \end{document}
