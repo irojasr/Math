@@ -9,17 +9,35 @@
 \def\nextra {HW6}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-
+\usepackage{halloweenmath}
 \begin{document}
 
 \begin{Ej}
- Let $H\subseteq\bP^n$ be a hyperplane. $H$ is defined as the zero locus of a linear equation 
+ Let $H\subseteq\bP^{n}$ be a hyperplane. $H$ is defined as the zero locus of a linear equation 
  $$H=\bV(a_0x_0+\dots+a_nx_n),\ a_0,\dots,a_n\in\bC.$$
  Prove that $H\isom\bP^{n-1}$. (Also, be comfortable with the fact that $\bP^n\less L\isom\bA^n$.) 
 \end{Ej}
 
 \begin{ptcbr}
-    
+    Let us begin by noting that in $H$'s defining equation, not all coefficients $a_j$ are null. So let us suppose without loss of generality that $a_0\neq 0$.\par 
+    The first morphism we will construct is 
+    $$\vf:H\to\bP^{n-1},\ [x_0:x_1:\dots:x_n]\mapsto[x_1:\dots:x_n]$$
+    which will be \emph{forgetful} in terms of the first coordinate. This is a morphism by construction. And on the other hand, let us remember that points in $H$ obey the equation
+    $$a_0x_0+a_1x_1+\dots+a_nx_n=0\To x_0=\frac{-1}{a_0}(a_1x_1+\dots+a_nx_n).$$
+    We can solve for $x_0$ because we have assumed that $a_0\neq 0$. Now, this gives us a way to construct this coordinate from the other $n$, so our map from $\bP^{n-1}$ to $H$ will be
+    $$\psi:\bP^{n-1}\to H,\ [x_1:\dots:x_n]\mapsto \bonj{\frac{-1}{a_0}(a_1x_1+\dots+a_nx_n):x_1:\dots:x_n}.$$
+    On this occasion, $\psi$ is a morphism because the expression on the $x_0$ coordinate is an homogeneous polynomial in terms of $x_1,\dots,x_n$.\par 
+    We now have to verify that $\psi$ and $\vf$ are inverses of one another:
+    \begin{align*}
+      \psi(\vf([x_0:x_1:\dots:x_n]))&=\psi\left([x_1:\dots:x_n]\right)\\
+      &=\bonj{\frac{-1}{a_0}(a_1x_1+\dots+a_nx_n):x_1:\dots:x_n}.
+    \end{align*}
+    Given that $[x_0:x_1:\dots:x_n]$ was initially in $H$, the first term of the array can be replaced by $x_0$, and so it follows that $\psi\vf=\id_H$. While on the other hand
+    \begin{align*}
+      \vf(\psi([x_1:\dots:x_n]))&=\vf\left(\bonj{\frac{-1}{a_0}(a_1x_1+\dots+a_nx_n):x_1:\dots:x_n}\right)\\
+      &=[x_1:\dots:x_n].
+    \end{align*}
+    It follows that $\vf\psi=\id_{\bP^{n-1}}$ and thus we have proven what we wanted.
   \end{ptcbr}
 
 \begin{Ej}
@@ -76,7 +94,13 @@
 double line
 }\end{Ej}
 
-\begin{Ej}
+\begin{ptcbr}
+  A double line corresponds to the variety $\bV((ax + by + cz)^2)$. This equation in turn is 
+  $$(ax + by + cz)^2=a^2 x^2 + b^2 y^2  + c^2 z^2 + 2 a b x y + + 2 b c y z + 2 c a z x.$$
+  The associated point in $\bP^6$ is $[a^2:b^2:c^2:2ab:2bc:2ca]$. These points do not satisfy the equations defined by the Veronese mapping. What is happening?
+\end{ptcbr}
+
+\begin{Ej}[5.2.3]
   Given four points and a line in $\bP^2$, show that typically
 two conics pass through the four points and are tangent to the line. Under
 what special conditions on the positions of the points and the line do we
@@ -87,4 +111,18 @@ has a double root if and only if its discriminant, a degree two polynomial
 in its coefficients, is zero.}
 \end{Ej}
 %https://math.stackexchange.com/questions/2815990/determine-conics-by-four-points-and-a-tangent-line
+
+\begin{ptcbr}
+  Suppose we have four distinct points $[x_1:y_1:z_1],\dots,[x_4:y_4:z_4]$ in $\bP^2$, and a line $\l$ determined by $(p,q,r)\neq(0,0,0)$.\footnote{I misread the number on the homework\dots}
+\end{ptcbr}
+
+\begin{Ej}[\textbf{5.3.2}]
+  If $X,Y$ are two projective varieties, show that the Segre product $X\x Y$ is also a projective variety by expressing its defining equations in terms of those for $X$ and $Y$.\par 
+  Show that the product of two quasi-projective varieties is quasi-projective.
+\end{Ej}
+
+
+\begin{ptcbr}
+  I was not able to do this one, I saw it was this exercise at 2:30 today. 
+\end{ptcbr}
 \end{document} 

@@ -13,8 +13,42 @@
 \DeclareMathOperator{\inv}{inv}
 \DeclareMathOperator{\exc}{exc}
 \DeclareMathOperator{\maj}{maj}
+\usepackage{halloweenmath}
 
 \begin{document}
+
+\begin{Ej}
+    A \emph{plane tree} is a tree along with, for every vertex $v$, a cyclic ordering of the nodes $w$ connected to $v$ by
+an edge. Use species to find a formula for the number of plane trees on $n$ vertices, using the following
+steps:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em 
+    \item Build your intuition by directly counting the plane trees on n vertices for $n =
+    0, 1, 2, 3, 4, 5$. Write out the corresponding first handful of terms for the exponential generating function.
+    \item Let $\cP\cL$ denote the species of plane trees. Let $\cR$ be the species of rooted plane trees, where we choose one of the $n$ vertices to be the root. Relate $\cR$ and $\cP\cL$ with a species identity.
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item \footnote{From counting wrong to not understanding species, \textbf{Kelsey}, \textbf{Kaylee}, \textbf{Sarah} and \textbf{Sam} helped me out with this problem.}From zero to two we have only one option. On 3 vertices we have 3 ways to label our vertices.\par 
+        Four vertices give us 2 different trees. The first one $P_4$ can be labeled in 12 ways by choosing the root in 4 ways and 3 ways for a neighbor. While $K_{1,3}$ we have $4$ ways to pick the root and $2$ more to pick the neighbors. In total for four vertices we have $20$ ways.\par 
+        Finally on $5$ vertices we have $3$ unlabeled trees.
+        \begin{itemize}
+            \itemsep=-0.4em
+            \item On $K_{1,4}$ there's $5$ ways to label a root and $4!/4$ ways to order the neighbors. 
+            \item In $P_5$ we have $5$ ways to choose the root again and $4!/2$ ways to order the neighbors. 
+            \item Finally we have a \emph{chair} graph. There's no symmetry in this graph so in total we have $5!$ ways to choose the root vertex $v$ and its neighbors.
+        \end{itemize}
+        In array function notation we have:
+        $$\begin{bmatrix}
+            0&1&2&3&4&5\\
+            1&1&1&3&20&210
+        \end{bmatrix}$$
+        \item We claim that the formula is $X(\cP\cL)'=\cR$. This is because when we differentiate we take one of the vertices to be a starred vertex outside our labels. With $X$ we are labeling it as the root.
+    \end{enumerate}
+\end{ptcbr}
 
 \begin{Ej}[Exercise 6]
   Each of $n$ (distinguishable) telephone poles is painted red, white, blue, or
@@ -50,6 +84,21 @@ orange poles plus the number of purple poles is even. Now how many ways are ther
 
 \begin{ptcbr}
     Consider the now the number of ways to paint an even number of poles with ONLY purple and orange. That is equivalent to partition a set of $2n$ poles into two and that amount is $S(2n,2)$. This means the function which encodes the number of ways to paint in this way is 
-    $$\sum_{n=0}^\infty S(2n,2)\frac{z^n}{n!}=\sum_{n=0}^\infty (2^{2n-1}-1)\frac{z^n}{n!}=$$
+    $$\sum_{n=0}^\infty S(2n,2)\frac{z^{2n}}{(2n)!}=\sum_{n=0}^\infty (2^{2n-1}-1)\frac{z^{2n}}{(2n)!}=\half\sum_{n=0}^\infty\frac{(2z)^{2n}}{(2n)!}-\sum_{n=0}^\infty \frac{z^{2n}}{(2n)!}.$$
+    We recognize this as the function $\half\cosh(2z)-\cosh(z)$. Let us apply some trigonometric identities to have this functions in terms of exponentials:
+    \begin{align*}
+        \half\cosh(2z)-\cosh(z)&=\half\left(\frac{e^{2z}+e^{-2z}}{2}\right)-\left(\frac{e^{z}+e^{-z}}{2}\right)\\
+        &=\frac{1}{4}(e^{2z}+e^{-2z}-2e^z-2e^{-z}).
+    \end{align*}
+    Then, the generating function which encodes the total number of possibilities is 
+    \begin{align*}
+    &\frac{1}{4}(e^{3z}-e^{-z})\.\frac{1}{4}(e^{2z}+e^{-2z}-2e^z-2e^{-z})\\
+    =&\frac{1}{16}(e^{5z}+e^z-2e^{4z}-2e^{2z}-e^z-e^{-3z}+2+2e^{-2z})\\
+    =&\frac{1}{16}(e^{5z}-2e^{4z}-2e^{2z}+2+2e^{-2z}-e^{-3z})\\
+    =&\frac{1}{16}\sum_{n=0}^\infty(5^n-2(4^n)-2(2^n)+2\dl_{n0}+2(-2)^n-(-3)^n)\frac{z^n}{n!}
+    \end{align*}
+    We conclude that the number of painting in this way is 
+    $$t_n=\frac{1}{16}(5^n-2(4^n)-2(2^n)+2\dl_{n0}+2(-2)^n-(-3)^n).\footnote{This quantity is not always an integer. When the number of poles is odd, this element lives in $\half\bZ$. I've re-done the process and haven't been able to spot out my mistake.}$$
 \end{ptcbr}
+
 \end{document}
