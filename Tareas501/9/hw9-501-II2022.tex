@@ -1,0 +1,64 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH501}
+\def\nsiglahead {Combinatorics}
+\def\nextra {HW9}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\DeclareMathOperator{\des}{des}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\exc}{exc}
+\DeclareMathOperator{\maj}{maj}
+\usepackage{halloweenmath}
+
+\begin{document}
+
+\begin{Ej}[Exercise 2]
+    Let $d>1$ be a positive integer. A \emph{$d$-ary De Bruijn sequence} of degree $n$ is a sequence of length $d^n$ containing every length $n$ sequence in $([d-1]^\ast)^n$ exactly once as a circular factor.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em 
+        \item Show that there always exists a $d$-ary De Bruijn sequence of degree $n$ for any $n$.
+        \item Find the number of $d$-ary De Bruijn sequences that begin with $n$ zeroes. \hint{You may want to consult the computation for $d=2$ given at the end of chapter 5.}
+    \end{enumerate}
+\end{Ej}
+\begin{nonum-Rmk}
+For this exercise, we will shift notation up by one and instead of considering the alphabet set as $[d-1]^\ast=\set{0,1,\dots,d-1}$, we will consider $[d]=\set{1,\dots,d}$. We will also call $B(d,n)$ the set of De Bruijn sequences of length $d^n$ with alphabet $[d]$.\par 
+Also, we will define the Bruijn graph $G_{d,n}$ as follows: 
+$$
+\left\lbrace
+\begin{aligned}
+    &V=[d]^n=\set{(s_1,\dots,s_n):\ \forall i(s_i\in[d])},\\
+    &E=\set{((s_1,\dots,s_n),(t_1,\dots,t_n))\:\ \forall i(1\leq i\leq n-1\To t_i=s_{i+1})\land t_n\in[d]}.\\
+\end{aligned}
+\right.
+$$
+That is, the edge set is formed by pairs of strings of the form $(s_1,s_2,\dots,s_n)$ and $(s_2,s_3,\dots,s_n,t)$ where $t\in[d]$. We are shifting all indices in our string and adding a new admissible character.
+\end{nonum-Rmk}
+\begin{ptcbr}
+\begin{enumerate}[i)]
+    \itemsep=-0.4em 
+    \item First, let us prove that $G_{d,n}$ is Eulerian. Consider any vertex $v=(s_1,\dots,s_n)\in G_{d,n}$, it holds that $d_{\text{out}}(v)=d_{\text{in}}(v)=d$.\par 
+    First, consider the edges out of $v$: any out-neighbor of $v$ is a vertex $(s_2,\dots,s_n,t)$ with $t\in[d]$. Since there are $d$ options for the character $t$, $v$ sends an edge to each one of them.\par 
+    Similarly, every edge which connects to $v$ comes from a vertex of the form $(t,s_1,\dots,s_{n-1})$. There are $d$ vertices of that form in $G_{d,n}$. We conclude that $d_{\text{out}}(v)=d_{\text{in}}(v)=d$.\par 
+    The De-Bruijn graph is also strongly connected: any two vertices $u,v$ can be reached from one another after deleting and appending sufficient characters. It follows that $G_{d,n}$ is Eulerian for any $d$ and any $n$.\par 
+    Take an Eulerian cycle in a De Bruijn graph $G_{d,n-1}$. Such cycle traverses all the edges of our graph, and given that $d_{\text{out}}(v)=d$ for all $v$, it holds that 
+    $$|E(G_{d,n-1})|=d\.|G_{d,n-1}|=d\.d^{n-1}=d^n.$$
+    Labeling the edges by the character it appends to each vertex, we get a string of length $d^n$ which contains all possible substrings of length $n$ in $d$ characters. A $d$-ary de Bruijn sequence is minimal with respect to this property so it must hold that the sequence generated is a De Bruijn sequence.
+    \item This problem is asking us to find all Eulerian walks which begin on any edge out of the vertex $(1,1,\dots,1)$\footnote{Once again we remind ourselves of the preference of notation.}\par 
+    Ideas:Recursion, BEST theorem, ch9 aigner
+\end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    An \emph{undirected Eulerian tour} is a tour on the edges of an undirected graph using every undirected edge exactly once (in just one direction). Derive necessary and sufficient conditions for the existence of an undirected Eulerian tour in an undirected graph. Prove your result
+\end{Ej}
+
+\begin{ptcbr}
+    An Eulerian tour must begin and end somewhere. Such vertices must have odd degree.
+\end{ptcbr}
+
+\end{document}
