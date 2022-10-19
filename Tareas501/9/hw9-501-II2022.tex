@@ -58,7 +58,86 @@ That is, the edge set is formed by pairs of strings of the form $(s_1,s_2,\dots,
 \end{Ej}
 
 \begin{ptcbr}
-    An Eulerian tour must begin and end somewhere. Such vertices must have odd degree.
+    An Eulerian tour must begin and end somewhere. All the other vertices are part of the walk, so we must \emph{enter and exit} every one of those vertices. We should at least be able to \emph{exit} the first vertex and \emph{enter} the last one. Thus the result should be $G$ has Eulerian tour if and only if
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Either all the vertices have even degree.
+        \item Or exactly two vertices have odd degree. 
+    \end{itemize}
+    In the first case we have an Eulerian \emph{circuit} which is also a tour. On the second case, we can only find a tour from $u$ to $v$.
+    Let us prove that 
+\begin{center}
+    \emph{A connected graph has an Eulerian circuit if and only iff all the vertices have even degree.}
+\end{center}
+From which we will deduce
+\begin{center}
+    \emph{A connected graph has an Eulerian tour if and only if two vertices have odd degree.}
+\end{center}
+Suppose $G$ has an Eulerian circuit labeled by the vertices $x_{1}x_{2}\dots x_mx_1$ where it is possible that there are repetitions among this sequence. Then, any vertex that appears $k$ times in this sequence will have degree $2k$ because it will be entered and existed according to the circuit.\par 
+To prove the other direction we proceed by induction on the number of edges. Suppose $G$ is a graph with $m$ edges whose vertices all have even degrees. In the base case, when $m=0$
 \end{ptcbr}
 
+\begin{Ej}[Exercise 4]
+    The adjacency matrix of a directed graph $D$ is $A$ such that $a_{ij}=\bool{(i,j)\in E}$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em 
+        \item Show that the $(i,j)^{\text{th}}$ entry of $A^k$ is the number of directed paths of length $k$ from $v_i$ to $v_j$ in $D$.
+        \item Verify that the following equality holds, where we consider both sides as formal power series in $x$ with coefficients in the ring $M_n(\bQ)$: 
+        $$(I-xA)^{-1}=1+xA+x^2A^2+x^3A^3+\dots$$
+        \item Using the previous part along with the explicit formula for the inverse of a matrix (in terms of cofactors), show that the generating function for the number of paths $p_{i,j}(n)$ of length $n$ from $v_i$ to $v_j$ is 
+        $$\sum_{n=0}^\infty p_{i,j}(n)x^n=\frac{(-1)^{i+j}\det\bonj{(I-xA)^{(j,i)}}}{\det(I-xA)},$$
+        where $A^{(i,j)}$ is the $(i,j)^{\text{th}}$ minor of $A$.\par
+        This result is called the \textbf{transfer-matrix method}, as it gives a method of proving a sequence has a rational generating function, by showing that the sequence counts paths in a certain directed graph.
+        \item Let $b_n$ be the number of sequences of length $n + 1$ with entries from $[3]$ that
+        start with $1$, end with $3$, and do not contain the subsequences $22$ or $23$. Find a closed formula for
+        the generating function of $b_n$ using the transfer-matrix method, by constructing a directed graph
+        in which certain paths are counted by $b_n$. You may use a computer to calculate the determinants,
+        but you must write out the directed graph and the corresponding matrices.
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em 
+        \item Suppose $D$ is a directed graph with $n$ vertices, we will proceed by induction and use $A^2$ as a base case. The $(i,j)^{\text{th}}$ entry of $A^2$ is given by 
+        $$\sum_{k=1}^na_{ik}a_{kj}=a_{i1}a_{1j}+a_{i2}a_{2j}+\dots+a_{in}a_{nj},$$
+        and every term $a_{ik}a_{kj}$ counts the number of edges from $v_i$ to $v_k$ times the number of edges from $v_k$ to $v_j$. But a length 2 path from $v_i$ to $v_j$ can go through any other vertex $u\in D$. Since each path must be different, we sum each possibility to get the complete number.\par 
+        Suppose now that the $(i,j)^{\text{th}}$ entry of $A^m$ is the number of paths of length $m$ from $v_i$ to $v_j$ for $m\leq k-1$. Now 
+        $$A_k=(A^{k-1})A\To (A^k)_{ij}=\sum_{\l=1}^n(A^{k-1})_{il}A_{\l j}.$$
+        We can thus decompose the $(i,j)^{\text{th}}$ entry of $A^k$ into a sum of terms of the form $(A^{k-1})_{il}A_{\l j}$. By induction hypothesis $(A^{k-1})_{il}$ is the number of paths from $v_i$ to $v_\l$ and adding the edge which could go from $v_\l$ to $v_j$ we get a new path. However $v_\l$ can be any vertex in $D$, so summing the possibilities we get the complete number of length $k$ walks.\par 
+        Thus we conclude that the $(i,j)^{\text{th}}$ entry of $A^k$ is the number of paths of length $k$ from $v_i$ to $v_j$ in $D$.
+        \item We need to prove that the inverse of $I-xA$ is the matrix $1+xA+x^2A^2+x^3A^3+\dots$ and to do that we will multiply them:
+        \begin{align*}
+            &(I-xA)(1+xA+x^2A^2+x^3A^3+\dots)\\
+            =&(1+xA+x^2A^2+x^3A^3+\dots)-(xA-x^2A^2-x^3A^3-x^4A^4-\dots)=I.
+        \end{align*}
+        We do not worry about convergence issues because this is a formal power series.
+        \item The $(i,j)^{\text{th}}$ entry of $\sum_{n=0}^\infty A^nx^n$ is $\sum_{n=0}^\infty p_{i,j}(n)x^n$ and recalling that this matrix is actually $(I-xA)^{-1}$, we must find the entries of this matrix. By the inverse formula for a matrix we get 
+        $$(I-xA)^{-1}=\frac{1}{\det(I-xA)}\adj(I-xA)=\frac{1}{\det(I-xA)}\text{cof}(I-xA)^\sT.$$
+        The $(i,j)^{\text{th}}$ entry of the cofactors matrix is $(-1)^{i+j}\det[(I-xA)^{(i,j)}]$, the determinant of the minor matrix obtained by deleting the $i^{\text{th}}$ row and $j^{\text{th}}$ column. Thus the $(i,j)^{\text{th}}$ of the transpose is obtained by switching the indices.\par 
+        We conclude that the $(i,j)^{\text{th}}$ entry of $\sum_{n=0}^\infty A^nx^n$ is 
+        $$\left(\frac{1}{\det(I-xA)}\text{cof}(I-xA)^\sT\right)_{i,j}=\frac{1}{\det(I-xA)}(-1)^{i+j}\det[(I-xA)^{(j,i)}].$$
+        \item Consider the following graph which encodes the construction of our string:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAJgBoBGAXVJADcBDAGwFcYkRyQBfU9TXfIRQAGUsOp0mrdsW68QGbHgJFRxCQxZtEIAMzcJMKAHN4RUADMAThAC2SUSBwQk5GgCMYYKEgC0u4R5LG3tEMicXRHIgkGs7JHDnBw8vH0R-QPk40LcI5JBPbz8AmOz8pMRHRggINCIATlELJjgYCUZ6T0YABX5lIRArLGMACxw5YPiwmgrw6trVUmbGVvbOmB6+wXYh0fHSkPLI8MK0jK5KLiA
+\begin{tikzcd}
+    2 \arrow[rrd]                                                        &  &                                                                                              \\
+                                                                                     &  & 1 \arrow[llu, bend right] \arrow[loop, distance=2em, in=35, out=325] \arrow[lld] \\
+    3 \arrow[uu] \arrow[rru, bend right] \arrow[loop, distance=2em, in=305, out=235] &  &                                                                                             
+    \end{tikzcd}
+        \end{center}
+        Finding the amount of strings of length $n+1$ beginning with $1$, ending in $3$ is the same as counting walks from vertex $1$ to $3$ of length $n$. This means that $b_n=p_{1,3}(n)$ and we know that that sequence's generating function is 
+        $$\frac{1}{\det(I-xA)}(-1)^{1+3}\det[(I-xA)^{(3,1)}].$$
+        To find a closed form we start by noting that the adjacency matrix of our graph is 
+        $$A=\threebythree{1}{1}{1}{1}{0}{0}{1}{1}{1}\To I-xA=\threebythree{1-x}{-x}{-x}{-x}{1}{0}{-x}{-x}{1-x}.$$
+        We expand by minors using the third row so that we can calculate the minor determinant at once:
+        \begin{align*}
+            &\det(I-xA)\\
+            =&(-x)\det\twobytwo{-x}{-x}{1}{0}-(-x)\det\twobytwo{1-x}{-x}{-x}{0}+(1-x)\det\twobytwo{1-x}{-x}{-x}{1}\\
+            =&(-x)(0-(-x))+(x)(0-x^2)+(1-x)[(1-x)-x^2]\\
+            =&1-2x-x^2
+        \end{align*}
+    \end{enumerate}
+    We conclude that the generating function is $\frac{-x}{1-2x-x^2}$.
+    \end{ptcbr}
 \end{document}
