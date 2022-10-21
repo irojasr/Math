@@ -48,11 +48,13 @@ That is, the edge set is formed by pairs of strings of the form $(s_1,s_2,\dots,
     Take an Eulerian cycle in a De Bruijn graph $G_{d,n-1}$. Such cycle traverses all the edges of our graph, and given that $d_{\text{out}}(v)=d$ for all $v$, it holds that 
     $$|E(G_{d,n-1})|=d\.|G_{d,n-1}|=d\.d^{n-1}=d^n.$$
     Labeling the edges by the character it appends to each vertex, we get a string of length $d^n$ which contains all possible substrings of length $n$ in $d$ characters. A $d$-ary de Bruijn sequence is minimal with respect to this property so it must hold that the sequence generated is a De Bruijn sequence.
+    \iffalse
     \item This problem is asking us to find all Eulerian walks which begin on any edge out of the vertex $(1,1,\dots,1)$\footnote{Once again we remind ourselves of the preference of notation.}\par 
     Ideas:Recursion, BEST theorem, ch9 aigner
+    \fi
 \end{enumerate}
 \end{ptcbr}
-
+\iffalse
 \begin{Ej}
     An \emph{undirected Eulerian tour} is a tour on the edges of an undirected graph using every undirected edge exactly once (in just one direction). Derive necessary and sufficient conditions for the existence of an undirected Eulerian tour in an undirected graph. Prove your result
 \end{Ej}
@@ -76,7 +78,7 @@ From which we will deduce
 Suppose $G$ has an Eulerian circuit labeled by the vertices $x_{1}x_{2}\dots x_mx_1$ where it is possible that there are repetitions among this sequence. Then, any vertex that appears $k$ times in this sequence will have degree $2k$ because it will be entered and existed according to the circuit.\par 
 To prove the other direction we proceed by induction on the number of edges. Suppose $G$ is a graph with $m$ edges whose vertices all have even degrees. In the base case, when $m=0$
 \end{ptcbr}
-
+\fi
 \begin{Ej}[Exercise 4]
     The adjacency matrix of a directed graph $D$ is $A$ such that $a_{ij}=\bool{(i,j)\in E}$.
     \begin{enumerate}[i)]
@@ -140,7 +142,7 @@ To prove the other direction we proceed by induction on the number of edges. Sup
     \end{enumerate}
     We conclude that the generating function is $\frac{-x}{1-2x-x^2}$.
     \end{ptcbr}
-
+\iffalse
 \begin{Ej}
     Let $L=L(K_{r,s})$ be the Laplacian matrix of the complete bipartite graph $K_{r,s}$.
     \begin{enumerate}[i)]
@@ -157,5 +159,22 @@ To prove the other direction we proceed by induction on the number of edges. Sup
     $$A=\twobytwo{0_{r\x r}}{\ind_{r\x s}}{\ind_{s\x r}}{0_{s\x s}}.$$
     Here $0$ is the zeroes matrix and $\ind$ is the ones matrix. The vertices of $K_{r,s}$ have degree either $s$ or $r$ so the Laplacian matrix of $K_{r,s}$ is
     $$L=D-A=\twobytwo{sI_{r\x r}}{0_{r\x s}}{0_{s\x r}}{rI_{s\x s}}-\twobytwo{0_{r\x r}}{\ind_{r\x s}}{\ind_{s\x r}}{0_{s\x s}}=\twobytwo{sI_{r\x r}}{-\ind_{r\x s}}{-\ind_{s\x r}}{rI_{s\x s}}.$$
+    With this in hand, let us proceed with the computations:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The matrix $L-rI$ is precisely 
+        $$L-rI=\twobytwo{(s-r)I_{r\x r}}{-\ind_{r\x s}}{-\ind_{s\x r}}{0_{s\x s}}$$
+        whose last $s$ rows are all identical. We row reduce this matrix in the following way: 
+        \begin{itemize}
+            \itemsep=-0.4em
+            \item Eliminate the last $s-1$ rows subtracting row $s+1$ from them. We initially guess that the rank of this matrix will be $r+1$.
+            \item Divide the first $r$ rows by $s-r$ and then eliminate the ones in the $(r+1)^{\text{th}}$ row by subtracting the first $r$ rows from that one. 
+            \item Our last row is now $(0,\dots,0,\frac{r}{s-r},\dots,\frac{r}{r-s})$ which we will convert to a row of ones after dividing by $r/(s-r)$. 
+            \item We can use the last row to eliminate the $-\ind_{r\x s}$ block on top. 
+        \end{itemize}
+        The resulting matrix is $\ttt{rref}(L-rI)$, the rank of this matrix is $r+1$ so the rank of $L-rI$ is also $r+1$.\par 
+        By the rank nullity theorem, $\dim\ker(L-rI)+(r+1)=r+s$ and so the geometric multiplicity of $r$ is $s-1$. Thus there are \emph{at least} $(s-1)$ eigenvalues equal to $r$.
+    \end{enumerate}
 \end{ptcbr}
+\fi
 \end{document}
