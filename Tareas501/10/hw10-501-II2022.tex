@@ -17,11 +17,45 @@
 
 \begin{document}
 
-\begin{Ej}[]
-   
+\begin{Ej}[Exercise 1]
+    Find the largest possible size
+    of a matching for $P_n$, and find the smallest possible size of a maximal matching for $P_n$. Express your
+    answers in terms of $n$ (they may depend on the parity of $n$ or its residue modulo 3).
 \end{Ej}
 
 \begin{ptcbr}
     
+\end{ptcbr}
+
+\begin{Ej}[Exercise 3]
+    Show that the number of spanning trees of $K_{m,n}$ is $m^{n-1}n^{m-1}$.
+\end{Ej}
+
+We will follows the steps described in problem 5.66 in Stanley Vol.2.
+
+\begin{ptcbr}
+    The adjacency matrix of $K_{m,n}$ can be written in block form:
+    $$A=\twobytwo{0_{m\x m}}{\ind_{m\x n}}{\ind_{n\x m}}{0_{n\x n}}.$$
+    Here $0$ is the zeroes matrix and $\ind$ is the ones matrix. The vertices of $K_{m,n}$ have degree either $n$ or $m$ so the Laplacian matrix of $K_{m,n}$ is
+    $$L=D-A=\twobytwo{nI_{m\x m}}{0_{m\x n}}{0_{n\x m}}{mI_{n\x n}}-\twobytwo{0_{m\x m}}{\ind_{m\x n}}{\ind_{n\x m}}{0_{n\x n}}=\twobytwo{nI_{m\x m}}{-\ind_{m\x n}}{-\ind_{n\x m}}{mI_{n\x n}}.$$
+    With this in hand, let us proceed with the computations:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The matrix $L-mI$ is precisely 
+        $$L-mI=\twobytwo{(n-m)I_{m\x m}}{-\ind_{m\x n}}{-\ind_{n\x m}}{0_{n\x n}}$$
+        whose last $n$ rows are all identical. We row reduce this matrix in the following way: 
+        \begin{itemize}
+            \itemsep=-0.4em
+            \item Eliminate the last $n-1$ rows subtracting row $n+1$ from them. We initially guess that the rank of this matrix will be $m+1$.
+            \item Divide the first $m$ rows by $n-m$ and then eliminate the ones in the $(m+1)^{\text{th}}$ row by subtracting the first $m$ rows from that one. 
+            \item Our last row is now $(0,\dots,0,\frac{m}{n-m},\dots,\frac{m}{m-n})$ which we will convert to a row of ones after dividing by $r/(n-m)$. 
+            \item We can use the last row to eliminate the $-\ind_{m\x n}$ block on top. 
+        \end{itemize}
+        The resulting matrix is $\ttt{rref}(L-mI)$, the rank of this matrix is $m+1$ so the rank of $L-mI$ is also $m+1$.\par 
+        By the rank nullity theorem, $\dim\ker(L-mI)+(m+1)=m+n$ and so the geometric multiplicity of $m$ is $n-1$. Thus there are \emph{at least} $(n-1)$ eigenvalues equal to $m$.
+        \item With the same reasoning we can prove that the geometric multiplicity of $n$ is $m-1$. In which case, there would be at least $m-1$ eigenvalues of $L$ equal to $n$.
+        \item The matrix $L$ can have at most $m+n$ eigenvalues, assuming that the algebraic and geometric multiplicities coincide for $m,n$, so summing the multiplicities we get 
+        $$(m-1)+(n-1)+\text{remaining}=m+n\To \text{remaining}=2.$$
+    \end{enumerate}
 \end{ptcbr}
 \end{document}
