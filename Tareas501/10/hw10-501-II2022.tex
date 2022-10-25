@@ -38,24 +38,73 @@ We will follows the steps described in problem 5.66 in Stanley Vol.2.
     $$A=\twobytwo{0_{m\x m}}{\ind_{m\x n}}{\ind_{n\x m}}{0_{n\x n}}.$$
     Here $0$ is the zeroes matrix and $\ind$ is the ones matrix. The vertices of $K_{m,n}$ have degree either $n$ or $m$ so the Laplacian matrix of $K_{m,n}$ is
     $$L=D-A=\twobytwo{nI_{m\x m}}{0_{m\x n}}{0_{n\x m}}{mI_{n\x n}}-\twobytwo{0_{m\x m}}{\ind_{m\x n}}{\ind_{n\x m}}{0_{n\x n}}=\twobytwo{nI_{m\x m}}{-\ind_{m\x n}}{-\ind_{n\x m}}{mI_{n\x n}}.$$
-    With this in hand, let us proceed with the computations:
+    As $L$ is a symmetric matrix, it is diagonalizable. This will come in handy when finding the amount of eigenvalues. With this in hand, let us proceed with the computations:
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item The matrix $L-mI$ is precisely 
         $$L-mI=\twobytwo{(n-m)I_{m\x m}}{-\ind_{m\x n}}{-\ind_{n\x m}}{0_{n\x n}}$$
         whose last $n$ rows are all identical. We row reduce this matrix in the following way: 
         \begin{itemize}
-            \itemsep=-0.4em
+            \itemsep=-0.3em
             \item Eliminate the last $n-1$ rows subtracting row $n+1$ from them. We initially guess that the rank of this matrix will be $m+1$.
             \item Divide the first $m$ rows by $n-m$ and then eliminate the ones in the $(m+1)^{\text{th}}$ row by subtracting the first $m$ rows from that one. 
-            \item Our last row is now $(0,\dots,0,\frac{m}{n-m},\dots,\frac{m}{m-n})$ which we will convert to a row of ones after dividing by $r/(n-m)$. 
+            \item Our last row is now $(0,\dots,0,\frac{m}{n-m},\dots,\frac{m}{m-n})$ which we will convert to a row of ones after dividing by $m/(n-m)$. 
             \item We can use the last row to eliminate the $-\ind_{m\x n}$ block on top. 
         \end{itemize}
         The resulting matrix is $\ttt{rref}(L-mI)$, the rank of this matrix is $m+1$ so the rank of $L-mI$ is also $m+1$.\par 
-        By the rank nullity theorem, $\dim\ker(L-mI)+(m+1)=m+n$ and so the geometric multiplicity of $m$ is $n-1$. Thus there are \emph{at least} $(n-1)$ eigenvalues equal to $m$.
-        \item With the same reasoning we can prove that the geometric multiplicity of $n$ is $m-1$. In which case, there would be at least $m-1$ eigenvalues of $L$ equal to $n$.
-        \item The matrix $L$ can have at most $m+n$ eigenvalues, assuming that the algebraic and geometric multiplicities coincide for $m,n$, so summing the multiplicities we get 
+        By the rank nullity theorem, $\dim\ker(L-mI)+(m+1)=m+n$ and so the geometric multiplicity of $m$ is $n-1$. Thus there are \emph{at least} $(n-1)$ eigenvalues equal to $m$. As $L$ is diagonalizable, the algebraic and geometric multiplicities must coincide, so there are \emph{exactly} $(n-1)$ eigenvalues equal to $m$. 
+        \item With the same reasoning we can prove that the geometric multiplicity of $n$ is $m-1$. In which case, there are $m-1$ eigenvalues of $L$ equal to $n$.
+        \item The matrix $L$ can have at most $m+n$ eigenvalues, summing the multiplicities we get 
         $$(m-1)+(n-1)+\text{remaining}=m+n\To \text{remaining}=2.$$
+        To find the remaining eigenvalues we will consult the determinant and the trace of $L$. As $L$ is a block matrix whose diagonal is made of square blocks we have 
+        \begin{align*}
+            \det L&=\twobytwo{nI_{m\x m}}{-\ind_{m\x n}}{-\ind_{n\x m}}{mI_{n\x n}}\\
+            &=\det(nI_{m\x m})\det(mI_{n\x n}-(-\ind_{n\x m})(nI_{m\x m})^{-1}(-\ind_{m\x n}))\\
+            &=n^m\det(mI_{n\x n}-(1/n)(\ind_{m\x n})^\sT(\ind_{m\x n}))
+        \end{align*}
+        The matrix $(\ind_{m\x n})^\sT(\ind_{m\x n})$ is an $[n\x n]$ with entries $\braket{\ind_{1\x m}}{\ind_{m\x 1}}=m$. Thus the matrix inside the determinant is 
+        $$mI_{n\x n}-(m/n)\ind_{n\x n}\To (mI_{n\x n}-(m/n)\ind_{n\x n})\ind_{n\x 1}=0.$$
+        As the rows of both matrices sum to the same value $m$, then the corresponding ones vector $\ind_{n\x 1}$ is in their kernel. Our matrix in question has non-trivial kernel and thus is singular. Then it has determinant zero. It follows that $L$ has determinant zero\footnote{I should've realized earlier without invoking the Schur Decomposition, that the rows of $L$ sum to the same value. This means that $\ind_{(m+n)\x 1}$ is in the kernel and thus $L$ is singular. Still, it was a fun exercise to compute that determinant.} and so it has zero as an eigenvalue.\par 
+        The trace of our matrix is $\tr(L)=nm+mn=2mn$. And as the sum of the eigenvalues is the trace, we have that 
+        $$(m-1)n+(n-1)m+0+\text{last}=2mn\To\text{last}=m+n.$$
+        \item Finally, using the Matrix-Tree Theorem we conclude that the number of spanning trees is 
+        $$\frac{1}{m+n}(m+n)m^{n-1}n^{m-1}=m^{n-1}n^{m-1}.$$
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[Exercise 4]
+    Let $m$ and $n$ be positive integers with $m < n$. How many saturated matchings does the complete bipartite graph $K_{m,n}$ have?
+\end{Ej}
+
+\begin{ptcbr}
+Call $M\cupdot N$ our partition of the vertices. Then any saturated matching must saturate $M$. Pick any vertex $v\in M$, then we have $n$ possibilities from where to pick our first edge for the matching. Now pick another vertex $u\in M\less\set{v}$, we have $n-1$ possibilities to pick another edge for our matching because we have already picked one edge and $u$ can't be connected to that same vertex on our matching.\par
+Iterating this process we see that the total number of ways to construct our matching is 
+$$n(n-1)(n-2)\dots(n-m+1)=n^{\un{m}},$$
+the Pochammer Symbol.
+\end{ptcbr}
+
+
+\begin{Ej}[Exercise 9]
+   An undirected graph is $k$-regular if every vertex has degree $k$.
+   \begin{enumerate}[i)]
+    \item Show that a bipartite $k$-regular graph must have the same number of vertices of each color in a two-coloring.
+    \item Show that such a graph has a perfect matching (that saturates both vertex colors).
+   \end{enumerate} 
+\end{Ej}
+%https://www.youtube.com/watch?v=73u0OQCR2rs
+%https://www.youtube.com/watch?v=f9VTbSCBq0Y
+\begin{ptcbr}
+    Call $G=U\cup V$ our graph. We will begin by proving that $U$ and $V$ must be of the same size given that $G$ is regular. The number of edges in $G$ can be counted in two ways:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Every vertex sends $k$ edges from $U$ to $V$ so there are in total $k|U|$ edges.
+        \item By the same reasoning, counting on the other side, there are $k|V|$ edges in total. 
+    \end{itemize}
+    This means that $k|U|=k|V|$ and thus $|U|=|V|$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Color the vertices according to which set they are in. Paint a vertex red if it's in $U$ and blue if it's in $V$. No other two-coloring is proper because if we paint any vertex in $V$ red, it will be connected to all the other red vertices in $U$. 
+        \item Now let us verify the condition of Hall's theorem. Pick any subset of $S\subseteq U$ and look at edges coming out of it, there are $k|S|$ edges FINISH
     \end{enumerate}
 \end{ptcbr}
 \end{document}
