@@ -104,7 +104,15 @@ the Pochammer Symbol.
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item Color the vertices according to which set they are in. Paint a vertex red if it's in $U$ and blue if it's in $V$. No other two-coloring is proper because if we paint any vertex in $V$ red, it will be connected to all the other red vertices in $U$. 
-        \item Now let us verify the condition of Hall's theorem. Pick any subset of $S\subseteq U$ and look at edges coming out of it, there are $k|S|$ edges FINISH
+        \item Now let us verify the condition of Hall's theorem. Pick any subset of $S\subseteq U$ and look at edges coming out of it, there are $k|S|$ edges which land in $N(S)$. Now 
+        $$E(N(S))=\set{\text{edges to }S}\cup\set{\text{edges to }U\less S}.$$
+        There are two possibilities:
+        \begin{enumerate}[a)]
+            \itemsep=-0.4em
+            \item If the second set is empty then $E(N(S))=E(S)$ but we can count $E(N(S))=k|N(S)|$, so $|N(S)|=|S|$ and thus we have Hall's condition.
+            \item On the other hand $|E(N(S))|> |E(S)|$ and so $k|N(S)|>k|S|$, so once again we have Hall's condition.
+        \end{enumerate}
+        By Hall's theorem, there must exist a perfect matching, as such matching saturates $U$ and therefore saturates $V$.
     \end{enumerate}
 \end{ptcbr}
 \end{document}
