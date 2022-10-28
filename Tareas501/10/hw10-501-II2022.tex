@@ -24,7 +24,65 @@
 \end{Ej}
 
 \begin{ptcbr}
-    
+    Call $m_n$ the minimal number of edges in a maximal matching in $P_n$, and $M_n$ the maximum number of edges in a matching for $P_n$. We summarize the results found by counting the numbers by hand as follows:
+    $$
+    \begin{matrix}
+        n&1&2&3&4&5&6&7&8&9\\
+        m_n&0&1&1&1&2&2&2&3&3\\
+        M_n&0&1&1&2&2&3&3&4&4
+    \end{matrix}\hspace*{1em}
+    \begin{matrix}
+        10&11&12&13&14&15&16&17&18\\
+        3&4&4&4&5&5&5&6&6\\
+        5&5&6&6&7&7&8&8&9
+    \end{matrix} 
+    $$
+    We conjecture that $m_n=\floor{\frac{n+1}{3}}$ and $M_n=\floor{\frac{(n+1/2)}{2}}$. These quantities can also be expressed in another way.\par 
+    Recall that any integer can be uniquely written as $pr+s$ where $p$ is a prime, $r\geq 0$ and $s\in[p]$. Then we have the following formulas for $m_n$ and $M_n$: 
+    $$m_{3r+s+1}=r+1,\ m_1=0,\ M_{2r+s+1}=r+1,\ M_1=0.$$
+    The procedure to pick the edges is as follows:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item For the maximum number of edges we greedily pick edges for our matching. Start with the first edge and then pick the next available edge which can be added to the matching. On $P_{2n}$ we have picked $n$ edges for out matching including the last edge. Adding one edge by considering $P_{2n+1}$ doesn't alter our count because the edge to its immediate left is already taken. However adding another edge in $P_{2n+2}$ adds an edge which is not adjacent to the last edge of $P_{2n}$, so we add that to our matching.
+        \item For the minimum number of edges in a maximal matching we must greedily \emph{avoid edges}. As soon as we can move our edge to the right or add a new edge we will do so. 
+        \begin{center}
+            
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,235); %set diagram left start at 0, and has height of 235
+
+%Straight Lines [id:da01791683848914527] 
+\draw    (210,100) -- (240,80) ;
+%Straight Lines [id:da6282646308802451] 
+\draw    (240,80) .. controls (242.31,79.53) and (243.7,80.46) .. (244.16,82.77) .. controls (244.62,85.08) and (246.01,86.01) .. (248.32,85.55) .. controls (250.63,85.08) and (252.02,86.01) .. (252.48,88.32) .. controls (252.94,90.63) and (254.33,91.56) .. (256.64,91.09) .. controls (258.95,90.63) and (260.34,91.56) .. (260.8,93.87) .. controls (261.26,96.18) and (262.65,97.11) .. (264.96,96.64) .. controls (267.27,96.17) and (268.66,97.1) .. (269.12,99.41) -- (270,100) -- (270,100) ;
+%Straight Lines [id:da27448383524296815] 
+\draw    (270,100) -- (300,80) ;
+%Straight Lines [id:da19434111959020117] 
+\draw    (300,100) -- (330,80) ;
+%Straight Lines [id:da4948845639195685] 
+\draw    (330,80) .. controls (332.31,79.53) and (333.7,80.46) .. (334.16,82.77) .. controls (334.62,85.08) and (336.01,86.01) .. (338.32,85.55) .. controls (340.63,85.08) and (342.02,86.01) .. (342.48,88.32) .. controls (342.94,90.63) and (344.33,91.56) .. (346.64,91.09) .. controls (348.95,90.63) and (350.34,91.56) .. (350.8,93.87) .. controls (351.26,96.18) and (352.65,97.11) .. (354.96,96.64) .. controls (357.27,96.17) and (358.66,97.1) .. (359.12,99.41) -- (360,100) -- (360,100) ;
+%Straight Lines [id:da8873549310246829] 
+\draw    (360,100) -- (390,80) ;
+%Straight Lines [id:da28693933659154225] 
+\draw    (390,80) .. controls (392.31,79.53) and (393.7,80.46) .. (394.16,82.77) .. controls (394.62,85.08) and (396.01,86.01) .. (398.32,85.55) .. controls (400.63,85.08) and (402.02,86.01) .. (402.48,88.32) .. controls (402.94,90.63) and (404.33,91.56) .. (406.64,91.09) .. controls (408.95,90.63) and (410.34,91.56) .. (410.8,93.87) .. controls (411.26,96.18) and (412.65,97.11) .. (414.96,96.64) .. controls (417.27,96.17) and (418.66,97.1) .. (419.12,99.41) -- (420,100) -- (420,100) ;
+%Straight Lines [id:da04078489023421694] 
+\draw    (430,100) -- (460,80) ;
+%Straight Lines [id:da7641399983185369] 
+\draw    (460,80) .. controls (462.31,79.53) and (463.7,80.46) .. (464.16,82.77) .. controls (464.62,85.08) and (466.01,86.01) .. (468.32,85.55) .. controls (470.63,85.08) and (472.02,86.01) .. (472.48,88.32) .. controls (472.94,90.63) and (474.33,91.56) .. (476.64,91.09) .. controls (478.95,90.63) and (480.34,91.56) .. (480.8,93.87) .. controls (481.26,96.18) and (482.65,97.11) .. (484.96,96.64) .. controls (487.27,96.17) and (488.66,97.1) .. (489.12,99.41) -- (490,100) -- (490,100) ;
+%Straight Lines [id:da9051125265457196] 
+\draw    (490,100) -- (520,80) ;
+%Straight Lines [id:da017039075711011042] 
+\draw    (580,80) .. controls (579.54,82.31) and (578.15,83.24) .. (575.84,82.77) .. controls (573.53,82.31) and (572.14,83.24) .. (571.68,85.55) .. controls (571.22,87.86) and (569.83,88.79) .. (567.52,88.32) .. controls (565.21,87.85) and (563.82,88.78) .. (563.36,91.09) .. controls (562.9,93.4) and (561.51,94.33) .. (559.2,93.87) .. controls (556.89,93.4) and (555.5,94.33) .. (555.04,96.64) .. controls (554.58,98.95) and (553.19,99.88) .. (550.88,99.41) -- (550,100) -- (550,100) ;
+%Straight Lines [id:da7606697279360992] 
+\draw    (520,80) -- (550,100) ;
+
+\end{tikzpicture}
+
+        \end{center}
+        In the figure, the wavy edges are the edges in our matching. This is a demonstration of the process of \emph{moving to the right} between $P_5$ and $P_6$. This algorithm guarantees that $P_n$ will have a matching of size $m_n$.
+    \end{itemize}
 \end{ptcbr}
 
 \begin{Ej}[Exercise 3]
@@ -79,14 +137,14 @@ We will follows the steps described in problem 5.66 in Stanley Vol.2.
 \begin{ptcbr}
 Call $M\cupdot N$ our partition of the vertices. Then any saturated matching must saturate $M$. Pick any vertex $v\in M$, then we have $n$ possibilities from where to pick our first edge for the matching. Now pick another vertex $u\in M\less\set{v}$, we have $n-1$ possibilities to pick another edge for our matching because we have already picked one edge and $u$ can't be connected to that same vertex on our matching.\par
 Iterating this process we see that the total number of ways to construct our matching is 
-$$n(n-1)(n-2)\dots(n-m+1)=n^{\un{m}},$$
-the Pochammer Symbol.
+$$n(n-1)(n-2)\dots(n-m+1)=n^{\un{m}}.$$
 \end{ptcbr}
 
 
 \begin{Ej}[Exercise 9]
    An undirected graph is $k$-regular if every vertex has degree $k$.
    \begin{enumerate}[i)]
+    \itemsep=-0.4em
     \item Show that a bipartite $k$-regular graph must have the same number of vertices of each color in a two-coloring.
     \item Show that such a graph has a perfect matching (that saturates both vertex colors).
    \end{enumerate} 
@@ -94,7 +152,7 @@ the Pochammer Symbol.
 %https://www.youtube.com/watch?v=73u0OQCR2rs
 %https://www.youtube.com/watch?v=f9VTbSCBq0Y
 \begin{ptcbr}
-    Call $G=U\cup V$ our graph. We will begin by proving that $U$ and $V$ must be of the same size given that $G$ is regular. The number of edges in $G$ can be counted in two ways:
+    Call $G=U\cupdot V$ our graph. We will begin by proving that $U$ and $V$ must be of the same size given that $G$ is regular. The number of edges in $G$ can be counted in two ways:
     \begin{itemize}
         \itemsep=-0.4em
         \item Every vertex sends $k$ edges from $U$ to $V$ so there are in total $k|U|$ edges.
@@ -104,7 +162,7 @@ the Pochammer Symbol.
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item Color the vertices according to which set they are in. Paint a vertex red if it's in $U$ and blue if it's in $V$. No other two-coloring is proper because if we paint any vertex in $V$ red, it will be connected to all the other red vertices in $U$. 
-        \item Now let us verify the condition of Hall's theorem. Pick any subset of $S\subseteq U$ and look at edges coming out of it, there are $k|S|$ edges which land in $N(S)$. Now 
+        \item To find a matching, let us verify Hall's condition. Pick any subset of $S\subseteq U$ and look at edges coming out of it, there are $k|S|$ edges which land in $N(S)$. Now 
         $$E(N(S))=\set{\text{edges to }S}\cup\set{\text{edges to }U\less S}.$$
         There are two possibilities:
         \begin{enumerate}[a)]
