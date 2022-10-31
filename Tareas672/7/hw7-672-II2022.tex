@@ -35,7 +35,8 @@ Finally, notice that $V_1$ is a reducible variety as $V_1=\bV(x)\cup\bV(y)$ and 
 
 \begin{Ej}
 	Do the following:
-	\begin{enumerate}
+	\begin{enumerate}[i)]
+		\itemsep=-0.4em
 		\item Find the Hilbert polynomial $P$ of a $k$-dimensional linear
 		      subvariety of $\bP^n$.
 		\item  Describe the Hilbert scheme of varieties in $\bP^n$ with Hilbert
@@ -45,7 +46,14 @@ Finally, notice that $V_1$ is a reducible variety as $V_1=\bV(x)\cup\bV(y)$ and 
 \end{Ej}
 
 \begin{ptcbr}
-
+	\begin{enumerate}[i)]
+		\itemsep=-0.4em
+		\item Let us begin by considering a dimensional argument. Recall adding any equation reduces our dimension by $1$, from dimension $n$ to dimension $k$ we have lost $n-k$ dimensions so our variety $V$ is 
+		$$V=\bV(L_1,\dots,L_{n-k}).$$
+		Each of the equations $L_j=0$ is of the form $\braket{\vec{a}_j}{x}=0$, so without losing generality, let us suppose that the $j\textsuperscript{th}$ entry of $\vec{a}_j$ is non-zero. We can solve for $x_j$ as a linear combination of the other variables. Adding this relations to $\bC[x_0,\dots,x_n]$ we see that at degree one we already lose $n-k$ variables due to the relations. In total the dimension of $R_m$, the $m\textsuperscript{th}$ graded part is $\multinom{k+1}{m}=\binom{k+m}{m}$. This is the Hilbert function of $V$.
+		\item The Hilbert scheme of varieties with polynomial $\multinom{k+1}{m}=\frac{1}{k!}m^k+\dots$ contains all varieties of dimension $k$ and degree $k!\frac{1}{k!}=1$. So all the $k$-dimensional linear subvarieties are in the Hilbert scheme.\par 
+		An \emph{educated guess} would lead us to think that the other inclusion is also true, however I don't know how to go about this. (\red{How can I proceed?})
+	\end{enumerate}
 \end{ptcbr}
 
 \begin{Ej}
@@ -54,9 +62,12 @@ Finally, notice that $V_1$ is a reducible variety as $V_1=\bV(x)\cup\bV(y)$ and 
 \end{Ej}
 
 \begin{ptcbr}
-Recall that the Hilbert function for $\bP^1$ is the dimension of, $R_m$, the $m^{\text{th}}$ graded piece of $\bC[x,y]$. The homogenous polynomials in $\bC[x,y]$ have 
-$$\set{x^m,x^{m-1}y,\dots,xy^{m-1},y^m}$$
-as a basis. So in this case $m\mapsto \dim(R_m)=m+1$ is the Hilbert function of $\bP^1$. Let us now consider the image of $\bP^1$ through the $d\textsuperscript{th}$ Veronese embedding.
+Let us begin by calling $W=\nu_d(\bP^1)$. We will first find the Hilbert Polynomial for $W$ and then work our way up. To do this, let us remember the construction of the Veronese mapping with the naming conventions for our variables. We have that 
+$$\bC[W]=\quot{\bC[z_{d,0},z_{d-1,1},z_{d-2,2},\dots,z_{0,d}]}{\gen(z_Iz_J-z_Kz_L)}$$
+where $I,\dots,L\in [d]^2$ and $I+J=K+L$. We can observe that the $R_1$ component of this ring corresponds with the $R_d$ component of $\bC[s,t]=\bC[\bP^1]$. This is because the generators of the $R_1$ component are the $z_{I}=s^{I_1}t^{I_2}$ and $I_1+I_2=d$. The generators of the $R_d$ homogeneous component of $\bC[s,t]$ are those such elements. This means that 
+$$P_{\bP^1}(d)=d+1=P_{W}(1),$$
+and in the same fashion we can count the generators of the $R_{kd}$ component of $\bC[s,t]$ and we will find that they are in correspondence with the $R_k$ component of $\bC[W]$. It follows that $P_W(k)=P_{\bP^1}(kd)=kd+1$.\par 
+In the same fashion, a variety $V$ will introduce a certain number of relations to $\bC[x_0,\dots,x_n]$. Then $P_V(m)$ will count the number of generators in $R_m$ which has been already reduced by the relations introduced by $V$. The same issue happens in $R_{md}$ so it must hold that $P_V(dm)=P_{\Im(\nu_d(V))}(m)$.\footnote{\red{I must admit that I am at a loss. I have several ideas such as working with induction through $m$ but I feel that it is not the way to go. I'd like to discuss this problem if possible.}}
 \end{ptcbr}
 
 \begin{Ej}
