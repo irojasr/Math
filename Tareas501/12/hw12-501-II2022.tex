@@ -12,11 +12,40 @@
 
 \begin{document}
 
-\begin{Ej}[Exercise]
-   
+\begin{Ej}[Exercise 1]
+    Among a family of 20 people, 9 of them like chocolate ice cream, 7 of them like vanilla ice cream, and 2 like both chocolate and vanilla. How many don't like either flavor of ice cream? Explain how the Inclusion-Exclusion principle applies here.
  \end{Ej}
 
 \begin{ptcbr}
-   
+   Call $F$ the set of family members, $C$ the set of people who like chocolate ice cream and $V$ the ones who like vanilla. The set $F$ can be partitioned as 
+   $$F=(C\cup V)\cupdot (C\cup V)^c$$
+   where $(C\cup V)^c$ is the set of family members who dislike both flavors. This is the set we are looking for.\par 
+   By Inclusion-Exclusion applied to the two sets $C,V$ we have 
+   $$|C\cup V|-|C|-|V|+|C\cap V|=0\To |C\cup V|=9+7-2=14.$$
+   As the whole family has 20 members and 14 of them like either flavor of ice cream, then 6 of them dislike both flavors.\par 
+   We must use the Inclusion-Exclusion formula to find the size of the union, by summing only $|C|$ and $|V|$ we would be overcounting the the ones who like both flavors.
+\end{ptcbr}
+
+\begin{Ej}
+    Let $P$ be a poset in which every interval $[x, y]$ is finite. Show that, in the incidence algebra $\mathscr{I}(P)$:
+    \vspace*{-0.4em}
+    \begin{enumerate}
+        \itemsep=-0.4em
+        \item $f$ is invertible if and only if $\forall x(f(x,x)\neq 0)$.
+        \item $fg=\dl\iff gf=\dl$, this is, inverses are two sided.
+        \item If $f$ is invertible then $f^{-1}$ is unique.
+    \end{enumerate}
+\end{Ej}
+
+Really quickly, recall that the incidence algebra is the set of \emph{interval functions} from $P$ to $\bC$. In other words, we can describe $\mathscr{I}(P)$ as 
+$$\mathscr{I}(P)=\set{f:P^2\to\bC:\ x>y\To f(x,y)=0}.$$
+\begin{ptcbr}
+    \begin{enumerate}
+        \itemsep=-0.4em
+        \item Suppose $f$ is invertible with $fg=\dl$. If $x\in P$:
+        $$(f\.g)(x,x)=f(x,x)g(x,x)=\dl(x,x)=1.$$
+        This means that, as complex numbers, $f(x,x)g(x,x)=1$ thus none can be zero and $f(x,x)=\frac{1}{g(x,x)}$.\par 
+        On the other hand, suppose $f(x,x)\neq 0$. We will construct an inverse for $f$ inductively using the fact the every interval is finite. So, by induction on the length of the interval, if $|[x,y]|=1$, then $x=y$ and $g(x,x)=\frac{1}{f(x,x)}$. 
+    \end{enumerate}
 \end{ptcbr}
 \end{document}
