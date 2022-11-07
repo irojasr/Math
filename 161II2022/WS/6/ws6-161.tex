@@ -3,7 +3,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[12pt]{article}
-\usepackage[spanish]{babel} %Tildes
+%\usepackage[spanish]{babel} %Tildes
 \usepackage[extreme]{savetrees} %Espaciado e interlineado. Comentar si no gusta el interlineado.
 \usepackage[utf8]{inputenc} %Encoding para tildes
 \usepackage[breakable,skins]{tcolorbox} %Cajitas
@@ -29,7 +29,7 @@
 \ifx \darktheme\undefined
 
 \lhead{Math161S1} % Nombre de autor
-\chead{\textbf{Week 6}} % Titulo
+\chead{\textbf{Worksheet 6}} % Titulo
 \rhead{}%\firstxmark} 
 \lfoot{}%\lastxmark}
 \cfoot{}
@@ -204,24 +204,136 @@ enhanced
 
 \begin{document}
 \begin{multicols}{2}
-\section*{Applications of Integrals}
+\section*{Review}
 
-\subsection*{Pay Attention to Orientation}
+\subsection*{Limit Comparison Test}
 
-Consider a triangular plate bounded by the curves
-$$
-\left\lbrace
-\begin{aligned}
- &x=y^2+4,\\
- &x=8.
-\end{aligned}
-\right.
- $$ 
-\subsection*{Mass of a Solid of Revolution}
+\begin{Ex} 
+  Consider the series $\displaystyle\sum_{n=1}^\infty \frac{7}{2^n-5\sin^m(n^3)}$, where $m>0$ is a positive integer. We will study its convergence using the Limit Comparison Test. 
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item The fastest growing term is the denominator is $2^n$ because sine is always bounded by its amplitude, in this case $5$.
+    \item Comparing the general terms we have 
+    \begin{align*}
+      \frac{a_n}{b_n}&=\frac{\frac{7}{2^n-5\sin^m(n^3)}}{\frac{1}{2^n}}=\frac{7}{\frac{1}{2^n}\left(2^n-5\sin^m(n^3)\right)}\\
+      &=\frac{7}{1-\frac{5\sin^m(n^3)}{2^n}}.
+    \end{align*}
+    \item We are interested in $\frac{5\sin^m(n^3)}{2^n}$, so we will take the absolute value and analyze:
+    $$\left|\frac{5\sin^m(n^3)}{2^n}\right|= \frac{5|\sin^m(n^3)|}{2^n}\leq\frac{5}{2^n}\to0.$$
+    So the original term goes to zero as well. This means that $\frac{a_n}{b_n}$ goes to $7$.
+    \item As $7>0$, by the Limit Comparison Test, both series behave the same and thus our original series converges.
+  \end{enumerate}
+\end{Ex}
 
-\subsection*{Work from Pumping}
+\subsection*{Ratio Test}
+\begin{Ex} 
+  Consider the series $\displaystyle\sum_{n=0}^\infty \frac{r^n}{n!}$, $r>0$. We will study its convergence using the ratio test:
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em 
+    \item The general term is $a_n=\frac{r^n}{n!}$.
+    \item The next term is $a_{n+1}=\frac{r^{n+1}}{(n+1)!}$ .
+    \item Thus combining these two we get the consecutive ratio as:
+    $$\left|\frac{a_{n+1}}{a_n}\right|=\left|\frac{\frac{r^{n+1}}{(n+1)!}}{\frac{r^n}{n!}}\right|=\left|\frac{r}{n+1}\right|.$$
+    \item As $r$ is a positive constant, the limit doesn't mind it. So when taking the limit of the consecutive ratio we get
+    $$\left|\frac{r}{n+1}\right|\to 0,\ n\to\infty.$$
+    And so, as $0\in[0,1[$, we that our series converges after applying the ratio test.
+  \end{enumerate}
 
-\subsection*{Surface Area}
+  \end{Ex}
+\begin{Rmk}
+  It is important to note that this problem can also be solved using the root test.\par 
+  We have that the $n^{\text{th}}$ root of the general term is 
+  $$\sqrt[n]{\left|\frac{r^n}{n!}\right|}=\frac{r}{\sqrt[n]{n!}}$$
+  and that limit will be analyzed on its own.\par 
+  We will use the fact that the exponential and logarithm functions are inverses of one another:
+  $$\sqrt[n]{n!}=e^{\log(\sqrt[n]{n!})}=e^{\frac{1}{n}\log(n!)}.$$
+  The quantity $\log(n!)$ can be managed using a result called \emph{Stirling's Approximation}. This states that for large values of $n$ it holds that $\log(n!)\approx n\log(n)$. So using this we have that 
+  $$\frac{1}{n}\log(n!)\approx\frac{1}{n}(n\log(n))=\log(n).$$
+  As $n$ grows, $\log(n)\to\infty$ and so $\frac{1}{n}\log(n!)\to\infty$. In this sense, $\sqrt[n]{n!}\to\infty$ and so the expression $\frac{r}{\sqrt[n]{n!}}$ goes to zero. 
+\end{Rmk}
 
+\begin{Rmk}
+  It is \emph{not imperative} to know the Stirling Approximation, I've used it here for the sake of argument to prove that the root test also works.
+\end{Rmk}
+
+\subsection*{Root Test}
+\begin{Ex} 
+Consider the series $\displaystyle\sum_{n=1}^\infty \frac{n^2}{\left(2+\frac{1}{n}\right)^n}$, we will study its convergence using the root test:
+\begin{enumerate}[i)]
+  \itemsep=-0.4em 
+  \item The general term is $a_n=\frac{n^2}{\left(2+\frac{1}{n}\right)^n}$.
+  \item Thus the $n\textsuperscript{th}$ root is 
+  $$\sqrt[n]{|a_n|}=\sqrt[n]{\left|\frac{n^2}{\left(2+\frac{1}{n}\right)^n}\right|}=\frac{n^{\frac{2}{n}}}{2+\frac{1}{n}}.$$
+  \item We can take the limit of the $n\textsuperscript{th}$ root as follows:
+  $$\lim_{n\to\infty}\frac{n^{\frac{2}{n}}}{2+\frac{1}{n}}=\frac{\lim_{n\to\infty} (n^{\frac{2}{n}})}{2+\lim_{n\to\infty}\frac{1}{n}}=\frac{1}{2+0}=\frac12.$$
+  And so, as $\half\in[0,1[$, we have that by the root test, our series converges. 
+\end{enumerate}
+\end{Ex}
+\begin{Rmk}
+Here we have used the fact that $\sqrt[n]{n}\to 1$ as $n$ grows. This can be proven as follows:
+$$\sqrt[n]{n}=e^{\log(\sqrt[n]{n})}=e^{\frac{1}{n}\log(n)}.$$
+So taking the limit of the exponential now lets us analyze the limit on the inside:
+$$\lim_{n\to\infty}\frac{\log(n)}{n}=\frac{\infty}{\infty}.$$
+As this is an indeterminate form we pass the discrete variable to a continuous one and apply L'Hôpital's rule: 
+$$\frac{\log(x)}{x}\xrightarrow[]{L'H}\frac{\frac{1}{x}}{1}=\frac{1}{x}\to 0.$$
+So this means that in discrete variables $\frac{\log(n)}{n}\to0$. In total the whole expression evaluates to 
+$$\lim_{n\to\infty}e^{\frac{1}{n}\log(n)}=e^0=1\To \sqrt[n]{n}\to 1.$$
+\end{Rmk}
+\newpage
+\section*{Exercises}
+
+These exercises were chosen with \emph{malice prépensée}; two series which look quite similar might require the same test (or might not). [\emph{Hints and procedures to this problems will be given upon request.}]\par 
+
+Study the convergence of the following series:
+\vspace*{-0.4em}
+\begin{enumerate}[i)]
+  \itemsep=-0.4em
+  \item $\displaystyle\sum_{n=1}^\infty \frac{\sin(kn)}{n^2}$, where $k$ is a positive integer.%C LCT n^-2
+  \item $\displaystyle\sum_{n=2}^\infty \frac{1}{\sqrt[3]{n^2-1}}$.%D compare with n^-2/3
+  \item $\displaystyle\sum_{n=0}^\infty \frac{1}{\sqrt[3]{n^2+1}}$.%D compare with n^-2/3
+  \item $\displaystyle\sum_{n=0}^\infty \frac{n^k}{n!}$, where $k$ is a positive integer..%C ratio test
+  \item $\displaystyle\sum_{n=0}^\infty \frac{n^n}{n!}$.%D div, ratio, root
+  \item $\displaystyle\sum_{n=1}^\infty \frac{n!}{n^n}$.%C ratio, root
+  \item $\displaystyle\sum_{n=1}^\infty \frac{2^nn!}{n^n}$.\label{ex:fact2}%C ratio, root
+  \item $\displaystyle\sum_{n=1}^\infty \frac{3^nn!}{n^n}$.\label{ex:fact3}%D div, ratio, root
+  \item $\displaystyle\sum_{n=0}^\infty \frac{n^n}{(n+2)^{n+2}}$.%D div, ratio, root
+  \item $\displaystyle\sum_{n=1}^\infty \frac{n^n}{(2n)^{2n}}$.%C ratio, root
+  \item $\displaystyle\sum_{n=1}^\infty \frac{n^{2n}}{(2n)^{n}}$.%D div, ratio, root
+\end{enumerate}
+
+\begin{Ej}
+If you have successfully solved items \ref{ex:fact2} and \ref{ex:fact3} then it should be intuitive that there's a value $2<a<3$ such that the series 
+$$\sum_{n=1}^\infty \frac{a^nn!}{n^n}$$
+switches from convergent to divergent.
+\vspace*{-0.4em}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+  \item Show that for $a<e$ the series converges.
+  \item For $a>e$ show the opposite, the series diverges.
+\end{enumerate}
+\end{Ej}
+
+Studying the series $\displaystyle\sum_{n=1}^\infty \frac{e^nn!}{n^n}$ requires the use of \emph{Stirling's Approximation} which we will not use. \textbf{If you wish to discuss this series let me know}.
+\begin{Ej}
+  For $p,q$ positive integers consider
+  $$\sum_{n=0}^\infty\frac{(p+1)(p+2)\cdots(p+n)}{(q+1)(q+2)\cdots(q+n)}.$$
+  \vspace*{-0.4em}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Suppose $q>p+1$, show that the series converges. 
+    \item On the other case, $q\leq p+1$, show that the series diverges. 
+  \end{enumerate}
+\end{Ej}
+
+\begin{Ej}
+  The following is an example of a series for which the root test works but the ratio test fails. Consider the series
+  $$\sum_{n=0}^\infty\frac{1}{3^{n+(-1)^n}}$$
+  \vspace*{-0.4em}
+  \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Find the limit obtained after applying the ratio test.
+    \item Show that with the root test, this series converges. %https://www.wolframalpha.com/input?i=lim_%7Bn-%3E%5Cinfty%7D%28%7C3%5E%7Bn%2B%28-1%29%5En%7D%7C%29%5E%7B1%2Fn%7D
+  \end{enumerate}
+\end{Ej}
 \end{multicols}
 \end{document} 

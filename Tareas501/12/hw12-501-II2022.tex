@@ -45,7 +45,15 @@ $$\mathscr{I}(P)=\set{f:P^2\to\bC:\ x>y\To f(x,y)=0}.$$
         \item Suppose $f$ is invertible with $fg=\dl$. If $x\in P$:
         $$(f\.g)(x,x)=f(x,x)g(x,x)=\dl(x,x)=1.$$
         This means that, as complex numbers, $f(x,x)g(x,x)=1$ thus none can be zero and $f(x,x)=\frac{1}{g(x,x)}$.\par 
-        On the other hand, suppose $f(x,x)\neq 0$. We will construct an inverse for $f$ inductively using the fact the every interval is finite. So, by induction on the length of the interval, if $|[x,y]|=1$, then $x=y$ and $g(x,x)=\frac{1}{f(x,x)}$. 
+        On the other hand, suppose $f(x,x)\neq 0$. We will construct an inverse for $f$ inductively using the fact the every interval is finite.\par
+        Our base case is $|[x,y]|=1$, then $x=y$ and $g(x,x)=\frac{1}{f(x,x)}$. Suppose that we have an interval $[x,y]$ of length $n$ and for intervals of length less than $n$ $g(x,y)$ is the inverse of $f(x,y)$. So 
+        \begin{align*}
+            \dl(x,y)=(fg)(x,y)\iff &0=\sum_{x\leq z\leq y}f(x,z)g(z,y)\\
+            \iff &0=f(x,x)g(x,y)+\sum_{x< z\leq y}f(x,z)g(z,y)\\
+            \iff &-f(x,x)g(x,y)=\sum_{x< z\leq y}f(x,z)g(z,y)\\
+            \iff &g(x,y)=\frac{-1}{f(x,x)}\sum_{x< z\leq y}f(x,z)g(z,y)\\
+        \end{align*}
+        Thus it holds that when $f(x,x)\neq 0$, we can solve the previous equation to obtain an expression for the inverse of $f$. By induction, it follows that $f$ is invertible. 
     \end{enumerate}
 \end{ptcbr}
 \end{document}
