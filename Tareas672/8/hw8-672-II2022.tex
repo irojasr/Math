@@ -19,6 +19,14 @@
 \end{Ej}
 
 \begin{ptcbr}
+    The tangent bundle can be described as the collection of points on our variety along their corresponding points in tangent space. This is
+    $$TV=\set{(p,v):\ p\in V,\ v\in T_pV}\subseteq V\x T_pV.$$
+    In our particular case, suppose $r=1$ first and in that case $V=\bV(F)$, a hypersurface. For $\vec{x}=(x_1,\dots,x_n)\in V$ we have that points on $T_{\vec{x}}V$ are points $\vec{y}$ which satisfy the equation 
+    $$L(\vec{y})=0\iff \braket{\nb F(\vec{x})}{\vec{y}-\vec{x}}=0.$$
+    So in total, the tangent bundle in this case is 
+    $$\set{(\vec{x},\vec{y})\in\bA^n\x\bA^n:\ F(\vec{x})=0,\ \braket{\nb F(\vec{x})}{\vec{y}-\vec{x}}=0}.$$
+    In the more general case, the idea is similar but with $r$ polynomials. We have that the tangent bundle is
+    $$TV=\set{(\vec{x},\vec{y})\in\bA^n\x\bA^n:\ \forall j\left(F_j(\vec{x})=0\ \land\  \braket{\nb F_j(\vec{x})}{\vec{y}-\vec{x}}=0\right)}.$$
 \end{ptcbr}
 
 \begin{Ej}
@@ -26,6 +34,13 @@
 \end{Ej}
 
 \begin{ptcbr}
+    Suppose $F:X\dashrightarrow Y$ is our rational map and pick $\vf:U\to Y$ a representative of $F$ with $U\subseteq X$ dense and open. The graph $\Ga$ is 
+    $$\Ga=\ov{\Ga}_\vf=\ov{\set{(x,\vf(x)):\ x\in U}}.$$
+    The projection $\pi_x:\Ga\to X$ is a birational equivalence because we can restrict ourselves to $\Ga_\vf$\footnote{Is this set Zariski open? I'm not sure. I know it's dense in $\Ga$ by definition but not if it's open.}. Then 
+    $$\pi_x\mid_{\Ga_\vf}:\Ga_\vf\to X,\ (x,\vf(x))\mapsto x$$
+    is a representative. An inverse can be found as easily by reverting the direction of the arrow. Call
+    $$\eps:X\to\Ga_\vf,\ x\mapsto(x,\vf(x))$$
+    a representative of the inverse rational map. By construction $\pi$ and $\eps$ are inverses of each other.
 \end{ptcbr}
 
 \begin{Ej}
@@ -35,13 +50,26 @@
 \end{Ej}
 
 \begin{ptcbr}
+    Let us begin by considering a low-dimensional case. Suppose we are working in $\bP^2$ so that the Cremona transform is $[x:y:z]\mapsto[a:b:c]=[\frac{1}{x}:\frac{1}{y}:\frac{1}{z}]$. The graph of $\phi$ in this case is 
+    $$\set{([x:y:z],[a:b:c]):\ a=1/x,\ b=1/y,\ c=1/z}\subseteq\bP^2\x\bP^2.$$
+    We can see that there is the following relation between the variables: $ax=1$, $by=1$ and $cz=1$. If we multiply $ay$ or $az$ we don't get any of the following expressions $\set{bx,bz,cx,cy}$. So the only linear relations that hold are the variables with the \emph{corresponding} inverse. There's no higher degree relation between the variables that crosses terms so we intuit that the relations in question are the only relations possible. In this case 
+    $$\Ga_\phi=\bV(ax-1,by-1,cz-1),$$
+    and in the general case we have $\vec{x}=[x_0:\dots:x_n]$ and $\vec{y}=[y_0:\dots:y_n]=[1/x_0:\dots:1/x_n]$. The equations defining the graph in this case are $x_iy_i=1$ for all $i$. It holds that 
+    $$\Ga_\phi=\bV(x_iy_i-1)_{i=0}^n.$$
 \end{ptcbr}
-
+\newpage
 \begin{Ej}
     Let $B$ be the blowup of $\bP^2$ at $[0:0:1]$. Find equations defining $B$ as a subvariety of $\bP^2\x\bP^1$. Show that there is a morphism defined everywhere from $B$ to $\bP^1\x\bP^1$.
 \end{Ej}
 
 \begin{ptcbr}
+    The blowup of $\bP^2$ at a point $p$ is defined as 
+    $$\cB\cL_p=\set{(x,\l):\ p,x\in\l}\subseteq \bP^2\x\bP^1,$$
+    in particular the blowup at $[0:0:1]$ is the collection of $(x,\l)$ where $x\in\l$ and $\l$ goes through $[0:0:1]$. So if $([x:y:z],[u:v])\in\bP^2\x\bP^1$  then 
+    $$B=\cB\cL_{[0:0:1]}(\bP^2)=\bV(xv-yu).$$
+    The morphism in question is the \emph{forgetful map} which forgets the $z$ coordinate:
+    $$([x:y:z],[u:v])\mapsto([x:y],[u:v]),$$
+    this map is a morphism as term-by-term it's homogenous.
 \end{ptcbr}
  
 \begin{Ej}
@@ -49,6 +77,11 @@
 \end{Ej}
 
 \begin{ptcbr}
+    The initial idea is that since the nodal curve is indeed a curve, then it should be equivalent to something which looks like a curve. Our idea takes us to think about the projective line $\bP^1$.\par 
+    According to the hint, by projecting from the origin we can associate a point $(x,y)\in V=\bV(y^2-x^3-x^2)$ to the slope of the line from that point to the node. A line from the node to $(x,y)$ follows the equation $y=tx$. However the point $(0,0)$ can't be mapped through this process, so we declare it's sent to the point at infinity. The inverse map is the parametrization of $V$ in terms of $t$ given by $t\mapsto(t^2-1:t^3-t^2)$.\par 
+    The rational map is 
+    $$\vf:V\to\bP^1,\ (x,y)\mapsto\bonj{\frac{y}{x}:1}=[y:x],\ \vf^{-1}([t:1])=(t^2-1:t^3-t^2)$$
+    and the points at infinity of $V$ are mapped to the lines with slope $1$ and $-1$. 
 \end{ptcbr}
 
 \end{document}
