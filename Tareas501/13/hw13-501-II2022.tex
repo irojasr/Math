@@ -34,18 +34,32 @@ $$\sum_Tw(T)=\prod_{i,j\in[n]}(x_j-x_i).$$
 \end{ptcbr}
 
 \begin{Ej}[Exercise 4, Stanley 2.34(b)]
-    Show that a non-transitive tournament contains a 3 cycle. 
+    A tournament is transitive if there's a permutation $\pi\in S_n$ such that $\pi(i)<\pi(j)$ when $i\to j$. Show that a non-transitive tournament contains a 3 cycle. 
 \end{Ej}
 
+Sometimes I've got to lower my head and admit I made a mistake. \textbf{Kyle} showed me what was wrong with my initial argument and then proceeded to tell me what was the correct thing to do. This was my original proof:
+\iffalse
 Triangle-free graphs are so \emph{fun}, the first result I saw in graph theory was Mantel's theorem. I still remember that class very vividly, my professor asked us for examples of $K_3$-free graphs and the best I could come up with was a path graph. Eventually other people came up with bipartite graphs and then he stated, ``\emph{The most edges that a $K_3$-graph can have is $n^2/4$ and the extremal graph is $K_{n/2,n/2}$.}''\par 
 It is not the same case for directed graphs but still, this problem is related to triangle-free graphs. 
-\begin{ptcbr}
-    This statement is equivalent to $T$ is (3-cycle)-free implies $T$ is transitive. The transitive condition is also equivalent to $i\to j,\ j\to k\in E\To i\to k\in E$. So suppose we have three vertices $i,j,k\in T$ such that $i\to j$ and $j\to k$ are edges of $T$.\par 
+\fi
+\begin{ptcb}
+    This statement in question is equivalent to $T$ is (3-cycle)-free implies $T$ is transitive. The transitive condition is also equivalent to $i\to j,\ j\to k\in E\To i\to k\in E$. So suppose we have three vertices $i,j,k\in T$ such that $i\to j$ and $j\to k$ are edges of $T$.\par 
     If it were the case that $k\to i$ was an edge in $T$, this would contradict the fact that $T$ is (3-cycle)-free, which is not the case. So there's no $k\to i$ edge.\par 
     As $T$ is a tournament, there \emph{must} be an edge between $i$ and $k$, so the only possibility is that the edge $i\to k$ is in $T$. And so, we have proven that $T$ is transitive as 
     $$i\to j,\ j\to k\in E\To i\to k\in E.$$
-\end{ptcbr}
+\end{ptcb}
 
+The problem with my argument is that I just handwave the fact that usual transitivity is equivalent to book-transitivity. However it is not as trivial to see that the equivalence is true. We will not be seeing that in the proof, but instead we will be proving: 
+\begin{significant}
+$T$ is (3-cycle)-free implies, $T$ is book-transitive.
+\end{significant}
+
+\begin{ptcbr}
+    We must construct a permutation $\pi$ such that $\pi(i)<\pi(j)$ whenever $i\to j$. This is done by induction on $|T|$, the interesting base case is $|T|=3$.\par 
+    For that tournament, at least one vertex $v$ must have $d_{\text{in}}(v)=2$, else there would be a 3-cycle. Assign $\pi(v)=3$ and then consider the induced subgraph by the remaining vertices, one sends an edge to another so assign the endpoint vertex to $2$ and the last one to $1$. Thus we have constructed a permutation which respects the condition in question.\par 
+    Suppose by induction, that all (3-cycle)-free tournaments with $n$ vertices are book-transitive.
+    %https://math.stackexchange.com/questions/3610269/if-a-tournament-graph-has-no-cycles-of-length-3-prove-that-it-is-a-partial-or
+\end{ptcbr}
 
 \begin{Ej}[Exercise 4, Stanley 2.34(c)]
 The relation $T\otto T'$ means that $T'$ was obtained by reversing a 3-cycle in $T$. Show that if $T\otto T'$ then $w(T')=-w(T)$. 
