@@ -13,11 +13,68 @@
 \begin{document}
 
 \begin{Ej}
-   
-\end{Ej}
+    Recall $\bP^n$ is defined as (a set) $\quot{\bC^{n+1}\less\set{\vec{0}}}{\sim}$ where $\vec{x}\sim\la\vec x$ for $\la\neq 0$. For $d\in\bZ$ $\cO_{\bP^n}(d)$ is defined as $\quot{\bC^{n+1}\less\set{\vec{0}}\x\bC}{\sim}$ where $(\vec{x},t)\sim(\la\vec x,\la^d t)$ and $\la\neq 0$.\par 
+    The map $\pi:\cO_{\bP^n}(d)\to\bP^n$ forgets the last coordinate, what are the fibers of the map $\pi$? What is another way of writing this space when $d=0$?
+ \end{Ej}
+ 
+ \begin{ptcbr}
+    The fibers of the map are 
+    $$\pi^{-1}(\vec{x})=\set{(\vec{x},t):\ \pi(\vec{x},t)=\vec{x}}=\set{(\vec{x},t):\ t\in\bC}\isom\bC.$$
+    When $d=0$ the relation in $\cO_{\bP^n}(0)$ is $(\vec{x},t)\sim(\la\vec x,t)$ for $\la\neq 0$. Such points lie in $\bP^n\x\bC$.
+ \end{ptcbr}
 
-\begin{ptcbr}
-   
-\end{ptcbr}
+ \begin{Ej}
+    Show that the map $\pi:\cO_{\bP^n}(d)\to\bP^n$ is a vector bundle by finding a local trivialization $(U_i,\phi_i)$.\par 
+    Using this trivialization, what are the maps
+$$psi_{ij}:\ U_i \cap U_j \x \bC \to U_i \cap U_j \x \bC$$
+where recall that $\psi_{ij}$ is defined to be $\phi_j\circ\phi_i^{-1}\mid_{\pi^{-1}(U_i\cap U_j)}$.
+ \end{Ej}
+ 
+ \begin{ptcbr}
+    Take an open chart of $P_n$, then 
+    $$\pi^{-1}(U_i)=\quot{\set{(\vec{x},t):\ x_i\neq 0}}{\sim}$$
+    where $(\vec{x},t)\sim(\la \vec{x},\la^d t)$ for $\la\neq 0$. Then the maps $\phi_i$ are 
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &\phi_i:\ \pi^{-1}(U_i)\to U_i\x\bC,\ (\vec{x},t)\mapsto ([\vec{x}],t/x_i^d),\\
+        &\phi_i^{-1}:\  U_i\x\bC\to\pi^{-1}(U_i),\ ([\vec{x}],t)\mapsto (\vec{x},tx_i^d).
+    \end{aligned}
+    \right.
+    $$
+    These maps are well defined on equivalence classes. For $\phi_i$, take another representative $(\la\vec{x},\la^d t)$, then 
+    $$\phi_i(\la\vec{x},\la^d t)=([\la\vec{x}],\la^d t/(\la x_i)^d)\sim([\vec{x}],t/x_i^d).$$
+    On the other hand 
+    $$\phi_i^{-1}([\la\vec{x}],t)\mapsto(\la\vec x,(\la x_i)^dt)\sim(\vec{x},x_i^dt).$$
+    Finally the transition maps are 
+    \begin{align*}
+        \psi_{ij}:U_i \cap U_j \x \bC&\to\pi^{-1}(U_i\cap U_j)\to U_i \cap U_j \x \bC,\\
+        ([\vec{x}],t)&\mapsto(\vec{x},x_i^dt)\mapsto([\vec{x}],(x_i/x_j)^dt).
+    \end{align*}
+ \end{ptcbr}
+ 
+ \begin{Ej}
+    A \emph{section} of $\cO_{\bP^n}(d)$ is a morphism $s:\ \bP^n \to  \cO_{\bP^n}(d)$ such that $\pi\circ s$ is the identity
+map on $\bP^n$. The space of sections of $\cO_{\bP^n}(d)$ is a finite dimensional vector space for
+each $d$. Find a basis for the space of sections of $\cO_{\bP^n}(d)$.
+ \end{Ej}
 
+ \begin{ptcbr}
+    Any section is of the form 
+    $$s:\bP^n\to\cO_{\bP^n}(d),\ [\vec{x}]\mapsto(\vec{x},\widetilde{s}(\vec{x}))$$
+    where $\widetilde{s}:\bP^n\to\bC$ is homogeneous of degree $d$ because of the defining relationship of $\cO_{\bP^n}(d)$:
+    $$(\la\vec{x},\widetilde{s}(\la \vec x))=(\la\vec{x},\la^d\widetilde{s}(\vec{x})).$$
+    This means that the space of sections must have all the degree $d$ monomials in variables $x_0,\dots,x_n$ as a basis. 
+ \end{ptcbr}
+
+ \begin{Ej}
+    Fix some $d > 1$. Consider the map from $\bP^n$ to a (larger)
+projective space defined by the complete linear series
+$|\cO_{\bP^n}(d)|$. Prove that this map is the same as the Veronese embedding.
+ \end{Ej}
+
+ \begin{ptcbr}
+   
+ \end{ptcbr}
+I sadly was not able to do exercise 4, nor 5 :(
 \end{document}
