@@ -12,12 +12,57 @@
 \DeclareMathOperator{\inv}{inv}
 \begin{document}
 
-\begin{Ej}[Exercise 4, Stanley 2.34(d)]
-   
-    \end{Ej}
-    
+\begin{Ej}[Exercise 1, Bonus]
+What is your favorite bijection, and why? (This problem does not count towards your 10 point total problem limit; it will be an extra fun point added on top to whatever you hand in for real below.)
+\end{Ej}
+
 \begin{ptcbr}
-    
+I have a whole set of bijections which I may call my favorite. Consider $(f_d)$ where $d\in\ttt{DATES}$, the set \ttt{DATES} consists of all the days where I went to class. For each $d$, we have 
+\begin{align*}
+f_d:\set{\ttt{students in 502 class on day }d}&\to\set{\text{seats in room E204}},\\
+\ttt{student}&\mapsto\text{preferred seat on day }d.    
+\end{align*}
+The function $f_d$ is a bijection when restricted to its image because no two \ttt{grad students} can sit in the same chair.\par
+In particular, amongst the $f_d$'s, the ones I'm most partial to, are the ones in $\ttt{DATES}'$ where this is the subset of days in which I did not fall asleep in class.\par 
+These are my favorite bijections because they are unique and different. I'm almost sure no one in class has a bijection like this as their favorite. Also, the idea of writing this made me chuckle, it's not everyday that you can have fun like this.\footnote{\textbf{Everyone} in class collaborated with me on this problem. If it weren't for them, I wouldn't have been able to do this problem quite literally.} 
 \end{ptcbr}
 
+\begin{Ej}[Exercise 2]
+Apply Franklin's involution to $(7,6,4,3)$ and check that applying it again returns the original partition.
+\end{Ej}
+
+
+\begin{Ej}[Exercise 3, Sagan 3.16(c)]
+Show that the generating function for the number of partitions of $n$ with $\la_1=k$ equals the generating function for the number of partitions of $n$ with exactly $k$ parts and that both are equal to the product $x^k/[(1-x)\dots(1-x^k)]$.
+\end{Ej}
+
+\begin{ptcbr}
+Let us call $p(n,k)$ the number of partitions of $n$ with exactly $k$ parts and $\wh{p}(n,k)$, the number of partitions of $n$ with $\la_1=k$. To show that their generating functions are equal, it suffices to prove that $p=\wh{p}$ for all $n,k$.\par
+To that effect, take $\la\vdash n$ with $k$ parts. When conjugating $\la$ we see that $\la^\ast$ now has largest part equal to $k$. In terms of their Young tableaux, $\la$ has dimensions $k\x\la_1$ while $\la^\ast$ has dimensions $\la_1\x k$.\par 
+Conjugation of partitions is a bijective map, which means that every partition with $k$ parts is uniquely associated to a partition with largest part $k$ and back. In conclusion it must hold that $p=\wh{p}$ and therefore the generating functions are equal.\par
+To see the product formula let us consider instead the number of partitions with largest part \emph{at most} $k$. The generating product function for that sequence is 
+$$\left((1+x+x^2+\dots)((x^2)^0+(x^2)^1+(x^2)^2+\dots)\dots((x^k)^0+(x^k)^1+(x^k)^2+\dots)\right)=\frac{1}{(1-x)(1-x^2)\dots(1-x^k)}.$$
+The last infinite sum counts the number parts in $\la$ equal to $k$. If we wish to guarantee that there is one part equal to $k$ we must multiply that factor by $x^k$. Therefore we have that the product which counts $\wh{p}$ is 
+$$\left((1+x+x^2+\dots)((x^2)^0+(x^2)^1+(x^2)^2+\dots)\dots((x^k)^1+(x^k)^2+(x^k)^3+\dots)\right)=\frac{x^k}{(1-x)(1-x^2)\dots(1-x^k)}.$$
+And since $p=\wh{p}$ it holds that both functions are equal to the product.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 3, Sagan 3.16(d)]
+    The Durfee square of $\la$ is the largest square partition $(d^d)$ such that $(d^d)\subseteq \la$. Use this concept to prove
+    $$\sum_{n=0}^\infty p(n)x^n=\sum_{d=0}^\infty \frac{x^{d^2}}{(1-x)^2(1-x^2)^2\dots(1-x^d)^2}.$$
+\end{Ej}
+
+\begin{ptcbr}
+What the problem is telling us is to count the total number of partitions in a different way than the one we know.\par 
+For that effect consider a partition $\la$ with its corresponding Young diagram. Such a partition can be decomposed into a Durfee square, a \emph{right} component and an \emph{up} component. Still viewing such components as Young diagrams, we can see a characteristic which defines them:
+\vspace*{-0.4em}
+\begin{itemize}
+    \itemsep=-0.4em
+    \item The \emph{right} component is a partition of $n-d$ with at most $d$ parts.
+    \item The \emph{up} component is a partition (of some number) with largest part at most $d$. 
+\end{itemize} 
+By the previous problem we know that these types of partitions are in correspondence and each is counted by a product generating function. So for all sizes of Durfee squares we can count all partitions these way: fix a Durfee square size, then attach the \emph{right} and \emph{up} components to the Young diagram. Since each partition necessarily contains a Durfee square, we add a factor of $x^{d^2}$ while each of the two components are each counted by $1/((1-x)\dots(1-x^d))$. Multiplying these together gives us 
+the desired identity 
+$$\sum_{n=0}^\infty p(n)x^n=\sum_{d=0}^\infty \frac{x^{d^2}}{(1-x)^2(1-x^2)^2\dots(1-x^d)^2}.$$
+\end{ptcbr}
 \end{document}
