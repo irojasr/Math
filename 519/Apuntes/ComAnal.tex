@@ -1,0 +1,150 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Jeff Achter}
+\def\nsigla {MATH519}
+\def\nsiglahead {Complex Analysis}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+%\clearpage
+\maketitle
+%\thispagestyle{empty}
+{\small
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This course is an introduction to analytic functions of a single complex variable.  The subject is beautiful Links to an external site.-- it turns out that a function with a complex derivative is highly structured -- and enjoys a give and take with many other areas of mathematics.
+
+\subsubsection*{Requirements}
+Knowledge of convergence of sequences, series: limits, continuity, differentiation, integration of one-variable functions is required.
+}
+\newpage
+\tableofcontents
+%\begin{multicols}{2}
+\chapter{First Midterm}
+
+\section{Interim| HW1}
+
+\begin{Ej}[1.1 Stein \& Shakarchi]
+Describe geometrically the sets of points $z$ in the complex plane defined by the following relations:
+\begin{enumerate}
+    \itemsep=-0.4em
+    \item $|z-z_1|=|z-z_2|$ where $z_1,z_2\in\bC$.
+    \item $1/z=\ov z$.
+    \item $\Re(z)=3$
+    \item $\Re(z)>c$, (resp.,$\geq c$) where $c\in\bR$.
+    \item $\Re(az+b)>0$ where $a,b\in\bC$.
+    \item $|z|=\Re(z)+1$.
+    \item $\Im(z)=c$ with $c\in\bR$.
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The first set is the set of points at the same distance from $z_1$ and $z_2$. If we consider the line segment $z_1z_2$, then the set in question is the bisector of that line segment.
+        \item Note that
+        $$1/z=\ov z\iff 1=\ov zz\iff 1=|z|^2\iff 1=|z|,$$
+        thus the set is the unit circle.
+        \item The set is a perpendicular line to the real axis at $z=3$.
+        \item This infinite set is an infinite half plane to the right (but not including) of the line $z=c$. In the other case, we do include the line in question.
+        \item \red{DO}
+        \item The equation in question is equivalent to 
+        $$\Re(z)^2+\Im(z)^2=(\Re(z)+1)^2.$$
+        To ease the notation, assume $z=x+iy$. Then the equation reads 
+        $$x^2+y^2=x^2+2x+1\iff y^2=2x+1\iff x=(y^2-1)/2.$$
+        It holds the the parabola in question contains the points which satisfy the equation.
+        \item This set is a line parallel to the real axis at $z=c$
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Show that the complex conjugation map $\kp:\bC\to\bC,\ z\mapsto\ov z$ is an involution, i.e., a ring homomorphism such that $\kp\circ\kp=\id$.
+        \item Suppose $a\in\bR,\ z\in\bC$. Show that 
+        $$\Re(az)=a\Re(z),\word{and}\Im(az)=a\Im(z).$$
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    Let us take $z=x+iy$ with $x,y\in\bR$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item We have $\ov z=x+i(-y)=x-iy$. Once more we get $\ov{\ov z}=x-i(-y)=x+iy=z$. Thus $\ov{\ov z}=z$ for any $z\in\bC$. In conclusion $\ov{\ov \.}=\id$.
+        \item It holds that 
+        \begin{align*}
+            &\Re(az)=\Re(ax+aiy)=ax=a\Re(z),\\
+            &\Im(az)=\Im(ax+aiy)=ay=a\Im(z).
+        \end{align*}
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Prove that $|z+w|^2=|z|^2+|w|^2+2\Re(z\ov w)$.
+        \item Use this to prove the parallelogram rule: $|z+w|^2+|z-w|^2=2(|z|^2+|w|^2)$.
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Note that 
+        $$|z+w|^2=(z+w)\ov{(z+w)}=(z+w)(\ov z+\ov w)=z\ov{z}+w\ov{z}+z\ov{w}+w\ov w.$$
+        The number $w\ov z$ is the conjugate of $z\ov w$, and summing a number and its conjugate returns twice its real part. Thus we get the desired identity. 
+        \item As the past identity holds for all complex numbers, it holds when $w=-w$. This means that 
+        $|z-w|^2=|z|^2+|-w|^2+2\Re(z(\ov{-w}))=|z|^2+|w|^2-2\Re(z\ov w)$
+        and summing this together with the first identity gives us the parallelogram law.
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[1.5 Stein \& Shakarchi]
+    A set $\Om$ is said to be pathwise connected if any two points in $\Om$ can be joined by a (piecewise-smooth) curve entirely contained in $\Om$. The purpose of this exercise is to prove that an open set $\Om$ is pathwise connected if and only if $\Om$ is connected.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Suppose first that $\Om$ is open and pathwise connected, and that it can be written as $\Om$ = $\Om_1\cup\Om_2$ where $\Om_1$ and $\Om_2$ are disjoint non-empty open sets. Choose two points $w_1\in\Om_1$ and $w_2\in\Om_2$ and let $\ga$ denote a curve in $\Om$ joining $w_1$ to $w_2$. Consider a parametrization $z:\bonj{0,1}\to\Om$ of this curve with $z(0) = w_1$ and $z(1) = w_2$, and let
+        $$t_\ast = \sup_{0\leq t\leq 1}\set{t\:\forall s [(0\leq s<t)\To (z(s)\in\Om_1)]}.$$
+        Arrive at a contradiction by considering the point $z(t_\ast)$.
+        \item Conversely, suppose that $\Om$ is open and connected. Fix a point $w\in\Om$ and let $\Om_1\subseteq\Om$ denote the set of all points that can be joined to $w$ by a curve contained in $\Om$. Also, let $\Om_2\subseteq\Om$ denote the set of all points that cannot be joined to $w$ by a curve in $\Om$. Prove that both $\Om_1$ and $\Om_2$ are open, disjoint and their union is $\Om$. Finally, since $\Om_1$ is non-empty (why?) conclude that $\Om$ = $\Om$1 as desired.
+    \end{enumerate}
+    \end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Following the idea, we consider the point $z(t_\ast)$. We have two options to place $z(t_\ast)$, either in $\Om_1$ or $\Om_2$.\par 
+        Let's start by definition of supremum
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[1.7 Stein \& Shakarchi]
+    The family of mappings introduced here plays an important role in complex analysis. These mappings, sometimes called \textbf{Blaschke factors}, will reappear in various applications in later chapters.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Let $z,w\in\bC$ such that $\ov{z}w\neq 1$. Prove that 
+        $$\left|\frac{w-z}{1-\ov w z}\right|<1$$
+        if $|z|<1$ and $|w|<1$, and also that 
+        $$\left|\frac{w-z}{1-\ov w z}\right|=1$$
+        if $|z|=1$ or $|w|=1$. \hint{Why can one assume that $z$ is real? I then suffices to prove that $(r-w)(r-\ov w)\leq (1-rw)(1-r\ov w)$ with equality for appropriate $r$ and $|w|$.}\aside{Here is an alternate approach, which you may use if you like. Fix $w\in\bC$ with $w<1$, and consider the function $z\mapsto \frac{w-z}{1-\ov w z}$. What is $\ov{f(z)}$? By computing $f(z)\ov{f(z)}$, show that $|z|=1$ implies $|f(z)|=1$. Find a point $z$ with $|z|<1$ such that $|f(z)|<1$. Since $f$ is continuous, this shows that $f$ takes the unit disc to itself. (Why?)}
+        \item Prove that for a fixed $w\in\bD$, the mapping $F\:z\mapsto\frac{w-z}{1-\ov w z}$ satisfies the following:
+        \begin{enumerate}[a)]
+            \itemsep=-0.4em
+            \item $F$ maps the unit disc to itself (that is, $F:\bD\to\bD$), and is holomorphic.
+            \item $F$ interchanges $0$ and $w$. 
+            \item $|F(z)|=1$ if $|z|=1$.
+            \item $F$ is bijective. \hint{Calculate $F\circ F$.}
+        \end{enumerate}
+    \end{enumerate}
+    \end{Ej}
+\section{Day 1| 20230117}
+
+\subsection{I dunno lol}
+\end{document}

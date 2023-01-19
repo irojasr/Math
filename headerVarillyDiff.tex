@@ -6,7 +6,11 @@
 \fi
 
 \ifx \nextra \undefined
+\ifx \nlang \undefined
 \author{Basado en las clases impartidas por \nprofesor \\\small Notas tomadas por \nauthor}
+\else
+\author{Based on the lectures by \nprofesor \\\small Notes written by \nauthor}
+\fi
 \else
 \author{\nauthor}
 \fi
@@ -116,7 +120,11 @@
   \chead{
     \ifnum\thepage=1
     \else
+      \ifx \nlang \undefined
       \textbf{Notas \nsiglahead\ \nsemestre-\nyear}
+      \else
+      \textbf{Notes \nsiglahead\ \nsemestre-\nyear}
+      \fi
     \fi}
   \rhead{}%\firstxmark} % Top right header
 \else
@@ -193,7 +201,13 @@
 
 \ifx \nextra \undefined
 \let\@real@maketitle\maketitle
-\renewcommand{\maketitle}{\@real@maketitle\begin{center}\begin{minipage}[c]{0.9\textwidth}\centering\footnotesize Estas notas no están respaldadas por los profesores y han sido modificadas (a menudo de manera significativa) después de las clases. No están lejos de ser representaciones precisas de lo que realmente se dio en clase y en particular todos los errores son casi seguramente míos.\end{minipage}\end{center}}
+\renewcommand{\maketitle}{\@real@maketitle\begin{center}\begin{minipage}[c]{0.9\textwidth}\centering\footnotesize 
+  \ifx \nlang \undefined
+  Estas notas no están respaldadas por los profesores y han sido modificadas (a menudo de manera significativa) después de las clases. No están lejos de ser representaciones precisas de lo que realmente se dio en clase y en particular todos los errores son casi seguramente míos.
+  \else 
+  Please note that these notes were not provided or endorsed by the lecturer and have been significantly altered after the class. They may not accurately reflect the content covered in class and any errors are solely my responsibility.
+  \fi
+\end{minipage}\end{center}}
 \else
 \fi
 
