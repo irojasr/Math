@@ -25,9 +25,65 @@ Knowledge of convergence of sequences, series: limits, continuity, differentiati
 \newpage
 \tableofcontents
 %\begin{multicols}{2}
-\chapter{First Midterm}
+\chapter{Symmetric functions}
 
-\section{Interim| HW1}
+\section{Recall}
+
+\begin{Def}
+$f(x_1,x_2,\dots)$ is \term{symmetric} if it's fixed under permutations of variables.
+\end{Def}
+
+\begin{Ex}
+    $f(x_1,\dots,x_4)=x_1^5+\dots+x_4^5$. This is known as $p_5$ or $m_{(5)}$, where $p$ is the power-sum symmetric function and $m$, the monomial symmetric function.  
+\end{Ex}
+
+\begin{Ex}
+    Consider $g=x_1^4x_2+x_1^4x_3+\dots+x_i^4x_j+\dots+3x_1+\dots=m_{(4,1)}+3m_{(1)}$.
+\end{Ex}
+
+Let us recall some \textbf{notation}:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item $\La_R(x_1,\dots,x_n)$ is the ring of symmetric polynomials over $R$. In \emph{infinitely} many variables we have $\La_R(\un{x})$.
+\end{enumerate}
+
+In the case $R=\bQ$, then $\dim \La_Q(\un x)_{(d)}$, where every monomial has degree $d$, is $p(d)$. This is the number of partitions of $d$. Because for every partition we can form monomials and monomials form a basis.
+
+\subsection*{Bases of $\La_Q$}
+
+Suppose $\la=(\la_1,\dots,\la_k)$ with $\la_1\geq\dots\geq\la_k$. 
+\begin{itemize}
+    \item Monomial: $m_\la=\sum_{i_1\neq\dots i_k}x_{i_1}^{\la_1}\dots x_{i_k}^{\la_k}$.
+    \item Elementary: $e_\la=\prod e_{\la_i}$ where $e_d=m_{(1,1,\dots,1)}$ ($d$ ones).
+    \item Homogenous: $h_\la=\prod h_{\la_i}$ and $h_d=x_1^d+\dots+x_1^{d-1}x_2+\dots+x_1^{d-2}x_2^2+x_1^{d-2}x_2x_3+\dots$. In general $h_d=\sum_{\la\vdash d}m_\la$.
+    \item Power sum: $p_\la=\prod p_{\la_i}$ and $p_d=\sum x_i^d$.
+\end{itemize}
+
+For Schur basis recall SSYT 
+
+\begin{Ex}
+    Consider $\la=(5,4,1)$, rows $\leq\to$ and columns $<$, we associate the monomial $x_1^2x_2^3x_3^3x_4^2:=x^T$.
+\end{Ex}
+
+\begin{itemize}
+    \itemsep=-0.4em
+    \item Schur: $s_\la=\sum_{T\in SSYT(\la)}x^T$ but also $\sum K_{\la\mu}m_\mu$ where the sum is over SSYT of shape $\la$, content $\mu$.
+\end{itemize}
+
+\subsubsection{Schur function motivation (preview)}
+
+The first place they showed up is in the representation theory of Lie group.  The function $s_\la(x_1,\dots,x_n)$ is a character of irreducible polynomial representations of $GL_n$. In theoretical physics we have matrix groups acting on particles, representations are smaller matrix groups of things that they are mapping to. We want to take tensor product and direct sums of representations, the tensor product is related to multiplication of Schur function while direct sum into sum of Schur functions.\par 
+There's also the Schur-Weyl duality which takes representations into the Weyl group. Under the \emph{Frobenius map}, $s_\la$ corresponds to irreducible representations of $S_n$.\par 
+A more modern application of Schur function goes into geometry, $s_\la$ correspond to Schubert varieties in Grassmannians. Multiplication corresponds to interesections and sum to unions.\par 
+There's also context in Probability Theory. But in the end, Schur positivity is important because of this connections. 
+
+\begin{Def}
+    $f\in\La$ is \term{Schur-positive} if $f=\sum c_\la s_\la$, $c_\la\geq 0$.
+\end{Def}
+
+\begin{Ex}
+    $3s_{(2,1)}+2s_{(3)}$ schur pos but change $2$ to $-\half$ then not.
+\end{Ex}
 
 \begin{Ej}[1.1 Stein \& Shakarchi]
 Describe geometrically the sets of points $z$ in the complex plane defined by the following relations:
