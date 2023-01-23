@@ -52,7 +52,9 @@ Describe geometrically the sets of points $z$ in the complex plane defined by th
         thus the set is the unit circle.
         \item The set is a perpendicular line to the real axis at $z=3$.
         \item This infinite set is an infinite half plane to the right (but not including) of the line $z=c$. In the other case, we do include the line in question.
-        \item \red{DO}
+        \item Let us rephrase this inequality in terms of real numbers. Call $a=a_1+ia_2$, $b=b_1+ib_2$ and $z=x+iy$. Then 
+        $$\Re(az+b)=\Re[a_1 x - a_2 y + b_1 + i (a_2 x +  a_1 y +  b_2)],$$
+        thus our desired inequality is true whenever $a_1 x - a_2 y + b_1>0$. Solving for $y$ we get $y>(a_1x+b_1)/a_2$, which is the half plane located above the line $y=(a_1x+b_1)/a_2$.
         \item The equation in question is equivalent to 
         $$\Re(z)^2+\Im(z)^2=(\Re(z)+1)^2.$$
         To ease the notation, assume $z=x+iy$. Then the equation reads 
@@ -123,7 +125,8 @@ Describe geometrically the sets of points $z$ in the complex plane defined by th
         \item Recall first, that by definition of supremum we have that if $S$ is our set, then 
         $$\exists s\in S(s>t_\ast-\eps)$$
         for $\eps>0$. Following the idea, we consider the point $z(t_\ast)$. We have two options to place $z(t_\ast)$, either in $\Om_1$ or $\Om_2$.\par 
-        Let's start by definition of supremum
+        Let's start by definition of supremum \red{FINISH}
+        \item Take $\Om_1,\Om_2$ as in the statement. Then $\Om_1$ is non-empty as $w\in\Om_1$ because it's connected to itself through a trivial path. Suppose now that $z\in\Om_1$ and that $r>0$. Take $x\in B(z,r)$, then there exists a line-segment between $z$ and $x$ and there's a smooth curve which connects $z\in\Om_1$ with $w$. Thus the piecewise-continuous path from $x$ to $z$ and from $z$ to $w$ is a path which connects $x$ and $w$. As $x$ is arbitrary, it follows that $B(z,r)\subseteq \Om_1$.  
     \end{enumerate}
 \end{ptcbr}
 
@@ -157,8 +160,21 @@ Describe geometrically the sets of points $z$ in the complex plane defined by th
             Simplifying this expression we get 
             \begin{align*}
                 &(w-z)(\ov w-\ov z)<(1-\ov wz)(1-w\ov z)\\
-                \iff&
+                \iff&w\ov w-w\ov z -z\ov w+z\ov z<1-w\ov z-\ov wz+\ov wzw\ov z\\
+                \iff&|w|^2+|z|^2<1+|w|^2|z|^2\\
+                \iff&0<(1-|w|^2)(1-|z|^2).
             \end{align*}
+            The inequality is true whenever both moduli are less than one, and whenever either is one equality is achieved.
+            \item Now we suppose $w\in\bD$ which means that $|w|<1$. Taking $z\in\bD$ and applying $F$ gives us the quantity $\frac{w-z}{1-\ov w z}$ which by the previous argument, has modulus less than $1$ whenever $w,z$ do.\par 
+            The function $F$ is holomorphic because it is a quotient of holomorphic functions. The denominator is never zero inside the domain because that would mean that $1=\ov w z$. And taking moduli in both sides of the equation gives us 
+            $$1=|1|=|w||z|<1$$
+            which is impossible.\par 
+            Now $F(0)=\frac{w-0}{1-0}=w$ and $F(w)=\frac{w-w}{1-|w|^2}=0$. The denominator in the last expression is never zero because $|w|<1$.\par 
+            By the second part of the previous argument it holds that $|z|=1$ immediately gives us $|F(z)|=1$. And finally we will see that $F$ is an involution:
+            $$F(F(z))=F\left(\frac{w-z}{1-\ov w z}\right)=\frac{w-\left(\frac{w-z}{1-\ov w z}\right)}{1-\ov w\left(\frac{w-z}{1-\ov w z}\right)}.$$ 
+            Homogenizing and clearing denominators we get 
+            $$\frac{w(1-\ov wz)-w+z}{1-\ov w z-\ov w(w-z)}=\frac{-w\ov wz+z}{1-\ov ww}=\frac{(-w\ov w+1)z}{1-\ov ww}=z.$$
+            This means that $F$ is it's own inverse and therefore, $F$ is bijective. 
         \end{enumerate}
     \end{ptcbr}
 \section{Day 1| 20230120}
@@ -240,4 +256,74 @@ For inverses if $z=re^{i\te}$, then $\frac{1}{z}=\frac1re^{-i\te}$.
 \begin{Lem}
     If $H$ is a half plane $\Im(z-\bt/\ga)>0$
 \end{Lem}
-\end{document}
+
+\section{Day 2| 20230123}
+
+Recall the complex conjugation map and the modulus of a complex number. This gives us an isometry between $\bR^2$ and $\bC$. Let us prove the lemma from last time. 
+
+\begin{Lem}
+    If $H\subseteq\bC$ is a half plane, then there exist $\bt,\ga\in\bC$ such that 
+    $$H=\Set{z:\ \Im\left(\frac{z-\bt}{\ga}\right)>0}.$$
+\end{Lem}
+\begin{center}
+    INC FIG
+\end{center}
+Pick a point $\bt\in H$, then translate $H$ to the origin by $z\mapsto z-\bt$. The plane is now rotated by $\te$ at the origin so we should rotate every point. Then $z\in H-\bt$ whenever $ze^{-i\te}\in\bH$. \red{REDO}\par 
+Let us see an application, for a polynomial, the coefficients determine the roots. The following lemma is a technical lemma.
+
+\begin{Lem}
+    Suppose $p\in\bC[z]$ and $H$ is a half plane which contains all the roots of $p$. Then $H$ contains all the roots of $p'$.
+\end{Lem}
+
+\begin{ptcbp}
+    We can assume $p$ is monic, so suppose $\al_1,\dots,\al_d$ are the roots of $\bC$. This means that 
+    $$p(z)=\prod_{k=1}^d(z-\al_k)\To p'(z)=\sum_{k=1}^d\frac{p(z)}{z-\al_k}\To\frac{p'(z)}{p(z)}=\sum_{k=1}^d\frac{1}{z-\al_k}.$$
+    Now suppose that $H$ contains all $\al_k$ and suppose $z_0\not\in H$, if we show $p'(z_0)\neq 0$ we are done because all the points which make $p'$ vanish won't be outside $H$.\par 
+    Describe $H$ by the previous lemma, there exist $\bt,\ga$ such that points in $H$ satisfy the inequality $\Im\left(\frac{z-\bt}{\ga}\right)>0$. As $z_0$ is not in $H$, then $\Im\left(\frac{z_0-\bt}{\ga}\right)<0$. For each $k\in[d]$, we have that 
+    $$z_0-\al_k=z_0-\bt+\bt-\al_k=(z_0-\bt)-(\al_k-\bt)$$
+    so by taking imaginary parts 
+    $$\Im\left(\frac{z-\al_k}{\ga}\right)=\Im\left(\frac{z-\al_k}{\ga}\right)-\Im\left(\frac{z-\al_k}{\ga}\right)$$ 
+    The quantity on the right is negative because it's a negative number minus a positive. So it holds that $\Im\left(\frac{\ga}{z-\al_k}\right)>0$. With this we can calculate the following:
+    $$\Im\left(\ga\frac{p'(z_0)}{p(z_0)}\right)=\Im\left(\sum_{k=1}^d\frac{\ga}{z_0-\al_k}\right)>0$$
+    so in particular this number is non-zero. Thus $p'(z_0)\neq 0$ 
+\end{ptcbp}
+
+\begin{Def}
+    A set $S\subseteq\bR^n$ is \term{convex} if for any two points $x,y\in S$, the line segment between $x$ and $y$ is also contained in $S$. This is 
+    $$\set{ty+(1-t)x:\ x,y\in S}\subseteq S.$$
+    The \term{convex hull} of $S$ is the intersection of all convex sets containing $S$. 
+\end{Def}
+
+In the case of a finite set of complex numbers, the convex hull can be found by intersecting half-planes which contain them.
+
+\begin{Cor}[Gauss-Lucas]
+The roots of $p'(z)$ are contained in the convex hull of the roots of $p(z)$. 
+\end{Cor}
+
+\subsection{Metric Spaces}
+
+\begin{Def}
+    A \term{metric space} is a set with a distance function.
+\end{Def}
+
+\begin{Ex}
+    $\bR^n$ is a metric space with $d(x,y)=\norm{x-y}$. Subsets of metric spaces with an induced distance are metric spaces. 
+\end{Ex}
+
+\begin{itemize}
+    \item nbhd
+    \item open and closed
+    \item Cauchy
+\end{itemize}
+
+\begin{Def}
+    Cauchy sequence
+\end{Def}
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiComAnal.bib}
+\end{document} 

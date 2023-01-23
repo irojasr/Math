@@ -85,4 +85,114 @@ There's also context in Probability Theory. But in the end, Schur positivity is 
     $3s_{(2,1)}+2s_{(3)}$ schur pos but change $2$ to $-\half$ then not.
 \end{Ex}
 
+\section{day 2}
+
+\subsection*{Alg defn Schur fncs}
+
+\begin{Def}
+    A function is \term{antisymmetric} if for $\pi\in S_n$,
+    $$f(x_{\pi(1)},\dots,x_{\pi(n)})=\sgn(\pi)f(x_1,\dots,x_n).$$
+\end{Def}
+
+\begin{Ex}
+    The following functions are antisymmetric:
+    \begin{enumerate}
+        \itemsep=-0.4em
+        \item $f(x,y)=x-y$ then $f(y,x)=-f(x,y)$.
+        \item $g(x,y)=(x-y)(x+y)$.
+        \item $h(x,y)=x^2y-y^2x$.
+    \end{enumerate}
+\end{Ex}
+
+Notice that the last function can factor as $h=-xy(x-y)$. We claim that this is always the case.
+
+\begin{Lem} 
+    Every antisymmetric polynomial $f$ in two variables $x,y$ can factor as $f(x,y)=(x-y)g(x,y)$ where $g$ is symmetric.
+\end{Lem}
+
+\begin{ptcbp}
+Suppose $f$ is antisymmetric, then $f(x,x)=0$ by taking $y=x$. This means that $(x-y)\mid f$. Thus $f(x,y)=(x-y)g(x,y)$ and we now need to show that $g$ is symmetric. 
+$$g(y,x)=\frac{f(y,x)}{y-x}=\frac{-f(x,y)}{-(x-y)}=\frac{f(x,y)}{x-y}=g(x,y).$$
+\end{ptcbp}
+
+\subsubsection*{Monomial Antisymmetric Functions}
+
+\begin{Def}
+Given a strict partition $\la=(\la_1,\dots,\la_k)$, $\la_1>\dots>\la_k$, we define 
+$$a_\la(x_1,\dots,x_n)=x_1^{\la_1}\cdots x_k^{\la_k}\pm\text{similar terms}=\sum_{\pi\in S_n}\sgn(\pi)\prod_{k}x_{\pi(k)}^{\la_k}.$$ 
+This $a_\la$ can be zero. 
+\end{Def}
+
+\begin{Ex}
+    For two variables we've seen some antisymmetric polynomials. Let us calculate 
+    $$a_{(3,1)}(x,y)=x^3y-y^3x.$$
+    The smallest possible example in 3 variables is 
+    $$a_{(2,1,0)}(x,y,z)=x^2y+y^2z+z^2x-y^2x-z^2y-x^2z.$$
+    This can be factored as $(x-y)(y-z)(x-z)$. A similar construction gives us
+    $$a_{(4,2,0)}(x,y,z)=x^4y^2+y^4z^2+z^4x^2-y^4x^2-z^4y^2-x^4z^2,$$
+    but how does this factor? We get 
+    $$a_{(4,2,0)}(x,y,z)=(x^2-y^2)(y^2-z^2)(x^2-z^2)=a_{(2,1,0)}(x,y,z)(x+y)(y+z)(x+z).$$
+\end{Ex}
+
+\begin{Lem}
+The set $\set{a_\la}_{\la\ \text{strict}}$ is a basis of the antisymmetric polynomials over $\bQ$, $A_\bQ$. Even more any $a_\la$ is divisible by $a_\rho$ where $\rho=(n-1,n-2,\dots,2,1,0)$. 
+\end{Lem}
+
+As an algebra generator, $a_\rho$ is a generator.
+\begin{ptcbp}
+    \red{WRITE}
+\end{ptcbp}
+
+\begin{Prop}
+The $a_\rho$ antisymmetric function is also the \term{Vandermonde determinant}: 
+$$a_\rho=\det\begin{pmatrix}
+    x_1^{n-1}&x_1^{n-2}&\dots&x_1^2&x_1&1\\
+    x_2^{n-1}&x_2^{n-2}&\dots&x_2^2&x_2&1\\
+    \vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+    x_n^{n-1}&x_n^{n-2}&\dots&x_n^2&x_n&1\\
+\end{pmatrix}$$
+\end{Prop}
+
+\subsubsection{Schur Polynomials}
+
+\begin{Def}
+    The \term{Schur polynomial} of $\la\in\text{Par}$ is 
+    $$s_\la(x_1,\dots,x_n)=\frac{a_{\la+\rho}(\un{x})}{a_\rho(\un x)}.$$
+    Here $\la+\rho$ is the pointwise sum as arrays.
+\end{Def}
+
+\begin{Rmk}
+This is the Weyl character proof. 
+\end{Rmk}
+
+The following proof is due to Proctor(1987) \red{find ref}
+
+\begin{Lem}
+    Any $a_\la$ can be seen as a determinant in the following way:
+    $$a_\la(\un x)=\det\begin{pmatrix}
+        x_1^{\la_1}&x_1^{\la_2}&\dots&x_1^{\la_n}\\
+        x_2^{\la_1}&x_2^{\la_2}&\dots&x_2^{\la_n}\\
+        \vdots&\vdots&\ddots&\vdots\\
+        x_n^{\la_1}&x_n^{\la_2}&\dots&x_n
+    \end{pmatrix}$$
+\end{Lem}
+\begin{ptcbp}
+    We want to see that 
+    $$\frac{a_{\la+\rho}(\un{x})}{a_\rho(\un x)}=\sum x^T$$
+    where the sum ranges through $T$'s which are SSYT(la) with max entry $n$. 
+    \begin{enumerate}
+        \item We will show a recursion for the combinatorial definition that the character formula will also satisfy. It holds that 
+        $$s_\la(\un x)=\sum s_\mu(\un x)x_n^{|\la|-|\mu|}$$
+        where $\mu$ has $n-1$ parts with $\la_1\geq\mu_1\geq\la_2\geq\mu_2\dots$. 
+        \item We also show that the ratio of determinants satisfies the same recursion. 
+    \end{enumerate}
+\end{ptcbp}
+
+\begin{Ex}
+    Consider $\la=(8,8,4,1,1)$ and $\mu=(8,5,2,1)$, then $\la\less\mu$ is a skew-table in which we can fill in $n$'s
+\end{Ex}
+
+\begin{Cor}
+The Schur polynomials are a basis of $\La_\bQ$. 
+\end{Cor}
 \end{document}
