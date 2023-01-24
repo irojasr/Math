@@ -12,6 +12,39 @@
 
 \begin{document}
 
+\begin{Ej}[Exercise 1]
+    Show that every polynomial in two variables $x,y$ can be written uniquely as a sum of a
+    (two variable) symmetric polynomial and a (two variable) antisymmetric polynomial.
+\end{Ej}
+
+\begin{ptcbr}
+Suppose $p\in\bQ[x,y]$, then 
+$$p(x,y)=\half\left(p(x,y)+p(y,x)\right)+\half\left(p(x,y)-p(y,x)\right).$$
+Call the summands $s(x,y)$ and $a(x,y)$ respectively. We have that $s$ is a symmetric polynomial while $a$ is antisymmetric:
+$$\begin{cases}
+    s(y,x)=\half\left(p(y,x)+p(x,y)\right)=\half\left(p(x,y)+p(y,x)\right)=s(x,y),\\
+    a(y,x)=\half\left(p(y,x)-p(x,y)\right)=-\half\left(p(x,y)-p(y,x)\right)=-a(x,y).
+\end{cases}$$
+Now suppose that there exist $s_1,s_2,a_1,a_2\in\bQ[x,y]$, symmetric and antisymmetric polynomials respectively such that 
+$$p(x,y)=s_1(x,y)+a_1(x,y)=s_2(x,y)+a_2(x,y)\To s_1(x,y)-s_2(x,y)=a_2(x,y)-a_1(x,y).$$
+From this last equation, after exchanging the variables we get
+$$s_1(x,y)-s_2(x,y)=s_1(y,x)-s_2(y,x)=a_2(y,x)-a_1(y,x)=-a_2(x,y)+a_1(x,y)$$ 
+which gives us the equation 
+$$a_2(x,y)-a_1(x,y)=-a_2(x,y)+a_1(x,y)\To a_2(x,y)=a_1(x,y).$$
+Now that we have that the antisymmetric parts are equal, we see from the original hypothesis that 
+$$s_1(x,y)+a_1(x,y)=s_2(x,y)+a_2(x,y)\To s_1(x,y)=s_2(x,y).$$
+We conclude that the representation is unique.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 2]
+    (Review.) Write the power sum symmetric function $p_3$ in terms of elementary symmetric
+functions.
+\end{Ej}
+
+\begin{ptcbr}
+This result is valid in any number of variables,
+\end{ptcbr}
+
 \begin{Ej}[Exercise 7, Stanley 7.3]
  Expand the power series $\prod_{i\geq 1}(1+x_i+x_i^2)$ in terms of elementary symmetric functions.
 \end{Ej}
