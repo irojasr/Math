@@ -9,6 +9,7 @@
 \def\nextra {HW1}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
+\usepackage{youngtab}
 
 \begin{document}
 
@@ -26,7 +27,10 @@ $$\begin{cases}
     a(y,x)=\half\left(p(y,x)-p(x,y)\right)=-\half\left(p(x,y)-p(y,x)\right)=-a(x,y).
 \end{cases}$$
 Now suppose that there exist $s_1,s_2,a_1,a_2\in\bQ[x,y]$, symmetric and antisymmetric polynomials respectively such that 
-$$p(x,y)=s_1(x,y)+a_1(x,y)=s_2(x,y)+a_2(x,y)\To s_1(x,y)-s_2(x,y)=a_2(x,y)-a_1(x,y).$$
+\begin{align*}
+    p(x,y)=s_1(x,y)+a_1(x,y)=s_2(x,y)+a_2(x,y),\\
+    \To s_1(x,y)-s_2(x,y)=a_2(x,y)-a_1(x,y).
+\end{align*}
 From this last equation, after exchanging the variables we get
 $$s_1(x,y)-s_2(x,y)=s_1(y,x)-s_2(y,x)=a_2(y,x)-a_1(y,x)=-a_2(x,y)+a_1(x,y)$$ 
 which gives us the equation 
@@ -42,12 +46,39 @@ functions.
 \end{Ej}
 
 \begin{ptcbr}
-This result is valid in any number of variables,
+This result is valid in any number of variables, so let verify it in three variables and then extrapolate the general formula. Recall that in three variables the elementary symmetric functions are 
+$$e_1=x+y+z,\ e_2=xy+yz+zx,\ e_3=xyz$$
+so naively we can cube $e_1$ first and see what we get:
+$$e_1^3=(x+y+z)^3=p_3+3(x^2y+y^2z+z^2x+y^2x+z^2y+x^2z)+6e_3.$$
+The way to obtain the middle term is to multiply $e_1$ with $e_2$:
+$$e_1e_2=x^2y+y^2z+z^2x+y^2x+z^2y+x^2z+3e_3,$$
+solving for the expression we want we obtain 
+$$3e_1e_2-9e_3=3(x^2y+y^2z+z^2x+y^2x+z^2y+x^2z)$$
+and finally 
+$$e_1^3=p_3+3e_1e_2-9e_3+6e_3\To \un{p_3=e_1^3-3e_1e_2+3e_3}.$$
+We conclude that this is indeed the representation of $p_3$ in terms of the $e_i's$. 
+\end{ptcbr}
+
+
+\begin{Ej}[Exercise 5]
+    Compute the Schur polynomial $s_{(2,1)}(x,y,z)$ as a ratio of determinants and using semi-standard Young Tableaux. Show that both computations agree.
+   \end{Ej}
+%https://encyclopediaofmath.org/wiki/Schur_functions_in_algebraic_combinatorics
+\begin{ptcbr}
+    The partition $(2,1)$ is associated to the following Ferrers Diagram:
+    $$\young(~~,~)$$
+    and since we have 3 variables to work with, we must fill out the diagram with numbers from 1 to 3 with the condition that rows are weakly increasing and columns increase. Out of the possible 27 ways to fill out the diagram, only the following are possible given the condition:
+    $$\young(11,2),\ \young(12,2),\ \young(13,2),\ \young(11,3),\ \young(12,3),\ \young(22,3),\ \young(13,3),\ \young(23,3).$$ 
+    The associated monomials are 
+    $$x^2y,\ xy^2,\ xyz,\ x^2z,\ xyz,\ y^2z,\ xz^2,\ yz^2.$$
+    So it follows that $s_{(2,1)}(x,y,z)=x^2y+xy^2+2xyz+x^2z+y^2z+xz^2+yz^2$.\par 
+    To calculate $s_{(2,1)}=s_{(2,1,0)}$ using the bi-alternant formula we require $a_{(2,1,0)}(x,y,z)$. In this case we have 
+    $$a_{(2,1,0)}(x,y,z)=\det\threebythree{x^2}{x}{1}{y^2}{y}{1}{z^2}{z}{1},\ a_{(2,1,0)+(2,1,0)}=\det\threebythree{x^4}{x^2}{1}{y^4}{y^2}{1}{z^4}{z^2}{1}.$$
 \end{ptcbr}
 
 \begin{Ej}[Exercise 7, Stanley 7.3]
- Expand the power series $\prod_{i\geq 1}(1+x_i+x_i^2)$ in terms of elementary symmetric functions.
-\end{Ej}
+    Expand the power series $\prod_{i\geq 1}(1+x_i+x_i^2)$ in terms of elementary symmetric functions.
+   \end{Ej}
 
 \begin{ptcbr}
 Let us begin by considering smaller cases:
