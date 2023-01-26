@@ -122,10 +122,16 @@ Describe geometrically the sets of points $z$ in the complex plane defined by th
 \begin{ptcbr}
     \begin{enumerate}[i)]
         \itemsep=-0.4em
-        \item Recall first, that by definition of supremum we have that if $S$ is our set, then 
+        \item 
+        \iffalse
+        Recall first, that by definition of supremum we have that if $S$ is our set, then 
         $$\exists s\in S(s>t_\ast-\eps)$$
         for $\eps>0$. Following the idea, we consider the point $z(t_\ast)$. We have two options to place $z(t_\ast)$, either in $\Om_1$ or $\Om_2$.\par 
         Let's start by definition of supremum \red{FINISH}
+        \fi
+        Let us proceed as mentioned by assuming $\Om$ is disconnected.
+        For the point $z(t_\ast)$ we have two options, either it's in $\Om_1$ or $\Om_2$.\par 
+        If it ocurred that $z(t_\ast)\in\Om_1$ then, as $\Om_1$ is open, there exists $r>0$ such that $B(z(t_\ast),r)\subseteq \Om_1$. 
         \item Take $\Om_1,\Om_2$ as in the statement. Then $\Om_1$ is non-empty as $w\in\Om_1$ because it's connected to itself through a trivial path. Suppose now that $z\in\Om_1$ and that $d(z,\del\Om_1)>r>0$. Take $x\in B(z,r)$, then there exists a line-segment between $z$ and $x$ and there's a smooth curve which connects $z\in\Om_1$ with $w$. Thus the piecewise-continuous path from $x$ to $z$ and from $z$ to $w$ is a path which connects $x$ and $w$. As $x$ is arbitrary, it follows that $B(z,r)\subseteq \Om_1$, and thus $\Om_1$ is open.\par 
         Formally, if $\ga:[0,1]\to\Om_1$ is the map which parametrizes the curve between $z$ and $w$ and $r:[0,1]\to B(z,r)$ is the map $t\mapsto tz+(1-t)x$, then the curve from $x$ to $w$ is parametrized by the function 
         $$f=\begin{cases}
@@ -325,6 +331,24 @@ The roots of $p'(z)$ are contained in the convex hull of the roots of $p(z)$.
 \begin{Def}
     Cauchy sequence
 \end{Def}
+
+\section{Day 3| 20230125}
+
+The defining property of $\bR$ is that it is complete. In that sense it is possible to prove that $\bR^n$ is also complete.
+
+\subsection{Derivatives}
+
+Recall a real function $g$ is differentiable at $x_0$ if there exists a real number $a$ such that
+$$g(x)=g(x_0)+a(x-x_0)+\psi(x),\ \frac{\psi(x)}{x-x_0}\xrightarrow[x\to x_0]0.$$
+In the same sense a multivariable function is differentiable when there exists a linear transformation such that a similar condition holds. 
+
+\begin{Def}
+$f$ has complex derivative iff real derivative and Cauchy-Riemann equations
+\end{Def}
+
+\begin{Ex}
+    The map $z\mapsto\ov z$ is not complex-differentiable. First by matrix definition and second with limit. 
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

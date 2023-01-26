@@ -195,4 +195,87 @@ The following proof is due to Proctor(1987) \red{find ref}
 \begin{Cor}
 The Schur polynomials are a basis of $\La_\bQ$. 
 \end{Cor}
+
+\section{Day 3|20230125}
+
+Recall $\La=\bQ[e_1,e_2,\dots]$ where the $e_j$'s are the elementary symmetric functions. So the $e_j$'s are algebraic generators of $\La$ and they're algebraically independent. Equivalently, as a vector space, $\set{e_\la\:\ \la\in\text{Par}}$ is a basis.
+
+\begin{Prop}
+    A homomorphism $f\:\La\to\La$ ($f(a+b)=f(a)+f(b),\ f(ab)f(a)f(b)$ for $a,b\in\La$) is fully determined by where it sends the $e_i's$. 
+\end{Prop}
+
+\begin{Def}
+    The map $\om\in\End(\La)$ will send $e_j$ to $h_j$. 
+\end{Def}
+
+\begin{Ex}
+    Consider $f=3e_{(2,1)}+2e_3$, then applying $\om$ we get 
+    $$\om(f)=\om(3e_{(2,1)}+2e_3)=3h_{(2,1)}+2h_3.$$
+    For $p_2$, we can decompose to $e_1^2-2e_2$. So 
+    $$\om(p_2)=\om(e_1^2-2e_2)=h_1^2-2h_2$$
+    and we can expand this last expression into 
+    $$(x_1+x_2+\dots)^2-2(x_1^2+x_2^2+\dots+x_1x_2+x_1x_3+\dots)=-x_1^2-x_2^2-\dots$$
+    and we recognize this last term as $-p_2$. \emph{This is not a coincidence.}
+\end{Ex}
+
+\begin{Th}
+The map $\om$ is involutive.
+\end{Th}
+
+\begin{ptcbp}
+    It suffices to prove that $\om(h_j)=e_j$. We will use power expansions and generating functions. We have 
+    $$H(t)=\frac{1}{1-x_1t}\frac{1}{1-x_2t}\dots=\sum h_n(\un x)t^n,$$
+    and this comes from expanding the $1/(1-y)$'s as geometric series. When collecting the coefficients of $t^n$ we get exactly $h_n(\un x)$. Similarly, for the elementary symmetric functions, 
+    $$E(t)=(1+x_1t)(1+x_2t)\dots=\sum e_nt^n.$$
+    When multiplying to obtain the coefficient of $t^n$ we get a plethora of different $x_j$'s which form the $e_j$'s. Now from this expressions we have $H(t)E(-t)=1$ which means that
+    $$\left(\sum h_n(\un x)t^n\right)\left(\sum e_n(\un x)(-t)^n\right)\To \sum_{k=0}^{n}(-1)^ke_kh_{n-k}=0,\ n\geq 1.$$
+    Now applying the map to the equation we get 
+    $$\om\left(\sum_{k=0}^{n}(-1)^ke_kh_{n-k}\right)=\sum_{k=0}^{n}(-1)^kh_k\om(h_{n-k})=0.$$
+    After reindexing, we get that both $e_j$'s and $\om(h_j)$'s are determined recursively by the $h_j$'s in the same way. Thus we conclude that $\om(h_j)=e_j$. 
+\end{ptcbp}
+
+\begin{Lem}
+    The following equation holds for the power-sum symmetric functions:
+    $$\exp\left(\sum\frac{1}{n}p_n(\un x)p_n(\un y)\right)=\prod_{i,j=1}^\infty\frac{1}{1-x_iy_j}=\:\Om(\un x,\un y).$$
+    It also holds that 
+    $$\Om(\un x,\un y)=\sum_la\frac{1}{z^\la}p_\la(\un x)p_\la(\un y)$$
+    where $z_\la=\prod k^{m_k}k!$ where $m_k$ is the number of parts of $\la$ equal to $k$. 
+\end{Lem}
+
+\begin{ptcbp}
+    We will prove both parts separately. For the first equation we will take the logarithm on both sides: 
+    $$\sum\frac{1}{n}p_n(\un x)p_n(\un y)=\log\left(\prod_{i,j=1}^\infty\frac{1}{1-x_iy_j}\right)$$
+    and after manipulating the logarithm we get 
+    $$\sum_{i,j=1}^\infty(\log(1)-\log(1-x_iy_j))=\sum_{i,j=1}^\infty\sum_{n=1}^\infty \frac{1}{n}x_i^ny_j^n.$$
+    We can separate\footnote{Are we using Fubini-Tonelli here?} into 
+    $$\sum_{n=1}^\infty\frac{1}{n}\left(\sum_i x_i^n\right)\left(\sum_j y_j^n\right).$$
+    Now taking $\exp$ on both sides we get equality.\par 
+    By not removing the exponential we get the following expression
+    $$\exp\left(\sum\frac{1}{n}p_n(\un x)p_n(\un y)\right)=\sum_{k=0}^\infty\frac{1}{k!}\left(\sum\frac{1}{n}p_n(\un x)p_n(\un y)\right)^k.$$
+    To get a term of the form $p_\la(\un x)p_\la(\un y)$ we have to choose which parts of the $\la$ come from each of the factors in $\sum\frac{1}{n}p_n(\un x)p_n(\un y)$. If $\l(\la)=k$ then it comes from the $k^\textsuperscript{th}$ term in the exponential sum. If $\la=(\la_1,dots,\la_1,\dots,2,\dots,2,1,\dots,1)$ with $m_{\la_1}$ $\la_1$'s, $m_1$ $1$'s, then out of $k$ elements we have to choose $m_1$ $1$'s and so on. Thus there are $\binom{k}{m_{\la_1},\dots,m_1}$ choices and each $i$ in $\la$ comes with a $\frac{1}{i}$. Therefore the coefficient of $p_\la(\un x)p_\la(\un y)$ is 
+    $$\frac{1}{k!}\frac{k!}{m_1!m_2!\dots}\frac{1}{1^{m_1}}\frac{1}{2^{m_2}}\dots=\frac{1}{z_\la}.$$
+\end{ptcbp}
+
+\begin{Lem}
+    We have the following identities 
+    $$\exp\left(\sum\frac{(-1)^{n-1}}{n}p_n(\un x)p_n(\un y)\right)=\prod_{i,j=1}^\infty\frac{1}{1+x_iy_j}=\sum_\la\frac{(-1)^{n-\l(\la)}}{z_\la}p_\la(\un x)p_\la(\un y).$$
+\end{Lem}
+
+\begin{Lem}
+    Another equality for $\Om(\un x,\un y)$ is 
+    $$\Om(\un x,\un y)=\sum_\la m_\la(\un x)h_\la(\un y)$$
+\end{Lem}
+
+\begin{Th}
+    It holds that $\om(p_\la)=(-1)^{n-k}p_\la$ where $k$ is the number of parts of $\la$.
+\end{Th}
+
+\begin{ptcbp}
+    Applying $\om$ to $\Om$, but \emph{only working with $\un y$ variables} we get 
+    $$\om(\Om)=\om\left(\sum_\la m_\la(\un x)h_\la(\un y)\right)=\sum_\la m_\la(\un x)e_\la(\un y)=\prod_{i,j=1}^\infty (1+x_iy_j)=\sum_{\la}\frac{1}{z_\la}(-1)^{n-k_\la}p_\la(\un x)p_\la(\un y).$$
+    Comparing coefficients with 
+    $$\om\left(\sum_la\frac{1}{z^\la}p_\la(\un x)p_\la(\un y)\right)$$
+    we get the result.
+\end{ptcbp}
+
 \end{document}

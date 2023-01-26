@@ -65,28 +65,60 @@ We conclude that this is indeed the representation of $p_3$ in terms of the $e_i
    \end{Ej}
 %https://encyclopediaofmath.org/wiki/Schur_functions_in_algebraic_combinatorics
 \begin{ptcbr}
-    The partition $(2,1)$ is associated to the following Ferrers Diagram:
+    \footnote{I started doing this problem because \textbf{Kelsey} wanted to check the calculations with me.}The partition $(2,1)$ is associated to the following Ferrers Diagram\footnote{Is there a way to draw Ferrers diagrams in French notation? The package I'm using \ttt{youngtab} only admits English notation. I mean, \textbf{you} must surely know.}:
     $$\young(~~,~)$$
     and since we have 3 variables to work with, we must fill out the diagram with numbers from 1 to 3 with the condition that rows are weakly increasing and columns increase. Out of the possible 27 ways to fill out the diagram, only the following are possible given the condition:
     $$\young(11,2),\ \young(12,2),\ \young(13,2),\ \young(11,3),\ \young(12,3),\ \young(22,3),\ \young(13,3),\ \young(23,3).$$ 
     The associated monomials are 
     $$x^2y,\ xy^2,\ xyz,\ x^2z,\ xyz,\ y^2z,\ xz^2,\ yz^2.$$
     So it follows that $s_{(2,1)}(x,y,z)=x^2y+xy^2+2xyz+x^2z+y^2z+xz^2+yz^2$.\par 
-    To calculate $s_{(2,1)}=s_{(2,1,0)}$ using the bi-alternant formula we require $a_{(2,1,0)}(x,y,z)$. In this case we have 
-    $$a_{(2,1,0)}(x,y,z)=\det\threebythree{x^2}{x}{1}{y^2}{y}{1}{z^2}{z}{1},\ a_{(2,1,0)+(2,1,0)}=\det\threebythree{x^4}{x^2}{1}{y^4}{y^2}{1}{z^4}{z^2}{1}.$$
+    In this case it's important to notice that $(2,1)=(2,1,0)$ so $s_{(2,1)}=s_{(2,1,0)}$, now using the bi-alternant we have 
+\begin{align*}
+    a_{(2,1,0)}(x,y,z)=\det\threebythree{x^2}{x}{1}{y^2}{y}{1}{z^2}{z}{1}&=x^2y+xz^2+y^2z-z^2y-zx^2-y^2x,\\
+    a_{(4,2,0)}(x,y,z)=\det\threebythree{x^4}{x^2}{1}{y^4}{y^2}{1}{z^4}{z^2}{1}&=x^4y^2+x^2z^4+y^4z^2-z^4y^2-z^2x^4-y^4x^2.
+\end{align*}
+To factor this polynomials we have to \emph{creatively sum zero}, in this case $0=xyz-xyz$ and $0=x^2y^2z^2-x^2y^2z^2$. For $a_{(4,2,0)}$ we have
+\begin{align*}
+    &x^4y^2+x^2z^4+y^4z^2-z^4y^2-z^2x^4-y^4x^2+x^2y^2z^2-x^2y^2z^2\\
+    =&x^2(x^2y^2-z^2x^2-y^4+y^2z^2)-z^2(z^2y^2-x^2z^2-y^4+x^2y^2)\\
+    =&(x^2-z^2)[x^2(y^2-z^2)-y^2(y^2-z^2)]\\
+    =&(x^2-z^2)(x^2-y^2)(y^2-z^2)\\
+    =&(x-z)(x+z)(x-y)(x+y)(y-z)(y+z)
+\end{align*}
+In the case of $a_{(2,1,0)}$ we get $(x-z)(x-y)(y-z)$. It thus follows that 
+$$s_{(2,1)}=\frac{a_{(4,2,0)}}{a_{(2,1,0)}}=(x+z)(x+y)(y+z)=x^2 y + x^2 z + x y^2 + 2 x y z + x z^2 + y^2 z + y z^2$$
+so both computations agree on the value of $s_{(2,1)}$.
 \end{ptcbr}
+
 
 \begin{Ej}[Exercise 7, Stanley 7.3]
     Expand the power series $\prod_{i\geq 1}(1+x_i+x_i^2)$ in terms of elementary symmetric functions.
    \end{Ej}
-
+%https://math.stackexchange.com/questions/1218375/how-can-i-use-fundamental-theorem-of-symmetric-polynomials-to-factor-polynomials
 \begin{ptcbr}
-Let us begin by considering smaller cases:
-\begin{itemize}
-    \itemsep=-0.4em
-    \item When there's only two factors we have 
-$$(1+x+x^2)(1+y+y^2)=x^2 y^2 + x^2 y + x^2 + x y^2 + x y + x + y^2 + y + 1$$
-\end{itemize}
+We will begin with a lower dimensional cases, call $f$ our infinite product and $f_n$ its partial products. Consider the case when $n=2$, we have the following decomposition for $f_2$:
+\begin{align*}
+    (1+x+x^2)(1+y+y^2)&=x^2 y^2 + x^2 y + x^2 + x y^2 + x y + x + y^2 + y + 1\\
+    &=e_2^2+e_1^2+e_2e_1-e_2+e_1+1.
+\end{align*}
+Likewise for $f_3$ we have 
+$$f_3=e_3^2+e_2^2+e_1^2+e_2e_1+e_3e_2-e_3e_1-2e_3-e_2+e_1+1.$$
+Expanding\footnote{This work was done using the \textbf{Macaulay2} software.} $f_4$ we see a similar pattern with the second powers however:
+$$f_4=p_2(e_1,\dots,e_4)+e_2e_1+e_3e_2+e_4e_3-2e_4e_1-e_3e_1-e_4e_2-e_4-2e_3-e_2+e_1+1.$$
+A pattern that we can observe is the sum of powers, and also, all the previous terms are used in the coming expansion. Notice that 
+\begin{align*}
+&f_3-f_2=e_3^2+e_3e_2-e_3e_1-2e_3,\\
+&f_4-f_3=e_4^2+e_4e_3-2e_4e_1-e_4e_2-e_4.    
+\end{align*}
+
 \end{ptcbr}
 
+\begin{Ej}[Exercise 8, Stanley 7.4]
+    Show that 
+    $$h_r(\un x)=\sum_{k=1}^nx_k^{n-1+r}\prod_{i\neq k}\frac{1}{x_k-x_i}.$$
+\end{Ej}
+
+\begin{ptcbr}
+    The expression on the right looks like a Laplace expansion of a determinant so let us begin by considering matrices which might look like that. Such a matrix must have a row or column whose entries are $x_i^{n-1+r}$ and the cofactors through that array are the products in question.
+\end{ptcbr}
 \end{document} 
