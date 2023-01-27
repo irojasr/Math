@@ -12,6 +12,70 @@
 
 \begin{document}
 %\begin{multicols}{2}
+    \begin{Ej}[1.3.C]
+        Show that $A\to S^{-1}A$ is injective if and only if $S$ contains no
+        zero divisors
+    \end{Ej}
+    
+    \begin{Lem}
+    A map $f$ in $\cat{Ring}$ is injective if an only if $\ker(f)=\set{0}$.
+    \end{Lem}
+    
+    \begin{ptcbp}
+    Suppose $f$ is injective, then if $x\in\ker(f)$ it holds that $f(x)=0$. As $f$ is a morphism of rings $0=f(0)$ which means that $f(x)=f(0)$ and as $f$ is injective, we can conclude that $x=0$ meaning that the kernel is trivial.\par 
+    On the flip-side, take $f(x)=f(y)$. As $f$ is a morphism, $f(x-y)=0$. But then $x-y\in\ker(f)$ which means that $x-y=0$, letting us conclude that $x=y$. Thus $f$ is injective.
+    \end{ptcbp}
+    
+    \begin{ptcbr}
+    Call $\pi(a)=\frac{a}{1}$ the canonical map from $A$ to $S^{-1}A$. We will prove that $\ker(\pi)=\set{0}$ if and only if $S$ has no zero divisors. \par 
+    To that effect suppose $s\in S$ is a zero divisor. This means that 
+    $$\exists t (t\neq 0\land st=0).$$
+    Now $\pi(t)=\frac{t}{1}$. But inside $S^{-1}A$ we have $\frac{t}{1}=\frac{0}{1}$ because 
+    $$\frac{t}{1}=\frac{0}{1}\iff \exists t'\in S(t'(t\.1-0\.1)=0).$$
+    Namely, such a $t'$ would be $s$. So $\pi(t)=0$ and, as $t\neq 0$, we have that $\ker(\pi)$ is not trivial.\par 
+    On the other hand suppose $s,t\in S$ are elements that satisfy $st=0$. For the sake of argument suppose $t\neq 0$, we are set to prove that $s=0$ and to do this, we'll show that $s\in\ker(\pi)$. Notice that 
+    $$\pi(s)=\frac{s}{1}=\frac{0}{1}\iff \exists s'\in S(s'(s\.1-1\.0)=0).$$
+    The $s'$ we are looking for is $s'=t$. So, it follows that $s\in\ker(\pi)$. But as $\pi$ has trivial kernel, $s=0$ which is what we wanted. 
+    \end{ptcbr}
+
+    \begin{Ej}[1.3.Q]
+        Describe the colimit of the diagram $F\: J\to\cat{Set}$ given by $\ast\leftarrow\ast\to\ast$.If the two squares in the following commutative diagram are Cartesian
+  diagrams, show that the ``outside rectangle'' (involving $U, V, Y$, and $Z$) is also a Cartesian diagram.
+  \end{Ej}
+  %https://www.math3ma.com/blog/limits-and-colimits-part-3
+  \begin{figure}[h]
+      \centering
+      % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFUQBfU9TXfIRQBGclVqMWbAGrdeIDNjwEiZYePrNWiEAHU5fJYKKj11TVJ0ANAwv7KhJUgCYNk7SACatxQJUiXNy02AC1ucRgoAHN4IlAAMwAnCABbJDIQHAgkZx4E5LTEZ2ospABmPJAk1PSS7MRhSurC0Uz6ivlmpAAWOqQAViaCnL7EbqGaxDLRwYouIA
+  \begin{tikzcd}
+      U \arrow[d] \arrow[r] & V \arrow[d] \\
+      W \arrow[r] \arrow[d] & X \arrow[d] \\
+      Y \arrow[r]           & Z          
+      \end{tikzcd}
+  \end{figure}
+  
+  \begin{ptcbr}
+      Suppose that there's an object $T$ with maps to $U$ and $Y$ as in the following diagram:
+      \begin{center}
+          % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAFUQBfU9TXfIRQAmclVqMWbAGrdeIDNjwEiZYePrNWiEAHU5fJYKKj11TVJ0ANAwv7KhJUgGYNk7SACatxQJUiXNy02AC0fe2MUAAZSKKDLEAAVbnEYKABzeCJQADMAJwgAWyQYkBwIJGEeXILixFEyisRnapB8opLqcqRiVva6skakFvl+pAAWLqaAVj7ayqmJuY7mxcRZ0fnEADY1yZAAIxgwKCQAWmco5brdocRBo5Phq82V2+7EUoYsMA8oOjgAAs0ikuEA
+  \begin{tikzcd}
+      T \arrow[rddd, bend right] \arrow[rrd, bend left] \arrow[rd, dashed] &                       &             \\
+                                                                           & U \arrow[d] \arrow[r] & V \arrow[d] \\
+                                                                           & W \arrow[r] \arrow[d] & X \arrow[d] \\
+                                                                           & Y \arrow[r]           & Z          
+      \end{tikzcd}
+      \end{center}
+      We wish to show that there's a unique morphism $T\to U$ such that $T\to V$ and $T\to Y$ factor through $T\to U$.\par 
+      Our first step is to construct a unique morphism from $T\to W$. This is done because we have a morphism $T\to X$ (the composition of $T\to V$, $V\to X$) and a morphism $T\to Y$ whose compositions to $Z$ agree. By universal property of the pullback ($W$ as pullback) we have that there's a unique morphism $T\to W$ through which the respective morphisms factor.
+      \begin{center}
+          % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRAFUQBfU9TXfIRQAmclVqMWbAGrdeIDNjwEiZYePrNWiEAHU5fJYKKj11TVJ0ANAwv7KhyAAyknGydpAAVbuJhQAc3giUAAzACcIAFskFxAcCCRhHjDImMRReMTEAGYUkAjo2OoEpGJ8wvSyLKQ8+UqkABYS7OqAIxgwKFqnCrSmluKQBiwwTyg6OAALf1sGxGaajOoOrqQAWhy4kbG2CenZ8w82AB0TmAAPLDgcOABCXy4gA
+  \begin{tikzcd}
+      T \arrow[rrd, bend left] \arrow[rd, dashed] \arrow[rdd, "\exists!", dashed, bend right] &                       &             \\
+                                                                                              & U \arrow[d] \arrow[r] & V \arrow[d] \\
+                                                                                              & W \arrow[r]           & X          
+      \end{tikzcd} 
+      \end{center}
+      With this in hand, we now have $T\to V$ and $T\to W$ whose compositions to $X$ agree. So by universality of $U$, there exists a unique morphism $T\to U$ through which the corresponding morphisms factor.   
+  \end{ptcbr}
 
 \begin{Ej}[1.3.T]
 Show that coproduct for $\cat{Set}$ is disjoint union. 
@@ -93,4 +157,15 @@ In our case, since we only have three objects the diagram looks like this
 \end{center}
 where $CL$ is the colimit object. In this particular case the colimit coincides with the pushout by universality.
 \end{ptcbr}
+
+\begin{Ej}[1.4.F]
+    Verify that the $A$-module described above is indeed the colimit.
+\end{Ej}
+
+The $A$-module in question is $\quot{\coprod A_i}{\sim}$ where $\sim$ is the relation 
+$$(a_i,i)\sim (a_j,j)\iff \exists (f\: A_i\to A_k,\ g\: A_j\to A_k)(f(a_i)=g(a_j)),$$
+addition of $m_i\in M_i,\ m_j\in M_j$ is defined as 
+$$m_i+m_j\:= F(u)(m_i)+F(v)(m_j)$$
+where $u,v$ are arrows from $i,j$ to $\l$. The sum lies in $M_\l$. Multiplication is defined in an obvious\footnote{It's not obvious to me.} way and the zero element is $m_i$ such that there is an arrow $u\: i\to k$ for which $F(u)(m_i)=0$.\par 
+I must admit I wasn't able to tackle this problem. 
 \end{document} 
