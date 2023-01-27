@@ -110,9 +110,20 @@ A pattern that we can observe is the sum of powers, and also, all the previous t
 &f_3-f_2=e_3^2+e_3e_2-e_3e_1-2e_3,\\
 &f_4-f_3=e_4^2+e_4e_3-2e_4e_1-e_4e_2-e_4.    
 \end{align*}
-
+This strange coefficients might come from an unexpected place. Let us recall\footnote{This idea was brought to my attention by \textbf{Jae Hwang} while discussing the problem the problem with him.} that 
+$$(x-1)^3=(x-1)(x^2+x+1)=(x-1)(x-e^{\frac{i\pi}{3}})(x-e^{i\frac{2\pi}{3}}).$$
+Now, notice that the last two factors can be rearranged to be 
+$$e^{i\frac{\pi}{3}}e^{i\frac{2\pi}{3}}(xe^{-i\frac{\pi}{3}}-1)(xe^{-i\frac{2\pi}{3}}-1)=(1-xe^{-i\frac{\pi}{3}})(1-xe^{-i\frac{2\pi}{3}}).$$
+Thus we can rearrange the product in question as follows:
+$$\prod_{i\geq 1}(1+x_i+x_i^2)=\left(\prod_{k\geq 1}(1-x_ke^{-i\frac{\pi}{3}})\right)\left(\prod_{k\geq 1}(1-x_ke^{-i\frac{2\pi}{3}})\right)$$
+and the products on the right are the generating functions of the elementary symmetric functions evaluated at $e^{-i\frac{\pi}{3}}$ and $e^{-i\frac{2\pi}{3}}$ respectively. We can rewrite them as 
+$$\left(\sum_{n\geq 1}e_ne^{i\frac{\pi n}{3}}\right)\left(\sum_{n\geq 1}e_ne^{i\frac{2\pi n}{3}}\right)=\sum_{n\geq 1}\left(\sum_{k=1}^n\left(e^{i\frac{\pi k}{3}}\right)\left(e^{i\frac{2\pi (n-k)}{3}}\right)\right)e_n$$
+Simplifying the exponentials we get 
+$$\left(e^{i\frac{\pi k}{3}}\right)\left(e^{i\frac{2\pi (n-k)}{3}}\right)=e^{\frac{i\pi}{3}(k+2n-2k)}=e^{\frac{i\pi(2n-k)}{3}}.$$
+We conclude that 
+$$\prod_{i\geq 1}(1+x_i+x_i^2)=\sum_{n\geq 1}\left(\sum_{k=1}^ne^{\frac{i\pi(2n-k)}{3}}\right)e_n.$$
 \end{ptcbr}
-
+\iffalse
 \begin{Ej}[Exercise 8, Stanley 7.4]
     Show that 
     $$h_r(\un x)=\sum_{k=1}^nx_k^{n-1+r}\prod_{i\neq k}\frac{1}{x_k-x_i}.$$
@@ -121,4 +132,5 @@ A pattern that we can observe is the sum of powers, and also, all the previous t
 \begin{ptcbr}
     The expression on the right looks like a Laplace expansion of a determinant so let us begin by considering matrices which might look like that. Such a matrix must have a row or column whose entries are $x_i^{n-1+r}$ and the cofactors through that array are the products in question.
 \end{ptcbr}
+\fi
 \end{document} 
