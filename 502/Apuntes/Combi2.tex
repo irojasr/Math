@@ -7,54 +7,120 @@
 \def\nsigla {MATH502}
 \def\nsiglahead {Combinatorics 2}
 \def\nlang {ENG}
+\def\darktheme{}
 \input{../../headerVarillyDiff}
 
 \begin{document}
 %\clearpage
 \maketitle
 %\thispagestyle{empty}
-{\small
+{\small 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
-
+This is the second semester of an introductory graduate-level course on combinatorics. We will be covering symmetric function theory, Young tableaux, counting with group actions, designs, matroids, finite geometries, and not-so-finite geometries.\par 
+The goal of this class is to give an overview of the wide variety of topics and techniques in both classical and modern combinatorial theory.
 
 \subsubsection*{Requirements}
-
+Knowledge on theory of enumeration, generating functions, combinatorial species, the basics of graph theory, posets, partitions and tableaux, and basic symmetric function theory is required.
 }
 \newpage
 \tableofcontents
 %\begin{multicols}{2}
 \chapter{Symmetric functions}
 
-\section{Recall}
-
+\section{Day 1|20230120}
 \begin{Def}
-$f(x_1,x_2,\dots)$ is \term{symmetric} if it's fixed under permutations of variables.
+$f(x_1,x_2,\dots)$ is \term{symmetric} if it's fixed under permutations of variables. For a permutation $\sg$ this is, 
+$$f(x_{\sg(1),x_{\sg(2)}},\dots)=f(x_1,x_2,\dots).$$
 \end{Def}
 
 \begin{Ex}
-    $f(x_1,\dots,x_4)=x_1^5+\dots+x_4^5$. This is known as $p_5$ or $m_{(5)}$, where $p$ is the power-sum symmetric function and $m$, the monomial symmetric function.  
+    The function 
+    $$f(x_1,\dots,x_4)=x_1^5+\dots+x_4^5$$ 
+    is known as $p_5$ or $m_{(5)}$, where $p$ is the power-sum symmetric function and $m$, the monomial symmetric function.\par 
+    We can have the function defined on infinitely many variables. Consider the function $g$ defined as 
+    $$g=x_1^4x_2+x_1^4x_3+\dots+x_i^4x_j+\dots+3x_1+\dots+3x_i+\dots=m_{(4,1)}+3m_{(1)}.$$ 
 \end{Ex}
 
-\begin{Ex}
-    Consider $g=x_1^4x_2+x_1^4x_3+\dots+x_i^4x_j+\dots+3x_1+\dots=m_{(4,1)}+3m_{(1)}$.
-\end{Ex}
+Let us recall some \textbf{notation}, 
+$$
+\begin{cases}
+    \La_R(x_1,\dots,x_n)\to\text{symmetric functions on }n\text{ variables over }R,\\
+    \La_R(\un{x})\to\text{symmetric functions on \emph{infinitely} many variables over }R.
+\end{cases}
+$$
+In our case $R=\bQ$, so the object of study is $\La_\bQ$.
+\begin{Prop}\label{prop-dim-LambdaQ}
+    The space $\La_\bQ^n$ is the space of symmetric functions of degree $n$. Its dimension is $p(n)$, the number of partitions of $n$.
+\end{Prop}
 
-Let us recall some \textbf{notation}:
-\begin{enumerate}[i)]
-    \itemsep=-0.4em
-    \item $\La_R(x_1,\dots,x_n)$ is the ring of symmetric polynomials over $R$. In \emph{infinitely} many variables we have $\La_R(\un{x})$.
-\end{enumerate}
-
-In the case $R=\bQ$, then $\dim \La_Q(\un x)_{(d)}$, where every monomial has degree $d$, is $p(d)$. This is the number of partitions of $d$. Because for every partition we can form monomials and monomials form a basis.
+This is because, for every such function we can decompose it into monomials and the monomial symmetric functions form a basis.
 
 \subsection*{Bases of $\La_Q$}
 
-Suppose $\la=(\la_1,\dots,\la_k)$ with $\la_1\geq\dots\geq\la_k$. 
+Suppose $\la=(\la_1,\dots,\la_k)\vdash n$ with $\la_1\geq\dots\geq\la_k$. 
+
+\subsubsection*{Monomial Symmetric Functions}
+
+The function $m_\la(\un x)$ is the smallest symmetric function which contains the monomial $x_1^{\la_1}x_2^{\la_2}\dots x_k^{\la_k}$ as a term. In general 
+$$m_\la=\sum_{i_1\neq\dots\neq i_k}x_{i_1}^{\la_1}\dots x_{i_k}^{\la_k}.$$
+
+\begin{Ex}
+    Consider the partition $(5,3)\vdash 8$. The function $m_{(5,3)}$ will be different depending on the number of variables:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item In one variable we can't have monomials of the form $x_ix_j$, so $m_{(5,3)}=0$.
+        \item In two variables we have $m_{(5,3)}(x,y)=x^5y^3+y^5x^3$.
+        \item In three variables the function is 
+        $$m_{(5,3)}(x,y,z)=x^5y^3+y^5z^3+z^5x^3+y^5x^3+z^5y^3+x^5z^3.$$
+    \end{itemize}
+    Considering some special cases, take the partition $(1,1,1,1)\vdash 4$, then 
+\begin{align*}
+    m_{(1,1,1,1)}(u,v,x,y,z)&=uvxy+vxyz+xyzu+yzuv+zuvx\\
+    &=uvxy+uxyz+uvyz+uvxz+vxyz.
+\end{align*}
+For cases with less than $4$ variables the function is zero and in exactly four, it has $1$ term. The partition $(4)\vdash 4$ returns the function 
+$$m_{(4)}(x)=x^4,\ m_{(4)}(x,y)=x^4+y^4,\ m_{(4)}(x,y,z)=x^4+y^4+z^4,$$
+and so on with any number of variables.
+\end{Ex}
+
+\begin{Rmk}
+    The number of terms in $m_\la(x_1,\dots,x_d)$ is \red{I actually don't know}, while the degree of $m_\la$ is $|\la|=n$.
+\end{Rmk}
+
+\subsubsection{Elementary Symmetric Functions}
+
+\begin{Def}
+For any $r\in\bN$, the elementary symmetric function $e_r$ is $m_{(1,1,\dots,1)}$ ($r$ ones). For $\la$, a partition, $e_\la=\prod e_{\la_i}$. As an alternative for $m_{(1,1,\dots,1)}$ we can also write 
+$$e_r(x_1,\dots,x_d)=\sum_{1\leq i_1<\dots<i_r\leq n}x_{i_1}\dots x_{i_r}.$$ 
+\end{Def}
+
+\begin{Ex}
+    Let us calculate $e_{(2,1)}$ for $1$ through $3$ variables. When we have $e_{(2,1)}(x)=e_2(x)e_1(x)$, we can't compute $e_2(x)$ because there are no two-term monomials with only one variable. On two variables we have the following
+    \begin{align*}
+        e_{(2,1)}(x,y)&=e_2(x,y)e_1(x,y)=(xy)(x+y)=x^2y+y^2x
+    \end{align*}
+    and when talking about $3$ variables the following happens:
+    \begin{align*}
+        e_{(2,1)}(x,y,z)&=e_2(x,y,z)e_1(x,y,z)\\
+        &=(xy+yz+zx)(x+y+z)\\
+        &=x^2y+y^2z+z^2x+y^2x+z^2y+x^2z+2xyz.
+    \end{align*}
+    Consider now the partitions $(2,2,2,2)$ and $(5)$. Then 
+    $$e_{(2,2,2,2)}=e_2^4\To e_{(r,r,\dots,r)}=e_r^{m_r(\la)}$$
+    where $m_i(\la)$ is number of parts of $\la$ equal to $i$. For the partition $(5)$ we have that $e_{(5)}=e_5$ and in general $e_{(n)}=e_n$.
+\end{Ex}
+
+\begin{Rmk}
+    As before \red{we don't know how many terms per function}, but knowing $m$ implies knowing $e$. As for the degree, it holds that $\deg(e_\la)=|\la|$.
+\end{Rmk}
+
+\subsubsection{Homogenous Symmetric Functions}
+
+
 \begin{itemize}
-    \item Monomial: $m_\la=\sum_{i_1\neq\dots i_k}x_{i_1}^{\la_1}\dots x_{i_k}^{\la_k}$.
-    \item Elementary: $e_\la=\prod e_{\la_i}$ where $e_d=m_{(1,1,\dots,1)}$ ($d$ ones).
+    
     \item Homogenous: $h_\la=\prod h_{\la_i}$ and $h_d=x_1^d+\dots+x_1^{d-1}x_2+\dots+x_1^{d-2}x_2^2+x_1^{d-2}x_2x_3+\dots$. In general $h_d=\sum_{\la\vdash d}m_\la$.
     \item Power sum: $p_\la=\prod p_{\la_i}$ and $p_d=\sum x_i^d$.
 \end{itemize}
@@ -261,7 +327,7 @@ The map $\om$ is involutive.
     $$\exp\left(\sum\frac{(-1)^{n-1}}{n}p_n(\un x)p_n(\un y)\right)=\prod_{i,j=1}^\infty\frac{1}{1+x_iy_j}=\sum_\la\frac{(-1)^{n-\l(\la)}}{z_\la}p_\la(\un x)p_\la(\un y).$$
 \end{Lem}
 
-\begin{Lem}
+\begin{Lem}\label{lem:james1}
     Another equality for $\Om(\un x,\un y)$ is 
     $$\Om(\un x,\un y)=\sum_\la m_\la(\un x)h_\la(\un y)$$
 \end{Lem}
@@ -278,4 +344,88 @@ The map $\om$ is involutive.
     we get the result.
 \end{ptcbp}
 
-\end{document}
+\section{Day 4|20230127}
+
+To continue exploring the ring of symmetric functions we need a couple of tools. One of them is the involution which we have already seen. But the other one is a scalar product which is compatible with the multiplication.
+
+\subsection{Hall Inner Product}
+
+Recall an inner product is a function 
+$$\braket*{-}{-}\:\ V\x V\to \bQ$$
+which is bilinear $\braket{u+v}{w}=\braket{u}{w}+\braket{v}{w}$ and the same on the other entry. For scalars the following behavior is expected $\braket{\la u}{v}=\braket{u}{\la v}=\la\braket{u}{v}$. Recall that if the base field is the complex numbers, then the inner product is Hermitian.
+
+\begin{Def}
+    We say that two vectors are \term{orthogonal} when $\braket{u}{v}=0$.
+\end{Def}
+
+This gives us a possible decomposition of space into several components. Suppose that $\set{u_\la}_{\la\in\text{Par}(n)},\set{v_\la}_{\la\in\text{Par}(n)}$ are basis of $\La^n$. So we would like a condition such as 
+$$\braket{u_\la}{v_\mu}=\begin{cases}
+    0\ \la\neq\mu,\\
+    1\ \la=\mu.
+\end{cases}$$
+
+If we cap the dimension this says that $\braket{u}{v}$ is the usual dot product. But in infinite dimensions we don't have matrices. We'll call this basis \term{dual} to one another. If miraculously we have the same basis, then this basis is \term{orthonormal}.
+
+\begin{Def}[Phillip Hall]
+    The \term{Hall inner product} is defined so that $\braket{m_\la}{h_\mu}=\dl_{\la\mu}$.
+\end{Def}
+
+By defining the product on two basis, we have defined it for all other elements by bilinearity. 
+
+\begin{Lem}
+    The Hall inner product is symmetric.
+\end{Lem}
+
+\begin{Th}
+    The Hall inner product is positive definite, this is $\braket{f}{f}\geq 0$ and equality is achieved when $f=0$.
+\end{Th}
+
+It's important to note that this statement is symmetric. However we are talking about an asymmetric definition. Last, before proving the statement we need a criteria for dual bases. But importantly, recall the result from last lecture: \ref{lem:james1}
+
+\begin{Th}
+    If ${u_\la},\set{v_\mu}$ are dual, then $\sum_\la u_\la v_\la=\Om$. 
+\end{Th}
+
+\begin{ptcbp}
+    Fix a partition of $n$, then 
+    $$\dl_{\la\mu}=\braket{m_\la}{h_\mu}=\braket{\sum_{\rho\vdash n}\al_{\la_\rho}u_\rho}{\sum_{\tau\vdash n}\bt_{\mu_\tau}v_\tau}=\sum_{\rho,\tau}\al_{\la_\rho}\bt_{\mu_\tau}\braket{u_\rho}{v_\tau}.$$
+    We want $\braket{u_\rho}{v_\tau}=\dl_{\rho\tau}$, to that effect name $A_{\rho\tau}$ the matrix whose entries are $\braket{u_\rho}{v_\tau}$.\par 
+    As $u$ and $v$ are dual bases, we have that $A=\id$. Thus $I=\al\bt^\sT$ and now $\dl_{\rho\tau}=\sum \al_{\la_\rho}\bt_{\la_\tau}$. We are now going to use the hypothesis and the interpretation of $m,h$ in the $u,v$ basis. We have 
+    $$\Om=\sum\left(\sum\al u\right)\left(\sum\bt v\right)=\sum\left(\sum \al\bt\right)uv=\sum uv$$
+    so the inner sum must be one and thus we are done. 
+\end{ptcbp}
+
+\begin{Cor}
+    For the Hall inner product it holds that $\braket{p_\la}{p_\mu}=z_\la\dl_{\la\mu}$.
+\end{Cor}
+
+The key is to recall that $p_\la$ is an eigenfunction of $\om$. Also 1.3.5. By using a power-sum decomposition it is possible to prove that the Hall inner product is positive definite.
+
+\begin{Cor}
+    The $\om$ involution is orthogonal with respect to $\braket{-}{-}$. This is $\braket{\om f}{\om g}=\braket{f}{g}$. 
+\end{Cor}
+ 
+Once again, the idea is to transfer to power-sum and use the fact that it's an eigenfunction.
+
+\section{Interim 1}
+
+\begin{Th}[Fundamental Theorem of Sym. Fnc. Thry.]
+    Every symmetric function can be written uniquely in the form $\sum_{\la}c_\la e_\la$ with $c_\la\in\bQ$. 
+\end{Th}
+
+There are at least two proofs if not more of this fact. The first comes from Maria Gillespie's blog which Mark Haiman presented to her. 
+
+\begin{ptcbp}%http://www.mathematicalgemstones.com/gemstones/opal/the-fundamental-theorem-of-symmetric-function-theory/3/
+    It suffices to prove the transition matrix between $m$ and $e$ is invertible.
+\end{ptcbp}
+
+For proof 2 read \cite{StanleyEnum2} pg. 290. Proof 3 in another Maria post %http://www.mathematicalgemstones.com/gemstones/opal/addendum-an-alternate-proof-of-the-ftsft/
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiCombi2.bib}
+\end{document} 
+
