@@ -459,7 +459,7 @@ If $z=re^{i\al}$, then $\bt$ is an argument of $z$ iff $\al-\bt\in 2\pi\bZ$.
         \item Conclude that $f$ satisfies the Cauchy-Riemann equations. 
     \end{enumerate}
 \end{Ej}
-\begin{ptcbp}
+\begin{ptcbr}
 By definition, for $h\in\bC$, we have 
 $$\lim_{h\to 0}\frac{f(z_0+h)-f(z_0)}{h}=f'(z_0)$$
 whenever $f$ is differentiable at $z_0$. 
@@ -486,7 +486,7 @@ whenever $f$ is differentiable at $z_0$.
     $$\pdv{x}u(x_0,y_0)=\pdv{y}v(x_0,y_0),\quad \pdv{x}v(x_0,y_0)=-\pdv{y}u(x_0,y_0).$$
     If a function is holomorphic for every $z$, then this translates to $u_x=v_y$ and $v_x=-u_y$.
 \end{enumerate}
-\end{ptcbp}
+\end{ptcbr}
 
 \begin{Ej}[\cite{Stein} 1.13]
     Suppose $f$ is holomorphic in an open set $\Om$. Prove that in any one of the following cases:
@@ -494,14 +494,39 @@ whenever $f$ is differentiable at $z_0$.
     one can conclude that $f$ is constant.
 \end{Ej}
 
-\begin{ptcbp}
+\begin{ptcbr}
     As $f$ is holomorphic, $f$ satisfies the Cauchy-Riemann equations. This means that if $f=u+iv$, then 
     $$u_x=v_y,\quad v_x=-u_y.$$
     \begin{itemize}
         \itemsep=-0.4em
         \item If either $u$ or $v$ are constant, then $u_x,u_y$ or $v_x,v_y$ are both zero. In either of those case, by the Cauchy-Riemann equations we can conclude that the other pair of derivatives is zero respectively. 
+        \item If the complex modulus is constant, then $|f|^2=u^2+v^2$ is constant as well. Differentiating the expression with respect to both variables gives us 
+        $$\begin{cases}
+            &2uu_x+2vv_x=0\\
+            &2uu_y+2vv_y=0
+        \end{cases}\To
+        \begin{cases}
+            &uu_x+vv_x=0\\
+            &uu_y+vv_y=0
+        \end{cases} $$
+        Now, for sake of argument suppose $u$ isn't zero. Applying the Cauchy-Riemann equations we can restate the first equation as follows:
+        $$
+        \begin{cases}
+            &uv_y+v(-u_y)=0\\
+            &uu_y+vv_y=0
+        \end{cases} \To
+        \begin{cases}
+            &v_y=\frac{v}{u}u_y\\
+            &uu_y+vv_y=0
+        \end{cases} $$
+        Substituting the first equation into the second we obtain
+        $$ uu_y+v\left(\frac{v}{u}u_y\right)=\left(\frac{u^2+v^2}{u}\right)u_y=0$$
+        from which follows that either $u^2+v^2=0$ or $u_y=0$. In the first case, as $u$ is a non-zero real function, it is impossible for the sum to be zero. So it must hold that $u_y=0$.\par 
+        Doing a similar process by solving for $u_y$ on the second equation we reach the condition that $v_y=0$ as well. From here, using the Cauchy-Riemann equations we see that all partial derivatives of $u$ and $v$ are zero as we wished.\par 
+        In the case that $u=0$, we refer to the first case, where $u$ is a constant. 
     \end{itemize}
-\end{ptcbp}
+    Finally we conclude that $f$ is constant in any case.
+\end{ptcbr}
 \begin{Ej}
     Prove the following:
     \begin{enumerate}[i)]
@@ -512,9 +537,70 @@ whenever $f$ is differentiable at $z_0$.
         \end{enumerate}
 \end{Ej}
 
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item We will prove that the series in question isn't Cauchy. Consider $S_m$, the $m^{\text{th}}$ partial sum, then 
+        $$|S_{m+1}-S_m|=m+1$$
+        because $z$ has complex modulus 1. Recall that a sequence of complex numbers $(z_n)$ is a Cauchy sequence whenever %https://math.stackexchange.com/questions/4479987/negation-of-cauchy-criterion
+        $$\forall \eps \exists N\left[\forall m\forall n(m\geq N\land n\geq N\land \eps>0\To |z_m-z_n|<\eps)\right].$$
+        In order to prove that $(S_m)$ isn't Cauchy we must contradict this statement. Thus we must find an $\eps_0>0$ such that for all $N$, there are $m,n$ for which $|S_m-S_n|>\eps_0$.\par 
+        Take $\eps_0=1$, $m$ any sufficiently large natural number and $n=m+1$ as we did before. Thus we have that $m+1>1$ which lets us conclude that $(S_m)$ isn't Cauchy. There are no non-Cauchy convergent sequences in $\bC$ so it must hold that our series diverges given the condition that $|z|=1$. 
+        \item Recall the Weierstrass M-test which states that if $(f_n(z))$ is a sequence of functions and there are $M_n>0$ such that $|f_n(z)|\leq M_n$ and $\sum M_n$ is a convergent series, then $\sum f_n$ converges uniformly.\par 
+        In this case, pick $M_n=\frac{1}{n^2}$. The series $\sum \frac{1}{n^2}$ converges as it is a $p$-series. Then 
+        $$|z|=1\To\left|\frac{z^n}{n^2}\right|\leq\frac{1}{n^2}$$
+        and thus we can conclude that $\sum\frac{z^n}{n^2}$ converges uniformly for points in the unit circle. 
+        \item The series in question is the harmonic series when $z=1$ so it diverges. We will prove that when $|z|=1$, but $z\neq 1$ this series is Cauchy. As before call $S_m=\sum_{k=0}^m\frac{z^k}{k}$, then let $\eps>0$. Assume $n>m$ for sake of argument and then
+        \begin{align*}
+            |S_n-S_{m-1}|&=\left|\sum_{k=m}^n\frac{z^k}{k}\right|\\
+            &=\left|\frac{1}{n}\sum_{k=1}^nz^k-\frac{1}{m}\sum_{k=1}^{m-1}z^k-\sum_{k=m}^{n-1}\left(\frac{1}{k+1}-\frac1k\right)\sum_{j=1}^k z^j\right|\\
+            &\leq \frac{1}{n}\left|\frac{z^{n+1}-z}{z-1}\right|+\frac{1}{m}\left|\frac{z^{m}-z}{z-1}\right|+\sum_{k=m}^{n-1}\left|\frac{z^{n+1}-z}{(z-1)(k^2+k)}\right|\\
+            &\leq \frac{2}{n}\left|\frac{1}{z-1}\right|+\frac{2}{m}\left|\frac{1}{z-1}\right|+\sum_{k=m}^{n-1}\left|\frac{1}{z-1}\right|\frac{2}{k^2+k}
+            %&\leq \left|\frac{1}{z-1}\right|\left(\frac{1}{n}+\frac{1}{m}+\sum_{k=m}^{n-1}\frac{1}{k^2+k}\right).
+        \end{align*}
+        As $z$ has complex modulus 1, any number of the form $z-1$ is on the ball $B(-1,1)$ except for the origin. Which means that their complex modulus is at most 2. \red{ARGUMENT FAILS}
+    \end{enumerate}
+\end{ptcbr}
 \begin{Ej}
     Let $\al\in\bC,\ r>0$ and $\ga_r\: [0,2\pi[\to\bC$ given by $t\mapsto re^{it}+\al$. Let $n\in\bN$, calculate the integral $\int\limits_{\ga_1(0)}z^n\dd z$.
 \end{Ej}
+
+\begin{ptcbr}
+    We can parametrize with $t\mapsto e^{it}$ with $r\in[0,2\pi[$ so that 
+    $$\int\limits_{\ga_1(0)}z^n\dd z=\int\limits_0^{2\pi}(e^{it})^n(ie^{it}\dd t)=\int\limits_0^{2\pi}ie^{i(n+1)t}\dd t=\eval{\frac{e^{i(n+1)t}}{n+1}}_{0}^{2\pi}=\frac{e^{2\pi i(n+1)}}{n+1}-\frac{1}{n+1}=0.$$
+\end{ptcbr}
+
+\begin{Ej}
+    Consider the following three groups:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item $\bC^\x$ with multiplication as binary operation.
+        \item $\bR_{>0}$ with multiplication as binary operation.
+        \item $\quot{\bR}{2\pi\bZ}$ with addition as binary operation.
+    \end{itemize}
+    Show that 
+    $$\al\: \bC^\x\to \bR_{>0}\oplus\quot{\bR}{2\pi\bZ},\ z\mapsto(|z|,\arg(z))$$
+    is a group isomorphism as follows:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Show that $\al$ is a group homomorphism. \hint{This comes down to show that $|zw|=|z||w|$ and $\arg(zw)=\arg(z)+\arg(w)$.}
+        \item Show that $\al$ is surjective. \hint{For $r\in\bR_{>0}$ and representative $\te\in\bR$ show that there is some $\bC^{\x}$ such that $|z|=r$ and $\arg(z)=\te$.}
+        \item Show that $\al$ is injective. \hint{Suppose $\al(z)=(1,0)$, then show that $z=1$.}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The function $\al$ is a homomorphism because 
+        $$\al(wz)=(|wz|,\arg(wz))=(|w||z|,\arg(w)+\arg(z))=(|w|,\arg(w))\circ(|z|,\arg(z))=\al(w)\circ\al(z)$$
+        where $\circ$ is the group operation in the direct product. To prove the equalities hold, take $wz=r_1e^{i\te_1}$, $w=r_2e^{i\te_2}$ and $z=r_3e^{i\te_3}$. Then 
+        $$wz=(r_2e^{i\te_2})(r_3e^{i\te_3})=(r_2r_3)e^{i(\te_2+\te_3)}=r_1e^{i\te_1},$$
+        and as the polar representation of a complex number is unique we have that $r_1=r_2r_3$ and $\te_1=\te_2+\te_3$.
+        \item Take $(r,\te)$ in the codomain of $\al$. As $r>0$, we can write it as $x^2+y^2$ for $x,y\in\bR$. Given that condition we may find the angle by the relation $\tan(\te)=\frac{y}{x}$. Taking $r$ and $\te$ as given lets us construct a complex number $z=x+iy$ such that $\al(z)=(r,\te)$.
+        \item If it happened that $r=1$ and $\te=0$, then the complex number in question could be represented as $1\.e^0=1$. Thus $z=1$. This means that $\ker(\al)=\set{\id}$ and thus, as $\al$ is a morphism, it's also injective.
+    \end{enumerate}
+\end{ptcbr}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
