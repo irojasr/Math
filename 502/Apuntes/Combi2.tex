@@ -7,9 +7,9 @@
 \def\nsigla {MATH502}
 \def\nsiglahead {Combinatorics 2}
 \def\nlang {ENG}
-\def\darktheme{}
+%\def\darktheme{}
 \input{../../headerVarillyDiff}
-
+\usepackage{youngtab}
 \begin{document}
 %\clearpage
 \maketitle
@@ -117,7 +117,9 @@ $$e_r(x_1,\dots,x_d)=\sum_{1\leq i_1<\dots<i_r\leq n}x_{i_1}\dots x_{i_r}.$$
 \end{Rmk}
 
 \subsubsection{Homogenous Symmetric Functions}
-
+%https://garsia.math.yorku.ca/ghana03/chapters/mainfile3.pdf
+%https://www.symmetricfunctions.com/index.htm
+%http://www.mathematicalgemstones.com/gemstones/diamond/summary-symmetric-functions-transition-table/
 
 \begin{itemize}
     
@@ -420,6 +422,118 @@ There are at least two proofs if not more of this fact. The first comes from Mar
 \end{ptcbp}
 
 For proof 2 read \cite{StanleyEnum2} pg. 290. Proof 3 in another Maria post %http://www.mathematicalgemstones.com/gemstones/opal/addendum-an-alternate-proof-of-the-ftsft/
+
+\section{Day 5|20230130}
+
+\begin{Ej}
+Compute $\om(s_{(3,1)})$.
+\end{Ej}
+
+\begin{ptcbr}
+We have that 
+%$$s_{(3,1)}=m_{(3,1)}+\young{112,2}+\young{112,3}+\young{113,2}+\young{123,4}+$$
+By Jacobi-Trudi 
+$$s_{(3,1)}=\det\twobytwo{h_3}{h_4}{1}{h_1}=h_{(3,1)}-h_4.$$
+Using the omega involution, we get 
+%$$\om(s_{(3,1)})=e_{(3,1)}-e_4=s(\young{~,~,~~}).$$
+\end{ptcbr}
+
+Recall that $\om: h_n\otto e_n$, $\om p_k =(-1)^{k-1}p_k$. We have the following questions, where do $m$ and $s$ map to? Also 
+$$\braket{m}{h}=\dl,\ \braket{p}{p/z}=\dl,$$
+but what are $e$ and $s$ dual to?
+
+\begin{Def}
+    We call $\om m_\la = f_\la$ the \term{forgotten basis}.
+\end{Def}
+
+There's not much we could say about them, they are not Schur positive and there's no patterns. 
+
+\subsubsection{Dual to $e$}
+
+Recall $\om$ is an isometry, so $\braket{\om f}{\om g}=\braket{f}{g}$, so
+$$\braket{e_\la}{?}=\braket{h_\la}{\om ?}=\dl_{\la\mu}.$$
+Since $\braket{h}{m}=\dl$, then applying $\om$ again we get that $\braket{e_\la}{f_\mu}=\dl_{\la\mu}$.
+
+\subsubsection{RSK algorithm}
+
+We want to show two things:
+$$\om s_\la=s_{\la^\sT},\ \braket{s_\la}{s_\mu}=\dl_{\la\mu}.$$
+
+\begin{Prop}
+    It holds that 
+    $$\sum_{\la}s_\la(\un x)s_\la(\un y)=\Om=\sum_{\la}m_\la(\un x)h_\la(\un y)$$
+\end{Prop}
+
+\begin{ptcbp}
+    The sum on the left is 
+    $$\sum_{(S,T)SSYT}x^Sy^T$$
+    so we will study pairs $(S,T)$ of SSYT of the same shape to show that they're equal to the sum on the right. 
+\end{ptcbp}
+
+algorithm: process of doing the bijection.\par 
+The RSK bijection takes a pair $(S,T)$ of SSYT of the same shape and it maps it to ``two-line arrays'' of length $n$. 
+
+\begin{Def}
+    A \term{two-line array} is a matrix in $\cM_{2\x n}(\bZ_{\geq 0})$ such that 
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The bottom row is weakly increasing.
+        \item If $b_i=b_{i+1}$, then $a_{i}\leq a_{i+1}$, where $a$'s are the top row and $b$'s the bottom row.
+    \end{enumerate}
+\end{Def}
+
+\begin{Ex}
+    Consider the matrix 
+    $$\begin{pmatrix}
+        1&1&2&1&4&2&3&1&2\\
+        1&1&1&2&2&3&3&4&4
+    \end{pmatrix}$$
+    Within ``blocks'', there is a weak increment. From right-to-left we will find a pair of SSYT. We will ``insert'' top row letters from left-to-right.
+    \begin{enumerate}
+        \item Place 1st letter $\young(1)$
+        \item For each letter, if it can go at the end of last row, put it there 
+        $$\young(11)\leftarrow 2,\ \young(112)\leftarrow 1$$
+        but one can't go after 2.
+        \item Otherwise if inserting $b_1$, let $c$ be the leftmost $>b$, ``bump $c$'', then insert $c$ into the next row. 
+        $$\young(111,2)$$
+    \end{enumerate}
+    For the bottom row, place in a new square at each step to form a ``recording tableau''. The recording tableau always matches the shape of the insertion one. The first three steps lead to $\young(111)$ in the recording one. But in the fourth step we get $\young(111,2)$. The next step leads us to 
+    $$\young(1114,2),\quad \young(1112,2)$$
+    then in insertion, 2 bumps 4 and 4 doesn't bump 2 on next row, so we get 
+    $$\young(1112,24),\quad \young(1112,23)$$
+    The three is no problem so 
+    $$\young(11123,24),\quad \young(11123,23)$$
+    then the next one bumps out the 2, the 2 bumps the 4 on the second row to get 
+    $$\young(11113,22,4),\quad \young(11123,23,4)$$
+    Finally 
+    $$\young(11112,223,4),\quad \young (11123,234,4).$$
+\end{Ex}
+
+Why do we get SSYT. The insertion tableau gives us the question, can we make a column non-increasing? No, we are always bumping something bigger. Imagine we bump $c>b$ with $b$, then $c$ replaces something that goes to the left.
+$$\young(\leq bc,~~,~)\To\young(~b~,~d,~)$$
+and $d>c$ so it bumps something else. The recording tableau is also a SSYT. Let us prove it. 
+
+\begin{Lem}[Key Lemma 1]\label{lemma-key-lemma-SSYT}
+    The insertion path (sequence of squares that are bumped) moves up and weakly left. 
+\end{Lem}
+
+\begin{Lem}[Key Lemma 2]\label{lemma-consec-inserts}
+If $a\leq b$ and $T$ is a SSYT, computing 
+$$T\leftarrow\young(a)\leftarrow\young(b),$$
+the intersection path of $a$ in $T$ lies strictly left of the intersection path of $b$ in $T\leftarrow\young(a)$.
+\end{Lem}
+
+\begin{ptcbp}
+    We will do induction on the rows with an example.
+\end{ptcbp}
+
+\begin{Ex}
+    Consider 
+    $$\young(111223,22334,3355,44)$$
+    Inserting $1$ we bump the 2, then the 3 and finally the 5. We get 
+    $$\young(111o23,22t34,33t55,44f)$$
+    so inserting the 2 we bump 3,4,5. And they will be to the side of the last sequence. 
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
