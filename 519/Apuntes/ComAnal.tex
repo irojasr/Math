@@ -375,13 +375,146 @@ because $\sum|z_n|$ is Cauchy.
     The power series for the exponential function is $e^z=\sum_{n\geq 0}\frac{z^n}{n!}$. 
 \end{Ex}
 
-\begin{Th}[Cauchy-Hadamard]
+\begin{Th}[Cauchy-Hadamard]\label{thm-cauchy-hadamard}
 Suppose $\sum_{n\geq 0}a_nz^n$ has radius of convergence $\frac{1}{r}=\limsup|a_n|^\frac{1}{n}$. Then the series converges for $|z|<r$ and diverges for $|z|>r$.
 \end{Th}
 
 \begin{ptcbp}
     
 \end{ptcbp}
+
+\section{Day 5| 20230130}
+
+Last time with Hadamard's criterion we learned something that we \emph{already know}. Recall that for radii less than the radius of convergence, power series converge.\par 
+As a corollary we can prove the following:
+
+\begin{Cor}
+    Suppose $f(z)=\sum_{n\geq 0}a_nz^n$ has radius of convergence $R$. Then the following holds:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The formal derivative of $f$, 
+        $$g(z)=\sum_{n\geq 1}na_nz^{n-1}$$
+        converges absolutely and uniformly on $B(0,R)$.
+        \item $f'(z)=g(z)$.
+    \end{enumerate}
+\end{Cor}
+
+\begin{ptcbp}
+Notice that 
+$$\lim_{n\to\infty}\sqrt[n]{n}=1\To g\ \text{converges}.$$
+This is because $\limsup|na_n|^{1/n}=\limsup|a_n|^{1/n}$.\par 
+Call $S_N$ the $N^{\text{th}}$ partial sum of $f$. For $r<R$, suppose $|z-z_0|<r$. Then 
+$$\left|\frac{f(z)-f(z_0)}{z-z_0}-g(z)\right|=\left|\frac{S_n(z)-E_n(z)-S_n(z_0)+E_n(z_0)-g(z_0)(z-z_0)}{z-z_0}\right|.$$
+Let us now add zero carefully and apply the triangle inequality. The previous term is less than 
+$$\left|\frac{S_N(z)-S_N(z_0)}{z-z_0}-S_N'(z_0)\right|+|S_N'(z_0)-g(z_0)|+\left|\frac{E_N(z)-E_N(z_0)}{z-z_0}\right|.$$
+The last term which contains the errors can be written as 
+$$\left|\sum_{n\geq N}\frac{a_n(z^n-z_0^n)}{z-z_0}\right|\leq \sum_{n\geq N}n|a_n|r^{n-1}$$
+and for large $N$, this quantity is small. With a similar reasoning we get that 
+$$|S_N'(z_0)-g(z_0)|\leq \sum_{n\geq N}n|a_nz^{n-1}|.$$
+For $z$ close to $z_0$, the first term is small as well.
+\end{ptcbp}
+
+\begin{Cor}
+    A complex power series is infinitely differentiable. 
+\end{Cor}
+
+\begin{Lem}
+The power series of the exponential function satisfies the equality $e^{z+w}=e^ze^w$. 
+\end{Lem}
+
+\begin{ptcbp}
+    \begin{align*}
+        e^ze^w&=\left(\sum_{n\geq 0}\frac{z^n}{n!}\right)\left(\sum_{n\geq 0}\frac{w^n}{n!}\right)\\
+        &=\sum_{n\geq 0}\sum_{k+\l=n}\frac{z^k}{k!}\frac{w^\l}{\l!}\\
+        &=\sum_{n\geq 0}\frac{1}{n!}\sum_{k+\l=n}\frac{n!}{k!\l!}z^{k+\l}\\
+        &\sum_{n\geq0}\frac{1}{n!}(z+w)^n=e^{z+w}.
+    \end{align*}
+\end{ptcbp}
+
+\begin{Th}
+    $e^{i\te}=\cos(\te)+i\sin(\te)$
+\end{Th}
+
+\begin{Lem}
+    $\te\in\bR$, then $e^{i\te}=1$ iff $\te\in2\pi\bZ$. 
+\end{Lem}
+
+\begin{Prop}
+If $z=re^{i\al}$, then $\bt$ is an argument of $z$ iff $\al-\bt\in 2\pi\bZ$.
+\end{Prop}
+
+\begin{Cor}
+    There is a grp isom $\bC^\x\to\bR_{\geq 0}\x\bR/2\pi\bZ$.
+\end{Cor}
+\section{Interim 2| HW2}
+
+\begin{Ej}
+    Suppose $S\subseteq \bC$ is a domain and $f\: S\to\bC$ is differentiable at $z_0\in S$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Compute $f'(z_0)$ along a a trajectory $z_0+\Dl x$ where $\Dl x\to 0$. Show that 
+        $$f'(z_0)=u_x(z_0)+iv_y(z_0).$$
+        \item Compute $f'(z_0)$ along a a trajectory $z_0+i\Dl y$ where $\Dl y\to 0$. Show that 
+        $$f'(z_0)=(1/i)(u_y(z_0)+iv_x(z_0)).$$
+        \item Conclude that $f$ satisfies the Cauchy-Riemann equations. 
+    \end{enumerate}
+\end{Ej}
+\begin{ptcbp}
+By definition, for $h\in\bC$, we have 
+$$\lim_{h\to 0}\frac{f(z_0+h)-f(z_0)}{h}=f'(z_0)$$
+whenever $f$ is differentiable at $z_0$. 
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Take $h=\Dl x$, a number with no imaginary part. Then separating $f$ into its real and imaginary parts we have 
+    \begin{align*}
+        f'(z_0)&=\lim_{\Dl x\to 0}\frac{f(z_0+\Dl x)-f(z_0)}{\Dl x}\\
+        &=\lim_{\Dl x\to 0}\frac{u(x_0+\Dl x,y_0)+iv(x_0+\Dl x,y_0)-u(x_0,y_0)-iv(x_0,y_0)}{\Dl x}\\
+        &=\lim_{\Dl x\to 0}\frac{u(x_0+\Dl x,y_0)-u(x_0,y_0)}{\Dl x}+i\hspace{-2mm}\lim_{\Dl x\to 0}\frac{v(x_0+\Dl x,y_0)-v(x_0,y_0)}{\Dl x}\\
+        &=\pdv{x}u(x_0,y_0)+i\pdv{x}v(x_0,y_0)
+    \end{align*}
+    \item On the flipside, take $h=i\Dl y$ with $\Dl y\to 0$. We once again separate $f$ as follows:
+    \begin{align*}
+        f'(z_0)&=\lim_{\Dl y\to 0}\frac{f(z_0+i\Dl y)-f(z_0)}{i\Dl y}\\
+        &=\lim_{\Dl y\to 0}\frac{u(x_0,y_0+\Dl y)+iv(x_0,y_0+\Dl y)-u(x_0,y_0)-iv(x_0,y_0)}{i\Dl y}\\
+        &=\lim_{\Dl y\to 0}\frac{u(x_0,y_0+\Dl y)-u(x_0,y_0)}{i\Dl y}+i\hspace{-2mm}\lim_{\Dl y\to 0}\frac{v(x_0,y_0+\Dl y)-v(x_0,y_0)}{i\Dl y}\\
+        &=\frac1i\pdv{y}u(x_0,y_0)+\pdv{y}v(x_0,y_0)\\
+        &=\pdv{y}v(x_0,y_0)-i\pdv{y}u(x_0,y_0)
+    \end{align*}
+    \item As the derivatives along both trajectories should match, we have that 
+    $$\pdv{x}u(x_0,y_0)+i\pdv{x}v(x_0,y_0)=\pdv{y}v(x_0,y_0)-i\pdv{y}u(x_0,y_0).$$
+    Two complex numbers are equal whenever both the real and imaginary parts coincide, so it must hold that 
+    $$\pdv{x}u(x_0,y_0)=\pdv{y}v(x_0,y_0),\quad \pdv{x}v(x_0,y_0)=-\pdv{y}u(x_0,y_0).$$
+    If a function is holomorphic for every $z$, then this translates to $u_x=v_y$ and $v_x=-u_y$.
+\end{enumerate}
+\end{ptcbp}
+
+\begin{Ej}[\cite{Stein} 1.13]
+    Suppose $f$ is holomorphic in an open set $\Om$. Prove that in any one of the following cases:
+     $$\Re(f)\ \text{is constant;}\quad \Im(f)\ \text{is constant;}\quad |f|\ \text{is constant;}$$
+    one can conclude that $f$ is constant.
+\end{Ej}
+
+\begin{ptcbp}
+    As $f$ is holomorphic, $f$ satisfies the Cauchy-Riemann equations. This means that if $f=u+iv$, then 
+    $$u_x=v_y,\quad v_x=-u_y.$$
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item If either $u$ or $v$ are constant, then $u_x,u_y$ or $v_x,v_y$ are both zero. In either of those case, by the Cauchy-Riemann equations we can conclude that the other pair of derivatives is zero respectively. 
+    \end{itemize}
+\end{ptcbp}
+\begin{Ej}
+    Prove the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The power series $\sum_{n\geq 0}nz^n$ doesn't converge for any point on the unit circle.
+        \item The power series $\sum_{n\geq 0}\frac{z^n}{n^2}$ converges for \emph{every} point in the unit circle.
+        \item The power series $\sum_{n\geq 0}\frac{z^n}{n}$ converges for {every} point in the unit circle, \emph{except} $z=1$.
+        \end{enumerate}
+\end{Ej}
+
+\begin{Ej}
+    Let $\al\in\bC,\ r>0$ and $\ga_r\: [0,2\pi[\to\bC$ given by $t\mapsto re^{it}+\al$. Let $n\in\bN$, calculate the integral $\int\limits_{\ga_1(0)}z^n\dd z$.
+\end{Ej}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
