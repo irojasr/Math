@@ -12,12 +12,29 @@
 
 \begin{document}
 %\begin{multicols}{2}
-    \begin{Ej}[]
+    \begin{Ej}[1.6.D Vakil]
+        Show that a map of complexes induces a map of homology $H^{i}(A^\8)\to H^i(B^8)$ and furthermore, $H^i$ is a covariant functor from $\cat{Com}_\cat{C}\to\cat{C}$. \aside{Feel free to deal with the special case $\cat{Mod}_A$.}
     \end{Ej}
     
-    
     \begin{ptcbr}
-   
+    We will work inside the category of modules in this case. Consider two complexes $A^\8,B^\8$ with a map of complexes $\vf\:A^\8\to B^\8$ where $\vf^i\: A^i\to B^i$. To define a map between homology, we will first show that the chain map preserves cycles and boundaries.
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Suppose $z\in A^i$ is a cycle, then $f^i(z)=0$. Composing with $\vf^{i+1}$ we still get $0$. However, by commutativity we have 
+        $$0=\vf^{i+1}(f^i(z))=g(\vf^i(z))\To g(\vf^i(z))=0$$
+        which means that $\vf^{i}(z)$ is a cycle in $B^{i}$. The following diagram represents the previous situation:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAC8AdTrMAAgCCAPWBYAviDGl0mXPkIoAjOSq1GLNsW69BIrAGpFEqTOx4CRMotX1mrRCG40AZnrEAKdgEpt-AEJuktIgGGbyRMrW1LYaDlo8-nqGxqowUADm8ESgzgBOEAC2SGQgOBBIAEzR6vaOnC6B1Ax0AEYwDAAKsuYKILlY6QAWOEE5+UWIVaXliADM1XZs6Y0gzW2d3eEO-UMjJiB5hcXUZUjKaosOrqLGwYcT56dzC7F1DaLJkhRiQA
+\begin{tikzcd}
+    z\in A^{i} \arrow[d, "\vf^{i}"'] \arrow[r, "f^{i}"] & 0\in A^{i+1} \arrow[d, "\vf^{i+1}"] \\
+    \vf^{i}(z)\in B^{i} \arrow[r, "g^{i}"']             & 0\in B^{i+1}                       
+    \end{tikzcd}
+        \end{center}
+        \item On the other hand suppose $y\in A^{i}$ is a boundary. Then 
+        $$\exists x(x\in A^{i-1}\land f^{i-1}(x)=y).$$
+        We wish to find an $\widetilde{x}\in B^{i-1}$ such that $g^{i-1}(\tilde{x})=\vf^i(y)$, so we claim that such $\widetilde{x}$ is $\vf^{i-1}(x)$. By diagram commutativity we have that 
+        $$g^{i-1}(\vf^{i-1}(x))=$$
+    \end{itemize}
     \end{ptcbr}
 
 \end{document} 
