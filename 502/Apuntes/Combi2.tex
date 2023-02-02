@@ -307,7 +307,7 @@ The map $\om$ is involutive.
     $$\exp\left(\sum\frac{1}{n}p_n(\un x)p_n(\un y)\right)=\prod_{i,j=1}^\infty\frac{1}{1-x_iy_j}=\:\Om(\un x,\un y).$$
     It also holds that 
     $$\Om(\un x,\un y)=\sum_la\frac{1}{z^\la}p_\la(\un x)p_\la(\un y)$$
-    where $z_\la=\prod k^{m_k}k!$ where $m_k$ is the number of parts of $\la$ equal to $k$. 
+    where $z_\la=\prod k^{m_k}m_k!$ where $m_k$ is the number of parts of $\la$ equal to $k$. 
 \end{Lem}
 
 \begin{ptcbp}
@@ -534,6 +534,117 @@ the intersection path of $a$ in $T$ lies strictly left of the intersection path 
     $$\young(111o23,22t34,33t55,44f)$$
     so inserting the 2 we bump 3,4,5. And they will be to the side of the last sequence. 
 \end{Ex}
+
+\section{Day 6| 20230201}
+\begin{Ej}
+    Apply RSK to $\begin{pmatrix}
+        3&2&4&1&5\\1&2&3&4&5
+    \end{pmatrix}$
+\end{Ej}
+
+\begin{ptcbr}
+    We get 
+    $\young(145,2,3),\quad \young(135,2,4)$.
+\end{ptcbr}
+
+Notice that we got STANDARD Young tableau. So to prove it's a bijection we will begin with all different numbers.
+
+\begin{Lem}
+    The RSK bijection is a bijection between pairs of standard Young tableaux of the same shape and ``permutations'' ($2\x n$ matrices whose rows are permutations.)
+\end{Lem}
+
+To prove it's a bijection we will find an inverse by reversing the process. Look at the recording tableau, we will bump out the largest number. We will take $S$ as the recording tableau. Then we start with the spot on $S,T$ which corresponds to largest label in S.
+\begin{itemize}
+    \item If $b$ is the item in such a square we ``un-bump'' it.
+    \begin{itemize}
+        \item If in bottom row, just remove.
+        \item Else, let $c$ be the rightmost entry in row below $b$ that is less than $b$. Then replace $b$ with $c$ and repeat the process with $c$ until the letter that is removed is done by the just removing it. 
+    \end{itemize}
+    Then we add the two letters to the matrix from right-t-left.
+\end{itemize}
+
+With the original tableau we remove the $5$ and the $5$ to get 
+$$\young(14,2,3),\quad \young(13,2,4)$$
+then the 4 indicates that in $T$ we must ``un-bump'' the 3. The three un-bumps the 2, the 2 to the 1 so that we get 
+$$\young(24,3),\quad \young(13,2).$$
+Now we get the matrix $\begin{pmatrix}
+    x&x&x&1&5\\x&x&x&4&5
+\end{pmatrix}$ and removing the 3 from $S$ just removes the 4 from $T$ as it is in the bottom row.\par 
+Now as this two sets are in bijection, this means that they have the same size.
+
+\begin{Cor}
+    Let $f^\la$ be the number of standard Young tableau of shape $\la$. Then 
+    $$\sum_{\la\vdash n}(f^\la)^2=n!.$$
+\end{Cor}
+
+We will generalize one step at a time. Let us now assume that $T$ is semi-standard. On the matrix, we will have that the top row is now random, but the bottom row is still from $1$ to $n$. 
+
+\begin{Lem}[Schensted]
+    There is a bijection between $(S,T)$, $S$ is standard, $T$ is SSYT, and words of length $n$.
+\end{Lem}
+
+\begin{Ex}
+    Consider the matrix $\begin{pmatrix}
+        2&1&3&1&3\\1&2&3&4&5
+    \end{pmatrix}$ which returns the two Young tableau 
+    $$\young(113,23),\quad \young(135,24).$$
+\end{Ex}
+
+The proof of the inverse is similar but when un-bumping, we must bump the rightmost entry \emph{strictly} smaller than $b$. But we don't need this, we will do it more creatively.
+
+\begin{Def}
+    Suppose $T$ is a Young tableau. Then 
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The \term{reading word} of $T$ $\text{rw}(T)$ is the concatenation of rows from top to bottom.
+        \item The \term{standarization} of an SSYT $T$, $\text{std}(T)$, is the unique    SYT with same relative order of entries, ties broken with ``reading order''.
+        \item The standarization of a word is similar
+       \end{enumerate}
+\end{Def}
+
+In the previous example, the reading word is 
+$$\young(113,23)\to 23113.$$
+The standarization are as follows:
+$$\young(113,23)\to \young(125,34),\quad 23113\to34125.$$
+We can standarize the matrix 
+$$\begin{pmatrix}
+    2&1&3&1&3\\1&2&3&4&5
+\end{pmatrix}\to\begin{pmatrix}
+    3&4&1&2&5\\1&2&3&4&5
+\end{pmatrix}$$
+and this matrix corresponds to the pair $(S,T)$ where $T$ is $\young(125,34)$. In essence, the following diagram commutes
+\begin{figure}[h]
+    \centering
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAAoBlUgFQEoQAX1LpMufIRQBGclVqMWbAExSAzGqEiQGbHgJEyUufWatEHbjwDkA4aN0SiMo9ROLz6gCxKArELkwUADm8ESgAGYAThAAtkhkIDgQSErUABYwdFBIYEwMDK4KZiBwONnUDHQARjAMAApiepIgkVhBaTiaEdFxiDKJyYiqdiBRsUiq1EkphaZsAEqcANJdoz1I-dOICW7FiysV1bUNDvrmre2dghSCQA
+\begin{tikzcd}
+    {(S,T)} \arrow[d, "std"'] & 21313 \arrow[d] \arrow[l, "RSK"'] \\
+    {(S,T')}                  & 31425 \arrow[l, "RSK"]           
+    \end{tikzcd}
+\end{figure}
+
+\begin{Def}
+    Given a content $\mu=(\mu_1,\dots,\mu_k)$ with $\sum\mu_k=n$ (not nec. partition). Then the de-standarization with respect to $\mu$ of a SYT $T$ is a $SSYT$ $T'$ such that $\text{std}(T')=T$.
+\end{Def}
+
+In this case 
+$$\young(125,34)\xrightarrow[\text{std}^{-1}(2,1,2)]{}\young(113,23).$$
+
+Recall now lemma \ref{lemma-consec-inserts} about consecutive insertions.
+
+\subsubsection{The Full RSK}
+
+We are now going to prove that there is an inverse to the original RSK function. Consider the following example 
+$$\begin{pmatrix}
+    1&1&2&1&4&2&3&1&2\\
+    1&2&3&4&5&6&7&8&9
+\end{pmatrix}\to \young(11112,223,4),\quad \young(12357,469,8)$$
+The matrix $\begin{pmatrix}
+    1&1&2&1&4&2&3&1&2\\
+    1&1&1&2&2&3&3&4&4
+\end{pmatrix}$
+can be standarized to our word matrix. Then the table $\young(11123,234,4)$ also standarizes to the word table. 
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

@@ -550,7 +550,7 @@ whenever $f$ is differentiable at $z_0$.
         In this case, pick $M_n=\frac{1}{n^2}$. The series $\sum \frac{1}{n^2}$ converges as it is a $p$-series. Then 
         $$|z|=1\To\left|\frac{z^n}{n^2}\right|\leq\frac{1}{n^2}$$
         and thus we can conclude that $\sum\frac{z^n}{n^2}$ converges uniformly for points in the unit circle. 
-        \item The series in question is the harmonic series when $z=1$ so it diverges. We will prove that when $|z|=1$, but $z\neq 1$ this series is Cauchy. As before call $S_m=\sum_{k=0}^m\frac{z^k}{k}$, then let $\eps>0$. Assume $n>m$ for sake of argument and then
+        \item The series in question is the harmonic series when $z=1$ so it diverges. We will prove that when $|z|=1$, but $z\neq 1$ this series is Cauchy. So let us fix $z$ with $|z|=1$ and call $S_m=\sum_{k=0}^m\frac{z^k}{k}$, then let $\eps>0$. Assume $n>m$ for sake of argument and then
         \begin{align*}
             |S_n-S_{m-1}|&=\left|\sum_{k=m}^n\frac{z^k}{k}\right|\\
             &=\left|\frac{1}{n}\sum_{k=1}^nz^k-\frac{1}{m}\sum_{k=1}^{m-1}z^k-\sum_{k=m}^{n-1}\left(\frac{1}{k+1}-\frac1k\right)\sum_{j=1}^k z^j\right|\\
@@ -558,12 +558,26 @@ whenever $f$ is differentiable at $z_0$.
             &\leq \frac{2}{n}\left|\frac{1}{z-1}\right|+\frac{2}{m}\left|\frac{1}{z-1}\right|+\sum_{k=m}^{n-1}\left|\frac{1}{z-1}\right|\frac{2}{k^2+k}
             %&\leq \left|\frac{1}{z-1}\right|\left(\frac{1}{n}+\frac{1}{m}+\sum_{k=m}^{n-1}\frac{1}{k^2+k}\right).
         \end{align*}
-        As $z$ has complex modulus 1, any number of the form $z-1$ is on the ball $B(-1,1)$ except for the origin. Which means that their complex modulus is at most 2. \red{ARGUMENT FAILS}
+        Now let us state a couple of facts:
+        \begin{itemize}
+            \item $\left|\frac{1}{z-1}\right|$ might be arbitrarily large, but $z$ is fixed. This means that $\left|\frac{1}{z-1}\right|$ is finite.
+            \item Call $\widetilde{S}_r=\sum_{k=1}^{r}\frac{2}{k^2+k}$, it is important to note that this a sequence of \emph{positive numbers}. $\widetilde{S}_\infty$ converges after comparing with $\sum_{k=1}^\infty\frac{1}{k^2}$.
+        \end{itemize}
+        We will name $M=\left|\frac{1}{z-1}\right|$ so that the last expression can be written as follows:
+        $$\frac{2M}{n}+\frac{2M}{m}+M(\widetilde{S}_{n-1}-\widetilde{S}_{m-1}).$$
+        Now, as $\frac{1}{n}$ converges to zero, there exists $N_1\in\bN$ such that 
+        $$n\geq N_1\To \frac{1}{n}<\frac{\eps}{6M},\ \eps>0$$
+        On the other hand as $\widetilde{S}_r$ converges, there exists an $N_2\in\bN$ such that 
+        $$m,n\geq N_2\To |\widetilde{S}_m-\widetilde{S}_n|<\frac{\eps}{3M},\ \eps>0$$
+        Pick $N=\max{N_1,N_2}$ and let $\eps>0$, then whenever $m,n\geq N$, the following holds 
+        $$\frac{2M}{n}+\frac{2M}{m}+M(\widetilde{S}_{n-1}-\widetilde{S}_{m-1})\leq 2M\frac{\eps}{6M}+2M\frac{\eps}{6M}+M\frac{\eps}{3M}=\eps.$$
+        Therefore the series in question is Cauchy and we can conclude that it converges.
     \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
     Let $\al\in\bC,\ r>0$ and $\ga_r\: [0,2\pi[\to\bC$ given by $t\mapsto re^{it}+\al$. Let $n\in\bN$, calculate the integral $\int\limits_{\ga_1(0)}z^n\dd z$.
 \end{Ej}
+
 
 \begin{ptcbr}
     We can parametrize with $t\mapsto e^{it}$ with $r\in[0,2\pi[$ so that 
@@ -593,7 +607,10 @@ whenever $f$ is differentiable at $z_0$.
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item The function $\al$ is a homomorphism because 
-        $$\al(wz)=(|wz|,\arg(wz))=(|w||z|,\arg(w)+\arg(z))=(|w|,\arg(w))\circ(|z|,\arg(z))=\al(w)\circ\al(z)$$
+        \begin{align*}
+            \al(wz)&=(|wz|,\arg(wz))=(|w||z|,\arg(w)+\arg(z))\\
+        &=(|w|,\arg(w))\circ(|z|,\arg(z))=\al(w)\circ\al(z)
+        \end{align*}
         where $\circ$ is the group operation in the direct product. To prove the equalities hold, take $wz=r_1e^{i\te_1}$, $w=r_2e^{i\te_2}$ and $z=r_3e^{i\te_3}$. Then 
         $$wz=(r_2e^{i\te_2})(r_3e^{i\te_3})=(r_2r_3)e^{i(\te_2+\te_3)}=r_1e^{i\te_1},$$
         and as the polar representation of a complex number is unique we have that $r_1=r_2r_3$ and $\te_1=\te_2+\te_3$.
@@ -601,6 +618,72 @@ whenever $f$ is differentiable at $z_0$.
         \item If it happened that $r=1$ and $\te=0$, then the complex number in question could be represented as $1\.e^0=1$. Thus $z=1$. This means that $\ker(\al)=\set{\id}$ and thus, as $\al$ is a morphism, it's also injective.
     \end{enumerate}
 \end{ptcbr}
+
+\section{Day 6| 20230201}
+
+\begin{Def}
+    A \term{parametrization} of a curve is a function $z\: [a,b]\to\bC$.\par 
+    It is smooth if it's differentiable and piecewise smooth if for a partition of $[a,b]$, $z$ is smooth on the parts.
+\end{Def}
+
+\begin{Ex}
+    The function $z\:[0,2\pi]\to\bC,\ t\mapsto e^{it}$ is a parametrization of the unit circle. 
+\end{Ex}
+
+\begin{Def}
+    Two parametrizations $w,z$ are equivalent if there exists a bijection $[a,b]\to[c,d]$ such that $w(s)=z(s(t))$.
+\end{Def}
+
+\begin{Ex}
+    An equivalent parametrization of $e^{it}$ is $[0,1]\to\bC,\ t\mapsto e^{2\pi i t}$. 
+\end{Ex}
+
+The reverse parametrization of $z\:[a,b]\to\bC$ is $z^-\:[-b,-a]\to\bC,\ t\mapsto z(-t)$. A curve is closed if it starts where it ends. Simple curves don't cross themselves.
+
+\begin{Def}
+    The integral over a curve $\ga$ is 
+    $$\int\limits_\ga f(z)\dd z=\int\limits_a^bf(z(t))z'(t)\dd t$$
+    where $z\:[a,b]\to\ga$ parametrizes the curve.
+\end{Def}
+
+\begin{Ex}
+    Consider the integral of $\ov z$ over the unit circle. This is 
+    $$\int\limits_{\set{|z|=1}}\ov z\dd z=\int\limits_0^{2\pi}\ov{e^{it}}ie^{-it}\dd t=\int\limits_{0}^{2\pi}i\dd t=2\pi i.$$
+\end{Ex}
+
+Integrals over the complex numbers obey the same properties as over the real numbers. The arc length of a curve is the same as in multivariable calculus. The integral also obeys the triangle inequality.
+
+\begin{Def}
+    A \term{domain} is a non-empty, open and connected subset of $\bC$.
+\end{Def}
+
+\begin{Lem}
+    If $F,f$ are functions defined on $\Om$, a domain, with $F'=f$, and $w,z\in\Om$, then 
+    $$\int\limits_\ga f(z)\dd z=F(z)-F(w)$$
+    where $\ga\subseteq\Om$ is a curve connecting $w$ to $z$. 
+\end{Lem}
+
+\begin{Cor}
+If the curve is closed the integral is zero.
+\end{Cor}
+
+As a consequence, the function $\ov z$ has no antiderivative in any ball around the origin. 
+
+\begin{Lem}
+    Suppose $f$ is holomorphic on $\Om$ and $f'=0$ on $\Om$. Then $f$ is constant.
+\end{Lem}
+
+\begin{ptcbp}
+    If $w,z\in\Om$, then 
+    $$0=\int f'=f(z)-f(w)\To f(z)=f(w)$$
+    so $f$ must be constant.
+\end{ptcbp}
+
+Next time: Goursat's theorem.
+
+\section{Day 7| 20230203}
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
