@@ -646,6 +646,94 @@ can be standarized to our word matrix. Then the table $\young(11123,234,4)$ also
 
 \section{Day 7| 20230203}
 
+\begin{Ej}
+    Expand $h_{(3,2)}$ in Schur basis.
+\end{Ej}
+
+\begin{ptcbr}
+    This is $s_{(3,2)}+s_{(4,1)}+s_{(5)}$.
+\end{ptcbr}
+
+Recall that $(s_\la)$ form an orthonormal basis and $m$ and $h$ are dual basis. This means that if $f$ is a symmetric function then 
+$$f=\sum_\la c_\la s_\la\To c_\la=\braket{f}{s_\la},\ f=\sum_\la a_\la m_\la\To a_\la=\braket{f}{h_\la}.$$
+Lets suppose now that $f$ is any homogenous symmetric function. We will calculate the coefficient of $s_\la$ in an $h_\mu$ expansion:
+$$\braket{h_\mu}{s_\la}=\braket{s_\la}{h_\mu}$$
+and we can interpret this as the coefficient of $m_\mu$ in $s_\la$. This amount is precisely the Kostka coefficient $K_{\la\mu}$. Thus we have the formula $h_\mu=\sum_\la K_{\la\mu}s_\la$.
+
+\subsection{Properties of the Schur functions}
+
+We wish to show that $\braket{s_\la}{s_\mu}=\dl_{\la\mu}$ and $\om s_\la=s_{\la^\sT}$.
+
+\begin{Prop}
+    $\sum_\la s_\la(\un{x})s_\la(\un{y})=\sum_\la m_\la(\un{x})h_\la(\un{y})$
+\end{Prop}
+
+\begin{ptcbp}
+    Expanding the sum on the left we obtain 
+    $$\sum_\la s_\la(\un{x})s_\la(\un{y})=\sum\la\left(\sum_{T\in SSYT(\la)}x^T\right)\left(\sum_{S\in SSYT(\la)}y^S\right)=\sum_{(T,S),\ SSYT\text{same shape}}x^Ty^S$$
+
+    This is basically an RSK pair and this correspond to two-line arrays, so this sum could be the same as summing over them. Thus this is  
+    $$\sum_{2\text{line arrays}}x_{a_1}\dots x_{a_n}y_{b_1}\dots y_{b_n}.$$
+We will now find the coefficient of $m_\la(\un y)$ in this expansion and show that it is $h_\la(\un x)$\par 
+What are all the ways to obtain $y_1^{\la_1}\dots y_k^{\la_k}$?
+$$\begin{pmatrix}
+    a_1^{(1)}&\dots&a_k^{(1)}&a_1^{(2)}&\dots&a_k^{(2)}&\dots\\
+    1&1&1&2&2&2&\dots
+\end{pmatrix}$$
+And note that $a_1^{(i)}\leq\dots\leq a_{\la_i}^{(i)}$ for all $i$, so the coefficient is 
+$$\sum_{(a^{(i)}) valid tuples}x_{a_1^{(1)}}\dots x_{a_{\la_k}^{(k)}}$$
+but this factors as 
+$$\prod_{i=1}^k\sum_{a_1^(i)\leq\dots\leq a_{\la_k}^{(i)}}x_{a_1^{(i)}}\dots x_{a_{\la_k}^{(i)}}.$$
+We can split this because the choices are independent of the blocks and then multiply the functions together. The last term is $h_{\la_i}$ and the product is $h_\la.$
+\end{ptcbp}
+
+If $(T,S)$ RSKs inverse to $\twobythree{1}{3}{2}{1}{1}{2}$ then $x^Ty^S$ is $x_1x_3x_2y_1y_1y_2$.
+
+\begin{Cor}
+    $\om s_\la=s_{\la^\sT}$. 
+\end{Cor}
+
+\begin{ptcbp}
+    It suffices to show $\braket{s_{\la^\sT}}{e_\mu}=K_{\la\mu}$ because $\braket{s_\la}{h_\mu}=K_{\la\mu}$ which implies that $\braket{\om s_\la}{e_\mu}=K_{\la\mu}$.\par 
+    In other words, we wish to show that the coefficient of $s_\la$ in $e_\mu$ is $K_{\la^\sT\mu}$, the number of $SSYT$ shape $\la^\sT$, content $\mu$.\par 
+\red{CONT}
+\end{ptcbp}
+
+\subsection*{Pieri Rule}
+
+\begin{Def}
+    A \term{skew shape} is a diagram formed by subtracting a smaller Young diagram from a larger one.\par 
+    A \term{horizontal strip} is a skew shape where no two boxes are in the same column. Similar a \term{vertical strip} doesn't have boxes in the same row.
+\end{Def}
+
+\begin{Ex}
+    Suppose $\la=(5,4,4,1)$ and $\mu=(4,2,2)$. Then 
+    $$\la=\young(~,~~~~,~~~~,~~~~~),\quad \mu=\young(~~,~~,~~~~)$$
+    so $la/\mu$ is INSERT DIAG.
+    Not horizontal nor vertical.
+\end{Ex}
+
+In a Young tableau, the biggest number forms a horizontal strip, so in general Young tableaux are made up of horizontal strips.
+$$\young(4,344,2233,111234).$$
+
+\begin{Th}[Pieri]
+    Let $r\in\bN$, then 
+    $$e_rs_\la=\sum_{\rho/\la\text{vert. strip size }r}s_\rho$$ 
+    $$h_rs_\la=\sum_{\rho/\la\text{horiz. strip size }r}s_\rho$$
+\end{Th}
+
+This is basically all the ways to fill up the shapes.
+
+\begin{ptcbp}
+    $$h_rs_la=s_{(r)}s_\la=\left(\sum_{T\in SSYT((r))}x^T\right)\left(\sum_{S\in SSYT(\la)}x^S\right)$$
+\end{ptcbp}
+
+\begin{Ex}
+    $h_3s_{(3,1)}$ is $x^Tx^S$ is inserting the boxes of $T$ one at a time in $S$. 
+    $$\young(3,123)\leftarrow \young(112)=\young(3,23,1112)$$
+    so by \ref{lemma-key-lemma-SSYT} about insertion path, the new squares are a horizontal strip which is the $s_\rho$ in the Pieri rule. Unbumping we recover \red{something}.
+\end{Ex}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
