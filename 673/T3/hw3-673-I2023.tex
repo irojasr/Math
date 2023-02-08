@@ -14,10 +14,27 @@
 %\begin{multicols}{2}
 
 \begin{Ej}
-   
+   Suppose $\cF$ is a presheaf and $\cG$ is a sheaf, both of sets, on $X$. Let $\cH\emph{om}(\cF,\cG)$ be the collection of data 
+   $$\cH\emph{om}(\cF,\cG)(U)\:=\Mor(\cF|_U,\cG|_U).$$
+   Show that this is a sheaf of sets on $X$. 
 \end{Ej}
-
+%https://math.stackexchange.com/questions/294802/prove-that-sheaf-hom-is-a-sheaf/294881
 \begin{ptcbr}
-    
+    We first need to show that $\cH\emph{om}(\cF,\cG)$ is a presheaf, this requires a sensible notion of restriction mapping which satisfies the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item $\res_{U,U}=\id_{(\ast)}$ where the identity map is over the object $\cH\emph{om}(\cF,\cG)(U)$.
+        \item If $U\subseteq V\subseteq W$ then $\res_{W,U}=\res_{V,U}\circ\res_{W,V}$.
+    \end{enumerate}
+    Let us consider two objects $\Mor(\cF|_U,\cG|_U)$ and $\Mor(\cF|_V,\cG|_V)$ with $U\subseteq V$. A restriction mapping acts on sections, and sections on these sets are morphisms of sheaves. Our restriction mapping takes $\vf\in\Mor(\cF|_V,\cG|_V)$ to $\res_{V,U}(\vf)\in\Mor(\cF|_U,\cG|_U)$, but recall $vf$ is a collection of maps of objects of the form 
+    $$\vf(W)\:\ \cF(W)\to\cG(W),\word{with}W\subseteq V.$$
+    In this sense, it suffices to only consider the open sets contained in $U$. We declare that $\res_{V,U}(\vf)$ is the collection of maps 
+    $$\vf(W)\:\ \cF(W)\to\cG(W),\word{with}\un{W\subseteq U}.$$
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The map $\res_{U,U}(\vf)$ acts as follows, every map of the form $\vf(W)$ with $W\subseteq U$ is sent to the map $\vf(W)$ between the same objects because $W\subseteq U$ is still itself.\par 
+        This means that $\res_{U,U}$ is the identity map in $\Mor(\cF|_U,\cG|_U)$.
+        \item Now suppose $U\subseteq V\subseteq W$ are open sets, then $\res_{V,U}\circ\res_{W,V}$ acts on $\vf$
+    \end{enumerate}
 \end{ptcbr}
 \end{document} 
