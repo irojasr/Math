@@ -734,6 +734,161 @@ This is basically all the ways to fill up the shapes.
     so by \ref{lemma-key-lemma-SSYT} about insertion path, the new squares are a horizontal strip which is the $s_\rho$ in the Pieri rule. Unbumping we recover \red{something}.
 \end{Ex}
 
+\section{Day 8| 20230206}
+
+\begin{Ej}
+    Apply RSK to $82357146$ and $62235124$.
+\end{Ej}
+
+\begin{ptcbr}
+    $$\young(8,2357),\young(2,1345)$$
+    then $1$ bumps the 2, 2 bumps 8
+    $$\young(8,257,1346),\young(6,278,1345)$$
+    The next one standarizes to the last string. The same recording table but we get for insertion 
+    $$\young(6,235,1224).$$
+\end{ptcbr}
+
+\subsection{Consequences of RSK}
+
+We will talk about increasing and decreasing subsequences.
+
+\begin{Def}
+    A longest increasing subsequence of a word $w\in\bN^{n}$ is a subsequence $w_{i_1}\leq\dots\leq w_{i_\l}$ with $i_1<\dots<i_\l$ such that $\l$ is as large as possible. We will write $\l(w)$ to be the length of the longest increasing subsequence.\par 
+    A longest decreasing subsequence of a word is 
+    $w_{i_1}>\dots>w_{i_d}$ with $i_1<\dots<i_d$. In this case $d(w)$ is the longest decreasing.
+\end{Def}
+
+\begin{Ex}
+    In the case of $82357146$, we have $2357,2356,146,2346$. Notice that this is the length of ?? of the Young tableau. For decreasing we have $821,831,\dots$, the height of the Young tableau is the longest decreasing subsequence.
+\end{Ex}
+
+\begin{Th}\label{th-length-long-dec-inc-word}
+    Suppose $w$ is a word, $S=\text{ins}(w)$ is the insertion tableau through RSK and $\la=\text{sh}(S)$ is the shape of the table. Then $\l(w)=\la_1$ and $d(w)=\la_1^{\sT}$. 
+\end{Th}
+
+To prove this we will develop some tools.
+
+\begin{Lem}\label{lem-reading-word}
+    For a tableau $T$, $\text{ins}(\text{rw}(T))=T$.
+\end{Lem}
+
+The reading word of $\young(8,257,1346)$ is $82357146$ which inserts to the same table precisely.
+
+\begin{Rmk}
+    The column reading word also works! For this table it's $82153746$. We get a bunch of decreasing subsequences. $821$ creates the first column by bumping, then $53$ creates the second column and so on. 
+\end{Rmk}
+
+Let's analyze the longest increasing subsequence of the reading word. Clearly we can get the bottom row as a longest subsequence, but looking in the reading order we need to go to the right. Going down decreases!
+
+\begin{Lem}
+    If $\la=\text{sh}(T)$ then $\l(\text{rw}(T))=\la_1$ and $d(\text{rw}(T))=\la_1^\sT$.
+\end{Lem}
+
+\begin{ptcbp}
+    Given an entry $a\in T$, let $b\in T$ such that $a<_{\text{ro}}b$. Then $b$ is in a column to the right of $a$, this means that 
+    $$\l(\text{rw}(T))\leq \#\text{columns}=\la_1.$$
+    The bottom row is an example of a subsequence where the length is achieved. So equality holds.
+\end{ptcbp}
+
+For decreasing it's equivalent. Now, how do we tell when two words have the same insertion tableau?
+
+\begin{Ex}
+    In the case of all permutations in $S_3$ we have that some are equivalent \red{FILL}
+\end{Ex}
+
+\subsubsection{Knuth equivalence}
+
+\begin{Def}
+    A \term{Knuth move} on a permutation swaps two letters $a,c$ if $a<b<c$ (reading order) and one of consecutive subsequences $acb,cab,bac,bca$ appears in the word.\par 
+    Two words are \term{Knuth-equivalent} if they differ by a sequence of Knuth-moves.
+\end{Def}
+
+In the first case, $b$ is between $a,c$ and those are always together.
+
+\begin{Prop}
+    Knuth equivalence defines an equivalence relation on $S_n$. 
+\end{Prop}
+
+\begin{Th}
+    Two words $\pi,w$ are Knuth-equivalent iff $\text{ins}(w)=\text{ins}(\pi)$.
+\end{Th}
+
+\begin{Ex}
+    In size $4$, $1234$ is in its own class because we don't have any Knuth moves available. Same thing happens with $4321$.\par 
+    Consider $1243$, if we apply Knuth moves we can get 
+    \begin{itemize}
+        \begin{multicols}{2}
+            \itemsep=-0.4em
+            \item $1423$
+            \item $4123$
+        \end{multicols}
+    \end{itemize}
+    All of these have the insertion tableau $\young(4,123)$ whose reading word is $4123$.\par 
+    For the tableau $\young(24,13)$, its reading word is $2413$. Applying Knuth moves we get only $2143$, which is the column reading word.\par 
+    The tableau $\young(34,21)$'s equivalence class also has size 2. 
+\end{Ex}
+
+\begin{Prop}
+    If two tableau have the same shape, their equivalence classes have the same size. 
+\end{Prop}
+
+We are seeking to prove $\l(w)$ is invariant under Knuth moves. This will imply the theorem \ref{th-length-long-dec-inc-word} because once we know that things have the same insertion tableau and the reading word has the same longest increasing subsequence length.
+
+\section{Day 9| 20230208}
+
+\begin{Ej}
+    Insert $f,g$ and then $c$ into 
+    $$\young(k,eij,abdhl)$$
+    and then $f,c$ and then $g$.
+\end{Ej}
+
+\begin{Ex}
+    The Knuth equivalence class of words whose insertion tableau is 
+    $$\young(34,125).$$
+    The reading word is $34125$ and we can Knuth-move it. The $341$ can switch into $314$ (this has the form $bac$). From that one we can switch $2$ and $5$ to get $31452$. Once again with $314$ we get $34152$ and $34512$.\par 
+    In total we have $5$ elements.
+\end{Ex}
+
+\begin{Prop}
+    The size of the Knuth equivalence class whose insertion tableau is $T$ with shape $\la$ is $\#SYT(\la)$.
+\end{Prop}
+
+\begin{ptcbp}
+    We have one permutation in the Knuth equivalence class for every recording tableau $S$ that can be paired with $T$.
+\end{ptcbp}
+
+The Knuth equivalence class of $\young(34,125)$ can be identified by RSK with the pairs $(T,S)$ and $S$ varies through all SYT of corresponding shape.\par
+Also, recall that by that hook-length formula we have that 
+$$\#SYT(\la)=\frac{|\la|!}{\prod_{\text{hooks}\subseteq T} \text{size hooks}}.$$
+
+\begin{Th}
+    Two permutations $\pi, w$ have the same insertion tableau if and only if $\pi$ is Knuth-equivalent to $w$.
+\end{Th}
+%BUMP: QUITAR EL PRIMERO MAS GRANDE Y PARRIBA
+\begin{ptcbp}
+By induction on the length, we can assume $\pi, w$ differ by a single Knuth-move on the last $3$ letters. We separate into cases:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Want 
+    $$T'\leftarrow b\leftarrow c\leftarrow a=T'\leftarrow b\leftarrow a\leftarrow c$$
+    Note that $\ttt{IP}(b)<\ttt{IP}(c)$ by lemma \ref{lemma-consec-inserts} of consecutive insertions and $\ttt{IP}(a)$ is \emph{weakly left} of $\ttt{IP}(b)$ from which holds $\ttt{IP}(a)$ is strictly left of $c$'s. So we can switch order.
+    \item In the other case  we want
+    $$T'\leftarrow c\leftarrow a\leftarrow b=T'\leftarrow a\leftarrow c\leftarrow b.$$
+    $\ttt{IP}(a)$ is \emph{weakly left} of $c$'s. If it's \emph{strictly}, then we can switch, but otherwise the insertion paths of $a$ and $c$ collide. \red{CHECK NOTES}
+\end{enumerate}
+Now on the other direction, we wish to show that two permutations with the same insertion tableau are Knuth-equivalent.\par 
+It suffices to show that they are Knuth-equivalent to the reading word. By induction of the size of the word, suppose $\text{ins}(w')=T'$. Then $w'\sim\text{rw}(T')$ for $w'$ of length $n-1$.\par 
+Let $w\in S_n$ with $b=w_n$. If $T'=\text{ins}(w_1,\dots,w_{n-1})$, by induction $w_1\dots w_{n-1}\sim\text{rw}(T')=(first\ row)\dots(last\ row)$. 
+\end{ptcbp}
+
+\begin{Ex}
+    For the second case consider the table 
+$$\young(389,147)$$
+and we insert $6,2$ then $5$ but then $2,6$ and then $5$. In the first case, \red{DUNNO}\par 
+In the second case consider 
+$$T'=\young(6,47,1258)$$
+\end{Ex}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

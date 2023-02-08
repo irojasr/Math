@@ -1,0 +1,46 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH502}
+\def\nsiglahead {Combinatorics 2}
+\def\nextra {HW3}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\usepackage{youngtab}
+
+\begin{document}
+
+\begin{Ej}[Exercise 1.a]
+   Suppose $b > a$ and one computes $T\leftarrow b\leftarrow a$, in other words, inserting $b$ into $T$
+   with the RSK insertion algorithm and then inserting $a$ into the result. Show that the insertion
+   path of $a$ lies weakly left of the insertion path of $b$.
+\end{Ej}
+
+\begin{ptcbr}
+We will divide the proof into two cases and in both of them we will show that $\ttt{IP}(a)\leq\ttt{IP}(b)$ where $\ttt{IP}$ is the element's insertion path. The cases are: 
+\begin{center}
+   \emph{Either $b$ was inserted at the end of the first row, or it wasn't.}
+\end{center}
+\begin{itemize}
+   \itemsep=-0.4em
+   \item Assume $b$ is the last element of the first row. Then, as $a<b$, $a$ will bump $c<b$ in the first row to the second row. 
+\end{itemize}
+\end{ptcbr}
+
+\begin{Ej}[Exercise 3]
+   Let $\pi$ be a permutation in $S_n$, and let $\l$ be the length of the longest increasing subsequence
+of $\pi$ and $d$ the length of the longest decreasing subsequence of $\pi$. Show that $\l\. d\geq n$. 
+\end{Ej}
+
+\begin{ptcbr}
+   Via the RSK bijection we can identify $\pi$ with a SYT $T$ of shape $\la\vdash n$. Also, we have that $\l=\la_1$ and $d=\l(\la)$. Now note that $\la_1\.\l(\la)\geq n$.\par 
+   By considering $T$ we can see that it is a subset of the tableau $(\la_1,\dots,\la_1)$ ($\l(\la)$ times) which represents a partition of $\la_1\.\l(\la)$. This implies the desired inequality as the size of the table $T$ is $n$ and the next one has size $\la_1\.\l(\la)$.Finally the RSK bijection gives us the result we are searching for. 
+\end{ptcbr}
+
+As an example, consider the partitions $(6,4,2,1)$ and $(6,6,6,6)$:
+$$T=\young(~,~~,~~~~,~~~~~~),\quad \widetilde{T}=\young(~xxxxx,~~xxxx,~~~~xx,~~~~~~).$$
+In this case $n=13$ and by doing the process we get a partition of $24$ which is larger than $13$.
+   \end{document} 

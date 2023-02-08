@@ -683,7 +683,175 @@ Next time: Goursat's theorem.
 
 \section{Day 7| 20230203}
 
+\section{Day 8| 20230206}
 
+Last time we proved Morera's theorem. Recall Goursat's theorem, which tells us that along a contour a holomorphic function has zero integral. From this it is extracted that holomorphic functions have primitives.
+
+\begin{Cor}
+    If $f$ is holomorphic on an open disk $D$ and $\ga\subseteq D$ is a closed contour, then $\int\limits_\ga f(z)\dd z=0$.
+\end{Cor}
+
+\begin{ptcbp}
+    As $f$ admits a primitive $F$ on $D$, the integral in question is $F(end)-F(begin)=0$.
+\end{ptcbp}
+
+\subsection{Toy Contours}
+
+A \term{toy contour} is a closed curve with well defined interior and exterior and it's \emph{easy to describe${}^{\text{TM}}$}.
+
+\begin{Ex}
+    Squares are toy contours. A hollow circle with a rectangle is a toy contour.
+\end{Ex}
+
+\begin{Th}
+    If $\ga$ is a toy contour, $f$
+ is holomorphic on an open set containing $\ga$ in its interior, then $\int f(z)\dd z=0$.
+\end{Th}
+
+\begin{Ex}
+    Let us calculate $\int\limits_0^\infty\frac{1-\cos(x)}{x^2}\dd x$.\par 
+    For that, consider the function $z\mapsto \frac{1-e^{iz}}{z^2}$. DRAW FIG. The integral can be separated into 
+    $$\int\limits_{-R}^{-\eps}f+\int\limits_{\ga_\eps}^{}f+\int\limits_{\eps}^{R}f+\int\limits_{\ga_R}f.$$
+    We can parametrize $\ga_R$ by $t\mapsto R^{it}$ with $t\in\bonj{0,\pi}$. Computing the integral we get the function 
+    $$\frac{1-\exp(iRe^{it})}{(Re^{it})^2}\To |f(t)|\leq \frac{1+|\exp(iRe^{it})|}{|(Re^{it})^2|}\leq\frac{2}{R^2}.$$
+\end{Ex}
+\section{Interim 3| HW3}
+
+\begin{Ej}[Exercise 2]
+    Evaluate the integral $\int\limits_{\ga_1(0)}\Re(z)\dd x$ in two ways:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Directly using the definition. \hint{You can model your calculation on the work we did in
+        class to compute the integral of $\ov z$.}
+        \item Using the fact that $\Re(z)=\frac{z+\ov z}{2}$.
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    Both integrals will use the parametrization $t\mapsto e^{it}$ with $t\in[0,2\pi[$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The first integral is 
+        \begin{align*}
+            \int\limits_{0}^{2\pi}\Re(e^{it})(ie^{it})\dd t&=\int\limits_{0}^{2\pi}ie^{it}\cos(t)\dd t=\int\limits_{0}^{2\pi}(i\cos^2(t)-\sin(t)\cos(t))\dd t\\
+            &=i\int\limits_{0}^{2\pi}cos^2(t)\dd t-\int\limits_{0}^{2\pi}\sin(t)\cos(t)\dd t=i\pi+0=i\pi.
+        \end{align*}
+        \item The second integral is 
+        $$\int\limits_{\ga_1(0)}^{}\frac{z+\ov z}{2}=\frac{1}{2}\int\limits_{\ga_1(0)}^{}z\dd z+\frac{1}{2}\int\limits_{\ga_1(0)}^{}\ov z\dd z=0+\half\int\limits_{0}^{2\pi}e^{-it}(ie^{it})\dd t=\half(2\pi i)=i\pi.$$
+    \end{enumerate}
+    Both calculations coincide in the value of $i\pi$.
+\end{ptcbr}
+
+\begin{Ej}
+    Suppose $f$ is defined on a domain $\Om$ with $\ga\subseteq\Om$, a closed contour. Additionally, suppose that for $\eps>0$, there exists a polynomial $P_\eps(z)$ such that $|f(z)-P_\eps(z)|<\eps$ for $z\in\ga$. Show that $\int\limits_\ga |f(z)|\dd z=0$ and thus conclude that $\int\limits_{\ga}^{}f(z)\dd z=0$. 
+\end{Ej}
+
+\begin{ptcb}
+Consider $\ga$ an arbitrary, but fixed contour inside $\Om$. For $\eps/\l(\ga)>0$, there exists $P_{\eps/\l(\ga)}(z)$ such that
+$$|f(z)-P_{\eps/\l(\ga)}(z)|<\frac{\eps}{\l(\ga)}.$$
+Then, applying the triangle inequality we have 
+\begin{align*}
+    \int\limits_{\ga}^{}f(z)\dd z\leq\int\limits_{\ga}^{}|f(z)|\dd z\leq \int\limits_{\ga}^{}|f(z)-P_{\eps/\l(\ga)}(z)|\dd z+\int\limits_{\ga}^{}|P_{\eps/\l(\ga)}(z)|\dd z 
+\end{align*}
+The first integral can be bounded in the contour $\ga$ by hypothesis as follows: 
+$$\int\limits_{\ga}^{}|f(z)-P_{\eps/\l(\ga)}(z)|\dd z\leq\sup_{z\in\ga}|f(z)-P_{\eps/\l(\ga)}(z)|\int\limits_{\ga}\dd z\leq \frac{\eps}{\l(\ga)}\l(\ga)=\eps.$$
+The other integral can't be shown to be zero using the theorems we have at hand.
+\end{ptcb}
+
+\begin{Lem}
+    Suppose $f$ is holomorphic, then there are two possibilities: 
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Either $|f|$ is holomorphic and therefore constant (from which we conclude that $f$ is constant). 
+        \item Or $|f|$ is not holomorphic.
+    \end{enumerate}
+\end{Lem}
+
+\begin{ptcbp}
+The function $|f|$ is a real valued complex function. This means that 
+$$|f(z)|=g(z)+ih(z),\word{with} h=0.$$
+If $|f(z)|$ was holomorphic, it would satisfy the Cauchy-Riemann equations which means that $g_x=g_y=0$. This can be used to conclude that $f$ is also constant (by a previous homework exercise.)\par 
+In the other case, $|f(z)|$ is simply not holomorphic.
+\end{ptcbp}
+
+By the previous lemma, assuming $P_\eps$ is not a constant polynomial, $|P_\eps|$ is not holomorphic. We cannot state results at this moment about the integral $\int\limits_{\ga}^{}|P_{\eps/\l(\ga)}(z)|\dd z$.\par 
+As an alternative approach without showing that $\int\limits_{\ga}^{}|f(z)|\dd z$ we have the following:
+
+\begin{ptcbr}
+Recall the reverse triangle inequality: 
+$$|x+y|\leq |x|+|y|\To |x+y|-|y|\leq |x|\xrightarrow[]{x=\tilde{x}-y}|\tilde{x}|-|y|\leq|\tilde{x}-y|.$$
+Now take $P_{\eps/\l(\ga)}(z)$ as before, then 
+$$\left|\int\limits_\ga (f(z)-P_{\eps/\l(\ga)}(z))\dd z\right|\geq\left|\int\limits_\ga f(z)\dd z\right|-\left|\int\limits_\ga P_{\eps/\l(\ga)}(z)\dd z\right| $$
+and the rightmost integral is zero as $P_{\eps/\l(\ga)}$ is a polynomial and therefore, a holomorphic function. Then, applying the integral triangle inequality we have 
+$$\left|\int\limits_\ga f(z)\dd z\right|\leq\left|\int\limits_\ga (f(z)-P_{\eps/\l(\ga)}(z))\dd z\right|\leq\int\limits_\ga |f(z)-P_{\eps/\l(\ga)}(z)|\dd z\leq\eps.$$
+The last integral is smaller than $\eps$ by the previous attempted argument. As $\eps>0$ is arbitrary and $\left|\int\limits_\ga f(z)\dd z\right|$ is a real number, the only possibility is that it's equal to zero. The only complex number with zero modulus is the origin, so we conclude that $\int\limits_{\ga}^{}f(z)\dd z=0$.
+\end{ptcbr}
+
+\begin{Ej}
+Prove that $\int\limits_0^{\infty}\sin(x^2)\dd x=\int\limits_0^{\infty}\cos(x^2)\dd x=\frac{\sqrt{2\pi}}{4}$. These are the Fresnel integrals. Here, $\int\limits_0^{\infty}$ is interpreted as $\lim_{R\to\infty}\int\limits_0^{R}$.\hint{Integrate the function $e^{-z^2}$ over the path in Figure 14. Recall that $\int\limits_{-\infty}^{\infty}e^{-x^2}\dd x=\sqrt{\pi}$.}
+\end{Ej}
+
+\begin{ptcbr}
+The path in question is boundary of the circular sector of fixed radius from $\te=0$ to $\te=\frac{\pi}{4}$. Call $\ga$ the curve which bounds the sector. Now notice that 
+$$\cos(x^2)+i\sin(x^2)=e^{ix^2},$$
+so we will work with the function $e^{iz^2}$ through the circular sector in question. We have that $\int\limits_\ga e^{iz^2}\dd z$ is zero because the exponential function is holomorphic, but also that integral can be broken down into three pieces as follows:
+$$\int\limits_{0}^{R}e^{ix^2}\dd x+\int\limits_{0}^{\pi/4}\exp\bonj{i(Re^{it})^2}(iRe^{it})+\int\limits_{0}^{1}\exp\bonj{i((1-t)Re^{i\frac{\pi}{4}})^2}(-Re^{i\frac{\pi}{4}})\dd t.$$
+The second integrand can be bounded as follows: 
+\begin{align*}
+    \left|\exp\bonj{i(Re^{it})^2}(iRe^{it})\right|&\leq R|\exp\bonj{i(Re^{it})^2}|=R|\exp\bonj{iR^2(\cos(2t)+i\sin(2t))}|\\
+    &=R|\exp\bonj{iR^2\cos(2t)-R^2\sin(2t)}|\\
+    &=Re^{-R^2\sin(2t)}|e^{i(R^2\cos(2t))}|\\
+    &=Re^{-R^2\sin(2t)}\xrightarrow[R\to\infty]{}0
+\end{align*}
+So, as $R$ grows, we can bound the second integral by small quantity which decreases to zero. The third integral can be manipulated as follows, first consider the exponent in the integrand:
+$$i((1-t)Re^{i\frac{\pi}{4}})^2=i(1-t)^2R^2e^{\frac{i\pi}{2}}=-(1-t)^2R^2.$$
+Taking the substitution $u=(1-t)R$ we have $\dd u=-R\dd t$ and as $t\to 0$, $u\to R$ while $t\to 1\To u\to 0$. The third integral can be written as 
+$$\int\limits_{R}^{0}e^{-u^2}e^{i\frac{\pi}{4}}\dd u=-e^{\frac{i\pi}{4}}\int\limits_{0}^{R}e^{-u^2}\dd u.$$
+We have the following equation at this point 
+$$\int\limits_{0}^{R}e^{ix^2}\dd x-e^{\frac{i\pi}{4}}\int\limits_{0}^{R}e^{-u^2}\dd u=0$$
+where we now take the limit as $R\to\infty$. From here we get 
+$$\int\limits_{0}^{\infty}e^{ix^2}\dd x=e^{\frac{i\pi}{4}}\frac{\sqrt{\pi}}{2}.$$
+Taking real and imaginary parts of the integral in question gives us the desired result.
+\end{ptcbr}
+
+\section{Day 9| 20230208}
+
+\subsection{The Cauchy Integral Formula}
+
+Suppose $f$ is holomorphic on a domain $\Om$ which contains a disk $D$ with boundary $C$. Then for $z\in D$ 
+$$f(z)=\frac{1}{2\pi i}\oint\limits_C\frac{f(w)}{w-z}\dd w.$$
+
+\begin{ptcbp}
+    Consider the function $g(w)=\frac{f(w)}{w-z}$ and a keyhole contour around $z$. We know that inside the contour $g$ is holomorphic, so this means that $\oint\limits_{\Ga(\dl,\eps)}g(w)\dd w=0$.\par 
+    Away from $z$, $g$ is continuous, so this means that 
+    $$\lim_{\dl\to 0}\oint\limits_{\Ga(\dl,\eps)}g(w)\dd w=\oint\limits_{-B(z,\eps)}g(w)\dd w+\oint\limits_Cg(w)\dd w$$
+    where $B(z,\eps)$ is the ball of radius $\eps$ centered at $z$. We can now write 
+    $$\oint\limits_{-B(z,\eps)}g(w)\dd w=\oint\limits_{-B(z,\eps)}\frac{f(w)-f(z)}{w-z}\dd w+\oint\limits_{-B(z,\eps)}\frac{f(z)}{w-z}\dd w$$
+    so as $f$ is holomorphic we can bound $\frac{f(w)-f(z)}{w-z}$ with $\sup_{B}|f'(z)|$ (\red{WATCH OUT}). On the other hand 
+    $$\oint\limits_{-B(z,\eps)}\frac{f(z)}{w-z}\dd w=f(z)\int\limits_{0}^{2\pi}\frac{(-i\eps e^{-it})}{z+\eps e^{-it}-z}\dd t=f(z)\int\limits_{0}^{2\pi}-i\dd t=f(z)(-2\pi i).$$
+    We conclude that 
+    $$\oint\limits_Cg(w)\dd w=2\pi i f(z)$$
+    which we can rearrange to the desired equality.
+\end{ptcbp}
+
+\begin{Ex}
+    With the formula we can compute 
+    $$\oint\limits_{B(0,1)}\frac{z}{2z+1}=\frac{-i\pi}{2}.$$
+\end{Ex}
+
+\begin{Th}
+    Suppose $f$ is holomorphic on $\Om$, then 
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item $f$ is infinitely differentiable.
+        \item If $C$ is a curve inside $\Om$, 
+        $$f^{(n)}(z)=\frac{n!}{2\pi i}\oint\limits_C\frac{f(w)}{(w-z)^{n+1}}\dd w.$$
+    \end{enumerate}
+\end{Th}
+
+\begin{ptcbp}
+
+\end{ptcbp}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
