@@ -26,7 +26,7 @@
         \item $\res_{U,U}=\id_{(\ast)}$ where the identity map is over the object $\cH\emph{om}(\cF,\cG)(U)$.
         \item If $U\subseteq V\subseteq W$ then $\res_{W,U}=\res_{V,U}\circ\res_{W,V}$.
     \end{enumerate}
-    Let us consider two objects $\Mor(\cF|_U,\cG|_U)$ and $\Mor(\cF|_V,\cG|_V)$ with $U\subseteq V$. A restriction mapping acts on sections, and sections on these sets are morphisms of sheaves. Our restriction mapping takes $\vf\in\Mor(\cF|_V,\cG|_V)$ to $\res_{V,U}(\vf)\in\Mor(\cF|_U,\cG|_U)$, but recall $vf$ is a collection of maps of objects of the form 
+    Let us consider two objects $\Mor(\cF|_U,\cG|_U)$ and $\Mor(\cF|_V,\cG|_V)$ with $U\subseteq V$. A restriction mapping acts on sections, and sections on these sets are morphisms of sheaves. Our restriction mapping takes $\vf\in\Mor(\cF|_V,\cG|_V)$ to $\res_{V,U}(\vf)\in\Mor(\cF|_U,\cG|_U)$, but recall $\vf$ is a collection of maps of objects of the form 
     $$\vf(W)\:\ \cF(W)\to\cG(W),\word{with}W\subseteq V.$$
     In this sense, it suffices to only consider the open sets contained in $U$. We declare that $\res_{V,U}(\vf)$ is the collection of maps 
     $$\vf(W)\:\ \cF(W)\to\cG(W),\word{with}\un{W\subseteq U}.$$
@@ -34,7 +34,109 @@
         \itemsep=-0.4em
         \item The map $\res_{U,U}(\vf)$ acts as follows, every map of the form $\vf(W)$ with $W\subseteq U$ is sent to the map $\vf(W)$ between the same objects because $W\subseteq U$ is still itself.\par 
         This means that $\res_{U,U}$ is the identity map in $\Mor(\cF|_U,\cG|_U)$.
-        \item Now suppose $U\subseteq V\subseteq W$ are open sets, then $\res_{V,U}\circ\res_{W,V}$ acts on $\vf$
+        \item Now suppose $U\subseteq V\subseteq W$ are open sets, then $\res_{V,U}\circ\res_{W,V}$ acts on $\vf$ first by restricting from open sets in $W$ to open sets in $V$ and next by passing from open sets in $V$ to only considering the open sets in $U$.\par
+        This is the same as starting with the open sets in $W$ and then only considering the open sets in $U$. The last action is the same as what $\res_{W,U}$ does to $\vf$.
     \end{enumerate}
+    This allows us to conclude that the sheaf-Hom is indeed a presheaf. We now have to verify the two sheaf axioms:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Take $(U_i)$ an cover of $U\subseteq X$ with $\vf,\psi\:\cF|_U\to\cG|_U$ sections which coincide in every covering set. This means that 
+        $$\res_{U,U_i}(\vf)=\res_{U,U_i}(\psi)\iff\forall i\bonj{\vf(V)=\psi(V),\ V\subseteq U_i}.$$
+        Where $\vf(V),\psi(V)$ are maps of objects from $\cF(V)$ to $\cG(V)$. We wish to show that they coincide on all of $U$, which means that for any $V\subseteq U$ and $f\in\cF(V)$, it holds that
+        $$\vf(V)(f)=\psi(V)(f).$$
+        Even though we may not talk about these sections directly, we can talk about them after restricting from $V$ to $V\cap U_i$ where $U_i$ is any covering set. To do so, let us introduce the following diagrams:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMQAoAagEoQAX1LpMufIRRkAjFVqMWbTr0Hq6aAAQBVAPpYR4ydjwEi88kvrNWiDtwDigkxJAZzMq6UXU7VUd1VwEtXUNjMQ8vaUsUACYbAJUHEAAzaLM42WQAZmTlezY+Tjo4HHdsi1yk-yKgpwAneAA9YHUeUQNgAVIw7m19I1E+dKrPKRqiAvrAtNL2cpwyipMlGCgAc3giUHSmiABbJDIQHAgkJIa0zhp0t1JONGw3EGoGOgAjGAYABSmPkcDBg6RwWQyhxOiDOFyQ1huanYLTg7U63V6-XCwywoneIE+P3+gPiICaWC2AAtwaZIccrtQ4YgCojgsi2h0XBi+gMuENInjaQd6YgEUyWYTfgDvKTyVTwSlimz7ppBhEjEInuwXlhVXz1VEhVCkAAWRmXRAANiNIst5qQAHYbdCAKz2xBOjzC6Fm84Wl2iCiiIA
+\begin{tikzcd}
+    \cF(V) \arrow[r, "{\vf(V),\psi(V)}"] \arrow[d, "{\res^{\cF}_{V,V\cap U_i}}"'] & \cG(V) \arrow[d, "{\res^{\cG}_{V,V\cap U_i}}"] & f \arrow[d] \arrow[r]                   & (\ast) \arrow[d] \\
+    \cF(V\cap U_i) \arrow[r]                 & \cG(V\cap U_i)                                 & {\res^{\cF}_{V,V\cap U_i}(f)} \arrow[r] & (\ast\ast)      
+    \end{tikzcd}
+        \end{center}
+The lower arrow in the left diagram is either of the two morphisms $\vf(V\cap U_i),\psi(V\cap U_i)$. The right diagram is the same but section-wise:
+\begin{itemize}
+    \itemsep=-0.4em
+    \item The upper right corner is the image of the section $f$ inside $\cG(V)$ through $\vf(V)$ or $\psi(V)$.
+    \item The lower right corner can be interpreted in two ways which coincide:
+    $$\vf(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}=\res^{\cG}_{V,V\cap U_i}(\vf(V)(f))$$
+    and the same expression for $\psi$ when that's the case. This equality is due to the fact that $\vf,\psi$ are morphisms of sheaves and therefore commute with restrictions.
+\end{itemize}
+Recall now that $\vf(V)=\psi(V)$ for $V\subseteq U_i$, in particular we have $\vf(V\cap U_i)=\psi(V\cap U_i)$. So mapping $f$ from the upper left to the lower right gives us
+\begin{align*}
+\res^{\cG}_{V,V\cap U_i}(\vf(V)(f))= &\vf(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}\\
+=&\psi(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}\\
+=&\res^{\cG}_{V,V\cap U_i}(\psi(V)(f))
+\end{align*}
+where the first and last equalities occur because $\vf$ and $\psi$ are morphisms of sheaves and the middle one because of the hypothesis.\par 
+By the identity axiom on $\cG$, as $\cG$ is a sheaf, we can conclude that $\vf(V)(f)=\psi(V)(f)$. This means that $\vf(V)=\psi(V)$, but as $V\subseteq U$ is arbitrary, we conclude that $\vf=\psi$ and therefore we get the identity axiom.
+\item Once again let us take $(U_i)$ to be an open cover of $U\subseteq X$ along with $\vf_i\in\cH\emph{om}(\cF,\cG)(U_i)$ for each $i$. These are morphisms of sheaves, which means that for all open subsets $V\subseteq U_i$  they are maps between objects: 
+$$\vf_i(V)\:\cF(V)\to\cG(V),\ V\subseteq U_i.$$
+Assume now that the condition $\res_{U_i,U_i\cap U_j}(\vf_i)=\res_{U_i,U_i\cap U_j}(\vf_j)$ holds for all $i,j$. We must show that there exists a section $\vf\in\cH\emph{om}(\cF,\cG)(U)$, which is
+$$\vf(V)\:\cF(V)\to\cG(V),\ V\subseteq U$$
+that satisfies $\res_{U,U_i}(\vf)=\vf_i$. This means that for open sets $V\subseteq U_i$, it must hold that 
+$$\res_{U,U_i}(\vf)(V)=\vf_i(V),\ V\subseteq U_i.$$
+For this purpose, we will use the gluing axiom on the sheaf $\cG$. Let us now proceed by taking a section $f\in\cF(V)$ with $V\subseteq U$ and map it through the following diagram:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMQAoAagEoQAX1LpMufIRQBGUnKq1GLNp16CNdNAAIAqgH0sI8ZOx4CRAEyLl9Zq0QduAcS3cdB46YkgMFjJECtb2qk4umgLaekZYMd4AVr7m0lYotqHUDmrOGu7RnrHGCUbJYsowUADm8ESgAGYAThAAtkhkIDgQSAoqjursTfAAesAaPKKGwAKkhVxecaIg1Ax0AEYwDAAKUpayIE1Y1QAWOGJ+zW291N1ItiBrmzt7Qc4MMA3n2eGDNA3GDwLYomC6NFrtRB9O6IADMPwGeSGo3G3Em03mi2Mc1KJSKSWWqw2W12gXSh2OZzBICukIeMIALAjci5hnAxvkpjNcVgcfi4rjEsszDSIUh4V0eogmY9iS8yQcjqdzqIKKIgA
+\begin{tikzcd}
+    \cF(V) \arrow[rd, "{\res^{\cF}_{V,V\cap U_i}}"'] &                                                                                                       &                                                                        \\
+                                                     & \cF(V\cap U_i) \arrow[r, "\vf_i(V\cap U_i)"] \arrow[d, "{\res^{\cF}_{V\cap U_i,V\cap U_i\cap U_j}}"'] & \cG(V\cap U_i) \arrow[d, "{\res^{\cG}_{V\cap U_i,V\cap U_i\cap U_j}}"] \\
+                                                     & \cF(V\cap U_i\cap U_j) \arrow[r]                                                                      & \cG(V\cap U_i\cap U_j)                                                
+    \end{tikzcd}
+\end{center}
+where the lower arrow is the map $\vf_i(V\cap U_i\cap U_j)$. We can construct a similar diagram of $\vf_j$. A section $f\in\cF(V)$ maps through that diagram as follows: 
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADMQBfU9TXfIRQBGUsKq1GLNgB0ZAJ3gA9YHIDGAMS4B9YADVSe9XTQACAKrasXABTsAlN14gM2PASIAmMRPrNWiCByNOxWNkYyaiYWVvY2copwKupaugYRUWaW1nb2jjx8boJEop6+UgFBCsqqkan6xllWho0xWK2WAFa2CTUpOvotkdHZtg75zq4CHijeZdR+0oHxMnRwOPkSMFAA5vBEoOzyEAC2SGQgOBBIwgUcx2eIopfXiJ53R6c31FdIAMwfB7-H6vAAsgK+bxBSHBFC4QA
+\begin{tikzcd}
+    f \arrow[rd] &                                                                                   &                                                           \\
+                 & {\res^{\cF}_{V,V\cap U_i}(f)} \arrow[r] \arrow[d]                                 & {\vf_i(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}} \arrow[d] \\
+                 & {\res^{\cF}_{V\cap U_i,V\cap U_i\cap U_j}\bonj{\res^{\cF}_{V,V\cap U_i}(f)}} \arrow[r] & (\ast)                                                   
+    \end{tikzcd}
+\end{center}
+and the lower right corner is either the restriction of the upper right corner, or the image of the lower left which by $\vf_i(V\cap U_i\cap U_j)$. As the $vf_i$ are morphisms of sheaves, both elements are equal. This can be expressed as follows
+\begin{align*}
+    &\vf_i(V\cap U_i\cap U_j)\left(\res^{\cF}_{V\cap U_i,V\cap U_i\cap U_j}\bonj{\res^{\cF}_{V,V\cap U_i}(f)}\right)\\
+=&\res^{\cG}_{V\cap U_i,V\cap U_i\cap U_j}\left(\vf_i(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}\right)
+\end{align*}
+But, let us simplify notation a bit by remembering that the composition of restriction maps is the beginning-to-end restriction map. This means that 
+$$\res^{\cF}_{V\cap U_i,V\cap U_i\cap U_j}\bonj{\res^{\cF}_{V,V\cap U_i}(f)}=\res^{\cF}_{V,V\cap U_i\cap U_j}(f).$$
+With this in hand, and remembering the hypothesis that our $\vf_i$'s coincide on intersections of the covering sets, we have:
+\begin{align*}
+    &\res^{\cG}_{V\cap U_i,V\cap U_i\cap U_j}\left(\vf_i(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}\right)\\
+    =&\vf_i(V\cap U_i\cap U_j)\bonj{\res^{\cF}_{V,V\cap U_i\cap U_j}(f)}\\
+    =&\vf_i(V\cap U_i\cap U_j)\bonj{\res^{\cF}_{V,V\cap U_i\cap U_j}(f)}\\
+    =&\res^{\cG}_{V\cap U_j,V\cap U_i\cap U_j}\left(\vf_j(V\cap U_j)\bonj{\res^{\cF}_{V,V\cap U_j}(f)}\right).
+\end{align*}
+So by gluing the maps $\vf_i(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}$ in $\cG$ we may construct a map $g\in\cG(V)$ such that 
+$$\res_{V,V\cap U_i}^{\cG}(g)=\vf_i(V\cap U_i)\bonj{\res^{\cF}_{V,V\cap U_i}(f)}$$
+for each $i$. We finally define the glued map $\vf$ in $\cH\emph{om}$ which takes our original $f$ to this $g$ which we have found. It follows from our construction that 
+$$\res_{U,U_i}(\vf)(V)=\vf_i(V),\ V\subseteq U_i.$$
+\end{enumerate}
+After verifying the axioms, we may conclude that the sheaf Hom is indeed a sheaf. 
 \end{ptcbr}
+
+\begin{Ej}
+Show that the presheaf cokernel satisfies the universal property of cokernels in the category of presheaves.
+ \end{Ej}
+
+ \begin{ptcbr}
+    Given a map of presheaves $\vf$, we must show that for $\coker_{\text{pre}}\vf$ given the following diagram:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQAdDgYwDEQAvqXSZc+QinKli1Ok1bsu3AOKDhIDNjwEiUqjQYs2iTjwgBrGACcA+sC44YADxzA0VmAIFdaAMzUiWuJEAEykIbKGCiYAwoKyMFAA5vBEoL5WEAC2SGQgOBBIAMwG8sYgxCA0jPQARjCMAAqi2hIgVlhJABY4VSD1YFBIALRFxELpmTmIUvmFiCX9MIPFeVHl3ADkASAZ2Uhhc8XVWGDlUPRwXYk7e9OzBQelRuzcfTX1TS3BJowwvr0JrsprkaI9EId1uxKtU6g1mkEdCYOt1Aeo7qCjjNntFTH54gIgA
+\begin{tikzcd}
+    & \cG \arrow[rdd, "c'", bend left] \arrow[d, "c"] &   \\
+\cF \arrow[rrd, "0"', bend right] \arrow[r, "0"'] \arrow[ru, "\vf"] & \coker_{\text{pre}}\vf \arrow[rd, dashed]       &   \\
+    &                                                 & \cC
+\end{tikzcd}
+    \end{center}
+    that there exists a unique morphism of presheaves $\psi\:\coker_{\text{pre}}\vf\to \cC$. Taking out particular objects for any open set $U$ we have the same diagram but in terms of objects in the underlying category which is an abelian category. Thus, there exists a unique map 
+    $$\psi(U)\:\coker_{\text{pre}}\vf(U)\to\cC(U)$$
+    and with this we may define the morphism of presheaves $\coker_{\text{pre}}\vf\to \cC$ by taking each of these maps into our collection of data. This immediately gives us unicity by construction and we are left to check that $\psi$ is a morphism of presheaves. Thi means that for $U\subseteq V$, the following diagram commutes
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjCAaxgBOAfWCccMAB45gaATAC+8zjQBmACgBqAShDzS6TLnyEUARnJVajFm05cAwpp16D2PASLnTl+s1aIObkcAVWd9EAw3YyIyb2pfGwC7PkERMUlpWQUldlU1UN1LGCgAc3giUBUBCABbJDIQHAgkAGZ4639AuTgAPVFuFIF5EQ1SYPkQagY6ACMYBgAFQ3cTEAEsEoALHF1wqtr66iakcys-W3Y0bCdJkGm5xeXogIYYFR2XEH26xDbG5sQACZ2uckpdrgUprN5ksoh4Austh89tUfqdjkCQYkuvARmN5H07PYJvIKPIgA
+\begin{tikzcd}
+    \coker_{\text{pre}}\vf(V) \arrow[d, "{\res^{\coker}_{V,U}}"'] \arrow[r, "\psi(V)"] & \cC(V) \arrow[d, "{\res_{V,U}^{\cC}}"] \\
+    \coker_{\text{pre}}\vf(U) \arrow[r, "\psi(U)"']                                    & \cC(U)                                
+    \end{tikzcd}
+    \end{center}
+ \end{ptcbr}
 \end{document} 
