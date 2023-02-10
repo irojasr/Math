@@ -9,7 +9,7 @@
 \def\nlang {ENG}
 %\def\darktheme{}
 \input{../../headerVarillyDiff}
-\usepackage{youngtab}
+\usepackage[enableskew]{youngtab}
 \begin{document}
 %\clearpage
 \maketitle
@@ -889,6 +889,117 @@ In the second case consider
 $$T'=\young(6,47,1258)$$
 \end{Ex}
 
+\section{Day 10| 20230210}
+
+\begin{Lem}
+    The length of the longest increasing subsequence, $\l(w)$ is invariant under Knuth moves.
+\end{Lem}
+
+\begin{ptcbp}
+    Given an increasing subsequence, if a Knuth move changes two of its entries $a<c$, we have two cases:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Either $b$ is to the right of $ac$ so we get 
+        $$\dots acb\dots d\dots\to\dots cab\dots\dots d\dots$$
+        then replacing $c$ with $b$ gives an increasing subsequence of same length in a new word $a<b<c$ by assumption so $\un a<\un b<c<\un d$ where $d$ is the next element of the subsequence after $c$.
+        \item We have $b$ to the left so we have 
+        $$\dots bac\dots d\dots\to\dots bca\dots d\dots$$
+        and the same proof shows that replacing $a$ and $b$ gives s anew subsequence and a new subword of the same length.
+    \end{enumerate}
+\end{ptcbp}
+
+Knuth equivalence is natural when it comes to increasing and decreasing subsequences. With the lemmas we have, we can now prove that $d$ is the height of the insertion tableau.
+
+\begin{Rmk}
+    Dual equivalence is finding $3$ values $acb$ so we can switch $bca$. For example 
+    $$615342\to 625341\to 624351$$
+    and dual equivalent words have the same \emph{recording tableau}.
+\end{Rmk}
+
+The result we've been aiming for is 
+$$\l(w)=\text{width of }\text{ins(w)}=\la_1$$
+
+\begin{ptcbp}
+    Suppose $T=\text{ins}(w)$ with $\la=\text{sh}(T)$. Then $w\sim\text{rw}(T)$, by the previous lemma we have 
+    $$\l(w)=\l(\text{rw}(T))=\la_1$$
+    and the last equality comes from Monday class. \red{Add references}
+\end{ptcbp}
+
+For decreasing subsequences we have the same argument. To wrap it up we have a theorem we have a theorem from Stanley \cite{StanleyEnum2}:
+
+\begin{Th}
+    A longest $i$-chain of increasing subsequences of $w$ consists of:
+    \begin{itemize}
+        \item An increasing subsequence $s_1$ of $w$.
+        \item An increasing subsequence $s_2$ of $w\less s_1$.
+        \item (\dots)An increasing subsequence $s_i$ of $w\less s_1\dots s_{i-1}$.
+    \end{itemize}
+    Then the length of the longest $i$-chain is $\la_1+\la_2+\dots+\la_i$.
+\end{Th}
+
+\subsection{Jeu de taquin}
+
+The phrase \emph{jeu de taquin} means ``teasing game''. This process is equivalent to RSK and insertion. As motivation, inserting $\emptyset\leftarrow w$ and then insert $\rho$ and finally $\pi$, then this is the same as 
+$$w\leftarrow\text{rw}(\text{ins}(\rho)\leftarrow \pi).$$
+This means that there's some \emph{associativity} in this operation. 
+
+\begin{Def}
+    A \term{skew-SSYT} is a filling of the boxes of a skew shape (skew Ferrers diagram) with $n\in\bN$ such that rows are weakly increasing and columns are strictly increasing.
+\end{Def}
+
+This is analogous to SSYT, so let's see an example
+
+\begin{Ex}
+    $(9,9,5,5,3)/(7,6,3,3)$, but the initial partition could've been $(10,10,6,6,4)$ or $(100,9,9,5,5,3)$. 
+    $$\young(o,224o,::x34,:::13o,:::::x223,::::::x11o)$$
+\end{Ex}
+
+Notice that all rows and columns are adjacent, and there are no leftover squares.
+
+\begin{Def}
+    A \term{corner} of a Young diagram $\mu$ is a square of $\mu$ at the top of its column, right of its row.\par 
+    An \term{inner corner} of $\la/\mu$ is a corner of $\mu$. While an \term{outer corner} of $\la/\mu$ is a square outside $\la$ that is just above its column (poss. 0) just right of a row (poss. 0).
+\end{Def}
+
+\begin{Rmk}
+    Notice that adding an outer corner makes a valid shape for a partition.
+\end{Rmk}
+
+The JdT game is defined through the following moves
+\begin{Def}
+    An \term{inner slide} into an inner corner $x$ of a SSYT $T$ of skew-shape $\la/\mu$ is given by the following process:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Compare squares $a,b$ in the following shape 
+        $$\young(a,xb)$$
+        If $a\leq b$ or there's no $b$, slide $a$ down. Else slide $b$ left.
+        \item Repeat for the new location of $x$ until it becomes an outer corner.
+    \end{enumerate}
+\end{Def}
+
+\begin{Ex}
+    In the previous example we can consider 
+    $$\young(:::::x223,::::::x11o)$$ and slide the $1$ because if we slide $2$ it's no longer SSYT. But then we get an empty square, so we keep going until it's a valid shape. The end result is 
+    $$\young(:::::x22o,::::::113o)$$
+    For a bigger example consider 
+    $$\young(2445,:3336,:1223,:x112)\to\young(244o,:3356,:2233,:1112)$$
+\end{Ex}
+
+\begin{Rmk}
+    A slide sends an SSYT to an SSYT. A case like 
+    $$\young(~3,4x5)$$
+    because there should be an entry there $\leq 3$ and $>4$. 
+\end{Rmk}
+
+We can continue applying the process to the following inner corners to get a SSYT. 
+
+\begin{Def}
+    The \term{rectification} of a skew SSYT is the result of performing JDT slides until we don't have inner corners left. We say that the shape is \term{straight}.
+\end{Def}
+
+\begin{Rmk}
+    The rw of the skew-shape is the same as the rectification.
+\end{Rmk}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
