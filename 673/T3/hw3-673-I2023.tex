@@ -13,7 +13,7 @@
 \begin{document}
 %\begin{multicols}{2}
 
-\begin{Ej}
+\begin{Ej}[2.3.C. Vakil]
    Suppose $\cF$ is a presheaf and $\cG$ is a sheaf, both of sets, on $X$. Let $\cH\emph{om}(\cF,\cG)$ be the collection of data 
    $$\cH\emph{om}(\cF,\cG)(U)\:=\Mor(\cF|_U,\cG|_U).$$
    Show that this is a sheaf of sets on $X$. 
@@ -70,7 +70,7 @@ where the first and last equalities occur because $\vf$ and $\psi$ are morphisms
 By the identity axiom on $\cG$, as $\cG$ is a sheaf, we can conclude that $\vf(V)(f)=\psi(V)(f)$. This means that $\vf(V)=\psi(V)$, but as $V\subseteq U$ is arbitrary, we conclude that $\vf=\psi$ and therefore we get the identity axiom.
 \item Once again let us take $(U_i)$ to be an open cover of $U\subseteq X$ along with $\vf_i\in\cH\emph{om}(\cF,\cG)(U_i)$ for each $i$. These are morphisms of sheaves, which means that for all open subsets $V\subseteq U_i$  they are maps between objects: 
 $$\vf_i(V)\:\cF(V)\to\cG(V),\ V\subseteq U_i.$$
-Assume now that the condition $\res_{U_i,U_i\cap U_j}(\vf_i)=\res_{U_i,U_i\cap U_j}(\vf_j)$ holds for all $i,j$. We must show that there exists a section $\vf\in\cH\emph{om}(\cF,\cG)(U)$, which is
+Assume now that the condition $\res_{U_i,U_i\cap U_j}(\vf_i)=\res_{U_j,U_i\cap U_j}(\vf_j)$ holds for all $i,j$. We must show that there exists a section $\vf\in\cH\emph{om}(\cF,\cG)(U)$, which is
 $$\vf(V)\:\cF(V)\to\cG(V),\ V\subseteq U$$
 that satisfies $\res_{U,U_i}(\vf)=\vf_i$. This means that for open sets $V\subseteq U_i$, it must hold that 
 $$\res_{U,U_i}(\vf)(V)=\vf_i(V),\ V\subseteq U_i.$$
@@ -114,7 +114,7 @@ $$\res_{U,U_i}(\vf)(V)=\vf_i(V),\ V\subseteq U_i.$$
 After verifying the axioms, we may conclude that the sheaf Hom is indeed a sheaf. 
 \end{ptcbr}
 
-\begin{Ej}
+\begin{Ej}[2.3.F Vakil]
 Show that the presheaf cokernel satisfies the universal property of cokernels in the category of presheaves.
  \end{Ej}
 
@@ -138,5 +138,81 @@ Show that the presheaf cokernel satisfies the universal property of cokernels in
     \coker_{\text{pre}}\vf(U) \arrow[r, "\psi(U)"']                                    & \cC(U)                                
     \end{tikzcd}
     \end{center}
+    Let us take $f\in\coker_{\text{pre}}\vf(V)$ and see how it maps on both sides of the diagram. However, we are not alone in this endeavor; recall that the cokernel isn't only the object, it's the object \emph{and the epic morphism} $c(V)\:\cG(V)\to \coker_{\text{pre}}\vf(V)$. By this, 
+    $$\exists g\in\cG(V)(c(V)(g)=f)$$
+    and restricting our view to the upper triangle in the cokernel diagram, we have that 
+    $$\psi(V)(f)=\psi(V)\bonj{c(V)(g)}=c'(V)(g).$$
+    With this fact in hand, let us map $f$
+    \begin{align*}
+        \res_{V,U}^\cC\bonj{\psi(V)(f)}=&\res_{V,U}^\cC\bonj{c'(V)(g)}=c'(U)\bonj{\res_{V,U}^\cG(g)}\\
+        =&\psi(U)\left(c(U)\bonj{\res_{V,U}^\cG(g)}\right)=\psi(U)\left(\res_{V,U}^{\coker}\bonj{c(V)(g)}\right)\\
+        =&\psi(U)\left(\res_{V,U}^{\coker}(f)\right)
+    \end{align*}
+    where we have liberally used the fact that $c,c'$ are maps of sheaves and thus commute with restrictions. From this chain of equalities we conclude that $\psi$ commutes with restrctions and therefore it's a map of sheaves. This uniquely determines the map $\psi\:\coker_{\text{pre}}\vf\to\cC$ and this means that $\coker_{\text{pre}}\vf$ satisfies the universal property of cokernels in the category of presheaves.
  \end{ptcbr}
+
+\begin{Ej}[2.3.H Vakil]
+    Show that a sequence of presheaves $0\to\cF_1\to\dots\to\cF_n\to 0$ is exact if and only if $0\to\cF_1(U)\to\dots\to\cF_n(U)\to 0$ is exact for $U\subseteq X$.
+\end{Ej}
+
+\red{UNFINISHED}
+\begin{Ej}[2.3.I Vakil]
+    Suppose $\vf\:\cF\to\cG$ is a morphism of \emph{sheaves}.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Show that the presheaf kernel $\ker_{\text{pre}}\vf$ is in fact a sheaf. 
+        \item Show that it satisfies the universal property of kernels.
+    \end{enumerate}
+    \hint{The second question follows immediately from the fact that $\ker_{\text{pre}}\vf$ satisfies the universal property in the category of \emph{presheaves}.}
+\end{Ej}
+
+\begin{ptcbr}
+    \footnote{If time permits we will show that the presheaf kernel is also a presheaf.} We must show that the presheaf kernel satisfies the two sheaf axioms:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Let $U\subseteq X$ be an open set with $(U_i)$ an open cover of $U$. Suppose $f,g\in\ker_{\text{pre}}\vf(U)$ which coincide in every covering set. The following diagram is used\footnote{In the exercise to show kernel is presheaf.} to define the restriction mapping on the presheaf kernel:
+        \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYAdKQGsYAJwD6wGThgAPHMDQKYnTjJoAzABQBVAJRceIDNjwEiIoWPrNWiEDPnLVU9S0dPQMjM3MlLGtuXgcBIgAmUWp3SS8ZAGMAMQto23t+JxQAZmTxD2kpDIBxXJtYwsFkJNcUiU9vKpyIqPq7Pkcm0tbytM6ai0i8hsGiMhHUjo5OMRgoAHN4IlBjBQgAWyQyEBwIJCEYkF2D8+pTpFLRjpl8HDo+68PER-vEABY2hV0lITHVLp8kABWO5nRAANkBYzCk161AYdAARjAGAAFAbxLwKLDrAAWOA+ey+SROsOhT0qrzokRAaMx2LxcSKICJpPJ4MpSAA7DCkAl+TdECIaaK0VgwB0oHQ4CS1iz6cDNFg4Dg4ABCCkSn60xHPKR6OAqcykHqcAB6mSyBq+AOl8JNlXNlutkTtmWqXAonCAA
+        \begin{tikzcd}
+            0 \arrow[r] & \ker_{\text{pre}}\vf(U) \arrow[r, "\iota"] \arrow[d, "\exists!", dashed] & \cF(U) \arrow[r, "\vf(U)"] \arrow[d, "{\res_{U,U_i}^\cF}"] & \cG(U) \arrow[d, "{\res_{U,U_i}^\cG}"] \\
+            0 \arrow[r] & \ker_{\text{pre}}\vf(U_i) \arrow[r, "\iota_i"']                          & \cF(U_i) \arrow[r, "\vf(U_i)"']                            & \cG(U_i)                              
+        \end{tikzcd}
+        \end{center}
+        So let us assume that for all $i$, we have $\res^{\ker}_{U,U_i}(f)=\res^{\ker}_{U,U_i}(g)$. We can include them into $\cF(U_i)$ with $\iota_i$ show that we have 
+        $$\iota_i\bonj{\res^{\ker}_{U,U_i}(f)}=\iota_i\bonj{\res^{\ker}_{U,U_i}(g)}$$
+        but as we have (assumed) that $\ker_{\text{pre}}\vf$ is a presheaf, the left square commutes. So we have 
+        $$\res^{\cF}_{U,U_i}\left(\iota(f)\right)=\res^{\cF}_{U,U_i}\left(\iota(g)\right)$$
+        which by the identiy axiom on $\cF$, we have that $\iota(f)=\iota(g)$. As $\iota$ is injective we have that $f=g$, verifying the identity axiom on $\ker_{\text{pre}}\vf$.
+        \item Once again consider an open cover $(U_i)$ of $U\subseteq X$ with $f_i\in \ker_{\text{pre}}\vf(U_i)$ for each $i$. Assume that for all $i,j$ we have 
+        $$\res^{\ker}_{U_i,U_i\cap U_j}(f_i)=\res^{\ker}_{U_j,U_i\cap U_j}(f_j)$$
+        then, using the corresponding inclusion map which $\iota_{ij}\:\ker_{\text{pre}}\vf(U_i\cap U_j)\to\cF(U_i\cap U_j )$ we get 
+        $$\iota_{ij}\bonj{\res^{\ker}_{U_i,U_i\cap U_j}(f_i)}=\iota_{ij}\bonj{\res^{\ker}_{U_j,U_i\cap U_j}(f_j)}$$
+        which leads us to 
+        $$\res^{\cF}_{U_i,U_i\cap U_j}\bonj{\iota_i(f_i)}=\res^{\cF}_{U_i,U_i\cap U_j}\bonj{\iota_j(f_j)}$$
+        by commutitativy of the left square of the following diagram (and a similar one for $j$):
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYAdKQGsYAJwD6wGThgAPHMDQKYnTjJoAzABQBVJVgCUXHiAzY8BIiKFj6zVohAz5y1Sl1LR09AyMzSywZAGM6NAACSwArW25eJwEiACZRak9JH1iAMQsrNPtHfhcUAGY88S9pKRiAcTKbOwzqwWRc93yJb18W0qjY+KSlVK6HPmde+oHGwpG2jonElIruhaIyZYLhjk4xGCgAc3giUGMFCABbJDIQHAgkIXSQO8eP6jekPUVsMZPgcHQrLMfk9EECAYgACyDJpFKQmDo7b73GEAVn+70QADZkasIhsWpNtiBqAw6AAjGAMAAK8yyPgUWAuAAscFDsUhcq8CXjgc0wRDgFhkpxqSBaQzmayaiAOdzeV9oUgAOz4gUa-mIERCgU0rBgYZwCAMLBQWVHZp6OAqKKkcYUrbTTgAPUC-hl+t+sN1iBF9tRjudVldVk2U2lXpKfMDSONRJJIKkEeALrdcQ98dirS4FE4QA
+\begin{tikzcd}
+    0 \arrow[r] & \ker_{\text{pre}}\vf(U_i) \arrow[r, "\iota_i"] \arrow[d, "{\res_{U_i,U_i\cap U_j}^{\ker}}"] & \cF(U_i) \arrow[r, "\vf(U_i)"] \arrow[d, "{\res_{U_i,U_i\cap U_j}^\cF}"] & \cG(U_i) \arrow[d, "{\res_{U_i,U_i\cap U_j}^\cG}"] \\
+    0 \arrow[r] & \ker_{\text{pre}}\vf(U_i\cap U_j) \arrow[r, "\iota_{ij}"']                                  & \cF(U_i\cap U_j) \arrow[r, "\vf(U_i\cap U_j)"']                          & \cG(U_i\cap U_j)                                  
+    \end{tikzcd}
+        \end{center}
+        Gluing inside $\cF$ we get $\widetilde{f}\in\cF(U)$ such that $\res_{U,U_i}^{\cF}(\widetilde{f})=\iota_i(f_i)$. Mapping $\tilde{f}$ through $\vf(U)$ we can restrict to the covering set to get 
+        $$\res_{U,U_i}^{\cG}\bonj{\vf(U)(\tilde{f})}=\vf(U_i)\bonj{\res_{U,U_i}^{\cF}(\tilde{f})}=\vf(U_i)\bonj{\iota_i(f_i)}=0$$
+        which means that $\vf(U)(\tilde{f})$ restricts to 0. As $\cG$ is a sheaf, it must occur that $\vf(U)(\tilde{f})=0$ and therefore by exactness of the kernel we find $f\in\ker_{\text{pre}}\vf(U)$ such that $\iota(f)=\tilde{f}$. Such $f$ is the desired element which satisfies the gluing axiom for $\ker_{\text{pre}}\vf$.
+    \end{enumerate}
+\end{ptcbr}
+\begin{Ej}[2.4.C Vakil]
+    If $\vf,\psi$ are morphisms from a presheaf of sets $\cF$ to a sheaf of sets $\cG$ that induce the same maps on each stalk, show that $\vf=\psi$. As a hint consider the following diagram:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMQAoAqgEoQAX1LpMufIRQBGclVqMWbTlwDigkeMnY8BImTlL6zVog7s0AJ2gB9YGk5YwAAgGj1Pe2jESQDH0ZIgUTajNVS05bBycXd091DV8xJRgoAHN4IlAAMzsAWyQyEBwIJAAmXRACiGLESupypABmGrqG0pbEOQ6ipAUyisRW5rosBjYACwgIAGsQagY6ACMYBgAFKQNZEAYYPJw00SA
+\begin{tikzcd}
+    \cF(U) \arrow[d] \arrow[r]    & \cG(U) \arrow[d, hook] \\
+    \prod_{p\in U}\cF_p \arrow[r] & \prod_{p\in U}\cG_p   
+    \end{tikzcd}
+    \end{center}
+\end{Ej}
+
+\red{UNFINISHED}
+
 \end{document} 
