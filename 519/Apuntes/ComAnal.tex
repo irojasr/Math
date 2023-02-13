@@ -849,9 +849,179 @@ $$f(z)=\frac{1}{2\pi i}\oint\limits_C\frac{f(w)}{w-z}\dd w.$$
     \end{enumerate}
 \end{Th}
 
-\begin{ptcbp}
+\section{Interim 4| HW4}
 
-\end{ptcbp}
+\begin{Ej}
+    In this problem, we'll use the Cauchy integral formula to show that an analytic function has a power series representation.\par
+    Suppose $f$ is analytic on an open set containing $\ov{B}(0,R)$. We will show that, on $B(0,R)$, there is an equality of functions
+    $$f(z)=\sum_{n\geq 0}a_nz^n,\word{where}a_n=\frac{f^{(n)}(0)}{n!}.$$
+    Let $\cC=\del B(0,R)$ be the circle of radius $R$ centered at the origin oriented in positive direction. Fix $z$ with $|z|<r=R$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Show that 
+        $$f(z)=\frac{1}{2\pi i}\oint\limits_\cC g(w)f(w)\dd w,\word{where}g(w)=\frac{1}{w}\frac{1}{1-z/w}.$$
+        \item Let $N\in\bN$. Show that 
+        $$g(w)=\sum_{n=0}^{N-1}\frac{z^n}{w^{n+1}}+\frac{z^N}{(w-z)w^N}.$$
+        \item Show that 
+        $$f(z)=\sum_{n=0}^{N-1}\frac{f^{(n)}(0)}{n!}z^n+\rho_N(z),\word{where}\rho_N(z)=\frac{z^N}{2\pi i}\oint\limits_\cC\frac{f(w)}{(w-z)w^N}\dd w.$$
+        \item Let $M=\sup_{z\in\cC}|f(z)|$, show that 
+        $$|\rho_N(z)|\leq\frac{rM}{R-r}\left(\frac{r}{R}\right)^{N-1}.$$
+        \hint{If $w\in\cC$, then $|w-z|\geq R-r$.}
+        \item Show that $\lim_{N\to\infty}\rho_N(z)=0$.
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item By Cauchy's formula for $z\in B(0,R)$ we have 
+        $$f(z)=\frac{1}{2\pi i}\oint\limits_\cC\frac{f(w)}{w-z}\dd z.$$
+        Taking the $\frac{1}{w-z}$ and factoring a $w$ on the bottom we get 
+        $$\frac{1}{w-z}=\frac{1}{w(1-z/w)}=\frac{1}{w}\frac{1}{1-z/w}.$$
+        Replacing inside the integral we get the desired equality. 
+        \item Consider the geometric series with common term $\frac{z}{w}$, we have the following:
+        $$
+        \left\lbrace
+        \begin{aligned}
+            &\sum_{n=0}^\infty \left(\frac
+            {z}{w}\right)^n=\frac{1}{1-z/w}\\
+            &\sum_{n=0}^{N-1} \left(\frac
+            {z}{w}\right)^n=\frac{1-(z/w)^N}{1-(z/w)}
+        \end{aligned}
+        \right.
+        $$
+        Now notice that 
+        \begin{align*}
+            &\frac{1}{1-z/w}-\frac{1-(z/w)^N}{1-(z/w)}=\frac{(z/w)^N}{1-(z/w)}\\
+            \To&g(w)-\frac{1}{w}\sum_{n=0}^{N-1} \left(\frac
+            {z}{w}\right)^n=\frac{(z/w)^N}{w-z}\\
+            \To&g(w)=\sum_{n=0}^{N-1}\frac{z^n}{w^{n+1}}+\frac{z^N}{(w-z)w^N}.
+        \end{align*}
+        \item Replacing the last value on the identity of the first item we get 
+        $$f(z)=\frac{1}{2\pi i}\oint\limits_\cC \left(\sum_{n=0}^{N-1}\frac{z^n}{w^{n+1}}+\frac{z^N}{(w-z)w^N}\right)f(w)\dd w$$
+        and as the sum is finite, it commutes with the integral without any restrictions. Exchanging the integral we get 
+        $$\sum_{n=0}^{N-1}\frac{1}{2\pi i}\oint\limits_\cC \left(\frac{z^n}{w^{n+1}}f(w)\dd w\right)+\frac{1}{2\pi i}\oint\limits_\cC \frac{z^N}{(w-z)w^N}f(w)\dd w.$$
+        Using Cauchy's integral formula for derivatives we have 
+        \begin{align*}
+        &f^{(n)}(0)=\frac{n!}{2\pi i}\oint\limits_\cC\frac{f(w)}{(w-0)^{n+1}}\dd w\\
+        \To&\frac{f^{(n)}(0)}{n!}=\frac{1}{2\pi i}\oint\limits_\cC\frac{f(w)}{w^{n+1}}\dd w.
+        \end{align*}
+        So when factoring out the $z$'s from the previous expressions we obtain 
+        $$\sum_{n=0}^{N-1}z^n\frac{f^{(n)}(0)}{n!}+\frac{z^N}{2\pi i}\oint\limits_\cC \frac{f(w)}{(w-z)w^N}\dd w.$$
+        This is the desired expression. 
+        \item For this item, it is paramount to remember that $|z|=r<R$ and points $w\in\cC$ satisfy $|w|=R$. Now look at the following diagram: 
+        \begin{center}
+
+
+
+
+        \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+        \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+        
+        %Shape: Circle [id:dp4346947048117715] 
+        \draw   (200,150) .. controls (200,122.39) and (222.39,100) .. (250,100) .. controls (277.61,100) and (300,122.39) .. (300,150) .. controls (300,177.61) and (277.61,200) .. (250,200) .. controls (222.39,200) and (200,177.61) .. (200,150) -- cycle ;
+        %Shape: Circle [id:dp5633091016774019] 
+        \draw   (225,150) .. controls (225,136.19) and (236.19,125) .. (250,125) .. controls (263.81,125) and (275,136.19) .. (275,150) .. controls (275,163.81) and (263.81,175) .. (250,175) .. controls (236.19,175) and (225,163.81) .. (225,150) -- cycle ;
+        %Straight Lines [id:da044579420049741914] 
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (270.25,104.56) -- (260.13,127.28) ;
+        %Straight Lines [id:da9218408814716863] 
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (295.8,130.2) -- (260.13,127.28) ;
+        %Straight Lines [id:da5249492794602243] 
+        \draw  [dash pattern={on 4.5pt off 4.5pt}]  (309.8,149) -- (280.6,131) ;
+        %Straight Lines [id:da7471615005961604] 
+        \draw  [dash pattern={on 4.5pt off 4.5pt}]  (265.19,115.92) -- (241.8,90.6) ;
+        %Shape: Circle [id:dp8921119746382541] 
+        \draw   (259.3,127) .. controls (259.3,126.45) and (259.75,126) .. (260.3,126) .. controls (260.85,126) and (261.3,126.45) .. (261.3,127) .. controls (261.3,127.55) and (260.85,128) .. (260.3,128) .. controls (259.75,128) and (259.3,127.55) .. (259.3,127) -- cycle ;
+        %Shape: Circle [id:dp188848317748754] 
+        \draw   (295.1,130.3) .. controls (295.1,129.75) and (295.55,129.3) .. (296.1,129.3) .. controls (296.65,129.3) and (297.1,129.75) .. (297.1,130.3) .. controls (297.1,130.85) and (296.65,131.3) .. (296.1,131.3) .. controls (295.55,131.3) and (295.1,130.85) .. (295.1,130.3) -- cycle ;
+        
+        % Text Node
+        \draw (257.13,124.88) node [anchor=south] [inner sep=0.75pt]  [font=\tiny]  {$z$};
+        % Text Node
+        \draw (297.8,133.8) node [anchor=south west] [inner sep=0.75pt]  [font=\tiny]  {$w$};
+        % Text Node
+        \draw (311.8,157.93) node [anchor=south west] [inner sep=0.75pt]  [font=\tiny]  {$d( w,z)$};
+        % Text Node
+        \draw (246.8,94.2) node [anchor=south east] [inner sep=0.75pt]  [font=\tiny]  {$R-r$};
+        
+        
+        \end{tikzpicture}
+        
+        
+
+
+        \end{center}
+        Recall that for a closed set $C$ $d(z,C)=\min_{w\in C}\set{d(w,z)}$. In the case of the disk of radius $R$ we have that 
+        $$d(z,\cC)=R-r\geq d(z,w),\word{where}w\in\cC.$$
+        This means that 
+        $$|w-z|\geq R-r\To\frac{1}{|w-z|}\leq\frac{1}{R-r}.$$
+        Now taking the complex modulus of $\rho_N$ for $z$ with $|z|=r$, we have
+        $$|\rho_N(z)|\leq\frac{r^n}{2\pi}\oint\limits_\cC\frac{|f(z)|}{|w-z||w|^N}\dd w\leq \frac{r^N}{2\pi}\frac{M}{(R-r)R^N}(2\pi R)=\frac{Mr}{R-r}\left(\frac{r}{R}\right)^{N-1}.$$
+        \item It suffices to show that $|\rho_N|\to 0$ as this implies $\rho_N\to0$. Notice that $\frac{r}{R}<1$ because $r<R$. So this means that $\left(\frac{r}{R}\right)^{N-1}<\frac{\eps(R-r)}{rM}$ where $\eps>0$ and $N$ is large enough. Thus for such an $N$ we have 
+        $$|\rho_N(z)|\leq \frac{rM}{R-r}\left(\frac{r}{R}\right)^{N-1}<\frac{rM}{R-r}\frac{\eps(R-r)}{rM}=\eps.$$
+        We thus conclude that $|\rho_N(z)|\to 0$ as $N\to\infty$ and therefore $\rho_N\to 0$ as well.
+    \end{enumerate}
+\end{ptcbr}
+\begin{Ej}
+    For $0\leq r\leq n$, the binomial coefficient $\binom{n}{r}$ is defined by $\binom{n}{r}=\frac{n!}{r!(n-r)!}$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Let $\ga=\del B(0,1)$, the positive, circular arc around $0$ with radius $1$. Show that 
+        $$\binom{n}{r}=\frac{1}{2\pi i}\oint\limits_\ga \frac{(1+z)^n}{z^{r+1}}\dd z.$$
+        \aside{In fact, this works for any simple closed curve around the origin.}
+        \item Use the previous item to show that $\binom{n}{r}\leq 2^n$. \emph{This can also be shown directly by computing $(1+1)^n$.}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Notice that the integral in question, by the binomial theorem is: 
+        $$\frac{1}{2\pi i}\oint\limits_\ga \frac{1}{z^{r+1}}\left(\sum_{k=0}^{n}\binom{n}{k}z^k\right)\dd z=\frac{1}{2\pi i}\sum_{k=0}^n\binom{n}{k}\oint\limits_{\ga}z^{k-r-1}\dd z.$$
+        Notice that most of the terms in the sum are actually zero because %$z^{k-r-1}$ is holomorphic about the origin.
+        $$\oint\limits_{\ga}z^{k-r-1}\dd z=(2\pi i)\dl_{kr}.$$
+        With this, we have the desired equality as the expression is equal to 
+        $$\frac{1}{2\pi i}\binom{n}{r}\oint\limits_{\ga}z^{-1}\dd z=\binom{n}{r}.$$
+        \item Now bounding terms in the integral we have that 
+        $$\binom{n}{r}\leq\frac{1}{2\pi}(2^n)\text{len}(\ga)=2^n.$$
+    \end{enumerate}
+\end{ptcbr}
+\begin{Ej}[\cite{Stein} 2.7]
+    Suppose $f\:\bD\to\bC$ is holomorphic. Show that the diameter $d=\sup_{z,w\in\bD}|f(z)-f(w)|$ of the image of $f$ satisfies $2|f'(0)|\leq d$.\par
+    Moreover, it can be shown that equality holds precisely when $f$ is linear, $f(z)=az+b$.
+    \aside{In connection with this result, see the relationship between the diameter of a curve and Fourier series described in Problem 1, Chapter 4, Book I.}
+    \hint{$2f'(0)=\frac{1}{2\pi i}\oint\limits_{|\ze|=r}\frac{f(\ze)-f(-\ze)}{\ze^2}\dd\ze$ when $0<r<1$.}
+\end{Ej}
+%https://math.stackexchange.com/questions/1375438/stein-shakarchi-complex-analysis-ch-2-ex-7?noredirect=1&lq=1
+\begin{ptcbr}
+    To show the desired identity for $f'(0)$ it suffices to use Cauchy's formula:
+    $$f'(z)=\frac{1}{2\pi i}\oint\limits_{|w|=r}\frac{f(w)}{(w-z)^2}\dd w\To f'(0)=\frac{1}{2\pi i}\oint\limits_{|w|=r}\frac{f(w)}{w^2}\dd w.$$
+    Now take the change of variable $w=-u\To \dd w=-\dd u$. The curve through which we are integrating remains the same, as $|w|=|-u|=|u|$. Thus 
+    $$f'(0)=\frac{1}{2\pi i}\oint\limits_{|u|=r}\frac{-f(u)}{u^2}\dd u.$$
+    Renaming variables and adding the last two results we get 
+    $$2f'(0)=\frac{1}{2\pi i}\oint\limits_{|\ze|=r}\frac{f(\ze)-f(-\ze)}{\ze^2}\dd\ze.$$
+    Taking the complex modulus we see that 
+    $$2|f'(0)|\leq\frac{1}{2\pi}\oint\limits_{|\ze|=r}\frac{|f(\ze)-f(-\ze)|}{|\ze|^2}\dd\ze\leq \frac{1}{2\pi r^2}\sup_{|\ze|=r}|f(\ze)-f(-\ze)|(2\pi r)$$
+    As $\set{|\ze|=r}\subseteq\bD$ we have that 
+    $$\sup_{|\ze|=r}|f(\ze)-f(-\ze)|\leq d\To 2|f'(0)|\leq\frac{d}{r}.$$
+    As the last inequality holds for all $0<r<1$, in particular we have that 
+    $$|f'(0)|\leq\inf_{0<r<1}\frac{d}{r}=d$$
+    which is the desired inequality.
+    %https://math.stackexchange.com/questions/3619008/2-leftf0-right-sup-z-omega-in-mathbbd-leftfz-f-omega-right?noredirect=1&lq=1
+    %https://math.stackexchange.com/questions/339569/a-result-similar-to-schwarz-lemma
+    %http://manetheren.bigw.org/~ray/diampblm.pdf
+\end{ptcbr}
+\begin{Ej}
+    Let $\Om$ be a bounded open subset of $\bC$, and $\vf\:\Om\to\Om$ a holomorphic function. Prove that if there exists a point $z_0\in\Om$ such that $\vf(z_0)=z_0$ and $\vf'(z_0)=1$,
+    then $\vf$ is linear.
+\hint{Why can one assume that $z_0=0$? Write $z+a_nz^n+O(z^{n+1})$ near $0$, and prove that if $\vf_k=\vf\circ\vf\circ\dots\circ\vf$ (where $\vf$ appears $k$ times), then $\vf_k(z)=ka_nz^n+O(z^{n+1})$. Apply the Cauchy inequalities and let $k\to\infty$ to conclude the proof.}
+\end{Ej}
+
+\begin{ptcbr}
+    %https://math.stackexchange.com/questions/275270/holomorphic-function-varphi-with-fixed-point-z-0-such-that-varphiz-o-1
+\end{ptcbr}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
