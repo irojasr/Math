@@ -1021,7 +1021,54 @@ $$f(z)=\frac{1}{2\pi i}\oint\limits_C\frac{f(w)}{w-z}\dd w.$$
 
 \begin{ptcbr}
     %https://math.stackexchange.com/questions/275270/holomorphic-function-varphi-with-fixed-point-z-0-such-that-varphiz-o-1
+   Let us begin by making some observations:
+   \begin{itemize}
+    \itemsep=-0.4em
+    \item As $\vf$ is holomorphic inside $\Om$, it is analytic inside $\Om$ and thus we may write it as a power series centered at $z_0$
+    $$\vf(z)=\sum_{n\geq 0}^{}a_n(z-z_0)^n.$$
+    The conditions in the problem imply that $a_0=z_0$ and $a_1=1$ which means that 
+    $$\vf(z)=z_0+(z-z_0)+\sum_{n\geq 2}^{}a_n(z-z_0)^n.$$
+   \end{itemize}
 \end{ptcbr}
+
+\section{Day 11| 20230213}
+
+We have used the Cauchy integral formula for derivatives. As a corollary we have that 
+
+\begin{Cor}
+    If $f$ is holomorphic about $z_0\in\Om$, then $f$ is analytic at $z_0$.
+\end{Cor}
+
+\begin{Th}
+    Suppose $f$ is holomorphic on a domain $\Om$ with $(z_n)\subseteq\Om$ such that $z_n\to z_0\in\Om$. Suppose that $f(z_n)=0$ for all $n$, then $f$ is identically zero.
+\end{Th}
+
+\begin{ptcbp}
+    About $z_0$ we have 
+    $$f(z)=\sum_{n\geq m}^{}a_n(z-z_0)^n=(z-z_0)^m\sum_{n\geq m}^{}a_n(z-z_0)^{n-m}=(z-z_0)^mg(z),\ a_m\neq 0.$$
+    We also have that $g(z_0)=a_m\neq 0$. As $g$ is holomorphic, $|z-z_0|<\eps$ implies $g(z)\neq 0$. But for large enough $k$, if $|z_k-z_0|<\eps$, if $f(z_k)=0$, then 
+    $$f(z_k)=(z_k-z_0)^mg(z_k).$$
+\end{ptcbp}
+
+\begin{Th}
+    Suppose $f,g$ are holomorphic on a domain $\Om$. Suppose also that there is a non-constant sequence $(z_n)\subseteq\Om$ such that $z_n\to z\in\Om$ and $f(z_n)=g(z_n)$. Then $f=g$.
+\end{Th}
+
+\begin{ptcbp}
+    Letting $h=f-g$, we see that $h$ is identically zero with the previous result so $f=g$.
+\end{ptcbp}
+
+\begin{Def}
+    We say a that a sequence of functions $(f_n)$ converges to $f$ pointwise on $S$, if 
+    $$\forall z(f_n(z)\xrightarrow[]{n\to\infty} f(z)).$$
+    Meanwhile the convergence is uniform if 
+    $$\norm{f_n-f}_\infty\xrightarrow[]{n\to\infty}0.$$
+\end{Def}
+
+\begin{Ex}
+    The sequence of functions $(z^n)$ converges pointwise to $\dl_{z0}$ which is not continuous. Uniform convergence preserves continuity so $(z^n)$ is not uniformly convergent.\par
+    Power series converge uniformly.
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

@@ -939,6 +939,9 @@ For decreasing subsequences we have the same argument. To wrap it up we have a t
 
 \subsection{Jeu de taquin}
 
+%https://encyclopediaofmath.org/wiki/Jeu_de_taquin
+%READ
+
 The phrase \emph{jeu de taquin} means ``teasing game''. This process is equivalent to RSK and insertion. As motivation, inserting $\emptyset\leftarrow w$ and then insert $\rho$ and finally $\pi$, then this is the same as 
 $$w\leftarrow\text{rw}(\text{ins}(\rho)\leftarrow \pi).$$
 This means that there's some \emph{associativity} in this operation. 
@@ -1000,6 +1003,103 @@ We can continue applying the process to the following inner corners to get a SSY
 \begin{Rmk}
     The rw of the skew-shape is the same as the rectification.
 \end{Rmk}
+
+\section{Day 11| 20230213}
+
+Recall we have talked about the Jeu de Taquin. We observed that JDT slides send skew SSYT to other skew SSYT. To show compatibility with Knuth-equivalence, we want will require a more general definition of reading word because for example in the middle of a JDT we may have 
+$$\young(3478,::2:4,::1133).$$
+
+\begin{Def}
+    A \term{reading word} of any labeled set of boxes in the $1^{\text{st}}$ quadrant is formed by reading the rows from top to bottom L to R with each row.
+\end{Def}
+
+\begin{Lem}
+    If a skew SSYT $S$ is obtained from another skew SSYT $T$ by a sequence of JDT slides, then $\text{rw}(S)\sim_K\text{rw}(T)$.
+\end{Lem}
+\begin{ptcbp}
+    Assume $S,T$ differ by one inner-slide. There are a couple of cases, we'll show that at each step of the slide the Knuth equivalence class of the reading word is unchanged. (Even when we haven't finished the slide.)\par 
+    The first case is when we do a horizontal slide 
+    $$\young(a,xb)\to \young(a,bx)$$
+    and nothing happens here because the reading word is still $ab$. The interesting case is the vertical slide.\par 
+PROOF BY EXAMPLE
+\end{ptcbp}
+
+\begin{Ex}
+    Consider the tableau 
+    $$\young(stuff,12567T,::34x89)\to\young(1256xT,::34789)$$
+    the reading word changes from $12567T3489$ to $1256T34789$. We will apply Knuth moves to the reading word of the original tableau.\par 
+    We need an algorithm to guarantee that we get from one point to another. It suffices to consider the subword $567T348$ on the smaller window 
+    $$\young(567T,34x8)$$
+    Thinking in steps we want to move the $3$ backwards past the $7$, then $4$ and finally pull the $10$ back. We have 
+    $$567T348\to 5673T48$$
+    Notice that $6>3$ because $6>4>3$ and it's also less than $7$, there's still something still past the $7$ which we can use to move the $3$. We get 
+    $$5637T48\to56374T8$$
+    We use the $5$ to pull the $3$ out of the way, once again the $5$ is there due to semi-standardness. We get 
+    $$53674T8\to 53647T8$$
+    and to move the $T=10$ we use the $8$ which is below $10$ due to semi-standardness. Applying a Knuth  move with $7T8$ we obtain 
+    $$5364T78\to 5634T78\to563T478\to 56T3478$$ 
+\end{Ex}
+
+\begin{Rmk}
+    If we had more \emph{stuff} we would wave to take a longer subword.
+\end{Rmk}
+
+We said the rectification was the end goal of a JDT, with this in hand we can \emph{well}-define it. 
+
+\begin{Def}
+    The \term{rectification} of a SSYT is formed by performing inner JDT slides until we have a straight shape. 
+\end{Def}
+
+This is well defined because no matter the order of slides, the reading word of the rectification is equivalent to the reading word of the original tableau.\par 
+As the Knuth equivalence determines the insertion tableau (rect(T)=ins(rw(T))) (knuth class=ins tableau thm.) So putting it all together we see it works.
+
+\begin{Ex}
+    Rectify the tableau 
+    $$\young(24,:15,::3)\to\young(2,145,::3)\to\young(2,14,:35)\to\young(24,135).$$
+    However we can also do 
+    $$\young(24,:15,::3)\to\young(2,:45,:13)\to\young(245,:13)\to\young(24,135).$$
+    The Knuth equivalence of the reading words of all tableau is the same! The other method is to take the reading word of the original tableau $24153$ and then insert it to the corresponding tableau.
+\end{Ex}
+
+Now we can completely replace insertion with rectification because we can make any word with skew-tableau.
+
+\begin{Cor}
+    The rectification of the skew tableau
+    %$$\young(w_1,:w_2,::\ddots,:::w_n)$$
+    where $w$ is any word is $\text{ins}(w)$.
+\end{Cor}
+
+\begin{Ex}
+    Consider the tableau 
+    $$\young(5,467,1245,::::3),$$
+    we will rectify it and see it is the same as bump-inserting the $3$ into the tableau.
+    We get 
+    $$\young(5,467,1245,::::3)\to\to\young(5,467,124,::35)\to\to\young(56,447,1235)$$
+    \red{DO THE SLIDING}
+\end{Ex}
+
+Then doing the diagonal process is intuitively inserting by this process.
+
+\begin{Def}
+    We define the product of two tableau $T,U$ as the rectification of the skew tableau formed by connecting the lower right corner of $T$ to the upper left of $U$.\par 
+    Equivalently
+    $$T\circ U=\text{rect}(T\leftarrow\text{rw}(U)).$$
+    This gives us an associative operation because of the Knuth-equivalence. In consequence the set of tableaux is a monoid, as the identity element is the empty tableau.\par 
+    We define it as the \term{Plactic monoid}, the set of SSYT's of straight shape with $\circ$. 
+\end{Def}
+
+It's interesting to look at the Plactic monoid in terms of words as well. 
+
+\begin{Def}
+    The Plactic monoid is the $\set{\text{words}}/\sim$ with the concatenation of words as the operation and $\sim$ is Knuth-equivalence.
+\end{Def}
+
+\begin{Ex}
+    If $w=\bonj{2131},v=[2213]$, then 
+    $$wv=\bonj{21312213}=\bonj{21132213}.$$
+\end{Ex}
+
+For the next class we will talk about skew Schur functions. We will build up to writing skew functions in terms of the ordinary ones.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
