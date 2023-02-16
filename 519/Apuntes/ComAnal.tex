@@ -1028,7 +1028,29 @@ $$f(z)=\frac{1}{2\pi i}\oint\limits_C\frac{f(w)}{w-z}\dd w.$$
     $$\vf(z)=\sum_{n\geq 0}^{}a_n(z-z_0)^n.$$
     The conditions in the problem imply that $a_0=z_0$ and $a_1=1$ which means that 
     $$\vf(z)=z_0+(z-z_0)+\sum_{n\geq 2}^{}a_n(z-z_0)^n.$$
+    \item We can thus consider the function $\vf(z)-z_0$ and move the whole domain to the origin by translating by $z_0$. This way we can reinterpret 
+    $$\vf(z)=z+\sum_{n\geq 2}a_nz^n.$$
+    \item Suppose $m\geq 2$ is the smallest integer such that $a_m\neq 0$ in the expansion of $\vf$, we this we have  
+    $$\vf(z)=z+a_mz^m+O(z^{m+1}).$$
+    \item $\vf$ is a bounded function because $\text{im}(\vf)\subseteq\Om$ and as $\Om$ is bounded, there exists $r>0$ such that $\Om\subseteq B(0,r)$. this means that $\norm{\vf}_{\infty}\leq r$. 
    \end{itemize}
+   With this in hand we are ready to proceed. Consider the composition of $\vf$ with itself. We have 
+   \begin{align*}
+   &\vf\left(z+a_mz^{m}+O(z^{m+1})\right)\\
+   =&\left(z+a_mz^{m}+O(z^{m+1})\right)+a_m\left(z+a_mz^{m}+O(z^{m+1})\right)^m+O(z^{m+1})\\
+   =&z+a_mz^m+a_mz^m+O(z^{m+1})\\
+   =&z+2a_mz^m+O(z^{m+1}),
+   \end{align*}
+   where the second-to-last equality comes after expanding the $m^{\text{th}}$ power and realizing that all the other terms in the expansion belong in $O(z^{m+1})$. Inductively we have 
+   \begin{align*}
+    &\vf\left(z+(k-1)a_mz^{m}+O(z^{m+1})\right)\\
+    =&\left(z+(k-1)a_mz^{m}+O(z^{m+1})\right)+a_m\left(z+(k-1)a_mz^{m}+O(z^{m+1})\right)^m+O(z^{m+1})\\
+    =&z+(k-1)a_mz^m+a_mz^m+O(z^{m+1})\\
+    =&z+ka_mz^m+O(z^{m+1}),
+    \end{align*}
+    so in general $\vf_k$ is what we expect it to be. Notice that $vf_k$ is still a function from $\Om$ to $\Om$ which means it's uniformly bounded independent of $k$. Now by using the Cauchy inequality we have 
+    $$\left|D^m\vf_k(z)\right|=km!|a_m|\leq\frac{m!}{R^m}\norm{\vf_k}_{\infty}\To |a_m|\leq \frac{\norm{\vf_k}_\infty}{kR^m}\xrightarrow{k\to\infty}0.$$
+    As $m$ is the smallest index such that $a_m$ isn't zero, we conclude that there can be no such smallest index. All the $a_m$ are zero except for the linear coefficient and thus we conclude that $\vf$ is a linear function.
 \end{ptcbr}
 
 \section{Day 11| 20230213}
@@ -1069,6 +1091,20 @@ We have used the Cauchy integral formula for derivatives. As a corollary we have
     The sequence of functions $(z^n)$ converges pointwise to $\dl_{z0}$ which is not continuous. Uniform convergence preserves continuity so $(z^n)$ is not uniformly convergent.\par
     Power series converge uniformly.
 \end{Ex}
+
+\section{Day 12| 20230215}
+
+\begin{Th}
+    Suppose $(f_n)$ is a sequence of holomorphic functions such that $f_n\to f$ uniformly on compact sets. Then $f$ is holomorphic.
+\end{Th}
+
+\begin{Lem}[Uniform Convergence Theorem]
+    $f_n\to f$ uniformly $\To$ $\int f_k\to \int f$.
+\end{Lem}
+
+\begin{ptcbp}
+    By Morera's theorem, it's enough to show that for triangular contours in $\Om$, $\int\limits_Tf(z)\dd z=0$. The triangle is a compact set and so we are done.
+\end{ptcbp}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

@@ -36,6 +36,83 @@
 \end{Ej}
 
 \begin{ptcbr}
-   Recall that any horizontal strip has no blocks on top of each other. In this sense the only order that matters is left-to-right.
+   Recall that any horizontal strip has no blocks on top of each other. This means that the only order that matters is left-to-right. 
+\end{ptcbr}
+
+\begin{Ej}
+    Given an (undirected, labeled) graph $G$, a proper coloring of $G$ is an assignment of a positive integer “color” to each vertex such that no two adjacent vertices have the same color.\par 
+    If the colors assigned to the vertices are $c_1, c_2,\dots , c_n$ (with some $c_i$'s possibly being
+equal to each other), define the monomial of the coloring $C$ to be 
+$$x^c = x_{c_1} x_{c_2}\cdots x_{c_n}.$$  
+Finally, define the chromatic symmetric function of $G$ to be
+$$X_G(\un x)=\sum_cx^c$$
+where the sum ranges over all proper colorings $c$ of $G$.
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Show that $X_G$ is indeed a symmetric function for any graph $G$.
+    \item Prove that if $K_n$ is the complete graph on $n$ vertices, then $X_{K_n}=e_n$.
+    \item Compute $X_{P_3},X_{P_4}$ and $X_{P_5}$ and express them in terms of elementary and Schur bases.
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    Let's begin by talking again about the chromatic symmetric function. Suppose $c\: G\to[r]$ is an $r$-coloring of $G$, so for that particular coloring the monomial will be 
+    $$x_1^{|c^{-1}(1)|}x_2^{|c^{-1}(2)|}\cdots x_r^{|c^{-1}(r)|},$$ where $c^{-1}(i)$ is the inverse image of $i$, the vertices which are colored $i$.
+    \red{ATTACH EXAMPLE}
+    \begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item To show that $X_G$ is symmetric, we must show that 
+    $$X_G(\un{x})=X_G(\sg(\un x))=X_G(x_{\sg(1)},x_{\sg(2)},\dots).$$
+    The permutation acts on the indices which represent the colors, so a permutation of the variables is a permutation on the colors used to paint the graph. Let us see that after permuting the colors, we still get a proper coloring.\par 
+    With our coloring $c\: G\to[r]$, let $\sg\in S_r$. Pick $u,v\in G$ with $uv\in E$ such that $c(u)\neq c(v)$. So, as $\sg$ is a permutation we
+    $$c(u)\neq c(v)\To\sg(c(u))\neq\sg(c(v))\To \widetilde{c}(u)\neq \widetilde{c}(v)$$
+    where we have defined $\widetilde{c}=\sg\circ c$. The function $\widetilde{c}$ is also a proper coloring of $G$ and so, as $\sg$ was arbitrary, we see that a permutation of the colors gives us another proper coloring.\par 
+    In other words, a particular vertex colored $i$ is colored $j$ after applying $\sg$. As the vertex had no neighbors colored $i$, it won't have $j$ neighbors so the coloring is proper.\par
+    Finally, as $X_G$ runs through all possible colorings, after permuting we get the same sum but in a different order by the previous argument. We conclude that $X_G(\un{x})=X_G(\sg(\un x))$ and therefore $X_G$ is symmetric.
+    \item In the complete graph, all the vertices are connected which means proper colorings of $K_n$ use $n$ colors. So expanding $X_{K_n}$ by monomials, we see that each monomial contains $n$ different variables where each one is related to each vertex on $K_n$. Such expansion can be written as 
+    $$X_{K_n}=\sum_{(\ast)}x_{i_1}x_{i_2}\dots x_{i_n}$$
+    where $(\ast)\: i_1\neq i_2, i_1,\neq i_3,\dots,i_2\neq i_3\dots$ and so on. By ordering our vertices we get that $(\ast)$ becomes $i_1<i_2<\dots<i_n$ which brings us to $e_n$. So $X_{K_n}=e_n$.
+    \item The chromatic number of a path graph is 2, however the sum runs over all proper colorings so we may use more than 2.
+    \begin{itemize}
+        \item Beginning with $P_3$ we may color by alternating the colors corresponding to monomials of the form $x_i^2x_j$ or by painting all of the vertices differently ($x_ix_jx_k$). This means that 
+        $$X_{P_3}=m_{(2,1)}+m_{(1,1,1)}.$$
+        Using CoCalc to convert to the elementary and Schur basis we get 
+        $$X_{P_3}=e_{(2,1)}-2e_{3}=s_{(2,1)}-s_{(1,1,1)}.$$
+        \item For $P_4$ we have the following monomials
+        $$
+        \left\lbrace
+        \begin{aligned}
+            &x_i^2x_j^2\leftarrow\text{alternating 2 colors.}\\
+            &x_i^2x_jx_k\leftarrow\text{alternating }P_3\ \text{and one more color.}\\
+            &x_ix_jx_kx_\l\leftarrow\text{4 colors.}
+        \end{aligned}
+        \right.
+        $$
+        This means that 
+        \begin{align*}
+        X_{P_4}&=m_{(2,2)}+m_{(2,1,1)}+m_{(1,1,1,1)}\\
+        &=e_{(2,2)}-e_{(3,1)}-e_4\\
+        &=s_{(2,2)}-s_{(1,1,1,1)}.
+        \end{align*}
+        \item Finally for $P_5$ we can add another vertex of another color to all the previous colorings to get a coloring of $P_5$. This amounts to monomials of the form
+        $$
+        \left\lbrace
+        \begin{aligned}
+            &x_i^2x_j^2x_k\leftarrow\text{alternating 2 colors plus one more.}\\
+            &x_i^2x_jx_kx_\l\leftarrow\text{alternating }P_4\ \text{and one more color.}\\
+            &x_ix_jx_kx_\l x_m\leftarrow\text{4 colors plus one more.}
+        \end{aligned}
+        \right.
+        $$
+        With this, we are only missing a $2$-coloring of $P_5$ which is related to the monomial $x_i^3x_j^2$. We may consider a coloring of the form 
+        $$1-2-3-2-1$$
+        but this type of coloring is considered within the monomial $x_i^2x_j^2x_k$ for example. Recall that the number of variables is the number of colors used. With this we obtain:
+        \begin{align*}
+            X_{P_5}&=m_{(2,2,1)}+m_{(2,1,1,1)}+m_{(1,1,1,1,1)}+m_{(3,2)}\\
+            &=e_{(2,2,1)}-2e_{(3,1,1)}+3e_{(4,1)}-4e_5\\
+            &=s_{(3,2)}-s_{(3,1,1)}+s_{(2,1,1,1)}-2s_{(1,1,1,1,1)}.
+            \end{align*}
+    \end{itemize}
+    \end{enumerate}
 \end{ptcbr}
 \end{document} 

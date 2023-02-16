@@ -1100,6 +1100,66 @@ It's interesting to look at the Plactic monoid in terms of words as well.
 \end{Ex}
 
 For the next class we will talk about skew Schur functions. We will build up to writing skew functions in terms of the ordinary ones.
+
+\section{Day 12| 20230215}
+
+\subsection{Skew Schur functions}
+
+\begin{Def}
+    $$s_{\la/\mu}=\sum_{\ast}x^T$$
+    where $x^T=x^{\# 1's}x^{\# 2's}\dots$. This is still a symmetric function by the same proof as for $s_\la$.
+\end{Def}
+
+\begin{Ex}
+    Compute $s_{(3,2)/(1)}$ in terms of $m$ basis \red{PHOTO}
+\end{Ex}
+
+But instead we can see that this function is also $s_{(2,2)}+s_{(3,1)}$. It turns out that skew Schur functions are Schur positive. Recall that this means that in the Schur basis expansion, all of its coefficients are positive integers.
+
+\begin{Th}
+    $s_{\la/\mu}$ is Schur-positive,
+    $$s_{\la/\mu}=\sum_{\nu\vdash|\la|-|\mu|}c^{\la}_{\mu,\nu}s_\nu$$
+    The coefficients are called the Littlewood-Richardson coefficients.
+\end{Th}
+
+We can use the Littlewood-Richardson coefficients to count certain Young tableaux. However another way to compute coefficients which uses a similar rule is the \emph{Knutson-Tao puzzles}.
+
+\subsection{Littlewood-Richardson rule}
+
+\begin{Def}
+    A word $w$ of positive indices is (reverse) ballot, Yamanouchi, or lattice if every suffix $w_iw_{i+1}\dots w_n$ has partition content. This is that reading the word from right-to-left the number of $1's$ is greater the $2's$ and so on. 
+    $$\#1's\geq\#2's\geq\#3's\geq\dots$$
+\end{Def}
+
+\begin{Ex}
+    Consider the word $341231211$, this is Yamanouchi, while $21433231211$ is not Yamanouchi.
+\end{Ex}
+
+\begin{Def}
+    A skew tableau is called Littlewood-Richardson if its reading word is a Yamanouchi word.
+\end{Def}
+
+\begin{Th}
+    T?he Littlewood-Richardson coefficient is the number of Littlewood-Richardson tableaux of shape $\la/\mu$ and content $\nu$.
+\end{Th}
+
+\begin{Ex}
+    Let us find some Littlewood-Richarson coefficients. Consider 
+    $$\la/\mu=\young(~~,:~~),\ \nu=(2,2)$$
+    so we need to find L-R tableaux of shape $\la/\mu$ with content $(2,2)$ (2 ones and 2 twos). The only possibilities are 
+    $$\young(22,:11),\word{and}\young(12,:12)$$
+    and the latter's reading word is $1212$ which is not Yamanouchi because it ends in a 2 and not a 1.\par 
+    Let us now find the number of L-R tableaux with shape 
+    $$\young(~~,~~,::~~~,::::~~)$$
+    and content $(4,3,2)$. We have the following tableaux
+    $$\young(33,12,::122,::::11),\word{and}\young(33,22,::112,::::11)$$
+    This means that 
+    $$c^{(6,5,2,2)}_{(4,2),(4,3,2)}.$$
+\end{Ex}
+
+Notice that by proving this result, we immediately get that the skew Schur functions are Schur positive. We will use crystal-base theory. This comes from the representation theory of $\cU_{q}(\gsl_n)$.\par 
+A crystal of tableau sorts the monomials into a graph, let us for example consider 
+$$\young(2,11)$$
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
