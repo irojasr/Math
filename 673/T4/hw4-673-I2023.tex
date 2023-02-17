@@ -9,15 +9,92 @@
 \def\nextra {HW4}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-
+\DeclareMathOperator{\sh}{sh}
 \begin{document}
 %\begin{multicols}{2}
 
-\begin{Ej}[]
-   
+\begin{Ej}[2.4.H. Vakil]
+    Show that $\cF^{\text{sh}}$ (using the tautological restriction maps) forms a sheaf. 
 \end{Ej}
 
 \begin{ptcbr}
-
+We will prove both sheaf axioms:
+\begin{itemize}
+    \itemsep=-0.4em
+    \item Suppose $U\subseteq X$ is covered by $(U_i)$ and $f,g\in\cF^{\text{sh}}(U)$ are two sections such that $\res_{U,U_i}(f)=\res_{U,U_i}(g)$ for all $i$. Now in terms of germs we have that 
+    $$(f,U_i)\sim(g,U_i)$$
+    because they agree on the whole set $U_i$. So $(f_p)=(g_p)$ for $p\in U_i$ at the level of stalks. As $(U_i)$ is a cover of $U$ it holds that $(f_p)=(g_p)$ for $p\in U$, so as elements of $\prod_{p\in U}\cF_p$ they are equal.\par 
+    Now notice $(f_p)_{p\in U}$ is a collection of compatible germs, because every $p\in U$ is contained in some $U_i$ and the section $s\in\cF(U_i)$ that agrees as germs with $(f_p)$ is precisely the restriction of $f$ to that particular $U_i$. In other words, the $s$ we are looking for is $\res_{U,U_i}(f)$. By the same argument $(g_p)$ is also a collection of compatible germs and therefore both are in $\cF^{\text{sh}}(U)$. We conclude that $f=g$ as elements of $\cF^{\text{sh}}(U)$.
+    \item Once again take $(U_i)$ an open cover of $U\subseteq X$ but now $f_i\in\cF^{\text{sh}}(U_i)$ such that $\res_{U_i,U_i\cap U_j}(f_i)=\res_{U_j,U_i\cap U_j}(f_j)$. Once again in terms of germs we have 
+    $$(f_i,U_i\cap U_j)\sim(f_j,U_i\cap U_j)$$
+    so that $(f_{i,p})=(f_{j,p})$ for $p\in U_i\cap U_j$. This lets us define a collection of germs $(f_p)\in\prod_{p\in U}\cF_p$ such that for a fixed $p$, $f_p$ is $f_{i,p}$ where $p\in U_i$. This is a good definition because of the gluing condition. \par 
+    Finally we must show that this collection of germs is compatible. For that effect take $p\in U$, so $p\in U_i$ for some $i$. Then $(f_{i,p})$ is a collection of compatible germs in $U_i$, so 
+    $$\exists V(p\in V)\land \exists s(s\in\cF(V)\land s_q=f_{i,q})$$
+    for $q\in U_i$. But inside $U_i$ we have that $f_q$ coincides with $f_{i,q}$ and thus with $s_q$. But this argument holds for any $i$ and $V$ is a neighborhood of $p$ in $U$ so it must occur that $(f_p)$ is a collection of compatible germs. By construction, its restriction to $U_i$ is $f_i$ and thus we have found the glued function.
+\end{itemize}
 \end{ptcbr}
+
+\begin{Ej}[2.4.I. Vakil]
+    Describe a natural map of presheaves $\text{sh}\:\cF\to\cF^{\text{sh}}$.
+\end{Ej}
+
+\begin{ptcbr}
+    If $\sh$ were a map of presheaves then for $U\subseteq X$ open, 
+    $$\sh(U)\:\cF(U)\to\cF^{\sh}(U)$$ 
+    should commutes with restrictions.The most \emph{natural} idea of where to send $f\in\cF(U)$ is to the collection of germs $(f_p)_{p\in U}\in \prod_{p\in U}\cF_p$ and then checking that it's a compatible collection.\par 
+    We see that that is the case: any point $p\in U$ has $U$ as an open neighborhood and the section whose germs coincide with $f$'s on all of $U$ is $f$ itself. This means that $(f_p)$ is a compatible collection and thus is in $\cF^{\sh}(U)$.\par
+    \red{MISSING: show that it commutes with restrictions and makes the natural diagram commute.}
+\end{ptcbr}
+
+\begin{Ej}[2.4.J Vakil]
+    Show that the map $\sh$ satisfies the universal property of sheafification.
+\end{Ej}
+%https://math.stackexchange.com/questions/1122815/universal-property-of-sheafification
+
+\begin{ptcbr}
+    This problem is not asking us to restate the definition, it's asking us to take the previous map and then see that \emph{that} satisfies the universal property according to the definition.\par 
+    We want to see that if $\vf\:\cF\to\cG$ is a morphism of presheaves, then there exists a unique $\psi\:\cF^{\sh}\to\cG$ such that $\psi\circ\sh=\vf.$
+    In other words we want the following diagram to commute:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMRAF9S6TLnyEUARnJVajFm068AesE5wAFvwFCQGbHgJEpEmfWatEHbgHEBMmFADm8IqABmAJwgBbJGRA4EEgATNRm8pacNG4g1Ax0AEYwDAAKIgbiIB5Yjuo42u5evoj+gUhSsuYK7BoFIJ4+5dRliKEgDFhgFiBQdBoOsZURVjAAHlhwOHAAhJxo2Hb8QA
+\begin{tikzcd}
+    \cF \arrow[rd, "\vf"'] \arrow[r, "\sh"] & \cF^{\sh} \arrow[d, "\exists!", dashed] \\
+                                            & \cG                                        
+    \end{tikzcd}
+    \end{center}
+    For that effect, notice that $\vf$ induces a map of stalks:
+    $$(\vf_p)\:\prod_{p\in U}\cF_p\to\prod_{p\in U}\cG_p,$$
+    and we can restrict this map to only collections of compatible germs in order to build a map $\cF^{\sh}(U)\to\cG(U)$. \red{FINISH}
+\end{ptcbr}
+\begin{Ej}[2.4.K Vakil]
+    Show that the sheafification functor is left-adjoint to the forgetful functor from sheaves on $X$ to presheaves on $X$.
+\end{Ej}
+
+\begin{ptcbr}
+    We must show that $(\sh,\mathscr{F})$, where $\mathscr{F}$ is the forgetful functor, form an adjoint pair. This means that we must show that there is a natural bijection:
+    $$\Mor_{\text{sheaf}}(\cF^{\sh},\cG)\to\Mor_{\text{presheaf}}(\cF,\mathscr{F}(\cG)).$$
+    Let us describe the mappings:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item If we have $\vf\:\cF^{\sh}\to\cG$ then we get a map of presheaves by composing with $\sh\:\cF\to\cF^{\sh}$ so that 
+        $$(\vf\circ\sh)\:\cF\to\mathscr{F}(G)$$
+        is our desired map of presheaves.
+        \item On the other hand, if we have a map of presheaves
+        $$\psi\:\cF\to\mathscr{F}(\cG)$$
+        then we can extend it to all of $\cG$ by remembering $\cG$ is indeed a sheaf. Then, by the universal property\footnote{I know that we are using the universal property as mentioned in the book. However I fail to completely understand that this exercise is a restatement of the universal property.} of sheafification, there exists a unique morphism of sheaves 
+        $$\widetilde{\psi}\:\cF^{\sh}\to\cG,$$
+        and we have that $\psi=\widetilde{\psi}\circ\sh$.
+    \end{itemize}
+    This processes are inverses of each other so this is the bijection in question. \red{CHECK NATURAL}
+\end{ptcbr}
+
+\begin{Ej}
+    Suppose $\phi\:\cF\to\cG$ is a morphism of sheaves of sets on a topological space $X$. Show that the following are equivalent:
+\begin{enumerate}
+    \item $\phi$ is an epimorphism in the category of sheaves. 
+    \item $\phi$ is surjective on the level of stalks: $\phi_p\:\cF_p\to\cG_p$ is surjective for $p\in X$.
+\end{enumerate}
+\end{Ej}
+
+
 \end{document} 

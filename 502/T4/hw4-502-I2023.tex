@@ -13,8 +13,9 @@
 \usepackage{ytableau}
 \begin{document}
 
-\begin{Ej}[Mandatory]
-\emph{stuff}
+\begin{Ej}[Mandatory+2]
+    Use the
+    \ttt{ytableau} package to typeset the following skew tableau in \LaTeX. Rectify the tableau in question:
 \end{Ej}
 
 \begin{ptcbr}
@@ -29,17 +30,85 @@
         \none&\none&\none&\none&1&1&2&7&9
         \end{ytableau}
     $$
+We apply the topmost inner-slide we can find in each step as follows:
+\begin{enumerate}
+    \begin{multicols*}{2}
+        \item $\begin{ytableau}
+            8&10\\
+                5&5\\
+            \none&\none&4&6&6\\
+            \none&\none&1&2&2&3\\
+            \none&\none&\none&\none&1&1&2&7&9
+            \end{ytableau}$
+        \item $\begin{ytableau}
+            8&10\\
+                5&5\\
+            \none&4&6&6\\
+            \none&\none&1&2&2&3\\
+            \none&\none&\none&\none&1&1&2&7&9
+            \end{ytableau}$
+        \item $\begin{ytableau}
+                8\\
+                    5&10\\
+                4&5&6&6\\
+                \none&\none&1&2&2&3\\
+                \none&\none&\none&\none&1&1&2&7&9
+                \end{ytableau}$
+        \item $\begin{ytableau}
+            8\\
+                5&10\\
+            4&5&6&6\\
+            \none&1&2&2&3\\
+            \none&\none&\none&\none&1&1&2&7&9
+            \end{ytableau}$
+        \item $\begin{ytableau}
+            8\\
+                5&10\\
+            4&5&6&6\\
+            1&2&2&3\\
+            \none&\none&\none&\none&1&1&2&7&9
+            \end{ytableau}$
+        \item $\begin{ytableau}
+            8\\
+                5&10\\
+            4&5&6\\
+            2&2&3&6\\
+            1&1&1&2&7&9
+            \end{ytableau}$
+    \end{multicols*}
+        
+    \end{enumerate}
 \end{ptcbr}
 
+\iffalse
 \begin{Ej}[Exercise 3]
    Suppose $\la/\mu$ is a horizontal strip of size $n=|\la|-|\mu|$ consisting of rows of lengths $\al_1,\al_2,\dots,\al_k$. How many \emph{standard} Young tableaux are there of shape $\la/\mu$? 
 \end{Ej}
 
 \begin{ptcbr}
-   Recall that any horizontal strip has no blocks on top of each other. This means that the only order that matters is left-to-right. 
+   Recall that any horizontal strip has no blocks on top of each other. This means that the only order that matters is left-to-right.\par
+   Now from our $n$ numbers we may choose $\al_1$ of them to fill row 1. Notice that this choice implicitly defines an ordering on the numbers so that there are no invalid tableau and no repeated choices.\par 
+   The second row can be filled out by choosing $\al_2$ numbers from our remaining $n-\al_1$. And this process can be iterated so that the number of ways to fill out row $i$ is 
+   $$\binom{n-\al_1-\dots-\al_{i-1}}{\al_i}.$$
+   The choices for each row are independent of each other because the tableau is an horizontal row so we need not worry about inequalities other than the one inside the row.\par 
+   The total number of ways to fill this tableau is 
+   $$\binom{n}{\al_1}\binom{n-\al_1}{\al_2}\dots\binom{n-\al_1-\dots-\al_{k-1}}{\al_k}=\binom{n}{\al_1,\dots,\al_k}.$$
+\end{ptcbr}
+\fi
+\begin{Ej}[Exercise 4]
+    Suppose $\la/\mu$ is a horizontal strip skew shape of size $n =\abs{\la}-\abs{\mu}$, consisting of rows of
+lengths $\al_1,\dots,\al_k$. Show that 
+$$s_{\la/\mu}=h_{\al_1}\dots h_{\al_k}=\sum_{\nu}K_{\nu\al}s_\nu.$$
+\end{Ej}
+
+\begin{ptcbr}
+    The word $\al$ can be arranged in order $\al_1\geq\al_2\geq\dots\geq\al_k$ to make it a partition, from this, the second equality can be proven as we did in the lecture notes.\par 
+    Now for the first equality we can see that each $h_{\al_{i}}$ accounts (as a generating function) for the ways to fill out the row $i$. As the tableau is a horizontal strip, the rows are independent of each other so the ways to fill them out are accounted on the product 
+    $$h_{\al_1}\dots h_{\al_k}.$$
+    The function $s_{\la/\mu}$'s combinatorial definition accounts for the same thing, so it must hold that both expressions are equal.
 \end{ptcbr}
 
-\begin{Ej}
+\begin{Ej}[Exercise 6]
     Given an (undirected, labeled) graph $G$, a proper coloring of $G$ is an assignment of a positive integer “color” to each vertex such that no two adjacent vertices have the same color.\par 
     If the colors assigned to the vertices are $c_1, c_2,\dots , c_n$ (with some $c_i$'s possibly being
 equal to each other), define the monomial of the coloring $C$ to be 
@@ -58,7 +127,6 @@ where the sum ranges over all proper colorings $c$ of $G$.
 \begin{ptcbr}
     Let's begin by talking again about the chromatic symmetric function. Suppose $c\: G\to[r]$ is an $r$-coloring of $G$, so for that particular coloring the monomial will be 
     $$x_1^{|c^{-1}(1)|}x_2^{|c^{-1}(2)|}\cdots x_r^{|c^{-1}(r)|},$$ where $c^{-1}(i)$ is the inverse image of $i$, the vertices which are colored $i$.
-    \red{ATTACH EXAMPLE}
     \begin{enumerate}[i)]
     \itemsep=-0.4em
     \item To show that $X_G$ is symmetric, we must show that 
@@ -71,46 +139,60 @@ where the sum ranges over all proper colorings $c$ of $G$.
     Finally, as $X_G$ runs through all possible colorings, after permuting we get the same sum but in a different order by the previous argument. We conclude that $X_G(\un{x})=X_G(\sg(\un x))$ and therefore $X_G$ is symmetric.
     \item In the complete graph, all the vertices are connected which means proper colorings of $K_n$ use $n$ colors. So expanding $X_{K_n}$ by monomials, we see that each monomial contains $n$ different variables where each one is related to each vertex on $K_n$. Such expansion can be written as 
     $$X_{K_n}=\sum_{(\ast)}x_{i_1}x_{i_2}\dots x_{i_n}$$
-    where $(\ast)\: i_1\neq i_2, i_1,\neq i_3,\dots,i_2\neq i_3\dots$ and so on. By ordering our vertices we get that $(\ast)$ becomes $i_1<i_2<\dots<i_n$ which brings us to $e_n$. So $X_{K_n}=e_n$.
+    where $(\ast)\: i_1\neq i_2, i_1,\neq i_3,\dots,i_2\neq i_3\dots$ and so on. By ordering our vertices we get that $(\ast)$ becomes $i_1<i_2<\dots<i_n$ which brings us to $e_n$. However\footnote{I owe this observation \textbf{Kelsey} and \textbf{Trent}. Originally they said that $RBRB$ and $BRBR$ were different whence I said the contrary. I argued that in that case $X_{K_n}$ should be $n!e_n$, but it \emph{wasn't}. \textbf{You} were there for the climax of the story.} in this count, we are considering unlabeled vertices. By labeling vertices we get that $X_{K_n}$ is actually $n!e_n$ because of the $n!$ ways we can paint $n$ labeled objects with $n$ distinct colors.
     \item The chromatic number of a path graph is 2, however the sum runs over all proper colorings so we may use more than 2.
     \begin{itemize}
-        \item Beginning with $P_3$ we may color by alternating the colors corresponding to monomials of the form $x_i^2x_j$ or by painting all of the vertices differently ($x_ix_jx_k$). This means that 
-        $$X_{P_3}=m_{(2,1)}+m_{(1,1,1)}.$$
+        \item Beginning with $P_3$ we may color by alternating the colors corresponding to monomials of the form $x_i^2x_j$ or by painting all of the vertices differently ($x_ix_jx_k$). However we have $3!=6$ ways of painting the $3$ vertices with $3$ colors. This means that 
+        $$X_{P_3}=m_{(2,1)}+6m_{(1,1,1)}.$$
         Using CoCalc to convert to the elementary and Schur basis we get 
-        $$X_{P_3}=e_{(2,1)}-2e_{3}=s_{(2,1)}-s_{(1,1,1)}.$$
-        \item For $P_4$ we have the following monomials
+        $$X_{P_3}=e_{(2,1)}+3e_{3}=s_{(2,1)}+4s_{(1,1,1)}.$$
+        \item Let us now remember that $4$ can be partitioned into 
+        $$(4),\quad(3,1),\quad(2,2),\quad(2,1,1),\word{and}(1,1,1,1)$$
+        The partition corresponds to a coloring in the sense that $\la_i=|c^{-1}(i)|$ is the number of vertices colored $i$. While $(4)$ and $(3,1)$ don't work, we may\footnote{I will color according to the following order (red,blue,green,yellow,\dots).} paint with $(2,2)$ because we may have either 
+        $$\red{R}\blu{B}\red{R}\blu{B}\word{or}\blu{B}\red{R}\blu{B}\red{R}.$$
+        So this means that we have $2$ possible colorings with this partition.\par 
+        The partition $(2,1,1)$ is the partition $(2,1)$ after adding the color $\green{G}$. Originally in $P_3$ we only had $\red{R}\blu{B}\red{R}$ but we can insert $\green{G}$ at the ends or between any two colors which gives us four options. 
+        $$\red{R}\blu{B}\red{R}\green{G},\quad\red{R}\blu{B}\green{G}\red{R},\quad\red{R}\green{G}\blu{B}\red{R},\word{and}\green{G}\red{R}\blu{B}\red{R}.$$
+        However we can now consider $\red{R}\green{G}\red{R}\blu{B}$ and $\blu{B}\red{R}\green{G}\red{R}$ which were previously not allowed because the coloring wouldn't have been proper without the green in the middle. In total we have a $6m_{(2,1,1)}$ term.\par 
+        The partition $(1,1,1,1)$ accounts for all the possible $4$-colorings of $P_4$ which are 4. Summarizing we have 
         $$
         \left\lbrace
         \begin{aligned}
-            &x_i^2x_j^2\leftarrow\text{alternating 2 colors.}\\
-            &x_i^2x_jx_k\leftarrow\text{alternating }P_3\ \text{and one more color.}\\
-            &x_ix_jx_kx_\l\leftarrow\text{4 colors.}
+            &2x_i^2x_j^2\leftarrow\text{2 by alternating 2 colors.}\\
+            &6x_i^2x_jx_k\leftarrow\text{inserting in alternating }P_3\ \text{plus not allowed.}\\
+            &4!x_ix_jx_kx_\l\leftarrow\text{4 colors.}
         \end{aligned}
         \right.
         $$
         This means that 
         \begin{align*}
-        X_{P_4}&=m_{(2,2)}+m_{(2,1,1)}+m_{(1,1,1,1)}\\
-        &=e_{(2,2)}-e_{(3,1)}-e_4\\
-        &=s_{(2,2)}-s_{(1,1,1,1)}.
+        X_{P_4}&=2m_{(2,2)}+6m_{(2,1,1)}+24m_{(1,1,1,1)}\\
+        &=2e_{(3,1)}+2e_{(2,2)}+4e_4\\
+        &=2s_{(2,2)}+4s_{(2,1,1)}+8s_{(1,1,1,1)}.
         \end{align*}
-        \item Finally for $P_5$ we can add another vertex of another color to all the previous colorings to get a coloring of $P_5$. This amounts to monomials of the form
+        \item Following the idea we consider the valid partitions of $5$ which can be used to color. These are:
+        $$(3,2),\quad(3,1,1),\quad(2,2,1),\quad(2,1,1,1),\word{and}\quad(1,1,1,1,1).$$
+        There's only one possible coloring with $(3,2)$ but two with $(3,1,1)$ because we can switch the second and third colors. So we begin with a $m_{(3,2)}+2m_{(3,1,1)}$.\par 
+        The partition $(2,2,1)$ allows us to insert $\green{G}$ in the middle of any pair of our previous two colorings. This gives us 10 possibilities for coloring but additionally we had previously unavailable colorings which are now allowed by inserting the green vertex. These are 
+        $$\red{R}\blu{B}\green{G}\blu{B}\red{R},\word{and}\blu{B}\red{R}\green{G}\red{R}\blu{B}$$
+        which brings us to a total of 12 possible colorings and a factor of $12m_{(2,2,1)}$.\par 
+        Finally the partition $(2,1,1)$ previously gave us $6$ colorings, inserting $\yelo{Y}$\footnote{There's a yellow Y here.} in between any of the $5$ possible slot in these colorings gives us $30$ colorings. Now the disallowed block of colors $\red{R}\red{R}$ becomes available when inserting yellow in the middle. The remaining $\blu{B}\green{G}$ can receive this whole block in the ends or in the middle. We also have $\green{G}\blu{B}$ so in total we have $6$ more possibilities. In total this account for 36 counts of $m_{(2,1,1,1)}$. The final coloring can be done in $5!$ ways so in summary:
         $$
         \left\lbrace
         \begin{aligned}
-            &x_i^2x_j^2x_k\leftarrow\text{alternating 2 colors plus one more.}\\
-            &x_i^2x_jx_kx_\l\leftarrow\text{alternating }P_4\ \text{and one more color.}\\
-            &x_ix_jx_kx_\l x_m\leftarrow\text{4 colors plus one more.}
+            &x_i^3x_j^2\leftarrow\text{alternating 2 colors}.\\
+            &2x_i^3x_jx_k\leftarrow\text{truncating with color }j\text{ and }k.\\
+            &12x_i^2x_j^2x_k\leftarrow\text{like }(2,2)\text{ but inserting and 2 disallowed}.\\
+            &36x_i^2x_jx_kx_\l\leftarrow\text{same as }P_4\ \text{and inserting plus 6 disallowed.}\\
+            &120x_ix_jx_kx_\l x_m\leftarrow\text{all colors.}
         \end{aligned}
         \right.
         $$
-        With this, we are only missing a $2$-coloring of $P_5$ which is related to the monomial $x_i^3x_j^2$. We may consider a coloring of the form 
-        $$1-2-3-2-1$$
-        but this type of coloring is considered within the monomial $x_i^2x_j^2x_k$ for example. Recall that the number of variables is the number of colors used. With this we obtain:
+        We obtain the following:
         \begin{align*}
-            X_{P_5}&=m_{(2,2,1)}+m_{(2,1,1,1)}+m_{(1,1,1,1,1)}+m_{(3,2)}\\
-            &=e_{(2,2,1)}-2e_{(3,1,1)}+3e_{(4,1)}-4e_5\\
-            &=s_{(3,2)}-s_{(3,1,1)}+s_{(2,1,1,1)}-2s_{(1,1,1,1,1)}.
+            X_{P_5}&=m_{(3,2)}+2m_{(3,1,1)}+12m_{(2,2,1)}+36m_{(2,1,1,1)}+120m_{(1,1,1,1,1)}\\
+            &=5e_5+e_{(4,1)}+7e_{(3,2)}+e_{(2,2,1)}\\
+            &=s_{(3,2)}+s_{(3,1,1)}+9s_{(2,2,1)}+12s_{(2,1,1,1)}+16s_{(1,1,1,1,1)}.
             \end{align*}
     \end{itemize}
     \end{enumerate}
