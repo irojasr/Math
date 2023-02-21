@@ -13,8 +13,58 @@
 \begin{document}
 %\begin{multicols}{2}
 
+\begin{Ej}[3.2.E Vakil]
+    Show that we have identified all the prime ideals of $\bC[x,y]$.\par
+    \hint{Suppose $\lie p$ is a prime ideal that is not principal. Show you can find $f,g\in\lie p$ with no common factor. By considering the Euclidean algorithm in the Euclidean domain $\bC(x)[y]$, show that you can find a nonzero $h\in\gen(f,g)\subseteq\lie p$. Using primality, show that one of the linear factors of $h$, say $(x-a)$, is in $\lie p$. Similarly show there is some $(y-b)\in\lie p$.
+    }
+\end{Ej}
 
+The example in the book before the exercise describes $\bA^2_\bC=\Spec\bC[x,y]$. The example shows that 
+\begin{itemize}
+    \itemsep=-0.4em
+    \item $0$ is a prime ideal. 
+    \item Ideals of the form $\gen(x-a,y-b)$ with $a,b\in\bC$ are prime. Even more, that they are maximal. 
+    \item And finally ideals of the form $\gen(f)$ with an irreducible $f$ are also prime.
+\end{itemize}
+
+The hint tells us to take a prime ideal and assume it is not of the form $\gen(f)$ with an irreducible $f$. Then we will conclude that it is of the form $\gen(x-a,y-b)$ which is the other only non-zero possibility.
+%https://math.stackexchange.com/questions/3764847/prime-ideals-of-bbb-cx-y
+\begin{ptcbr}
+Take a non-principal ideal $\lie p\in\Spec\bC[x,y]$, we begin by wanting to find such $f,g$ with $\gcd(f,g)=1$.\par
+If this were not the case, then all polynomials in $\lie p$ would have a common factor. Let $p=\gcd(f)_{f\in\lie p}$, then $p$ is a generator for $\lie p$. As it was the case that $\lie p$ wasn't principal, our assumption that no such $f,g$ exist must be false.\par 
+%https://math.stackexchange.com/questions/1798660/coprime-polynomials-in-kx-y-are-also-coprime-in-kyx
+Now, we know that $f,g$ are coprime in $C[x,y]$, we now want to show that they are coprime in $\bC(x)[y]$. Assume that
+ $$h\in\bC(x)[y]\word{with}h\mid f,\ h\mid g,$$
+then 
+$$h(x,y)=\frac{p_0(x)}{q_0(x)}+\frac{p_1(x)y}{q_1(x)}+\dots+\frac{p_n(x)y^n}{q_n(x)}.$$
+If we take $q=q_0q_1\dots q_n$ then $qh\in\bC[x,y]$ and 
+$$qh\mid qf,\word{and}qh\mid qg\word{in}\bC(x)[y].$$
+
+\end{ptcbr}
     
+\begin{Ej}[3.2.K Vakil]
+    Suppose $S$ is a multiplicative subset of $A$. Describe an order-preserving bijection of the prime ideals of $S^{-1}A$ with the prime ideals of $A$ that don't meet the multiplicative set $S$.
+\end{Ej}
+
+\begin{ptcbr}
+    We are to consider the function 
+    $$\vf\:\Spec S^{-1}A\to\Spec A$$
+    where the image of $\vf$ is $\set{\lie p\in\Spec A\:\ \lie p\cap S=\emptyset}$, and we must show that this function is an order preserving bijection. Note that mapping onto the image will give us surjectivity, so we must show that the image is indeed the set in question. 
+\end{ptcbr}
+
+\begin{Ej}[3.2.Q Vakil]
+    Consider the map of sets $\pi\:\bA^n_\bZ\to\Spec(\bZ)$
+given by the ring map $\bZ\to\bZ[x_1,\dots,x_n]$. If  is prime, describe a bijection between the fiber  (You won’t need to describe either set! Which is good
+because you can’t.) This exercise may give you a sense of how to picture maps (see Figure 3.7), and in particular why you can think of An Z as an “An-bundle” over Spec Z. (Can you interpret the fiber over [(0)] as An
+k for some field k?)
+
+\end{Ej}
+
+\begin{ptcbr}
+    We are to consider the function 
+    $$\vf\:\Spec S^{-1}A\to\Spec A$$
+    where the image of $\vf$ is $\set{\lie p\in\Spec A\:\ \lie p\cap S=\emptyset}$, and we must show that this function is an order preserving bijection. Note that mapping onto the image will give us surjectivity, so we must show that the image is indeed the set in question. 
+\end{ptcbr}
 \subsection{Missing from last HW}
 
 \begin{Ej}

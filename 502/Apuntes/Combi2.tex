@@ -10,6 +10,11 @@
 %\def\darktheme{}
 \input{../../headerVarillyDiff}
 \usepackage[enableskew]{youngtab}
+\DeclareMathOperator{\ins}{ins}
+\DeclareMathOperator{\rw}{rw}
+\DeclareMathOperator{\rect}{rect}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\std}{std}
 \begin{document}
 %\clearpage
 \maketitle
@@ -1127,7 +1132,7 @@ We can use the Littlewood-Richardson coefficients to count certain Young tableau
 \subsection{Littlewood-Richardson rule}
 
 \begin{Def}
-    A word $w$ of positive indices is (reverse) ballot, Yamanouchi, or lattice if every suffix $w_iw_{i+1}\dots w_n$ has partition content. This is that reading the word from right-to-left the number of $1's$ is greater the $2's$ and so on. 
+    A word $w$ of positive indices is (reverse) ballot, \term{Yamanouchi}, or lattice if every suffix $w_iw_{i+1}\dots w_n$ has partition content. This is that reading the word from right-to-left the number of $1's$ is greater the $2's$ and so on. 
     $$\#1's\geq\#2's\geq\#3's\geq\dots$$
 \end{Def}
 
@@ -1140,7 +1145,7 @@ We can use the Littlewood-Richardson coefficients to count certain Young tableau
 \end{Def}
 
 \begin{Th}
-    T?he Littlewood-Richardson coefficient is the number of Littlewood-Richardson tableaux of shape $\la/\mu$ and content $\nu$.
+    The Littlewood-Richardson coefficient is the number of Littlewood-Richardson tableaux of shape $\la/\mu$ and content $\nu$.
 \end{Th}
 
 \begin{Ex}
@@ -1160,6 +1165,377 @@ We can use the Littlewood-Richardson coefficients to count certain Young tableau
 Notice that by proving this result, we immediately get that the skew Schur functions are Schur positive. We will use crystal-base theory. This comes from the representation theory of $\cU_{q}(\gsl_n)$.\par 
 A crystal of tableau sorts the monomials into a graph, let us for example consider 
 $$\young(2,11)$$
+
+\section{Day 13| 20230217}
+
+\subsection{Crystals on words}
+
+Operating on words means we can operate on reading words and thus on tableau.
+
+\begin{Def}
+    For a word $w$ of 1's and 2's, we define the \term{raising operator} $E_1$ and \term{lowering operator} $F_1$ by:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Replacing all ones with right parenthesis and twos with left parenthesis.
+        \item Then we pair off matching parenthesis.
+        \item $E_1$ makes the first unmatched to a $1$ and $F_1$ the last unmatched 1 to a 2.
+    \end{itemize}
+\end{Def}
+\begin{Ex}
+    Consider the word
+    $$112212111122212\to))(()())))((()($$
+    Applying $E_1$ we get 
+    $$112212111112212\to11221211111212\to112212111111211$$
+    and applying once again we get the empty word because there's no more match. We can see that applying $F_1$ reverses this process. While applying $F_1$ to our original word several times we get 
+    $$222212112222212$$
+    before we get to the empty word.
+\end{Ex}
+
+\begin{Def}
+    For a word $w\in\bZ^n_{\geq 0}$, then $E_i$ is formed looking at the $(i,i+1)$, treating them as $(1,2)$ and performing $E_1$. 
+\end{Def}
+
+This allows us to draw graphs on words where we connect after applying the operations.\par 
+The reason they are called raising and lowering is because in terms of content, the raise and lower the content:
+\begin{align*}
+    222212112222212\to(4,11)\\
+    112212111122212\to(8,7)\\
+    112212111111211\to(11,4)
+\end{align*}
+This also correspond to weight spaces in representations of $\gsl_n$. 
+
+\begin{Rmk}
+    Recall the Lie algebra of $\SL_2$ is 
+    $$\gsl_2=\set{A\in\cM_2\:\ \tr(A)=0}.$$
+    This is an additive vector space with a Lie bracket, it's not closed under multiplication. The matrices with generate this space are 
+    $$E=\twobytwo{0}{1}{0}{0},\quad F=\twobytwo{0}{0}{1}{0},\word{and}H=\twobytwo{1}{0}{0}{-1}.$$
+    In general in $\gsl_n$, $E_i$ has a 1 on top of the $i^{\text{th}}$ position on the diagonal.
+\end{Rmk}
+
+\begin{Ex}
+    Consider the word $111$ we get the following graph
+    \begin{center}
+        
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da42089973349634247] 
+\draw    (179,27.5) -- (152.41,54.09) ;
+\draw [shift={(151,55.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da3031105581540732] 
+\draw    (176,126.5) -- (149.41,153.09) ;
+\draw [shift={(148,154.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da803008915658254] 
+\draw    (124,78.5) -- (97.41,105.09) ;
+\draw [shift={(96,106.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8767210663804941] 
+\draw    (73,119.5) -- (46.41,146.09) ;
+\draw [shift={(45,147.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da11711889811973819] 
+\draw    (126,172.5) -- (99.41,199.09) ;
+\draw [shift={(98,200.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5343444040412961] 
+\draw    (183,206.5) -- (156.41,233.09) ;
+\draw [shift={(155,234.5)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8170158271849678] 
+\draw    (153,84) -- (171.74,106.95) ;
+\draw [shift={(173,108.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da2307297886745664] 
+\draw    (100,124) -- (118.74,146.95) ;
+\draw [shift={(120,148.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da7984622676548068] 
+\draw    (46,169) -- (64.74,191.95) ;
+\draw [shift={(66,193.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5520008445276355] 
+\draw    (158,168) -- (176.74,190.95) ;
+\draw [shift={(178,192.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da1625762686635499] 
+\draw    (97,213) -- (115.74,235.95) ;
+\draw [shift={(117,237.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da1026725922353392] 
+\draw    (157,250) -- (175.74,272.95) ;
+\draw [shift={(177,274.5)}, rotate = 230.77] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da4681112463331931] 
+\draw    (375,37) -- (399.46,57.23) ;
+\draw [shift={(401,58.5)}, rotate = 219.59] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da657993683720376] 
+\draw    (347,41.5) -- (320.49,65.17) ;
+\draw [shift={(319,66.5)}, rotate = 318.24] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da23694615966603938] 
+\draw    (398,78.5) -- (332.64,124.35) ;
+\draw [shift={(331,125.5)}, rotate = 324.95] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6217535822776135] 
+\draw    (338.5,80.5) -- (390.33,114.41) ;
+\draw [shift={(392,115.5)}, rotate = 213.19] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6082139480648872] 
+\draw    (300,144.5) -- (273.49,168.17) ;
+\draw [shift={(272,169.5)}, rotate = 318.24] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (165,3.4) node [anchor=north west][inner sep=0.75pt]    {$111$};
+% Text Node
+\draw (122,63.4) node [anchor=north west][inner sep=0.75pt]    {$112$};
+% Text Node
+\draw (168,108.4) node [anchor=north west][inner sep=0.75pt]    {$113$};
+% Text Node
+\draw (126,153.4) node [anchor=north west][inner sep=0.75pt]    {$123$};
+% Text Node
+\draw (75,103.4) node [anchor=north west][inner sep=0.75pt]    {$122$};
+% Text Node
+\draw (16,150.4) node [anchor=north west][inner sep=0.75pt]    {$222$};
+% Text Node
+\draw (71,195.4) node [anchor=north west][inner sep=0.75pt]    {$223$};
+% Text Node
+\draw (184,195.4) node [anchor=north west][inner sep=0.75pt]    {$133$};
+% Text Node
+\draw (129,232.4) node [anchor=north west][inner sep=0.75pt]    {$233$};
+% Text Node
+\draw (188,270.4) node [anchor=north west][inner sep=0.75pt]    {$333$};
+% Text Node
+\draw (167,44.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (164,143.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (112,95.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (61,136.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (114,189.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (171,223.9) node [anchor=north west][inner sep=0.75pt]    {$F_{1}$};
+% Text Node
+\draw (178,104.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (125,144.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (71,189.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (183,188.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (122,233.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (182,270.1) node [anchor=south west] [inner sep=0.75pt]    {$F_{2}$};
+% Text Node
+\draw (347,16.4) node [anchor=north west][inner sep=0.75pt]    {$121$};
+% Text Node
+\draw (401,59.4) node [anchor=north west][inner sep=0.75pt]    {$131$};
+% Text Node
+\draw (304,63.4) node [anchor=north west][inner sep=0.75pt]    {$221$};
+% Text Node
+\draw (301,120.4) node [anchor=north west][inner sep=0.75pt]    {$132$};
+% Text Node
+\draw (402,118.4) node [anchor=north west][inner sep=0.75pt]    {$231$};
+% Text Node
+\draw (254,177.4) node [anchor=north west][inner sep=0.75pt]    {$232$};
+% Text Node
+\draw (581,19.4) node [anchor=north west][inner sep=0.75pt]    {$211$};
+% Text Node
+\draw (548,61.4) node [anchor=north west][inner sep=0.75pt]    {$212$};
+% Text Node
+\draw (624,60.4) node [anchor=north west][inner sep=0.75pt]    {$311$};
+% Text Node
+\draw (546,124.4) node [anchor=north west][inner sep=0.75pt]    {$312$};
+% Text Node
+\draw (629,122.4) node [anchor=north west][inner sep=0.75pt]    {$213$};
+% Text Node
+\draw (526,181.4) node [anchor=north west][inner sep=0.75pt]    {$322$};
+% Text Node
+\draw (593,229.4) node [anchor=north west][inner sep=0.75pt]    {$323$};
+% Text Node
+\draw (648,183.4) node [anchor=north west][inner sep=0.75pt]    {$313$};
+% Text Node
+\draw (354,223.4) node [anchor=north west][inner sep=0.75pt]    {$332$};
+% Text Node
+\draw (430,186.4) node [anchor=north west][inner sep=0.75pt]    {$331$};
+
+
+\end{tikzpicture}
+
+    \end{center}
+
+    Note that the words $121$ and $211$ both insert to 
+    $$\ins(121)=\ins(211)=\young(2,11).$$
+    Also look at the fact that we have listed all the words of length $3$. As an alternative definition, write all the words, match them by $F's$ then we get disjoint graphs. Each connected component gives us a Schur function.
+\end{Ex}
+
+\begin{significant}
+How many connected components do we have?
+\end{significant}
+
+If we have length $n$, the question is how many (reverse-)ballot words of length $n$ are there? (Why ballot words?)
+
+\begin{Lem}[Homework]
+    For a word $w$ 
+    $$E_i(w)=\emptyset\iff w\text{ is Yamanouchi.}$$
+\end{Lem}
+
+Assuming this, on length 4 we have the following Yamanouchi words: 
+\begin{enumerate}
+\begin{multicols}{3}
+    \item 1111
+    \item 2111
+    \item 3211
+    \item 3121
+    \item 1121
+    \item 2211
+    \item 1321
+    \item 4321
+    \item 1211
+    \item 2121
+\end{multicols}
+\end{enumerate}
+
+There are $n\leq x\leq n!$ components. With the lemma comes the following definition:
+
+\begin{Def}
+    We say a word $w$ has \term{highest weight} if $E_i(w)=\emptyset$ for all $i$.
+\end{Def}
+
+\begin{Th}
+    By acting on the reading word we have that $E_i,F_i$ are well defined on skew tableaux (and therefore on tableaux.)
+\end{Th}
+
+We can always act on the reading word, but this action doesn't necesarilly guarantee that the result is an SSYT.
+
+\begin{ptcbp}
+    Look at the $(i,i+1)$ in a tableau $T$. This will ``look like''
+    $$\young(iijj,:::iijjj,::::::ii,::::::::iijj)\footnote{We used this tableau when proving the Schur functions were symmetric.}\footnote{j is i+1, have to change ytableau package.}.$$
+    The columns ``cancel''  and some others do to, we can change the left most two $i's$ and the rightmost $i(i+1)$.
+\end{ptcbp}
+
+\subsection{Compatibility with Knuth moves and Jeu de Taquin}
+
+\begin{Ex}
+    Consider a skew tableau and an inner slide:
+    $$\young(1122,::112)\to\young(122,:1112)$$
+    But applying $F_1$ means that we get 
+    $$\young(1222,::112)\to\young(122,:1122).$$
+    \red{DRAW COMMDIAG}
+\end{Ex}
+
+Compatibility means commutation at the level of diagrams. 
+
+\section{Day 14| 20230220}
+
+Today we will continue working on the Littlewood-Richardson rule. As a warm-up lets work on an example.
+
+\begin{Ej}
+    Compute $E_3$ of the tableau 
+    $$\young(5,3346,2234,11111).$$
+\end{Ej}
+
+\begin{ptcbr}
+    We can focus only on the sub skew tableau
+    $$\young(334,::34)$$
+    with reading word $33434$, the leftmost un-paired $4$ is the last one so we change the word to $33433$ and then replace on the tableau to get 
+    $$\young(5,3346,2233,11111).$$
+\end{ptcbr}
+
+Notice we do get a SSYT as we showed last time. We will now work on crystal operators. 
+
+\begin{Th}
+    $E_i,F_i$ commute with JDT slides.
+\end{Th}
+It suffices to check this on $1-2$ tableaux and $E_1,F_1$. This is because $E_i,F_i$ only affect $i,i+1$. (Look at example from last time) This example is the only case that we have to worry about because we can only have at most two rows. The only problematic case is a vertical slide like in the example.\par 
+But what about 
+$$\young(1222,:::12)\to\young(122,::122),$$
+it slides the same way after applying $F_1$:
+$$\young(2222,:::12)\to\young(222,::122).$$
+
+\begin{Th}
+The operations $E_i,F_i$ preserve the ``being in the same Knuth-equivalence class''. In other words 
+$$E_i(w)\sim E_i(v),\quad F_i(w)\sim F_i(v).$$    
+\end{Th}
+
+Since rectification is unique and that determines the Knuth-equivalence class, we can use the previous result.
+
+\begin{ptcbr}
+    Consider the skew tableau $D_w=\diag(w)$ and $D_v$. Then 
+    $$\ins(w)=\ins(v)\To \rect(D_w)=\rect(D_v)$$
+    so 
+    \begin{align*}
+        \rect(E_i(D_w))&=E_i(\rect(D_w))\\
+        &=E_i(\rect(D_v))\\
+        &=\rect(E_i(D_w))
+    \end{align*} 
+    Therefore $E_i(D_w)\sim E_i(D_v)$.
+\end{ptcbr}
+
+\subsection{Highest Weight}
+We will now work with highest-weight elements.
+
+\begin{Lem}
+    For a straight shape $\la$, the SSYT's with $\sh(\la)$ all lie in a single connected component of the crystal graph. (i.e. connecting via $E_i,F_i$ we get a connected component.)\par 
+    Moreover we get a unique tableau with highest weight ($E_i(T)=\emptyset$). We claim that such a tableau has row $i$ full of $i$'s.
+\end{Lem}
+
+Take any shape 
+$$\young(~,~~,~~~),$$
+as the reading word is Yamanouchi, the first entry is a 1. Then all entries to the left are $1$'s by semi-standardness. The next rightmost element of the next row can't be a 3 by Yamanouchi so it must be a 2 and so on.\par 
+But why is everything in the same connected component?\par 
+If we have a tableau $T$, then applying $E_i$ we \emph{must} reach $T_\la$. Reversing this process for any $T$ with $F_i$, we get all the tableau. 
+
+\begin{Rmk}
+    This method works with no restriction on the letters of the word.
+\end{Rmk}
+
+\begin{Cor}
+    Every connected component of a crystal of all tableaux of a given skew shape is isomorphic as a directed graph to a straight shape crystal obtained via JDT.
+\end{Cor}
+
+With this key step we can compute a Schur function decomposition.
+
+\begin{Ex}
+    Let us compute $s_{(3,1)/(1)}$. The crystal of this SSYT is obtained by writing the highest weight fillings of the skew shape:
+    $$\young(2,:11),\quad\young(1,:11).$$
+    We get the following crystals:
+    \begin{center}
+        aaaaa
+    \end{center}
+    By rectifying with JDT we get INSERT DIAGRAMS\par 
+    What this means is that adding monomials corresponding to crystal one we get $s_{(2,1)}$ and the other crystal $s_{(3)}$.\par 
+    As a shortcut, we draw the Yamanouchi ones, then rectify and that's it.
+\end{Ex}
+
+\begin{Cor}
+    The coefficient of $s_\nu$ is $s_{\la/\mu}$ is the number of heighest weight SSYT with $\sh(T)=\la/\mu$ that rectify to $\sh(\nu)$. 
+    $$\#hw\sh(\la/mu)\word{content}\nu$$
+    this is exactly $c^\la_{\mu\nu}$.
+\end{Cor}
+
+This completes a proof of the Littlewood-Richardson rule. 
+%%%Travis GRIMSHAW SAge crystals in sage 
+
+\subsection{Products of Schur Functions}
+
+There's another Littlewood-Richarson Rule:
+
+\begin{Th}
+    Suppose $\mu,\nu$ are straight shapes, then 
+    $$s_\mu s_\nu=\sum_{\la}c_{\mu\nu}^\la s_\la.$$
+\end{Th}
+
+There's a proof with Knuth-equivalence and concatenation.\par 
+We know that $s_\nu\.s_\mu$ can be obtained by finding $s_T$ where $T$ is the skew shape formed by concatenating right down of $\mu$ with LEFT UP$\nu$. Then the product is 
+$$\sum_{\la} c_{R\la}^\rho s_\la.$$
+To prove it we use Fulton's techniques \cite{FultonYoungTab}.\par 
+We want to show $c_{R\la}^{\rho}=c_{\mu\nu}^\la$. This means that the number of Yamanouchi tableaux of shape $\rho/R$ and content $\la$ is the same as $\sh(\la/\mu)$ and content $\nu$. 
+\begin{Rmk}
+    Consider 
+    $$\young(34,223,1124,::::3,::::2222,::::11111).$$
+    the lower one has to be $T_\nu$ in any Yamanouchi filling.
+\end{Rmk}
+We first de-RSK it to get 
+$$\young(333,2222,11111)\to \twobyone{123331222111}{111112222333}$$
+if $r$ is the first row and $b$ the second one, then we insert $r$ into $U$. But when inserting we are keeping track with $b$, so we label the new squares with $b$ as a skew recording tableau.\par 
+Name $Q$ such tableau, we claim that $Q$ is a ballot SSYT shape $\la/\mu$ content $\nu$.\par 
+Putting this together in the example we get 
+$$U=\young(34,223,1124)\leftarrow 123331222111$$
+\red{READ IN FULTON AND UNDERSTAND BIJECTion}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
