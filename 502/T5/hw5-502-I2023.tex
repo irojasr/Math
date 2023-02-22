@@ -13,11 +13,38 @@
 \usepackage{ytableau}
 \begin{document}
 
-\begin{Ej}
-   
+\begin{Ej}[Exercise 3]
+    Prove that a word $w$ has highest weight (i.e., $E_i(w)=0$ for all $i$) if and only if $w$ is Yamanouchi
+\end{Ej}
+%https://arxiv.org/pdf/2007.11721.pdf
+\begin{ptcbr}
+    First suppose $w\in\bonj{n}^k$ is a word of length $k$ on the alphabet $\bonj{n}$. Now suppose additionally that $w$ is Yamanouchi. This means that for every $s\leq k$, the suffix 
+    $$w_{k-s+1}\dots w_{k-1}w_k$$ 
+    contains at least as many $i$'s after the $(i+1)$'s. In particular this holds when $s=k$. So when applying the raising $E_i$ operator we pair $(i+1)$ with an $i$ to its right as a parenthesis. There are as much $i$'s as $(i+1)$'s so every $(i+1)$ is paired and so the $E_i$ operator can't convert any $(i+1)$ to an $i$.\par 
+    As $i$ is arbitrary, we can't apply any $E_i$ to $w$ which means that $w$ has highest weight.\par 
+    On the other hand\footnote{Once again, \textbf{Kelsey}, \textbf{Trent}, and myself have talked about this problem in order to under the idea.} suppose $w\in\bonj{n}^k$ has highest weight. Then for all $i$, we can't apply $E_i$ to $w$. This means that in $w$, it is possible to match all the $(i+1)$'s with $i$'s that precede them.\par 
+    The previous fact lets us see that when reading $w$ from right-to-left we will find at least as many $i$'s as we find $(i+1)$'s. In other words, this means that $w$ is Yamanouchi.
+    \end{ptcbr}
+
+
+\begin{Ej}[Exercise 4]
+    Formulate and prove a Yamanouchi-type condition for $w$ to be lowest weight, that is, $F_i(w) = 0$
+for all $i\in\bonj{n}$. Such a word is called \un{anti-ballot}.
 \end{Ej}
 
-
 \begin{ptcbr}
-    \end{ptcbr}
+We will define anti-ballot by remembering the definition of ballot. Recall a ballot word $w$ in $\bonj{n}^k$ has the property that for every $p\leq k$, the prefix 
+$$w_1w_2\dots w_p$$
+contains at least as many $i$'s \emph{before} the $(i+1)$'s. So an anti-ballot word will contain as many \un{$(i+1)$}'s before the $\un i$'s. The claim is as follows:
+\begin{significant}
+A word $w$ has lowest weight if and only if $w$ is anti-ballot.
+\end{significant}
+To prove this, we first assume 
+\end{ptcbr}
+
+\begin{Rmk}
+It is important to notice that an anti-ballot word is not necessarily Yamanouchi even if it contains all the possible letters of the alphabet in question. The word 
+$$33\dots 321$$
+is anti-ballot but not Yamanouchi. 
+\end{Rmk}
 \end{document} 
