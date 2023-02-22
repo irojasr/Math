@@ -22,7 +22,7 @@
     $$w_{k-s+1}\dots w_{k-1}w_k$$ 
     contains at least as many $i$'s after the $(i+1)$'s. In particular this holds when $s=k$. So when applying the raising $E_i$ operator we pair $(i+1)$ with an $i$ to its right as a parenthesis. There are as much $i$'s as $(i+1)$'s so every $(i+1)$ is paired and so the $E_i$ operator can't convert any $(i+1)$ to an $i$.\par 
     As $i$ is arbitrary, we can't apply any $E_i$ to $w$ which means that $w$ has highest weight.\par 
-    On the other hand\footnote{Once again, \textbf{Kelsey}, \textbf{Trent}, and myself have talked about this problem in order to under the idea.} suppose $w\in\bonj{n}^k$ has highest weight. Then for all $i$, we can't apply $E_i$ to $w$. This means that in $w$, it is possible to match all the $(i+1)$'s with $i$'s that precede them.\par 
+    On the other hand\footnote{Once again, \textbf{Kelsey}, \textbf{Trent}, and myself have talked about this problem in order to under the idea.} suppose $w\in\bonj{n}^k$ has highest weight. Then for all $i$, we can't apply $E_i$ to $w$. This means that in $w$, it is possible to match all the $(i+1)$'s with $i$'s that succeed them.\par 
     The previous fact lets us see that when reading $w$ from right-to-left we will find at least as many $i$'s as we find $(i+1)$'s. In other words, this means that $w$ is Yamanouchi.
     \end{ptcbr}
 
@@ -31,7 +31,7 @@
     Formulate and prove a Yamanouchi-type condition for $w$ to be lowest weight, that is, $F_i(w) = 0$
 for all $i\in\bonj{n}$. Such a word is called \un{anti-ballot}.
 \end{Ej}
-
+%FLUIT EFUTI
 \begin{ptcbr}
 We will define anti-ballot by remembering the definition of ballot. Recall a ballot word $w$ in $\bonj{n}^k$ has the property that for every $p\leq k$, the prefix 
 $$w_1w_2\dots w_p$$
@@ -39,12 +39,15 @@ contains at least as many $i$'s \emph{before} the $(i+1)$'s. So an anti-ballot w
 \begin{significant}
 A word $w$ has lowest weight if and only if $w$ is anti-ballot.
 \end{significant}
-To prove this, we first assume 
+To prove this we first assume a word $w$ is anti-ballot. Before applying $F_i$ we notice that all the latter $i$'s must already be paired with a previous $(i+1)$ because the word is anti-ballot.\par 
+This property holds for all $i$ so it happens that we can't apply $F_i$ to $w$, thus $w$ has lowest weight.\par
+On the flip-side, if we assume $w$ has lowest weight, it means that all $i$'s in $w$ are matched with $(i+1)$ that precede them. So it must hold that there are at least as many $(i+1)$'s as $i$'s in $w$. This condition holds for every $i$ which means that $w$ is anti-ballot.
 \end{ptcbr}
 
 \begin{Rmk}
 It is important to notice that an anti-ballot word is not necessarily Yamanouchi even if it contains all the possible letters of the alphabet in question. The word 
 $$33\dots 321$$
-is anti-ballot but not Yamanouchi. 
+is anti-ballot but not Yamanouchi.\par 
+The examples from the crystal graphs contain Yamanouchi words on the top and anti-ballot words on the bottom.
 \end{Rmk}
 \end{document} 
