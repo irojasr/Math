@@ -1536,6 +1536,107 @@ Putting this together in the example we get
 $$U=\young(34,223,1124)\leftarrow 123331222111$$
 \red{READ IN FULTON AND UNDERSTAND BIJECTion}
 
+\chapter{Representation Theory: A Crash Course}
+
+\section{Day 15| 20230222}
+
+
+Representation is a big and not unified area, so we will talk only about what we need for combinatorics.
+
+\begin{Def}
+    A group is a set $(G,\ast)$ such that $\ast$ is a binary operation which is associative, possesses an identity element and every element possesses an inverse.\par 
+    We say a matrix representation of a group is an assignment $g\mapsto M_g\in\GL_n(\bC)$ for $g\in G$ with $M_gM_h=M_{g\ast h}$.\par 
+    If the assignment is injective we say the representation is faithful.
+\end{Def}
+
+\begin{Ex}
+    Some groups that we will use are $(S_n,\circ)$, the general linear group $(\GL_n(\bC),\.)$, the Multiplicative subgroup of the real numbers $(\bR\less\set{0},\.)$.\par 
+    On the other hand group representations of $S_3$ we have that the composition is the operation. We can trivially represent it as $\sg\mapsto (1)$ for every $\sg\in S_3$. This representation is not faithful.\par 
+    We also have the \emph{sign representation} 
+    \begin{itemize}\begin{multicols}{3}
+        \itemsep=-0.4em
+\item $\id\mapsto (1)$.     
+\item $(12)\mapsto (-1)$.       
+\item $(13)\mapsto (-1)$.       
+\item $(23)\mapsto (-1)$.       
+\item $(123)\mapsto (1)$.       
+\item $(132)\mapsto (1)$.        
+    \end{multicols}
+    \end{itemize}
+    These are the only 1-dimensional representations of $S_3$. In fact for $S_n$ this is true, there are only 2 one-dimensional representation.\par 
+    We can represent our permutations as permutation matrices!
+    \begin{itemize}\begin{multicols}{3}
+        \itemsep=-0.4em
+\item $\id\mapsto \threebythree{1}{0}{0}{0}{1}{0}{0}{0}{1}$.     
+\item $(12)\mapsto \threebythree{0}{1}{0}{1}{0}{0}{0}{0}{1}$.       
+\item $(13)\mapsto \threebythree{0}{0}{1}{0}{1}{0}{1}{0}{0}$.       
+\item $(23)\mapsto \threebythree{1}{0}{0}{0}{1}{1}{0}{1}{0}$.        
+\item $(123)\mapsto $.       
+\item $(132)\mapsto $.        
+    \end{multicols}
+    \end{itemize}
+    In general $\sg\mapsto M_\sg$ where $(M_\sg)_{i,j}=\dl_{i,\pi(j)}$. This representation is faithful, but it's \emph{too big}.
+\end{Ex}
+
+%We can notice that $\vec v=\threebyone{1}{1}{1}$ is an eigenvector with eigenvalue 1 of all of these matrices. The eigenspace $\gen(\vec v)$ is fixed by all of these matrices. The orthogonal complement to $\gen(\vec v)$ is rotated about the normal axis when acted by this matrices, such plane is 
+$$\gen\left(\threebyone{1}{-1}{0},\threebyone{0}{1}{-1}\right).$$
+If we add our eigenvector to the basis then 
+$$\bonj{\id}_\cB^\cC=\threebythree{1}{1}{0}{1}{-1}{1}{1}{0}{-1}\To\bonj{\id}^\cB_\cC=\frac{1}{3}\threebythree{1}{1}{1}{2}{-1}{-1}{1}{1}{-2}.$$
+
+\begin{Lem}
+    If $g\mapsto M_g$ is a representation, then $g\mapsto A^{-1}M_gA$ is also a representation.
+\end{Lem}
+
+\begin{ptcbp}
+    $A^{-1}M_gAA^{-1}M_hA=A^{-1}M_{g\ast h}A$. 
+\end{ptcbp}
+
+Conjugating with our matrix we get the following representation:
+\begin{itemize}\begin{multicols}{3}
+    \itemsep=-0.4em
+\item $\id\mapsto \threebythree{1}{0}{0}{0}{1}{0}{0}{0}{1}$.     
+\item $(12)\mapsto \threebythree{1}{0}{0}{0}{-1}{1}{0}{0}{1}$.       
+\item $(13)\mapsto \threebythree{1}{0}{0}{0}{0}{-1}{0}{-1}{0}$.              
+\end{multicols}
+\end{itemize}
+
+The fourth representation of $S_3$ comes from the two-by-two components of the block diagonal matrices in question. Knowing where the generators go suffices to know where every element maps. This means that 
+\begin{align*}
+    &(132)=(12)(13)\mapsto\twobytwo{-1}{1}{-1}{0}.\\
+    &(123)=(13)(12)\mapsto\twobytwo{0}{-1}{1}{-1}.\\
+    &(23)=(13)(132)\mapsto\twobytwo{1}{0}{1}{-1}.
+\end{align*}
+But how would we have found this representation without recurring to the basis? We can think of our representation as we did, every group element is a matrix.\par 
+Another way is a homomorphism $G\to\GL_n(\bC)$. Also we can consider it as a vector space space action 
+$$G\.V\: G\x V\to V.$$
+With this understanding $3$ and $3'$ aren't fundamentally different.
+
+\begin{Def}
+Two representations $g\mapsto M_g$ and $g\mapsto N_g$ are isomorphic whenever there exists $A\in\GL_n(\bC)$ such that $A^{-1}M_gA=N_g$.\par 
+In terms of the vector spaces, two representations $V,W$ are isomorphic if there's an isomorphism that preserves the group action. 
+\end{Def}
+
+Can we have isomorphic representations between dimensions? No, but can we have non-isomorphic representations of the same dimension? Yes! The one dimensional ones aren't isomorphic.
+
+\subsection{Operations on representations}
+
+The direct sum acts on vector spaces as $V\oplus W$ or on maps as 
+$$(g\mapsto M_g)\oplus(g\mapsto N_g)=g\mapsto\twobytwo{M_g}{}{}{N_g}.$$
+
+\begin{Ex}
+    The permutation representation for $S_3$ is the direct sum of the standard one and the trivial one.
+\end{Ex}
+
+\begin{Def}
+    A representation is \term{irreducible}\footnote{indecomposable means the same as irreducible when working over $\bC$.} if it is not the direct sum of smaller dimensional representation.
+\end{Def}
+Any number is a unique product of primes, so any representation is a direct sum of irreducibles.
+
+\begin{Th}[Maschke/Schur]
+    Every complex representation of a finite group $G$ is uniquely (up to isomorphism) a direct sum of irreducibles.
+\end{Th}
+
+We will see that irreducible representations of the symmetric group correspond to Schur functions. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

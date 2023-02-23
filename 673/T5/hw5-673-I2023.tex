@@ -32,6 +32,20 @@ The hint tells us to take a prime ideal and assume it is not of the form $\gen(f
 \begin{ptcbr}
 Take a non-principal ideal $\lie p\in\Spec\bC[x,y]$, we begin by wanting to find such $f,g$ with $\gcd(f,g)=1$.\par
 If this were not the case, then all polynomials in $\lie p$ would have a common factor. Let $p=\gcd(f)_{f\in\lie p}$, then $p$ is a generator for $\lie p$. As it was the case that $\lie p$ wasn't principal, our assumption that no such $f,g$ exist must be false.\par 
+Assume that $g$'s degree in $y$ is lower than $f$'s we may apply the division algorithm on $\bC(x)[y]$ to obtain 
+$$f=qg+r,\quad q,r\in \bC(x)[y]\word{and}\deg_y(r)\leq\deg_y(g).$$
+We may iterate this process and continue dividing with the residues in order to obtain 
+$$g=q_2r+r_2\To r=q_3r_2+r_3\To\dots$$
+until we reach a point where the remainder has degree zero in $y$. Retracing the equalities from the last point to the first equation, let us write 
+$$f(x,y)=\frac{q_1(x,y)}{q_2(x)}g(x,y)+\frac{r_1(x)}{r_2(x)}$$
+where $\frac{r_1}{r_2}$ is the last remainder. Homogenizing we obtain an equation of the form 
+$$q_2r_2f=q_1r_2g+r_1q_2\To r_1q_2\in\gen(f,g)$$
+and we may also see that $r_1q_2$ is a polynomial depending only on $x$. Thus we may factor it into 
+$$r_1q_2(x)=\prod_{i=1}^d(x-a_i)\To \exists j((x-a_j)\in\lie p).$$
+The same argument may be repeated but this time we obtain a polynomial $(y-b)\in\lie p$. With this we have 
+$$\gen(x-a,y-b)\subseteq\lie p$$
+and as $\lie p$ is a proper prime ideal, it must occur that $\lie p$ is this maximal ideal.
+\iffalse
 %https://math.stackexchange.com/questions/1798660/coprime-polynomials-in-kx-y-are-also-coprime-in-kyx
 Now, we know that $f,g$ are coprime in $C[x,y]$, we now want to show that they are coprime in $\bC(x)[y]$. Assume that
  $$h\in\bC(x)[y]\word{with}h\mid f,\ h\mid g,$$
@@ -39,7 +53,7 @@ then
 $$h(x,y)=\frac{p_0(x)}{q_0(x)}+\frac{p_1(x)y}{q_1(x)}+\dots+\frac{p_n(x)y^n}{q_n(x)}.$$
 If we take $q=q_0q_1\dots q_n$ then $qh\in\bC[x,y]$ and 
 $$qh\mid qf,\word{and}qh\mid qg\word{in}\bC(x)[y].$$
-
+\fi
 \end{ptcbr}
     
 \begin{Ej}[3.2.K Vakil]
@@ -47,17 +61,13 @@ $$qh\mid qf,\word{and}qh\mid qg\word{in}\bC(x)[y].$$
 \end{Ej}
 
 \begin{ptcbr}
-    We are to consider the function 
-    $$\vf\:\Spec S^{-1}A\to\Spec A$$
-    where the image of $\vf$ is $\set{\lie p\in\Spec A\:\ \lie p\cap S=\emptyset}$, and we must show that this function is an order preserving bijection. Note that mapping onto the image will give us surjectivity, so we must show that the image is indeed the set in question. 
+    %pg110 RobUlloa
 \end{ptcbr}
 
 \begin{Ej}[3.2.Q Vakil]
     Consider the map of sets $\pi\:\bA^n_\bZ\to\Spec(\bZ)$
-given by the ring map $\bZ\to\bZ[x_1,\dots,x_n]$. If  is prime, describe a bijection between the fiber  (You won’t need to describe either set! Which is good
-because you can’t.) This exercise may give you a sense of how to picture maps (see Figure 3.7), and in particular why you can think of An Z as an “An-bundle” over Spec Z. (Can you interpret the fiber over [(0)] as An
-k for some field k?)
-
+given by the ring map $\bZ\to\bZ[x_1,\dots,x_n]$. If $p\in\bZ$ is prime, describe a bijection between the fiber $\pi^{-1}\left(\bonj
+\gen(p)\right)$ and $\bA_{\bF_p}^n$. (You won't need to describe either set! Which is good because you can't.) This exercise may give you a sense of how to picture maps (see Figure 3.7), and in particular why you can think of $\bA^n_\bZ$ as an “$\bA^n$-bundle” over $\Spec\bZ$. (Can you interpret the fiber over $\bonj{(0)}$ as $\bA^n_k$ for some field $k$?)
 \end{Ej}
 
 \begin{ptcbr}

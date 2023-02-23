@@ -1125,7 +1125,7 @@ Cauchy residue formula for one residue and multiple residues.
     $$t=\frac{\pi}{6}+\frac{2\pi ik}{6},\ k\in\bZ.$$
     We will only use $0\leq k\leq 5$ in this case.\par
     We now integrate over the half disk contour $\cC$ with radius $R$ of the upper half-plane. By the residue theorem we have that 
-    $$\int\limits_\cC\frac{z^2}{z^6+1}\dd z=\sum_{k=0}^{5}\res\left(\frac{z^2}{z^6+1},e^{\frac{\pi}{6}+\frac{2\pi ik}{6}}\right).$$ 
+    $$\int\limits_\cC\frac{z^2}{z^6+1}\dd z=2\pi i\sum_{k=0}^{2}\res\left(\frac{z^2}{z^6+1},e^{\frac{\pi}{6}+\frac{2\pi ik}{6}}\right).$$ 
 \end{Ex}
 
 
@@ -1133,8 +1133,146 @@ Cauchy residue formula for one residue and multiple residues.
 
 \begin{Ej}[Stein \& Shakarchi 2.15]
     Suppose $f$ is a non-vanishing continuous function on $\ov\bD$ that is holomorphic in $\bD$. Suppose that 
-    $$|f(z)|=1\word{when}|z|=1$$\hint{You will need to use the fact that, away from $0$, $z\mapsto\frac1z$ is continuous; so $z$ and $z_0$ are close if and only if $\frac1z$ and $\frac{1}{z_0}$ are close.}
+    $$|f(z)|=1\word{when}|z|=1,$$
+    then $f$ is constant. \hint{Extend $f$ to $\bC$ by $f(z)=\frac{1}{\ov{f(1/\ov z)}}$ when $|z|>1$. Argue as in the Schwarz reflection principle.}\hint{You will need to use the fact that, away from $0$, $z\mapsto\frac1z$ is continuous; so $z$ and $z_0$ are close if and only if $\frac1z$ and $\frac{1}{z_0}$ are close.}
 \end{Ej}
+
+\begin{ptcbr}
+Let us extend $f$ to $F$ defined as 
+$$F(z)=\begin{cases}
+    &f(z)\word{if}|z|\leq 1,\\
+    &\frac{1}{\ov{f(1/\ov z)}}\word{when}|z|\geq 1.
+\end{cases}$$
+To show that $f$ is constant, we will show that $F$ is constant by Liouville's theorem.\par 
+Notice first that $\frac{1}{f(1/z)}$ is holomorphic when $|z|>1$ because $\frac{1}{z}\in\bD$ and $f$ is non-vanishing in $\bD$. Now, for $z_0$ with $|z_0|>1$ we also have $|\ov{z_0}|>1$, this means that we may write $\frac{1}{f(1/z)}$ as a power series centered at $\ov{z_0}$:
+$$\frac{1}{f(1/z)}=\sum_{n=0}^{\infty
+}a_n(z-\ov{z_0})^n$$
+Conjugating twice, $z$ and the whole expression, we obtain 
+$$\frac{1}{\ov{f(1/\ov{z})}}=\ov{\sum_{n=0}^{\infty
+}a_n(\ov{z}-\ov{z_0})^n}=\sum_{n=0}^{\infty}\ov{a_n}(z-z_0)^n$$
+which means $F$ is analytic for $|z|>1$
+\end{ptcbr}
+
+\begin{Ej}
+    Consider the function 
+    $$f(z)=\frac{2z-3}{z^2-4}.$$
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Find the residue $\res(f,2)$.\hint{Expand $f(z)$ in terms of powers of $(z-2)$.}
+        \item Find the residue $\res(f,-2)$.
+        \item Let $\cC=\del B(0,5)$, find $\int\limits_\cC f(z)\dd z$. 
+        \item Find a partial fraction decomposition for $f(z)$.
+        \item Use the decomposition to recompute $\int\limits_\cC f(z)\dd z$.
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    Notice that we can factor 
+    $$f(z)=\frac{2z-3}{(z+2)(z-2)}$$
+    and we can see that $2$ and $-2$ are simple poles of $f$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item By definition we have that 
+        $$\res(f,2)=\lim_{z\to 2}(z-2)f(z)=\lim_{z\to 2}\frac{2z-3}{z+2}=\frac{1}{4}.$$
+        \item In the same fashion as before
+        $$\res(f,-2)=\lim_{z\to -2}(z+2)f(z)=\lim_{z\to 2}\frac{2z-3}{z-2}=\frac{7}{4}.$$
+        \item By the residue theorem the integral in question is equal to 
+        $$2\pi i(\res(f,2)+\res(f,-2))=4\pi i.$$
+        \item We partially decompose $f$ to 
+        \begin{align*}
+            &\frac{2z-3}{(z+2)(z-2)}=\frac{A}{z+2}+\frac{B}{z-2}\\    
+            \To&2z-3=Az+2A+Bz-2B\\
+            \To&\begin{cases}
+                A+B=2\\
+                2A-2B=3
+            \end{cases}
+        \end{align*}
+        This linear system solves to $A=\frac{7}{4}$ and $B=\frac{1}{4}$. 
+        \item We can now separate the integral into 
+        $$\frac74\int\limits_\cC\frac{\dd z}{z+2}+\frac14\int\limits_\cC\frac{\dd z}{z-2}$$
+        and the residues of both functions at their respective poles are $2\pi i$. Summing this values we obtain the desired result $4\pi i$ as before.
+    \end{enumerate}
+\end{ptcbr}
+\begin{Ej}
+    Suppose $f,g$ are analytic at $z_0$ with $f(z_0)\neq 0$, $g(z_0)=0$, and $g'(z_0)\neq 0$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item What is the order of the pole of $f(z)/g(z)$ at $z_0$?
+        \item Show that 
+$$\res\left(f/g,z_0\right)=\frac{f(z_0)}{g'(z_0)}.$$
+\hint{Write $g(z)=(z-z_0)h(z)$.}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Notice that $f$ has no zeroes at $z_0$ while $g$ has a zero of order one at $z_0$ because $g'(z_0)\neq 0$. So this means that $f/g$ has a \emph{simple pole} at $z_0$. 
+        \item Recall we may calculate the residue of a function $f$ at $z_0$ as 
+        $$\res(f,z_0)=\lim_{z\to z_0}\frac{1}{(n-1)!}\dv[n-1]{z}\left((z-z_0)^nf(z)\right)$$
+        so in the case of $f/g$ we have 
+        $$\res\left(f/g,z_0\right)=\lim_{z\to z_0}\left((z-z_0)\frac{f(z)}{g(z)}\right)$$
+        and as $g(z_0)=0$ this expression equals 
+        $$f(z_0)\lim_{z\to z_0}\left(\frac{z-z_0}{g(z)-g(z_0)}\right)=\frac{f(z_0)}{g'(z_0)}.$$
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[4.B, \cite{Stein} 3.1]
+    Find the zeroes of $\sin(z)$
+\end{Ej}
+
+\begin{ptcbr}
+    Notice that 
+    \begin{align*}
+        &\sin(\pi z)=0\\
+        \iff&\frac{e^{i\pi z}-e^{-i\pi z}}{2i}=0\\
+        \iff&e^{i\pi z}-e^{-i\pi z}=0\\
+        \iff&e^{i\pi z}=e^{-i\pi z}\\
+        \iff&e^{2\pi i z}=1.
+    \end{align*}
+    The last equation is satisfied whenever $z\in\bZ$ which means that $\sin(\pi z)=0$ only when $z\in\bZ$.\par 
+    To prove they are simple zeroes, it suffices to see that $\sin(\pi z)$'s derivative is never zero at such zeroes. Notice that 
+    $$\dv{z}\sin(\pi z)=\pi\cos(\pi z)\xrightarrow[subscript]{z\mapsto n}\pi (-1)^n\neq 0.$$
+    This holds for all integers so it follows that $n\in\bZ$ is a simple zero of $\sin(\pi z)$.
+\end{ptcbr}
+\section{Day 15| 20230222}
+
+Continuing with the example from last class we have the following:
+
+\begin{ptcb}
+    By the residues lemma, if $z_k$ are the roots of the polynomial:
+    $$\res(f,z_k)=\frac{1}{6z_k^3}.$$
+    We get the following 
+    $$\int\limits_{\text{Line}}f(z)\dd z+\int\limits_{\text{half-circle}}f(z)\dd z=2\pi i\left(\frac{1}{6i}-\frac{1}{6i}+\frac{1}{6i}\right)=\frac{\pi}{3}.$$
+    Across the half-circle we can bound the integral 
+    $$\pi R\frac{R^2}{R^6-1}\xrightarrow[]{R\to\infty
+    }0$$
+    where we have used the reverse triangle inequality. Thus, we conclude that the integral we wanted to find is $\frac{\pi}{3}$.
+\end{ptcb}
+
+\begin{Ex}
+    Take $a\in\obonj{0,1}$. Consider the function 
+    $$f(z)=\frac{e^{az}}{1+e^z},$$
+    we will find $\int\limits_{-\infty}^\infty f(z)\dd z$. To do this we use the rectangular contour with sides $2R$ and $2\pi$. Inside this contour, the only pole is $z=i\pi$ so 
+    $$\int\limits_{\cC}f(z)=2\pi i\res(f,i\pi).$$
+    As $i\pi$ is a simple zero of the denominator, we can use the residue lemma to find 
+    $$\res(f,i\pi)=\frac{e^{ia\pi}}{e^{i\pi}}=-e^{ia\pi}.$$
+    Be quick to notice that $\frac{f(z+2\pi i)}{f(z)}=e^{2\pi i a}$. This means that the integral on the top side is $-e^{2\pi i a}$ times our desired integral. On the short sides we have to calculate the following:
+    $$\int\limits_0^{2\pi}f(R+it)i\dd t$$
+    after using the parametrization $R+it$ with $t\in\rbonj{0,2\pi}$, thus 
+    $$\int\limits_0^{2\pi}\left|\frac{e^{a(R+it)}}{1+e^{R=it}}\right|\leq\int\limits_0^{2\pi}\frac{e^{(a-1)R}}{|e^{-R}+e^{it}|}\dd t\leq\frac{2\pi e^{(a-1)R}}{1-e^{-R}}\xrightarrow[subscript]{R\to\infty
+    }0.$$
+    From this we can find that 
+    $$I-e^{2\pi ia}I=-2\pi i e^{i\pi a}\To I=\frac{\pi}{\sin(\pi a)}.$$
+\end{Ex}
+
+\begin{Def}
+    A function $f$ has a removable singularity at $z_0$ if it can be analitically extended to a domain containing $z_0$.
+\end{Def}
+
+\begin{Ex}
+    The function $\frac{e^z}{z}$ has a removable singularity at 0 because we can define it as $1$ at the origin.
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
