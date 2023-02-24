@@ -62,17 +62,78 @@ $$qh\mid qf,\word{and}qh\mid qg\word{in}\bC(x)[y].$$
 
 \begin{ptcbr}
     %pg110 RobUlloa
+   We will describe the bijection 
+   $$\set{\lie p\in\Spec A\:\ \lie p\cap S=\emptyset}\to\Spec S^{-1}A.$$
+   If $\lie p\in\Spec A$ with $\lie p\cap S=\emptyset$ we will show that $S^{-1}\lie p$ is a prime ideal in $S^{-1}A$. Suppose that $\frac{a_1}{s_1}\frac{a_2}{s_2}\in S^{-1}\lie p$. Then there exist $p\in\lie p$ and $s\in S$ such that 
+   $$\frac{a_1}{s_1}\frac{a_2}{s_2}=\frac{p}{s}\To u(a_1a_2s-s_1s_2p)=0,\word{for some}u\in S.$$
+   Now 
+   $$us_1s_2p\in\lie p\To ua_1a_2s\in\lie p\To a_1a_2\in\lie p\To a_1\in\lie p\lor a_2\in\lie p$$
+   from which we conclude that either $\frac{a_1}{s_1}$ or $\frac{a_2}{s_2}$ is in $S^{-1}\lie p$, which means that $S^{-1}\lie p$ is a prime ideal.\par 
+   On the other hand if $\lie q\in\Spec S^{-1}A$ we can take its preimage through the mapping:
+   $$\phi^{-1}\bonj{\lie q}=\Set{x\in A\:\ \frac x1\in\lie q}$$ 
+   and we will show that this ideal doesn't intersect $S$.\par 
+   On the contrary, if it did, if there was $s_0\in S\cap\phi^{-1}\bonj{\lie q}$ then $\frac{s_0}{1}\in\lie q$. Then 
+   $$\left(\frac{1}{s_0}\right)\left(\frac{s_0}{1}\right)=1\in\lie q\word{because}\lie q\word{is prime}.$$
+   This means that $\lie q$ must be the whole ring, but if $\lie q$ were proper, we would have a contradiction. This means that our assumption was wrong and therefore $\phi^{-1}\bonj{\lie q}\cap S=\emptyset$.\par 
+   This is the bijection in question. It preserves order because preimages of sets preserve order.
 \end{ptcbr}
-
+\
 \begin{Ej}[3.2.Q Vakil]
     Consider the map of sets $\pi\:\bA^n_\bZ\to\Spec(\bZ)$
 given by the ring map $\bZ\to\bZ[x_1,\dots,x_n]$. If $p\in\bZ$ is prime, describe a bijection between the fiber $\pi^{-1}\left(\bonj
-\gen(p)\right)$ and $\bA_{\bF_p}^n$. (You won't need to describe either set! Which is good because you can't.) This exercise may give you a sense of how to picture maps (see Figure 3.7), and in particular why you can think of $\bA^n_\bZ$ as an “$\bA^n$-bundle” over $\Spec\bZ$. (Can you interpret the fiber over $\bonj{(0)}$ as $\bA^n_k$ for some field $k$?)
+{\gen(p)}\right)$ and $\bA_{\bF_p}^n$. (You won't need to describe either set! Which is good because you can't.) This exercise may give you a sense of how to picture maps (see Figure 3.7), and in particular why you can think of $\bA^n_\bZ$ as an “$\bA^n$-bundle” over $\Spec\bZ$. (Can you interpret the fiber over $\bonj{(0)}$ as $\bA^n_k$ for some field $k$?)
 \end{Ej}
 
 \begin{ptcbr}
-   
+
 \end{ptcbr}
+
+\begin{Ej}[3.5.B Vakil]
+    
+\end{Ej}
+
+\begin{ptcbr}
+
+\end{ptcbr}
+
+\begin{Ej}[3.6.M Vakil]
+    Verify that $\bonj{\gen(y-x^2)}\in\bA^2_\bC$
+ is a generic point for $V(y-x^2)$. 
+\end{Ej}
+
+\begin{ptcbr}
+Call $\lie p=\gen(y-x^2)$, the closure of $\set{\lie p}$ is 
+$$\ov{\set{\lie p}}=\bigcap_{\substack{F\supseteq\set{\lie p}\\ F\ \text{closed}}}F=\bigcap_{\lie p\in V(S)}V(S).$$
+We can see that $\ov{\set{\lie p}}\subseteq V(y-x^2)$ because $\lie p\in V(y-x^2)$.
+\end{ptcbr}
+
+\begin{Ej}[3.6.P Vakil]
+    Show that $\bA^2_\bC$ is a Noetherian topological space: any decreasing
+sequence of closed subsets of $\bA^2_\bC= \Spec\bC[x, y]$ must eventually stabilize. Note that it can take arbitrarily long to stabilize. (The closed subsets of $\bA^2_\bC$ were described in 3.4.5.).\par
+Show that $\bC^2$ with the classical topology is not a Noetherian topological space.
+\end{Ej}
+
+\begin{ptcbr}
+Let $(F_k)$ be a descending chain of closed subsets of $\bA^2_\bC$. Every $F_k$ can be seen to be $V(I_k)$ where $I_k\triangleleft\bC[x,y]$ is an ideal. So by the Nullstellensatz: 
+\begin{align*}
+    &F_1\supseteq F_2\supseteq\dots\\
+    \To&V(I_1)\supseteq V(I_2)\supseteq\dots\\
+    \To&I_1\subseteq I_2\subseteq\dots
+\end{align*}
+Now $(I_k)$ is an ascending chain of ideals in $\bC[x,y]$, and as this ring is Noetherian, ascending chains stabilize. Which means that there exists $r$ with the property that 
+$$I_r=I_{r+1}=\dots$$
+and therefore $V(I_r)=V(I_{r+1})=\dots$ from which we extract that $\bA^2_\bC$ is Noetherian as a topological space.\par 
+On the other hand if we consider the collection of closed balls $\left(\ov B\left(
+0,\frac{1}{n}\right)\right)_{n\in\bN}$, we see that this collection doesn't stabilize. If it did, there would exist an $r$ such that 
+$$\ov B\left(0,\frac
+1r\right)=\ov B\left(0,\frac
+{1}{r+1}\right)=\dots$$
+but there are no points in $\ov B\left(0,\frac
+1r\right)\less\ov B\left(0,\frac
+{1}{r+1}\right)$ which are limits of sequences inside $\ov B\left(0,\frac
+{1}{r+1}\right)$ because any point in the annulus has positive distance to the smaller ball. 
+\end{ptcbr}
+
 \subsection{Missing from last HW}
 
 \begin{Ej}

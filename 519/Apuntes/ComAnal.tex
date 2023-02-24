@@ -1193,13 +1193,13 @@ which means $F$ is analytic for $|z|>1$
         and the residues of both functions at their respective poles are $2\pi i$. Summing this values we obtain the desired result $4\pi i$ as before.
     \end{enumerate}
 \end{ptcbr}
-\begin{Ej}
+
+\begin{Ej}[Residue Lemma]
     Suppose $f,g$ are analytic at $z_0$ with $f(z_0)\neq 0$, $g(z_0)=0$, and $g'(z_0)\neq 0$.
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item What is the order of the pole of $f(z)/g(z)$ at $z_0$?
-        \item Show that 
-$$\res\left(f/g,z_0\right)=\frac{f(z_0)}{g'(z_0)}.$$
+        \item Show that $\res\left(f/g,z_0\right)={f(z_0)}/{g'(z_0)}$.
 \hint{Write $g(z)=(z-z_0)h(z)$.}
     \end{enumerate}
 \end{Ej}
@@ -1218,7 +1218,11 @@ $$\res\left(f/g,z_0\right)=\frac{f(z_0)}{g'(z_0)}.$$
 \end{ptcbr}
 
 \begin{Ej}[4.B, \cite{Stein} 3.1]
-    Find the zeroes of $\sin(z)$
+    Using Euler's formula: 
+    $$\sin(\pi z)=\frac{e^{i\pi z}-e^{-i\pi z}}{2i},$$
+    show that the complex zeros of $\sin(\pi z)$ are exactly at the integers, and that they
+are each of order 1.\par 
+Calculate the residue of $1/\sin(\pi z)$ at $z= n\in\bZ$.
 \end{Ej}
 
 \begin{ptcbr}
@@ -1232,8 +1236,12 @@ $$\res\left(f/g,z_0\right)=\frac{f(z_0)}{g'(z_0)}.$$
     \end{align*}
     The last equation is satisfied whenever $z\in\bZ$ which means that $\sin(\pi z)=0$ only when $z\in\bZ$.\par 
     To prove they are simple zeroes, it suffices to see that $\sin(\pi z)$'s derivative is never zero at such zeroes. Notice that 
-    $$\dv{z}\sin(\pi z)=\pi\cos(\pi z)\xrightarrow[subscript]{z\mapsto n}\pi (-1)^n\neq 0.$$
-    This holds for all integers so it follows that $n\in\bZ$ is a simple zero of $\sin(\pi z)$.
+    $$\dv{z}\sin(\pi z)=\pi\cos(\pi z)\xrightarrow[]{z\mapsto n}\pi (-1)^n\neq 0.$$
+    This holds for all integers so it follows that $n\in\bZ$ is a simple zero of $\sin(\pi z)$.\par 
+    The residue can be calculated as follows: 
+    $$\res(\csc(\pi z),n)=\lim_{z\to n}\frac{z-n}{\sin(\pi z)}=\lim_{z\to n}\frac{1}{\pi\cos(\pi z)}=\frac{(-1)^n}{\pi}$$
+    where in the last step we have applied L'H\^{o}pital's rule as we have an indeterminate form.\par 
+    Notice that when the residue lemma we should have a quotient $f/g$ where the numerator doesn't vanish. However in the quotient $(z-n)/\sin(\pi z)$, the numerator also vanishes at $z=n$. In this sense we can't apply the residue lemma. 
 \end{ptcbr}
 \section{Day 15| 20230222}
 
