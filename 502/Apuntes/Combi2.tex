@@ -1570,15 +1570,15 @@ Representation is a big and not unified area, so we will talk only about what we
 \item $\id\mapsto \threebythree{1}{0}{0}{0}{1}{0}{0}{0}{1}$.     
 \item $(12)\mapsto \threebythree{0}{1}{0}{1}{0}{0}{0}{0}{1}$.       
 \item $(13)\mapsto \threebythree{0}{0}{1}{0}{1}{0}{1}{0}{0}$.       
-\item $(23)\mapsto \threebythree{1}{0}{0}{0}{1}{1}{0}{1}{0}$.        
-\item $(123)\mapsto $.       
-\item $(132)\mapsto $.        
+\item $(23)\mapsto \threebythree{1}{0}{0}{0}{0}{1}{0}{1}{0}$.        
+\item $(123)\mapsto\threebythree{0}{0}{1}{1}{0}{0}{0}{1}{0}$.       
+\item $(132)\mapsto \threebythree{0}{1}{0}{0}{0}{1}{1}{0}{0}$.        
     \end{multicols}
     \end{itemize}
     In general $\sg\mapsto M_\sg$ where $(M_\sg)_{i,j}=\dl_{i,\pi(j)}$. This representation is faithful, but it's \emph{too big}.
 \end{Ex}
 
-%We can notice that $\vec v=\threebyone{1}{1}{1}$ is an eigenvector with eigenvalue 1 of all of these matrices. The eigenspace $\gen(\vec v)$ is fixed by all of these matrices. The orthogonal complement to $\gen(\vec v)$ is rotated about the normal axis when acted by this matrices, such plane is 
+We can notice that $v=\threebyone{1}{1}{1}$ is an eigenvector with eigenvalue 1 of all of these matrices. The eigenspace $\gen(v)$ is fixed by all of these matrices. The orthogonal complement to $\gen(v)$ is rotated about the normal axis when acted by this matrices, such plane is 
 $$\gen\left(\threebyone{1}{-1}{0},\threebyone{0}{1}{-1}\right).$$
 If we add our eigenvector to the basis then 
 $$\bonj{\id}_\cB^\cC=\threebythree{1}{1}{0}{1}{-1}{1}{1}{0}{-1}\To\bonj{\id}^\cB_\cC=\frac{1}{3}\threebythree{1}{1}{1}{2}{-1}{-1}{1}{1}{-2}.$$
@@ -1600,7 +1600,7 @@ Conjugating with our matrix we get the following representation:
 \end{multicols}
 \end{itemize}
 
-The fourth representation of $S_3$ comes from the two-by-two components of the block diagonal matrices in question. Knowing where the generators go suffices to know where every element maps. This means that 
+The fourth representation of $S_3$ comes from the two-by-two components of the block diagonal matrices in question. Knowing where the generators go is sufficient to know where every element maps. This means that 
 \begin{align*}
     &(132)=(12)(13)\mapsto\twobytwo{-1}{1}{-1}{0}.\\
     &(123)=(13)(12)\mapsto\twobytwo{0}{-1}{1}{-1}.\\
@@ -1616,8 +1616,11 @@ Two representations $g\mapsto M_g$ and $g\mapsto N_g$ are isomorphic whenever th
 In terms of the vector spaces, two representations $V,W$ are isomorphic if there's an isomorphism that preserves the group action. 
 \end{Def}
 
-Can we have isomorphic representations between dimensions? No, but can we have non-isomorphic representations of the same dimension? Yes! The one dimensional ones aren't isomorphic.
-
+\begin{itemize}
+    \itemsep=-0.4em
+    \item Can we have isomorphic representations between dimensions? No, but,
+    \item can we have non-isomorphic representations of the same dimension? Yes! The one dimensional ones aren't isomorphic.
+\end{itemize}
 \subsection{Operations on representations}
 
 The direct sum acts on vector spaces as $V\oplus W$ or on maps as 
@@ -1630,7 +1633,7 @@ $$(g\mapsto M_g)\oplus(g\mapsto N_g)=g\mapsto\twobytwo{M_g}{}{}{N_g}.$$
 \begin{Def}
     A representation is \term{irreducible}\footnote{indecomposable means the same as irreducible when working over $\bC$.} if it is not the direct sum of smaller dimensional representation.
 \end{Def}
-Any number is a unique product of primes, so any representation is a direct sum of irreducibles.
+Any number is a unique product of primes, so in an analogous way, any representation is a direct sum of irreducibles.
 
 \begin{Th}[Maschke/Schur]
     Every complex representation of a finite group $G$ is uniquely (up to isomorphism) a direct sum of irreducibles.
@@ -1653,12 +1656,27 @@ Recall $g,h\in G$ are conjugate if $h=kgk^{-1}$ for some $k\in G$.
 \end{Ex}
 
 \begin{Ex}
-    Recall that conjugacy classes in the symmetric group are determined by cycle type. We have \href{https://groupprops.subwiki.org/wiki/Symmetric_group:S4#Conjugacy_class_structure}{this information}
-
-    and notice that the number of conjugacy classes is $5=p(4)$.\par 
-    We have $2$ know irreducible representations, the trivial and sign one. The rest we will find with our tableaux.
+    Recall that conjugacy classes in the symmetric group are determined by cycle type. Notice that the number of conjugacy classes is $5=p(4)$. 
+    \begin{table*}[h]
+        \centering
+        \arraystretch{1.3}
+        \begin{tabular}{rrrr}\toprule
+            Partition & Cycle type & Elements of conjugacy class\\ \midrule
+            $(1,1,1,1)$& 4 1-cycles & $()$ (identity element)\\
+            $(2,1,1)$& 1 transposition & $(12),(13),(14),$\\
+            &&$(23),(24),(34)$\\
+            $(2,2)$ & 2 transpositions & $(12)(34),(13)(24),(14)(23)$\\
+            $(3,1)$ & 1 3-cycle& $(123),(132),(234),(243),$\\
+            &&$(341),(314),(412),(421)$\\
+            $(4)$ & 1 4-cycle & $(1234),(1243),(1324),$\\
+            &&$(1342),(1423),(1432)$\\
+       \bottomrule
+        \end{tabular}
+        \legend{Symmetric Group $S_4$ cycle structure}
+        \end{table*}
 \end{Ex}
 
+We now have $2$ irreducible representations, the trivial and sign one. The rest we will find with tableaux.
 \begin{Prop}
     There is one irreducible representation $V_\la$ of $S_n$ for each partition $\la\vdash n$.
 \end{Prop}
@@ -1667,7 +1685,7 @@ Recall $g,h\in G$ are conjugate if $h=kgk^{-1}$ for some $k\in G$.
 
 Sometimes this $V_\la$'s are called Specht modules, this means irreducible representation of $S_n$. First remember that $S_n$ acts on $\bC[x_1,x_2,\dots,x_n]$.\par 
 We can think of $(\bC[x_1,\dots,x_n],+)$ as an infinite dimensional $S_n$ representation. This in the sense that 
-$$\bC[x_1,x_2,\dots,x_n]=\bigoplus_{d=0}^\infty\set{\text{degree d pols.}}$$
+$$\bC[x_1,x_2,\dots,x_n]=\bigoplus_{d=0}^\infty\set{\text{degree d homogenous component}}$$
 We will construct $V_\la$ as a sub-representation of $\bC[x_1,\dots,x_n]$.
 
 \begin{Def}
@@ -1681,15 +1699,15 @@ We will construct $V_\la$ as a sub-representation of $\bC[x_1,\dots,x_n]$.
     $$\young(4,13,52)$$
     so we look at the first column. We begin by adding factors 
     $$(x_4-x_1)(x_4-x_5)(x_1-x_5)$$
-    and in the second column, only get $(x_3-x_2)$. So $F_T$ is the product.
+    and in the second column, only get $(x_3-x_2)$. So $F_T$ is the product
+    $$F_{T}=(x_4-x_1)(x_4-x_5)(x_1-x_5)(x_3-x_2).$$
 \end{Ex}
 
 \begin{Def}
-    We say that 
-    $$V_\la=\gen\set{F_T\:\ T\text{fill}(\la)}.$$
+    The Specht module is $V_\la=\gen\set{F_T\:\ T\text{ is a standard filling of }\la}$.
 \end{Def}
 
-\begin{Lem}
+\begin{Lem}\label{lem-action-of-Sn-on-Vlambda}
     $S_n$ acts on $V_\la$ by permuting variables.
 \end{Lem}
 
@@ -1700,7 +1718,7 @@ We will construct $V_\la$ as a sub-representation of $\bC[x_1,\dots,x_n]$.
     $$\young(4,23,51).$$
 \end{Ex}
 
-The proof of this is basically $\pi F_T=F_{\pi T}$ and we extend linearly. 
+The proof of the lemma \ref{lem-action-of-Sn-on-Vlambda} begins by determining the action of $\pi\in S_n$ over the basis. We can see that $\pi F_T=F_{(\pi T)}$ and after that and we extend linearly to all elements, since the action on the generators determines the action on the whole space.
 
 \begin{Prop}
     The set of $F_T$'s such that $T$ is a SYT is a basis for $V_\la$. In particular 
@@ -1711,11 +1729,13 @@ The proof of this is basically $\pi F_T=F_{\pi T}$ and we extend linearly.
 We will see the proof next class, for now, an example:
 
 \begin{Ex}
-    Consider $V_{(2,1)}$. We need to write the Young tableau of $(2,1)$. These are 
+    Consider $V_{(2,1)}$, we have the following possible fillings of $\sh(2,1)$:
     $$\young(3,12),\quad\young(2,13),\quad\young(1,23),\quad\young(3,21),\quad\young(2,31),\quad\young(1,32).$$
-    Then 
+    By taking the Garnir polynomial of each filling $T$ we can find the generators for our $V_{(2,1)}$:
     $$V_{(2,1)}=\gen(x_3-x_1,x_2-x_1,x_1-x_2,x_3-x_2,x_2-x_3,x_1-x_3)$$
-    Clearly we don't need some of them due to signs. So we are only left with $x_3-x_1$ and $x_2-x_1$, the ones that correspond to SYT.
+    Clearly we don't need some of them due to signs. After eliminating the negatives, we can see that 
+    $$x_3-x_2=(x_3-x_1)-(x_2-x_1)$$
+    so that we may eliminate it as well. We are only left with $x_3-x_1$ and $x_2-x_1$, the ones that correspond to SYT and we see that the dimension of $V_{(2,1)}$ is indeed 2, the number of SYT's of shape $(2,1)$.
 \end{Ex}
 
 \begin{Ej}
@@ -1723,9 +1743,10 @@ We will see the proof next class, for now, an example:
 \end{Ej}
 
 \begin{ptcbr}
-    Both representations have dimension $1$ as there's only one SYT of shape $(1,1,1)$ and $(3)$.\par 
-    For $V_{(3)}$ this is the span of $1$, which $S_3$ acts on trivially on $1$. This is the trivial representation.\par 
-    For $V_{(1,1,1)}$ we have that it's generated by $(y-x)(z-x)(z-y)$. This is the sign representation.
+    Both representations have dimension $1$ as there's only one SYT of shape $(1,1,1)$ and $(3)$:
+    $$\young(3,2,1),\word{and}\young(123).$$ 
+    For $V_{(3)}$ this is the span of $1$, because we can't make any Garnir polynomials. Also $S_3$ acts on trivially on $1$. This means $V_{(3)}$ that is the trivial representation.\par 
+    For $V_{(1,1,1)}$ we have that it's generated by $(x_2-x_1)(x_3-x_1)(x_3-x_2)$. We can see that this is the sign representation.
 \end{ptcbr}
 
 Let's now see why the representation $V_{(2,1)}$ is the same as the standard representation we found last time.\par 
@@ -1739,6 +1760,81 @@ As $V_{(2,1)}=\gen(z-x,y-x)=\gen\left(\threebyone{-1}{0}{1},\threebyone{-1}{1}{0
 \end{Lem}
 
 On monday we will continue with tensor products and $V_\la\to s_\la$, $V\la\ox V_\mu\to s_\la s_mu$
+
+\section{Day 17| 20230227}
+
+Going back to Yamanouchi words on 2 letters, the way to solve it is to consider the crystals. Each connected component contains a sequence with three 2's and two 1's which can be counted using $\binom{n}{\floor{n/2}}$ as this question is equivalent to asking number of words of length $2n+1$ with $n+1$ ones and $n$ twos.
+
+\subsection{Garnir polynomials}
+
+Recall that $T$ is a filling on $\la$ with $[n]$ with no restrictions on rows or columns. $T$'s Garnir polynomial is $\prod(x_i-x_j)$ where $i$ is ``above'' $j$. From this, $V_\la$ is $S_n$-invariant. This means that $\pi v\in V_\la$ when $v\in V_\la$ and $\pi\in S_n$.\par 
+We now need a \emph{straightening algorithm} to convert $F_T$'s to other $F_T$'s.
+
+\begin{Lem}[Column straightening]
+    If $T$ is a filling of $\la$ with $[n]$ and $T'$ is formed from $T$ by ordering columns, then $F_{T'}=(\pm)F_T$.
+\end{Lem}
+
+\begin{Ex}
+    Consider the fillings $T$ and $T'$ respectively: 
+    $$\young(87,125,4936)\quad\to\quad\young(89,475,1236).$$
+    We have
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &F_T=(x_8-x_1)\dots\\
+        &F_{T'}=(x_8-x_1)\dots\\
+    \end{aligned}
+    \right.
+    $$
+\end{Ex}
+
+Proof was omitted in class \red{LOOK AT MARIA NOTES}
+
+\begin{Lem}[Row straightening]
+    Suppose $T$ is column-increasing and we do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Choose the topmost row having a decrease (if it's not row increasing).
+        \item Choose the rightmost decrease in that row.
+        \item Define the \term{Garnir operator}
+        $$g_{A,B}=\sum_{(\ast)}\sgn(\sg)\sg$$
+        where the sum is taken over $\sg\in S_{A\cup B}$ which preserve column increases.\par 
+        Then 
+        $$g_{A,B}F_T=0\iff \sum_\sg\sgn(\sg)F_{\sg(T)}=0.$$
+    \end{enumerate}
+\end{Lem}
+
+\begin{Ex}
+    In the filling  
+    $$\young(89,475,1236)$$
+    we have $A$ to be the column above and including the $7$, while $B$ is the column including and below $5$. Then the Garnir operator is 
+    $$g_{A,B}=\id-(57)+(37)(59)+(735)+(597)-(3597).$$
+    The result of applying each term of the operator to the filling results in 
+    $$\young(89,457,1236),\quad\young(85,439,1276),quad\young(89,437,1256),\quad\young(87,459,1236),\quad\young(87,439,1256).$$
+    and notice that (properrty is now there, which one column inc or row incr?) so that 
+    $$F_T=F_1-F_2-F_3-F_4+F_5$$
+\end{Ex}
+
+\begin{Prop}
+    Irreducibility of $V_\la$
+\end{Prop}
+
+\subsection{Tensor product on representations}
+
+The \emph{inner} tensor product is defined on all representations whereas the \emph{outer} tensor product is specific to the $S_n$ case. 
+
+\begin{Prop}
+    If $V,W$ are vector spaces of dimension $n$ and $m$, then $\dim(V\ox W)=mn$.   
+\end{Prop}
+
+The construction of the tensor product that we will use is the one of the free vector space over $V\x W$ modulo the relations of bilinearity.
+
+\begin{Prop}
+    If $V,W$ are $S_n$-representations, then $V\ox W$ is an $S_n$ representation as well given by 
+    $$\pi(v\ox w)=(M_\pi v\ox M_\pi w).$$
+\end{Prop}
+
+The \term{Kronecker problem} is that we have $V_\la$ and $V_\mu$ and we would like to determine the decomposition of $V_\la\ox V_\mu$ into irreducibles.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
