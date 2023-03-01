@@ -1835,6 +1835,73 @@ The construction of the tensor product that we will use is the one of the free v
 \end{Prop}
 
 The \term{Kronecker problem} is that we have $V_\la$ and $V_\mu$ and we would like to determine the decomposition of $V_\la\ox V_\mu$ into irreducibles.
+
+\section{Day 18| 20230301}
+
+The inner tensor product is 
+
+$$g(v\ox w)=M_gv\ox N_gw$$
+
+so if $V,W$ represent, $V\ox W$ represents. For matrices $A\ox B$ is a block matrix.
+
+\subsection{Outer Tensor Product}
+
+\begin{Def}
+    Suppose $H\leq G$ for a group $G$ and $V$ represents $H$. Then the induced representation of $G$ is 
+    $$\bC G\ox_{\bC H}V.$$ 
+    A basis is the basis of $V$ tensored by coset elements.
+\end{Def}
+
+\begin{Ex}
+    Consider the trivial representation of $S_2$, let us call it $1_{S_2}$. Let us now induce from $S_2$ to $S_3$, we are fixing the $3$ so $S_2=\gen((12))$. Thus we may find a basis 
+    $$v_1=123\ox v_0,\quad v_2=132\ox v_0,\quad v_3=312\ox v_0,$$
+    where $v_0$ is the only basis element of $1_{S_2}$. Sending this to matrices we get the permutation representation.
+\end{Ex}
+
+\begin{Def}
+    If $V$ repreesents $G$ and $H\leq G$, then restricting the representation to $H$ means just taking the \emph{ones in $H$}.
+\end{Def}
+
+With the induced and restriced representations we can now go on to defining the outer tensor product of representations.
+
+\begin{Def}
+    The \term{outer tensor product} of $V,W$ representations of $S_n$ and $S_m$ is 
+    $$Ind_{S_n\x S_m}^{S_{n+m}}V\ox W.$$ 
+\end{Def}
+
+Notice that $V\ox W$ is a representation of $S_n\x S_m$ so we induce it to the larger group $S_{n+m}$. Notice that we may interpret a permutation in $S_n\x S_m$ as a permutation of the word 
+
+The difference is that $V,W$ in the inner one are in the same group. Now we get an $S_{n+m}$ representation from the outer.  The \term{Kronecker problem} looks for irreducible representations of $V_\la\ox_{in}V_{\mu}=\bigoplus g){\la\mu}^\nu V_\nu$.\par 
+However it is possible to find the decomposition of the outer tensor product:
+$$V_\mu\ox_{out}V_\nu=\bigoplus_\la c_{\mu\nu}^{\la}V_\la$$
+where $c_{\mu\nu}^\la$ is the Littlewood-Richardson coefficient. This is analogous to the product of two Schur functions
+$$s_\mu s_\la=\sum_\la c_{\mu\nu}^\la s_\la.$$
+\begin{Ex}
+    Consider $V_{(2)}\ox_{out}V_{(1)}$, this the trivial representation of $S_2\x S_1$ which means this is the induction from $S_2\x S_1$ to $S_3$.\par 
+    Notice that the group $S_2\x S_1\isom S_2$, so from before, we found that this was the permutation representation of $S_3$. We have decomposed this (REF WHERE) as 
+    $$V_{(2,1)}\oplus V_{(3)}.$$
+    This is analogous to $s_{(2)}s_{(1)}$.
+\end{Ex}
+\red{Also read example in notes column sign, row trivial} We wish to understand the previous correspondence. 
+
+\begin{Def}
+    The \term{Frobenius map} takes a representation $V=\bigoplus c_\la V_\la$ to $\sum c_\la s_\la$. In other words, takes irreducibles $V_\la$ to basis elements $s_\la$ and extend by linearity.
+\end{Def}
+
+Notice that 
+$$\text{Frob}(V_\la\ox_oV_\mu)=s_\la s_mu\To \text{Frob}(V\ox_oW)=Frob(V)Frob(w).$$
+We may extend to virtual representations which are complex formal sums of representations. Then $Frob\: (Virt,\oplus,\ox)\to\La$ is a ring homomorphism.\par 
+But what's the deal with Schur positivity, this theory gives us a corollary.
+
+\begin{Cor}
+    A homogenous degree $d$ symmetric function is a Frobenius character of some representation if and only if $f$ is Schur positive.
+\end{Cor}
+
+This means that there are two strategies when working in combinatorial represetation theory.
+\begin{enumerate}
+    \item We have a representation for which we can decompose $Frob(V)$ indto Schur functions, then we can find a decomposition of $V$ into irreducibles.
+    \item If we have a collection of symmetric functions which seem to be Schur positive, then we can show that the fact is true by finding a representation $V_i$ such that $f_i=Frob(V_i)$.
+\end{enumerate}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

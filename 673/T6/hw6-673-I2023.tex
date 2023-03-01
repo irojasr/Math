@@ -17,8 +17,50 @@
         Show that the natural map $A_f\to\cO_{\Spec(A)}(D(f))$ is an isomorphism. \hint{Exercise 3.5.E Vakil.}
     \end{Ej}
     %NEUR
+
+    First let us recall that Exercise 3.5.E is the following:
+
+    \begin{Lem}
+        The next statements are equivalent:
+        \begin{enumerate}[i)]
+            \itemsep=-0.4em
+            \item $D(f)\subseteq D(g)$.
+            \item $\exists n(n\geq 1\To f^n\in\gen(g))$.
+            \item $g$ is an invertible element of $A_f$.
+        \end{enumerate}
+    \end{Lem}
+
+    We have proven this in class so let us make a quick recapitulation.
+
+    \begin{ptcb}
+        The first two statements are equivalent because 
+        \begin{align*}
+            D(f)\subseteq D(g)&\iff V(g)\subseteq V(f)\\
+            &\iff \set{\lie p\:\ \gen(g)\subseteq\lie p}\subseteq \set{\lie p\:\ \gen(f)\subseteq\lie p}
+        \end{align*}
+        The last statement can be rephrased as \emph{if a prime contains $g$, then it also contains $f$}. In particular this equivalent to saying 
+        \begin{align*}
+        &f\in\bigcap_{g\in\lie p}\lie p=\sqrt{\gen(g)}\\
+        \iff &\exists n(n\geq 1\To f^n\in\gen(g)).
+        \end{align*}
+        For the last two statements, we first assume $g$ is invertible in $A_f$. This means that there exists an $n$ such that
+        $$\left(\frac{g}{1}\right)\left(\frac{a}{f^n}\right)=\frac{1}{1}.$$
+        Recall that the equality condition in the localization means that there exists and element $f^m$ with $m\geq 1$ which is invertible in $A_f$ such that 
+        $$f^m(ag-f^n)=0\To agf^m=f^{m+n}.$$
+        This last equation is in $A$ without localizing, and the term on the right, $agf^m$, is in $\gen(g)$. Thus the power we were searching for is $m+n$ and $f^{m+n}\in\gen(g)$.\par 
+        On the other direction, if $f^n\in\gen(g)$ for some $n\geq 1$, then there is an $a\in A$ such that 
+        $$f^n=ag,$$
+        and localizing at $f$ turns this equation into $\frac{1}{g}=\frac{a}{f^n}$. 
+    \end{ptcb}
     \begin{ptcbr}
-    
+    We begin by recalling the definition of $\cO_{\Spec(A)}(D(f))$, we have 
+    $$\cO_{\Spec(A)}(D(f))=S^{-1}A,\word{where}S=\set{g\in A\: D(f)\subseteq D(g)}.$$
+    By the lemma we can rewrite $S$ as
+    $$S=\set{g\in A\: \exists n(f^n\in\gen(g))}.$$
+    Now notice that when localizing at $S$ we are able to invert $f^n$ for some $n$. From this we have that $f$ is also invertible in $S^{-1}A$ because 
+    $$f^ng=u\To f(f^{n-1}g)=u\To f\text{ is invertible}.$$
+    This means that localizing at $S$ is a further localization of $A$ at $f$ because we have already inverted all powers of $f$.\par 
+    Notice however that this isn't adding anything new to $A_f$, because of the last equivalence of the lemma. Every $g$ such that $D(f)\subseteq D(g)$ is already invertible in $A_f$. We conclude that the inclusion is actually an isomorphism.
     \end{ptcbr}
 
     \begin{Ej}[Restrictions]
@@ -31,7 +73,18 @@
     \end{Ej}
     
     \begin{ptcbr}
-    
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Recall that 
+    $$\cO_{\Spec(A)}(D(f))=(S^f)^{-1}A,\word{where}S^f=\set{h\in A\: D(f)\subseteq D(h)}$$
+    and on the same vein the set associated to $D(g)$ is the localization at $S^g=\set{h\in A\: D(g)\subseteq D(h)}$. So if we take $D(f)\subseteq D(g)$ then the restriction map is a function 
+    $$\res_{D(g),D(f)}\cO_{\Spec(A)}(D(g))\to\cO_{\Spec(A)}(D(f)).$$
+    \item Using the previous exercise we have the isomorphism between localizing at $S^f$ and localizing at powers of $f$. So once again let us assume that $D(f)\subseteq D(g)$, then the restriction map is a function 
+%TO CONTAIN IS TO DIVIDE
+    $$\res_{D(g),D(f)}A_f\to A_g.$$
+    In this case we have an element $\frac{a}{f^n}$ which is being mapped to 
+
+    \end{enumerate}
     \end{ptcbr}
 
     \begin{Ej}[4.1.D Vakil]
