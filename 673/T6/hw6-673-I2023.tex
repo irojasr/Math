@@ -73,17 +73,41 @@
     \end{Ej}
     
     \begin{ptcbr}
+        \iffalse
+Let us begin by calling 
+$$S^f=\set{h\in A\:\ D(f)\subseteq D(h)}$$
+and likewise for $S^g$. Using this set, our definition for the structure sheaf is $\cO_{\Spec(A)}(D(f))=(S^f)^{-1}A$.\par 
+Recall that from the previous exercise we have that $D(f)\subseteq D(h)$ is equivalent to saying that $h$ is invertible in $A_f$:
+$$\frac{1}{h}=\frac{a}{f^n},\word{for}n\in\bN\word{and}a\in A.$$
+So in terms of a relation between $S^f$ and $S^g$, given that $D(f)\subseteq D(g)$, we can see that $S^g\subseteq S^f$:
+$$h\in S^g\To \frac1h=\frac{a}{g^n}\To \frac1h=a\left(\frac{b}{f^m}\right)^n=\frac{ab^n}{f^{mn}}\To h\in S^f.$$
+Thus when localizing we have $(S^g)^{-1}A\supseteq (S^f)^{-1}A$, which means that it does make sense to restrict from $\cO_{\Spec(A)}(D(g))$ to $\cO_{\Spec(A)}(D(f))$.
+\fi
     \begin{enumerate}[i)]
         \itemsep=-0.4em
         \item Recall that 
     $$\cO_{\Spec(A)}(D(f))=(S^f)^{-1}A,\word{where}S^f=\set{h\in A\: D(f)\subseteq D(h)}$$
-    and on the same vein the set associated to $D(g)$ is the localization at $S^g=\set{h\in A\: D(g)\subseteq D(h)}$. So if we take $D(f)\subseteq D(g)$ then the restriction map is a function 
-    $$\res_{D(g),D(f)}\cO_{\Spec(A)}(D(g))\to\cO_{\Spec(A)}(D(f)).$$
+    and on the same vein the set associated to $D(g)$ is the localization at $S^g=\set{h\in A\: D(g)\subseteq D(h)}$. So if we take $D(f)\subseteq D(g)$, we can inject $A$ into both localizations via $a\mapsto\frac{a}{1}$ as follows:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEEQBfU9TXfIRQBGclVqMWbABQBlAHoAzAJTzgAWmFdOPPtjwEio4ePrNWiEHPkBzVRq07xMKDfhFQigE4QAtkjIQHAgkUQlzNgAdSJpFAH1Fbl4Qbz8A6mCkACZqMylLaNi4mxBqBjoAIxgGAAV+AyEQLywbAAscbgouIA
+\begin{tikzcd}
+    A \arrow[r, "\vf_f"] \arrow[rd, "\vf_g"'] & (S^f)^{-1}A \\
+                                              & (S^g)^{-1}A
+    \end{tikzcd}
+    \end{center}
+    Now for elements $h\in S^g$, $\vf^f(h)$ is an invertible element in $(S^f)^{-1}A$ because $D(f)\subseteq D(g)$. So, by universality of the localization, we have that there exists a unique map 
+    $$(S^g)^{-1}A\to(S^f)^{-1}A$$
+    and such map is the desired restriction map.
     \item Using the previous exercise we have the isomorphism between localizing at $S^f$ and localizing at powers of $f$. So once again let us assume that $D(f)\subseteq D(g)$, then the restriction map is a function 
 %TO CONTAIN IS TO DIVIDE
-    $$\res_{D(g),D(f)}A_f\to A_g.$$
-    In this case we have an element $\frac{a}{f^n}$ which is being mapped to 
-
+    $$\res_{D(g),D(f)}A_g\to A_f.$$
+    In this case we have an element $\frac{a}{h^n}$ with $h\in S^g$. Recall that this means that $h$ is invertible in $A_g$ so we may write 
+    $$\frac{1}{h}=\frac{b}{g^m},\word{where}b\in A,\ m\in\bN.$$
+    But now, as $D(f)\subseteq D(g)$, $g$ is invertible in $A_f$ so once again we have 
+    $$\frac{1}{g}=\frac{c}{f^r},\word{where}c\in A,\ r\in\bN.$$
+    Combining these facts we have 
+    $$\frac{a}{h^n}=a\frac{b^n}{g^{mn}}=ab^n\frac{c^{mn}}{f^{mnr}},$$
+    and so this element inside $A_f$ is where we map our original element to.
     \end{enumerate}
     \end{ptcbr}
 
@@ -95,7 +119,45 @@ that the following construction describes a sheaf $\widetilde{M}$ on the disting
     \end{Ej}
     
     \begin{ptcbr}
-    
+    We are now considering the following space $(\Spec(A),\widetilde{M})$, in other words we are endowing $\Spec(A)$ with sheaf of $A$-modules.\par 
+    We first verify that $\widetilde{M}$ is a presheaf. In the same way we defined the sheaf on the basis elements we have 
+    $$\widetilde{M}(D(f))=(S^f)^{-1}M,\word{where}S^f=\set{h\in A\: D(f)\subseteq D(h)}.$$
+    The restriction maps are defined in the same fashion by universality, so if we have the diagram 
+    $$% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFkQBfU9TXfIRQBGclVqMWbABQBlAHoAzAJTzgAWmFdOPPtjwEio4ePrNWiEHKWqNWneJhQA5vCKhFAJwgBbJGRAcCCRRCXM2AB0ImkUAfUVuXhAvX39qIKQAJmozKUsomPiQagY6ACMYBgAFfgMhEE8sZwALHG4KLiA
+    \begin{tikzcd}
+    M \arrow[r, "\vf_f"] \arrow[rd, "\vf_f"'] & (S^f)^{-1}M \\
+                                              & (S^f)^{-1}M
+    \end{tikzcd}$$
+    then there's a restriction map from each localization to another. By universality they must be the same arrow, and as the only arrow which goes from $(S^f)^{-1}M$ to itself is the identity we have 
+    $$\res_{D(f),D(f)}=\id_{(S^f)^{-1}M}.$$
+    Now, we have the composition of restriction maps is the longer restriction map. Consider the following diagram:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoBGAXVJADcBDAGwFcYkQBZEAX1PU1z5CKchWp0mrdgAoAygD0A5gEp5wALTluXXv2x4CRUQCZxDFm0Qg58gBaqNWnXxAZ9Qo6WJnJl6woAzB01tHnEYKEV4IlAAgCcIAFskMhAcCCRRCQt2AB1c2gCAfUUeF3iklJp0pGMacykrfMKi2xAaRnoAIxhGAAUBA2EQOKxFWxwy2ITkxFSaxABmet88guKAqZAK2bq0jMQtcpnM6oPlkEYsMD8oejhbCK2d2rPTy+vb+8eoZ5PEPYLC49MC-RDqAAsAE4Op92HcHk9uJRuEA
+\begin{tikzcd}
+    & (S^f)^{-1}M                                                               \\
+M \arrow[r, "\vf_g"] \arrow[rd, "\vf_h"'] \arrow[ru, "\vf_f"] & (S^g)^{-1}M \arrow[u, dashed]                                             \\
+    & (S^h)^{-1}M \arrow[u] \arrow[u, dashed] \arrow[uu, dashed, bend right=49]
+\end{tikzcd}
+    \end{center}
+We have that the composition exists by universality as do the smaller 
+arrow. Universality guarantees that they are the same arrow and thus 
+$$\res_{D(h),D(f)}=\res_{D(g),D(f)}\circ\res_{D(h),D(g)}.$$
+Let us now verify the sheaf axioms. We begin by considering an open cover of $\Spec(A)$ which we can reduce to a finite sub-cover by quasi-compactness, this is 
+$$\Spec(A)=\bigcup_{i\in I}D(f_i)=\bigcup_{i=1}^{n}D(f_i).$$
+\begin{itemize}
+    \item Recall that our sheaf sets are modules, so injectivity is equivalent to kernels being trivial. Thus to verify the identity axiom, we consider $s\in\widetilde{M}(\Spec(A))$ with the assumption that $\res_{D(f_i)}(s)=0$. We wish to show $s=0$.\par 
+    The restriction lives in one our localization, this means that 
+    $$\res_{D(f_i)}(s)\in\widetilde{M}(D(f_i))=(S^{f_i})^{-1}M\To\res_{D(f_i)}(s)=\frac{m}{g},\word{where}g\in S^{f_i}.$$
+    Now this fraction is zero, which means that there's an invertible element $u\in S^{f_i}$, which is $\frac{1}{u}=\frac{a}{f_i^{s}}$, that satisfies
+    $$u(1\.m-0.g)=0\To aum=a\.0=0\To f_i^{s}m=0.$$
+    This last proposition holds for all $i$, and as we have $\genr{f_1^s,\dots,f_n^s}=A$ we have that $1=\sum c_if_i^s$. As $M$ is an $A$-module, the next equation holds in $M$:
+    $$m=\left(\sum_{i=1}^{n}c_if_i^{s}\right)m=\sum_{i=1}^{n}c_i(f_i^{s}m)=\sum0=0.$$
+    Thus $m=0$ and we have the identity axiom\footnote{As 4.1.B mentions that it is possible to replace $D(f_i)$ by $D(f)$, thus generalizing the argument, I don't see how it is possible in the proof of the theorem nor in this exercise. This is because if don't have the finite number of $f_i$'s then we can't say that $1$ is the linear combination that we have recovered.}.
+    \item We proceed as in the proof of the gluing axiom for the structure sheaf. First by taking a finite set of indices and then generalizing to an infinite set of indices.\par 
+    We take sections $(s_i)$ such that 
+    $$\res_{D(f_i),D(f_i)\cap D(f_j)}(s_i)=\res_{D(f_j),D(f_i)\cap D(f_j)}(s_j)\word{for all}i,j.$$
+    The set $\tilde{M}(D(f_i)\cap D(f_j))$ is the localization of $M$ at $(S^{f_i}\cap S^{f_j})$. (\red{Couldn't finish this one, wrapping my head around this localization was a bit jarring. Would it be possible to discuss later?})
+\end{itemize}
     \end{ptcbr}
 
     \begin{Ej}
@@ -105,7 +167,11 @@ that the following construction describes a sheaf $\widetilde{M}$ on the disting
     \end{Ej}
     
     \begin{ptcbr}
-    
+    The set $\cO_{X,\lie p}$ is the stalk of the structure sheaf at the point $\lie p\in \Spec A$. Germs inside $\cO_{X,\lie p}$ are equivalence classes of pairs $(f,D(g))$ where $\lie p\in D(g)$ and $f\in\cO_X(D(g))$.\par 
+    Recall that in our case 
+    $$\cO_X(D(g))\isom A_g=\bC[x,y]_g$$
+    so the germs are equivalence classes of rational functions with denominators $g^r$ about $\gen(y)$ which don't vanish.\par 
+    The maximal ideal of the stalk is the germs which vanish at $\gen(y)$. Recall that $f$ vanishes at $\gen(y)$ when $f\bmod\gen(y)=0$. So $f$ musn't have any multiples of $y$. The only thing we are left with is rational functions on $x$ so it must hold that $\kp_{\lie p}\isom \bC(x)$.
     \end{ptcbr}
 
     \begin{Ej}[4.4.A Vakil]
@@ -127,10 +193,10 @@ that the following construction describes a sheaf $\widetilde{M}$ on the disting
         This \emph{cocycle condition} ensures that $f_{ij}$ and $f_{ji}$ are inverses. In fact, the hypothesis that $f_{ii}$ is the identity also follows from the cocycle condition.\par 
         Show that there is a unique scheme $X$ (up to unique isomorphism) along with open subsets isomorphic to the $X_i$ respecting this gluing data in the obvious sense.\hint{what is $X$ as a set? What is the topology on this set? In terms of your description of the open sets of $X$, what are the sections of this sheaf over each open set?}
     \end{Ej}
-    
+    \iffalse
     \begin{ptcbr}
     
     \end{ptcbr}
-        
+        \fi
 
 \end{document} 
