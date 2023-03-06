@@ -28,13 +28,13 @@ ones vector under the permutation representation, is isomorphic to $V_{(n-1,1)}$
     $$\dim(V_{(n-1,1)})=\#\SYT((n-1,1)),$$
     and any standard Young tableau must begin with a $1$ on the lower-left corner. We have $n-1$ possibilities for the block on top and the rest are determined because there's only one way to order. Thus, there are $n-1$ standard Young tableaux with shape $(n-1,1)$. This means that
     $$\dim(V_{(n-1,1)})=\#\SYT((n-1,1))=n-1,$$
-    and thus $V_{(n-1,1)}\isom \gen(\vec{o})^\perp$ as vector spaces. Now pick bases for each of these spaces, by showing that the group action commutes with the isomorphism we can extend linearly to conclude that they are isomorphic as representations. We pick the basis 
-    $$\gen(\vec{o})^\perp=\gen(\vec e_2-\vec e_1,\vec e_3-\vec e_1,\dots,\vec e_n-\vec e_1,),\ V_{(n-1,1)}=\gen(x_2-x_1,x_3-x_1,\dots,x_n-x_1)$$
+    and thus $V_{(n-1,1)}\isom \gen(\vec{o})^\perp$ as vector spaces. Now pick bases for each of these spaces, by showing that the group action commutes with the isomorphism we can extend linearly to conclude that they are isomorphic as representations\footnote{I had only verified that they were isomorphic as vector spaces when I was discussing this with \textbf{Ian}. Then he reminded me that I should also verify the part about the group action.}. We pick the basis 
+    $$\gen(\vec{o})^\perp=\gen(\vec e_2-\vec e_1,\vec e_3-\vec e_1,\dots,\vec e_n-\vec e_1,),\ V_{(n-1,1)}=\gen(x_2-x_1,\dots,x_n-x_1)$$
     and if $\vf$ is the isomorphism which sends $e_i-e_1$ to $x_i-x_1$ then take $\sg\in S_n$. We have 
     $$\sg(\vf(e_i-e_1))=\sg(x_i-x_1)=x_{\sg(i)}-x_{\sg(1)}=\vf(e_{\sg(i)}-e_{\sg(1)})=\vf(\sg(e_i-e_1))$$
     and this holds for all basis elements. As the isomorphism is compatible with the action, we have that this is an isomorphism of representations.
 \end{ptcbr}
-\iffalse
+\newpage
 \begin{Ej}[Exercise 5]
     The \textbf{regular representation} of $S_3$ is the action by left multiplication on the vector space of formal linear combinations of elements of $S_3$. In matrix form, one can think of labeling the
 rows and columns of a $6\x 6$ matrix by the elements of $S_3$, and sending each element of $S_3$ to the $6\x 6$
@@ -44,7 +44,7 @@ Decompose the regular representation of $S_3$ completely into irreducibles.
 
 \begin{ptcbr}
 We begin by recalling 
-$$S_3=\langle (12),(23)\rangle$$ 
+$$S_3=\langle (12),(123)\rangle$$ 
 so it suffices to write out the matrices for the two generators to find the matrices for the other elements:
 $$(12)\mapsto M=\begin{pmatrix}
     0&1&0&0&0&0\\
@@ -56,70 +56,104 @@ $$(12)\mapsto M=\begin{pmatrix}
 \end{pmatrix}
 %M=Matrix({{0,1,0,0,0,0},{1,0,0,0,0,0},{0,0,0,0,1,0},{0,0,0,0,0,1},{0,0,1,0,0,0},{0,0,0,1,0,0}})
 \word{and}
-(23)\mapsto N=\begin{pmatrix}
-    0&0&1&0&0&0\\
-    0&0&0&0&0&1\\
-    1&0&0&0&0&0\\
-    0&0&0&0&1&0\\
-    0&0&0&1&0&0\\
-    0&1&0&0&0&0
-\end{pmatrix}.$$
+(123)\mapsto \begin{pmatrix}
+    0 & 0 & 0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 \\
+   \end{pmatrix}
+.$$
 %N={{0,0,1,0,0,0},{0,0,0,0,0,1},{1,0,0,0,0,0},{0,0,0,0,1,0},{0,0,0,1,0,0},{0,1,0,0,0,0}}
-We have the following matrices obtained by multiplying these two:
-\begin{itemize}
-\begin{multicols*}{2}
-    \item $(123)\mapsto \begin{pmatrix}
-         0 & 0 & 0 & 0 & 0 & 1 \\
-         0 & 0 & 1 & 0 & 0 & 0 \\
-         0 & 0 & 0 & 1 & 0 & 0 \\
-         0 & 1 & 0 & 0 & 0 & 0 \\
-         1 & 0 & 0 & 0 & 0 & 0 \\
-         0 & 0 & 0 & 0 & 1 & 0 \\
-        \end{pmatrix}$
-    \item $(132)\mapsto \begin{pmatrix}
-         0 & 0 & 0 & 0 & 1 & 0 \\
-         0 & 0 & 0 & 1 & 0 & 0 \\
-         0 & 1 & 0 & 0 & 0 & 0 \\
-         0 & 0 & 1 & 0 & 0 & 0 \\
-         0 & 0 & 0 & 0 & 0 & 1 \\
-         1 & 0 & 0 & 0 & 0 & 0 \\
-        \end{pmatrix}$
-    \item $(13)\mapsto \begin{pmatrix}
-         0 & 0 & 0 & 1 & 0 & 0 \\
-         0 & 0 & 0 & 0 & 1 & 0 \\
-         0 & 0 & 0 & 0 & 0 & 1 \\
-         1 & 0 & 0 & 0 & 0 & 0 \\
-         0 & 1 & 0 & 0 & 0 & 0 \\
-         0 & 0 & 1 & 0 & 0 & 0 \\
-        \end{pmatrix}$
-    \item $\id_{S_3}\mapsto \id_{\cM_6}$.
-\end{multicols*}
-\end{itemize}
-Now notice that the vectors $\vec u=(1,1,1,1,1,1)^\sT$ and $\vec v=(1,-1,-1,-1,1,1)$ are eigenvectors of the previous matrices at the same time. Notice that both vectors generate a dimension 1 subspace of $\bR^6$ which corresponds to a dimension 1 representation of $S_3$. Notice that $\gen(u)$ corresponds to the trivial representation while $\vec{v}$, to the \emph{sign} representation.\par 
-There are no more simultaneous eigenvectors to these matrices and thus, the orthogonal complement to $\gen(\vec u,\vec v)$ must contain the remaining representations. As it has dimension $4$, it must be a direct sum of a pair 2-dimensional representations of $S_3$ which in this case is the standard representation.\par 
-Pairing the simultaneous eigenvectors with the generators of the orthogonal complement we obtain a basis $\cB$ of $\bR^6$. The matrix $A$ which changes basis from $\cB$ to the canonical basis is 
-$$A=\begin{pmatrix}
-     1 & 1 & -1 & -1 & 0 & 0 \\
-     1 & -1 & 0 & 0 & -1 & -1 \\
-     1 & -1 & 0 & 0 & 0 & 1 \\
-     1 & -1 & 0 & 0 & 1 & 0 \\
-     1 & 1 & 0 & 1 & 0 & 0 \\
-     1 & 1 & 1 & 0 & 0 & 0 \\
-    \end{pmatrix}\To A^{-1}=\frac16\begin{pmatrix}
-         1 & 1 & 1 & 1 & 1 & 1 \\
-         1 & -1 & -1 & -1 & 1 & 1 \\
-         -2 & 0 & 0 & 0 & -2 & 4 \\
-         -2 & 0 & 0 & 0 & 4 & -2 \\
-         0 & -2 & -2 & 4 & 0 & 0 \\
-         0 & -2 & 4 & -2 & 0 & 0 \\
-        \end{pmatrix}$$
-    and $A^{-1}$ changes basis from the canonical basis to the basis $\cB$. If we conjugate by $A^{-1}$ the previous matrices we obtain them as acting from $\cB$ to $\cB$. Let us consider for example $A^{-1}MA$, what this multiplication does is:
+All the other matrices can be obtained by multiplying these two. The representation is thus $\set{\id,M,N,N^2,MN,MN^2}$\footnote{The appendix contains expressions for the remaining matrices.}.
+
+Now notice that the vectors 
+$$\vec u=(1,1,1,1,1,1)^\sT\word{and}\vec v=(1,-1,-1,-1,1,1)^\sT$$
+ are common eigenvectors of the previous matrices\footnote{This cannot be justified with the simultaneous diagonalization theorem because $M$ and $N$ don't commute as $S_3$ is non-abelian. However by inspection we can find that they are eigenvectors.}.\par 
+The vectors $\vec u,\vec v$ generate dimension $1$ subspaces of $\bR^6$ which corresponds to a dimension 1 representation of $S_3$. In particular $\gen(u)$ corresponds to the trivial representation while $\vec{v}$, to the \emph{sign} representation.\par 
+There are no more simultaneous eigenvectors which means that there are no more irreducible components of dimension 1. Thus the remaining representations are contained in 
+$$\gen(\vec u,\vec v)^{\perp}\word{and}\dim(\gen(\vec u,\vec v)^{\perp})=6-2=4$$ 
+As it has dimension $4$, it must be a direct sum of a pair 2-dimensional representations of $S_3$. Thus it holds that 
+$$\text{regular}=\text{trivial}\oplus\text{sign}\oplus\text{standard}\oplus\text{standard}.$$
+\end{ptcbr}
+
+\begin{Ej}[Exercise 7.b]
+    Show that $\tilde{H}_\mu(\vec{x};0,1)=h_\mu$ and $\tilde{H}_\mu(\vec{x};1,0)=h_{\mu^\sT}$.
+\end{Ej}
+
+\begin{ptcbr}
     \begin{itemize}
-        \itemsep=-0.4em
-        \item Takes a vector $\vec x$ in $\cB$ coordinates and transforms it to canonical coordinates.
-        \item $M$ acts upon $\vec x$ in canonical coordinates and returns another vector in canonical coordinates.
-        \item Finally $A^{-1}$ takes back the vector to $\cB$ coordinates.
+        \item We will begin by proving the second identity. The Macdonald polynomial at $(1,0)$ is 
+        $$\tilde{H}_\mu(\vec{x};1,0)=\sum_{\sg\ \text{fills}\ \mu}1^{\inv(\sg)}0^{\maj(\sg)}\vec{x}^\sg=\sum_{\substack{\sg\ \text{fills}\ \mu\\\maj(\sg)=0}}\vec{x}^\sg$$
+        where we have eliminated terms without zero $\maj$ because the zero factor kills them.\par 
+        Now, this sum can be done in another way: a filling of $\mu$ with $\maj(\sg)=0$ implies that there no descents in the columns from top-to-bottom. This also means that we can consider the columns to be weakly-increasing from top-to-bottom.\par 
+        The ways to fill every column are independent from each other and for a particular column, by counting from top-to-bottom, we are taking 
+        $$\sum_{1\leq i_1\leq\dots\leq i_{\mu^\sT_k}\leq n}x_{i_1}\dots x_{i_{\mu^\sT_k}}$$
+        which is precisely $h_{\mu^\sT_k}$. As the columns are independent from one another, we have that the whole $h_{\mu^\sT}$ is associated to the tableau as is $\tilde{H}_\mu(\vec{x};1,0)$. We conclude that they are equal.
+        \item \footnote{\textbf{Kelsey}, \textbf{Trent}, and \textbf{yourself} helped me think through this problem.} For the case of $\tilde{H}_\mu(\vec{x};0,1)$, we have that this is 
+        $$\tilde{H}_\mu(\vec{x};0,1)=\sum_{\sg\ \text{fills}\ \mu}0^{\inv(\sg)}1^{\maj(\sg)}\vec{x}^\sg=\sum_{\substack{\sg\ \text{fills}\ \mu\\\inv(\sg)=0}}\vec{x}^\sg$$
+        and in this case counting tableau with no relative inversions is a tad bit different because it isn't directly clear that rows will be weakly increasing. However we may find a correspondence between \emph{weakly-increasing on rows fillings} and \emph{inversion-free fillings}.\par 
+        Suppose we have a filling $\sg$ which is weakly-increasing on the rows, then there are no relative inversions on the first row. When considering the second row, suppose $u<v$ is the first relative inversion that appears on the row, this is because there's a $b\in\ttt{ROW}1$ such that $u\leq b <v$. We \emph{flip} $u$ and $v$ and now the tableau looks like 
+        $$\young(\ast uv\ast,\ast b\ast)\to\young(\ast vu\ast,\ast b\ast)$$
+        which means that there's no longer a relative inversion as $b$ \emph{is between} $u,v$. If $w$ is any element to the right of $v$, this process doesn't create any relative inversions because $b<v<w$.\par 
+        This process can continue through the second row until we get rid of all relative inversions. Inductively we may finish the whole tableau this way until we have an inversion-less tableau.\par 
+        To return to a weakly-increasing on rows tableau it suffices to order the elements on the rows of an inversion-less tableau.\par 
+        Finally, the weakly-increasing on rows tableau can be paired with an $h_\mu$ by the same argument on rows than in columns as in the last item. So $h_\mu$ is a rearrangement of the sum $\tilde{H}_\mu(\vec{x};0,1)$, we conclude that they must be equal.
     \end{itemize}
+\end{ptcbr}
+\newpage
+\subsection*{Appendix: Matrix calculations}
+
+\begin{itemize}
+    \begin{multicols*}{2}
+        \item $(132)\mapsto N^2=\begin{pmatrix}
+            0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0 & 0 & 0 \\
+           \end{pmatrix}$
+       \item $(23)\mapsto MN=\begin{pmatrix}
+           0&0&1&0&0&0\\
+           0&0&0&0&0&1\\
+           1&0&0&0&0&0\\
+           0&0&0&0&1&0\\
+           0&0&0&1&0&0\\
+           0&1&0&0&0&0
+       \end{pmatrix}$
+       \item $(13)\mapsto MN^2=\begin{pmatrix}
+            0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 \\
+            1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 \\
+           \end{pmatrix}$
+       \item $\id_{S_3}\mapsto \id_{\cM_6}$.
+    \end{multicols*}
+\end{itemize}
+A basis of the orthogonal complement of $\gen(\vec u,\vec v)$ is 
+$$\vec x_1=\begin{pmatrix}0\\-1\\1\\0\\0\\0\end{pmatrix},\ \vec x_2=\begin{pmatrix}0\\-1\\0\\1\\0\\0\end{pmatrix},\ \vec x_3=\begin{pmatrix}-1\\0\\0\\0\\1\\0\end{pmatrix},\ \vec x_4=\begin{pmatrix}-1\\0\\0\\0\\0\\1\end{pmatrix}.$$
+$$A=\begin{pmatrix}
+    1 & 1 & 0 & 0 & -1 & -1 \\
+ 1 & -1 & -1 & -1 & 0 & 0 \\
+ 1 & -1 & 1 & 0 & 0 & 0 \\
+ 1 & -1 & 0 & 1 & 0 & 0 \\
+ 1 & 1 & 0 & 0 & 1 & 0 \\
+ 1 & 1 & 0 & 0 & 0 & 1 \\
+    \end{pmatrix}\To A^{-1}=\frac16\begin{pmatrix}
+        1 & 1 & 1 & 1 & 1 & 1 \\
+        1 & -1 & -1 & -1 & 1 & 1 \\
+        0 & -2 & 4 & -2 & 0 & 0 \\
+        0 & -2 & -2 & 4 & 0 & 0 \\
+        -2 & 0 & 0 & 0 & 4 & -2 \\
+        -2 & 0 & 0 & 0 & -2 & 4 \\
+        \end{pmatrix}$$
+    The matrix $A$ changes basis from $\cB={\vec u,\vec v,\vec x_1,\vec x_2,\vec x_3,\vec x_4}$ to the canonical basis. Likewise $A^{-1}$ changes basis from the canonical one to $\cB$.\par 
+    For our matrices $X$ the matrix $A^{-1}XA$ acts as $X$ does but on basis $\cB$.\par 
+    We have the following:
 When conjugating we obtain the following:
 \begin{itemize}
     \begin{multicols*}{2}
@@ -130,14 +164,6 @@ When conjugating we obtain the following:
              0 & 0 & 0 & 0 & 0 & 1 \\
              0 & 0 & 1 & 0 & 0 & 0 \\
              0 & 0 & 0 & 1 & 0 & 0 \\
-            \end{pmatrix}$
-        \item $(23)\mapsto\begin{pmatrix}
-             1 & 0 & 0 & 0 & 0 & 0 \\
-             0 & -1 & 0 & 0 & 0 & 0 \\
-             0 & 0 & 0 & 0 & -1 & -1 \\
-             0 & 0 & 0 & 0 & 1 & 0 \\
-             0 & 0 & 0 & 1 & 0 & 0 \\
-             0 & 0 & -1 & -1 & 0 & 0 \\
             \end{pmatrix}$
         \item $(123)\mapsto \begin{pmatrix}
              1 & 0 & 0 & 0 & 0 & 0 \\
@@ -155,6 +181,14 @@ When conjugating we obtain the following:
              0 & 0 & 0 & 0 & 0 & 1 \\
              0 & 0 & 0 & 0 & -1 & -1 \\
             \end{pmatrix}$
+        \item $(23)\mapsto\begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & -1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & -1 & -1 \\
+            0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 0 & -1 & -1 & 0 & 0 \\
+            \end{pmatrix}$
         \item $(13)\mapsto \begin{pmatrix}
              1 & 0 & 0 & 0 & 0 & 0 \\
              0 & -1 & 0 & 0 & 0 & 0 \\
@@ -166,31 +200,5 @@ When conjugating we obtain the following:
         \item $\id_{S_3}\mapsto \id_{\cM_6}$.
     \end{multicols*}
     \end{itemize}
-\end{ptcbr}
-\fi
-\newpage
-\begin{Ej}[Exercise 7.b]
-    Show that $\tilde{H}_\mu(\vec{x};0,1)=h_\mu$ and $\tilde{H}_\mu(\vec{x};1,0)=h_{\mu^\sT}$.
-\end{Ej}
-
-\begin{ptcbr}
-    \begin{itemize}
-        \item We will begin by proving the second identity. The Macdonald polynomial at $(1,0)$ is 
-        $$\tilde{H}_\mu(\vec{x};1,0)=\sum_{\sg\ \text{fills}\ \mu}1^{\inv(\sg)}0^{\maj(\sg)}\vec{x}^\sg=\sum_{\substack{\sg\ \text{fills}\ \mu\\\maj(\sg)=0}}\vec{x}^\sg$$
-        where we have eliminated terms without zero $\maj$ because the zero factor kills them.\par 
-        Now, this sum can be done in another way: a filling of $\mu$ with $\maj(\sg)=0$ implies that there no descents in the columns from top-to-bottom. This also means that we can consider the columns to be weakly-increasing from top-to-bottom.\par 
-        The ways to fill every column are independent from each other and for a particular column, by counting from top-to-bottom, we are taking 
-        $$\sum_{1\leq i_1\leq\dots\leq i_{\mu^\sT_k}\leq n}x_{i_1}\dots x_{i_{\mu^\sT_k}}$$
-        which is precisely $h_{\mu^\sT_k}$. As the columns are independent from one another, we have that the whole $h_{\mu^\sT}$ is associated to the tableau as is $\tilde{H}_\mu(\vec{x};1,0)$. We conclude that they are equal.
-        \item For the case of $\tilde{H}_\mu(\vec{x};0,1)$, we have that this is 
-        $$\tilde{H}_\mu(\vec{x};0,1)=\sum_{\sg\ \text{fills}\ \mu}0^{\inv(\sg)}1^{\maj(\sg)}\vec{x}^\sg=\sum_{\substack{\sg\ \text{fills}\ \mu\\\inv(\sg)=0}}\vec{x}^\sg$$
-        and in this case counting tableau with no relative inversions is a tad bit different because it isn't directly clear that rows will be weakly increasing. However we may find a correspondence between \emph{weakly-increasing on rows fillings} and \emph{inversion-free fillings}.\par 
-        Suppose we have a filling $\sg$ which is weakly-increasing on the rows, then there are no relative inversions on the first row. When considering the second row, suppose $u<v$ is the first relative inversion that appears on the row, this is because there's a $b\in\ttt{ROW}1$ such that $u\leq b <v$. We \emph{flip} $u$ and $v$ and now the tableau looks like 
-        $$\young(\ast uv\ast,\ast b\ast)\to\young(\ast vu\ast,\ast b\ast)$$
-        which means that there's no longer a relative inversion as $b$ \emph{is between} $u,v$. If $w$ is any element to the right of $v$, this process doesn't create any relative inversions because $b<v<w$.\par 
-        This process can continue through the second row until we get rid of all relative inversions. Inductively we may finish the whole tableau this way until we have an inversion-less tableau.\par 
-        To return to a weakly-increasing on rows tableau it suffices to order the elements on the rows of an inversion-less tableau.\par 
-        Finally, the weakly-increasing on rows tableau can be paired with an $h_\mu$ by the same argument on rows than in columns as in the last item. So $h_\mu$ is a rearrangement of the sum $\tilde{H}_\mu(\vec{x};0,1)$, we conclude that they must be equal.
-    \end{itemize}
-\end{ptcbr}
+    
 \end{document} 

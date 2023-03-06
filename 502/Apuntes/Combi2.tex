@@ -15,6 +15,7 @@
 \DeclareMathOperator{\rect}{rect}
 \DeclareMathOperator{\sh}{sh}
 \DeclareMathOperator{\std}{std}
+\DeclareMathOperator{\Frob}{Frob}
 \begin{document}
 %\clearpage
 \maketitle
@@ -1659,7 +1660,7 @@ Recall $g,h\in G$ are conjugate if $h=kgk^{-1}$ for some $k\in G$.
     Recall that conjugacy classes in the symmetric group are determined by cycle type. Notice that the number of conjugacy classes is $5=p(4)$. 
     \begin{table*}[h]
         \centering
-        \arraystretch{1.3}
+        %\arraystretch{1.3}
         \begin{tabular}{rrrr}\toprule
             Partition & Cycle type & Elements of conjugacy class\\ \midrule
             $(1,1,1,1)$& 4 1-cycles & $()$ (identity element)\\
@@ -1902,6 +1903,119 @@ This means that there are two strategies when working in combinatorial represeta
     \item We have a representation for which we can decompose $Frob(V)$ indto Schur functions, then we can find a decomposition of $V$ into irreducibles.
     \item If we have a collection of symmetric functions which seem to be Schur positive, then we can show that the fact is true by finding a representation $V_i$ such that $f_i=Frob(V_i)$.
 \end{enumerate}
+
+\section{Day 19| 20230303}
+
+\begin{Ej}
+    Write $s_{(2,1)}$ in terms of $p_\la$ and $p_{(2,1)}$ in terms of $s_\la$.
+\end{Ej}
+
+Recall that we have some formulas to go between basis of symmetric functions. The full is available in \href{http://www.mathematicalgemstones.com/gemstones/diamond/summary-symmetric-functions-transition-table/}{Maria's webpage}. With what we know, we can't solve the previous exercise.
+
+\subsection{Murnaghan-Nakayama Rule}
+
+\begin{Def}
+    The \term{character} $\chi_V$ of a representation $V$ of a group $G$ is 
+    $$\chi_V\: G\to\bC,\ g\mapsto \tr(M_g)=\sum(\text{diagonal elements})=\sum(\text{eigenvalues}).$$
+\end{Def}
+No matter what basis we choose, the character is invariant.
+
+\begin{Lem}
+        \item $\chi_V$ is constant on conjugacy classes.
+\end{Lem}
+
+\begin{ptcbp}
+$\chi_V(hgh^{-1})=\tr(M_{hgh^{-1}})=\tr(M_hM_gM_{h}^{-1})=\tr(M_g)=\chi_V(g)$.
+\end{ptcbp}
+
+From this we can think of the character as a function from the conjugacy classes. As the amount of irreducible representations is the number of conjugacy classes, then we can write a character table
+\begin{center}
+    TABLE
+\end{center}
+Characters are also additive across representations, this means that 
+$$\chi_{V\oplus W}=\chi_V+\chi_W.$$
+So knowing irreducibles allows us to find characters for all other representations. The other direction is much more important, if we know $\chi_V$, we can uniquely decompose it as a linear combination of irreducible characters. So we can deduce the decomposition of $V$ into irreducible representations.
+
+\begin{Ex}
+    We will find the character table of $S_2$. As $S_2$ is abelian, every element is in its own conjugacy class:
+    \begin{table*}[h]
+        \centering
+        %\arraystretch{1.3}
+        \begin{tabular}{rrrr}\toprule
+            $S_2$ &$\id$& $(2)$\\ \midrule
+            $\chi_{(2)}$&1 & 1\\
+            $\chi_{(1,1)}$&1 & -1\\
+       \bottomrule
+        \end{tabular}
+        \legend{Character table for $S_2$}
+        \end{table*}
+\end{Ex}
+
+
+\begin{Ex}
+    We will find the character table of $S_3$:
+    \begin{table*}[h]
+        \centering
+        %\arraystretch{1.3}
+        \begin{tabular}{rrrr}\toprule
+            $S_3$ &$\id$& $(12)$&$(123)$\\ \midrule
+            $\chi_{(3)}$&1 & 1&1\\
+            $\chi_{(1,1,1)}$&1 & -1&1\\
+            $\chi_{(2,1)}$&2 & 0&-1\\
+       \bottomrule
+        \end{tabular}
+        \legend{Character table for $S_3$}
+        \end{table*}
+\end{Ex}
+
+The character table for $\chi_{\text{reg}S_3}$ is $(600)$ so we may decompose the character as 
+$$2(20-1)+(111)+(1-11)\To V_{\text{reg}}=\text{triv}\oplus\text{sign}\oplus\text{std}^2.$$
+The regular represntation always decomposes a $dim*character$. This is an application of RSK as well \red{AUDIO 20min}
+
+We will alternatively define the Frobenius map with characters.
+\begin{Def}
+    Suppose $V$ represents $S_n$, then 
+    $$\Frob(V)=\frac{1}{n!}\sum_{\pi\in S_n}\chi_V(\pi)p_{c(\pi)}$$
+    where $c((12)(35)(467))=(3,2,2)$.
+\end{Def}
+
+This is summing over $n!$ elements, but remember some of them share cycle type. 
+
+\begin{Lem}
+    Under this definition, this can also be written as 
+    $$\Frob(V)=\sum_{\la\vdash n}\chi_V(\pi\in\la\text{conj.class})\frac{p_\la}{z_\la}$$
+    where $z_\la=\prod k^{m_k}m_k!$.
+\end{Lem}
+
+\begin{ptcbp}
+    We have that the size of the conjugacy class of cycle type $\la$ is $n!/z_\la$. So rewrtiting the Frobenius map we get 
+    $$\Frob=\frac{1}{n!}\sum_{\pi\in S_n}\chi_V(\pi)p_{c(\pi)}=\frac{1}{n!}\sum_{\la\vdash n}\sum_{\pi\text{cyc.type}\la}\chi_V(\pi)p_{\la}$$
+    Since character is constant, we have 
+    $$\frac{1}{n!}\sum_{\la\vdash n}(\#\text{conj.class cyctype}\la)\chi_V(\pi_\la)p_\la$$
+    that amount is $n!/z_\la$ so factorials cancel out and we get the desired formula.
+\end{ptcbp}
+
+\begin{Ex}
+    Recall that the character table for $\chi_{(2,1)}$ is $(2,0,-1)$ so
+    $$\Frob(V_{(2,1)})=2\frac{p_{(1,1,1)}}{z_{(1,1,1)}}+0p_{(2,1)}/z-\frac{p_3}{z_3}=\frac{1}{3}p_1^3-\frac{1}{3}p_3=m_{(2,1)}+2m_{(1,1,1)}=s_{(2,1)}.$$
+    Now for instance from the trivial character, $\Frob(V_{(3)})$, the character table is $(1,-1,1)$ and 
+\end{Ex}
+
+In essence the coefficients are the character tables.
+
+\begin{Th}
+    The character tables for $S_n$ are the transition matrices from $(s_\la)$ to the normalized power sum: $(p_\la/z_\la)$. 
+\end{Th}
+
+The product for this fact can be found in \cite{StanleyEnum2}. This theorem is also equivalent to the fact that both Frobenius maps are equivalent.\par 
+We now ask, 
+\begin{significant}
+    Is there a combinatorial way to compute $\chi_\mu(\la)$?
+\end{significant}
+
+To derive it, we will use a duality. The Schur and power sum bases are self dual with respect to the Hall inner product so 
+$$\chi_\mu(\la)=\text{coeff.}\frac{p_\la}{z_\la}\word{in} s_\mu=\braket{s_\mu}{p_\la}=\text{coeff.}s_\mu\word{in}p_\la.$$
+So $p_\la=\sum_\mu\chi_{\mu}(\la)s_{\mu}.$
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
