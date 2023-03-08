@@ -2016,6 +2016,142 @@ We now ask,
 To derive it, we will use a duality. The Schur and power sum bases are self dual with respect to the Hall inner product so 
 $$\chi_\mu(\la)=\text{coeff.}\frac{p_\la}{z_\la}\word{in} s_\mu=\braket{s_\mu}{p_\la}=\text{coeff.}s_\mu\word{in}p_\la.$$
 So $p_\la=\sum_\mu\chi_{\mu}(\la)s_{\mu}.$
+
+\section{Day 20| 20230306}
+
+\subsection*{The Inverse Murnaghan-Nakayama Rule}
+
+We wish to compute $\chi_U(\la)$, the character of $V_\mu$ on a permutation $\pi$ of cycle type $\la$. This is the coefficient $\braket{s_\mu}{p_\la}$, the coefficient of $s_\mu$ in $p_\la$.
+
+\begin{Def}
+    A \term{border strip} or a ribbon is a connected skew-shape containing no $2\x 2$ square.
+\end{Def}
+
+\begin{Ex}
+    The tableau
+    $$\young(~~~~~,::::~~~~~,:::::::::~,:::::::::~,:::::::::~~~)$$
+    is a ribbon, the tableau
+    $$\young(~~~,:::~~~,::::::~,::::::~,::::::~~)$$
+    is not a ribbon because it's not connected. Finally the tableau 
+    $$\young(~~~~~,:::~~,::::~~~~)$$
+    has a $2\x 2$ square.
+\end{Ex}
+
+\begin{Def}
+    The height of a border strip $\la/\mu$ is $\#$rows$-1$.\par
+    A \term{border strip tableau} with shape $\la$ is a filling with positive integers such that 
+    \begin{itemize}
+        \item row and columns are weakly increasing 
+        \item Every integer forms a border strip.
+    \end{itemize}
+\end{Def}
+
+\begin{Ex}
+    The tableau 
+    $$\young(3355,1245,12222,11112)$$
+    is a border strip tableau
+\end{Ex}
+
+\begin{Th}
+    The character 
+    $$\chi_\mu(\la)=\braket{s_\mu}{p_\la}=\sum_{(\ast)}\prod_{i=1}^{\ell(\la)}(-1)^{\operatorname{ht}(\text{strip}(i))}$$
+    where the sum runs through border strip tableaux $T$ with shape $\mu$ and content $\la$.
+\end{Th}
+
+\begin{Ex}
+    Let us find $\braket{s_{\sh(3,2,1)}}{p_{(3,3)}}$. We wish to fill border strip tableau with $111222$. We have the following fillings 
+    $$\young(2,22,111),\word{and}\young(1,12,122).$$
+    Calculating the heights we have 
+    $$(-1)^0(-1)^1=-1,\word{and}(-1)^2(-1)^2=-1$$
+    so $\braket{s_{\sh(3,2,1)}}{p_{(3,3)}}=-1-1=-2$.
+The coefficients might not be positive but at least they are integers. 
+\end{Ex}
+
+\begin{Ej}
+Calculate $\braket{s_{\sh(2,1)}}{p_{(2,1)}}$.
+\end{Ej}
+
+\begin{ptcb}
+    The tableaux are 
+    $$\young(2,11),\word{and}\young(1,12)$$
+    so we get $1-1=0$.
+\end{ptcb}
+
+\begin{Ex}
+    Notice that $\braket{s_{\sh(3,2)}}{p_{(1,1,1,1,1)}}$ is the number of standard Young tableaux because we are filling with $12345$.\par 
+    On the other hand 
+    $$\braket{s_{\sh(\mu)}}{p_{(n)}}$$
+    is either $0$ if $\mu$ is not a \emph{hook} and $(-1)^{\l(\mu)-1}$ when it actually is a hook.
+\end{Ex}
+The following proof comes from Egge's symmetric function, we will separate it into stages.
+
+\begin{Lem}
+    $p_r=\sum_{j=0}^{r-1}(-1)^js_{(r-j,1,1,\dots,1)}$ where there are $k$ ones.
+\end{Lem}
+
+\begin{ptcbp}
+    We have that 
+    $$s_{hook}=\sum_{(\ast)}x^T$$
+    we wish to cancel $x^T$'s as follows  
+$$\young(y,~,~,~~~~x),\word{with}\young(x,y,~,~,~~~~)$$
+if $x>y$. Else if $x\leq y$ we pair with 
+$$\young(~,~,~~~~xy).$$
+This is a sign-reversing involution and the only edge cases are 
+$$\young(y~~~~x),\word{and}\young(y,~,~,~,x)$$
+so the fixed points are tableau of the form
+$$\young(ii~~~i)$$
+which contribute monomials of the form $x_i^r$. So monomials that don't cancel out are the power sum symmetric functions.
+\end{ptcbp}
+Let's see an example
+
+\begin{Ex}
+What about $p_4$?    
+\end{Ex}
+
+\begin{Lem}
+    We have
+    $$s_\mu p_r=\sum_{(\ast)}(-1)^{\text{ht}(\la/\mu)}s_\la$$
+    where the sum runs through $\la$ such that $\la/\mu$ is a border strip of size $r$.
+\end{Lem}
+
+Recall the Pieri rules which say 
+$$s_\mu h_r=\sum_{(\ast)}s_\la$$
+where the sum is through $\la$ such that $\la/\mu$ is a horizontal strip of size $r$. The $e$ Pieri rule instead goes
+$$s_\mu e_r=\sum_{(\ast)}s_\la$$
+where the sum now is through vertical strips of size $r$.\par 
+The tableaux 
+$$\young(~\.,~\.,~~~\.,~~~~\.),\word{and}\young(~,~xx,~~~,~~~~,xxx)$$
+represent the veritcal and horizonal strips. But the tableau
+$$\young(~x,~xxx,~~~x,~~~~)$$
+represents the border strip.
+
+\begin{ptcbp}
+    First notice that 
+    $$s_{(r-j,1,1,\dots,1)}=\sum_{k=0}^{j}(-1)^{j-k}h_{r-k}e_k.$$
+    The idea is that hook shapes are similar to vertical and horizontal strips.
+\end{ptcbp}
+
+\begin{Ex}
+    Consider $s_{\sh(3,1,1)}$. By the formula this should be 
+    $$h_{\sh(5)}e_0-h_4e_1+h_3e_2$$
+     and we stop here because the height here is $j=2$. This is the same as 
+    $$s_{\sh(5)}e_0-s_4e_1+s_3e_2.$$
+    By the Pieri rule this is  
+    $$s_{\sh(5)}-(s_{\sh(5)}+s_{\sh(4,1)})+(s_{\sh(4,1)}+s_{\sh(3,1,1)}).$$
+    So all terms cancel except for $s_{(r-j,1,1,\dots,1)}$.
+\end{Ex}
+
+Substituting this result in the lemma
+
+$$s_\mu p_r=\sum_{j=0}^{r-1}(-1)^js_\mu\sum_{k=0}^{j}(-1)^{k-j}h_{r-k}e_k.$$
+The $(-1)$ gets a $k$ power and we are left with 
+$$\sum_{j=0}^{r-1}\sum_{k=0}^{j}(-1)^ks_\mu h_{r-k}e_k$$
+Where $h$ adds horzontal strips and $e$ adds vertical strips. And they are gonna cancel unless they are a border strip. 
+$$\young(rrb,~~b,~~~~,~~~~rb,~~~~~~r)$$
+So the difference is that looking at the shape, this contributes $s_\la$. We can \emph{toggle something} so it does change the height. 
+
+\section{Day 21| 20230308}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
