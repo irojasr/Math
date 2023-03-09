@@ -12,12 +12,66 @@
 \DeclareMathOperator{\sh}{sh}
 \begin{document}
 
-\begin{Ej}
-    
+\begin{Ej}[5.1.A Vakil]
+    Show that $\bP^n_k$ is irreducible.
 \end{Ej}
 
 \begin{ptcbr}
 
 \end{ptcbr}
 
+\begin{Ej}[5.1.G Vakil]
+    Show that affine schemes are quasi-separated. \hint{5.1.F Vakil}
+\end{Ej}
+
+To solve this exercise we will use the equivalent condition in the following lemma:
+
+\begin{Lem}[5.1.F Vakil]
+    Show that a scheme is quasi-separated if and only if the intersection of any two affine open subsets is a finite union of affine open subsets.
+\end{Lem}
+
+\begin{ptcbr}
+To show that an affine scheme $X$ is quasi-separated it suffices to show that the intersection of $U,V\subseteq X$, affine and open, is a finite union of affine and open subsets. As $U,V$ are affine and open we have that they are isomorphic to $\Spec$ of something. This means that 
+$$U\isom\Spec A,\word{and} V=\Spec B$$
+and as the distinguished open sets form a basis we have 
+$$U\subseteq \bigcup_{f\in A}D(f)\To U\subseteq \bigcup_{i=1}^n D(f_i)$$
+because of quasi-compactness. Similarly $V=\bigcup_{j=1}^m D(g_j)$ and this way we have 
+$$U\cap V=\bigcup_{i=1}^n\bigcup_{j=1}^m D(f_i)\cap D(g_j)=\bigcup_{i=1}^n\bigcup_{j=1}^m D(f_ig_j).$$
+The double union in question is a finite union of affine open sets, we conclude that $X$ is quasi-separated.
+\end{ptcbr}
+
+\begin{Ej}[5.2.D Vakil]
+    Show that $\left(\quot{k[x,y]}{\genr{y^2,xy}}\right)_x$ has no nonzero nilpotent elements.
+\hint{Show that it is isomorphic to another ring, by considering the geometric picture. Exercise 3.2.L may give another hint.}\par 
+Show that the only point of
+$\Spec\quot{k[x,y]}{\genr{y^2,xy}}$ with a non-reduced stalk is the origin.
+\end{Ej}
+
+\begin{ptcbr}
+
+\end{ptcbr}
+
+\begin{Ej}[5.2.I Vakil]
+    Suppose $X$ is an integral scheme. Then $X$ (being irreducible)
+has a generic point $\eta$. Suppose $\Spec A$ is any nonempty affine open subset of $X$.
+Show that $\cO_{X,\eta}$ (the stalk of $\cO_X$ at $\eta$) is naturally identified with $K(A)$, the fraction
+field of $A$.\par This is called the function field $K(X)$ of $X$. It can be computed on any
+nonempty open set of $X$, as any such open set contains the generic point. The
+elements of $K(X)$ are called rational functions on $X$ (to be generalized further in
+Definition 6.5.35).
+\end{Ej}
+%https://math.stackexchange.com/questions/3836580/identifying-the-stalk-of-an-integral-scheme-at-the-generic-point
+\begin{ptcbr}
+As $\eta$ is generic, we may identify it with a prime ideal in $A$ and so $\eta\in\Spec A$. Now, as $\Spec A$ is an open set, we have 
+$$\cO_X(\Spec A)=A$$
+and as $X$ is integral, $A$ is an integral domain. This implies that $A$ is reduced and therefore 
+$$\genr{0}=\Nil(A)=\bigcap_{\lie p\in\Spec A}\lie p.$$
+We have that $\eta$ is generic in $X$ so it's generic in $A$. Taking closures inside $A$ we get 
+$$\ov\eta =\set{\lie p\in\Spec A\:\ \lie p\supseteq \eta}=\Spec A.$$
+This means that any prime ideal is a prime ideal containing $\eta$, thus 
+$$\eta\subseteq\bigcap_{\lie p\in\Spec A}\lie p=\genr{0}$$
+and so we conclude that 
+$$\cO_{X,\eta}\isom\cO_{\Spec A,\genr{0}}=(A\less\genr{0})^{-1}A=K(A)$$
+as we desired.  
+\end{ptcbr}
 \end{document} 
