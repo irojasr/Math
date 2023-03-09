@@ -2150,8 +2150,119 @@ Where $h$ adds horzontal strips and $e$ adds vertical strips. And they are gonna
 $$\young(rrb,~~b,~~~~,~~~~rb,~~~~~~r)$$
 So the difference is that looking at the shape, this contributes $s_\la$. We can \emph{toggle something} so it does change the height. 
 
+\chapter{Counting with Group Actions}
 \section{Day 21| 20230308}
 
+\begin{Def}
+    An \term{action} of a group $G$ on a set $X$ is a map 
+    $$G\x X\to X,\ (g,x)\mapsto g\.x$$
+    such that $h\.(g\. x)=(hg)\.x$ and $\id\. x=x$.
+\end{Def}
+
+We have already seen group actions when $X$ is a vector space. Representations are actions: $M_g\in\End(V)$. This map is bijective because we can find an inverse to the action.
+
+\begin{Ex}
+    A group action which is not a representation is $S_n$ acting on $[n]$ by $\pi\. i=\pi(i)$. This is an action because composition does what we want it to do.\par 
+    Also $S_n$ acts on itself:
+    \vspace*{-0.4em}
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item By conjugation: $\pi.\sg=\pi\sg\pi^{-1}$.
+        \item By left-multiplication: $\pi.\sg=\pi\sg$.
+    \end{itemize}
+\end{Ex}
+
+Every group acts on itself by multiplication. 
+
+\begin{Def}
+    An action $G\. X$ is transitive if $g\.x=y$ for some $g\in G$ and all $x,y\in X$.
+\end{Def}
+
+On the previous examples, $S_n\.\bonj{n}$ is transitive. Left multiplication is transitive, but conjugation is not.
+
+\begin{Ex}
+    The group $\quot{\bZ}{5\bZ}$ can be thought of $\genr{(12345)}\leq S_5$. This acts on the set of points of a 5-pointed star by rotation.
+\end{Ex}
+
+We wish to study the orbits of the actions which tell us how \emph{not-transitive} an action is.
+
+\begin{Def}
+    The \term{orbit} of a point $x\in X$ under an action $G\.X$ is 
+    $$\Orb(x)=\set{g\.x\:\ g\in G}.$$
+\end{Def}
+
+The idea is that when we have a cyclic group, these sets look like \emph{orbits around the center}. Also, be quick to notice that 
+$$\Orb(x)=\Orb(g\. x),\quad g\in G$$
+which means that the orbits partition the set $X$. In particular, ``being in the same orbit'' is an equivalence relation.\par 
+In the previous examples:
+\vspace*{-0.4em}
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Conjugations's orbits are the conjugacy classes.
+        \item Left multiplication's orbit is only one. 
+    \end{itemize}
+
+\begin{Ex}
+    For the action $(S_3\x S_2)\.\bonj{5}$, we have orbits $[3]$ and $\set{4,5}$.
+\end{Ex}
+
+Our objective now is to count orbits. This count is related to stabilizers. 
+
+\begin{Def}
+    The \term{stabilizer} of $x\in X$ under $G\.X$ is 
+    $$\Stab(x)=\set{g\in G\:\ g\.x=x}.$$
+\end{Def}
+
+\begin{Ex}
+    In $S_n\.\bonj{n}$ we have
+    $$\Stab_{S_n}(n)=S_{n-1}$$
+    because we can freely move the other $n-1$ elements. Now consider the conjugation action on $S_5$, then 
+    $$\Stab_{S_5}((123)(45))=C_3\x C_2.$$
+\end{Ex}
+
+Now how do the orbit and stabilizer relate? The main reference is \cite{Sagan} in chapter 6.
+
+\begin{Th}[Orbit-Stabilizer Theorem]
+    For $G\.X$ a group action, and a point $x\in X$ we have 
+    $$|\Stab(x)||\Orb(x)|=|G|.$$
+\end{Th}
+
+\begin{ptcbp}
+    If $s$ is the size of the stabilizer, then we consider $y\in\Orb(x)$. This means that $y=g\.x$, so we get $s$ elements which send $x$ to $y$. In other words 
+    $$h\.x=g\.x\To (g^{-1}h)\.x=x$$
+    so $g^{-1}h\in\Stab(x)$, i.e. $h=g\.r$ for some $r\in\Stab(x)$.\par 
+    So there exists $s$ elements of $G$ sending $x$ to $y$ for $y\in\Orb(x)$.
+\end{ptcbp}
+
+\begin{Ex}
+    We will find the size of a conjugacy class of cycle type $\la$. We can identify this as the orbit of the conjugacy action. This is, by Orbit-Stabilizer:
+    $$\frac{|S_n|}{|\Stab(\pi_\la)|}.$$
+    For example if $\la=(3,3,2,1,1)$ then $\pi_\la=(123)(456)(78)(9)(10)$. To stabilize this we can still do cyclic group actions on the cycles. This accounts for $C_3\x C_3\x C_2$. We add two $2!$ reswitching. If $m_i$ is the number of $i$'s in $\la$, then $m_1=2$, $m_2=1$ and $m_3=2$. So we have:
+    $$\frac{|S_n|}{|\Stab(\pi_\la)|}=\frac{n!}{\prod_{i}i^{m_i}m_i!}=\frac{n!}{z_\la}.$$
+\end{Ex}
+
+We can also find the size of the group with this.
+
+\begin{Ex}
+We ask, how many rotation in 3D fix a cube? If we fix $x$ to be a corner of the cube, then 
+$$|\Stab(x)|=3,\quad |\Orb(x)|=8,$$
+then we have $24$ elements in our group.\par 
+We could also fix an edge to get $2$ and $12$ or fixing faces $4$ and $6$.
+\end{Ex}
+
+\subsection{Burnside's Lemma}
+
+\emph{It's actually not Burnside but Frobenius' lemma}. With this result we will count orbits.  The question now is \emph{in how many ways can we 2-color the faces of a cube up to rotation?} It's 10, not 8. \red{What did I overcount?}
+
+\begin{Lem}
+    The number of orbits of an action is 
+    $$\frac{1}{|G|}\sum_{g\in G}|\Fix(g)|$$
+    where $\Fix(g)=\set{x\in X\:\ g\.x=x}$.
+\end{Lem}
+
+To solve the previous question we have that the key is the phrase ``up to rotation''. A coloring up to rotation is an orbit under $F$ of 2-colorings of a labeled cube. There are $2^6$ such colorings. Now we have that the number of orbits is 
+$$\frac{1}{24}\left(2^6+8\.2+6\.2^3+6\.2^3+3\.2^4\right)$$
+identity, 120, 90 deg through face, 6 edge rotations, and the last one is through the face.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

@@ -16,12 +16,96 @@
 \DeclareMathOperator{\maj}{maj}
 \begin{document}
 
-\begin{Ej}
-    
+\begin{Ej}[Exercise 2]
+    Compute the following:\vspace{-0.4em}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item $s_{(5,3,3,1)}s_{(4)}$.
+        \item $s_{(2,1)}s_{(2,1)}$.
+        \item The decomposition of $V_{(2,1)}\ox_oV_{(2,1)}$ into irreducible $S_6$ representations.
+    \end{enumerate}
 \end{Ej}
 
 \begin{ptcbr}
-    
+    Recall that the product of Schur functions can be calculated using Littlewood-Richardson coefficients as follows:
+    $$s_\mu s_\nu=\sum_{\la}c^\la_{\mu\nu}s_\la$$
+    where $c^{\la}_{\mu\nu}$ is the number of Littlewood-Richardson tableaux of shape $\la/\mu$ with content $\nu$.\par 
+    In order to fill out $\la/\mu$ with content $\nu$ it must hold that $|\la|-|\mu|=|\nu|$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item In this first case we have $\mu=(5,3,3,1)$ and $\nu=(4)$ which means that $\la$ should partition $16$.\par 
+        This means that we must append 4 new blocks to our partition $(5,3,3,1)$ to obtain a partition of $16$ which we will fill with only ones.\par 
+        As the tableaux must be semi-standard, it can't happen that we append more than one block in the same column. In other words, we must append a horizontal strip of ones. The following tableaux correspond to partitions $\la$ such that $\la/\mu$ is a horizontal strip:
+        \begin{itemize}
+            \begin{multicols*}{3}
+                \item $\young(1,~11,~~~,~~~1,~~~~~)$
+                \item $\young(1,~11,~~~,~~~,~~~~~1)$
+                \item $\young(1,~1,~~~,~~~11,~~~~~)$
+                \item $\young(1,~1,~~~,~~~1,~~~~~1)$
+                \item $\young(1,~1,~~~,~~~,~~~~~11)$
+                \item $\young(1,~,~~~,~~~11,~~~~~1)$
+                \item $\young(1,~,~~~,~~~1,~~~~~11)$
+                \item $\young(1,~,~~~,~~~,~~~~~111)$
+                \item $\young(~11,~~~,~~~11,~~~~~)$
+                \item $\young(~11,~~~,~~~1,~~~~~1)$
+                \item $\young(~11,~~~,~~~1,~~~~~1)$
+                \item $\young(~1,~~~,~~~11,~~~~~1)$
+                \item $\young(~1,~~~,~~~1,~~~~~11)$
+                \item $\young(~1,~~~,~~~,~~~~~111)$
+                \item $\young(~,~~~,~~~11,~~~~~11)$
+                \item $\young(~,~~~,~~~1,~~~~~111)$
+                \item $\young(~,~~~,~~~,~~~~~1111)$
+            \end{multicols*}
+        \end{itemize}
+        As there is only one possible tableau for each shape we have that each coefficient is one. Therefore we have 
+        \begin{align*}
+            s_{(5,3,3,1)}s_{(4)}=&s_{(5,4,3,3,1)}+s_{(6,3,3,3,1)}+s_{(5,5,3,2,1)}+s_{(6,4,3,2,1)}+s_{(7,3,3,2,1)}\\
+            +&s_{(6,5,3,1,1)}+s_{(7,4,3,1,1)}+s_{(8,3,3,1,1)}+s_{(5,5,3,3)}+s_{(6,4,3,3)}+s_{(7,3,3,3)}\\
+            +&s_{(6,5,3,2)}+s_{(7,4,3,2)}+s_{(8,3,3,2)}+s_{(7,5,3,1)}+s_{(8,4,3,1)}+s_{(9,3,3,1)}.    
+        \end{align*}
+        \item For this next case we have $\mu = \nu =(2,1)$. This means that $\la\vdash 6$ and we must append two $1$'s and one $2$. As our tableau must be Littlewood-Richardson, the reading word must be one of either 
+        $$211,\word{or}121.$$
+        The following tableaux correspond to $\la\vdash 6$ such that $\la/\mu$ is a Littlewood-Richardson tableau with content $(2,1)$:
+        \begin{itemize}
+            \begin{multicols*}{3}
+                \item $\young(2,1,~1,~~)$
+                \item $\young(2,1,~,~~1)$
+                \item $\young(2,~1,~~1)$
+                \item $\young(2,~,~~11)$
+                \item $\young(1,~2,~~1)$
+                \item $\young(~2,~~11)$
+                \item $\young(12,~1,~~)$
+                \item $\young(~12,~~1)$
+            \end{multicols*}
+        \end{itemize}
+        We see that $\text{sh}(\la)=(3,2,1)$ is repeated once so we account for a coefficient of $2$ with that tableau. The decomposition is thus:
+        $$s_{(2,1)}^2=s_{(2,2,1,1)}+s_{(3,1,1,1)}+2s_{(3,2,1)}+s_{(4,1,1)}+s_{(4,2)}+s_{(2,2,2)}+s_{(3,3)}.$$
+        \item By the correspondence of the outer tensor product with the product of Schur functions we have 
+        $$V_{(2,1)}\ox_o V_{(2,1)}=V_{(2,2,1,1)}\oplus V_{(3,1,1,1)}\oplus2V_{(3,2,1)}\oplus V_{(4,1,1)}\oplus V_{(4,2)}\oplus V_{(2,2,2)}\oplus V_{(3,3)}.$$
+        
+\end{enumerate}    
 \end{ptcbr}
 
+\begin{Ej}[Exercise 3]
+    Use the Straightening Algorithm (Garnir Relations) to express the Garnir polynomial $F_T$ where $T$ is the filling 
+    $$\young(24,31)$$
+    in terms of $F_S$'s where each $S$ is a standard Young tableau.
+    Write out each polynomial in your formula and check that your answer works.
+\end{Ej}
+
+\begin{ptcbr}
+    We first column straighten $T$ by ordering its columns, we obtain
+    $$\young(34,21).$$
+    To row-straighten we find the topmost row with a descent and consider rightmost decrease. The block in question is 
+    $$\young(3,21)$$
+    and for this block we will find permutations of $S_3$ which preserve the columns-increasing condition withing the blocks. We have the permutations 
+    $$\id,\quad (12),\quad (123)$$
+    which correspond to 
+    $$\young(3,21),\quad \young(3,12),\word{and}\young(2,13).$$
+    This means that 
+    $$(-1)^0(x_3-x_2)(x_4-x_1)+(-1)^1(x_3-x_1)(x_4-x_2)+(-1)^2(x_2-x_1)(x_4-x_3)=0$$
+    and from this relation we obtain 
+    $$(x_3-x_2)(x_4-x_1)=(x_3-x_1)(x_4-x_2)-(x_2-x_1)(x_4-x_3).$$
+    Similarly just by calculating the Garnir polynomial of $T$ we obtain $(x_2-x_3)(x_4-x_1)$ which corresponds to our formula, just with a sign change.
+\end{ptcbr}
 \end{document} 
