@@ -1,0 +1,129 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Jeff Achter}
+\def\nsigla {MATH519}
+\def\nsiglahead {Complex Analysis}
+\def\nextra {HW6}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+    Prove that all entire functions that are also injective take the form $f (z) = az + b $ with $a, b \in\bC$, and $a \neq 0$. \hint{Apply the Casorati-Weierstrass theorem to $f(1/z)$.}
+\end{Ej}
+
+\begin{ptcbr}
+The function $g(z)=f(1/z)$ has a singularity at $z=0$. If it were removable, then $g$ is bounded on $B(0,R)$ for some $R>0$.\par 
+This means that $f$ is bounded on $\set{|z|>R}$, but as $f$ is entire, it's continuous and so it's bounded in $\ov{B}(0,R)$, the \emph{closed} ball. From this, we see that $f$ is bounded in all of $\bC$.\par 
+By Liouville's theorem $f$ is constant. But that contradicts the fact that $f$ is injective.\par 
+Now assume $g$ has an essential singularity at $z=0$. By the Casorati-Weierstrass theorem, we have a neighborhood of the origin $B(0,R)$ with $R>0$, such that $g\bonj{B(0,R)}$ is dense in $\bC$. This means that $f\bonj{\set{|z|>R}}$ is dense in $\bC$.\par 
+Recall that dense sets intersect every non-trivial open set, so in particular we find an intersection with $f\bonj{B(0,R)}$ (which is open by the open mapping theorem). This means that there exists $w\in f\bonj{\set{|z|>R}}\cap f\bonj{B(0,R)}$ such that 
+$$w=f(z_1)=f(z_2),\word{where}|z_1|>R,\word{and}|z_2|<R.$$
+In particular $z_1\neq z_2$. So this contradicts the injectivity of $f$.\par 
+Finally this means that $g$ has a finite-order pole at $z=0$. When taking the Laurent expansion of $g$, this corresponds to having finitely many terms of the form $\frac{a_k}{z^k}$.\par 
+As for $f$, the positive degree part of its Laurent expansion is a finite degree polynomial. There are no negative power terms because $f$ is entire.\par 
+This lets us conclude that $f$ is a polynomial. The degree of $f$ can't be anything other than $1$ because otherwise it won't be injective. Therefore, we conclude that $f$ is a linear function.
+\end{ptcbr}
+
+\begin{Ej}
+    As in class, consider the unit sphere
+    $$X=\set{(a,b,c)\:\ a^2+b^2+c^2=1}\subseteq\bR^3$$
+    Let $N = (0, 0, 1), S = (0, 0, -1), U_N = X\less N, U_S = X\less S$. Consider the following three
+    charts on $X$:
+    \begin{itemize}
+        \item $\phi_N\: U_N\to\bC,\ (a,b,c)\mapsto\frac{a+ib}{1-c}$.
+        \item $\phi_S\: U_S\to\bC,\ (a,b,c)\mapsto\frac{a+ib}{1+c}$.
+        \item $\psi_S\: U_S\to\bC,\ (a,b,c)\mapsto\frac{a-ib}{1+c}$.
+    \end{itemize}
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The inverse of $\phi_N$ is 
+        $$\phi_N^{-1}(z)=\left(\frac
+        {2\Re(z)}{|z|^2+1},\frac
+        {2\Im(z)}{|z|^2+1},\frac
+        {|z|^2-1}{|z|^2+1}\right).$$
+        Calculate $\phi_S^{-1}$ and $\psi_S^{-1}$.
+        \item Among the three charts $\set{(U_N,\phi_N),(U_S,\phi_S),(U_S,\psi_S)}$, one pair is compatible and the other two are not. Which is which? Why?\par 
+        \hint{Remember a function is holomorphic if and only if $\del_{\ov z}f=0$.}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+We claim that 
+$$\phi_S^{-1}(z)=\left(\frac
+{2\Re(z)}{|z|^2+1},\frac
+{2\Im(z)}{|z|^2+1},\frac
+{1-|z|^2}{|z|^2+1}\right).$$
+When composing this function with $\phi_S$ we obtain 
+$$\phi_S^{-1}(\phi_S(a,b,c))=\phi_S^{-1}\left(\frac{a+bi}{1+c}\right)$$
+To ease our calculations we may calculate the modulus of this complex number beforehand:
+$$\left|\frac{a+bi}{1+c}\right|^2=\frac{a^2+b^2}{(1+c)^2}=\frac{1-c^2}{(1+c)^2}=\frac{1-c}{1+c}.$$
+From this we can also see
+$$\frac{1-c}{1+c}+1=\frac{2}{1+c},\word{and}1-\frac{1-c}{1+c}=\frac{2c}{1+c}.$$
+Applying this to our calculation we obtain 
+$$\phi_S^{-1}\left(\frac{a+bi}{1+c}\right)=\left(\frac{(2a)/(1+c)}{2/(1+c)},\frac{(2b)/(1+c)}{2/(1+c)},\frac{(2c)/(1+c)}{2/(1+c)},\right)=(a,b,c).$$
+In a similar fashion we have 
+\begin{align*}
+    \phi_S(\phi_S^{-1}(a,b,c))&=\phi_S\left(\frac
+{2\Re(z)}{|z|^2+1},\frac
+{2\Im(z)}{|z|^2+1},\frac
+{1-|z|^2}{|z|^2+1}\right)\\
+&=\frac{(2\Re(z))/(|z|^2+1)+i(2\Im(z))/(|z|^2+1)}{1+(1-|z|^2)/(|z|^2+1)}\\
+&=\frac{2z}{|z|^2+1+1-|z|^2}=z.
+\end{align*}
+Therefore $\phi_S^{-1}$ is indeed the inverse map of $\phi_S$. Now, observe that $\psi_S=\ov{\phi_S}$ from which we may conclude that $\psi_S^{-1}(z)=\phi_S^{-1}(\ov z)$, this is 
+$$\psi_S^{-1}(z)=\left(\frac
+{2\Re(z)}{|z|^2+1},\frac
+{-2\Im(z)}{|z|^2+1},\frac
+{1-|z|^2}{|z|^2+1}\right).$$
+Finally considering the transition maps we may see after calculating that 
+$$\phi_S\circ \phi_N^{-1}=\frac{1}{\ov z},\quad \psi_S\circ \phi_N^{-1}=\frac{1}{ z},\word{and}\psi_S\circ\phi_S^{-1}=\ov z.$$
+Among these three, the only holomorphic transition map is $\psi_S\circ \phi_N^{-1}$. From this, we see that $\bCP$ with the atlas $\set{(U_N,\phi_N),(U_S,\psi_S)}$ is a complex manifold.
+\end{ptcbr}
+
+\begin{Ej}
+    If $f $is meromorphic on $\Om$ and $z_0\in\Om$, we define the order of $f$ by
+    $$
+    \ord_{z_0}(f)=\begin{cases}
+        0&\text{when }f\text{ is holomorphic at }z_0\text{ and }f(z_0)\neq 0,\\
+        m&\text{when }f\text{ has a zero of order }m\text{ at }z_0,\\
+        -m&\text{when }f\text{ has a pole of order }-m\text{ at }z_0.
+    \end{cases}
+    $$
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Let $p(z)$ be a polynomial of degree d, thought of as a meromorphic function $\hat{C}\to\hat{C}$. Use the definition of a pole at infinity ([SS, p. 87]) to show that $\ord_{\infty}p=-d$.
+        \item Show that if $p(z)$ is a polynomial, then 
+        $$\sum_{z_0\in\hat\bC}\ord_{z_0}(f)=0.$$
+        \hint{Use the fundamental theorem of algebra.}
+        \item Show that if $f(z)=\frac{p(z)}{q(z)}$ is a rational function, then 
+        $$\sum_{z_0\in\hat\bC}\ord_{z_0}(f)=0.$$
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The behavior of $p$ at infinity is the behavior of $p\left(\frac1z\right)$ at the origin. Observe that if $p$ had degree $d$ then 
+        \begin{align*}
+        &p(z)=a_0+a_1z+\dots+a_dz^d,\word{where}a_d\neq 0\\
+            \To &p\left(\frac1z\right)=a_0+\frac{a_1}{z}+\dots+\frac{a_d}{z^d}=\frac{1}{z^d}(a_0z^d+a_1z^{d-1}+\dots a_d).
+        \end{align*}
+        Observe that at $z=0$, the function $a_0z^d+a_1z^{d-1}+\dots a_d$ doesn't vanish because $a_d\neq 0$ and it's holomorphic. Then we see that the order of the pole at the origin is $-d$. Thus for $p$, $-d=\ord_{\infty}p$.
+        \item We may factor $p$ as 
+         $$p(z)=a\prod_{k=1}^{r}(z-z_k)^{\al_k}$$
+         where $z_1,\dots,z_k$ are the roots of $p$. Now
+         $$\sum_{z_0\in\hat\bC}\ord_{z_0}(f)=\ord_\infty(p)+\sum_{k=1}^{r}\ord_{z_k}(p)=-d+\sum_{k=1}^{r}\al_k=0$$
+         which follows from $\sum_{k=1}^{r}\al_k=d$.
+         \item Finally consider a rational function $\frac pq$. Then 
+         $$\sum_{z_0\in\hat\bC}\ord_{z_0}(f)=\sum_{z_0\in\hat\bC}\ord_{z_0}(p)+\sum_{z_0\in\hat\bC}\ord_{z_0}\left(\frac1q\right)=\sum_{z_0\in\hat\bC}\ord_{z_0}\left(\frac1q\right).$$
+         As $\ord_{z_0}\left(\frac1q\right)=-\ord_{z_0}\left(q\right)$, the other sum is also zero, because $\sum \ord_{z_0}\left(q\right)=0$. In conclusion we have $\ord_{z_0}\left(f\right)=0$.
+    \end{enumerate}
+\end{ptcbr}
+\end{document} 
