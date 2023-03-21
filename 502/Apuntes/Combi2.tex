@@ -2340,6 +2340,66 @@ Many times, the polynomials $f(q)$ are $q$-analogues.
     Then plugging in $q=i$ we get zero, which coincides with $|\Fix(1234)|$. In the case of $(13)(24)$, this only fixes $13$ and $24$ also $f(-1)=2$ as $-1$ is a second root of unity.\par 
     Now notice that when taking the identity, every element is fixed and $f(1)=10$.
 \end{Ex}
+
+\chapter{Combinatorial Designs}
+\section{Day 23| 20230320}
+Suppose we have different varieties of grain and different varieties of soil. We wish to find the best grain growing conditions so we design an experiment with a certain number of blocks to plant our grain.\par 
+We are constrained by time or any other condition so we want to extract the most amount of information. 
+
+\begin{Ex}
+If we had $7$ types of grain and $7$ types of soil we could design an experiment as follows:
+$$(123)(345)(561)(147)(257)(367)(246),$$
+every pair is tested at least. To have \emph{all} of the information we need $\binom{7}{3}$, but that might be too much information. Our design is symmetric in some sense which makes it \emph{efficient}.\par 
+We can visualize this as a Fano Plane graph. \red{INCLUDE GRAPH}
+\end{Ex}
+
+\begin{Def}
+    A \term{$t-(v,k,\la)$ design} is a pair $(X,\cB)$ where $|X|=v$ and $\cB\subseteq\cP(X)$ where the elements of $\cB$ are called blocks. For $B\in\cB$, $|B|=k$ and every $t$-element subset of $X$ appears in $\la$ blocks.
+\end{Def}
+
+Based on the definition, the previous example is a $2-(7,3,1)$ and a $1-(7,3,3)$ design. When every pair is in one block, we call it a \term[Steiner system].
+
+\begin{Ex}
+    We have that $\left(\bonj{n},\binom{\bonj{n}}{k}\right)$ is a $t-\left(n,k,\binom{n-t}{k-t}\right)$ design, where the binomial coefficient counts the number of $k$-element subsets of $\bonj{n}$ contining a given $t$-element subset.
+\end{Ex}
+
+\begin{Lem}
+    Every $t$ design is an $s$ design for $s\leq t$ with possibly different parameters.
+\end{Lem}
+
+\begin{ptcbp}
+    Consider $(X,\cB)$ a $t-(v,k,\la)$ design and let $S\subseteq X$ with $s$ elements. Then we wish to show that $(X,\cB)$ is a $s-(v,k,\mu)$ design. \red{FINISH}
+\end{ptcbp}
+
+\begin{Lem}
+    Let $r$ be the number of blocks each point $x\in X$, then $bk=vr$ where $b$ is the number of each block.
+\end{Lem}
+
+\begin{ptcbp}
+    The quantity $bk$ is the number of pairs $(x,B)$ such that $x\in B$. This same count can be done by fixing the element $x$ and letting \red{FINISH}
+\end{ptcbp}
+    
+\begin{Def}
+    The dual $\cD$ of a design $(X,\cB)$ is $(X^\sT,\cB^\sT)$ such that $X^\sT=\cB$ and $\cB^\sT$ is the set of $\cB$'s such that $x\in X$.
+\end{Def}
+
+\begin{Ex}
+    The dual of a $2-(9,3,1)$ design is a $1-(12,4,3)$ design. We can see their incidence matrices: \red{DO}
+\end{Ex}
+
+\begin{Lem}
+    If $M$ is the incidence matrix of $\cB$ then $M^\sT$ is the incidence matrix of $\cD$ the dual of $\cB$.
+\end{Lem}
+
+\subsection{Isomorphisms}
+
+\begin{Def}
+    An \term{isomorphism of designs} $(X,\cB),\ (X',\cB')$ is a bijection between $X$ and $X'$ which preserves the block structure.
+\end{Def}
+
+\begin{Ex}
+    The Fano plane has non-trivial automorphisms, rotations, polarities, reflections and so on. In general these transformations form the automorphism group of this plane.
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
