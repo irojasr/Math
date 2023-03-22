@@ -16,4 +16,32 @@
 \DeclareMathOperator{\maj}{maj}
 \begin{document}
 
+\begin{Ej}[6.8 Sagan]
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item  The group of symmetries of a regular $n$-gon is called a dihedral group and
+        consists of the $n$ rotations and $n$ reflections which map the $n$-gon to itself.\par 
+        Find the number of different 4-bead, $r$-color necklaces if necklaces are considered the same when one is a rotation or reflection of the other.
+        \item Find an expression for the number of distinct $n$-bead, $r$-color necklaces if two
+        are the same when one is a rotation or a reflection of the other.        
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+ Observe that the dihedral group which acts on a $4$-bead necklace is $D_8=\genr{(1234),(13)}\leq S_4$. We can succinctly view the elements of the group as follows:
+        \begin{align*}
+            &\set{(1)(2)(3)(4),(1234),(13)(24),(1432),(13),(1234)(13),(13)(24)(13),(1432)(13)}\\
+            =&\set{(1)(2)(3)(4),(1234),(13)(24),(1432),(13),(14)(23),(24),(12)(24)}
+        \end{align*}
+        With this, we may use Burnside's lemma to find the number of orbits:
+        \begin{align*}
+        \#\text{orbits}&=\frac{1}{|D_8|}\sum_{g\in D_{8}}|\Fix(g)|=\frac{1}{8}\sum_{g\in D_{8}}r^{c(g)}\\
+        &=\frac{1}{8}(r^4+r^1+r^2+r^1+r^3+r^2+r^3+r^2)
+        =\frac{1}{8}(r^4+2r^3+3r^2+2r).
+        \end{align*}
+Therefore when $r$-coloring we have $\frac{1}{8}(r^4+2r^3+3r^2+2r)$ different necklaces.\par 
+The game changes a bit when considering $n$ beads as descr
+\end{ptcbr}
+
 \end{document} 

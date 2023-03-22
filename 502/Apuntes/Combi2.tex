@@ -2400,6 +2400,82 @@ Based on the definition, the previous example is a $2-(7,3,1)$ and a $1-(7,3,3)$
 \begin{Ex}
     The Fano plane has non-trivial automorphisms, rotations, polarities, reflections and so on. In general these transformations form the automorphism group of this plane.
 \end{Ex}
+
+\section{Day 24| 20230322}
+
+Recall that a $t-(v,k,\la)$ design is a pair $(X,\cB)$ such that $v=|X|$, $k=|B|$ for all $B\in\cB$ and $\la$ is the number of blocks which contain a fixed set $T$ with size $t$. We will relate this with the incidence matrix.
+
+\begin{Th}[Fisher's Inequality]
+    In a $2$-design with $k<v$ we have $b\geq v$.
+\end{Th}
+
+\begin{ptcbp}
+    Consider the matrix $M^\sT M$, the $(i,j)$ entry is the dot product of columns $i$ and $j$. Recall column $i$ codifies the incidence of $x_i$ in each block, so the dot product is equal to the number of block containing both $x_i$ and $x_j$. In other words we get 
+    $$(M^{\sT}M)_{ij}=\begin{cases}
+        &\la,\quad i\neq j\\
+        &r,\quad i=j
+    \end{cases}$$
+    where $r$ is the number of blocks containing $x_i$. So $M^TM$ is matrix with diagonal entries $r$ and off-diagonal entries $\la$. The vector $(1,\dots,1)^\sT$ is an eigenvector with eigenvalue $(v-1)\la+r$ and we have that for a two design 
+    $$(v-1)\la+=r+r(k-1)=rk.$$
+    The remaining eigenvectors are of the form $(0,\dots,1,\dots,-1,\dots,0)^{\sT}$ with eigenvalues $r-\la$. Then the determinant of $M^\sT M$ is 
+    $$rk(r-\la)^{n-1}$$
+    so we require $r\neq \la$ to show $M^\sT M$ is not signular. So from our lemma we have 
+    $$r(k-1)=(v-1)\la\To (r-\la)(k-1)=\la(v-k)\To r-\la>0$$
+    because the remaining quantities in the expression are all positive. 
+\end{ptcbp}
+
+The question now is, when are incidence matrices square?
+
+\begin{Th}[Square 2-designs]
+    The following are equivalent for 2-designs with $k<v$:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item $b=v$
+        \item $r=k$
+        \item Any two blocks have $\la$ points in common.
+        \item Any two blocks have a constant number of common points.
+    \end{enumerate}
+\end{Th}
+
+\begin{ptcbp}
+    Notice that the first two conditions are equivalent by $bk=vr$.\par 
+    Now if $r=k$, then 
+    $$MJ_v=J_rM=kJ_{r\x v}$$
+    where $J_s$ is the ones matrix with size $s$. So 
+    $$MM^\sT=MM^\sT MM^{-1}=M((r-\la)I_V+\la J_v)M^{-1}=(r-\la)I_V+\la J_v$$
+    so any two blocks have $\la$ common points. As the third condition implies the last one we are left with proving the blocks having constant number of common points implies $b=v$. This is a consequence of Fisher's inequality because the dual design is now a $2$-design then $b\geq v$ and originally $v\geq b$ so we have $b=v$.
+\end{ptcbp}
+
+\subsection{Hadamard Designs}
+
+\begin{Def}
+    A \term{Hadamard matrix} is a matrix with entries in $\set{1,-1}$ such that $HH^\sT=nI$. 
+\end{Def}
+This means that for rows $u,v$ we have $\braket{u}{u}=n$ and $\braket{u}{v}=0$. 
+
+\begin{Ex}
+    In dimension 1 we have $(1)$ and $(-1)$. In dimension 2 we only have $\twobytwo{1}{1}{1}{-1}$. None exist in dimension 3 but in dimension 4 we have 
+    $$\begin{pmatrix}
+        1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1
+    \end{pmatrix}.$$
+\end{Ex}
+
+Now Hadamard matrices are the equality case in the Hadamard inequality which says $|\det M|\leq n^{n/2}$ whenever $|M_{ij}|\leq 1$.\par 
+Observe that for a Hadamard matrix, we can negate a row or a column and still get another Hadamard matrix and also rearrange rows to get other Hadamard matrices. Applying this operations we can get an \emph{normalized} version of a Hadamard matrix with ones on the top row and first column.
+
+\begin{Prop}
+    Let $H$ be a normalized Hadamard matrix. If we consider the $(1,1)$ minor and replace the $-1$ by zeroes we obtain the incidence matrix of a $2-(4k-1,2k-1,k-1)$ design. When replacing the ones with zeroes we get a matrix of a $2-(4k-1,2k,k)$.
+\end{Prop}
+
+\begin{Ex}
+    From the matrix 
+    $$\begin{pmatrix}
+        1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1
+    \end{pmatrix}$$
+    we extract $\threebythree{0}{1}{0}{1}{0}{0}{0}{0}{1}$ and $\threebythree{1}{0}{1}{0}{1}{1}{1}{1}{0}$ which codify the designs $\set{1},\set{2},\set{3}$ and $\set{1,3},\set{2,3},\set{1,2}$.
+\end{Ex}
+
+The Fano plane gives us a Hadamard matrix CONJECTURE
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
