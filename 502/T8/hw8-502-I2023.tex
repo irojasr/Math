@@ -27,6 +27,8 @@
         are the same when one is a rotation or a reflection of the other.        
     \end{enumerate}
 \end{Ej}
+%https://math.stackexchange.com/questions/574501/raising-a-cycle-to-a-power-cycle-decomposition
+%https://math.stackexchange.com/questions/3216181/different-coloring-of-regular-n-gon
 
 \begin{ptcbr}
  Observe that the dihedral group which acts on a $4$-bead necklace is $D_8=\genr{(1234),(13)}\leq S_4$. We can succinctly view the elements of the group as follows:
@@ -41,7 +43,75 @@
         =\frac{1}{8}(r^4+2r^3+3r^2+2r).
         \end{align*}
 Therefore when $r$-coloring we have $\frac{1}{8}(r^4+2r^3+3r^2+2r)$ different necklaces.\par 
-The game changes a bit when considering $n$ beads as descr
+The game changes a bit when considering $n$ beads. Once again by Burnside's lemma we have 
+$$\#\text{orbits}=\frac{1}{2n}\sum_{g\in D_{2n}}|\Fix(g)|$$
+and we may separate the set into $g$'s which are rotations and $g$'s which are reflections. With this we have 
+$$\#\text{orbits}=\frac{1}{2n}\left(\sum_{\substack{g\in D_{2n}\\\text{rotation}}}|\Fix(g)|+\sum_{\substack{g\in D_{2n}\\\text{reflection}}}|\Fix(g)|\right).$$
+Now, for rotations we have 
+$$|\Fix(g)|=r^{c(g)},$$
+and every rotation is of the form $(12\dots n)^k$. This means that it's a rotation by $k$ steps. For every rotation of this form we have $c(g)=\gcd(k,n)$ disjoint cycles. This is because the order of our cycle to the power $k$ is $n/\gcd(k,n)$ so we will have $\gcd(k,n)$ disjoint cycles in the decomposition of $(12\dots n)^k$. Therefore for rotations 
+$$|\Fix(g)|=r^{c(g)}=r^{\gcd(k,n)}.$$
+In the case of reflections we will instead consider which are the fixed points by hand. We have two cases depending on the parity of $n$:
+\begin{itemize}
+    \itemsep=-0.4em 
+    \item When $n$ is even we may reflect about axis which intersect two beads or none. If the axis intersects the beads, we may freely choose their color and the remaining ones are determined pairwise. This means that for these reflections we have 
+    $$|\Fix(g)|=r^{\frac{n}{2}+1}$$
+    while in the case that the axis doesn't touch the beads, instead we get 
+    $$|\Fix(g)|=r^{\frac{n}{2}}$$
+    because all beads have their colors determined pairwise. 
+    Half of the even rotations have an axis through the beads and the other half through none. So this means that in the even case we have 
+    $$\sum_{\substack{g\in D_{2n}\\\text{reflection}}}|\Fix(g)|=\frac{n}{2}r^{\frac{n}{2}+1}+\frac{n}{2}r^{\frac{n}{2}}.$$
+    \item And in the odd case, it's much simpler, every reflection passes through an edge so that one is fixed, this means that we have 
+    $$|\Fix(g)|=r^{\frac{n-1}{2}+1}=r^{\frac{n+1}{2}}$$
+    and in total, all $n$ reflections are of this form. 
+\end{itemize}
+Gathering this together we have 
+$$\#\text{orbits}=\frac{1}{2n}\sum_{k=1}^nr^{\gcd(k,n)}+\frac{1}{2n}\left\lbrace
+\begin{aligned}
+    &\frac{n}{2}r^{\frac{n}{2}+1}+\frac{n}{2}r^{\frac{n}{2}}\word{when} n\word{is even}\\
+    &nr^{\frac{n+1}{2}}\word{when} n\word{is odd}
+\end{aligned}
+\right.$$
 \end{ptcbr}
 
+\begin{Ej}[6.9 Sagan]
+    How many distinct cubes are there under rotation if the edges are colored from a set with $r$ colors? 
+\end{Ej}
+%https://www.gcsu.edu/sites/files/page-assets/node-808/attachments/powers.pdf
+\begin{ptcbr}
+    The group of rotations of the cube is $S_4$, so when taking into account the edges of the cube we consider a subgroup of $S_{12}$ which is isomorphic to $S_4$. The elements in our group look like:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Rotations through faces which can be represented as 
+        $$f=\begin{pmatrix}1&2&3&4\end{pmatrix}\begin{pmatrix}5&6&7&8\end{pmatrix}\begin{pmatrix}9&10&11&12\end{pmatrix}$$
+        and $f^2$ is a product of $6$ disjoint transpositions, while $f^3$ has the same cycle structure as $f$.\par 
+        Of these types of rotations we have $3$ because doing a rotation on a face is the inverse of doing it on the opposite face.
+        \item Rotations through edges look like 
+        $$e=\begin{pmatrix}2&9\end{pmatrix}\begin{pmatrix}3&5\end{pmatrix}\begin{pmatrix}4&10\end{pmatrix}\begin{pmatrix}6&12\end{pmatrix}\begin{pmatrix}8&11\end{pmatrix}\begin{pmatrix}1\end{pmatrix}\begin{pmatrix}7\end{pmatrix}$$
+        and of this type we have $12/2=6$.
+        \item Finally for rotations about a vertex we have as an example 
+        $$v=\begin{pmatrix}1&4&9\end{pmatrix}\begin{pmatrix}2&12&5\end{pmatrix}\begin{pmatrix}3&8&10\end{pmatrix}\begin{pmatrix}6&11&7\end{pmatrix}$$
+        and $v^2$ has the same cycle structure. There are $4$ diagonals through which we can rotate.
+    \end{itemize}
+With this information we can find the number of orbits as:
+$$\frac{1}{24}\bonj{r^12+3(r^3+r^6+r^3)+6r^7+8r^4}=\frac{r^12+6r^7+3r^6+8r^4+6r^3}{24}.$$
+\end{ptcbr}
+\begin{Ej}[6.10 Sagan]
+    How many distinct regular tetrahedra are there under rotation if the faces are colored from a set with $r$ colors? Find the expression in two ways: with Burnside's lemma and without.
+\end{Ej}
+
+\begin{ptcbr}
+    First notice that the alternating group $A_4$ is the group of symmetries of the tetrahedron. Every permutation in $A_4$ is composed of $2$ cycles except for the identity which has $4$. So by Burnside's lemma we have 
+    $$\#\text{orbits}=\frac{1}{12}\sum_{g\in G}|\Fix(g)|=\frac{1}{12}\sum_{g\in G}r^{c(g)}=\frac{1}{12}(r^4+11r^2).$$
+\end{ptcbr}
+\iffalse
+\begin{Ej}
+    Prove that $e^{\frac{2\pi i k}{n}}$ is a primitive root of unity if and only if $\gcd(k,n)=1$. Then prove that 
+    $$\left(\binom{\bonj{n}}{k},\genr{(12\dots n)},\right)$$
+\end{Ej}
+%https://reader.elsevier.com/reader/sd/pii/S0097316504000822?token=2F33B95C0335AE5C4AE599BFA95D802BC5AFBD667F626D7CB18150319BAB72FE5A105DC7A03091F291C77312D6EFD6E3&originRegion=us-east-1&originCreation=20230323045711
+%https://www.sciencedirect.com/science/article/pii/S0097316504000822
+%https://www.ams.org/notices/201402/rnoti-p169.pdf
+%https://arxiv.org/pdf/1005.2561.pdf
+\fi
 \end{document} 

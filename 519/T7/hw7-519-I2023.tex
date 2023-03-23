@@ -20,7 +20,66 @@
 \begin{ptcbr}
 Consider the function 
 $$g(z)=\prod_{k=1}^{n}(z-w_k)$$
-which is holomorphic on $B(0,1)$ and continuous on $\ov B(0,1)$.    questions
+which is holomorphic on $B(0,1)$ and continuous on $\ov B(0,1)$. Also this function is non-constant so by the maximum modulus principle, 
 \end{ptcbr}
 
+\begin{Ej}[Stein\&Shakarchi 3.15(d)]
+    Show that if the real part of an entire function $f$ is bounded, then $f$ is constant. \hint{Instead of using the hint in the book, you can also proceed by considering the
+    function $\exp( f (z))$.}
+\end{Ej}
+
+\begin{ptcbr}
+Suppose $f$ is entire and bounded, then 
+$$|e^f|=e^{\Re(f)}<\infty$$
+as $\Re(f)$ is bounded. Then by Liouville's theorem, $e^f$ is constant. Finally differentiating we get 
+$$(e^f)(f')=0\To f'=0\To f\word{is constant}.$$
+Here we have used the fact that $e^f$ is never zero.
+\end{ptcbr}
+
+\begin{Ej}
+    Use Rouché's theorem to give another proof of the fundamental theorem of algebra, as follows:
+    \begin{itemize}
+        \itemsep=-0.4em 
+        \item Let $p(z)=\sum_{j=0}^{d} a_jz^j$ be a polynomial, where $d\geq 1$ and $a_d\neq 0$.
+        \item In class, we showed that there exist constants $C > 0$ and $R_0$ such that, if $|z| > R_0$, then $C|z^d|>|p(z)|$.
+    \end{itemize}
+Show that, for each $R > R_0$, $p(z)$ has exactly $d$ roots (counted with multiplicity) of size less
+than $R$.
+\end{Ej}
+
+\begin{ptcbr}
+    Let us consider $f=a_dz^d$ and $g=a_{d-1}z^{d-1}+\dots+a_1z+a_0$. For any $R>0$ we have that inside the contour $\del B(0,R)$, $f$ has $d$ roots.\par 
+    Now consider the modulus of $g$, we have
+    \begin{align*}
+        |g(z)|=&|a_{d-1}z^{d-1}+\dots+a_1z+a_0\leq|a_{d-1}||z^{d-1}|+\dots+|a_1||z|+|a_0|
+    \end{align*}
+    and working in our contour we may bound $g$ by 
+    $$|a_{d-1}|R^{d-1}+\dots+|a_1|R+|a_0|\leq (|a_{d-1}|+\dots+|a_0|)R^{d-1}.$$
+    On the other hand for $f$ we have $|f|=|a_d|R^d$ so 
+    $$\frac{|g|}{|f|}\leq \frac{(|a_{d-1}|+\dots+|a_0|)R^{d-1}}{|a_d|R^d}=\frac{|a_{d-1}|+\dots+|a_0|}{|a_d|R}.$$
+    If we wanted $|g|\leq |f|$, we require 
+    $$\frac{|a_{d-1}|+\dots+|a_0|}{|a_d|R}\leq 1\iff \frac{|a_{d-1}|+\dots+|a_0|}{|a_d|}\leq R.$$
+    With this information in hand we may apply Rouché's theorem, in a contour with such a radius we have that $f,g$ are holomorphic and $|f|\geq |g|$ so $f$ and $f+g=p$ have the same number of zeroes inside our contour.\par 
+    In conclusion $p$ has $d$ zeroes all inside the contour which means that they have modulus less than $R$.
+\end{ptcbr}
+
+\begin{Ej}
+    Let $f$ be non-constant and holomorphic in an open set containing $\ov \bD$, the closed unit disk. Further suppose that if $|z| = 1$, then $| f (z)| = 1$.
+    \begin{enumerate}
+        \item Show that $f (z) = 0$ has a root, i.e., that the image of $f$ contains $0$. \hint{Use the maximum modulus principle.}
+        \item Show that if $w_0\in \bD$, then there exists some $z_0\in D$ such that $f(z_0)=w_0$. \hint{Apply
+        the result of the first part to the composition of f with a suitable Blaschke factor, as in [SS] 1.7}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}
+        \item Assume on the contrary that $f$ doesn't have a root. Then in the same fashion that $|z|=1\To|f(z)|=1$ we also have that $\frac{1}{|f(z)|}=1$.\par 
+        By the maximum modulus principle, inside the ball we have that $|f|(z)|\leq 1$ and in the same vein we have $|f(z)|\geq 1$. Therefore $f$ has constant modulus on the ball and with this we can deduce $f$ is constant. But this is a contradiction as $f$ is non-constant.\par 
+        Our assumption that $f$ doesn't have a root must therefore be false and with that we have that $f$ does have a root.
+        \item Now let $w_0\in\bD$ and consider the function $g(z)=-w_0$. For $|z|=1$ we have 
+        $$|f(z)|=1\geq |w_0|=|g(z)|$$
+        and thus by Rouché's theorem we have that $f$ and $f+g$ have the same number of roots in $B(0,1)$. As $f$ has at least one root, then there is at least one $z_0$ such that $f(z_0)-w_0=0$ which means that $f(z_0)=w_0$.
+    \end{enumerate}
+\end{ptcbr}
 \end{document} 
