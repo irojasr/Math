@@ -1,0 +1,55 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH502}
+\def\nsiglahead {Combinatorics 2}
+\def\nextra {HW9}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\usepackage[enableskew]{youngtab}
+\usepackage{ytableau}
+\DeclareMathOperator{\SYT}{SYT}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\maj}{maj}
+\begin{document}
+
+\begin{Ej}[Exercise 1]
+    Prove that the tensor product of two Hadamard matrices is a Hadamard matrix.
+\end{Ej}
+
+\begin{ptcbr}
+Suppose $H,K$ are two Hadamard matrices. We have $HH^\sT=mI$ and $KK^\sT=nI$ and we must show that $(H\ox K)(H\ox K)^\sT=mnI$ where the last identity matrix has size $(mn)\x(mn)$.\par 
+The product enjoys two properties which are essential for our purpose:
+\begin{itemize}
+    \item Transposition distributes over the product: $(A\ox B)^\sT=A^\sT\ox B^\sT$.
+    \item The \emph{mixed-product property}: If $A,B,C,D$ are matrices, then 
+    $$(A\ox B)(C\ox D)=AC\ox BD.$$
+\end{itemize}
+With this in hand we see that
+$$(H\ox K)(H\ox K)^\sT=HH^\sT\ox KK^\sT=mn I_m\ox I_n=mn I_{mn}$$
+and thus $H\ox K$ is Hadamard as desired.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 4]
+    The \textbf{complementary design} to a design $\cD = (X, \cB)$ is the pair $\cD^c = (X, \cB^c)$ where $\cB^c = \set{X \less B \: B \in B}$. Show that if $\cD$ is a $1 - (v, k, \la)$ design then $\cD^c$ is a $1 - (v, v - k, v\la/k-\la)$ design.
+\end{Ej}
+%https://math.stackexchange.com/questions/370188/empty-intersection-and-empty-union
+\begin{ptcbr}
+We know that in $\cD^c$ we have $v$ vertices. Any block is of the form $X\less B$ with $B$ having size $k$, so all the blocks in $\cD^c$ have size $v-k$ as desired.\par 
+It remains to show that every point is in exactly $\frac{v\la}{k}-\la$ blocks. Now, let us manipulate this quantity:\par 
+Recall $r$ is the number of blocks containing a point, in this case as we have a $1$-design, we have that $r=\la$, so 
+$$\frac{v\la}{k}=\frac{vr}{k}=\frac{bk}{k}=b,\word{the number of blocks.}$$
+So we must show that every point is in $b-\la$ blocks. 
+\end{ptcbr}
+
+\begin{Ej}[Exercise 6]
+    Prove that the edge-complement of a strongly regular graph is strongly regular, and find the new parameters in terms of the previous.
+\end{Ej}
+
+\begin{ptcbr}
+    Suppose $G$ is strongly regular with parameters 
+\end{ptcbr}
+\end{document}

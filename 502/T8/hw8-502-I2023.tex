@@ -51,7 +51,7 @@ Now, for rotations we have
 $$|\Fix(g)|=r^{c(g)},$$
 and every rotation is of the form $(12\dots n)^k$. This means that it's a rotation by $k$ steps. For every rotation of this form we have $c(g)=\gcd(k,n)$ disjoint cycles. This is because the order of our cycle to the power $k$ is $n/\gcd(k,n)$ so we will have $\gcd(k,n)$ disjoint cycles in the decomposition of $(12\dots n)^k$. Therefore for rotations 
 $$|\Fix(g)|=r^{c(g)}=r^{\gcd(k,n)}.$$
-In the case of reflections we will instead consider which are the fixed points by hand. We have two cases depending on the parity of $n$:
+In the case of reflections we will instead consider which are the fixed points by hand. We\footnote{I wasn't able to calculate concretely $c(g)$ for the reflections case and luckily \textbf{Trent} discussed with me how to count the fixed points.} have two cases depending on the parity of $n$:
 \begin{itemize}
     \itemsep=-0.4em 
     \item When $n$ is even we may reflect about axis which intersect two beads or none. If the axis intersects the beads, we may freely choose their color and the remaining ones are determined pairwise. This means that for these reflections we have 
@@ -94,14 +94,15 @@ $$\#\text{orbits}=\frac{1}{2n}\sum_{k=1}^nr^{\gcd(k,n)}+\frac{1}{2n}\left\lbrace
         and $v^2$ has the same cycle structure. There are $4$ diagonals through which we can rotate.
     \end{itemize}
 With this information we can find the number of orbits as:
-$$\frac{1}{24}\bonj{r^12+3(r^3+r^6+r^3)+6r^7+8r^4}=\frac{r^12+6r^7+3r^6+8r^4+6r^3}{24}.$$
+$$\frac{1}{24}\bonj{r^{12}+3(r^3+r^6+r^3)+6r^7+8r^4}=\frac{r^{12}+6r^7+3r^6+8r^4+6r^3}{24}.$$
 \end{ptcbr}
+\newpage
 \begin{Ej}[6.10 Sagan]
     How many distinct regular tetrahedra are there under rotation if the faces are colored from a set with $r$ colors? Find the expression in two ways: with Burnside's lemma and without.
 \end{Ej}
 
 \begin{ptcbr}
-    First notice that the alternating group $A_4$ is the group of symmetries of the tetrahedron. Every permutation in $A_4$ is composed of $2$ cycles except for the identity which has $4$. So by Burnside's lemma we have 
+    First\footnote{Sadly, we were not able to \emph{count} normally without using Burnside. But I feel lucky to be able to \emph{count} on my colleagues like \textbf{Page}. We discussed how to count normally without Burnside but my answer was different than the correct result. I obtained $\binom{r}{1}+3\binom{r}{2}+\binom{r}{3}+\binom{r}{4}$ and this isn't equal to our result.} notice that the alternating group $A_4$ is the group of symmetries of the tetrahedron. Every permutation in $A_4$ is composed of $2$ cycles except for the identity which has $4$. So by Burnside's lemma we have 
     $$\#\text{orbits}=\frac{1}{12}\sum_{g\in G}|\Fix(g)|=\frac{1}{12}\sum_{g\in G}r^{c(g)}=\frac{1}{12}(r^4+11r^2).$$
 \end{ptcbr}
 \iffalse

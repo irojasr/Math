@@ -2476,6 +2476,95 @@ Observe that for a Hadamard matrix, we can negate a row or a column and still ge
 \end{Ex}
 
 The Fano plane gives us a Hadamard matrix CONJECTURE
+
+\section{Day 25| 20230324}
+
+\begin{Lem}
+    If $H$ is an $n\x n$ Hadamard matrix then $n=1,2$ or $4t$ for some $t$.
+\end{Lem}
+
+\begin{ptcbp}
+    If $n\geq 3$, we consider the first three rows of $H$. We may normalize the first row to convert it to only ones. And in the second row we may rearrange columsn so that it looks like $11\dots1-1\dots-1$. As the first two rows are orthogonal we deduce that the amount of $1$'s and $-1$'s must be the same.\par 
+    The third row is ones and minus ones arranged in four blocks of lengths $p,q,r,s$. We have 
+    \begin{align*}
+        \braket{u}{v}=0\To p+q=r+s\\
+        \braket{u}{w}=0\To p+r=q+s\\
+        \braket{v}{w}=0\To p+s=q+r\\
+    \end{align*}
+    IN PIC $v=u,w=v$ and $u=w$. Solving the system of equations we get $p=q=r=s$ so $4\mid n$.
+\end{ptcbp}
+
+\begin{Cor}
+    There exists a Hadamard matrix of order $4t$ for all $t$.
+\end{Cor}
+
+\subsection{Dxuality in Desgins}
+
+Recall a design $\cD$ is dual when $\cD\isom\cD^\sT$. 
+
+\begin{Def}
+    A \term{duality of designs} is a pair of morhpisms $(\sg,\tau)$ such that 
+    $$\tau(B)\in \sg(X).$$
+    If $\sg\tau=\id_B$ and $\tau\sg=\id_X$ we say that the duality is a \term{polarity}.
+\end{Def}
+
+\begin{Ex}
+    In the Fano Plane, $X=\bonj{7}$, and 
+    $$\cB=\set{123,345,561,147,257,367,246}.$$
+    We will form a bijection between these sets. Our function $\sg$ for example maps as follows:
+    $$1\mapsto 345,\quad 3\mapsto 561,\quad 5\mapsto 123.$$
+    The vertex $7$ goes to the circle $246$ and the midpoints go to the heights of the triangle.
+    There are points which are on their own polarity like $2,4$ and $6$ while the others aren't.
+\end{Ex}
+
+\begin{Ex}
+    This motivates the following design, consider $X=\bonj{16}$ as labels of a $4\x4$ grid. The blocks look like blocks to all the sides of our pick. For example $10$'s block is $\set{2,6,9,11,12,14}$. This gives us a $2-(16,6,2)$ design.\par 
+    The polarity in this case is literally $x\mapsto B_x$. In this case no point is contained in its own block.
+\end{Ex}
+
+\subsection{Strongly Regular Graphs}
+
+Recall regular graphs have same degree across all vertices.
+
+\begin{Def}
+A \term{strongly regular graph} with parameters $(n,k,\la,\mu)$ is a graph with $n$ vertices, not complete nor empty such that for every pair of vertices $x,y$, the number of \textbf{common neighbors} is 
+$$
+\left\lbrace
+\begin{aligned}
+    &k\word{if}x=y\\
+    &\la\word{if}x\word{is adjacen
+     to}y\\
+    &\mu\word{if}x\word{isn't adjacen
+     to}y\\
+\end{aligned}
+\right.
+$$    
+\end{Def}
+
+\begin{Ex}
+    The Peterson graph is strongly regular. Its parameters are $(10,3,0,1)$. The Clebsch and Schlafi graphs are strongly regular.
+\end{Ex}
+
+We can construct a graph from a self-dual design. The vertices will be the set $X$ and edges are $xy$ such that $x\neq y$ and $y\in\sg(x)$. The Fano Plane's graph is PICTURE 
+We can see that this graph isn't strongly regular as some points are in their own polarity and some aren't.
+
+\begin{Ex}
+    In the grid design example we have \par 
+    Each point is connected to everything in its block, so for example 
+    $$N(1)=\set{2,3,4,5,9,13}$$
+    Every vertex is connected to every other vertex in its row or column. The resulting graph is called $L_2(4)$, we claim it's strongly regular. Recall the parameters of the design is $2-(16,6,2)$. So in the case of $n,k$ we still have $16,6$. For $\la,\mu$ we have that they are $2,2$. Observe that $\la=\mu$!
+\end{Ex}
+This gives rise to a strongly regular family wth $\la=\mu$.
+\begin{Lem}
+    If in a polarity $\sg$, we never (or always) have $x\in\sg(x)$, then the associated graph is strongly regular. If the design is a $2(v,k,\la)$ we get a strongly regular graph with parameters $(v,k,\la,\la)$ (in the never case). While in the other it's $(v,k-1,\la-1,\la-1)$.
+\end{Lem}
+
+\begin{ptcbp}
+    For the never case, 
+    $$|\sg(x)\cap\sg(y)|=\la$$
+    for $x\neq y$. So whether or not $xy$ is an edge, they have $\la$ common neighbors. Also $|\sg(x)|=k$ gives us the degree parameter.\par 
+    From the graph, we can construct a symmetric $2$-design. The vertices are the points, and the blocks are the neighborhoods of each point.
+\end{ptcbp}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
