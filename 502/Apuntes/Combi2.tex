@@ -2565,6 +2565,95 @@ This gives rise to a strongly regular family wth $\la=\mu$.
     for $x\neq y$. So whether or not $xy$ is an edge, they have $\la$ common neighbors. Also $|\sg(x)|=k$ gives us the degree parameter.\par 
     From the graph, we can construct a symmetric $2$-design. The vertices are the points, and the blocks are the neighborhoods of each point.
 \end{ptcbp}
+\chapter{Matroids}
+\section{Day 26| 20230329}
+\begin{itemize}
+    \item Groups are an abtracion of operations
+    \item Topological spaces are an abstraction on continuity 
+    \item And in the same fashion, matroids are an abstraction of linear independence.
+\end{itemize}
+
+June Huh and Chris Eur both investigate Matroid theory. Hodge theory studies vector bundles over matroids.\par 
+
+\begin{Def}
+    A \term{matroid} is a pair $(E,\cI)$ where $E$ is a finite set and $\cI\subseteq\cP(E)$, called he set of independent sets, satisfying the following properties:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item $\emptyset\in\cI$.
+        \item If $I\in\cI$ and $J\subseteq I$, then $J\in\cI$.
+        \item (Independence Exchange) If $I_1,I_2\in\cI$ with $|I_1|\leq |I_2|$, then 
+        $$\exists x\in I_2\less I_1(I_1\cup\set{x})\in\cI.$$
+    \end{itemize} 
+\end{Def}
+
+\begin{Ex}
+    Consider $\set{v_1,\dots,v_n}\subseteq k^n$, this will be our set. The independent sets are 
+    $$\cI=\set{I\subseteq E\:\ I \text{is linearly independent}}.$$
+\end{Ex}
+
+\begin{Ex}
+The set of vectors $\set{\pm e_1,\pm e_2}$ is also a matroid when considering the independent sets as pairs of these vectors and their subsets. We can represent this as a poset: DRAWING
+In this case we have a \term{dependence relation} among $v_1,\dots,v_n$ which means that 
+$$\sum a_iv_i=0\word{with not all}a_i=0.$$
+\end{Ex}
+
+\begin{Ex}
+    If we consider now the set of edges of a graph as our finite set, we declare the independent sets to be the cycle free subsets of the edges. The first two axioms are clear, the empty set is independent and subgraphs of forests are forests.\par 
+    Now take $|I_1|<|I_2|$ and assume on contradiction that all red\footnote{red is $I_2$ and green is $I_1$.} edges connect vertices with a green component. DRAWING\par 
+    If somehow the condition holds, then $|I_2|\leq |I_1|$ because graphs are a forest. So there exists an edge $vw\in I_2$ where $v,w$ are not in the same component of $I_1$. $I_1\cup\set{x}$ doesn't contain a cycle.
+\end{Ex}
+
+There's much more matroids than desgins! The issue instead of finding is classifying.
+
+\subsection{Graphical Matroids}
+
+\begin{Ex}
+    Consider the graph $C_4$ plus a diagonal. The maximal independent sets are 
+    $$\set{abc,abd,abe,acd,ace,bcd,bde,cde}.$$
+    Contrasting with vectors, where maximal independent sets are bases, here the maximal independent are spanning forests.
+\end{Ex}
+
+In general this holds for abstract matroids.
+
+\begin{Def}
+    A \term{basis of a matroid} is a maximal independent set under the inclusion relation. 
+\end{Def}
+
+\begin{Lem}
+    In any matroid $M=(E,\cI)$, all bases have the same size.
+\end{Lem}
+
+\begin{ptcbp}
+Assume on the contrary that there are two bases $B_1,B_2$ with different sizes. Assume $|B_1|<|B_2|$, then by the independent Exchange axiom we can add $x$ to $B_1$ so that it's still independent.\par 
+This contradicts the maximality of $B_1$.
+\end{ptcbp}
+
+The Independent Exchange axiom captures the nice algebraic properties!\par 
+Equivalently we may define the matroids through bases as follows.
+
+\begin{Def}
+    A \term{matroid} is a pair $(E,\cB)$, where $E$ is finite and $\cB\subseteq\cP(E)$ such that 
+    \begin{itemize}
+        \item $\cB$ is nonempty.
+        \item (Basis Exchange) If $B_1\neq B_2\in\cB$ and $x\in B_1\less B_2$, then $\exists y\in B_2$ such that $B_1-x\cup y\in\cB$.
+    \end{itemize}
+\end{Def}
+
+To prove the equivalence of definitions we need some lemmas.
+
+\begin{Lem}
+    If $M=(E,\cI)$ satisfies the first set of axioms and $\cB$ is taken to be the maximal elements, then the structure $(E,\cB)$ satisfies the basis axioms instead.
+\end{Lem}
+
+On the other hand we have:
+
+\begin{Lem}
+    If $M=(E,\cB)$ satisfies the basis axioms then 
+    $$\cI=\set{I\subseteq E\:\ \exists B\in\cB,\ I\subseteq B}$$
+    then this structure $(E,\cI)$ satisfy the first set of actions.
+\end{Lem}
+
+Matroids can be looked at by more than 20 ways, dependent sets, rank functions, closure operations, lattices and posets. There's geometric lattices which are matroids. We are going to look a many cryptomorphisms of Matroids. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
