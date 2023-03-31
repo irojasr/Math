@@ -17,10 +17,11 @@
 \end{Ej}
 
 \begin{ptcbr}
-Suppose $F$ is a function which satisfies the equation. Differentiating we get 
+Suppose by way of contradiction that $F$ is a holomorphic function which satisfies the equation. Differentiating we get 
 $$e^{F(z)}F'(z)=1\to F'(z)=\frac{1}{e^{F(z)}}=\frac1z.$$
-In $\bC\less\rbonj{-\infty,0}$ we have that $\frac{1}{z}$ admits $\log(z)$ as a primitive. So let us define $G(z)=F(z)-\log(z)$, this function has derivative $0$ so $G$ is constant.\par 
-This means that $F(z)=\log(z)+C$
+In $\bC\less\rbonj{-\infty,0}$ we have that $\frac{1}{z}$ admits $\log(z)$ as a primitive. So let us define $G(z)=F(z)-\log(z)$, differentiating $G$ we obtain $\frac1z-\frac1z=0$ so this means that $G$ is constant.\par 
+From this we deduce that $F(z)=\log(z)+C$ where $C$ is constant. However $F$ is defined in a domain which contains the complete unit circle and the logarithm can only be defined as a multi-valued function in that region, not as a particular branch. This contradicts the fact that $F$ is a function.\par 
+Therefore our assumption that $F$ is holomorphic and satisfies the equation is false. In conclusion, there does not exist such a function.
 \end{ptcbr}
 
 \begin{Ej}
@@ -41,7 +42,7 @@ This means that $F(z)=\log(z)+C$
         $$z=e^{g(z)}=e^{g(z)+c}=e^c z\To e^c=1\To c=2\pi i n$$
         for some $n\in\bZ$. 
         \item Let $f$ be a continuous branch of the logarithm. This is, $e^{f(z)}=z$, so we may apply the inverse function theorem to $e^z$ on the domain $\Om$.
-        For any $w_0\in\Om$, let $f(w_0)=z_0$. Then we have that $\dv{e^z}{z}(z_0)=e^{z_0}\neq 0$ so by the inverse function theorem there exists a neighborhood $U\ni z_0$ such that $e^z$ is locally invertible. The theorem also guarantees that the inverse must be holomorphic, so it must happen that $f$ is holomorphic at every point of $\Om$. 
+        For any $w_0\in\Om$, let $f(w_0)=z_0$. Then we have that $\dv{e^z}{z}(z_0)=e^{z_0}\neq 0$ so by the inverse function theorem there exists a neighborhood $U\ni z_0$ such that $e^z$ is locally invertible. Also it must occur that the inverse is holomorphic, so $f$ is holomorphic at every point of $\Om$ as our point was arbitrary. 
     \end{enumerate}
 \end{ptcbr}
 
@@ -58,10 +59,13 @@ $$\psi_\al(z)=\frac{\al-z}{1-\ov\al z}.$$
     where $\psi_j(z)=\frac{z-z_j}{1-\ov z_j z}$ is the Blaschke factor associated to the root $z_j$ of $f$. In this case the roots of $f$ lie inside the unit circle and $g$'s zeroes lie outside the unit circle as they are of the form $\frac{1}{\ov z_j}$.\par
     Now, we know that the formula holds for nowhere vanishing functions, and also that the formula is multiplicative. So it suffices to prove it for the Blaschke factors.\par 
     Consider $\psi_j(z)$, the formula states 
-    $$\log|\psi_j(0)|=\sum_{z\in Z}log\left(\frac{|z|}{1}\right)+\frac{1}{2\pi}\int\limits_0^{2\pi}\log|\psi_j(e^{i\te})|\dd\te$$
+    $$\log|\psi_j(0)|=\sum_{z\in Z}\log\left(\frac{|z|}{1}\right)+\frac{1}{2\pi}\int\limits_0^{2\pi}\log|\psi_j(1\.e^{i\te})|\dd\te$$
     where the set $Z$ is the set of zeroes of $\psi_j$. In this case, we only have one zero: $z_j$, so the sum becomes a unique term.\par 
     For the integral, we ought to remember that Blaschke factors map the unit circle to the unit circle. This means that there is a $\vf$ such that $e^{i\vf}=\psi_j(e^{i\te})$. Replacing this into the integral we get 
     $$\int\limits_0^{2\pi}\log|\psi_j(e^{i\te})|\dd\te=\int\limits_0^{2\pi}\log|e^{i\vf}|\dd\te=\int\limits_0^{2\pi}\log(1)\dd\te=0.$$
     So what the formula tells us is that 
+    $$\log|\psi_j(0)|=\log|z_j|$$
+    but this is true because $\psi_j$ exchanges $0$ and $z_j$.\par 
+    Finally as the formula is multiplicative, it holds for $f=g\psi_1\dots\psi_n$ and so we have proven it in the case of the unit circle.
 \end{ptcbr}
 \end{document} 
