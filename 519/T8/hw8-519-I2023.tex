@@ -38,10 +38,30 @@ This means that $F(z)=\log(z)+C$
         \item If $f,g$ are continuous branches of the logarithm then 
         $$f'(z)=g'(z)=\frac{1}{z},\word{for}z\in\Om.$$
         With this $f-g=c$ where $c$ is a constant. Now 
-        $$z=e^{g(z)}=e^(g(z)+c)=e^c z\To e^c=1\To c=2\pi i n$$
+        $$z=e^{g(z)}=e^{g(z)+c}=e^c z\To e^c=1\To c=2\pi i n$$
         for some $n\in\bZ$. 
         \item Let $f$ be a continuous branch of the logarithm. This is, $e^{f(z)}=z$, so we may apply the inverse function theorem to $e^z$ on the domain $\Om$.
         For any $w_0\in\Om$, let $f(w_0)=z_0$. Then we have that $\dv{e^z}{z}(z_0)=e^{z_0}\neq 0$ so by the inverse function theorem there exists a neighborhood $U\ni z_0$ such that $e^z$ is locally invertible. The theorem also guarantees that the inverse must be holomorphic, so it must happen that $f$ is holomorphic at every point of $\Om$. 
     \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[5.1  Stein \& Shakarchi]
+    Give another proof of Jensen's formula in the unit disc using the functions
+(called Blaschke factors)
+$$\psi_\al(z)=\frac{\al-z}{1-\ov\al z}.$$
+\hint{The function $f /(\psi_{z_1}\dots\psi_{z_n})$ is nowhere vanishing.}
+\end{Ej}
+
+\begin{ptcbr}
+    Following the proof outline we will consider the function 
+    $$g=\frac{f}{\psi_1\dots\psi_n}$$
+    where $\psi_j(z)=\frac{z-z_j}{1-\ov z_j z}$ is the Blaschke factor associated to the root $z_j$ of $f$. In this case the roots of $f$ lie inside the unit circle and $g$'s zeroes lie outside the unit circle as they are of the form $\frac{1}{\ov z_j}$.\par
+    Now, we know that the formula holds for nowhere vanishing functions, and also that the formula is multiplicative. So it suffices to prove it for the Blaschke factors.\par 
+    Consider $\psi_j(z)$, the formula states 
+    $$\log|\psi_j(0)|=\sum_{z\in Z}log\left(\frac{|z|}{1}\right)+\frac{1}{2\pi}\int\limits_0^{2\pi}\log|\psi_j(e^{i\te})|\dd\te$$
+    where the set $Z$ is the set of zeroes of $\psi_j$. In this case, we only have one zero: $z_j$, so the sum becomes a unique term.\par 
+    For the integral, we ought to remember that Blaschke factors map the unit circle to the unit circle. This means that there is a $\vf$ such that $e^{i\vf}=\psi_j(e^{i\te})$. Replacing this into the integral we get 
+    $$\int\limits_0^{2\pi}\log|\psi_j(e^{i\te})|\dd\te=\int\limits_0^{2\pi}\log|e^{i\vf}|\dd\te=\int\limits_0^{2\pi}\log(1)\dd\te=0.$$
+    So what the formula tells us is that 
 \end{ptcbr}
 \end{document} 

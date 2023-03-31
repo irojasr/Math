@@ -32,6 +32,71 @@ With this in hand we see that
 $$(H\ox K)(H\ox K)^\sT=HH^\sT\ox KK^\sT=mn I_m\ox I_n=mn I_{mn}$$
 and thus $H\ox K$ is Hadamard as desired.
 \end{ptcbr}
+%https://www.statlect.com/matrix-algebra/Kronecker-product-properties
+\begin{Lem}
+Transposition is distributive with respect to the product.
+\end{Lem}
+
+\begin{ptcbp}
+Assume $A$ has size $k\x\l$, then
+$$(A\ox B)^\sT=\threebythree{a_{11}B}{\dots}{a_{1\l}B}{\vdots}{\ddots}{\vdots}{a_{k1}B}{\dots}{a_{k\l}B}^\sT=\threebythree{a_{11}B^\sT}{\dots}{a_{k1}B^\sT}{\vdots}{\ddots}{\vdots}{a_{1\l}B^\sT}{\dots}{a_{k\l}B^\sT}=\threebythree{a_{11}}{\dots}{a_{k1}}{\vdots}{\ddots}{\vdots}{a_{1\l}}{\dots}{a_{k\l}}\ox B^\sT.$$
+And we may recognize $A^\sT$ as the last matrix. So the transposition property holds.
+\end{ptcbp}
+
+\begin{Lem}
+The mixed product property holds.
+\end{Lem}
+
+\begin{ptcbp}
+Assume $A$ has size $k\x\l$ and $C$ has size $\l\x m$, then
+$$(A\ox B)(C\ox D)=\threebythree{a_{11}B}{\dots}{a_{1\l}B}{\vdots}{\ddots}{\vdots}{a_{k1}B}{\dots}{a_{k\l}B}\threebythree{c_{11}D}{\dots}{c_{1m}D}{\vdots}{\ddots}{\vdots}{c_{\l1}D}{\dots}{c_{\l m}D}$$
+and multiplying this two matrices we obtain entries of the form 
+$$\left(\sum_{r=1}^{\l}a_{ir}c_{rj}\right)BD=(AC)_{ij}BD.$$
+Thus we have 
+$$(A\ox B)(C\ox D)=\threebythree{(AC)_{11}BD}{\dots}{(AC)_{1m}BD}{\vdots}{\ddots}{\vdots}{(AC)_{k1}BD}{\dots}{(AC)_{km}BD}=(AC)\ox(BD).$$
+\end{ptcbp}
+
+\begin{Ej}[Exercise 2]
+    Prove that there's only one $2-(7,3,1)$ design up to isomorphism.
+\end{Ej}
+
+\begin{ptcbr}
+    We know that the Fano plane is an example of a $2-(7,3,1)$ design. Given another $2-(7,3,1)$ design, $(X,\cB)$, we will find an isomorphism between the Fano plane and our design.\par 
+    First note that this is a square design. Take 2 blocks $B,B'$, then it must happen that $|B\cap B'|=1$.
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item The intersection can't be larger than $1$ because every pair of points is contained in precisely $1$ block, not more than $1$.
+        \item If two blocks are disjoint then we name their elements
+        $$B=\set{1,2,3},\word{and}B'=\set{4,5,6}$$
+        which leaves $7$ out of the mix. 
+        \begin{center}
+            \includegraphics[width=0.3\textwidth, trim= 2.1cm 21.8cm 14cm 1.9cm,clip]{fig1.pdf}
+        \end{center}
+        Take two elements from $B$ and $B'$, without losing generality there's one block which contains them $\set{1,4,x}$. The element $x$ can't come from $B$ as $1$ is already paired with $2$ and $3$ there. It can't also come from $B'$ because there will be two blocks which contain two common elements. It must happen that the new block is $\set{1,4,7}$. In the same fashion we can construct blocks ${2,5,7}$ and ${3,6,7}$. 
+        \begin{center}
+            \includegraphics[width=0.3\textwidth, trim= 8cm 21.8cm 8cm 1.9cm,clip]{fig1.pdf}
+        \end{center}
+        However we've reached an impasse, because we must somehow pair $1$ and $5$ in a block. We can't add an element from $B$ as ${1,5,x}$ will intersect $B$ in two elements. In the same fashion, if $y\in B'$, then $|\set{1,5,y}\cap B'|=2$. Finally we can't have $\set{1,5,7}$ because $1,7$ and $5,7$ will be repeated in two blocks. 
+        \begin{center}
+            \includegraphics[width=0.3\textwidth, trim= 14.1cm 21.8cm 2cm 1.8cm,clip]{fig1.pdf}
+        \end{center}
+        This means that we can't form more than $5$ blocks given our constraint. But this contradicts Fisher's inequality as we must have at least as many blocks as vertices and $b=5<v=7$ in this $2$-design.
+    \end{itemize}
+    Our assumption that there are two disjoint blocks is false, so it must occur that any two blocks intersect in exactly $1$ vertex. Immediately this tells us that $b=v$ and $r=k$ which means that:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item There are $7$ blocks.
+        \item Every point is contained in exactly $3$ blocks.
+    \end{itemize}
+    Consider the block $B=\set{1,2,3}$ and then the following graph:
+    \begin{center}
+        \includegraphics[width=0.3\textwidth, trim= 1.5cm 23.5cm 15cm 0.2cm,clip]{fig2.pdf}
+    \end{center}
+    We will build the remaining blocks as follows, take the remaining elements $\set{4,5,6,7}$ and consider the pairs of elements in the set $\set{45,46,47,56,57,67}$. By matching disjoint pairs we form the graph on top.\par 
+    The edges may be named by any arbitrary choice\footnote{This means that we could also consider the blocks $\set{1,4,5}$ and $\set{1,6,7}$ for example.} of our elements in $B$. The blocks will be an edge and one of the vertex endpoints. We get the blocks 
+    $$B,\set{1,4,7},\set{1,5,6},\set{2,4,6},\set{2,5,7},\set{3,4,5},\word{and}\set{3,6,7}.$$
+    This is a square $2-(7,3,1)$ design and we may associate the lines of the Fano plane in the obvious way to the blocks of our design while vertices are also mapped to vertices. 
+\end{ptcbr}
 
 \begin{Ej}[Exercise 4]
     The \textbf{complementary design} to a design $\cD = (X, \cB)$ is the pair $\cD^c = (X, \cB^c)$ where $\cB^c = \set{X \less B \: B \in B}$. Show that if $\cD$ is a $1 - (v, k, \la)$ design then $\cD^c$ is a $1 - (v, v - k, v\la/k-\la)$ design.
@@ -52,6 +117,9 @@ So we must show that every point is in $b-r$ blocks, but now this is immediate b
 \begin{ptcbr}
     Suppose $G$ is strongly regular with parameters $(n,k,\la,\mu)$. Pick a vertex $v$ and look at its neighbors, there are $k$ of them. Out of the remaining $n-1$ vertices, $v$ is not connected to $n-1-k$ of them.\par 
     Now pick another vertex $w$, if they are not connected then they share $\mu$ common neighbors. From the remaining $n-2$ vertices, $u,v$ are only connected to their neighborhoods. Removing all the vertices in the neighborhoods doubly counts the intersection, and we know that intersection has size $\mu$. So in total, $v,w$ are not connected to  
-    $$(n-2)-2k+\mu\word{vertices}$$
+    $$(n-2)-2k+\mu\word{vertices together.}$$
+    In a same fashion if they were connected, the number of shared neighbors is $\la$ so together they wouldn't be connected to $(n-2)-2k+\la$ vertices.\par 
+    We conclude that if $G$ is strongly regular with parameters $(n,k,\la,\mu)$, then $G^c$ has parameters 
+    $$(n,(n-1)-k,(n-2)-2k+\mu,(n-2)-2k+\la).$$
 \end{ptcbr}
 \end{document}
