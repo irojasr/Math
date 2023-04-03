@@ -2654,6 +2654,119 @@ On the other hand we have:
 \end{Lem}
 
 Matroids can be looked at by more than 20 ways, dependent sets, rank functions, closure operations, lattices and posets. There's geometric lattices which are matroids. We are going to look a many cryptomorphisms of Matroids. 
+\section{Day 27| 20230331}
+\section{Day 28| 20230403}
+\subsection{Connection with posets}
+\begin{Def}
+    Suppose $M=(E,\cI)$ is a matroid and $X\subseteq E$. The \term{restriction} of $M$ from $E$ to $X$ is 
+    $$M\mid_{X}=(X,\cI\mid_X)\word{where}\cI\mid_X=\set{I\in\cI\:\ I\subseteq X}.$$
+    The \term{rank} of a matroid is the size of any basis. For a subset $X$, the rank is $\rk(M\mid_X)$, the size of the largest independent set contained in $X$.
+\end{Def}
+
+In graphs, rank is largest spanning tree. With this we can rank-define a matroid.
+
+\begin{Def}
+    A \term{matroid} is a finite set $E$ with a rank function $\rk\: \cP(E)\to\bN$ which satisfies 
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item If $X\subseteq E$, then $0\leq\rk(X)\leq|X|$.
+        \item If $X\subseteq Y$, then $\rk(X)\leq\rk(Y)$.
+        \item If $X,Y\subseteq E$, then $\rk(X\cup Y)+\rk(X\cap Y)\leq\rk(X)+\rk(Y)$.
+    \end{enumerate}
+\end{Def}
+
+Notice that the last condition looks like upper semi-modularity. As a quick example 
+$$\dim(V+W)+\dim(V\cap W)\leq \dim(V)+\dim(W).$$
+Recall that in the matroid $\set{\pm e_1,\pm e_2}$ we have rank $2$. The subsets $\set{e_1,e_2}$, $\set{e_1}$ and $\set{e_1,-e_1}$ have ranks $2,1$ and $1$. So we may recover the independent sets as 
+$$\cI=\set{I\subseteq E\:\ \rk(I)=|I|}.$$
+\begin{Def}
+    If $M=(E,\rk)$ is a matroid, then for $X\subseteq E$ we define the \term{closure} as 
+    $$\cl(X)=\set{x\in E\:\ \rk(X\cup x)=\rk(X)}.$$
+\end{Def}
+In representable matroids, the closure is the span. 
+
+\begin{Ex}
+    Consider the graph
+    \begin{center}
+        GRAPH
+    \end{center}
+    We can add edges to make cycles because they will have our graph as a spanning tree.
+\end{Ex}
+
+\begin{Def}
+    A \term{matroid} is a pair $(E,\cl)$ if $\cl\:\cP(E)\to\cP(E)$
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item For $X\subseteq E$, $X\subseteq\cl(X)$.
+        \item If $X\subseteq Y$, then $\cl(X)\subseteq\cl(Y)$.
+        \item $\cl(\cl(X))=\cl(X)$.
+        \item If $y\in\cl(X\cup x)\less\cl(X)$, then $x\in\cl(X\cup y)$.
+    \end{enumerate}
+\end{Def}
+
+\begin{Ex}
+    Illustration of last axiom with vectors
+\end{Ex}
+
+The basis is the minimal set whose closure is the whole set.
+
+\begin{Def}
+    A \term{flat} of a matroid $M$ is a set $X\subseteq E$ such that $X=\cl(X)$. A \term{hyperplane} is a flat of rank $\rank(M)-1$.
+\end{Def}
+
+\begin{Def}
+    The \term{lattice of flats} of a matroid $M$ is the poset of all flats ordered by inclusion. 
+\end{Def}
+
+This is a very important construction, besides bases, this is the other way that we think about matroids.
+
+\begin{Ex}[Ex. 1.7.7 \cite{OxleyMatroids} (pg. 64)]
+    Consider the graphical matroid $M$
+\begin{center}
+    
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Square [id:dp5214198384559152] 
+\draw   (100,100) -- (165.93,165.93) -- (100,231.86) -- (34.07,165.93) -- cycle ;
+%Curve Lines [id:da02050181332796097] 
+\draw    (100,100) .. controls (69,161.5) and (69,170.5) .. (100,231.86) ;
+%Curve Lines [id:da5899162790450347] 
+\draw    (100,100) .. controls (135,159.5) and (135,173.5) .. (100,231.86) ;
+%Shape: Circle [id:dp06599405508210099] 
+\draw   (165.93,165.93) .. controls (165.93,155.97) and (174,147.89) .. (183.96,147.89) .. controls (193.92,147.89) and (202,155.97) .. (202,165.93) .. controls (202,175.89) and (193.92,183.96) .. (183.96,183.96) .. controls (174,183.96) and (165.93,175.89) .. (165.93,165.93) -- cycle ;
+
+% Text Node
+\draw (65.44,129.6) node [anchor=south east] [inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (62.44,216.6) node [anchor=south east] [inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (148.44,216.6) node [anchor=south east] [inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (146.44,126.6) node [anchor=south east] [inner sep=0.75pt]    {$4$};
+% Text Node
+\draw (74.44,170.6) node [anchor=south east] [inner sep=0.75pt]    {$5$};
+% Text Node
+\draw (143.44,170.6) node [anchor=south east] [inner sep=0.75pt]    {$6$};
+% Text Node
+\draw (221.44,171.6) node [anchor=south east] [inner sep=0.75pt]    {$7$};
+
+
+\end{tikzpicture}
+
+\end{center}
+    We have a loop and a 2-cycle. The lattice is denoted $\cL(M)$, the closure of the empty set in this matroid is $\set{7}$, the full rank of the matroid is $3$ so we may write the poset as follows:
+    \begin{center}
+        GRAPh
+    \end{center}
+    If we were going to build a flat of rank $3$, we could only obtain the whole set. There's gonna be some rank $1$ and $2$.\par 
+    This is a lattice! Every pair of elements has a \emph{meet} and a \emph{join}.
+\end{Ex}
+
+Recall that the meet is the greatest lower bound and join is the smallest upper bound.\par 
+If we replace the graph with its associated simple graph, by deleting loops and simplifying multiple edges, gives us the \emph{same} lattice of flats. Simple graphs determine \emph{simple} matroids. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

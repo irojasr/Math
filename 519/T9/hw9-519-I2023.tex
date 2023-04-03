@@ -1,0 +1,40 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Jeff Achter}
+\def\nsigla {MATH519}
+\def\nsiglahead {Complex Analysis}
+\def\nextra {HW9}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}[5.2 Stein\& Shakarchi]
+    Find the order of growth of the following entire functions:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \begin{multicols}{3}
+        \item $p(z)$, $p$ is a polynomial.
+        \item $e^{bz^n}$, and
+        \item $e^{e^z}$.
+        \end{multicols}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    Recall an entire function $f$ has order of growth at most $\rho$ if there exist $A,B$ such that 
+    $$|f(z)|\leq Ae^{B|z|^\rho}$$
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item For this case, assume first that $p$ is linear, so $p(z)=az+b$ with $a\neq 0$. Without losing generality we may take $a=1$ because $|az+b|=|a|\left|z+\frac{b}{a}\right|$. Now for $t\in\bR$ we have $e^{t}\geq 1+t$, so for $t=n|z|^{\frac{1}{n}}$ where $n\in\bN$ we have 
+        $$e^{n|z|^{1/n}}\geq 1+n|z|^{\frac{1}{n}}$$
+        \item Note that 
+        $$|e^{bz^n}|=\left|\exp\left(b\sum_{k=0}^n\binom{n}{k}x^k(iy)^{n-k}\right)\right|.$$
+        If $z=re^{i\te}$ then $z^n=r^n\cos(n\te)+isin(n\te)$ so
+        $$|e^{bz^n}|=|\exp\left(br^n\cos(n\te)+ibr^n\sin(n\te)\right)|=|\exp\left(br^n\cos(n\te)\right)|$$ 
+    \end{enumerate}
+\end{ptcbr}
+\end{document} 
