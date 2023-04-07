@@ -2357,7 +2357,7 @@ We can visualize this as a Fano Plane graph. \red{INCLUDE GRAPH}
     A \term{$t-(v,k,\la)$ design} is a pair $(X,\cB)$ where $|X|=v$ and $\cB\subseteq\cP(X)$ where the elements of $\cB$ are called blocks. For $B\in\cB$, $|B|=k$ and every $t$-element subset of $X$ appears in $\la$ blocks.
 \end{Def}
 
-Based on the definition, the previous example is a $2-(7,3,1)$ and a $1-(7,3,3)$ design. When every pair is in one block, we call it a \term[Steiner system].
+Based on the definition, the previous example is a $2-(7,3,1)$ and a $1-(7,3,3)$ design. When every pair is in one block, we call it a \term{Steiner system}.
 
 \begin{Ex}
     We have that $\left(\bonj{n},\binom{\bonj{n}}{k}\right)$ is a $t-\left(n,k,\binom{n-t}{k-t}\right)$ design, where the binomial coefficient counts the number of $k$-element subsets of $\bonj{n}$ contining a given $t$-element subset.
@@ -2767,6 +2767,111 @@ This is a very important construction, besides bases, this is the other way that
 
 Recall that the meet is the greatest lower bound and join is the smallest upper bound.\par 
 If we replace the graph with its associated simple graph, by deleting loops and simplifying multiple edges, gives us the \emph{same} lattice of flats. Simple graphs determine \emph{simple} matroids. 
+
+\section{Day 29| 20230405}
+
+\subsection{Lattice of flats}
+
+We can naively call flat sets closed because $X$ is flat if $X=\cl(X)$. The poset of flats is graded by the rank $\rk$ function.\par 
+The meet $X\land Y$ of two sets is $X\cap Y$. However the join $X\lor Y$ is different. On the past example we had
+$$137\land 147= 17\word{and}17\lor567=12567$$
+from this we extract $X\lor Y=\cl(X\cup Y)$. The fact that these are indeed the join and the meet will be left as homework. Today we will use the fact a matroid is a finite lattice.\par 
+Since the lattice is finite we have a $0$ and a $1$. In a matroid the $0$ is the closure of the empty set which corresponds to the \emph{loops} of $M$.
+
+\begin{Def}
+    A \term{loop} is a circuit of size $1$, where a circuit is minimal dependent set.
+\end{Def}
+
+\subsection{Simple matroids}
+
+Now we want to simplify matroids.
+
+\begin{Def}
+    The \term{parallel class} of $x\in E$ is $\set{y\: \set{x,y}\in\cC}$.
+\end{Def}
+
+In a representable matroid, the parallel class are the linearly dependent elements.
+
+\begin{Def}
+    A matroid $M$ is \term{simple} if it has no loops or $2$-circuits.\par 
+    The \term{simplification} of $M$, $M_\sim$ is formed by
+    \begin{itemize}
+        \item Deleting all loops.
+        \item Choose $1$ representative from each parallel class.
+    \end{itemize}
+If $M=(E,\cB)$, then $M_\sim=(E_\sim,\cB_\sim)$. $E_\sim$ is formed as before, and for $B\in\cB_\sim$, if $y\in B$ and $y\parallel x$ where $x\in E_\sim$, then $B_\sim=B\less y\cup x$.
+\end{Def}
+
+\begin{Ex}
+    The simplification of a matroid is still a matroid.
+\end{Ex}
+
+$xy$, $yz$ are $2$-circuits, we want to show that $xz$ is a $2$-circuit. By the circuit exchange axiom there has to be $C3$ if $C_1,C_2$ have $e\in C_1\cap C_2$, then there is a $C_3\subseteq C_1\cup C_2$.
+
+\begin{Lem}
+    $\cL(M)=\cL(M_\sim)$.
+\end{Lem}
+
+\begin{Th}
+$\cL$ is injective on simple matroids.
+\end{Th}
+
+This theorem we will not prove but this means that lattices of flats determine simple matroids. 
+
+\begin{Th}
+    A finite poset is the lattice of flats of a matroid if and only if it is a \term{geometric lattice}.
+\end{Th}
+
+Recall atoms on posets are the elements just above $0$, the rank 1 elements of a poset. A lattice is \term{atomic} if every element is made up of atoms. In other words every element is a join of atoms.
+
+\begin{Def}
+    A \term{geometric lattice} is a graded, atomic and upper semi-modular lattice.
+\end{Def}
+
+In terms of matroids, we have $\rk$ as a grading and this is already upper semi-modular. 
+
+
+ \begin{Ex}
+    As we have no multiple edges, then the closure of any element doesn't contain any other element, this means that atoms are singletons.\par 
+    We will also have closures of $13$ which don't close up to anything.\par 
+    We can check upper semi-modularity with $13$ and $24$. Then $x\land y=\emptyset$ their join is the whole set. So we get 
+    $$0+3\leq 2+2.$$
+    We went down further than what we went in the join.
+ \end{Ex}
+ The atoms are \emph{elements} of our matroid. So as the flats are unions of elements, we see that it is atomic!
+
+ \subsubsection{Application to geomtric lattices}
+
+ Assuming all the facts we will prove something about geometric lattices. 
+
+ \begin{Def}
+    A \term{coatomic lattice} is a lattice where every element is the meet of coatoms (elements below $1$).
+ \end{Def}
+
+ \begin{Ex}
+    In matroids, the coatoms of $\cL(M)$ are the hyperplanes. Those with rank $\rk(M)-1$.
+ \end{Ex}
+
+ \begin{Th}
+    Finite geometric lattices are coatomic.
+ \end{Th}
+
+ \begin{ptcbp}
+    Suppose $\cL$ is a finite geometric lattice and $M$ is a matroid such that $\cL=\cL(M)$. If $X$ is a flat, we want to show it's an intersection of hyperplanes.\par 
+    If $X$ has rank $\rk(M)-k$ (corank $k$) we will show that $X$ is such an intersection by induction.\par 
+    If $k=1$, then $X$ is a hyperplane. So it's trivially an intersection of hyperplanes.\par 
+    If the fact is true for $k=n$ and $X$ has corank $n+1$ then $M$ has an element $y\not\in X$, so $Y=\cl(X\cup y)$ covers $X$. Thus the corank of $Y$ is $n$.\par 
+    By induction hypothesis $Y=H_1\cap H_2\cap\dots\cap H_n$ where $H_i$ are hyperplanes. Let $H_{n+1}$ be the maximal flat containing $X$ but not $y$, so $\cl(H_{n+1}\cup y)=E$ so $H_{n+1}$ is a hyperplane. Now $Y\cap H_{n+1}$ contains $X$ but not $Y$ so 
+    $$Y\cap H_{n+1}=X\To X=H_1\capycap H_{n+1}.$$
+ \end{ptcbp}
+
+ Using only the upper semi-modularity, proving this would be very tough! But this connection to matroid really eases the job.
+
+ \subsection{A Review}
+
+ \begin{itemize}
+    \item Matroids can be defined on: Independent sets, bases, circuits, rank, closure, Lattice of flats (up to simplicity) and by the greedy algorithm.
+ \end{itemize}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
