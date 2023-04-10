@@ -6,7 +6,7 @@
 \def\nprofesor {Maria Gillespie}
 \def\nsigla {MATH502}
 \def\nsiglahead {Combinatorics 2}
-\def\nextra {Project}
+\def\nextra {P}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
 
@@ -14,19 +14,50 @@
 
 Let us begin with a simple question:
 \begin{significant}
-What are all the quadratic curves which pass through $4$ points in general position in $\bR^2$?
+Which are the quadratic curves which pass through $4$ points in general position in $\bR^2$?
 \end{significant}
 This question might be a bit tough to tackle right now, but let us consider a simplification. How about if the points are $(1,1),(1,-1),(-1,-1)$ and $(-1,1)$? At once the following idea should pop-in in our heads: \emph{a circle}!\par 
-The circle which passes through these points is 
-\begin{figure}
-    fig 1
+The circle which passes through these points is described by the equation $x^2+y^2=2$:\par
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth, trim= 0.8cm 22.9cm 16cm 0.6cm,clip]{fig1.pdf}
 \end{figure}
-Ideally we would like to stretch and shrink thes circle in order to make it an ellipse. We know ellipses have equations of the form $$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1,$$ 
-but to begin from our circle equation we will instead add coefficients to the equation $Ax^2+By^2=2$. These coefficients are bound by the points in the curve like $(x,y)=(1,1)$. We may derive the relation 
-$$A(1)^2+B(1)^2=2\To B=2-A$$
-so we take $t=A$ to get the parametrized equation $tx^2+(2-t)y^2=2$. If we let $t$ vary we start seeing the following behavior:
-\begin{figure}
-    fig 2
+Ideally we would like to stretch and shrink the circle in order to make it an ellipse. We know ellipses have equations of the form $x^2/a^2+y^2/b^2=1$, but to begin from our circle equation we will instead add coefficients to the equation 
+$$Ax^2+By^2=2.$$
+These coefficients are bound by the points in the curve like $(x,y)=(1,1)$. We may derive the relation 
+$$A(1)^2+B(1)^2=2\To B=2-A\To tx^2+(2-t)y^2=2$$
+where we take $t=A$ to get the last equation.
+The parameter $t$ can vary to exhibit the following behavior:\par
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.8cm 21cm 0.8cm 0.6cm,clip]{fig1.pdf}
 \end{figure}
-If we let $t=1$ we recover the original circle equation. When $t>1$ we may choose for example $t=3$ to get the equation $3x^2-y^2=2$
+
+We annotate the curves we obtain given the values of $t$:
+\vspace{-0.5em}
+\begin{itemize}
+    \itemsep=-0.4em
+    \item $(t=1)$: A circle.
+    \item $(1<t<2)$: An ellipse.
+    \item $(t=2)$: The pair of lines $x^2=1$.
+    \item $(t>2)$: A hyperbola asymptotic to the $y$-axis.
+\end{itemize}
+The same phenomenon occurs (but in the $x$ axis) for $t<1$. We may summarize the behavior as follows:\par
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.8cm 15cm 0.8cm 6.6cm,clip]{fig1.pdf}
+\end{figure}
+However we are left with one curve which passes through the points in question. To find it we will assume $t$ is non-zero. From our parametric equation we obtain 
+$$tx^2+(2-t)y^2=2\To x^2+o(t^2)+y^2=\frac{2}{t^2}\xrightarrow[t\to\infty]{}x^2=y^2$$
+which is the pair of lines $y=\pm x$.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth, trim= 0.8cm 7cm 16cm 14.6cm,clip]{fig1.pdf}
+\end{figure}
+Observe that this behavior is independent of the sign of the infinity we are going to.\par 
+In essence what we have seen is that all the quadratic curves passing through our set of points can be parametrized by $\bR\cup\set{\infty}$. Formally:
+\begin{Prop}
+The moduli space $\ov{\cM}_{0,4}$ can be identified with $\bP^1_\bR$.
+\end{Prop}
+Intuitively the \term{moduli space} is a set where we may vary points \emph{continuously} and the objects which they parametrize will deform \emph{continuously} as well.
 \end{document}

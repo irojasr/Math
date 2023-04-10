@@ -27,18 +27,35 @@
 \begin{ptcbr}
     Recall an entire function $f$ has order of growth at most $\rho$ if there exist $A,B$ such that 
     $$|f(z)|\leq Ae^{B|z|^\rho}$$
-    We will use the fact that if $f,g$ have order of growth $\rho_f$ and $\rho_g$, then $\ord(fg)\leq\max{\rho_f,\rho_g}$. This can be seen to be true as follows:
+    We will use the fact that if $f,g$ have order of growth $\rho_f$ and $\rho_g$, then $\ord(fg)\leq\max{(\rho_f,\rho_g)}$. This can be seen to be true as follows:
     $$|fg(z)|\leq A_1e^{B_1|z|^{\rho_f}}A_2e^{B_2|z|^{\rho_g}}=A_1A_2e^{B_1|z|^{\rho_f}+B_2|z|^{\rho_g}}.$$
     If it happens that $\rho_f=\rho_g$, then $\ord(fg)\leq\rho_f$. Otherwise, suppose $\rho_f>\rho_g$ then 
-    $$|z|$$
+    $$B_1|z|^{\rho_f}+B_2|z|^{\rho_g}\leq (B_1+B_2)|z|^{\max(\rho_f,\rho_g)},\word{for all}z.$$
+    Then, once again, we have what we looked for:
+    $$|fg(z)|\leq A_1A_2e^{(B_1+B_2)|z|^{\max(\rho_f,\rho_g)}}.$$
+    In conclusion the order behaves nicely with the product.
     \begin{enumerate}[i)]
         \itemsep=-0.4em
-        \item For this case, assume first that $p$ is linear, so $p(z)=az+b$ with $a\neq 0$. Without losing generality we may take $a=1$ because $|az+b|=|a|\left|z+\frac{b}{a}\right|$. Now for $t\in\bR$ we have $e^{t}\geq 1+t$, so for $t=n|z|^{\frac{1}{n}}$ where $n\in\bN$ we have 
-        $$e^{n|z|^{1/n}}\geq 1+n|z|^{\frac{1}{n}}$$
+        \item For the case of the polynomials, we may factor $p$ as $A\prod_{k=1}^{d}(z-z_k)$. So it suffices to describe the orders of the linear factors. Observe that 
+        $$|z-z_k|\leq [\max(1,|z_k|)](|z|+1).$$
+        In order to continue bounding this, we remember the celebrated inequality 
+        $$e^t\geq 1+t\To e^{\frac{t}{n}}\geq1+\frac{t}{n}\To (e^{\frac{t}{n}})^{n}\geq\left(1+\frac{t}{n}\right)^{n}.$$
+        Now for positive $t$, the last quantity can be bounded below by 
+        $$\left(1+\frac{t}{n}\right)^{n}\geq1+\frac{t^n}{n^n},\word{for}t\geq 0.$$
+        Summarizing we have $e^t\geq 1+\frac{t^n}{n^n}$ where $t\geq 0$ and $n\in\bN$.\par 
+        If we had $t^n/n^n=|z|$ then $t=n|z|^{1/n}$ so the inequality becomes 
+        $$e^{n|z|^{1/n}}\geq 1+|z|\To |z-z_k|\leq [\max(1,|z_k|)]e^{n|z|^{1/n}},\word{for}n\in\bN.$$
+        This means that the order of $z-z_k$ is at most $\frac{1}{n}$. As this holds for all $n\in\bN$, then the order of $z-z_k$ is arbitrarily small which means it must be $0$. In conclusion, by the product lemma, the order of a polynomial is zero.
         \item Note that 
-        $$|e^{bz^n}|=\left|\exp\left(b\sum_{k=0}^n\binom{n}{k}x^k(iy)^{n-k}\right)\right|.$$
-        If $z=re^{i\te}$ then $z^n=r^n\cos(n\te)+isin(n\te)$ so
-        $$|e^{bz^n}|=|\exp\left(br^n\cos(n\te)+ibr^n\sin(n\te)\right)|=|\exp\left(br^n\cos(n\te)\right)|$$ 
+        $$|e^{bz^n}|=\left|\sum_{k=0}^{\infty}\frac{(bz^n)^k}{k!}\right|\leq \sum_{k=0}^{\infty}\frac{|bz^n|^k}{k!}=e^{|b||z|^n}.$$
+        This immediately tells us that the order of $e^{bz^n}$ is bounded by $n$. But now take $\rho<n$, then we claim that 
+        $$Ae^{B|z|^\rho}\leq |e^{bz^n}|$$
+        But if on the contrary we assumed that there existed $A,B$ such that $Ae^{B|z|^\rho}> |e^{bz^n}|$ then this must hold for all $z$. But we may assume $z=x\in\bR$ and let $x\to\infty$. There are no $A,B$ such that $ e^{bx^n}<Ae^{B|x|^\rho}$. In conclusion $n$ is the order of $e^{bz^n}$.
+    \item Finally we claim that $e^{e^z}$ as infinite order. If on the contrary we assumed that 
+    $$|e^{e^z}|\leq Ae^{B|z|^n}\word{for all}z\word{and some}A,B$$
+    then this inequality must hold for all $z\in\bC$. In particular, when $z=x\in\bR$ and we let $x\gg 0$ then 
+    $$e^{e^z}\leq Ae^{Bx^n}$$
+    But we are able to always find a larger and a larger $x$ such that this inequality fails for all choices of $A$ and $B$. As no $n$ can bound our function, we conclude that it must have infinite order of growth.
     \end{enumerate}
 \end{ptcbr}
 
@@ -56,15 +73,45 @@
     \end{Ej}
 
 \begin{ptcbr}
-    
+    Observe that it is equivalent to test the convergence of the series 
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item $\sum_{n\geq 2}\log\left(1+\frac{(-1)^n}{\sqrt{n}}\right)$, and
+        \item $\sum_{n\geq 2}\log\left(1+\frac{(-1)^n}{n}\right)$.
+    \end{itemize}
+    For the first series we use the Taylor expansion of $\log(1+z)=z-\frac{z^2}{2}+O(z^3)$. In the case of our series we have 
+    $$\sum_{n\geq 2}\log\left(1+\frac{(-1)^n}{\sqrt{n}}\right)\sum_{n\geq 2}\bonj{\left(\frac{(-1)^n}{\sqrt{n}}\right)-\frac{(-1)^{2n}}{2n}+O(n^{-3/2})}.$$
+    Observe that the first and last term converge by Dirichlet's test and by the $p$-series test. This means that the behavior of our product is determined by $\sum\frac{1}{2n}$ which diverges. So our first product diverges.\par 
+    In the same vein the sum can be analyzed by using Taylor's theorem:
+    $$\sum_{n\geq 2}\log\left(1+\frac{(-1)^n}{n}\right)=\sum_{n\geq 2}\bonj{\left(\frac{(-1)^n}{n}\right)+O(n^{-2})}.$$
+    In this case there's no divergent term in the sum so we may apply Dirichlet's test and the $p$-series test to conclude that the whole series converges. Therefore the second product also converges.
 \end{ptcbr}
 
-\begin{Ej}[5.4(a) Stein \& Shakarchi]
-    Let $t>0$ be fixed and define $F(z)$ as 
-    $$F(z)=\prod_{n=1}^{\infty}\left(1-\right)$$
+\begin{Ej}[Problem 5.4(a) Stein \& Shakarchi]
+  Let $F(z)=\sum a_nz^n$ be entire of finite order. Then the growth order of $F$ is intimately linked with the growth of the coefficients $a_n$ as $n\to\infty$. In fact:
+  \begin{enumerate}[(a)]
+    \itemsep=-0.4em
+    \item Suppose $|F(z)|\leq Ae^{a|z|^\rho}$, then 
+    $$\limsup_{n\to\infty}|a_n|^{1/n}n^{1/\rho}<\infty.$$
+    \item Conversely, if the previous statement holds, then $|F(z)|\leq A_{\eps}e^{a_\eps|z|^{\rho+\eps}}$ for $\eps>0$.
+  \end{enumerate}
     \end{Ej}
-
+%https://math.stackexchange.com/questions/3911804/problem-on-entire-function-of-finite-order-stein-chapter-5-problem-4?noredirect=1&lq=1
 \begin{ptcbr}
-    
+Let $R>0$ and notice that in the ball $B(0,R)$, $F$ is analytic. We may write 
+$$F(z)=\sum \frac{1}{n!}f^{(n)}(0)z^n\To f^{(n)}(0)=n!a_n.$$
+So for $r\in\obonj{0,R}$ we may use Cauchy's inequality to obtain:
+$$|n!a_n|=|f^{(n)}(0)|\leq\frac{n!\sup_{|z|=r}|F(z)|}{r^n}\leq \frac{n!A\sup_{|z|=r}e^{a|z|^\rho}}{r^n}\To |a_n|\leq\frac{Ae^{ar^\rho}}{r^n}.$$
+We now consider the function $u^{-n}e^{u^\rho}$, differentiating, we obtain 
+$$(-n)u^{-n-1}e^{u^\rho}+u^{-n}e^{u^\rho}\rho u^{\rho-1}=u^{-n-1}e^{u^\rho}(\rho u^{\rho}-n).$$
+The minimum of this function is then achieved when $u^\rho=n/\rho$ that is, $u=(n/\rho)^{1/\rho}$. Plugging this value into our inequality we obtain 
+$$|a_n|\leq\frac{Ae^{an/\rho}}{(n/\rho)^{n/\rho}}\To |a_n|^{1/n}n^{1/\rho}\leq\frac{Ae^{a/\rho}}{\rho^{1/\rho}}$$
+which allows us to take 
+$$\sup_{n\geq k}|a_k|^{1/k}k^{1/\rho}\leq\frac{Ae^{a/\rho}}{\rho^{1/\rho}}\To \limsup_{n\to\infty}|a_n|^{1/n}n^{1/\rho}\leq \frac{Ae^{a/\rho}}{\rho^{1/\rho}}.$$
+Therefore we obtain the desired inequality.
 \end{ptcbr}
+
+\begin{Ej}[Re-do of 5.2(a)]
+    
+\end{Ej}
 \end{document} 

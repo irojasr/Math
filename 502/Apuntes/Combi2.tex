@@ -2872,6 +2872,99 @@ In terms of matroids, we have $\rk$ as a grading and this is already upper semi-
  \begin{itemize}
     \item Matroids can be defined on: Independent sets, bases, circuits, rank, closure, Lattice of flats (up to simplicity) and by the greedy algorithm.
  \end{itemize}
+
+ \section{Day 30| 20230407}
+
+ \subsection{The Greedy Algorithm}
+
+ Recall that for weighted graphs we have \term{Kruskal's algorithm}. Consider the graph
+\begin{figure}
+    fig1
+\end{figure}
+If each graph has a weight, how do you find the minimum weight spanning tree? We just take the lowest weight edge that doesn't form a cycle and then continue. Sometimes the greedy algorithm doesn't work but in this case it does.\par
+We can't pick edges that form cycles, alternatively we could've also done this trees which \emph{also} have the same weight.
+\begin{figure}
+fig 2
+\end{figure}
+We will prove that Kruskal's algorithm works in matroids. 
+
+\begin{Lem}
+    Suppose we have a weighted matroid $(E,\cI)$ where the weight is a function $w\: E\to\bR$.\par 
+    Applying the greedy algorithm to find a basis produces a basis of minimal or maximal weight. 
+\end{Lem}
+
+We will basically go to a spanning forest which is an independent set. If we try to add one more edge, then we notice that things go wrong with the weights. Graphical matroid satisfies (I3).\par 
+The greedy algorithm can be used to define a matroid.
+
+\begin{Th}
+    A pair $(E,\cI)$ is a matroid if and only if it satisfies the first two independence axioms and $(G)$: for all weight functions $w\: E\to\bR$, greedy algorithm produces a maximal member of $\cI$ with maximal or minimal weight. 
+\end{Th}
+The fact that the algorithm finds the right thing is equivalent to the axiom $(I3)$. The lemma proves the forward direction, that if the pair is a matroid then the greedy algorithm works. We will prove that given the greedy algorithm, then we get the independent sets back.
+
+\begin{ptcbp}
+    We must show that $(E,\cI)$ satisfies the axiom $I3$. If we assume the contrary that there are $I_1, I_2$ independent with $|I_1|<|I_2|$ but no element of $I_2$ can augment $I_1$.\par 
+    Let us compare $I_2\less I_1$ and $I_1\less I_2$. We have 
+    $$|I_1-I_2|<|I_2-I_1|$$
+    so let $\eps<1$ such that $\frac{|I_1-I_2|}{|I_2-I_1|}<\eps$.
+    Consider the weight function 
+    \begin{center}
+        FIGURE
+    \end{center}
+    By the $(G)$ axiom we can find a maximal element of $\cI$ with \emph{maximal weight}. The greedy algorithm does the following
+    \begin{itemize}
+        \item Picks all $1$ elements, all of $I_1$. 
+        \item Picks an $\eps$ if it can. \emph{It can't}.
+        \item Keeps picking $0$'s
+    \end{itemize}
+    So the total weight of max is $I_1$.\par 
+    By $(I2)$, there exists a basis element $B_2\supseteq I_2$, so 
+    $$w(B_2)\geq w(I_2)\To |I_1\cap I_2|\geq w(B_2)\geq |I_1\cap I_2|+\eps|I_2-I_1|$$
+    by our choice of $\eps$ we have that 
+    $$|I_1|>|I_1\cap I_2|+|I_1\less I_2|=|I_1|.$$
+    This is absurd, so our assumption must've been false from the beginning. 
+\end{ptcbp}
+
+\subsection{Deletion and Contraction}
+
+Similar to talking about minors of a graph, we may consider a similar operation on matroids. 
+
+\begin{Def}
+    For a graph $G$, the \term{contraction} of $G$ at $e$ is $G/e$ is 
+    \begin{figure}
+        figure
+    \end{figure}
+    The \term{deletion} is $G\less e$. A graph that can be formed from deletion and contraction from $G$ is a \term{minor} of $G$.
+\end{Def}
+
+In general there exist $k$-minors which allow us to only do $k$ steps. \term{Ulam's conjecture} says that every graph can be uniquely determined by its $1$-vertex deletions (DIFFERENT THATN THIS OPERATION). This is a reconstructibility problem.\par 
+There's other question on reconstructibility for families of graphs. 
+
+\begin{Def}
+    A \term{planar graph} is a graph that can be embedded into the plane and has no crossing edges.
+\end{Def}
+
+\begin{figure}
+    this graph are planar/not planar
+\end{figure}
+
+\begin{Th}[Kuratowski]
+    A graph is planar if and only if it has no minors isomorphic to $K_5$ or $K_{3,3}$.
+\end{Th}
+
+For matroids, deleting edges from matroid gives us restriction, independent sets are everything defined not containing that edge.\par 
+Contraction is defined using duality $M/e=(M^\ast\e)^\ast$.
+
+\begin{Def}
+    The \term{dual matroid} of $M=(E,\cB)$ is $M^\ast=(E,\set{E-B\: B\in\cB})$.
+\end{Def}
+
+\begin{Ex}
+    Suppose we have a planar graphical matroid $M$ represented by a planar graph. We wish to find its dual:
+    \begin{figure}
+        Graph with red spanning tree
+    \end{figure}
+    The dual of a planar graph is planar and the dual is an involutive operation. We may complement the basis on the original graph to get a new one
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

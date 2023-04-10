@@ -1,0 +1,121 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH502}
+\def\nsiglahead {Combinatorics 2}
+\def\nextra {HW11}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\usepackage[enableskew]{youngtab}
+\usepackage{ytableau}
+\DeclareMathOperator{\SYT}{SYT}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\maj}{maj}
+\begin{document}
+
+\begin{Ej}[Exercise 3]
+Prove that in the lattice of flats of a matroid, if $X,Y$ are flats, then $X\lor Y=\cl(X\cup Y)$ and $X\land Y=X\cap Y$. You may use any of the matroid axioms.
+\end{Ej}
+
+We will use the following lemma.
+\begin{Lem}
+For a set $X$, 
+$$\cl(X)=\bigcap_{\substack{F\ \text{is flat}\\ F\supseteq X}} F.$$
+\end{Lem}
+
+\begin{ptcbp}
+If $F$ is flat and $F\supseteq X$ then $\cl(X)\subseteq\cl(F)=F$ because $F$ is already closed. This is true for all flats which contain $X$ so $\cl(X)\subseteq\bigcap F$.
+On the other hand $\cl(X)$ is a flat which contains $X$. Now $\bigcap F$ is the intersection of \emph{all} the flat sets which contain $X$, in particular, $\cl(X)$. This means that $\bigcap F\subseteq \cl(X)$ and so they are equal.
+\end{ptcbp}
+
+The importance of this lemma is that it gives meaning to the phrase, \emph{the closure of a set is the smallest flat which contains it.}
+%1.7.3
+%https://math.stackexchange.com/questions/53523/why-is-the-intersection-of-two-flats-a-flat
+\begin{ptcbr}
+    Observe that 
+    $$X,Y\subseteq X\cup Y\subseteq\cl(X\cup Y)$$
+    which means $\cl(X\cup Y)$ is an upper bound for $X,Y$. Thus $X\lor Y\subseteq \cl(X\cup Y)$.\par 
+    \footnote{\textbf{Ian} just entered the house and I wanted to discuss the problem with him. After a brief moment of thinking we got it.}On the other hand, 
+    $$X,Y\subseteq X\lor Y\To X\cup Y\subseteq X\lor Y.$$
+    As $X\lor Y$ is a flat and $\cl(X\cup Y)$ is the smallest flat which contains $X\cup Y$, it must occur that 
+    $$\cl(X\cup Y)\subseteq X\lor Y\word{and so}\cl(X\cup Y)=X\lor Y.$$
+    We will now prove that $X\cap Y$ is flat, observe that 
+    $$X\cap Y\subseteq \cl(X\cap Y)\subseteq\cl(X),\cl(Y)=X,Y$$
+    where the middle containment follows from the subset property of closure. Now $\cl(X\cap Y)$ being a subset of both $X,Y$ is also a subset of $X\cap Y$. So we conclude that $X\cap Y=\cl(X\cap Y)$ and so $X\cap Y$ is flat.\par 
+    Finally we have 
+    $$X\land Y\subseteq X,Y\To X\land Y\subseteq X\cap Y,$$
+    and the other direction follows from greatest lower bound property. As $X\cap Y$ is a flat contained in $X,Y$ then it is smaller than the greatest lower bound of $X,Y$ which is $X\land Y$. In this context, \emph{smaller} means \emph{contained in}. Therefore $X\cap Y=X\land Y$.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 5]
+   Suppose $\set{x,y},\set{y,z}$ are circuits of a matroid and none of $x,y,z$ are loops. Show that $\set{x,z}$ is a circuit.
+\end{Ej}
+
+\begin{ptcbr}
+    Applying the circuit exchange axiom to $\set{x,y}$ and $\set{y,z}$ we get a circuit $C$ such that 
+    $$C\subseteq(\set{x,y}\cup\set{y,z})\less\set{y}=\set{x,z}.$$
+    Out of the subsets of $\set{x,z}$, none of $\emptyset,\set{x},\set{z}$ are circuits, so $C=\set{x,z}$ and therefore $\set{x,z}$ is a circuit.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 6]
+    Given a matroid $M=(E,\cB)$ in terms of basis axioms, define the associated simple matroid $\ov M$ by:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Removing loops from $E$.
+        \item Removing one element of each $2$-circuit from $E$ arbitrarily (i.e. choose one element from each
+        \emph{parallel class} - equivalence class of elements in $2$-circuits with each other - to keep).
+        \item Defining $\ov \cB$ to be the set of basis formed by replacing any element of a parallel class that was in a basis $B$ by the corresponding element in that parallel class.
+    \end{itemize}
+    Take the remaining edges to be $\ov E$. Define $\ov M=(\ov E,\ov \cB)$. Show that $\ov M$ is a simple matroid. \hint{Use the previous problem.}
+\end{Ej}
+
+\begin{ptcbr}
+    We wish to show that the collection $\ov\cB$ satisfies the basis axioms. As the original $\cB$ was non-empty, there is a $B\in\cB$ \red{FINISH} 
+\end{ptcbr}
+
+\begin{Ej}[Exercise 7]
+    Let $(E, \cI)$ be a matroid and let $w\: E\to\bR$ be any weight function.\par
+    Show that applying the greedy algorithm to find a basis of minimal weight does indeed find a basis of minimal weight.
+\end{Ej}
+
+\begin{ptcbr}
+    \footnote{As in the last homework, I received invaluable assistance from \textbf{Oxley}'s book.}We begin by recalling Kruskal's algorithm for graphs. From this we deduce what the algorithm for matroids must be.\par 
+    Given a graph $G$, Kruskal's algorithm produces a minimum weight spanning tree $T$ by doing the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Begin by choosing an edge of minimum weight.
+        \item The next edge to be chosen must fulfill these condition:
+        \begin{itemize}
+            \itemsep=-0.4em 
+            \item It must not have been chosen previously.
+            \item It doesn't form a cycle with the previously chosen edges.
+        \end{itemize}
+        Among the edges that fulfill this condition, we pick one of minimal weight and repeat the procedure.
+    \end{enumerate}
+    With this we may elaborate a similar algorithm, but instead of guaranteeing that edges don't form a cycle, we want edges to not form a circuit instead. In the same fashion we are still adding edges of minimal weight to our potential basis. The algorithm in this case is as follows:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item We begin by choosing an edge of minimal weight. If the set is empty we are done.
+        \item The next edge must satisfy the following:
+        \begin{itemize}
+            \itemsep=-0.4em 
+            \item It must not have been chosen previously.
+            \item It doesn't form a \emph{circuit} with the previously chosen edges.
+        \end{itemize}
+        Among the edges that fulfill this condition, we pick one of minimal weight and repeat the procedure until we arrive to a maximal independent set.
+    \end{enumerate}
+    Suppose that the algorithm outputs a basis $B=\set{e_1,\dots,e_r}$ with $w(e_1)\leq\dots\leq w(e_r)$. If $B'=\set{f_1,\dots,f_r}$ is another basis, we may reorder the elements so that $w(f_1)\leq\dots\leq w(f_r)$. To show $B$ is of minimum weight it suffices to show that $w(e_k)\leq w(f_k)$ for all $k$.\par 
+    Let us assume the contrary, not all of the $e_k$ weigh less than the $f_k$. Assume $k_0$ is the first index at which this occurs. This means that 
+    $$w(e_{k_0})>w(f_{k_0})$$
+    so let us retrace our steps with the algorithm. At step $k_0$ we have our partially built basis $B$:
+    $$B_{\text{inc}}=\set{e_1,e_2,\dots,e_{k_0-1}}.$$
+    Consider also the partial base of $B'$, $B'_{\text{inc}}=\set{f_1,\dots,f_{k_0}}$.\par 
+    At this moment we have two independent sets $B_{\text{inc}}$ and $B_{\text{inc}}'$ and $|B_{\text{inc}}|\leq|B_{\text{inc}}'|$. Invoking the augmentation axiom we may find $f_\l\in B_{\text{inc}}'\less B_{\text{inc}}$ such that $B_{\text{inc}}\cup\set{f_\l}$ is independent. However, it must occur that 
+    $$w(f_\l)\leq w(f_{k_0})<w(e_{k_0})\To w(f_\l)<w(e_{k_0})$$
+    first because all the elements in $B_{\text{inc}}'$ have lower weight than $f_{k_0}$ and second because of what we assumed. But this contradicts the algorithm's process.\par 
+    At this step, the algorithm should've chosen $f_\l$ instead of $e_{k_0}$. But it did not, it picked $e_{k_0}$. This means our assumption was wrong, and thus no $f_k$ weighs less than an $e_k$. In conclusion the algorithm produces a basis of minimum weight. 
+\end{ptcbr}
+\end{document}
