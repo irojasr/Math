@@ -146,7 +146,7 @@ For Schur basis recall SSYT
 
 \subsubsection{Schur function motivation (preview)}
 
-The first place they showed up is in the representation theory of Lie group.  The function $s_\la(x_1,\dots,x_n)$ is a character of irreducible polynomial representations of $GL_n$. In theoretical physics we have matrix groups acting on particles, representations are smaller matrix groups of things that they are mapping to. We want to take tensor product and direct sums of representations, the tensor product is related to multiplication of Schur function while direct sum into sum of Schur functions.\par 
+The first place they showed up is in the representation theory of Lie group.  The function $s_\la(x_1,\dots,x_n)$ is %a character of irreducible polynomial representations of $GL_n$. In theoretical physics we have matrix groups acting on particles, representations are smaller matrix groups of things that they are mapping to. We want to take tensor product and direct sums of representations, the tensor product is related to multiplication of Schur function while direct sum into sum of Schur functions.\par 
 There's also the Schur-Weyl duality which takes representations into the Weyl group. Under the \emph{Frobenius map}, $s_\la$ corresponds to irreducible representations of $S_n$.\par 
 A more modern application of Schur function goes into geometry, $s_\la$ correspond to Schubert varieties in Grassmannians. Multiplication corresponds to interesections and sum to unions.\par 
 There's also context in Probability Theory. But in the end, Schur positivity is important because of this connections. 
@@ -2952,7 +2952,7 @@ There's other question on reconstructibility for families of graphs.
 \end{Th}
 
 For matroids, deleting edges from matroid gives us restriction, independent sets are everything defined not containing that edge.\par 
-Contraction is defined using duality $M/e=(M^\ast\e)^\ast$.
+%Contraction is defined using duality $M/e=(M^\ast\e)^\ast$.
 
 \begin{Def}
     The \term{dual matroid} of $M=(E,\cB)$ is $M^\ast=(E,\set{E-B\: B\in\cB})$.
@@ -2965,6 +2965,313 @@ Contraction is defined using duality $M/e=(M^\ast\e)^\ast$.
     \end{figure}
     The dual of a planar graph is planar and the dual is an involutive operation. We may complement the basis on the original graph to get a new one
 \end{Ex}
+
+\section{Day 31| 20230410}
+
+Recall $G/e$ is contraction and $G\less e$ is deletion. For matroids recall that the dual matroid is $M^\ast=(E,\set{E\less B})$ where $B\in\cB$ the original basis.
+
+\begin{Ex}
+For a graph 
+\begin{figure}
+    graph
+\end{figure}
+we can take the vertices as the faces and the edges are drawn when two faces meet.\par 
+Loops in the dual graph look like leaves in the original graph.
+\end{Ex}
+
+We now claim that $(M_G)^\ast=M_{G^\ast}$. In terms of the graph, the complement of the spanning tree determines a spanning tree of the dual graph. What's happening with the dual, contraction corresponds with deleting an edge on the dual graph.
+
+\subsection{Characteristic polynomial of a matroid}
+
+We will use the to construct the characteristic polynomial of the matroid which generalizes the chromatic polynomial of a graph.
+
+\begin{Def}
+A \term{proper coloring} of a graph $G$ is a coloring such that no two adjacent vertices is the same color. 
+\end{Def}
+
+Generalizing this definition to matroids is a bit hard. How do we generalize it? We use the chromatic polynomial of the graph. Recall $\chi_G(q)$ is the number of proper colorings of $G$ with $q$ colors.
+
+\begin{Ex}
+    Consider the graph $P_2$, then $\chi_{P_2}(q)=q(q-1)$. For two lone vertices, $\chi=q^2$.\par 
+    If we have a cycle, a $C_3$ we have $q(q-1)(q-2)$. But for a $P_3$ we obtain $q(q-1)^2=q(q-1)(q-2)+q(q-1)$.
+\end{Ex}
+
+There's a recursive way to see that the chromatic polynomial is ineed a polynomial.
+
+\begin{Prop}
+For all graphs, 
+$$\chi_G=\chi_{G\less e}-\chi_{G/e}.$$
+\end{Prop}
+
+\begin{Ex}
+    With this, we may compute the chromatic polynomial of $C_4$. We have 
+    $$\chi_{C_4}=\chi_{P_4}-\chi_{C_3}=(\chi_{P_2\cupdot P_2}-\chi_{P_3})-\chi_{C_3}=\chi_{P_2}^1-\chi_{P_3}-\chi_{C_4}.$$
+    This quantity is $q(q(q-1)^2)-q(q-1)^2-q(q-1)(q-2)$.
+    In another way we can count directly as 
+    $$q(q-1)(q-2)+q(q-1)^2.$$
+\end{Ex}
+
+Observe the absolute values of the coefficients! We can see that they are unimodal! Not only that, they are log-concave.
+
+\begin{Def}
+    A sequence $(a_n)$ is \term{log-concave} if $(\log(a_n))$ is a concave sequence. Or Equivalently $a_n^2\geq a_{n-1}a_{n+1}$.
+\end{Def}
+
+Similar $q$-analogues seem to exhibit this property. The problem of showing this for chromatic polynomials was open until 2012 when proven by June Huh. He also extended the result for matroids.
+
+\begin{Th}[Huh \emph{et al}, 2012]
+    The coefficients in absolute value of $\chi_G$ forms a log-concave sequence.
+\end{Th}
+
+\begin{Ex}
+    In the previous example, expanding the polynomial we obtain coefficients $1,4,6,3$ and we can see that it is indeed log-concave.
+\end{Ex}
+
+Strategies to work about this include Hodge theory and Tropical Geometry.
+
+\begin{Def}
+    For a matroid $M$, we define the characteristic polynomial as $\chi_{\text{loop}}=0$ and $\chi_{P_2}=q(q-1)$ then recursively:
+    $$\chi_M=\chi_{M\less e}-\chi_{M/e}.$$
+\end{Def}
+
+The same result of Huh applies to matroids.
+
+\chapter{Geometries}
+
+\subsection{Finite Geometries}
+
+We will be working on finite fields of the form $\bF_{p^r}$ where $p$ is a prime number. In classical geoemtry we have points, lines hyperplanes, circles and more. Hyperplanes can be interpreted as $\braket{a}{x}=c$ and then lines are intersections of hyperplanes.\par 
+These are all types of equations which can work on finite fields! In this cases the curves will be finite sets of points.
+
+\begin{Ex}
+    In $\bF_3^2$ we want to look for solutions of $x^2+y^2=1$. We are looking for solutions of $x^2+y^2\equiv 1\bmod 3$. Solutions are $(0,1),(1,0),(0,2)$ and $(2,0)$.
+\end{Ex}
+
+\section{Day 32| 20230412}
+
+
+\begin{Ex}
+    In $\bF^2_3$ we have:
+    \begin{itemize}
+        \itemsep=-0.4em 
+        \item Solutions to $x+2y=1$ are $(1,0),(0,2)$ and $(2,1)$.
+        \item For $x=1$ we have $(1,0),(1,1)$ and $(1,2)$.
+    \end{itemize}
+    Both this equations are linear. But if we draw them we don't obtain exactly lines. 
+    \begin{figure}
+        DRAWING
+    \end{figure}
+\end{Ex}
+
+\begin{Ex}[SET game]
+    The game SET is essentially a game of finding lines in $\bF_3^4$. The coordinates are shape, color, number, and shade. Each of this coordinates has three possibilities so a winning set of 3 cards must have all the same attribute or all different.\par
+    PICTURE In this example a line is determined by 3 linear equations.
+\end{Ex}
+
+\begin{Ex}[FOURMATION game]
+    We are now looking for planes in $\bF_2^6$. Planes here look like ``faces'' or the set generated by two vectors.\par 
+    Cards have 4 shapes, number of shapes, color of the shapes but this is coded in binary.\par 
+    Each attribute is ALL SAME, ALL DIFF, or Equal in Pairs.
+\end{Ex}
+
+\subsection{Projective Spaces}
+
+\begin{Def}
+    For a field $\bF$, $\bP^n_\bF$ can be seen as the set $\bF^{n+1}\less\set{0}$ modded with the relation $x\sim\la x$ where $\la$ is a scalar.
+\end{Def}
+
+\begin{Ex}
+    The projective plane over $\bR$ is $(\bR^3\less\set{0})/\sim$ and this looks like half a sphere in a funny way.
+    \begin{figure}
+        DRAWING OF P2
+    \end{figure}
+    Points are roughly unit vectors in the upper hemisphere. Algebraically this looks like $[x:y:z]$ with $x,y,z$ not all zero and $[x:y:z]=[\la x:\la y:\la z]$. Intuitively we can see it as the space of directions in $\bR^3$.\par 
+    Canonically we can decompose into 
+    $$\bP_\bR^2=\set{[x:y:1]}\cup\set{[x:1:0]}\cup\set{[1:0:0]}.$$
+    In other words we can identify this as 
+    $$\bP_\bR^2=\bR^2\cup\bR\cup\set{\text{pt.}}.$$
+\end{Ex}
+
+Given this, we ask, \emph{what are lines in $\bP^2$}? Once again they are solutions to equations, but in this case equations must be \emph{homogenous}.
+
+\begin{Ex}
+    Consider the equation $2x-y=z$, we have two cases, when $z=1$ or $z=0$. We get all the affine solutions and also $[\half:1:0]$ which is the point at infinity.\par 
+    The equation $z=0$ describes the line at infinity. Keep in mind that $\bP^2$ is compact!
+\end{Ex}
+
+\begin{Ex}
+    The projective plane over $\bF_2$ can be constructed in an analogous way. We have 7 points, triplets of points either zero or one except all zeroes.\par 
+    The line through $[0:0:1]$ and $[0:1:1]$ also touches infinity at $x=0$. 
+    Notice that lines are defined as $x=0$, $x+z=0$, $x+y+z=0$
+    
+\end{Ex}
+
+\section{Day 33| 20230414}
+
+\begin{Lem}
+$\bF_q^r$ is a matroid under linear independence over $\bF_q$, and $\bP_{\bF_q}^{r-1}$ is its associateed simple matroid. 
+\end{Lem}
+
+\begin{ptcbp}
+Recall that 
+$$\bP_{\bF_q}^{r-1}=(\bF_q^r\less\set{0})/\sim.$$
+Now loops in matroids are circuits of size 1, the only loop in $\bF_q^r$ is the zero vector. So when removing it we remove the loops.
+\end{ptcbp}
+
+\begin{Ex}
+    The lattice of flats of $\bF_2^3$, where we can visualize the set as the unit cube's vertices, can be seen as the lattices of spanning sets.\par 
+    The rank 1 flats are $\set{0,v}$, so 7 in total. For the rank two flats we get $\binom{7}{2}$ in total choices but we divide by the ways to form $3$ out of $2$. This number is $\binom{3}{2}$. This is because if we generate with $1,4$ we get $5$, but if we generate with $1,5$ we get $4$. So that's why we divide. There's only one rank 3 flat.\par 
+    This is the same lattice of flats of $\bP_{\bF^2}^2$ after deleting $0$. We don't have to worry about scaling because the only scalar is $1$.
+    \begin{figure}
+        Latiz en foto
+    \end{figure}
+\end{Ex}
+
+Let's build designs with this information. From the last picture we can observe a $2$-design.
+
+\begin{Lem}
+The matroid $(\bP_{\bF_q}^2,\cB)$ where $\cB$ is the set of lines in $\bP^2_{\bF_q}$ forms a $2-(q^2+q+1,q+1,1)$ design.
+\end{Lem}
+
+\begin{ptcbp}
+    The number of vertices is 
+    $$v=|\bP^2_{\bF_q}|=\frac{|\bF_q^2|-1}{|\bF_q|-1}=\frac{q^3-1}{q-1}=q^2+q+1.$$
+    The size of the blocks is 
+    $$k=|\text{lines in }\bP^2_{\bF_q}|=|\bF_q^2\less\set{0}/\sim|=|\bP^1_q|=q+1.$$
+    And finally any two points determine a line.
+\end{ptcbp}
+
+A similar exercise can be done for $k$-flats, to show it is a collection of $2$-designs. The annoying part is finding $\la$ so we need to use overcounting and dividing.\par 
+We can make an interesting space out planes called the Grassmannian which generalizes projective space.
+
+\begin{Def}
+    The \term{Grassmannian} is the set of $k$-dimensional subspaces of $\bF^n$. We denote it $Gr_\bF(k,n)$.
+\end{Def}
+
+\begin{Ex}
+The case $k=1$ is projective space.    
+\end{Ex}
+
+We wish to count the number of points in $Gr_{\bF_q}(k,n)$ in general. We will find that it is $\binom{n}{k}_q$, the $q$-analogue.\par 
+For this effect, recall 
+$$\bP^2=\set{[x:y:1]}\cup\set{[x:1:0]}\cup\set{[1:0:0]},$$
+this is called the Schubert decomposition of $\bP^2$. For te analogue for the Grassmannian we must describe the coordinates inside it. We have 
+$$Gr(k,n)=\set{\text{full rank }k\x n\text{ matrices}}/\sim$$
+where matrices are similar if row-equivalent.
+
+\begin{Ex}
+    Via row-reduction we have the Schubert decomposition of $Gr(2,4)$:
+    \red{VER FOTO}
+    This paramatrizes all the two planes in four space seen as the row-spaces of the matrices. In $\bF_q$ we have that the size of the Grassmannian is 
+    $$q^4+q^3+q^2+q^2+q+1=\binom{4}{2}_q$$
+    which is supporting evidence for our claim.\par 
+    Observe that if we delete the pivot columns and form the diagrams, we can see that the empty squares form the sub-partitions of the shape in question. In general, deleting the $k$ pivot columns from $k\x n$ gives us partitions.
+\end{Ex}
+
+\begin{Prop}
+We have 
+$$Gr(k,n)=\bigcupdot_{(\ast)}\Om_\la^0$$
+where the disjoint union is taken over partitions formed in the previous way \red{ASK HOW lambda subset box???} and $\Om_\la^0$ is the set of row-reduced $k\x n$ matrices with pivots in columns $\la_k+1$, $\la_{k-1}+2$ all through $\la_1+k$.
+\end{Prop}
+
+
+\section{Day 34| 20230417}
+
+Last time we said that the size of the Grassmannian was $\binom{n}{k}_q$. 
+
+\subsection{Projective Transformations}
+
+We say projective space has dimension $n$ as a manifold. 
+
+\begin{Def}
+    We define the \term{projective linear group} as 
+    $$\PGL_n(\bF)=\quot{\GL_n(\bF)}{\sim}$$
+    where the relation is scalar multiplication.
+\end{Def}
+
+\begin{Ex}
+    Consider the linear transformation $\twobytwo{1}{2}{3}{4}$. This acts the same as $\twobytwo{2}{4}{6}{8}$ in projective space. 
+\end{Ex}
+
+\begin{Prop}
+    $\PGL_n(\bF)=\Aut(\bP^n_{\bF})$.
+\end{Prop}
+
+Since we are doing finite geometries, we would like to count how many automorphisms does $\bP^n_{\bF_q}$ have. In other words, we wish to find $|\PGL_2(\bF_q)|$.
+
+\begin{Ex}
+    Let us find $|\PGL_2(\bF_2)|$. We are looking for invertible matrices of size $3\x3$ over $\bF_2$. Consider counting by the columns, the first column has $7$ possibilities, the next one can't be the same so $6$ possibilities. And the last columnn can't be the sum of the first two so $4$ possibilities. This means that
+    $$|\PGL_2(\bF_2)|=7\.6\.4=168,$$
+    which is also the number of automorphisms of the Fano plane.
+\end{Ex}
+
+The next natural question is to generalize the size of the field or the space's dimension.
+
+\begin{Th}
+    For any $q$ we have 
+    $$|\GL_n(\bF_q)|=(q^n-1)(q^n-q)(q^n-q^2)\dots(q^n-q^{n-1}).$$ 
+\end{Th}
+
+\begin{ptcbp}
+    Inductively, the first column can be filled in $q^n-1$ ways. At the $i^{\text{th}}$ step we can have columns not in the span of the previous $i-1$ columns. This is an $i-1$ dimensional space, so we subtract $q^{i-1}$.
+\end{ptcbp}
+
+\begin{Cor}
+    $|\PGL_n(\bF_q)|=\frac{1}{q-1}|\GL_n(\bF_q)|$
+\end{Cor}
+
+We would like to count this with $q$-analogues, but we won't for now.
+
+\subsection{Flags}
+
+\begin{Def}
+A \term{flag} is a chain of subspaces 
+$$\set{0}=V_0\leq V_1\leq\dots\leq V_n=\bF^n$$
+where $\dim(V_i)=i$.    
+\end{Def}
+
+We ask, how many flags are there in $\bF^n_q$.
+
+\begin{Ex}
+    In $\bF_3^2$, then the number of flags is the number of lines through the origin.\par 
+    For $\bF^3_3$ it's just a bit tougher, we have to pick the origin, a line and a plane which contains that line. For $V_0$ we have only one choice, for $V_1$ there's $13$ choices. We can find this by considering $Gr_{\bF_3}(1,3)$ whose cardinality is $\binom{3}{1}_3$. Counting by hand we get $(3^3-1)/(3-1)$.\par 
+    For the case of $V_2$ we count $52$. Finally for $V_3$ there's only one choice.
+\end{Ex}
+
+\begin{Th}
+    The number of flags in $\bF^n_q$ is $(n)_q!$. 
+\end{Th}
+
+\begin{ptcbp}
+    Inductively, there's $1$ choice for $V_0$. For $V_1$ there are $\frac{q^n-1}{q-1}$, because choose a nonzero point in $q^n-1$ ways, and each line is overcounted $q-1$ times.\par 
+    The number of choices of a $V_2\supseteq V_1$ is $\frac{q^{n-1}-1}{q-1}$ becuase it's the number of choices of $1D$ space in $\bF^n_q/V_1\isom \bF_q^{n-1}$. In general this process returns 
+    $$\left(\frac{q^n-1}{q-1}\right)\left(\frac{q^{n-1}-1}{q-1}\right)\dots 1=(n)_q!$$
+\end{ptcbp}
+This proof gives us an alternate proof for the size of the Grassmannian. As a corollary we have that the size of the Grassmannian is $\binom{n}{k}_q$.\par 
+Counting $k$-dimensional subspaces, we overcount by counting flags, but that overcounts each $V_k$ a certain number of times. It overcounts by the number of flags $0\leq V_1\leq V_2\leq\dots\leq V_k$ and $V_{k+1}\leq\dots\leq V_n$. So we divide by $(k)_q!$ and $(n-k)_q!$.
+
+\subsection{Schubert Decomposition}
+
+A flag can be represented as a list of $n$ vectors, each one represents a ``new direction'' which we obtain at each step.
+
+\begin{Def}
+    A \term{Flag variety} is the set of flags in $\bF^n$. This is denoted:
+    $$Fl_n(\bF)=\set{\text{flags in }\bF^n}.$$
+\end{Def}
+
+\begin{Ex}
+    We can consider the vectors $u_1=(1,-1,3), u_2=(2,-2,5)$ and $u_3=(8,2,1)$. This represents the flag 
+    $$\genr{u_1}\leq\genr{u_1,u_2}\leq\genr{u_1,u_2,u_3}.$$
+    To simplify our matrix we can rescale our matrix and combine rows with \emph{lower} rows. The obtained matrix is said to be in \term{normal form}.
+\end{Ex}
+
+This makes it easy to count points in the flag variety in a more systematic way, becuase if $\pi$ is a permutation and $\Om_\pi$ is the set of flags with normal form $\pi$, then 
+$$|\Om_q(\bF_q)|=q^{inv(\text{rev}(\pi))}.$$
+For the matrix 
+$$\begin{pmatrix}
+    0&0&0&1\\1&x&y&0\\0&0&1&0\\0&1&0&0
+\end{pmatrix}$$
+we have $4132$ which reverses to $2314$.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

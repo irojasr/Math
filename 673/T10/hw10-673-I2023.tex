@@ -6,103 +6,43 @@
 \def\nprofesor {Mark Shoemaker}
 \def\nsigla {MATH673}
 \def\nsiglahead {Algebraic Geometry}
-\def\nextra {HW9}
+\def\nextra {HW10}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
 \DeclareMathOperator{\sh}{sh}
 \begin{document}
 
-\begin{Ej}[6.2.D Vakil]
-    Show that an $\cO_X$-module $\cF$ is quasicoherent if and only if for each such distinguished $\Spec(A_f)\hookto\Spec(A)$, $\al\:\cF(\Spec(A))_f\to\cF(\Spec(A_f))$ is an isomorphism.
+\begin{Ej}[14.2.B Vakil]
+    Suppose $\cF,\cG$ are locally free sheaves on $X$ of rank $m$ and $n$ respectively. Show that $\cH om_{\cO_X}(\cF,\cG)$ is a locally free sheaf of rank $mn$.
 \end{Ej}
 
 \begin{ptcbr}
-Let us assume $\cF$ is quasicoherent, this that when restricted to affine sets we have 
-$$\cF\mid_{\Spec(A)}\isom\widetilde{M}\word{where}M\in\cat{Mod}_A.$$
-Observe now that when restricting to $\Spec(A)$ we have
-$$\cF(\Spec(A))_f=\cF\mid_{\Spec(A)}(\Spec(A))_f$$
-and since $\cF$ is quasicoherent we have the following isomorphism:
-$$\cF\mid_{\Spec(A)}(\Spec(A))_f\isom\widetilde{M}(\Spec(A))_f=M_f.$$
-But from our original discussion on the module sheaf, we have that for the distinguished open $D(f)$ this is 
-$$M_f=\widetilde{M}(D(f))\isom\cF\mid_{\Spec(A)}(D(f)).$$
-We finally use the key fact that $D(f)=\Spec(A_f)$ so 
-$$\cF\mid_{\Spec(A)}(D(f))=\cF\mid_{\Spec(A)}(\Spec(A_f))=\cF(\Spec(A_f))$$
-and with this we arrive at the desired conclusion that both sets are isomorphic to each other.\par 
-On the other hand, suppose we have the isomorphism. We wish to show that $\cF$ is quasicoherent, so we must find an isomorphism of sheaves $\vf\:\widetilde{M}\to\cF$ where $M$ is an $A$-module, such that for open sets $U\subseteq V\subseteq X$, the following diagram commutes:
-\begin{center}
-    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12B3LWPB2MACyAXwAUANQCUIEaXSZc+QigCM5KrUYs2nAMYAxSTLkLseAkTKrN9Zq0QduvGP0GixAVRPyQGc8pE6jbUdjqO+kbespowUADm8ESgAGYAThAAtkgATNQ4EEgAzKHaDk40KV4y1Ax0AEYwDAAKihYqIGlY8QAWOLK+6VlIZCAFSOpa9rrslcYDqRnZiKPjiDmmIEPLk2tFIhQiQA
-\begin{tikzcd}
-    \widetilde{M}(V) \arrow[r, "\vf(V)"] \arrow[d] & \cF(V) \arrow[d] \\
-    \widetilde{M}(U) \arrow[r, "\vf(U)"']          & \cF(U)          
-    \end{tikzcd}
-\end{center}
-As $\cF$ is an $\cO_X$-module\footnote{A sheaf of $\cO_X$-modules, for each open set $U$, $\cF(U)$ is an $\cO_X(U)$-module.} we may take $\cF(X)$ as the module $M$ in question. We claim that $\cF\isom\widetilde{M}$ where $M$ is the module $\cF(X)$.\par 
-We may cover $X$ by distinguished opens and rewrite the previous diagram for $D(f)\subseteq D(g)$: 
-\begin{center}
-    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12B3LWPB2MACyAXwAUAETEBzAJSyQI0uky58hFAEZyVWoxZtOAYwBikmfMXKQGbHgJEym3fWatEHbrxj9Bo8wBmlkoqdupE2s7UrgYexmZSQQoiujBQ0vBEoAEAThAAtkgATNQ4EEgAzNH67p40AYGW1Ax0AEYwDAAKqvYaIDlY0gAWOFbZeYWIZCBlSNp6bobs9eZyyda5BUjTs4hFISCbk-O7FSkiQA
-\begin{tikzcd}
-    \widetilde{M}(D(g)) \arrow[r, "\vf(D(g))"] \arrow[d] & \cF(D(g)) \arrow[d] \\
-    \widetilde{M}(D(f)) \arrow[r, "\vf(D(f))"']          & \cF(D(f))          
-    \end{tikzcd}
-\end{center}
-However, we know that when acting on distinguished opens, the sheaf behaves like $\widetilde{M}(D(g))=M_g$. Also, recall that $D(g)=\Spec(A_g)$ so that our diagram may rewritten as 
-\begin{center}
-    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMQAoAGgEoA+gHMQAX1LpMufIRQBGclVqMWbTrz6cAymhhc+AQXFChUmSAzY8BImSVr6zVog7d+wkQDMrsnYKRCrO1K6aHtr8+obGZr4WUmowUGLwRKC+AE4QALZIAEzUOBBIAMzhGu6eNL58ACJ8iZbUDHQARjAMAApy9oog2VhiABY4ASA5+UhkIKVIKupuWux1jXxiSdJZuQWIcwuIhTtTe4slZYjlkhSSQA
-\begin{tikzcd}
-    \cF(X)_g \arrow[r, "\vf(D(g))"] \arrow[d] & \cF(\Spec(A_g)) \arrow[d] \\
-    \cF(X)_f \arrow[r, "\vf(D(f))"']          & \cF(\Spec(A_f))          
-    \end{tikzcd}
-\end{center}
-If we additionally assume that $X$ is an affine scheme, we have 
-\begin{center}
-    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAMQApOAZTQwufAIIBKSQH0A5iAC+pdJlz5CKAIzkqtRizadeA9sNET50pSpAZseAkTJa99Zq0Qdu-ISLFSsgBmNqoOGkQ6rtTuhl7Gvmb+lkHWinowUHLwRKBBAE4QALZIAEzUOBBIAMwxBp7eNEF8ACJ8qZIg1Ax0AEYwDAAKao6aIPlYcgAWOKEgBcVIZCCVSDr6HkbsTa18cmm2CyWIy6uIpcp5hcfrZ9XpikA
-\begin{tikzcd}
-    \cF(\Spec(A))_g \arrow[r, "\vf(D(g))"] \arrow[d] & \cF(\Spec(A_g)) \arrow[d] \\
-    \cF(\Spec(A))_f \arrow[r, "\vf(D(f))"']          & \cF(\Spec(A_f))          
-    \end{tikzcd}
-\end{center}
-and by the hypothesis, both columns of this diagram are isomorphic and those isomorphisms are compatible with the restriction $D(f)\subseteq D(g)$.\par 
-If $X$ were not affine, we could cover by affine sets and glue together the morphisms? \red{I'm actually not sure, would it be possible to work at the level of stalks?}
+Observe that if $\cF$ is locally free of rank $m$ then, there is a basis $(U_i)$ of $X$ such that $\cF\mid_{U_i}\isom \cO_{U_i}^m$. Similarly $\cG\mid_{V_j}\isom \cO_{V_i}^n$.\par 
+Now the collection $(U_i\cap V_j)_{i,j}$ is also a cover for $X$. From this we get that 
+$$\cF\mid_{U_i\cap V_j}\isom \cO_{U_i\cap V_j}^m,\word{and}\cG\mid_{U_i\cap V_j}\isom \cO_{U_i\cap V_j}^n.$$
+Observe now that for open sets $W\subseteq U_i\cap V_j$ we have that 
+$$\cH om(\cF,\cG)(W)=\Hom(\cF\mid_W,\cG\mid_W)\isom\cH om(\cO_W^m,\cO_W^n)\isom\cO^{mn}_W.$$
+This means that the $\Hom$-sheaf locally looks like copies $\cO$ which means it's locally free. 
 \end{ptcbr}
 
-\begin{Ej}[6.3.A Vakil]
-    Show that a sequence of quasicoherent sheaves $\cF\to\cG\to\cH$
-    on $X$ is exact if and only if it is exact on every open set in any given affine cover of X.\par 
-    (In particular, taking sections over an affine open Spec A is an exact functor from the category of quasicoherent sheaves on X to the category of A-modules. Recall that taking sections is only left-exact in general, see section 2.6.F.)\par
-    Thus we may check injectivity or surjectivity of a morphism of quasicoherent sheaves by checking on an affine cover of our choice.
+\begin{Ej}[14.2.C Vakil]
+If $\cE$ is a locally free sheaf on $X$ of rank $n$, then $\cE^\lor=\cH om(\cE,\cO_X)$ is also locally free of rank $n$. This is the \term{dual} of $\cE$. 
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Given transition functions for $\cE$, describe the transition functions for $\cE$ for $\cE^\lor$. \aside{Note that if $\cE$ is rank 1, i.e., invertible, the transition functions of the dual are the inverse of the transition functions of the original.}
+    \item Show $\cE\isom\cE^{\lor\lor}$. \aside{Caution: your argument showing that there is a canonical isomorphism $\cF\to(\cF^\lor)^\lor$ better not also show that there is an isomorphism $\cF\to\cF^\lor$! We will see an example in 15.1 of a locally free $\cF$ that is not isomorphic to its dual: the invertible sheaf $\cO(1)$ on $\bP^n$.}
+\end{enumerate}
 \end{Ej}
 
 \begin{ptcbr}
-    Suppose that our sequence is exact for the covering of $X=\bigcup D(f_i)$. As the sheaves are quasicoherent we have that 
-    $$\cF(\Spec(A_f))\isom\cF(\Spec(A))_f$$
-    so our sequence being exact is equivalent to the exactness of 
-    $$\cF(\Spec(A))_f\to\cG(\Spec(A))_f\to\cH(\Spec(A))_f.$$
-    From here we could state the localization is exact or we can rip it into $-\ox_AA_f$ and then the tensor product is an exact functor. From this we see the equivalence with the exactness of 
-    $$\cF(\Spec(A))\to\cG(\Spec(A))\to\cH(\Spec(A))$$ 
-    \red{I'd love to claim that this sequence being exact means that the big sequence is exact. Also I can't claim the same from the other side.}
+    
 \end{ptcbr}
 
-\begin{Ej}[6.4.B Vakil]
-    Do the following:
-    \begin{enumerate}[i)]
-        \itemsep=-0.4em
-        \item If $f\in A$ and $M$ is a finitely presented $A$-module, show that $M_f$ is a finitely presented $A_f$-module.
-        \item If $\genr{f_1,\dots,f_n}=A$ and $M_{f_i}$ is a finitely presented $A_{f_i}$-module for all $i$, show that $M$ is a finitely presented $A$-module. \hint{Show first that $M$ is finitely genrated so that we may write $M=\coker(\al)$ with $\al\: N\hookto A^{\oplus n}$ for some submodule $N\subseteq A^{\oplus n}$. We wish to show that $N$ is finitely generateed. Localize at $f_i$ and show $N_{f_i}$ is $A_{f_i}$-finitely generated then apply the previous exercise to $N$.}
-    \end{enumerate}
+\begin{Ej}
+    Show that every invertible sheaf on $\bP^1_k$ is of the form $O(n)$ for some $n$. \hint{Use the classification of finitely generated modules over a principal ideal domain to show that all invertible sheaves on $\bA^1_k$ are trivial. Reduce to determining possible transition functions between the two open subsets in the standard cover of $\bP^1_k$.}
 \end{Ej}
 
 \begin{ptcbr}
-    \begin{enumerate}
-        \itemsep=-0.4em
-        \item If $M$ is finitely presented, then we have an exact sequence 
-        $$A^q\to A^p\to M\to 0$$
-        As localization is an exact functor we have that the sequence 
-        $$A^q_f\to A^p_f\to M_f\to 0$$
-        is also an exact sequence. This means that $M_f$ is also finitely presented.
-        \item We have the exact sequence for all $i$:
-        $$A^q_{f_i}\to A^p_{f_i}\to M_{f_i}\to 0$$
-        so in particular $A^p_{f_i}\to M_{f_i}\to 0$ is exact. From this, using the fact that finite generation satisfies the Affine Communication lemma we have that $M$ is a finitely generated $A$-module.\par 
-        As suggested, we may see $M\isom\coker(\al)$ for $\al\: N\hookto A^n$. Localizing at each $f_i$ we obtain $N_{f_i}$
-    \end{enumerate}
+    We begin by following the hint 
 \end{ptcbr}
 \end{document} 

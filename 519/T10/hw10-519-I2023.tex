@@ -1,0 +1,49 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Jeff Achter}
+\def\nsigla {MATH519}
+\def\nsiglahead {Complex Analysis}
+\def\nextra {HW10}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}[5.10(a) Stein\& Shakarchi]
+   Find the Hadamard product for $e^z-1$.
+\end{Ej}
+
+\begin{ptcbr}
+Recall Hadamard's theorem states that if $f$ is an entire function with order of growth $\rho$ and $k=\floor{\rho}$ then 
+$$f(z)=e^{p(z)}z^m\prod_{n=1}^{\infty}E_k\left(\frac{z}{a_n}\right)$$
+where $(a_n)$ is the collection of non-null zeroes of $f$, $p$ has degree at most $k$ and $m=\ord(f,0)$.\par 
+In our case $e^z-1$ has order of growth 1 and it has simple zeroes at $z=2\pi i n$ for $n\in\bZ$. In particular the order of zero is one. This means that 
+$$e^z-1=e^{a_1z+a_0}z\prod_{n\in\bZ\less\set{0}}\left(1-\frac{z}{2\pi i n}\right)e^{z/2\pi i n}.$$
+To simplify this product we multiply opposites across the origin:
+\begin{align*}
+\bonj{\left(1-\frac{z}{2\pi i n}\right)e^{z/2\pi i n}}\bonj{\left(1-\frac{z}{2\pi i (-n)}\right)e^{z/2\pi i (-n)}}&=\left(1+\left(\frac{z}{2\pi i n}\right)^2\right)e^{z/2\pi i n}e^{-z/2\pi i n}\\
+&=1+\frac{z^2}{4\pi^2n^2}   
+\end{align*}
+So we get
+$$e^z-1=e^{a_1z+a_0}z\prod_{n=1}^\infty\left(1+\frac{z^2}{4\pi^2n^2} \right).$$ 
+Dividing both sides by $z$ we get 
+$$\frac{e^z-1}{z}=e^{a_1z+a_0}\prod_{n=1}^\infty\left(1+\frac{z^2}{4\pi^2n^2} \right)$$
+and as $z$ approaches $0$ we get that 
+$$1=e^{a_0}(1)\To a_0=0.$$
+Expanding the exponential function as a Taylor series and comparing coefficients we get the following:
+$$z+\frac{z^2}{2}+O(z^3)=(1+a_1z+\frac{(a_1z)^2}{2}+O(z^3))z\prod_{n=1}^\infty\left(1+\frac{z^2}{4\pi^2n^2} \right)$$
+\end{ptcbr}
+
+\begin{Ej}[5.11 Stein\& Shakarchi]
+   Show that if $f$ is an entire function of finite order that omits two values, then $f$ is constant. This result remains true for any entire function and is known as Picard's little theorem.
+\hint{If $f$ misses $a$, then $f (z)-a$ is of the form $e^{p(z)}$ where $p$ is a polynomial.}
+
+\end{Ej}
+
+\begin{ptcbr}
+
+   \end{ptcbr}
+\end{document} 

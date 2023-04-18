@@ -14,9 +14,9 @@
 
 Let us begin with a simple question:
 \begin{significant}
-Which are the quadratic curves which pass through $4$ points in general position in $\bR^2$?
+Which are the quadratic curves which pass through $4$ points in $\bR^2$ and no three of them are collinear?
 \end{significant}
-This question might be a bit tough to tackle right now, but let us consider a simplification. How about if the points are $(1,1),(1,-1),(-1,-1)$ and $(-1,1)$? At once the following idea should pop-in in our heads: \emph{a circle}!\par 
+This question might be a bit tough to tackle right now, but let us simplify. How about if the points are $(1,1),(1,-1),(-1,-1)$ and $(-1,1)$? At once the following idea should pop-in in our heads: \emph{a circle}!\par 
 The circle which passes through these points is described by the equation $x^2+y^2=2$:\par
 \begin{figure}[h]
     \centering
@@ -24,15 +24,16 @@ The circle which passes through these points is described by the equation $x^2+y
 \end{figure}
 Ideally we would like to stretch and shrink the circle in order to make it an ellipse. We know ellipses have equations of the form $x^2/a^2+y^2/b^2=1$, but to begin from our circle equation we will instead add coefficients to the equation 
 $$Ax^2+By^2=2.$$
-These coefficients are bound by the points in the curve like $(x,y)=(1,1)$. We may derive the relation 
+These coefficients are determined by the points on the curve, such as $(x,y)=(1,1)$. We may derive the relation 
 $$A(1)^2+B(1)^2=2\To B=2-A\To tx^2+(2-t)y^2=2$$
 where we take $t=A$ to get the last equation.
-The parameter $t$ can vary to exhibit the following behavior:\par
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth, trim= 0.8cm 21cm 0.8cm 0.6cm,clip]{fig1.pdf}
-\end{figure}
-
+%The parameter $t$ can vary to exhibit the following behavior:\par
+%\iffalse
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.8\textwidth, trim= 0.8cm 21cm 0.8cm 0.6cm,clip]{fig1.pdf}
+%\end{figure}
+%\fi
 We annotate the curves we obtain given the values of $t$:
 \vspace{-0.5em}
 \begin{itemize}
@@ -42,22 +43,96 @@ We annotate the curves we obtain given the values of $t$:
     \item $(t=2)$: The pair of lines $x^2=1$.
     \item $(t>2)$: A hyperbola asymptotic to the $y$-axis.
 \end{itemize}
-The same phenomenon occurs (but in the $x$ axis) for $t<1$. We may summarize the behavior as follows:\par
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth, trim= 0.8cm 15cm 0.8cm 6.6cm,clip]{fig1.pdf}
-\end{figure}
+%The same phenomenon occurs (but in the $x$ axis) for $t<1$. 
+%\iffalse
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.8\textwidth, trim= 0.8cm 15cm 0.8cm 6.6cm,clip]{fig1.pdf}
+%\end{figure}
+%\fi
 However we are left with one curve which passes through the points in question. To find it we will assume $t$ is non-zero. From our parametric equation we obtain 
 $$tx^2+(2-t)y^2=2\To x^2+o(t^2)+y^2=\frac{2}{t^2}\xrightarrow[t\to\infty]{}x^2=y^2$$
-which is the pair of lines $y=\pm x$.
+which is the pair of lines $y=\pm x$. Observe that this behavior is independent of the sign of the infinity we are going to.\par 
+We may summarize the behavior as follows:\par
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.3\textwidth, trim= 0.8cm 7cm 16cm 14.6cm,clip]{fig1.pdf}
+    \includegraphics[width=0.8\textwidth, trim= 0.25cm 13.1cm 5.25cm 0.5cm,clip]{fig2.pdf}
 \end{figure}
-Observe that this behavior is independent of the sign of the infinity we are going to.\par 
 In essence what we have seen is that all the quadratic curves passing through our set of points can be parametrized by $\bR\cup\set{\infty}$. Formally:
 \begin{Prop}
 The moduli space $\ov{\cM}_{0,4}$ can be identified with $\bP^1_\bR$.
 \end{Prop}
-Intuitively the \term{moduli space} is a set where we may vary points \emph{continuously} and the objects which they parametrize will deform \emph{continuously} as well.
+Intuitively the \term{moduli space} is a set of parameters. When the points vary \emph{continuously}, the objects they parametrize deform \emph{continuously} as well. What we have done here is not a proof of the previous proposition but it may serve as evidence that it is true.\par 
+To study this space and other spaces which may arise in this fashion, we may ask a question like \emph{how many such curves can we find?} In order to this, we will address this problem through graphs. 
+
+\section*{Connection with trees}
+
+As a first approach we could consider a type of incidence graph where our vertices are the marked points and they are connected if they are in the same component of our curve. However that might produce undesirable results as it could lead to disconnected graphs.
+
+\begin{Def}
+For a point in $\ov{\cM}_{0,X}$ (which represents a curve), we define the \term{dual tree} to that curve as:
+\begin{itemize}
+    \item $V=X\cup I$ where $I$ is the set of irreducible components in our curve. The set $X$ attaches \textbf{labels} to our vertices while the curves are unlabeled.
+    \item Vertices in $X$ are not connected between themselves, but $u\in X$ is adjacent to $v\in I$ if $u$ lies in the irreducible component associated to $v$.\par 
+    For $u,v\in I$, $uv$ is an edge if the components meet at a node.
+\end{itemize}
+\end{Def}
+
+\begin{Ex}
+Let us consider the case of $\ov\cM_{0,4}$, our labeled vertices will be 
+$$a=(1,1),\quad b=(-1,1),\quad c=(-1,-1),\quad 1=(-1,-1).$$
+We have different types of trees:
+\begin{enumerate}[i)]
+    \item For ellipses and circles, the vertices are ${a,b,c,1}$ or ${\cdot}$, and the edges are of the form $x\cdot$ for $x\in X$. This gives us a $K_{1,4}$ graph.
+    \item Hyperbolas have a unique component. In the projective plane, the components are connected at the point corresponding to the \emph{slope of the asymptotes} at infinity, so the dual trees of the hyperbolas are also $K_{1,4}$ graphs.
+    \item For $t=0$, there are two unlabeled vertices. $a$ and $b$ are connected to one vertex, while $c$ and $1$ are connected to the other. At infinity, there is a nodal singularity at the point corresponding to the slope of the lines, which means they connect.\par 
+    A similar analysis can be done for $t=2$ and $t\to\infty$, and the resulting graph is two copies of $P_3$ connected by the middle edge.
+\end{enumerate}
+The corresponding trees are shown in the following figure: 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.4cm 8.3cm 9cm 16cm,clip]{fig2.pdf}
+\end{figure}
+\end{Ex}
+
+\begin{Rmk}
+Let us annotate some properties of the graphs we obtained:
+\begin{enumerate}[i)]
+    \itemsep-0.4em
+\item They are all trees.
+\item Looking at degrees, there are no vertices of degree 2.
+\end{enumerate}
+Also notice that when talking about the ellipses and the circle, we did not assign a particular value of $t$ to each of the curves. We just said \emph{an ellipse} or also \emph{an hyperbola}.
+\end{Rmk}
+
+\begin{Def}
+For a tree $T$ we have that:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item $T$ is \term{trivalent} if all vertices of $T$ have degree $1$ or $3$ and at least one vertex has degree $3$.
+    \item $T$ is \term{at least trivalent} if no vertex of $T$ has degree $2$ and at least one vertex has degree at least $3$.
+\end{enumerate}
+\end{Def}
+
+\begin{Rmk}
+In our graphs, observe that the trees associated to \emph{families} of curves like ellipses and hyperbolas, correspond to \emph{at least trivalent} trees.\par 
+While for the particular cases $t=0$, $t=2$ and $t\to\infty$ we get exactly \emph{trivalent} trees. \emph{This is no coincidence!}
+\end{Rmk}
+
+\begin{Def}
+    The \term{boundary stratum} corresponding to a tree $T$ is the set of curves whose dual tree is $T$. 
+\end{Def}
+
+\begin{Ex}
+In our example, the boundary stratum of $K_{1,4}$ is $$\obonj{-\infty,0}\cup\obonj{0,2}\cup\obonj{2,\infty}$$
+where we identify $\infty$ with $-\infty$.\par 
+The remaining points $\set{0},\set{2}$ and $\set{\infty}$ are \emph{zero-dimensional}\footnote{\red{What type of dimension are we talking about here?}} and these are the boundary points which correspond to the trivalent trees.
+\end{Ex}
+
+\section*{TO DO}
+\begin{enumerate}
+    \item Prove that graphs generated by this process are trees and every curve of genus zero gives us a tree. 
+    \item PRove that the number of boundary points is what its supposed to be by counting the number of leaf labeled trivalent trees. 
+    \item Find all trivalent trees that have something to do with $\cM_{0,5}$ and say something intelligent about that set.
+\end{enumerate}
 \end{document}
