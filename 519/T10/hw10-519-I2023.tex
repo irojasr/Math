@@ -52,5 +52,35 @@ Assume $f$ omits two values $a,b$ which means that
 $$f(z)-a=e^{p(z)},\word{and}f(z)-b=e^{q(z)}\word{for some}p,q\word{polynomials}.$$
 From this, we may subtract one equation from the other to get 
 $$b-a=e^{p(z)}-e{q(z)}$$
+\iffalse
+and now taking the limit as $z\to\infty$ on both sides we see that 
+$$\lim_{z\to\infty}(e^{p(z)}-e{q(z)})=b-a$$
+is finite limit. 
+\fi
+and now we may differentiate both sides of the equation to obtain 
+$$0=p'(z)e^{p(z)}-q'(z)e^{q(z)}.$$
+As this equation holds for \emph{all} $z\in\bC$ it must happen that $p'(z)$ and $q'(z)$ have the same zeroes with the same multiplicities. Thus $q'(z)=cp'(z)$ for some non-zero $c\in\bC$. Returning to our equation we have 
+$$e^{p(z)}p'(z)=cp'(z)e^{q(z)}\To e^{p(z)}=ce^{q(z)}\To ce^{q(z)}-e^{q(z)}=b-a.$$
+Differentiating this equation we obtain 
+$$(c-1)q'(z)e^{q(z)}=0\To q'(z)=0\To q\word{is constant}.$$
+This allows us to conclude that $f$ is constant as $f=e^q+b$.\par 
+If it occured that $c=1$, then $p'=q'$ and so $q(z)=p(z)+d$ for some $d\in\bC$. Replacing this in the equation we have 
+$$e^{p(z)}-e^{p(z)+d}=b-a\To(1-e^d)e^{p(z)}p'(z)=0\To p'(z)=0\To p\word{is constant}$$
+and once again we deduce $f$ is constant. Finally if it was the case that $d=0$, then $p=q$ but this means that 
+$$f(z)-e^{p(z)}=a=b$$ 
+and this can't happen as $a,b$ are different values of $\bC$. In conclusion we have that $f$ is constant.
    \end{ptcbr}
+
+\begin{Ej}
+   Assume $\Re(s)=\sg>0$. For $n,N\in\bN$ define 
+   $$\dl_n(s)=\frac{1}{n^s}-\int\limits_n^{n+1}\frac{\dd x}{x^s}=\int\limits_n^{n+1}\left(\frac{1}{n^s}-\frac{1}{x^s}\right)\dd x\word{and}F_N(s)=\sum_{n=1}^{N}\dl_n(s).$$
+   \begin{enumerate}[i)]
+      \itemsep=-0.4em
+      \item Show that $|\dl_n(s)|\leq\frac{|s|}{n^{\Re(s)+1}}$. \hint{Represent the integrand in the definition of $\dl_n$ using the
+      observation that $\int_n^x\frac{\dd u}{u^{s+1}}=\frac{-1}{s}(x^{-s}-n^{-s})$.}
+      \item Show that $(F_N(s))$ converges uniformly on any half-plane of the form $\Re(s)\geq \al>0$.
+      \item Show that $\zeta(s)-\frac{1}{s-1}$ is bounded and holomorphic near $s=1$. \hint{Use the fact that $\frac{1}{s-1}=\int_1^\infty x^{-s}\dd x$.}
+   \end{enumerate}
+   
+\end{Ej}
 \end{document} 
