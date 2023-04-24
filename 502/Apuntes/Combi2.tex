@@ -3272,6 +3272,144 @@ $$\begin{pmatrix}
     0&0&0&1\\1&x&y&0\\0&0&1&0\\0&1&0&0
 \end{pmatrix}$$
 we have $4132$ which reverses to $2314$.
+
+\section{Day 35| 20230419}
+
+We will continue talking about Grassmannians over real and complex numbers, but first we divert to topology.
+
+\subsection{Topology of the Projective Space}
+
+We can cover projective space by the distinguished open sets:
+
+$$\bP^2=D(x)\cup D(y)\cup D(z)$$
+
+and even if the sets intersect, we can still cover by these sets. We may also call these sets, \emph{affine patches}.\par 
+We may \emph{glue} the topologies in order to say when a set is open in projective space.
+
+\subsection{Limits in Projective Space}
+
+How would we begin to calculate $\lim_{t\to\infty}[1:t]$? As $t$ is growing, we have that it's not zero. So this means that this point is $[1/t:1]$. But this tends to $[0:1]$.\par 
+In the same fashion $[1:t^2:t]$ \emph{tends} to $[0:1:0]$ and $[2t:3t:1]$ tends to $[2:3:0]$. Observe the connection with the slope of the line!\par 
+In the same fashion as metric topology, the closure of set in projective space will include all of its limit points. With this we ask 
+\begin{significant}
+    What is the closure of points in projective space of the form $\set{[0:0:1:x:y:z]}$?
+\end{significant}
+This is a Schubert cell and we would like to find the limit points of this. Before we tackle it, we may ask an easier question.
+
+\begin{Ex}
+    Consider the set $\set{[x:y:1]}$, its closure is $\bP^2$. We have all of the affine plane and the limit points of lines which form the line at infinity.\par 
+    If we try closing the line $\set{[x:1:0]}$ we just have to add the point at infinity of this line which is $[1:0:0]$.
+\end{Ex}
+
+In general we have the following lemma:
+
+\begin{Lem}
+    Call $\Om_j$ the union of $D(x_i)$'s up to $j$, intersecting with $V(x_i)$ for $i>j$. Then its closure is the disjoint union of $\Om_k$ for $k\leq j$.
+\end{Lem}
+
+\begin{ptcbp}
+    To obtain $[y_0:y_1:\dots:y_{k-1}:1:0:\dots:0]$ as a limit we take 
+    $$\lim_{t\to\infty}[y_0t:y_1t:\dots:y_{k-1}t:t:0:\dots:0].$$
+    Its complement is open because it's a union of affine patches.
+\end{ptcbp}
+
+For the Grassmannian, the affine patches are defined by minors of our matrix with determinant $1$.
+
+\begin{Th}
+    For the Schubert cell $\Om_\la^o$, its closure is 
+    $$\bigcup_{(\ast)}\Om_\mu^o$$
+    where the union is taking over partitions $\mu$ which contain $\la$.
+\end{Th}
+
+\section{Day 36| 20230421}
+
+Recall the Grassmannian is the set of $k$-planes in $n$-space, the set of $k$-dimensional subspaces of $\bF^n$. Recall the Schubert cells are 
+$$\Om_\la^o=\set{\text{points in }Gr_k(n)\text{ represented by matrices in RR form with pivots in cols.}\la_k+1,\dots,\la_1+k}.$$
+\begin{Ex}
+    Consider the matrix 
+    $$\begin{pmatrix}
+        1&x&y&0&z&0&a\\
+        0&0&0&1&w&0&b\\
+        0&0&0&0&0&1&c
+    \end{pmatrix}$$
+    which represents \red{something}, this is associated to the tableau 
+    $$\young(xyza,~~wk,~~~c)$$
+    and the empty spaces correspond to the partition $\la=(3,2)$. An element of $\Om_{3,2}^o$ would be the row span of the matrix when substituting the variables by some values.\par 
+    This cell is contained in $Gr_3(7)$ and itself the cell is isomorphic to $\bF^7$ because we have 7 degrees of freedom.
+\end{Ex}
+
+Today we wish to show that the closure of the Schubert cell is the Schubert variety. Recall that for example $\ov{\set{[0:0:1:x:y:z]}}$ contains 
+$$\set{[0:0:0:1:a:b]}\cup\set{[0:0:0:0:1:w]}\cup\set{[0:0:0:0:0:1]}.$$
+We will see how it works with the example in question. This means that we want to show some limit of points in $\Om_{\young(~~,~~~)}^o$ gives any chosen point of 
+$$\Om_{\young(~~,~~~~)}^o\cup\Om_{\young(~~~,~~~)}^o\cup\Om_{\young(~,~~,~~~)}^o.$$
+So we would like to see how 
+$$\begin{pmatrix}
+    0&1&x&0&y&0&z\\
+    0&0&0&1&w&0&r\\
+    0&0&0&0&0&1&s
+\end{pmatrix}$$
+is a limit of our original matrix. Observe that 
+$$\lim_{t\to\infty}\begin{pmatrix}
+    1&t&xt&0&yt&0&zt\\
+    0&0&0&1&w&0&b\\
+    0&0&0&0&0&1&c
+\end{pmatrix}=\lim_{t\to\infty}\begin{pmatrix}
+    1/t&1&x&0&y&0&z\\
+    0&0&0&1&w&0&b\\
+    0&0&0&0&0&1&c
+\end{pmatrix}$$
+and this tends to the new Schubert cell. For the case of $\Om_{(3,3)}^o$ we now have the other way. We creatively form 
+$$\begin{pmatrix}
+    1&x&y&0&-tz&0&w-trz\\
+    0&0&0&1&t&0&tr\\
+    0&0&0&0&0&1&s
+\end{pmatrix}$$
+and the limit of this goes to a Schubert cell in $\Om_{(3,3)}^o$. Let us work backwards from a Schubert cell in $\Om_{(4,2)}^o$, we have 
+$$\begin{pmatrix}
+    1&x&y&0&z&w&0\\
+    0&0&0&1&a&b&0\\
+    0&0&0&0&0&0&1
+\end{pmatrix}$$
+Observe that this is the limit of 
+$$\begin{pmatrix}
+    1&x&y&0&z&w&0\\
+    0&0&0&1&a&b&0\\
+    0&0&0&0&0&1&t
+\end{pmatrix}\to\begin{pmatrix}
+    1&x&y&0&z&0&-wt\\
+    0&0&0&1&a&0&-bt\\
+    0&0&0&0&0&1&t
+\end{pmatrix}$$
+and this last matrix is a Schubert cell of $\Om_{(3,2)}^o$. This can be seen in the following diagram:
+\begin{figure}[h!]
+    PICTURE
+\end{figure}
+
+\subsection{Poset of Schubert cells for $Gr(2,4)$}
+
+All the partitions we can obtain are the subpartitions of $(2,2)$. The empty partition is at the top, which corresponds as 
+$$\Om_\emptyset^o=\Set{\begin{pmatrix}1&0&x&y\\0&1&z&w\end{pmatrix}}\isom\bR^4.$$
+On this partition we can find $(1)$ which is 
+$$\Om_\emptyset^o=\Set{\begin{pmatrix}1&x&0&y\\0&0&1&w\end{pmatrix}}\isom\bR^3.$$
+Partitions which contain these are $(1,1)$ and $(2)$ and they correspond to $\bR^2$. We have that elements of the Schubert cell of $(2)$ look like 
+$$\Set{\begin{pmatrix}1&x&y&0\\0&0&0&1\end{pmatrix}}\isom\bR^2.$$
+Given the poset, finding the closure is just taking the union of objects below it!
+
+\begin{Ex}
+    Now consider the poset $Gr_2(5)$. At the top there is an empty set one.
+    \begin{figure}
+        PICTURE
+    \end{figure}
+    This is a subposet of Young's lattice!
+\end{Ex}
+
+\begin{Def}
+    An \term{algebraic variety} is the set of points defined by polynomial equations. When it's projective, the polynomials must be homogenous.
+\end{Def}
+
+\begin{Ex}
+    The variety of $xy-1$ is associated to the projective variety $xy-z^2$.
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

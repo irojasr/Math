@@ -81,6 +81,33 @@ and this can't happen as $a,b$ are different values of $\bC$. In conclusion we h
       \item Show that $(F_N(s))$ converges uniformly on any half-plane of the form $\Re(s)\geq \al>0$.
       \item Show that $\zeta(s)-\frac{1}{s-1}$ is bounded and holomorphic near $s=1$. \hint{Use the fact that $\frac{1}{s-1}=\int_1^\infty x^{-s}\dd x$.}
    \end{enumerate}
-   
 \end{Ej}
+
+\begin{ptcbr}
+   \begin{enumerate}[i)]
+      \itemsep=-0.4em
+      \item Observe that from the hint we have 
+      $$s\int\limits_n^x\frac{\dd u}{u^{s+1}}=\left(\frac{1}{n^s}-\frac{1}{x^s}\right).$$
+      Then replacing this expression inside $\dl_n$ we get 
+      $$ |\dl_n(s)|=\left|\int\limits_{n}^{n+1}s\int\limits_n^x\frac{\dd u}{u^{s+1}}\dd x\right|\leq \int\limits_{n}^{n+1}|s|\left|\int\limits_n^x\frac{\dd u}{u^{s+1}}\right|\dd x$$
+      and we can estimate the inner integral by taking the integrand's sup-norm. We have 
+      $$\left|\int\limits_n^x\frac{\dd u}{u^{s+1}}\right|\leq\sup_{n\leq u\leq x}\left|\frac{1}{u^{s+1}}\right|(x-n)$$
+      and for positive real numbers $u$ we can estimate $|u^z|$ as 
+      $$|u^x||u^{iy}|=u^x|e^{iy\log(u)}|=u^x$$ 
+      so this means that 
+      $$\sup_{n\leq u\leq x}\left|\frac{1}{u^{s+1}}\right|(x-n)=\sup_{n\leq u\leq x}\frac{1}{u^{\sg+1}}(x-n)\leq\frac{x-n}{n^{\sg+1}}$$
+      where the last inequality holds because $\frac{1}{u^{\sg+1}}$ is a decreasing function. Returning to our $\dl_n$ estimate we have
+      $$\int\limits_{n}^{n+1}|s|\left|\int\limits_n^x\frac{\dd u}{u^{s+1}}\right|\dd x\leq \int\limits_{n}^{n+1}|s|\frac{x-n}{n^{\sg+1}}\dd x=\frac{|s|}{n^{\sg+1}}\frac{1}{2}\leq\frac{|s|}{n^{\sg+1}}.$$
+      \item We now consider the partial sums $F_N=\sum_{n=1}^{N}\dl_n$. Observe that we may bound $F_N$ with the countable triangle inequality:
+      $$|F_N(s)|\leq \sum_{n=1}^{N}|\dl_n(s)|\leq\sum_{n=1}^{N}\frac{|s|}{n^{\sg+1}}$$
+      and this is a series of real numbers which converges when $\sg>0$. This implies that $F_N$ converges uniformly for $\sg\geq\al>0$.
+      \item Observe that from our initial identity 
+      $$\dl_n(s)=\frac{1}{n^s}-\int\limits_n^{n+1}\frac{\dd x}{x^s}$$
+      we can sum up to $N$ to obtain
+      $$F_N(s)=\sum_{n=1}^{N}\frac{1}{n^s}-\sum_{n=1}^{N}\left(\int\limits_n^{n+1}\frac{\dd x}{x^s}\right)=\sum_{n=1}^{N}\frac{1}{n^s}-\int\limits_{1}^{N+1}\frac{\dd x}{x^s}.$$
+      Letting $N$ grow without bound we arrive at 
+      $$\lim_{N\to\infty}F_N(s)=\zeta(s)-\int\limits_1^{\infty}\frac{\dd x}{x^s}=\zeta(s)-\frac{1}{s-1}.$$
+      As the properties of the sequence $(F_N(s))$ are preserved through uniform limit, we have that $F_\infty(s)$ is bounded and holomorphic for $\sg>0$. So our expression for the equality is only valid wherever the improper integral converges, and this is where $\sg>1$. So we obtain the desired result as $F_\infty$ is $\zeta(s)-\frac{1}{s-1}$.
+   \end{enumerate}
+\end{ptcbr}
 \end{document} 
