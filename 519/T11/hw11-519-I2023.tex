@@ -12,10 +12,58 @@
 
 \begin{document}
 
-\begin{Ej}[]
-   
+\begin{Ej}[7.8 Stein\& Shakarchi]
+    The function $\zeta$ has infinitely many zeros in the critical strip. This can be seen as follows.
+    \begin{enumerate}[i)]
+        \item Let 
+        $$F(s)=\xi(1/2+2),\word{where}\xi(s)=\pi^{-s/2}\Ga(s/2)\zeta(s).$$
+        Show that $F(s)$ is an even function of $s$ and as a result, there exists $G$ such that $G(s^2)=F(s)$.
+        \item Show that the function $(s-1)\zeta(s)$ is an entire function of growth order $1$, that is 
+        $$|(s-1)\zeta(s)|\leq A_\eps e^{a_\eps|s|^{1+\eps}}.$$
+        As a consequence $G(s)$ is of growth order $1/2$.
+        \item Deduce from the above that $\zeta$ has infinitely many zeros in the critical strip.
+    \end{enumerate}
+    \hint{To prove the first two parts use the functional equation for $\zeta(s)$. For the last one, use a result of Hadamard, which states that an entire function with fractional order has infinitely many zeros (Exercise 14 in Chapter 5).}
 \end{Ej}
 
 \begin{ptcbr}
+\end{ptcbr}
+
+\begin{Ej}[7.6 Stein\& Shakarchi]
+    Read [SS]7.6, assume its result, and proceed as follows. Let $\dl$ be the function defined in [SS]7.6:
+\end{Ej}
+
+\begin{ptcbr}
+\end{ptcbr}
+
+\begin{Ej}
+    One uses the results of the previous problems in the following way.
+    \begin{enumerate}[i)]
+        \item Show that $\res(G,1)=X$. \hint{Use the fact that $\zeta(s)$ has a pole at $ s = 1$ of order $1$.}
+        \item Show that $\res(G,0)=\lim_{s\to 0}\frac{-\zeta'(s)}{\zeta(s)}$. \emph{It turns out that this is $-\log(2\pi)$.}
+        \item Show that $\sum\res(G,\rho)=-\frac{1}{2}\log(1-X^{-2})$, where the sum is over the trivial zeros of $\zeta(s)$.
+    \end{enumerate}
+    \emph{From here, moving c “all the way to the left” means that we pick up all the residues of $G(s)$, and we
+    are left with von Mangoldt's explicit formula:}
+    $$\psi(X)=X-\sum\frac{X^\rho}{\rho}-\frac{\zeta'(0)}{\zeta(0)}-\half\log(1-X^{-2})$$
+    \emph{where the sum is over all critical zeroes of $\zeta(s)$.}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \item Observe that 
+        $$\res(G,1)=\lim_{s\to 1}(s-1)\frac{X^s}{s}\left(\frac{-\zeta'(s)}{\zeta(s)}\right)=\lim_{s\to 1}\frac{X^s}{s}\lim_{s\to 1}(s-1)(L(\zeta(s))).$$
+        The limit on the right is the residue at $s=1$ of the logarithmic derivative of $\zeta$, it is know that this residue is the order of the point in question of the function. This means that 
+        $$\res(G,1)=X\.-\ord(\zeta,1)=X\.1=X.$$
+        \item In this case, we have that 
+        $$\res(G,0)=\lim_{s\to 0}(s)\frac{X^s}{s}\left(\frac{-\zeta'(s)}{\zeta(s)}\right)=\left(\lim_{s\to 0}X^s\right)\left(\lim_{s\to 0}\frac{-\zeta'(s)}{\zeta(s)}\right)$$
+        and the left limit turns to $1$ so we obtain the desired result.
+        \item It is a subtle observation that 
+        $$-\half\log(1-X^{-2})=\half\sum_{n\geq 1}\frac{\left(\frac
+        {1}{X^2}\right)^n}{n}=\sum_{n\geq 1}\frac{X^{-2n}}{2n}.$$
+        Now, the trivial zeroes of the zeta function are at $s=-2n$, so 
+        $$\res(G,-2n)=\lim_{s\to-2n}(s+2n)\frac{X^s}{s}\left(\frac{-\zeta'(s)}{\zeta(s)}\right)=\left(\lim_{s\to-2n}\frac{X^s}{s}\right)(-\ord(\zeta,-2n))$$
+        where the limit evaluates to $\frac{X^{-2n}}{-2n}$ and the order is $1$ so we obtain $\frac{X^{-2n}}{2n}$ and summing through all trivial zeroes we obtain the desired result.
+    \end{enumerate}
 \end{ptcbr}
 \end{document} 
