@@ -3441,6 +3441,92 @@ This idea turns into an equivalence relation, so we would like to study projecti
 \end{Def}
 
 We will be talking about the Chow ring of Grassmannians.
+
+\section{Day 38| 20230426}
+
+Recall that we have defined the Chow ring as the set of formal linear comnbinations of subvarieties up to rational equivalence. 
+
+\begin{Ej}
+    Any subvariety of $\bP^2$ is rationally equivalent to a certain number of lines.
+\end{Ej}
+
+\begin{Ex}
+    Let $\sg$ be the class of lines in $\bP^2$ and $\mu$ be the class of $\bV(xy-z^2)$. If we wanted to find a relation between this classes, we could say 
+    $$\mu=2\sg$$
+    because each of the lobes of the hyperbola is a deformed line. We can thus interpret the sum as union.
+\end{Ex}
+
+Observe that the Chow ring can be decomposed as a graded ring where the grading is the \emph{codimension}. The reason we want this is because we can find a correspondence between sum with union and product with intersection.\par 
+For two classes of varieties $Y,Z$ which are \emph{nice enough}, then $\bonj{Y}\bonj{Z}=\bonj{Y\cap Z}$. 
+
+\begin{Ex}
+    In the last example we have 
+    $$\sg\.\sg=\bonj{\text{pt}}$$
+    unless we've chosen the same exact line as class representative.\par 
+    We can compute $\mu\.\sg$ in two ways:
+    $$\mu\.\sg=(2\sg)\.\sg=2\sg^2=2\bonj{\text{pt}}$$
+    which means that the intersection of a random hyperbola with a random line is $2$ points!
+\end{Ex}
+
+\begin{Ej}
+    It is true that $A^\8(\bP^2)=\quot{\bC[\sg]}{\genr{\sg^3}}$.
+\end{Ej}
+
+\subsection{The Chow ring of the Grassmannian}
+
+\begin{Th}
+    The Chow ring of the Grassmannian $A^\8(Gr_k(n))$ is isomorphic to the ring of symmetric functions with a quotient of Schur functions $s_\la$. However $\la$ can't be a subset of $(n-k)^k=(n-k,n-k,\dots,n-k)$.
+\end{Th}
+
+The idea is that basis is $\sg_\la$ which is the class of the Schubert variety $\Om_\la^o$. The isomorphism is $s_\la\mapsto\sg_\la$. Geometrically the Schubert varieties generate everything inside the Grassmannian.\par 
+As there's more than one representative of the Schubert variety class, we can talk about $k$-planes intersecting certain flags. So as an example 
+$$\bonj{\Om_la}\.\bonj{\Om_\mu}=(M_1)(M_2)$$
+but $M_2$ is a matrix row-reduced in an \emph{opposite way}. The idea is that $\la$ and $\mu$ are complementary implies that the product is the class of a point.\par 
+Otherwise in more general cases we find that this has the same multiplication structure as Schur functions. This is:
+$$\sg_\la\sg_\mu=\sum_{(\ast)}c_{\la\mu}^\nu\sg_\nu$$
+where the $\nu$ are subpartitions of $(n-k)^k$.
+
+\begin{Ex}
+    $\sg_{(1)}^4=2\sg_{(2,2)}$ in $Gr(2,4)$, this is what Jake Levinson mentioned. 
+\end{Ex}
+
+\subsection{Alissa and Conager: Hook Length Formula}
+
+Recall that the hook length formula \emph{has this funny formula}. The idea is to count the number of SYT of shape $\la$.
+
+\begin{Ex}
+    $f^{(3,2)}=5$
+\end{Ex}
+
+Bruce Sagan described the proof of the Hook Length formula: It was proven on a Saturday after being conjectured on a Tuesday. The original paper is by Frame, Robinson and Thrall. That original paper wasn't very descriptive.\par 
+Sagan proves the formula by induction on the size of the partition. This \emph{doesn't} help why the hook-lengths are important. There's a probabilistic proof and a bijective proof. This last one is more challenging.\par 
+Up until the $1990$'s there was no good bijective proof.
+
+\begin{Ex}
+    For $\sh=(3,2)$ we define a hook function, this fills $\sh$ with integers with a given condition.\par 
+    There's 24 hook functions on $(3,2)$ so the bijection is the $5$ SYT with the $24$ hook functions which means there's $120$ cells.\par 
+    The idea is that $(SYT,HFunc)$ is mapped to $n!$(?)
+\end{Ex}
+
+Conager didn't understand Stanley's \cite{StanleyEnum1} when reading the proof of the formula\footnote{Actually nobody does, and anyone who claims to do so, is lying.}. The proof is outlined in chapter 4 of the book.
+
+\begin{Ex}
+    Consider the tableau
+    $$\young(21,431,542)$$
+    so using the formula $\mu_1=3+3-1=5$, $\mu_2=3+3-2=4$, $\mu_3=2+3-3=2$ as desired. 
+\end{Ex}
+
+Each cell has a \emph{content} assigned to it. For this previous tableau we get 
+
+$$\young(21,4321,54321)$$
+and each row corresponds to the factorial. And removing the \emph{red entries} we get the tableau with content $h(u)$. We can see that 
+$$\frac{5!4!2!}{(5-4)(5-2)(4-2)}=5\.4^2\.3\.2^2\.1^2.$$
+This is the same product formula for the first lemma.\par 
+The next formula is a product of $n+c(u)$ where the content is $j-i$. For the same $\la$, the content is 
+$$\young(-2-2,-101,012)\to\young(12,234,345)\to\young(**~~,*~~~~,~~~~~)$$
+so we fill it out with content $j-i+1$
+$$\young(**12,*1234,12345)$$ 
+and when removing the \emph{red cells} we get out old $\la$. And just as before relating with the formulas in the lemma we have the example. Combining this results into a ratio we get a quotient of ratios.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

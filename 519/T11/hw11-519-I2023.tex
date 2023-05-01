@@ -34,7 +34,8 @@
         &=\xi\left(1-\left(\half+s\right)\right)=\xi\left(\half+s\right)
         \end{align*}
         where the last equality comes from the identity $\xi(s)=\xi(1-s)$ for all $s\in\bC$.
-        \item We know that $\zeta(s)$ has a pole of order $1$ at $s=1$ and that's it's only pole. So the function $(s-1)\zeta(s)$ is holomorphic on the whole plain which means it's entire.
+        \item We know that $\zeta(s)$ has a pole of order $1$ at $s=1$ and that's it's only pole. So the function $(s-1)\zeta(s)$ is holomorphic on the whole plain which means it's entire. \red{Show order of growth}
+        \item Finally our function has non-integral order so it has an infinite number of roots. This follows from a exercise where we use Hadamard's factorization theorem.
     \end{enumerate}
 \end{ptcbr}
 
@@ -51,12 +52,30 @@
     \begin{enumerate}[i)]
         \item Show that $\Psi(X)=\sum_{n\geq 1}\La(n)\dl\left(\frac{X}{n}\right)$.
         \item Consider $G(s)=\frac{X^s}{s}\left(\frac{-\zeta'(s)}{\zeta(s)}\right)$, show that 
-        $$\Psi(X)=\frac{1}{2\pi i}\hspace*{-1em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1em}G(s)\dd s.$$
+        $$\Psi(X)=\frac{1}{2\pi i}\hspace*{-1.5em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1.5em}G(s)\dd s.$$
     \end{enumerate}
     \hint{Assume you can exchange summation and integration; you will need to use our formula from class for $L(\zeta(s))$, which is also in [SS] Chapter 7, section 2.}
 \end{Ej}
 
 \begin{ptcbr}
+\begin{enumerate}[i)]
+    \item Observe that the $\dl$ function can be expressed as a sum of indicator functions:
+    $$\dl(a)=\ind_{\set{a>1}}+\half\ind_{\set{a=1}}+0\ind{\set{0\leq a<1}}.$$
+    In this sense we have that for a fixed $n$, the function $\dl\left(\frac{X}{n}\right)$ is 
+    $$\dl\left(\frac{X}{n}\right)=\ind_{\set{X>n}}+\half\ind_{\set{X=n}}+0\ind_{\set{X<n}}.$$
+    So reminding ourselves that $X$ is a positive non-integer we have that $\dl(X/n)$ is never $\half$. Now fix $X$ so that 
+    $$\sum_{n\geq 1}\La(n)\dl\left(\frac{X}{n}\right)=\sum_{n<X}\La(n)+0\sum_{n>X}\La(n).$$
+    As the rest of the sum is zero because of the indicator, we have that the whole sum actually is $\sum_{n<X}\La(n)$ which is precisely our $\Psi$ function.
+    \item If we now have the integral in question, we may replace $G$ by its definition and see that 
+    $$\frac{1}{2\pi i}\hspace*{-1.5em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1.5em}\frac{X^s}{s}\left(\frac{-\zeta'(s)}{\zeta(s)}\right)\dd s=\frac{1}{2\pi i}\hspace*{-1.5em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1.5em}X^s\frac{\dd s}{s}\sum_{n=1}^\infty\frac{\La(n)}{n^s}.$$
+    Subtly applying the dominated convergence theorem we may interchange the series with th integral to obtain 
+    $$\sum_{n=1}^\infty\La(n)\frac{1}{2\pi i}\hspace*{-1.5em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1.5em}\left(\frac{X}{n}\right)^s\frac{\dd s}{s}$$
+    and by exercise $7.6$ we know that the integral in question is 
+    $$\frac{1}{2\pi i}\hspace*{-1.5em}\int\limits_{\set{\Re(s)=c}}\hspace*{-1.5em}\left(\frac{X}{n}\right)^s\frac{\dd s}{s}=\ind_{\set{X>n}}$$
+    which means that the whole expression is 
+    $$\sum_{n=1}^\infty\La(n)\ind_{\set{X>n}}=\sum_{n<X}\La(n)$$
+    as desired. As both expressions equal the same sum, we have that $\Psi$ is the integral in question.
+\end{enumerate}
 \end{ptcbr}
 
 \begin{Ej}
