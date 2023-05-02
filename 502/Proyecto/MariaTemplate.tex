@@ -34,7 +34,12 @@
 \newcommand{\set}[1]{\{\,#1\,\}}    %% set notation
 \newcommand{\obonj}[1]{\left\rbrack#1\right\lbrack}
 \newcommand*{\Cdot}{{\raisebox{-0.25ex}{\scalebox{1.5}{$\cdot$}}}}      %% cdot más grande
-
+\DeclareMathOperator{\PGL}{PGL} %%% grupo proyectivo lineal
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+    #1 \\ #2 \end{pmatrix}}
+ \newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+    #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\less}{\setminus}           %% set difference
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{prop}[theorem]{Proposition}
@@ -117,7 +122,7 @@ We annotate the curves we obtain given different values of $t$:
     \end{multicols}
 \end{itemize}
 However we are left with one curve which passes through the points in question. To find it we will assume $t$ is non-zero. From our parametric equation we obtain 
-$$tx^2+(2-t)y^2=2\To x^2+o(t^2)+y^2=\frac{2}{t^2}\xrightarrow[t\to\infty]{}x^2=y^2$$
+$$tx^2+(2-t)y^2=2\To x^2+o(t)+y^2=\frac{2}{t}\xrightarrow[t\to\infty]{}x^2=y^2$$
 which is the pair of lines $y=\pm x$. Observe that this behavior is independent of the sign of the infinity we are going to. 
 \begin{figure}[h!]
     \centering
@@ -145,7 +150,7 @@ For a point in $\ov{\cM}_{0,X}$ (which represents a curve), we define the \under
 \end{itemize}
 \end{Def}
 
-Even though we have defined the dual tree to be a tree, it may not be totally clear why this is the case: buajaja figure \ref{fig2} \ref{fig1}
+Even though we have defined the dual tree to be a tree, it may not be totally clear why this is the case: \textbf{buajaja figure \ref{fig2} \ref{fig1}}
 \begin{center}\begin{minipage}{0.9\textwidth}\centering\em
     Why should this process generate a tree? Why not a disconnected graph or a cycle?
 \end{minipage}\end{center}
@@ -156,6 +161,7 @@ Let us consider the case of $\ov\cM_{0,4}$, our labeled vertices will be
 $$a=(1,1),\quad b=(-1,1),\quad c=(-1,-1),\quad 1=(-1,-1).$$
 We have different types of trees:
 \begin{enumerate}
+    \itemsep=-0.4em
     \item For ellipses and circles, the vertices are ${a,b,c,1}$ or ${\cdot}$, and the edges are of the form $x\cdot$ for $x\in X$. This gives us a $K_{1,4}$ graph.
     \item Hyperbolas have a unique component. In the projective plane, the components are connected at the point corresponding to the \emph{slope of the asymptotes} at infinity, so the dual trees of the hyperbolas are also $K_{1,4}$ graphs.
     \item For $t=0$, there are two unlabeled vertices. $a$ and $b$ are connected to one vertex, while $c$ and $1$ are connected to the other. At infinity, there is a nodal singularity at the point corresponding to the slope of the lines, which means they connect.\par 
@@ -263,6 +269,92 @@ $$L_{n}=E_{n-1}L_{n-1},\quad L_0=1.$$
 With these results in hand the proposition is immediately true. The fact the boundary points correspond to the trivalent trees is a consequence of the fact that automorphisms of $\bP^1$ are determined by $3$ points.
 
 \section{But what really is $\ov{\cM}_{0,n}$?}
+
+Up to now we've referred to $\ov{\cM}_{0,4}$, so let us concretely explain what that space is by answering a couple of questions:
+\begin{enumerate}
+    \itemsep=-0.4em
+    \item On its own, without the closure, what is $\cM_{0,4}$?
+    \item What is being added with the closure, and what topology are we working with?
+\end{enumerate}
+
+To address these questions we refer to \cite{RenzoNotes} and \cite{cavalieri2021projective}. 
+\iffalse
+\begin{Def}
+    The \underline{moduli space} $\cM_{0,n}$ parametrizes genus $0$ curves with $n$ marked points.
+\end{Def}
+
+It is a lucky coincidence that the only genus $0$ curve is \textbf{ASK MARK/MARIA} so this definition can be restated with this in mind. 
+\fi
+\begin{Def}
+    The \underline{moduli space} $\cM_{0,n}$ parametrizes ordered $n$-tuples of distinct points in $\bP^1$ up to \emph{projective equivalence}. Two arrays of points $(p_1,\dots,p_n),\ (q_1,\dots,q_n)$ are equivalent when 
+    $$\exists T\in\PGL_2\left[(q_1,\dots,q_n)=(Tp_1,\dots,Tp_n)\right].$$
+    In our case $\cM_{0,4}$ can be seen to be the set of \emph{equivalence classes} of arrays $(p_1,\dots,p_4)$ with $p_i\in\bP^1$. 
+\end{Def}
+
+\begin{Rmk}
+    Drawing an analogy with matrices, where the row-reduced echelon form serves as a canonical representative of the equivalence class of row-equivalent matrices, we seek a similar notion of canonical representation for the moduli space $\cM_{0,4}$.
+\end{Rmk}
+
+\begin{Prop}
+    Any projective transformation $T\in\PGL_2$ is determined by where it maps $0,1$ and $\infty$. 
+\end{Prop}
+
+The proof of this fact is a basic computation in linear algebra.
+
+\begin{Rmk}
+    Before starting the proof, we point out a caveat. The projective transformation that we will find here maps $0,1$ and $\infty$ to $3$ points $p_1,p_2,p_3$.\par 
+    The inverse of this transformation is the one that we use to find a representative of the equivalence class. Because it maps our points $p_1,p_2,p_3$ to $0,1,\infty$. 
+\end{Rmk}
+
+\begin{proof}
+    Assigning coordinates we have 
+    $$0=[0:1],\quad 1=[1:1],\quad \infty=[1:0].$$
+    Now suppose $T=\twobytwo{t_{11}}{t_{12}}{t_{21}}{t_{22}}$ is a projective transformation and $p,q,r$ are points in $\bP^1$ such that
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &T[1:0]=p=[p_1:p_2]\\
+        &T[0:1]=q=[q_1:q_2]\\
+        &T[1:1]=r=[r_1:r_2]
+    \end{aligned}
+    \right.
+    $$
+    From the first two equations we have that 
+    $$\twobyone{t_{11}}{t_{21}}=m_1\twobyone{p_1}{p_2},\quad\text{and}\quad\twobyone{t_{12}}{t_{22}}=m_2\twobyone{q_1}{q_2}\quad\text{for some}\quad m_1,m_2\neq 0$$
+    which means that the columns of $T$ are proportional to $p$ and $q$ and to determine $T$ we are only required to determine $m_1$ and $m_2$. Replacing these entries into the matrix and considering the last equation we have 
+    $$\twobytwo{m_1p_1}{m_2q_1}{m_1p_2}{m_2q_2}\twobyone{1}{1}=m_3\twobyone{r_1}{r_2}\To \left\lbrace
+    \begin{aligned}
+        &m_1p_1+m_2q_1=m_3r_1,\\
+        &m_1p_2+m_2q_2=m_3r_2,
+    \end{aligned}
+    \right.\To \twobytwo{p_1}{q_1}{p_2}{q_2}\twobyone{m_1}{m_2}=\twobyone{m_3r_1}{m_3r_2}.$$
+    The last matrix's columns are linearly independent because they are the image of two l.i. vectors under a linear transformation. This means that we may recover $(m_1,m_2)$ by inverting that matrix:
+    $$\twobyone{m_1}{m_2}=m_3\twobytwo{p_1}{q_1}{p_2}{q_2}^{-1}\twobyone{r_1}{r_2}.$$
+    This information determines $T$ up to a scalar multiple $m_3$ which means that projectively, we have determined $T$.
+\end{proof}
+
+With the proposition in hand we may map the first $3$ points of our array to the special points $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
+$$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
+At the level of equivalence classes this means:
+$$[(\bP^1,(p_1,\dots,p_4))]=[(\bP^1,(0,1,\infty,t))]$$
+and so every equivalence class of points is determined by a unique $t\in\bP^1$.
+
+\begin{Rmk}
+Recall that in the definition of the moduli space, we stated that the points $(p_1,\dots,p_4)$ should be \textbf{distinct}! So this means that $t$ is not in the whole of $\bP^1$, $t$ can't be $0,1$ nor $\infty$. 
+\end{Rmk}
+
+The previous discussion proves the following result.
+
+\begin{Prop}
+    The moduli space $\cM_{0,4}$ is isomorphic to $\bP^1\less\set{0,1,\infty}$.
+\end{Prop}
+
+Our intuition points to the fact that the closure of $\cM_{0,4}$ will include the values of $\bP^1$ that we have excluded. The compactification process we describe is the Deligne-Mumford compactification, even though there are other possible ways to compact this space.
+
+\begin{Def}
+    The space $\ov{\cM}_{0,n}$ parametrizes pg 30modulaiespeises
+\end{Def}
+
 
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
