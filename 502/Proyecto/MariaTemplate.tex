@@ -31,6 +31,7 @@
 \newcommand{\To}{\Rightarrow}           %% entre funtores
 \newcommand{\ov}{\overline}        %% short for  \overline
 \newcommand{\cM}{\mathcal{M}}           %% multiplicadores
+\newcommand{\cC}{\mathcal{C}}           %% curvas
 \newcommand{\set}[1]{\{\,#1\,\}}    %% set notation
 \newcommand{\obonj}[1]{\left\rbrack#1\right\lbrack}
 \newcommand*{\Cdot}{{\raisebox{-0.25ex}{\scalebox{1.5}{$\cdot$}}}}      %% cdot más grande
@@ -131,7 +132,7 @@ which is the pair of lines $y=\pm x$. Observe that this behavior is independent 
     \caption{The projective real line as the moduli space $\ov\cM_{0,4}$.}
 \end{figure}
 In essence what we have seen is that all the quadratic curves passing through our set of points can be parametrized by $\bR\cup\set{\infty}$. Formally:
-\begin{Prop}
+\begin{Prop}\label{prop:cM04barIsomP1}
 The moduli space $\ov{\cM}_{0,4}$ can be identified with $\bP^1_\bR$.
 \end{Prop}
 Intuitively the moduli space is a set of parameters. When the points vary \emph{continuously}, the objects they parametrize deform \emph{continuously} as well. What we have done here is not a proof of the previous proposition but it may serve as evidence that it is true.\par 
@@ -150,7 +151,7 @@ For a point in $\ov{\cM}_{0,X}$ (which represents a curve), we define the \under
 \end{itemize}
 \end{Def}
 
-Even though we have defined the dual tree to be a tree, it may not be totally clear why this is the case: \textbf{buajaja figure \ref{fig2} \ref{fig1}}
+Even though we have defined the dual tree to be a tree, it may not be totally clear why this is the case: %\textbf{buajaja figure \ref{fig2} \ref{fig1}}
 \begin{center}\begin{minipage}{0.9\textwidth}\centering\em
     Why should this process generate a tree? Why not a disconnected graph or a cycle?
 \end{minipage}\end{center}
@@ -214,7 +215,7 @@ The observation that the boundary points correspond to the trivalent trees is ke
 To count the number of leaf-labeled trivalent trees $L_n$ on $n+3$ leaves, we begin with the following small values:
 \begin{itemize}
     \item When $n=0$, there is only one tree, $K_{1,3}$, with a unique labeling of the leaves. So $L_0=1$, which coincides with $(2(0)+1)!!=1$.
-    \item When $n=1$, we have two copies of $P_3$ joined by their middle vertices. There are $4!$ ways to label the four leaves without constraints. Accounting for symmetries, we have $L_1=4!/2^3=3$, as pictured in the Figure \ref{fig3} above.
+    \item When $n=1$, we have two copies of $P_3$ joined by their middle vertices. There are $4!$ ways to label the four leaves without constraints. Accounting for symmetries, we have $L_1=4!/2^3=3$, as pictured in the figure above.
     \item For the next case we are supposed to find $15$ trees. Counting by hand or considering symmetries is not the way to go. We've got to be more creative than that. A question arises:
     \begin{center}\begin{minipage}{0.9\textwidth}\centering\em
         Is there a way to obtain the next trees from the old trees?
@@ -349,13 +350,29 @@ The previous discussion proves the following result.
     The moduli space $\cM_{0,4}$ is isomorphic to $\bP^1\less\set{0,1,\infty}$.
 \end{Prop}
 
-Our intuition points to the fact that the closure of $\cM_{0,4}$ will include the values of $\bP^1$ that we have excluded. The compactification process we describe is the Deligne-Mumford compactification, even though there are other possible ways to compact this space.
+Intuitively, and guiding ourselves with what we mentioned in proposition \ref{prop:cM04barIsomP1}, we can think that the missing points in the compactification are $\set{0,1,\infty}$. The following is the concrete definition of the closure of $\cM_{0,n}$.
 
 \begin{Def}
-    The space $\ov{\cM}_{0,n}$ parametrizes pg 30modulaiespeises
+    The space $\ov{\cM}_{0,n}$ parametrizes \emph{stable $n$-pointed rational curves}. And one of those curves is a tuple $(\cC,p_1,\dots,p_n)$ such that:
+    \begin{enumerate}
+        \itemsep=-0.4em
+        \item $\cC$ is a connected curve of arithmetic genus 0 with at worst simple nodal singularities.
+        \item The points $p_1,\dots,p_n$ are distinct and non-singular on $\cC$.
+        \item Each irreducible component of $\cC$ has at least $3$ special points (be it marked points or nodes).
+    \end{enumerate}
 \end{Def}
 
+Observe that what we are basically allowing with this definition is that the last point $t$ can indeed be equal to one of our other points. In doing so we allow for nodal singularities in our curves.\par 
+However up to projective equivalence there is only one curve, only because this is a \emph{very special case}, so it seems that we are not varying the point $t$ throughout $\bP^1$. We actually are, but the process is hidden under projective equivalence. After mapping all of our curves from before through the projective equivalence mapping we obtain a $\bP^1$ with a varying $t$. And when $t$ is any of the special points we see the expected behavior.
 
+\section{Conclusion}
+
+Questions in enumerative geometry such as the original question posed in the introduction still are hoping to be solved. On our part, the task is to continue understanding the more general moduli spaces, be it by increasing the number of marked points or by increasing the genus of the curves.\par 
+It is known that the combinatorics used to describe non-zero genus curves is very complicated at this time, but the author expects to learn about those topics in the future. 
+
+\section{Acknowledgements}
+
+First and foremost, the author would like to thank \textbf{you} for reading. \textbf{Maria Gillespie} for encouraging students to do projects at the end of the semester and her help during the process of writing. \textbf{Mark Shoemaker} for his help during question sessions about the moduli space, and last but not least, \textbf{the author's family and friends} for unwavering support sent from over 3000km away. 
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \nocite{*}
