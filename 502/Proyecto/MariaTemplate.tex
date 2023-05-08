@@ -269,28 +269,16 @@ $$L_{n}=E_{n-1}L_{n-1},\quad L_0=1.$$
 
 With these results in hand the proposition is immediately true. The fact the boundary points correspond to the trivalent trees is a consequence of the fact that automorphisms of $\bP^1$ are determined by $3$ points.
 
-\section{But what really is $\ov{\cM}_{0,n}$?}
+\section{Understanding the moduli space}
 
-Up to now we've referred to $\ov{\cM}_{0,4}$, so let us concretely explain what that space is by answering a couple of questions:
-\begin{enumerate}
-    \itemsep=-0.4em
-    \item On its own, without the closure, what is $\cM_{0,4}$?
-    \item What is being added with the closure, and what topology are we working with?
-\end{enumerate}
+In the previous sections, we have explored the concept of trivalent trees and their relationship to curves and the moduli space $\ov{\cM}_{0,4}$. But what exactly is this space? Our aim now is to provide a concrete explanation of $\ov{\cM}_{0,n}$, and discuss its significance in our understanding of trivalent trees and beyond.
 
-To address these questions we refer to \cite{RenzoNotes} and \cite{cavalieri2021projective}. 
-\iffalse
-\begin{Def}
-    The \underline{moduli space} $\cM_{0,n}$ parametrizes genus $0$ curves with $n$ marked points.
-\end{Def}
-
-It is a lucky coincidence that the only genus $0$ curve is \textbf{ASK MARK/MARIA} so this definition can be restated with this in mind. 
-\fi
 \begin{Def}
     The \underline{moduli space} $\cM_{0,n}$ parametrizes ordered $n$-tuples of distinct points in $\bP^1$ up to \emph{projective equivalence}. Two arrays of points $(p_1,\dots,p_n),\ (q_1,\dots,q_n)$ are equivalent when 
     $$\exists T\in\PGL_2\left[(q_1,\dots,q_n)=(Tp_1,\dots,Tp_n)\right].$$
-    In our case $\cM_{0,4}$ can be seen to be the set of \emph{equivalence classes} of arrays $(p_1,\dots,p_4)$ with $p_i\in\bP^1$. 
 \end{Def}
+
+In our case $\cM_{0,4}$ can be seen to be the set of \emph{equivalence classes} of arrays $(p_1,\dots,p_4)$ with $p_i\in\bP^1$. 
 
 \begin{Rmk}
     Drawing an analogy with matrices, where the row-reduced echelon form serves as a canonical representative of the equivalence class of row-equivalent matrices, we seek a similar notion of canonical representation for the moduli space $\cM_{0,4}$.
@@ -303,8 +291,7 @@ It is a lucky coincidence that the only genus $0$ curve is \textbf{ASK MARK/MARI
 The proof of this fact is a basic computation in linear algebra.
 
 \begin{Rmk}
-    Before starting the proof, we point out a caveat. The projective transformation that we will find here maps $0,1$ and $\infty$ to $3$ points $p_1,p_2,p_3$.\par 
-    The inverse of this transformation is the one that we use to find a representative of the equivalence class. Because it maps our points $p_1,p_2,p_3$ to $0,1,\infty$. 
+    Before we proceed with the proof, it is important to note that the projective transformation we will derive maps $0$, $1$, and $\infty$ to three distinct points $p_1$, $p_2$, and $p_3$, respectively. This transformation's inverse will serve as the canonical representative of the equivalence class, as it maps $p_1$, $p_2$, and $p_3$ back to $0$, $1$, and $\infty$, respectively.
 \end{Rmk}
 
 \begin{proof}
@@ -340,6 +327,13 @@ At the level of equivalence classes this means:
 $$[(\bP^1,(p_1,\dots,p_4))]=[(\bP^1,(0,1,\infty,t))]$$
 and so every equivalence class of points is determined by a unique $t\in\bP^1$.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.17cm 16.37cm 9.325cm 7.075cm,clip]{fig4.pdf}%LDRU
+    \label{fig5}
+    \caption{A projective transformation $T$ sending the tuple $(p_1,\dots,p_4)$ to its corresponding representative in the moduli space $\cM_{0,4}$.}
+\end{figure}
+
 \begin{Rmk}
 Recall that in the definition of the moduli space, we stated that the points $(p_1,\dots,p_4)$ should be \textbf{distinct}! So this means that $t$ is not in the whole of $\bP^1$, $t$ can't be $0,1$ nor $\infty$. 
 \end{Rmk}
@@ -350,7 +344,7 @@ The previous discussion proves the following result.
     The moduli space $\cM_{0,4}$ is isomorphic to $\bP^1\less\set{0,1,\infty}$.
 \end{Prop}
 
-Intuitively, and guiding ourselves with what we mentioned in proposition \ref{prop:cM04barIsomP1}, we can think that the missing points in the compactification are $\set{0,1,\infty}$. The following is the concrete definition of the closure of $\cM_{0,n}$.
+The following is the concrete definition of the closure of $\cM_{0,n}$. We can intuitively see that the missing points in the closure are $0$, $1$ and $\infty$.
 
 \begin{Def}
     The space $\ov{\cM}_{0,n}$ parametrizes \emph{stable $n$-pointed rational curves}. And one of those curves is a tuple $(\cC,p_1,\dots,p_n)$ such that:
@@ -362,17 +356,15 @@ Intuitively, and guiding ourselves with what we mentioned in proposition \ref{pr
     \end{enumerate}
 \end{Def}
 
-Observe that what we are basically allowing with this definition is that the last point $t$ can indeed be equal to one of our other points. In doing so we allow for nodal singularities in our curves.\par 
-However up to projective equivalence there is only one curve, only because this is a \emph{very special case}, so it seems that we are not varying the point $t$ throughout $\bP^1$. We actually are, but the process is hidden under projective equivalence. After mapping all of our curves from before through the projective equivalence mapping we obtain a $\bP^1$ with a varying $t$. And when $t$ is any of the special points we see the expected behavior.
+The fact that nodal singularities may appear, allows us to have $t$ equal one of the missing points. And, although before it seemed that the point $t$ was not varying throughout $\bP^1$, it actually was under the guise of projective equivalence.
 
 \section{Conclusion}
 
-Questions in enumerative geometry such as the original question posed in the introduction still are hoping to be solved. On our part, the task is to continue understanding the more general moduli spaces, be it by increasing the number of marked points or by increasing the genus of the curves.\par 
-It is known that the combinatorics used to describe non-zero genus curves is very complicated at this time, but the author expects to learn about those topics in the future. 
+Enumerative geometry poses a wealth of interesting questions, some of which have yet to be answered. Our understanding of moduli spaces has increased while studying the original question in this paper. The task now is to continue studying more general moduli spaces, by increasing the number of marked points or by increasing the genus of the curves. While the combinatorics used to describe non-zero genus curves is currently very complicated, the author hopes to explore these topics in the future.
 
 \section{Acknowledgements}
 
-First and foremost, the author would like to thank \textbf{you} for reading. \textbf{Maria Gillespie} for encouraging students to do projects at the end of the semester and her help during the process of writing. \textbf{Mark Shoemaker} for his help during question sessions about the moduli space, and last but not least, \textbf{the author's family and friends} for unwavering support sent from over 3000km away. 
+First and foremost, the author would like to thank \textbf{you} for reading. Thanks also to \textbf{Maria Gillespie} for encouraging students to do projects at the end of the semester and for her guidance during the writing process. Thanks to \textbf{Mark Shoemaker} for his help by answering questions about the algebraic background needed to understand the moduli space. And last but not least, thanks to \textbf{the author's family and friends} for their unwavering support, even from over 3000km away. 
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \nocite{*}

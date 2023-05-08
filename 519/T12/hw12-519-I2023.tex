@@ -1,0 +1,76 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Jeff Achter}
+\def\nsigla {MATH519}
+\def\nsiglahead {Complex Analysis}
+\def\nextra {HW12}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}[8.4 Stein\& Shakarchi]
+    Does there exist a holomorphic surjection from the unit disc to $\bC$? \hint{Move the upper half-plane ``down'' and then square it to get $\bC$.}
+\end{Ej}
+
+\begin{ptcbr}
+    We first consider the map 
+    $$F\: B(0,1)\to\bH,\quad z\mapsto i\frac{1-z}{1+z}.$$
+    Now translate by $i$ and finally we square the function. We get the mapping 
+    $$B(0,1)\to\bC,\quad z\mapsto \left(i\frac{1-z}{1+z}-i\right)^2$$
+    which is surjective. Even though $z\mapsto z^2$ is not conformal, the first two mappings are and therefore the composition is surjective.
+  \end{ptcbr}
+
+\begin{Ej}[8.11 Stein\& Shakarchi]
+    Show that if $f\: B(0,R)\to\bC$ is holomorphic, with $|f(z)| \leq M$ for some $M > 0$, then
+    $$\left|\frac{f(z)-f(0)}{M^2-\ov{f(0)}f(z)}\right|\leq\frac{|z|}{MR}.$$
+    \hint{Use the Schwarz lemma.}
+\end{Ej}
+
+\begin{ptcbr}
+    We first rescale our function by considering 
+    $$g(z)=\frac{1}{M}f\left(Rz\right).$$
+    This makes $g$ a function from $B(0,1)$ to $B(0,1)$ unless $|f(z)|$ is exactly $M$.\par 
+    In this case $f$ achieved its maximum and so by the maximum modulus principle, $f$ can't be non-constant and so $f$ is constant. In this case the inequality is trivial.\par 
+    Now if $|f(z)|<M$ for all $M$, then 
+    $$g\: B(0,1)\to B(0,1)$$
+    is almost the function we wish. We just need $g(0)$ to be $0$. Let us consider the Blaschke factor
+    $$\frac{w-g(0)}{1-\ov{g(0)}w},$$
+    if we compose it with $g$ we get 
+    $$\frac{g(z)-g(0)}{1-\ov{g(0)}g(z)}\xrightarrow[]{z\mapsto 0}0.$$
+    We may apply Schwarz' lemma because the Blaschke factor still maps the unit circle to the unit circle, so this means that  
+    $$\left|\frac{g(z)-g(0)}{1-\ov{g(0)}g(z)}\right|\leq|z|$$
+    and substituting for what we know is $g$ we get:
+    $$\left|\frac{\frac{1}{M}f\left(Rz\right)-\frac{1}{M}f\left(0\right)}{1-\ov{f(0)/M}f(Rz)/M}\right|\leq|z|.$$
+    Taking a substitution $z\mapsto Rz$ and multiplying $1=M^2/M^2$ all across we obtain 
+    $$\left|\frac{M(f(z)-f(0))}{M^2-\ov{f(0)}f(z)}\right|\leq\left|\frac zR\right|\To \left|\frac{f(z)-f(0)}{M^2-\ov{f(0)}f(z)}\right|\leq\frac{|z|}{MR}.$$
+
+\end{ptcbr}
+
+\begin{Ej}
+    Suppose $f,g\: U\to V$ are conformal. Explain why there exists some $\dl\in\Aut(V)$ such that $g=\dl\circ f$.\par 
+    Finally, show that all conformal mappings from the upper half-plane $\bH$ to the unit disc $\bD$ take the form
+    $$e^{i\te}\frac{z-\bt}{z-\ov{\bt}},\word{where}\te\in\bR,\ \bt\in\bH.$$
+\end{Ej}
+
+\begin{ptcbr}
+    First observe that as $f,g$ are conformal, they are bijective. So the function $g\circ f^{-1}$ is well defined. Also, this map goes from $V$ to $V$ and it's conformal. Therefore we may take $g\circ f^{-1}\in\Aut(V)$ to be our $\dl$.\par 
+    Now, we know that $z\mapsto i\frac{1-z}{1+z}$ conformally maps the unit disc to $\bH$. On the other direction, consider $f\: \bH\to\bD$. Then $f\left(i\frac{1-z}{1+z}\right)$ is a conformal map from $\bD$ to $\bD$ which means it's of the form $z\mapsto e^{i\te}\frac{w-z}{1-\ov wz}$ and $w\in\bD$. We may now invert our original function:
+    $$v=i\frac{1-z}{1+z}\To z=\frac{1+iv}{1-iv}.$$
+    Thus replacing into our function we get 
+    $$f(v)=e^{i\te}\frac{w-\frac{1+iv}{1-iv}}{1-\ov w\left(\frac{1+iv}{1-iv}\right)}.$$
+    Replacing $v$ by $z$ and rearranging we arrive at the expression:
+    $$f(z)=e^{i\te}\frac{w(1-iz)-(1+iz)}{(1-iz)-\ov{w}(1+iz)}=e^{i\te}\frac{w(1-iz)-(1+iz)}{(1-iz)-\ov{w}(1+iz)}.$$
+    Observe that if we expand and collect the $z$ terms we arrive at the expression 
+    \begin{align*}
+    \frac{w-1-iz(w+1)}{1-\ov w-iz(1+\ov w)}&=\frac{z+i\frac{w-1}{w+1}}{z+i\frac{1-\ov w}{1+\ov w}}\\
+    &=\frac{z-i\frac{1-w}{1+w}}{z-\left(-i\frac{1-\ov w}{1+\ov w}\right)}
+\end{align*}
+and observe that 
+$$\bt=i\frac{1-w}{1+w}\To\ov\bt=-i\frac{1-\ov w}{1+\ov w}.$$
+We know that this quantity is in the upper half plane, so we have our desired function $f(z)=e^{i\te}\frac{z-\bt}{z-\ov{\bt}}$.
+\end{ptcbr}
+\end{document} 
