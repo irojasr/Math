@@ -1,0 +1,96 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2022}
+\def\nprofesor {Mark Shoemaker}
+\def\nsigla {MATH672}
+\def\nsiglahead {Algebraic Geometry}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+%\begin{multicols}{2}
+
+\begin{Ej}[1.3.T]
+Show that coproduct for $\cat{Set}$ is disjoint union. 
+\end{Ej}
+
+\begin{ptcbr}
+    Recall that the disjoint union of $A_1$ and $A_2$ is defined as a set as
+    $$A_1\cupdot A_2\set{(a_i,i)\:\ a_i\in A_i,\ I=1,2}.$$
+    This allows us to define maps $\iota_i\: A_i\to A_1\cupdot A_2,\ x\mapsto (x,1)$ which are morphisms in $\cat{Set}$ because they're defined everywhere. We are to show that this set satisfies the universal property of coproducts.\par
+    Suppose $B$ is a set such that $f_i\:\ A_i\to B$ are well defined. We must define a unique function $g:\ A_1\cupdot A_2\to B$ such that $f_i=g\iota_i$, this is done as follows: 
+    $$g(a,i)=\begin{cases}
+        f_1(a),\ i=1,\\
+        f_2(a),\ i=2.
+    \end{cases}$$ 
+    We verify the factoring property:
+    $$g\circ\iota_1(a_1)=g(a_1,1)=f_1(a_1),\quad g\circ\iota_2(a_2)=g(a_2,2)=f_2(a_2).$$
+    By construction, we have defined $g$ uniquely.
+\end{ptcbr}
+
+\begin{Ej}[1.3.U]
+    Suppose $A\to B$ and $A\to C$ are two ring morphisms, so in particular $B$ and $C$ are $A$-modules. Recall that $B\ox_AC$ has a ring structure.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Show that there is a natural morphism $\iota_B\: B\to B\ox_AC,\ b\mapsto b\ox 1$. Similarly for $C$.
+        \item Show that this gives a pushout on rings. In other words, the following diagram satisfies the universal property of the pushout.   
+    \end{enumerate}
+\end{Ej}
+
+\begin{figure}[h]
+    \centering
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRACEAdTiADwH0AggGEQAX1LpMufIRRkAjFVqMWbduMkgM2PASILSS6vWatEIQZqm7ZB8stNqLoscphQA5vCKgAZgBOEAC2SABM1DgQSIYgDHQARjAMAArSenJxMH44ICaq5iDcCbkS-kGhiBEgUUgAzNTxSanpdhYBWJ4AFrn5ZmzcjNYggSH1kdGIZHGJyWm2+u2dPXkq-Rbc+Dh0-K5ao5WxtVN9zkWcWzsabmJAA
+\begin{tikzcd}
+    B\ox_AC                & C \arrow[l, "\iota_C"']              \\
+    B \arrow[u, "\iota_B"] & A \arrow[l, "\bt"] \arrow[u, "\al"']
+    \end{tikzcd}
+\end{figure}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item The map $\iota_B(b)=b\ox 1$ is a homomorphism in virtue that $B\ox_AC$ is a tensor product. By construction, all bilinear maps factor through the tensor product as linear maps. This map is one of the factors which should be linear. The same holds for $C$. 
+        \item Let us now take $M$ an $A$-module with morphisms $f_B\:B\to M$ and $f_C\: C\to M$. This can described by the following diagram:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBpiBdUkANwEMAbAVxiRACEAdTiADwH0AggGEQAX1LpMufIRRkATFVqMWbduMkgM2PASILSS6vWatEIQZqm7ZB8stNqLoiTZn6UABlJfHq8xAAWXFlGCgAc3giUAAzACcIAFskQxAcCCQyEAY6ACMYBgAFaT05HJhYnBATALZuPOq3EATk1OoMpABmalyC4tK7C3isCIALatqzes5GaxbElMQe9MzEHxz8wpLbTxAR8cmVaYtufBw6flctVqXszvWp5xAziAv+DWbbrI61gBZqAUwFBuhsnIFYh95t9lr8kACQECQYgALRdMF1CyQ0S9LYDXblA4TUJiIA
+\begin{tikzcd}
+    M &                                                      &                                                         \\
+      & B\ox_AC                                              & C \arrow[l, "\iota_C"'] \arrow[llu, "f_C"', bend right] \\
+      & B \arrow[u, "\iota_B"] \arrow[luu, "f_B", bend left] & A \arrow[l, "\bt"] \arrow[u, "\al"']                   
+    \end{tikzcd}
+        \end{center}
+        However, let us take advantage of the tensor product, \emph{gatekeeper of bilinear maps}. This morphisms can be combined into a bilinear map from $B\x C\to M$. We define 
+        $$f\: B\x C\to M,\ (b,c)\mapsto f_B(b)f_C(c)$$
+        and by universal property of the tensor product, there exists a unique map $\tilde{f}\: B\ox_AC\to M$ through which $f$ factors. Finally $f_B$ and $f_C$ factor through $\tilde{f}$ by diagram chasing and thus by universality of the tensor product we have that it satisfies the pushout universal property in this case.
+    \end{enumerate}
+
+
+\end{ptcbr}
+
+\begin{Ej}
+    Describe the colimit of the diagram $F\: J\to\cat{Set}$ given by $\ast\leftarrow\ast\to\ast$.
+\end{Ej}
+%https://www.math3ma.com/blog/limits-and-colimits-part-3
+\begin{ptcbr}
+    Recall that the colimit of a diagram $F\: J\to\cat{C}$ is an object $\text{colim} A_i\in\text{Obj}\cat{C}$ with morphisms $f_j\: A_j\to\text{colim} A_i$ such that if $m\: k\to j$ is a morphism in $J$, then the following diagram commutes
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjCBrAWwAEAQQD6WEAF9S6TLnyEUZAIxVajFmzEArKTJAZseAkWWlV1es1aIQYgNZS1MKAHN4RUADMAThH5IAEzUOBBIZurWbABiABT8AJR63n4BiBGhSGSRmrZeorrSKf5BIWGI2Va5IPmO1Ax0AEYwDAAKcsaKID5YrgAWOE6SQA
+\begin{tikzcd}
+    \text{colim} A_i           &                                          \\
+    A_j \arrow[u, "f_j"] & A_k \arrow[l, "F(m)"] \arrow[lu, "f_k"']
+    \end{tikzcd}
+\end{center}
+In our case, since we only have three objects the diagram looks like this
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAZEAX1PUy58hFGQCMVWoxZsAQr34gM2PASJjSE6vWatEIAIIKBK4evKSdM-e16SYUAObwioAGYAnCAFskAJmocCCQxPncvX0QNECCkYjCQTx9-QODEAGYEpMj01LieCh4gA
+\begin{tikzcd}
+    CL          & C \arrow[l]           \\
+    B \arrow[u] & A \arrow[l] \arrow[u]
+    \end{tikzcd}
+\end{center}
+where $CL$ is the colimit object. In this particular case the colimit coincides with the pushout by universality.
+\end{ptcbr}
+\end{document} 

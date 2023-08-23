@@ -1,0 +1,240 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Renzo Cavalieri}
+\def\nsigla {MATH676}
+\def\nsiglahead {Tropical Geometry}
+\def\nlang {ENG}
+%\def\darktheme{}
+\input{../../headerVarillyDiff}
+\usepackage[enableskew]{youngtab}
+\DeclareMathOperator{\ins}{ins}
+\DeclareMathOperator{\rw}{rw}
+\DeclareMathOperator{\rect}{rect}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\std}{std}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\Trop}{Trop}
+\newcommand{\diamondplus}{\mathbin{\rotatebox[origin=c]{45}{$\boxtimes$}}}
+%\newcommand{\rplus}{\rotatebox[origin=c]{45}{\boxplus}}
+\begin{document}
+%\clearpage
+\maketitle
+%\thispagestyle{empty}
+{\small 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This is a topics course on this stuff
+
+\subsubsection*{Requirements}
+Knowledge on stuff
+}
+\newpage
+\tableofcontents
+%\begin{multicols}{2}
+\chapter{Combinatorial Shadow of Algebraic Geometry}
+
+\section{Day 1|20230821}
+
+Think of an algorithm where the input is an algebraic variety and the output is a combinatorial object, a piecewise linear object.
+
+\begin{Ex}
+    Consider as an input a line in the plane. Say $V(x+y-1)$, then an output would be a tropical line. If we remain in the plane and consider a higher degree polynomial, say an elliptic curve, as an output we obtain a tropical cubic.\par 
+    Leaving the plane behind and thinking of abstract nodal curves, we can think of a sphere attached to a torus which is attached to a genus 2 torus, then the corresponding object is what we call the \term{dual graph}.
+\end{Ex}
+
+Right now we do not know the specific algorithm, but we can observe that the outputs are \emph{more simple} than the inputs. So the important question is:
+\begin{significant}
+What algebraic information does the simplified object remember? How do we extract the information the object remembers? And once we know how to work with this objects, can we return to algebraic geometry from any kind of these objects?
+\end{significant}
+
+Observe that the number of ends which go to infinity corresponds with the degree. 
+
+\section{Interim}
+%%Based on 676-Intro
+
+There are many ways to obtain the previous combinatorial pictures:
+
+\subsection{Algebraic Geometry on $\bT$}
+
+We call $(\bT,\oplus,\odot)$ the \term{tropical semifield}. A polynomial $p(\un x)$ gives rise to its \emph{tropicalization}, a piecewise linear function 
+$$\Trop(p)\:\bR^n\to\bR.$$
+The \term{tropical hypersurface} $V(\Trop(p))$ is the codimension 1 locus in $\bR^n$ where the function is non-linear (corner locus).
+
+\subsection{Valued fields}
+
+\begin{Def}
+The field of \term{Puiseux series} over $\bC$ is $\bC\set{\set{t}}$ where the elements are of the form 
+$$\al(t)=\sum_{i=k_0}^\infty a_it^{i/n}.$$
+The lower bound $k_0$ could be negative and the exponents, as in the case of Laurent series, are rational with bounded denominators.\par 
+The \term{valuation} of $\al(t)$ is $\val(\al(t))=\frac{k_0}{n}$, it is the smallest exponent for the natural order of the rational numbers and the coefficient $a_{k_0}$ is called the valuation coefficient.
+\end{Def}
+
+If $K$ is the field of Puiseux series, then for a polynomial $p\in K\bonj{\un x}$,
+\begin{figure}[h!]
+    
+\centering
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da2454102694181276] 
+\draw    (235,63) -- (321,63) ;
+\draw [shift={(323,63)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5779705315012776] 
+\draw    (241,113) -- (298,113) ;
+\draw [shift={(300,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw [shift={(241,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+
+% Text Node
+\draw (208,53.4) node [anchor=north west][inner sep=0.75pt]    {$K^{n}$};
+% Text Node
+\draw (329,53.4) node [anchor=north west][inner sep=0.75pt]    {$\mathbb{R}^{n}$};
+% Text Node
+\draw (202,103.4) node [anchor=north west][inner sep=0.75pt]    {$V( p)$};
+% Text Node
+\draw (304,99.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{\operatorname{Val}( V( p))}$};
+% Text Node
+\draw (172,153.4) node [anchor=north west][inner sep=0.75pt]    {$\{\vec{x} :p(\vec{x}) =0\}$};
+% Text Node
+\draw (302,153.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{Trop}( V( p))$};
+% Text Node
+\draw (210.4,98) node [anchor=north west][inner sep=0.75pt]  [rotate=-270]  {$\subseteq $};
+% Text Node
+\draw (328.4,98) node [anchor=north west][inner sep=0.75pt]  [rotate=-270]  {$\subseteq $};
+% Text Node
+\draw (229.6,127) node [anchor=north west][inner sep=0.75pt]  [rotate=-90]  {$=$};
+% Text Node
+\draw (346.6,127) node [anchor=north west][inner sep=0.75pt]  [rotate=-90]  {$=$};
+% Text Node
+\draw (172,53.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{Val:}$};
+
+
+\end{tikzpicture}
+
+\end{figure}
+and here $\Trop(V(p))$ is the tropical hypersurface for $p$.
+
+\subsection{Amoebas}
+
+Suppose now $p\in\bC[\un x]$ and $V(p)\subseteq\bC^n$. We may consider the function 
+$$\log_t\:\bC^n\to\bR^n,\quad (z_1,\dots,z_n)\mapsto(\log_t|z_1|,\dots,\log_t|z_n|).$$
+The amoeba is $\log_t(V(p))\subseteq\bR^n$. 
+
+\begin{Ex}
+    When $p=x+y-1$ then \red{we have a figure which I can't draw}.
+\end{Ex}
+
+Observe that this is the tropical hypersurface associated to $p$. In other words we have that the tropical hypersurface is $\lim_{t\to\infty}\log_t(V(p))$.
+
+\subsection{Degenerations}
+
+Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP1 which eventually becomes P2?}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.1.png}
+\end{figure}
+
+It is too early to understand this point of view. We will set everything up to get to it.\par 
+In general, the big idea will be to explore and understand these perspectives in the case of plane curves. We want to show how they are equivalent and then recover classical algebraic geometry results in terms of tropical geometry.
+
+\subsection{Tropical Arithmetics}%%%Based on TropicalNumbers.pdf
+
+\subsubsection{Minimizing Tolls}
+
+Consider a set of cities connected by a network of toll-ways:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.2.png}
+\end{figure}
+If we only care about minimizing toll expenses, what would be the cheapest way to go from one given city to another? Let us record the information as an incidence matrix. 
+$$M=\threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}$$
+In this matrix, the rows determine the outbound city, while the columns are the destination. Each entry records the cost of a toll and tolls are considered to be infinite when the road does not exist. We can also think of $M$ as recording the cheapest toll to go from one city to another with at most one move.\par 
+But if we wanted to find the cheapest way from one city to another in \textbf{two} moves, we could use $M^2$ with standard matrix multiplication. However we must redefine our basic operations as follows:
+$$+=\min,\quad\.=+$$
+\begin{align*}
+    \threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}^2&=\threebythree{\min\threebyone{0+0}{\infty+x}{2+\infty}}{\min\threebyone{0+\infty}{\infty+0}{2+1}}{\min\threebyone{0+2}{\infty+y}{2+0}}{\min\threebyone{x+0}{0+x}{y+\infty}}{\min\threebyone{x+\infty}{0+0}{y+1}}{\min\threebyone{x+2}{0+y}{y+0}}{\min\threebyone{\infty+0}{1+x}{0+\infty}}{\min\threebyone{\infty+\infty}{1+0}{0+1}}{\min\threebyone{\infty+2}{1+y}{0+0}}\\
+    &=\threebythree{0}{3}{2}{x}{\min(0,y+1)}{\min(x+2,y)}{1+x}{1}{\min(0,1+y)}.
+\end{align*}
+Observe that $1+y$ can be the minimum in the diagonal when we allow \emph{negative tolls}.
+\begin{Rmk}
+If we disallow negative tolls, the products $M^n$ eventually stabilize to a matrix whose entries record the cheapest way to get from one city to another in $n$ steps.
+\end{Rmk}
+This gives us an intuition that minimization problems correspond to linear algebra problems over $(\bT,+,\.)$ which is precisely $(\bR\cup\set{\infty},\min,+)$.
+
+\subsubsection{Forgetting phases}
+
+Recall that any complex number can be written as $z=re^{i\te}$ where $r\geq 0$. Consider the map $T_t\:\bC\to\set{-\infty}\cup\bR,\quad z\mapsto\log_t(r)$.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.3.png}
+\end{figure}
+This map is surjective, and this we can see by checking it is right-invertible. Observe that:
+$$
+\left\lbrace
+\begin{aligned}
+    &T_t^{-1}(x)=\set{t^xe^{i\te}}\subseteq\bC,\word{for}x\in\bR,\\
+    &T_t^{-1}(-\infty)=0.
+\end{aligned}
+\right.
+$$
+With this in hand, we wish to define an exotic addition and multiplication on $\set{-\infty}\cup\bR$ using $T_t$. We will dequantize!\par 
+We begin with \textbf{hyper-addition}, the output will be a subset of $\set{-\infty}$ so it's not a binary operation by itself. 
+$$x\diamondplus_t y\:= T_(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.$$
+This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$ into an operation we take a limit:
+\begin{figure}[h!] 
+    \centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da5156276968518897] 
+\draw    (85,62.6) -- (142,62.99) ;
+\draw [shift={(144,63)}, rotate = 180.39] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Straight Lines [id:da8224691621679702] 
+\draw    (96,133) -- (144,133.38) ;
+\draw [shift={(146,133.4)}, rotate = 180.46] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da27001319663870027] 
+\draw    (65,77) -- (65,118) ;
+\draw [shift={(65,120)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8909494911629017] 
+\draw    (195,83) -- (195,120) ;
+\draw [shift={(195,122)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (52,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus_t y$};
+% Text Node
+\draw (40,123.4) node [anchor=north west][inner sep=0.75pt]    {$x\ +_{t} \ y$};
+% Text Node
+\draw (152,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus y=\lim _{t\rightarrow \infty } x\diamondplus_t y$};
+% Text Node
+\draw (152,123.4) node [anchor=north west][inner sep=0.75pt]    {$x+y=\max( x,y)$};
+% Text Node
+\draw (67,98.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
+% Text Node
+\draw (114.5,59.4) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\lim _{t\rightarrow \infty }$};
+% Text Node
+\draw (121,129.8) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\lim _{t\rightarrow \infty }$};
+% Text Node
+\draw (197,102.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
+
+
+\end{tikzpicture}
+
+\end{figure}
+\section{Day 2|20230823}
+
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiTropiGeo.bib}
+\end{document} 
+
