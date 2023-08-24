@@ -137,7 +137,7 @@ Observe that this is the tropical hypersurface associated to $p$. In other words
 Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP1 which eventually becomes P2?}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.1.png}
+    \includegraphics[width=0.5\textwidth]{figs/fig1.1.png}
 \end{figure}
 
 It is too early to understand this point of view. We will set everything up to get to it.\par 
@@ -150,7 +150,7 @@ In general, the big idea will be to explore and understand these perspectives in
 Consider a set of cities connected by a network of toll-ways:
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.2.png}
+    \includegraphics[width=0.5\textwidth]{figs/fig1.2.png}
 \end{figure}
 If we only care about minimizing toll expenses, what would be the cheapest way to go from one given city to another? Let us record the information as an incidence matrix. 
 $$M=\threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}$$
@@ -172,7 +172,7 @@ This gives us an intuition that minimization problems correspond to linear algeb
 Recall that any complex number can be written as $z=re^{i\te}$ where $r\geq 0$. Consider the map $T_t\:\bC\to\set{-\infty}\cup\bR,\quad z\mapsto\log_t(r)$.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{figs/fig1.3.png}
+    \includegraphics[width=0.5\textwidth]{figs/fig1.3.png}
 \end{figure}
 This map is surjective, and this we can see by checking it is right-invertible. Observe that:
 $$
@@ -229,24 +229,53 @@ This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$
 \end{figure}
 \section{Day 2|20230823}
 %%Based on 676-Intro
-There are four ways to get to tropical geometry. 
+\subsection{Algebraic Geometry on $\bT$}
+Let us talk about ways to get into tropical geometry. We will first define the tropical semifield which the base set over which we will do algebraic geometry.
 
+\begin{Def}
+    The \term{tropical semifield} is the set $(\bR\cup\set{-\infty})$ equipped with tropical addition and multiplication:
+    $$
+    \begin{cases}
+        x\oplus y=\max(x,y)\\
+        x\odot y=x+y
+    \end{cases}
+    $$
+\end{Def}
+
+With this set we can make multivariable polynomials 
+$$p(\un x)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
+which gives rise to their \emph{tropicalization}, a piecewise linear function $\Trop(p)\:\bR^n\to\bR$.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$p(x,y)=x\oplus y\oplus 0,$$
+    its tropicalization is $\Trop(p)(x,y)=\max(x,y,0)$ which indeed is a piecewise linear function from $\bR^2$ to $\bR$.
+    \begin{figure}[h!]
+        \centering
+        \subcaptionbox{$x\oplus y\oplus 0$\label{fig:2.1-LinearTropicalPolynomial}}{\includegraphics[width=0.3\textwidth]{figs/fig2.1-LinearTropicalPolynomial.pdf}}\quad
+        \subcaptionbox{Projection onto $xy$-plane\label{fig:2.2-ProjectionLinearTropicalPolynomial}}{\includegraphics[width=0.25\textwidth]{figs/fig2.2-LinearTropicalPolynomialProjected.pdf}}\quad
+        \subcaptionbox{Corner locus\label{fig:2.3-CornerLocus}}{\includegraphics[width=0.25\textwidth]{figs/fig2.3-CornerLocus.pdf}}
+        %\caption{This is the caption.}
+        \label{fig:2.1-and-2.2-and-2.3}
+    \end{figure}
+    %https://mathematica.stackexchange.com/questions/169777/listplot3d-with-contours-projected-onto-the-xy-plane
+    Observe that the surface is not smooth where the planes meet, this is what we will call the \emph{corner locus} or \emph{tropical hypersurface}.
+    %In two variables we have a PICTURE. The polynomial $x\oplus y\oplus 0$ is actually $\max(x,y,0)$. This picture is actually the projection of the corner locus. In 3D we can visualize this better.
+\end{Ex}
+
+\begin{Def}
+    A \term{tropical hypersurface} is the locus of non-linearity of a tropical polynomial.
+\end{Def}
+
+\begin{Ex}
+If we consider higher degree tropical polynomials, they will become linear in the usual sense. Consider 
+$$p(x)=3x^2=3\odot x\odot x=3+x+x=3+2x$$
+which is indeed linear.
+\end{Ex}
 \begin{enumerate}
-    \item The first way is to do algebraic geometry over the tropical semifield: $(\bT,
-    \oplus,\odot)=(\bR\cup\set{-\infty},\max,+)$. We can make polynomial 
-    $$p(\un x)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
-    which gives us a piecewise linear function. 
 
-    \begin{Ex}
-        In two variables we have a PICTURE. The polynomial $x\oplus y\oplus 0$ is actually $\max(x,y,0)$. This picture is actually the projection of the corner locus. In 3D we can visualize this better.
-    \end{Ex}
-
-    \begin{Def}
-        A \term{tropical hypersurface} is the locus of non-linearity of $p$.
-    \end{Def}
-    \begin{Ex}
-        Even polynomials of \emph{higher degree}, they will become linear. In this case $3\odot x^2=3+2x$ for example.
-    \end{Ex}
+\item TOPOLISH
+    
     \item In the field of rational functions consider the valuation 
     $$\val_0\:\bC(t)\to\bR\cup\set{\infty},\begin{cases}
         0\mapsto \infty\\
