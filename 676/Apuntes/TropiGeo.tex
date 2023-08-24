@@ -31,7 +31,15 @@
 This is a topics course on this stuff
 
 \subsubsection*{Requirements}
-Knowledge on stuff
+Knowledge on stuff\par 
+
+\textbf{TO DO:}
+\begin{itemize}
+    \item Write info on course description and requirements.
+    \item Polish info from day 1
+    \item Polish last part of day 2
+    \item Continue adding info from Renzo's digital notes
+\end{itemize}
 }
 \newpage
 \tableofcontents
@@ -54,27 +62,76 @@ What algebraic information does the simplified object remember? How do we extrac
 
 Observe that the number of ends which go to infinity corresponds with the degree. 
 
-\section{Interim}
-%%valued fields
-
-There are many ways to obtain the previous combinatorial pictures:
-
+\section{Day 2|20230823}
+%%Based on 676-Intro
 \subsection{Algebraic Geometry on $\bT$}
+Let us talk about ways to get into tropical geometry. We will first define the tropical semifield which the base set over which we will do algebraic geometry.
 
-We call $(\bT,\oplus,\odot)$ the \term{tropical semifield}. A polynomial $p(\un x)$ gives rise to its \emph{tropicalization}, a piecewise linear function 
-$$\Trop(p)\:\bR^n\to\bR.$$
-The \term{tropical hypersurface} $V(\Trop(p))$ is the codimension 1 locus in $\bR^n$ where the function is non-linear (corner locus).
+\begin{Def}
+    The \term{tropical semifield} is the set $(\bR\cup\set{-\infty})$ equipped with tropical addition and multiplication:
+    $$
+    \begin{cases}
+        x\oplus y=\max(x,y)\\
+        x\odot y=x+y
+    \end{cases}
+    $$
+\end{Def}
+
+With this set we can make multivariable polynomials 
+$$p(\un x)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
+which gives rise to their \emph{tropicalization}, a piecewise linear function $\Trop(p)\:\bR^n\to\bR$.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$p(x,y)=x\oplus y\oplus 0,$$
+    its tropicalization is $\Trop(p)(x,y)=\max(x,y,0)$ which indeed is a piecewise linear function from $\bR^2$ to $\bR$.
+    \begin{figure}[h!]
+        \centering
+        \subcaptionbox{$x\oplus y\oplus 0$\label{fig:2.1-LinearTropicalPolynomial}}{\includegraphics[width=0.3\textwidth]{figs/fig2.1-LinearTropicalPolynomial.pdf}}\quad
+        \subcaptionbox{Projection onto $xy$-plane\label{fig:2.2-ProjectionLinearTropicalPolynomial}}{\includegraphics[width=0.25\textwidth]{figs/fig2.2-LinearTropicalPolynomialProjected.pdf}}\quad
+        \subcaptionbox{Corner locus\label{fig:2.3-CornerLocus}}{\includegraphics[width=0.25\textwidth]{figs/fig2.3-CornerLocus.pdf}}
+        %\caption{This is the caption.}
+        \label{fig:2.1-and-2.2-and-2.3}
+    \end{figure}
+    %https://mathematica.stackexchange.com/questions/169777/listplot3d-with-contours-projected-onto-the-xy-plane
+    Observe that the surface is not smooth where the planes meet, this is what we will call the \emph{corner locus} or \emph{tropical hypersurface}.
+    %In two variables we have a PICTURE. The polynomial $x\oplus y\oplus 0$ is actually $\max(x,y,0)$. This picture is actually the projection of the corner locus. In 3D we can visualize this better.
+\end{Ex}
+
+\begin{Def}
+    The \term{tropical hypersurface} $V(\Trop(p))$ is the codimension 1 locus in $\bR^n$ where the function is non-linear (corner locus).
+\end{Def}
+
+\begin{Ex}
+If we consider higher degree tropical polynomials, they will become linear in the usual sense. Consider 
+$$p(x)=3x^2=3\odot x\odot x=3+x+x=3+2x$$
+which is indeed linear.
+\end{Ex}
 
 \subsection{Valued fields}
 
 \begin{Def}
-The field of \term{Puiseux series} over $\bC$ is $\bC\set{\set{t}}$ where the elements are of the form 
-$$\al(t)=\sum_{i=k_0}^\infty a_it^{i/n}.$$
-The lower bound $k_0$ could be negative and the exponents, as in the case of Laurent series, are rational with bounded denominators.\par 
-The \term{valuation} of $\al(t)$ is $\val(\al(t))=\frac{k_0}{n}$, it is the smallest exponent for the natural order of the rational numbers and the coefficient $a_{k_0}$ is called the valuation coefficient.
+The field of \term{Puiseux series} or rational functions over $\bC$ is $\bC(t)$ where the elements are of the form 
+$$f(t)=\sum_{i=k_0}^\infty a_it^{i/n}.$$
+The lower bound $k_0$ could be negative and the exponents, are rational with bounded denominators. 
 \end{Def}
 
-If $K$ is the field of Puiseux series, then for a polynomial $p\in K\bonj{\un x}$,
+Consider the valuation 
+$$\val_0\:\bC(t)\to\bR\cup\set{\infty},\begin{cases}
+    0\mapsto \infty\\
+    f\mapsto\text{order of vanishing at }0.
+\end{cases}$$
+This order of vanishing is the value $\al$ such that $f/t^\al$ approaches a finite non-zero value. The corresponding coefficient in the series expansion of $f$ for this value is called the valuation coefficient.
+
+\begin{Ex}
+    What happens to the order of vanishing when you add two functions? Consider $f=t^2,\ g=t^3$, then $f+g=t^2+t^3$ which has order of vanishing $2$. Observe that $2=\min(2,3)$.
+\end{Ex}
+In general what happens is that
+$$\val_0(f_1+f_2)\geq\min(\val_0 f_1,\val_0 f_2),\word{and}\val_0(f_1f_2)=\val_0(f_1)+\val_0(f_2).$$
+
+We can do algebraic geometry over this field! Let $K$ be the field of rational functions, if $p(\un x)\in K\bonj{\un x}$ then we consider the algebraic variety
+$$X=V(p)=\set{\vec{x}\:p(\vec{x})=0}\subseteq K^n.$$
+Taking the image through the $n$-fold valuation, we will obtain a set in $\left(\bR\cup\set{\infty}\right)^n$. The tropicalization of $X$ is the image via this map:
 \begin{figure}[h!]
     
 \centering
@@ -84,8 +141,8 @@ If $K$ is the field of Puiseux series, then for a polynomial $p\in K\bonj{\un x}
 %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
 %Straight Lines [id:da2454102694181276] 
-\draw    (235,63) -- (321,63) ;
-\draw [shift={(323,63)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (235,63) -- (299,63) ;
+\draw [shift={(301,63)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Straight Lines [id:da5779705315012776] 
 \draw    (241,113) -- (298,113) ;
 \draw [shift={(300,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
@@ -94,11 +151,11 @@ If $K$ is the field of Puiseux series, then for a polynomial $p\in K\bonj{\un x}
 % Text Node
 \draw (208,53.4) node [anchor=north west][inner sep=0.75pt]    {$K^{n}$};
 % Text Node
-\draw (329,53.4) node [anchor=north west][inner sep=0.75pt]    {$\mathbb{R}^{n}$};
+\draw (303,53.4) node [anchor=north west][inner sep=0.75pt]    {$(\bR\cup\set{\infty})^{n}$};
 % Text Node
 \draw (202,103.4) node [anchor=north west][inner sep=0.75pt]    {$V( p)$};
 % Text Node
-\draw (304,99.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{\operatorname{Val}( V( p))}$};
+\draw (304,99.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{\operatorname{val}_0( V( p))}$};
 % Text Node
 \draw (172,153.4) node [anchor=north west][inner sep=0.75pt]    {$\{\vec{x} :p(\vec{x}) =0\}$};
 % Text Node
@@ -112,28 +169,46 @@ If $K$ is the field of Puiseux series, then for a polynomial $p\in K\bonj{\un x}
 % Text Node
 \draw (346.6,127) node [anchor=north west][inner sep=0.75pt]  [rotate=-90]  {$=$};
 % Text Node
-\draw (172,53.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{Val:}$};
+\draw (172,53.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{val}_0\:$};
 
 
 \end{tikzpicture}
 
-\end{figure}
+\end{figure}\\
 and here $\Trop(V(p))$ is the tropical hypersurface for $p$.
+\begin{Ex}
+    Consider the polynomial in $K\bonj{x,y}$ 
+    $$p(x,y)=tx+y+t^2,$$
+    then the variety is $X=\set{(x,y)\: tx+y+t^2=0}$ which we can solve to $y=-tx-t^2$.\par 
+    If we choose $x=0$ then $y$ becomes $-t^2$. Now we take the valuation of $(0,-t^2)$ and so $(\infty,2)\in\Trop(X)$.
+\end{Ex}
 
 \subsection{Amoebas}
 
-Suppose now $p\in\bC[\un x]$ and $V(p)\subseteq\bC^n$. We may consider the function 
-$$\log_t\:\bC^n\to\bR^n,\quad (z_1,\dots,z_n)\mapsto(\log_t|z_1|,\dots,\log_t|z_n|).$$
-The amoeba is $\log_t(V(p))\subseteq\bR^n$. 
+Let us return to the usual stage and consider $p\in\bC[\un x]$ which defines an algebraic variety $X=V(p)\subseteq\bC^n$. Now consider the map which sends every coordinate's modulus to its logarithm in base $t$: 
+$$\bC^n\to\left(\bR\cup\set{-\infty}\right)^n,\quad (z_1,\dots,z_n)\to(\log_t|z_1|,\dots,\log_t|z_n|).$$
+
+
+The image of $X$ under this map, $\log_t(X)$, is the $t$-amoeba of $X$. If we take the limit as $t\to\infty$ then we get the \emph{spine} of the amoeba. 
 
 \begin{Ex}
-    When $p=x+y-1$ then \red{we have a figure which I can't draw}.
+    When $p(x,y)=x+y-1$ then we can describe $V(p)$ via the parametrization $(x,1-x)$. So the corresponding $t$-amoeba in the real case is 
+    $$\set{(\log_t|x|,\log_t|1-x|)\: x\in\bR}$$
+    and we ordinarily take the limit, we see that the functions converge to zero point-by-point. But the set is actually approaching the spine!
+    \begin{figure}[h!]
+        \centering
+        \subcaptionbox{$X=V(x+y-1)$\label{fig:2.4-Variety}}{\includegraphics[width=0.25\textwidth]{figs/fig2.4-V(x+y-1).pdf}}\quad
+        \subcaptionbox{$2$-amoeba of $X$\label{fig:2.5-2Amoeba}}{\includegraphics[width=0.25\textwidth]{figs/fig2.5-2amoeba.pdf}}\quad
+        \subcaptionbox{Sequence of amoebas as $t\to\infty$\label{fig:2.6-ApproxAmoebas}}{\includegraphics[width=0.25\textwidth]{figs/fig2.6-ApproximatingAmoebas.pdf}}
+        %\caption{This is the caption.}
+        \label{fig:2.4-thru-2.6}
+    \end{figure}
 \end{Ex}
 
-Observe that this is the tropical hypersurface associated to $p$. In other words we have that the tropical hypersurface is $\lim_{t\to\infty}\log_t(V(p))$.
+Observe that the spine approaches the tropical hypersurface associated to $p$. In other words we have that the tropical hypersurface is $\lim_{t\to\infty}\log_t(V(p))$.
 
 \subsection{Degenerations}
-
+We may parametrize any algebraic variety with a time variable, then converting the information to a graph, edges code the information about how fast the node forms related to the length.\par
 Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP1 which eventually becomes P2?}
 \begin{figure}[h!]
     \centering
@@ -142,6 +217,10 @@ Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP
 
 It is too early to understand this point of view. We will set everything up to get to it.\par 
 In general, the big idea will be to explore and understand these perspectives in the case of plane curves. We want to show how they are equivalent and then recover classical algebraic geometry results in terms of tropical geometry.
+
+
+\section{Interim}
+%%valued fields
 
 \subsection{Tropical Arithmetics}%%%Based on TropicalNumbers.pdf
 
@@ -227,81 +306,8 @@ This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$
 \end{tikzpicture}
 
 \end{figure}
-\section{Day 2|20230823}
-%%Based on 676-Intro
-\subsection{Algebraic Geometry on $\bT$}
-Let us talk about ways to get into tropical geometry. We will first define the tropical semifield which the base set over which we will do algebraic geometry.
 
-\begin{Def}
-    The \term{tropical semifield} is the set $(\bR\cup\set{-\infty})$ equipped with tropical addition and multiplication:
-    $$
-    \begin{cases}
-        x\oplus y=\max(x,y)\\
-        x\odot y=x+y
-    \end{cases}
-    $$
-\end{Def}
-
-With this set we can make multivariable polynomials 
-$$p(\un x)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
-which gives rise to their \emph{tropicalization}, a piecewise linear function $\Trop(p)\:\bR^n\to\bR$.
-
-\begin{Ex}
-    Consider the polynomial 
-    $$p(x,y)=x\oplus y\oplus 0,$$
-    its tropicalization is $\Trop(p)(x,y)=\max(x,y,0)$ which indeed is a piecewise linear function from $\bR^2$ to $\bR$.
-    \begin{figure}[h!]
-        \centering
-        \subcaptionbox{$x\oplus y\oplus 0$\label{fig:2.1-LinearTropicalPolynomial}}{\includegraphics[width=0.3\textwidth]{figs/fig2.1-LinearTropicalPolynomial.pdf}}\quad
-        \subcaptionbox{Projection onto $xy$-plane\label{fig:2.2-ProjectionLinearTropicalPolynomial}}{\includegraphics[width=0.25\textwidth]{figs/fig2.2-LinearTropicalPolynomialProjected.pdf}}\quad
-        \subcaptionbox{Corner locus\label{fig:2.3-CornerLocus}}{\includegraphics[width=0.25\textwidth]{figs/fig2.3-CornerLocus.pdf}}
-        %\caption{This is the caption.}
-        \label{fig:2.1-and-2.2-and-2.3}
-    \end{figure}
-    %https://mathematica.stackexchange.com/questions/169777/listplot3d-with-contours-projected-onto-the-xy-plane
-    Observe that the surface is not smooth where the planes meet, this is what we will call the \emph{corner locus} or \emph{tropical hypersurface}.
-    %In two variables we have a PICTURE. The polynomial $x\oplus y\oplus 0$ is actually $\max(x,y,0)$. This picture is actually the projection of the corner locus. In 3D we can visualize this better.
-\end{Ex}
-
-\begin{Def}
-    A \term{tropical hypersurface} is the locus of non-linearity of a tropical polynomial.
-\end{Def}
-
-\begin{Ex}
-If we consider higher degree tropical polynomials, they will become linear in the usual sense. Consider 
-$$p(x)=3x^2=3\odot x\odot x=3+x+x=3+2x$$
-which is indeed linear.
-\end{Ex}
-\begin{enumerate}
-
-\item TOPOLISH
-    
-    \item In the field of rational functions consider the valuation 
-    $$\val_0\:\bC(t)\to\bR\cup\set{\infty},\begin{cases}
-        0\mapsto \infty\\
-        f\mapsto\text{order of vanishing at }0.
-    \end{cases}$$
-    This order of vanishing is the value $\al$ such that $f/t^\al$ approaches a finite non-zero value.
-    \begin{Ex}
-        What happens to the order of vanishing when you add two functions? Consider $f=t^2,\ g=t^3$, then $f+g=t^2+t^3$ which has order of vanishing $2$. Observe that $2=\min(2,3)$.
-    \end{Ex}
-    We have that 
-    $$\val(f_1+f_2)\geq\min(\val f_1,\val f_2),\word{and}\val_0(f_1f_2)=\val(f_1)+\val(f_2).$$
-    We can do algebraic geometry over this field, let $p(\un x)\in K\bonj{\un x}$. Then the algebraic variety is $X=V(p)=\set{\vec{x}\:p(\vec{x})=0}\subseteq K^n$. Taking the image through the $n$-fold valuation, we will obtain a set in $\left(\bR\cup\set{\infty}\right)^n$. The tropicalization of $X$ is the image via this map.
-    \begin{Ex}
-        Consider the polynomial in $K\bonj{x,y}$ 
-        $$p(x,y)=tx+y+t^2,$$
-        then the variety is $X=\set{(x,y)\: tx+y+t^2=0}$ which we can solve to $y=-tx-t^2$.\par 
-        If we choose $x=0$ then $y$ becomes $-t^2$. Now we take the valuation of $(0,-t^2)$ and so $(\infty,2)\in\Trop(X)$.
-    \end{Ex}
-    \item Amoebas let us consider polynomials $p\in\bC[\un x]$ which define an algebraic variety $X=V(p)\subseteq\bC^n$. We can now consider the map which sends every coordinate to the logarithm in base $t$ of its modulus:
-    $$\bC^n\to\left(\bR\cup\set{-\infty}\right)^n,\quad (z_1,\dots,z_n)\to(\log_t|z_1|,\dots,\log_t|z_n|).$$
-    The image of $X$ under this map is the $t$-amoeba of $X$. If we take the limit as $t\to\infty$ then we get the \emph{spine} of the amoeba. 
-    \begin{Ex}
-        For $p(x,y)=x+y+1$ the $t$-amoeba looks like PICTURE. If we take the limit as $t\to\infty$ we obtain the previous tropical variety!
-    \end{Ex}
-    \item We may parametrize any algebraic variety with a time variable, then converting the information to a graph, edges code the information about how fast the node forms related to the length.
-\end{enumerate}
+\section{Day 3|20230825}
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
