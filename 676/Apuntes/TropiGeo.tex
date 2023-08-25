@@ -10,12 +10,7 @@
 %\def\darktheme{}
 \input{../../headerVarillyDiff}
 \usepackage[enableskew]{youngtab}
-\DeclareMathOperator{\ins}{ins}
-\DeclareMathOperator{\rw}{rw}
-\DeclareMathOperator{\rect}{rect}
-\DeclareMathOperator{\sh}{sh}
-\DeclareMathOperator{\std}{std}
-\DeclareMathOperator{\Frob}{Frob}
+
 \DeclareMathOperator{\val}{val}
 \DeclareMathOperator{\Trop}{Trop}
 \newcommand{\diamondplus}{\mathbin{\rotatebox[origin=c]{45}{$\boxtimes$}}}
@@ -264,7 +259,7 @@ $$
 $$
 With this in hand, we wish to define an exotic addition and multiplication on $\set{-\infty}\cup\bR$ using $T_t$. We will dequantize!\par 
 We begin with \textbf{hyper-addition}, the output will be a subset of $\set{-\infty}$ so it's not a binary operation by itself. 
-$$x\diamondplus_t y\:= T_(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.$$
+$$x\diamondplus_t y\:= T_t(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.$$
 This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$ into an operation we take a limit:
 \begin{figure}[h!] 
     \centering
@@ -279,26 +274,26 @@ This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$
 \draw    (96,133) -- (144,133.38) ;
 \draw [shift={(146,133.4)}, rotate = 180.46] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Straight Lines [id:da27001319663870027] 
-\draw    (65,77) -- (65,118) ;
-\draw [shift={(65,120)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (57,77) -- (57,118) ;
+\draw [shift={(57,120)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Straight Lines [id:da8909494911629017] 
 \draw    (195,83) -- (195,120) ;
 \draw [shift={(195,122)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
 % Text Node
-\draw (52,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus_t y$};
+\draw (34,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus_t y$};
 % Text Node
-\draw (40,123.4) node [anchor=north west][inner sep=0.75pt]    {$x\ +_{t} \ y$};
+\draw (34,123.4) node [anchor=north west][inner sep=0.75pt]    {$x\ +_{t} \ y$};
 % Text Node
 \draw (152,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus y=\lim _{t\rightarrow \infty } x\diamondplus_t y$};
 % Text Node
 \draw (152,123.4) node [anchor=north west][inner sep=0.75pt]    {$x+y=\max( x,y)$};
 % Text Node
-\draw (67,98.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
+\draw (60,98.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
 % Text Node
-\draw (114.5,59.4) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\lim _{t\rightarrow \infty }$};
+\draw (114.5,59.4) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\displaystyle\lim _{t\rightarrow \infty }$};
 % Text Node
-\draw (121,129.8) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\lim _{t\rightarrow \infty }$};
+\draw (121,129.8) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\displaystyle\lim _{t\rightarrow \infty }$};
 % Text Node
 \draw (197,102.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
 
@@ -306,6 +301,185 @@ This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$
 \end{tikzpicture}
 
 \end{figure}
+
+\begin{Rmk}
+Note that $\diamondplus$ is still a hyperoperation. Its output is not a singleton \emph{only} when a dding a number to itself:
+$$x\diamondplus y=\begin{cases}
+    \max(x,y),\quad x\neq y\\
+    \bonj{-\infty,x},\quad x=y
+\end{cases}$$
+\end{Rmk}
+
+Formally this process, taking a limit of a family of operations, is known as \emph{dequantization}.\par
+
+In the case of multiplication, things go a lot smoother when defining it:
+
+$$x\.y =T_t\bonj{T^{-1}(x)\.T^{-1}(y)}=\log_t\bonj{(t^xe^{i\te})(t^ye^{i\vf})}=\log_t\left(t^{x+y}e^{i(\te+\vf)}\right)$$
+
+Separating the logarithm we get $(x+y)+\log(e^{i(\te+\vf)})/\log(t)$, then letting $t$ grow without bound we see that the operation converges to $x+y$. 
+
+\begin{Ej}
+Check how the definition of $+$ and $\.$ extend to the \emph{number} $-\infty$.
+\end{Ej}
+
+\begin{ptcb}
+\red{Since I don't understand exactly what to do, I'll do my best}\\
+For a finite $x$ we will find $x+(-\infty)$. This is the limit of the previous hyperoperation:
+$$x\diamondplus_t(-\infty)=T_t(T_t^{-1}(x)+T_t^{-1}(-\infty))=T_t(T_t^{-1}(x)+0)=T_t(T_t^{-1}(x))=x.$$
+If we let $t$ grow, the result doesn't change and so this goes according to $\max(x,-\infty)=x$.\par 
+On the other hand when taking the product:
+$$x\.(-\infty)=T_t\bonj{T^{-1}(x)\.T^{-1}(-\infty)}=T_t\bonj{T^{-1}(x)\.0}=T_t(0)=\log_t(0)\to-\infty$$
+which is also similar to the notion of $x+(-\infty)=-\infty$.\par 
+We can now proceed to operate $-\infty$ with itself:
+$$(-\infty)\diamondplus_t(-\infty)=T_t(0)=\log_t(0)=-\infty=\max(-\infty,-\infty),$$
+and when taking the product:
+$$(-\infty)\.(-\infty)=T_t(0)\log_t(0)=-\infty=(-\infty)+(-\infty)$$
+where the last sum is a sum in the usual sense.
+\end{ptcb}
+
+So, summarizing this process:
+\begin{itemize}
+    \item We forgot about the phase of the complex numbers and only looked at them radially. 
+    \item The modulus of these numbers was scaled logarithmically.
+    \item Finally we took the limit of these operations and obtained the desired (somewhat) result.
+\end{itemize}
+This is known as Maslov dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
+
+\subsubsection{Puiseux series}
+
+Recall from our times in Calculus 1 that when resolving indeterminate limits, the relevant information is contained in the order of vanishing of the function.
+
+\begin{Ex}
+    Consider the limit $\lim_{t\to 0}\frac{\sin(x)}{x}=1$. Near $t=0$ we have 
+    $$\sin(t)=t+o(t)\sim t^1\word{and}\frac{1}{t}=t^{-1}\word{so}t^1t^{-1}=t^0=1.$$
+\end{Ex}
+
+From this, we care to study the orders of zeroes and poles of Laurent series. In order to extend the class of functions to an algebraically closed field, we consider Puiseux series, or rational functions. We can identify Puiseux series as 
+$$\bC\set{\set{t}}=\bigcup_{n\in\bN}\bC(t^{1/n}).$$
+Concretely, elements here are Laurent series with coefficients having a common denominator. This field can be equipped with the valuation
+$$\val: \bC\set{\set{t}}\to\set{-\infty}\cup\bR,\begin{cases}
+    0\mapsto-\infty\\
+    t^{p/q}+\text{higher order}\mapsto p/q
+\end{cases}$$
+\begin{Prop}
+The previous valuation enjoys the following properties:
+\begin{enumerate}[i)]
+    \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
+    \item $\val(\al+\bt)\leq\min(\val(\al),\val(\bt))$.
+\end{enumerate}
+\end{Prop}
+Equality holds when $\val(\al)\neq\val(\bt)$. So if we decide to define operations on $\set{-\infty}\cup\bR$ by inducing them from the operations on $\bC\set{\set{t}}$, then we obtain
+\begin{align*}
+    &x\diamondplus y=\val\left(\val^{-1}(x)+\val^{-1}(y)\right),
+    &x\. y=\val\left(\val^{-1}(x)\.\val^{-1}(y)\right).
+\end{align*}
+Now $\.$ coincides with usual addition and $+$ is the hyperoperation
+$$x\diamondplus y=\begin{cases}
+    \min(x,y)\word{when}x\neq y,\\
+    [-\infty,\min(x,y)]\word{when}x=y.
+\end{cases}$$
+The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\set{-\infty}\cup\bR,\min,+\right)$.
+
+\subsection{Tropical Polynomials and Roots}
+
+An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients.
+
+\begin{Ex}
+    We have for example:
+    $$5x^2\leftrightarrow 5+2x,\quad 2x^{-3}\leftrightarrow 2-3x\ (\text{Laurent}).$$
+\end{Ex}
+
+An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise affine, linear function with integer slopes.
+
+\begin{Ex}
+    Consider the function $-5x^2+(-2)x^{-3}+0$ which corresponds to 
+    $$\max(-5+2x,-2-3x,0).$$
+    If we graph this functions we obtain
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.1RenzoNotes3.png}
+        %\caption{This is the caption.}
+        \label{fig:3.1-ConvPLFunc}
+    \end{figure}
+    Observe that this function is indeed convex, and fulfills all of the previous properties from before.
+\end{Ex}
+
+A small measure of care should be taken because any convex-PL-(etc) function corresponds to a tropical polynomial, but there are multiple tropical polynomials which map to the same function.
+
+\begin{Ex}
+    Consider the functions 
+    $$p_1=x+\frac{1}{x}+0,\quad p_2=x+\frac1x-2.$$
+    When converting we get 
+    $$\max(x,-x,0),\quad\max(x,-x,-2)$$
+    which produce $|x|$ in both cases.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.2RenzoNotes3.png}
+        \caption{Failure of injectivity as both functions map to $|x|$ with $y=0$ and $y=-2$ shown.}
+        \label{fig:3.2-InjectivityFailure}
+    \end{figure}
+\end{Ex}
+
+To talk about the roots, we will start with a purely combinatorial definition.
+
+\begin{Def}
+    Given a polynomial $p\in\bT[x]$ of degree $d$ we say the following:
+    \begin{itemize}
+        \item $-\infty$ is a root of $p$ if the slope of the piecewise linear function is non-zero for $x\ll 0$.
+        \item $x_0\in\bR$ is a root of $p$ if $p'(x_0)$ is undefined.
+    \end{itemize}
+    We say that the \term{multiplicity} is the change of slopes across the root. And of $p'(x)$, $x\ll 0$ for when the root is $-\infty$.
+\end{Def}
+
+\begin{Ex}
+    Consider the polynomial $x^2+1\.x^1+0=\max(2x,x,0)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.3SimpleFiniteRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.3-SimpleFiniteRoots}
+    \end{figure}
+    We can see that there are changes in slope at $x_1=-1$ and $x_2=1$. The number of roots coincides with the degree of the polynomial as in the usual sense.
+\end{Ex}
+
+\begin{Ex}
+    Let's remove the zero, recall zero isn't the additive identity, so the polynomial we have is $x^2+1\.x^1=\max(2x,x)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.4SimpleRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.4-OneFiniteRootOneInfiniteRoot}
+    \end{figure}
+    Now one of the roots is still $x=1$, but remember that if the slope is non-zero when $x\ll 0$, then $-\infty$ is a root of $p$. This is the case here because the slope is $1$ as $x\to-\infty$. Once again there's two roots $x_1=-\infty$ and $x_2=1$.
+\end{Ex}
+
+\begin{Ex}
+    Let us change a sign in a coefficient, take $x^2-1\.x^1+0$. But what is tropical subtraction? It's not that, let's convert this slowly into what it's supposed to be:
+    $$x^2-1\.x^1+0=(x\.x)+(-1)\.x+0=(2x)+(x+(-1))+0=\max(2x.x-1,0).$$
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.5DoubleRootTropicalPolynomial1.png}
+        %\caption{}
+        \label{fig:3.5-DoubleRoot1}
+    \end{figure}
+    Observe that because the line $y=x-1$ is below our graphs, it doesn't interfere with the calculation of zeroes. So the only place where there occurs a change in sign is $x=0$. This is our unique root with multiplicity $2$.
+\end{Ex}
+
+\begin{Ex}
+    In a similar fashion, $x^2+0$ also has a double root at $x=0$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.6DoubleRootTropicalPolynomial2.png}
+        %\caption{}
+        \label{fig:3.6-DoubleRoot6}
+    \end{figure}
+    There is only one change in slope once again at $x=0$.
+\end{Ex}
+
+Questions arise:
+\begin{significant}
+    Which functions have only one simple zero at $-\infty$? What would a function with an order 2 zero at $-\infty$ look like?
+\end{significant}
 
 \section{Day 3|20230825}
 
