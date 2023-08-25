@@ -380,13 +380,91 @@ $$x\diamondplus y=\begin{cases}
 \end{cases}$$
 The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\set{-\infty}\cup\bR,\min,+\right)$.
 
+\subsection{The Tropical Semifield}
+
+\begin{Def}
+    The \term{tropical semifield} is $(\bT,+,\.)$ where we can choose:
+    \begin{itemize}
+        \item $\bT=\bR\cup\infty$, $+=\min$ and $\.=+$, the min convention.
+        \item $\bT=\set{-\infty}\cup\bR$, $+=\max$ and $\.=+$, the max convention.
+    \end{itemize}
+\end{Def}
+
+There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will tipically use the $\max$ convention. 
+
+\begin{Prop}
+The following algebraic properties hold for $(\bT,+,\.)$:
+\begin{enumerate}[i)]
+    \item $0_\bT=-\infty$.
+    \item $1_{\bT}=0$.
+    \item $x+y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
+    \item Addition is idempotent: $x+x=x$.
+    \item Every non-zero element has a multiplicative inverse: $1/x=-x$.
+\end{enumerate}
+\end{Prop}
+
+Observe that it is not possible to adjoin formal additive inverses. If $x+y=0_\bT$, then 
+$$(x+x)+y=x+y=0_\bT\word{and}x+(x+y)=x+0_\bT=x\word{but}x\neq 0\_\bT.$$
+
+\begin{Prop}[Weird Fun Facts]
+Recall that the usual Pascal Triangle is built by adding the \emph{previous two} elements to get the next one. In the tropical case we have 
+$$
+\begin{tikzpicture}
+    \foreach \n in {0,...,2} {
+      \foreach \k in {0,...,\n} {
+        \node at (\k-\n/2,-\n) {$1_\bT$};
+      }
+    }
+    \end{tikzpicture}
+    \word{\raisebox{2.5em}{=}}%tex.se/47016
+    \begin{tikzpicture}
+        \foreach \n in {0,...,2} {
+          \foreach \k in {0,...,\n} {
+            \node at (\k-\n/2,-\n) {$0$};
+          }
+        }
+        \end{tikzpicture}
+    $$
+    and this extends downwards with the same pattern.\par 
+    In the case of the tropical binomial theorem, the identity is
+    $$(x+y)^n=x^n+y^n\word{and}n\max(x,y)=\max(nx,ny).$$
+\end{Prop}
+
+\begin{Ej}
+Recall that the coefficients in the expansion for the binomial theorem are the corresponding elements in the rows of the Pascal Triangle. Verify if the coefficients agree in the tropical case for the binomial theorem.
+\end{Ej}
+
+\subsubsection{The Optimal Assignment Problem}
+
+Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and once the job is taken, no one else can do it. We wish to assign a job to each worker in order to maximize our company's profit.
+
+\begin{Ex}
+    As a little example consider Alice and Bob's hydroponics farm. When working with the weeds Alice produces $5$ credits while working with the water she produces $6$. On the other hand Bob produces $3$ and $5$ respectively.\par 
+    It is easy to see that Alice should be assigned to to the weed and Bob to the water in order to maximize. But let us apply what we know with tropical arithmetics.\par 
+    Call 
+    $$M_{ij}=\text{amount of credits work }i\text{ produces when doing job }j.$$
+    Then we can summarize the previous information in a matrix 
+    $$M=\twobytwo{5}{6}{3}{5}$$
+    and if we take the tropical determinant (which is really a permanent since we lack subtraction) we get
+    $$\Trop\det M=5\.5+6\.3=\max(5+5,6+3)=10$$
+    which is the maximal profit we can make by assigning our workers.
+\end{Ex}
+
+\begin{Ej}
+    Do the following:
+    \begin{itemize}
+        \item[(1-)] Construct a $3\x3$ matrix with non-permuted entries such that there's more than one possible assignment for the optimal jobs.
+        \item[(1)] Use the combinatorial definition of permanent to show that the tropical determinant of $M$ is indeed the maximal profit. \hint{The definition of permanent is the same as the determinant but without the $(-1)^{\sgn\sg}$.}
+        \item[(5)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. 
+    \end{itemize}
+\end{Ej}
 \subsection{Tropical Polynomials and Roots}
 
 An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients.
 
 \begin{Ex}
     We have for example:
-    $$5x^2\leftrightarrow 5+2x,\quad 2x^{-3}\leftrightarrow 2-3x\ (\text{Laurent}).$$
+    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x\ (\text{Laurent}).$$
 \end{Ex}
 
 An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise affine, linear function with integer slopes.
@@ -481,6 +559,13 @@ Questions arise:
     Which functions have only one simple zero at $-\infty$? What would a function with an order 2 zero at $-\infty$ look like?
 \end{significant}
 
+\begin{Ej}
+    Do the following:
+    \begin{itemize}
+        \item[(5)] Provide an example of function with one simple zero at $-\infty$.
+        \item[(5)] Now do one with a double zero at $-\infty$.
+    \end{itemize}
+\end{Ej}
 \section{Day 3|20230825}
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
