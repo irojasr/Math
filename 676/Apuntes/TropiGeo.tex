@@ -14,7 +14,7 @@
 \DeclareMathOperator{\val}{val}
 \DeclareMathOperator{\Trop}{Trop}
 \newcommand{\diamondplus}{\mathbin{\rotatebox[origin=c]{45}{$\boxtimes$}}}
-%\newcommand{\rplus}{\rotatebox[origin=c]{45}{\boxplus}}
+
 \begin{document}
 %\clearpage
 \maketitle
@@ -213,9 +213,13 @@ Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP
 It is too early to understand this point of view. We will set everything up to get to it.\par 
 In general, the big idea will be to explore and understand these perspectives in the case of plane curves. We want to show how they are equivalent and then recover classical algebraic geometry results in terms of tropical geometry.
 
+\section{Day 3|20230825}
 
-\section{Interim}
-%%valued fields
+Recall that the last time we discussed the classical (25 to 30 years old) ways to get to tropical geoemtry. We now would like to answer the question
+\begin{significant}
+    Where do tropical numbers come from?
+\end{significant}
+So let us begin with an applications problem and see how the tropical numbers arise from the context of the problem.
 
 \subsection{Tropical Arithmetics}%%%Based on TropicalNumbers.pdf
 
@@ -226,11 +230,18 @@ Consider a set of cities connected by a network of toll-ways:
     \centering
     \includegraphics[width=0.5\textwidth]{figs/fig1.2.png}
 \end{figure}
-If we only care about minimizing toll expenses, what would be the cheapest way to go from one given city to another? Let us record the information as an incidence matrix. 
-$$M=\threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}$$
+If we only care about minimizing toll expenses when traveling, what would be the cheapest way to go from one given city to another? Let us record the information as an incidence matrix:
+$$M_{ij}=\text{price of going from city }i\text{ to city }j\text{ in at most one trip}\To M=\threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}$$
 In this matrix, the rows determine the outbound city, while the columns are the destination. Each entry records the cost of a toll and tolls are considered to be infinite when the road does not exist. We can also think of $M$ as recording the cheapest toll to go from one city to another with at most one move.\par 
-But if we wanted to find the cheapest way from one city to another in \textbf{two} moves, we could use $M^2$ with standard matrix multiplication. However we must redefine our basic operations as follows:
+How would we compute the best strategy of going from city $i$ to $j$ in \emph{at most two trips}? If for example we want to find trips from $A$ to $B$ in two steps then we have three choices:
+$$AAB,\quad ABB,\quad ACB.$$
+The costs of each one are 
+$$(0,\infty),\quad (\infty,0),\quad (2,1)$$
+so we sum them and take the minimum. That will be the optimal route from $A$ to $B$ in two steps. In fact, if we relate this to the entries of the matrix $M$, we could use $M^2$. However we must redefine our basic operations as follows: 
 $$+=\min,\quad\.=+$$
+So we have the identification 
+$$(1,2)\text{ entry of }M^2=\sum_{j=1}^{3}M_{1k}M_{k2}=\min(M_{11}+M_{12},M_{12}+M_{22},M_{13}+M_{32}).$$
+In general:
 \begin{align*}
     \threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}^2&=\threebythree{\min\threebyone{0+0}{\infty+x}{2+\infty}}{\min\threebyone{0+\infty}{\infty+0}{2+1}}{\min\threebyone{0+2}{\infty+y}{2+0}}{\min\threebyone{x+0}{0+x}{y+\infty}}{\min\threebyone{x+\infty}{0+0}{y+1}}{\min\threebyone{x+2}{0+y}{y+0}}{\min\threebyone{\infty+0}{1+x}{0+\infty}}{\min\threebyone{\infty+\infty}{1+0}{0+1}}{\min\threebyone{\infty+2}{1+y}{0+0}}\\
     &=\threebythree{0}{3}{2}{x}{\min(0,y+1)}{\min(x+2,y)}{1+x}{1}{\min(0,1+y)}.
@@ -323,7 +334,7 @@ Check how the definition of $+$ and $\.$ extend to the \emph{number} $-\infty$.
 \end{Ej}
 
 \begin{ptcb}
-\red{Since I don't understand exactly what to do, I'll do my best}\\
+The point of this exercise is to operate $-\infty$ with finite numbers and itself.\par
 For a finite $x$ we will find $x+(-\infty)$. This is the limit of the previous hyperoperation:
 $$x\diamondplus_t(-\infty)=T_t(T_t^{-1}(x)+T_t^{-1}(-\infty))=T_t(T_t^{-1}(x)+0)=T_t(T_t^{-1}(x))=x.$$
 If we let $t$ grow, the result doesn't change and so this goes according to $\max(x,-\infty)=x$.\par 
@@ -343,7 +354,21 @@ So, summarizing this process:
     \item The modulus of these numbers was scaled logarithmically.
     \item Finally we took the limit of these operations and obtained the desired (somewhat) result.
 \end{itemize}
-This is known as Maslov dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
+This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
+
+\subsection{Forgetting the phase}
+
+. COnsider the map $z\mapsto\log_t|z|$ which is a radial function from $\bC$ to $\set{-\infty}\cup\bR$.\par 
+The map in question is surjective but not injective.\par 
+Stuff Stuff\par 
+What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! However this is still a hyperoperation but it got a tad bit better. Because 
+$$t^2e^{i\te_1}+t^4e^{i\te_2}=t^4(t^{-2}e^{i\te_1}+e^{i\te_2}).$$
+Taking $\log_t$ we get 
+$$4+\log_t(stuff)\xrightarrow[subscript]{t\to\infty}4+0.$$
+
+
+\section{Interim}
+%%valued fields
 
 \subsubsection{Puiseux series}
 
@@ -566,31 +591,6 @@ Questions arise:
         \item[(5)] Now do one with a double zero at $-\infty$.
     \end{itemize}
 \end{Ej}
-\section{Day 3|20230825}
-
-Recall that the last time we discussed the classical ways to get to tropical geoemtry (25 to 30 years old).
-
-\subsection{Tropical Arithmetics}
-
-Where do tropical numbers come from? Suppose we have a toll minimization problems, a bunch of cities and tollways which connect the cities. Various tollways have different tolls. If we code this in a graph and an incidence matrix, then 
-$$M_{ij}=\text{price of going from city }i\text{ to city }j\text{ in at most one trip}.$$
-And now, how would we compute the best strategy of going from city $i$ to $j$ in \emph{at most two trips}? If for example we want to find trips from $A$ to $B$ in two steps then we have three choices:
-$$AAB,\quad ABB,\quad ACB.$$
-The costs of each one are 
-$$(0,\infty),\quad (\infty,0),\quad (2,1)$$
-so we sum them and take the minimum. That will be the optimal route from $A$ to $B$ in two steps. In fact, if we relate this to the entries of the matrix, we have the identification 
-$$(1,2)\text{ entry of }M^2=\sum_{j=1}^{3}M_{1k}M_{k2}.$$
-So the key point is that the successive powers of this matrix in terms of tropical linear algebra contain information of the cheapest way to get from $i$ to $j$ in $n$ steps. Eventually the powers stabilize. So a minimization problem naturally led to do linear algebra over tropical numbers.
-
-\subsection{Forgetting the phase}
-
-This approach comes from electromagnetism, waves and the Russian school. COnsider the map $z\mapsto\log_t|z|$ which is a radial function from $\bC$ to $\set{-\infty}\cup\bR$.\par 
-The map in question is surjective but not injective.\par 
-Stuff Stuff\par 
-What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! However this is still a hyperoperation but it got a tad bit better. Because 
-$$t^2e^{i\te_1}+t^4e^{i\te_2}=t^4(t^{-2}e^{i\te_1}+e^{i\te_2}).$$
-Taking $\log_t$ we get 
-$$4+\log_t(stuff)\xrightarrow[subscript]{t\to\infty}4+0.$$
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
