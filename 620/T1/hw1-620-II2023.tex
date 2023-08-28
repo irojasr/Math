@@ -1,0 +1,47 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+    In class, we proved that any continuous function $f\: D\subseteq \bR^n\to\bR$ has (at least one) local minimum in $D$ if $D$ is compact. We also convinced ourselves that all three conditions - boundedness and closedness of $D$ (which together constitute compactness in finite
+dimensional spaces) and continuity of $f$ - were in fact necessary to guarantee the existence of a minimum.
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Show one example each of domains $D$ and functions $f$, for each of the three conditions that violate that one condition and that do not have a minimum. In other words, show that omitting any of the conditions does not result in a situation where existence of a minimum is guaranteed.
+    \item In truth, the statement above is not quite optimal. Continuity of the function is not actually necessary, even though it is easy to find discontinuous functions that do not have a minimum on a compact set
+    $D$. Indeed, it is not difficult to find discontinuous functions that do have a minimum on a compact set $D$. Give a one and a two-dimensional example.
+    \item The resolution to this conundrum is that obviously the set of continuous functions is too small, and the
+    set of potentially discontinuous functions too large.\par
+    We need to seek another set of function that lies
+    between. This set is the class of \emph{lower semicontinuous functions}. A function $f\: D\subseteq \bR^n\to\bR$ is called
+    lower semicontinuous at $x\in D$ if $f(x)\leq \lim_{k\to\infty}f(x_k)$ for all sequences $x_k\to x$; more generally, $f$
+    is called lower semicontinuous if it is lower semicontinuous at all $x\in D$. \aside{Obviously, if the statement
+    holds with equality, then the function is continuous; furthermore, a function that is both lower and
+    upper semicontinuous is of course also continuous.}
+    Repeat the proof of the existence of a minimum for functions that only satisfy this weaker condition.
+    Point out, in particular, where the proof deviates or is different from the one we have seen in class. %Zygmund 4.7
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item Consider the identity function on $\bR$. The real line is closed, the identity function is continuous, however the set is unbounded.\par 
+    If we suppose by contradiction that the identity function has a minimum, then for some $x_0\in\bR$ 
+    $$x_0\leq x,\quad x\in\bR.$$
+    This is impossible as $x_0-1\leq x_0$ and $x_0-1$ is in the range of the identity function. Therefore the identity function has no minimum.
+    \item Consider now the identity function on the set $\obonj{0,1}$. This is once again a continuous function on a bounded set which is not closed. \red{finish proof}
+    \item Finally consider the function 
+\end{enumerate}
+\end{ptcbr}
+\end{document} 

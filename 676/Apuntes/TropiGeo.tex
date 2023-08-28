@@ -329,6 +329,15 @@ $$x\.y =T_t\bonj{T^{-1}(x)\.T^{-1}(y)}=\log_t\bonj{(t^xe^{i\te})(t^ye^{i\vf})}=\
 
 Separating the logarithm we get $(x+y)+\log(e^{i(\te+\vf)})/\log(t)$, then letting $t$ grow without bound we see that the operation converges to $x+y$. 
 
+\begin{Ex}
+    Let us consider a small example like summing $2$ and $4$. Observe that 
+    $$4\diamondplus_t 2=T_t(T_t^{-1}(4)+T_t^{-1}(2))=T_t\left(t^4e^{i\te}+t^2e^{i\vf}\right)$$
+    and the term on the inside can be simplified to $t^{4}(e^{i\te}+t^{-2}e^{i\vf})$. $T_t$ takes that expression to
+    $$4+\log_t(e^{i\te}+t^{-2}e^{i\vf})=4+\frac{\log(e^{i\te}+t^{-2}e^{i\vf})}{\log t}.$$
+    What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! 
+    The term on the right vanishes and we are left with $4=\max(4,2)$. So it got a tad bit better, but it's still a hyperoperation!
+\end{Ex}
+
 \begin{Ej}
 Check how the definition of $+$ and $\.$ extend to the \emph{number} $-\infty$.
 \end{Ej}
@@ -355,17 +364,6 @@ So, summarizing this process:
     \item Finally we took the limit of these operations and obtained the desired (somewhat) result.
 \end{itemize}
 This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
-
-\subsection{Forgetting the phase}
-
-. COnsider the map $z\mapsto\log_t|z|$ which is a radial function from $\bC$ to $\set{-\infty}\cup\bR$.\par 
-The map in question is surjective but not injective.\par 
-Stuff Stuff\par 
-What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! However this is still a hyperoperation but it got a tad bit better. Because 
-$$t^2e^{i\te_1}+t^4e^{i\te_2}=t^4(t^{-2}e^{i\te_1}+e^{i\te_2}).$$
-Taking $\log_t$ we get 
-$$4+\log_t(stuff)\xrightarrow[subscript]{t\to\infty}4+0.$$
-
 
 \section{Interim}
 %%valued fields
@@ -587,10 +585,13 @@ Questions arise:
 \begin{Ej}
     Do the following:
     \begin{itemize}
-        \item[(5)] Provide an example of function with one simple zero at $-\infty$.
-        \item[(5)] Now do one with a double zero at $-\infty$.
+        \item[(5)] Is it possible for a function to have only a simple zero at $-\infty$? Provide an example of function with one simple zero at $-\infty$ or prove that such function cannot exist. 
+        \item[(5)] Do functions with zeroes at $-\infty$ have infinite order at such zero or is it arbitrarily high? If a function has a finite order zero at $-\infty$ provide an example of one with a double zero at $-\infty$. Else, prove that such functions have infinite order at that zero.
     \end{itemize}
 \end{Ej}
+
+\section{Day 4|20230828}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
