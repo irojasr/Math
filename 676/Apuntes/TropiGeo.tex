@@ -368,119 +368,6 @@ This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} deq
 \section{Interim}
 %%valued fields
 
-\subsubsection{Puiseux series}
-
-Recall from our times in Calculus 1 that when resolving indeterminate limits, the relevant information is contained in the order of vanishing of the function.
-
-\begin{Ex}
-    Consider the limit $\lim_{t\to 0}\frac{\sin(x)}{x}=1$. Near $t=0$ we have 
-    $$\sin(t)=t+o(t)\sim t^1\word{and}\frac{1}{t}=t^{-1}\word{so}t^1t^{-1}=t^0=1.$$
-\end{Ex}
-
-From this, we care to study the orders of zeroes and poles of Laurent series. In order to extend the class of functions to an algebraically closed field, we consider Puiseux series, or rational functions. We can identify Puiseux series as 
-$$\bC\set{\set{t}}=\bigcup_{n\in\bN}\bC(t^{1/n}).$$
-Concretely, elements here are Laurent series with coefficients having a common denominator. This field can be equipped with the valuation
-$$\val: \bC\set{\set{t}}\to\set{-\infty}\cup\bR,\begin{cases}
-    0\mapsto-\infty\\
-    t^{p/q}+\text{higher order}\mapsto p/q
-\end{cases}$$
-\begin{Prop}
-The previous valuation enjoys the following properties:
-\begin{enumerate}[i)]
-    \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
-    \item $\val(\al+\bt)\leq\min(\val(\al),\val(\bt))$.
-\end{enumerate}
-\end{Prop}
-Equality holds when $\val(\al)\neq\val(\bt)$. So if we decide to define operations on $\set{-\infty}\cup\bR$ by inducing them from the operations on $\bC\set{\set{t}}$, then we obtain
-\begin{align*}
-    &x\diamondplus y=\val\left(\val^{-1}(x)+\val^{-1}(y)\right),
-    &x\. y=\val\left(\val^{-1}(x)\.\val^{-1}(y)\right).
-\end{align*}
-Now $\.$ coincides with usual addition and $+$ is the hyperoperation
-$$x\diamondplus y=\begin{cases}
-    \min(x,y)\word{when}x\neq y,\\
-    [-\infty,\min(x,y)]\word{when}x=y.
-\end{cases}$$
-The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\set{-\infty}\cup\bR,\min,+\right)$.
-
-\subsection{The Tropical Semifield}
-
-\begin{Def}
-    The \term{tropical semifield} is $(\bT,+,\.)$ where we can choose:
-    \begin{itemize}
-        \item $\bT=\bR\cup\infty$, $+=\min$ and $\.=+$, the min convention.
-        \item $\bT=\set{-\infty}\cup\bR$, $+=\max$ and $\.=+$, the max convention.
-    \end{itemize}
-\end{Def}
-
-There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will tipically use the $\max$ convention. 
-
-\begin{Prop}
-The following algebraic properties hold for $(\bT,+,\.)$:
-\begin{enumerate}[i)]
-    \item $0_\bT=-\infty$.
-    \item $1_{\bT}=0$.
-    \item $x+y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
-    \item Addition is idempotent: $x+x=x$.
-    \item Every non-zero element has a multiplicative inverse: $1/x=-x$.
-\end{enumerate}
-\end{Prop}
-
-Observe that it is not possible to adjoin formal additive inverses. If $x+y=0_\bT$, then 
-$$(x+x)+y=x+y=0_\bT\word{and}x+(x+y)=x+0_\bT=x\word{but}x\neq 0\_\bT.$$
-
-\begin{Prop}[Weird Fun Facts]
-Recall that the usual Pascal Triangle is built by adding the \emph{previous two} elements to get the next one. In the tropical case we have 
-$$
-\begin{tikzpicture}
-    \foreach \n in {0,...,2} {
-      \foreach \k in {0,...,\n} {
-        \node at (\k-\n/2,-\n) {$1_\bT$};
-      }
-    }
-    \end{tikzpicture}
-    \word{\raisebox{2.5em}{=}}%tex.se/47016
-    \begin{tikzpicture}
-        \foreach \n in {0,...,2} {
-          \foreach \k in {0,...,\n} {
-            \node at (\k-\n/2,-\n) {$0$};
-          }
-        }
-        \end{tikzpicture}
-    $$
-    and this extends downwards with the same pattern.\par 
-    In the case of the tropical binomial theorem, the identity is
-    $$(x+y)^n=x^n+y^n\word{and}n\max(x,y)=\max(nx,ny).$$
-\end{Prop}
-
-\begin{Ej}
-Recall that the coefficients in the expansion for the binomial theorem are the corresponding elements in the rows of the Pascal Triangle. Verify if the coefficients agree in the tropical case for the binomial theorem.
-\end{Ej}
-
-\subsubsection{The Optimal Assignment Problem}
-
-Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and once the job is taken, no one else can do it. We wish to assign a job to each worker in order to maximize our company's profit.
-
-\begin{Ex}
-    As a little example consider Alice and Bob's hydroponics farm. When working with the weeds Alice produces $5$ credits while working with the water she produces $6$. On the other hand Bob produces $3$ and $5$ respectively.\par 
-    It is easy to see that Alice should be assigned to to the weed and Bob to the water in order to maximize. But let us apply what we know with tropical arithmetics.\par 
-    Call 
-    $$M_{ij}=\text{amount of credits work }i\text{ produces when doing job }j.$$
-    Then we can summarize the previous information in a matrix 
-    $$M=\twobytwo{5}{6}{3}{5}$$
-    and if we take the tropical determinant (which is really a permanent since we lack subtraction) we get
-    $$\Trop\det M=5\.5+6\.3=\max(5+5,6+3)=10$$
-    which is the maximal profit we can make by assigning our workers.
-\end{Ex}
-
-\begin{Ej}
-    Do the following:
-    \begin{itemize}
-        \item[(1-)] Construct a $3\x3$ matrix with non-permuted entries such that there's more than one possible assignment for the optimal jobs.
-        \item[(1)] Use the combinatorial definition of permanent to show that the tropical determinant of $M$ is indeed the maximal profit. \hint{The definition of permanent is the same as the determinant but without the $(-1)^{\sgn\sg}$.}
-        \item[(5)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. 
-    \end{itemize}
-\end{Ej}
 \subsection{Tropical Polynomials and Roots}
 
 An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients.
@@ -592,6 +479,146 @@ Questions arise:
 
 \section{Day 4|20230828}
 
+We have seen where our ideas come from. Certain kinds of minimization problems give rise to our tropical numbers. Also by expressing complex numbers in a logarithmic scale without phase then when inducing a sum we actually get a hypersum. The way we converted into an operation is by taking a limit. Then the algebraic structure we obtained was once again the tropical numbers. Let us talk about the perspective of valued fields.
+\subsubsection{Puiseux series}
+Recall from our times in Calculus 1 that when resolving indeterminate limits, the relevant information is contained in the order of vanishing of the function.
+
+\begin{Ex}
+    Consider the limit $\lim_{t\to 0}\frac{\sin(x)}{x}=1$. Near $t=0$ we have 
+    $$\sin(t)=t+o(t)\sim t^1\word{and}\frac{1}{t}=t^{-1}\word{so}t^1t^{-1}=t^0=1.$$
+\end{Ex}
+
+From this, we care to study the orders of zeroes and poles of Laurent series. In order to extend the class of functions to an algebraically closed field, we consider Puiseux series, or rational functions. We can identify Puiseux series as 
+$$\bC\set{\set{t}}=\bigcup_{n\in\bN}\bC(t^{1/n}).$$
+Concretely, elements here are Laurent series with rational exponents and the exponents of terms with non-zero coefficients have a common denominator. 
+\begin{Ex}
+    The series $\sum_{k=-37}^{\infty}t^{k/42}$ is a Puiseux series while $\sum_{k=1}^\infty t^{1/k}$ is not because the exponents keep getting smaller and smaller.
+\end{Ex}
+This is the most natural algebraically closed field with a \emph{canonical} valuation. This is the function:
+$$\val: \bC\set{\set{t}}\to\bR\cup\set{\infty},\begin{cases}
+    0\mapsto\infty\\
+    t^{p/q}+\text{higher order}\mapsto p/q
+\end{cases}$$
+
+In other words the valuation sends $\sum_{k=k_0}^\infty a_kt^{q_k}$ to $q_{k_0}$.
+\begin{Prop}
+The previous valuation enjoys the following properties:
+\begin{enumerate}[i)]
+    \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
+    \item $\val(\al+\bt)\geq\min(\val(\al),\val(\bt))$.
+\end{enumerate}
+Equality holds when $\val(\al)\neq\val(\bt)$.
+\end{Prop}
+So if we decide to define operations on $\bR\cup\set{\infty}$ by inducing them from the operations on $\bC\set{\set{t}}$, then we obtain
+\begin{align*}
+    &x\diamondplus y=\val\left(\val^{-1}(x)+\val^{-1}(y)\right),
+    &x\. y=\val\left(\val^{-1}(x)\.\val^{-1}(y)\right).
+\end{align*}
+Now $\.$ coincides with usual addition and $+$ is the hyperoperation
+$$x\diamondplus y=\begin{cases}
+    \min(x,y)\word{when}x\neq y,\\
+    [\min(x,y),\infty]\word{when}x=y.
+\end{cases}$$
+\begin{Ex}
+    If we try to sum $0$ with itself, we get 
+    $$0\diamondplus 0=\val\left((a_0+a_1t^{q_1}+\dots)+(-a_0+b_1t^{r_1}+\dots)\right)$$
+\end{Ex}
+The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\bR\cup\set{\infty},\min,+\right)$.
+
+\subsection{The Tropical Semifield}
+
+\begin{Def}
+    The \term{tropical semifield} is $(\bT,+,\.)$ where we can choose:
+    \begin{itemize}
+        \item $\bT=\bR\cup\infty$, $+=\min$ and $\.=+$, the min convention.
+        \item $\bT=\set{-\infty}\cup\bR$, $+=\max$ and $\.=+$, the max convention.
+    \end{itemize}
+\end{Def}
+
+There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will tipically use the $\max$ convention. 
+
+\begin{Prop}
+The following algebraic properties hold for $(\bT,+,\.)$:
+\begin{enumerate}[i)]
+    \item $0_\bT=-\infty$.
+    \item $1_{\bT}=0$.
+    \item $x+y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
+    \item Addition is idempotent: $x+x=x$.
+    \item Every non-zero element has a multiplicative inverse: $1/x=-x$.
+\end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+    \begin{enumerate}[i)]
+    \item Observe that $x+0_\bT=\max(x,-\infty)=x$.
+    \item $x\.1_\bT=x+0=x$.
+    \item $x+y=0_\bT\iff \max(x,y)=-\infty\To x=y=-\infty$.
+    \item $x+x=\max(x,x)=x$.
+    \item $x\.(1/x)=x+(-x)=0=1_\bT$.
+\end{enumerate}
+\end{ptcbp}
+Observe that it is not possible to adjoin formal additive inverses. Suppose that for $x\in\bT$ there exists a $y$ such that $x+y=0_\bT$, then 
+$$(x+x)+y=x+y=0_\bT\word{and}x+(x+y)=x+0_\bT=x\word{but}x\neq 0\_\bT.$$
+This means that any invertible element necessarily has to be $-\infty$.
+
+\begin{Ej}[2-]
+Which other algebraic properties do these operations enjoy? We have claimed for example that $+$ is associative. Prove this.\par 
+Are the operations commutative? Do they distribute with respect to each other?
+\end{Ej}
+
+\begin{Prop}[Weird Fun Facts]
+Recall that the usual Pascal Triangle is built by adding the \emph{previous two} elements to get the next one. In the tropical case we have 
+$$
+\begin{tikzpicture}
+    \foreach \n in {0,...,2} {
+      \foreach \k in {0,...,\n} {
+        \node at (\k-\n/2,-\n) {$1_\bT$};
+      }
+    }
+    \end{tikzpicture}
+    \word{\raisebox{2.5em}{=}}%tex.se/47016
+    \begin{tikzpicture}
+        \foreach \n in {0,...,2} {
+          \foreach \k in {0,...,\n} {
+            \node at (\k-\n/2,-\n) {$0$};
+          }
+        }
+        \end{tikzpicture}
+    $$
+    and this extends downwards with the same pattern.\par 
+    In the case of the tropical binomial theorem, the identity is
+    $$(x+y)^n=x^n+y^n\iff n\max(x,y)=\max(nx,ny).$$
+\end{Prop}
+
+\begin{Ej}[2]
+Recall that the coefficients in the expansion for the binomial theorem are the corresponding elements in the rows of the Pascal Triangle. Verify if the coefficients agree in the tropical case for the binomial theorem.
+\end{Ej}
+
+
+\subsubsection{The Optimal Assignment Problem}
+
+Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and once the job is taken, no one else can do it. We wish to assign a job to each worker in order to maximize our company's profit.
+
+\begin{Ex}
+    As a little example consider Alice and Bob's hydroponics farm. When working with the weeds Alice produces $5$ credits while working with the water she produces $6$. On the other hand Bob produces $3$ and $5$ respectively.\par 
+    It is easy to see that Alice should be assigned to to the weed and Bob to the water in order to maximize. But let us apply what we know with tropical arithmetics.\par 
+    Call 
+    $$M_{ij}=\text{amount of credits work }i\text{ produces when doing job }j.$$
+    Then we can summarize the previous information in a matrix 
+    $$M=\twobytwo{5}{6}{3}{5}$$
+    and if we take the tropical determinant (which is really a permanent since we lack subtraction) we get
+    $$\Trop\det M=5\.5+6\.3=\max(5+5,6+3)=10$$
+    which is the maximal profit we can make by assigning our workers.
+\end{Ex}
+
+\begin{Ej}
+    Do the following:
+    \begin{itemize}
+        \item[(1-)] Construct a $3\x3$ matrix with non-permuted entries such that there's more than one possible assignment for the optimal jobs.
+        \item[(1)] Use the combinatorial definition of permanent to show that the tropical determinant of $M$ is indeed the maximal profit. \hint{The definition of permanent is the same as the determinant but without the $(-1)^{\sgn\sg}$.}
+        \item[(5)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. 
+    \end{itemize}
+\end{Ej}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
