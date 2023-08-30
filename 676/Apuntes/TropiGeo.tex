@@ -368,115 +368,6 @@ This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} deq
 \section{Interim}
 %%valued fields
 
-\subsection{Tropical Polynomials and Roots}
-
-An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients.
-
-\begin{Ex}
-    We have for example:
-    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x\ (\text{Laurent}).$$
-\end{Ex}
-
-An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise affine, linear function with integer slopes.
-
-\begin{Ex}
-    Consider the function $-5x^2+(-2)x^{-3}+0$ which corresponds to 
-    $$\max(-5+2x,-2-3x,0).$$
-    If we graph this functions we obtain
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.1RenzoNotes3.png}
-        %\caption{This is the caption.}
-        \label{fig:3.1-ConvPLFunc}
-    \end{figure}
-    Observe that this function is indeed convex, and fulfills all of the previous properties from before.
-\end{Ex}
-
-A small measure of care should be taken because any convex-PL-(etc) function corresponds to a tropical polynomial, but there are multiple tropical polynomials which map to the same function.
-
-\begin{Ex}
-    Consider the functions 
-    $$p_1=x+\frac{1}{x}+0,\quad p_2=x+\frac1x-2.$$
-    When converting we get 
-    $$\max(x,-x,0),\quad\max(x,-x,-2)$$
-    which produce $|x|$ in both cases.
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.2RenzoNotes3.png}
-        \caption{Failure of injectivity as both functions map to $|x|$ with $y=0$ and $y=-2$ shown.}
-        \label{fig:3.2-InjectivityFailure}
-    \end{figure}
-\end{Ex}
-
-To talk about the roots, we will start with a purely combinatorial definition.
-
-\begin{Def}
-    Given a polynomial $p\in\bT[x]$ of degree $d$ we say the following:
-    \begin{itemize}
-        \item $-\infty$ is a root of $p$ if the slope of the piecewise linear function is non-zero for $x\ll 0$.
-        \item $x_0\in\bR$ is a root of $p$ if $p'(x_0)$ is undefined.
-    \end{itemize}
-    We say that the \term{multiplicity} is the change of slopes across the root. And of $p'(x)$, $x\ll 0$ for when the root is $-\infty$.
-\end{Def}
-
-\begin{Ex}
-    Consider the polynomial $x^2+1\.x^1+0=\max(2x,x,0)$.
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.3SimpleFiniteRootsTropicalPolynomial.png}
-        %\caption{}
-        \label{fig:3.3-SimpleFiniteRoots}
-    \end{figure}
-    We can see that there are changes in slope at $x_1=-1$ and $x_2=1$. The number of roots coincides with the degree of the polynomial as in the usual sense.
-\end{Ex}
-
-\begin{Ex}
-    Let's remove the zero, recall zero isn't the additive identity, so the polynomial we have is $x^2+1\.x^1=\max(2x,x)$.
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.4SimpleRootsTropicalPolynomial.png}
-        %\caption{}
-        \label{fig:3.4-OneFiniteRootOneInfiniteRoot}
-    \end{figure}
-    Now one of the roots is still $x=1$, but remember that if the slope is non-zero when $x\ll 0$, then $-\infty$ is a root of $p$. This is the case here because the slope is $1$ as $x\to-\infty$. Once again there's two roots $x_1=-\infty$ and $x_2=1$.
-\end{Ex}
-
-\begin{Ex}
-    Let us change a sign in a coefficient, take $x^2-1\.x^1+0$. But what is tropical subtraction? It's not that, let's convert this slowly into what it's supposed to be:
-    $$x^2-1\.x^1+0=(x\.x)+(-1)\.x+0=(2x)+(x+(-1))+0=\max(2x.x-1,0).$$
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.5DoubleRootTropicalPolynomial1.png}
-        %\caption{}
-        \label{fig:3.5-DoubleRoot1}
-    \end{figure}
-    Observe that because the line $y=x-1$ is below our graphs, it doesn't interfere with the calculation of zeroes. So the only place where there occurs a change in sign is $x=0$. This is our unique root with multiplicity $2$.
-\end{Ex}
-
-\begin{Ex}
-    In a similar fashion, $x^2+0$ also has a double root at $x=0$.
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig3.6DoubleRootTropicalPolynomial2.png}
-        %\caption{}
-        \label{fig:3.6-DoubleRoot6}
-    \end{figure}
-    There is only one change in slope once again at $x=0$.
-\end{Ex}
-
-Questions arise:
-\begin{significant}
-    Which functions have only one simple zero at $-\infty$? What would a function with an order 2 zero at $-\infty$ look like?
-\end{significant}
-
-\begin{Ej}
-    Do the following:
-    \begin{itemize}
-        \item[(5)] Is it possible for a function to have only a simple zero at $-\infty$? Provide an example of function with one simple zero at $-\infty$ or prove that such function cannot exist. 
-        \item[(5)] Do functions with zeroes at $-\infty$ have infinite order at such zero or is it arbitrarily high? If a function has a finite order zero at $-\infty$ provide an example of one with a double zero at $-\infty$. Else, prove that such functions have infinite order at that zero.
-    \end{itemize}
-\end{Ej}
-
 \section{Day 4|20230828}
 
 We have seen where our ideas come from. Certain kinds of minimization problems give rise to our tropical numbers. Also by expressing complex numbers in a logarithmic scale without phase then when inducing a sum we actually get a hypersum. The way we converted into an operation is by taking a limit. Then the algebraic structure we obtained was once again the tropical numbers. Let us talk about the perspective of valued fields.
@@ -620,6 +511,131 @@ Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and 
         \item[(5)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. 
     \end{itemize}
 \end{Ej}
+
+\section{Day 5|20230830}
+
+The last time we talked about the algebraic structure of the value group of the Puiseux series. We now have plenty of motivation of why would we define the tropical numbers. 
+
+\subsection{Tropical Polynomials and Roots}
+
+An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients. Such a monomial is an expression of the form 
+$$a\odot x^{\odot m},\quad a\in\bT,\quad m\in\bZ.$$
+
+\begin{Ex}
+    We have for example:
+    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x\ (\text{Laurent}).$$
+    Also consider $\sqrt 5\odot x^{\odot 3}$ which corresponds to $y=\sqrt{5}+3y$. Notice how the slope is always an integer, meanwhile the translation can be any number.
+\end{Ex}
+
+An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise, affine linear function with integer slopes. 
+
+\begin{Ex}
+    Consider the function $-5\odot x^{\odot2}\oplus(-2)\odot x^{\odot-3}\oplus 0$ which corresponds to 
+    $$\max(-5+2x,-2-3x,0).$$
+    If we graph this functions we obtain
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.1RenzoNotes3.png}
+        %\caption{This is the caption.}
+        \label{fig:3.1-ConvPLFunc}
+    \end{figure}
+    Observe that this function is indeed convex, and fulfills all of the previous properties from before. 
+\end{Ex}
+
+In fact the map from $\bT[x]$ to convex, affine piecewise linear functions with \emph{finitely} many distinct regions of linearity is surjective. If we don't want to take the finiteness condition into consideration, we have to amplify the domain to tropical Laurent series.\par 
+A small measure of care should be taken because there are multiple tropical polynomials which map to the same function.
+
+\begin{Ex}
+    Consider the functions 
+    $$p_1=x+\frac{1}{x}+0,\quad p_2=x+\frac1x-2.$$
+    When converting we get 
+    $$\max(x,-x,0),\quad\max(x,-x,-2)$$
+    which produce $|x|$ in both cases.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.2RenzoNotes3.png}
+        \caption{Failure of injectivity as both functions map to $|x|$ with $y=0$ and $y=-2$ shown.}
+        \label{fig:3.2-InjectivityFailure}
+    \end{figure}
+    Adding something which is smaller than the minimum value of the function doesn't change it in general. It also doesn't have to be a constant in general. In the previous example, the the monomial $(-4)\odot x^{\odot 1}$ is smaller than any of the linear functions, so adding it changes nothing.
+\end{Ex}
+
+To talk about the roots, we will start with a purely combinatorial definition. 
+
+\begin{Def}
+    Given a polynomial $p\in\bT[x]$ of degree $d$ we say the following:
+    \begin{itemize}
+        \item $-\infty$ is a root of $p$ if the slope of the piecewise linear function is non-zero for $x\ll 0$.
+        \item $x_0\in\bR$ is a root of $p$ if $p'(x_0)$ is undefined. Observe that the derivative is undefined only when there's a change in slope.
+    \end{itemize}
+    We say that the \term{multiplicity} of $x_0$ is the difference between slopes across $x_0$. If $-\infty$ is a root, then its multiplicity is equal to the slope of the associated function for $x\ll 0$.
+\end{Def}
+
+\begin{Ex}
+    Consider the polynomial $x^{\odot2}\oplus1\odot x^1\oplus 0=\max(2x,x,0)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.3SimpleFiniteRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.3-SimpleFiniteRoots}
+    \end{figure}
+    We can see that there are changes in slope at $x_1=-1$ and $x_2=1$. The number of roots coincides with the degree of the polynomial as in the usual sense.
+\end{Ex}
+
+\begin{Ex}
+    Let's remove the zero, recall zero isn't the additive identity, so the polynomial we have is $x^{\odot2}\oplus1\odot x^1=\max(2x,x)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.4SimpleRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.4-OneFiniteRootOneInfiniteRoot}
+    \end{figure}
+    Now one of the roots is still $x=1$, but remember that if the slope is non-zero when $x\ll 0$, then $-\infty$ is a root of $p$. This is the case here because the slope is $1$ as $x\to-\infty$. Once again there's two roots $x_1=-\infty$ and $x_2=1$.
+\end{Ex}
+
+\begin{Ex}
+    Let us change a sign in a coefficient, take $x^2-1\.x^1+0$. But what is tropical subtraction? It's not that, let's convert this slowly into what it's supposed to be:
+    $$x^2-1\.x^1+0=(x\.x)+(-1)\.x+0=(2x)+(x+(-1))+0=\max(2x.x-1,0).$$
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.5DoubleRootTropicalPolynomial1.png}
+        %\caption{}
+        \label{fig:3.5-DoubleRoot1}
+    \end{figure}
+    Observe that because the line $y=x-1$ is below our graphs, it doesn't interfere with the calculation of zeroes. So the only place where there occurs a change in sign is $x=0$. The slope on the right is $2$ and on the left is $0$ so the multiplicity is $2-0=2$.
+\end{Ex}
+
+\begin{Ex}
+    In a similar fashion, $x^2+0$ also has a double root at $x=0$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3.6DoubleRootTropicalPolynomial2.png}
+        %\caption{}
+        \label{fig:3.6-DoubleRoot6}
+    \end{figure}
+    There is only one change in slope once again at $x=0$ and the difference in slopes is $2$.
+\end{Ex}
+
+\begin{Lem}
+For a tropical polynomial $p$, a finite $x_0$ is a root of $f$ if and only if when we write the function as a $\max$ of linear functions, at $x_0$ the maximum value is obtained at least twice.\par 
+The multiplicity of the root is equal to the difference in the two extremal positions where the $\max$ is attained.
+\end{Lem}
+
+This should be more or less obvious. Being a root means that we are an intersection of two lines which are above all the others. It's pretty useful to have this notions around.
+
+Questions arise:
+\begin{significant}
+    Which functions have only one simple zero at $-\infty$? What would a function with an order 2 zero at $-\infty$ look like?
+\end{significant}
+
+\begin{Ej}
+    Do the following:
+    \begin{itemize}
+        \item[(5)] Is it possible for a function to have only a simple zero at $-\infty$? Provide an example of function with one simple zero at $-\infty$ or prove that such function cannot exist. 
+        \item[(5)] Do functions with zeroes at $-\infty$ have infinite order at such zero or is it arbitrarily high? If a function has a finite order zero at $-\infty$ provide an example of one with a double zero at $-\infty$. Else, prove that such functions have infinite order at that zero.
+    \end{itemize}
+\end{Ej}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 %%%%%%% testing! testing testing testing testing!
