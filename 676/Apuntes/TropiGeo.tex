@@ -636,7 +636,7 @@ Questions arise:
     \end{itemize}
 \end{Ej}
 
-\section{Interim 2}
+\section{Day 6|20230901}
 
 How do we know that the notions of roots are natural or useful?
 
@@ -644,8 +644,8 @@ How do we know that the notions of roots are natural or useful?
 
 Suppose a polynomial $p\in\bT[x]$ has roots $a_k$ with multiplicity $m_k$. Then we may factor $p$ as a product of linear polynomials 
 $$p(x)=c_0\bigodot(x\oplus a_k)^{m_k}.$$
-This $p$ is the affine piecewise-linear function, not the formal object. And so, in a sense, $\bT$ is algebraically closed. But instead of proving this, we will sketch the proof to get an idea of how things \emph{work} with a couple of examples. 
-
+This $p$ is the affine piecewise-linear function, not the formal object. And so, in a sense, $\bT$ is algebraically closed. But instead of proving this, we will sketch the proof to get an idea of how things \emph{work} with a couple of examples.\par 
+The idea of the proof is that we check that product does define a P.L. function with the right slopes and then $c_0$ gives the translation factor.
 \begin{Ex}
 First lets deal with the case where $-\infty$ is not a root. Consider the polynomial 
 $$p(x)=(-1)\oplus(-1)\odot x\oplus(-4)\odot x^4=\max(-1,x-1,4x-4).$$
@@ -658,14 +658,16 @@ Remember, as in the case of real polynomials, the square and cube terms are stil
 \end{figure}
 The points where there is a change in slope are $a_1=0$ and $a_2=1$. Then their multiplicities are $1-0=1$ and $4-1=3$ respectively. We may write $p$ as 
 $$p(x)=c_0\odot(x\oplus 0)\odot(x\oplus 1)^{3}=c_0+\max(x,0)+\max(3x,3).$$
-\begin{table*}[h]
+Whatever function we have, we can write as the sum of three terms. So let us subdivide the tropical line in order to see which terms goes where.
+\begin{table*}[h!]
     \centering
     %\arraystretch{1.3}
     \begin{tabular}{rrrr}\toprule
         $x\leq 0$ & $0\leq x\leq 1$ & $1\leq x$\\ \midrule
         $c_0$& $c_0$&$c_0$\\
         $0$&$x$ & $x$\\
-        $3$& $3$ & $3x$\\
+        $3$& $3$ & $3x$\\ \midrule
+        $c_0+3$&$c_0+3+x$&$c_0+4x$\\
    \bottomrule
     \end{tabular}
     \legend{Behavior of $p(x)$ across $\bT$}
@@ -687,6 +689,57 @@ $$p(x)=c_0\odot(x\oplus 0)\odot(x\oplus 1)^{3}=c_0+\max(x,0)+\max(3x,3).$$
 \begin{Ex}
     We now explore the case where $-\infty$ is a root or a pole. The argument will essentially be the same with a small modification.\par 
     Consider the function $\frac{1}{x}\oplus x$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4.2RootAndPoleProof.png}
+        %\caption{}
+        \label{fig:4.2-RootAndPoleProof}
+    \end{figure}
+    We have $-\infty$ as a pole of order $1$ and $0$ is a root of order $1-(-1)=2$. So this can be factored as 
+    $$p(x)=c_0\odot(x^{-1})\odot(x+\oplus 1)^2$$
+    and even if $-\infty$ doesn't give us a particular value for the function, we can still find $c_0=0$ from the equation $p(0)=0$.\par 
+    If on the other hand we have a negative slope then we have a zero at $-\infty$. Consider the function $p(x)=x+x^2$:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4.3RootsForProof.png}
+        %\caption{}
+        \label{fig:4.3-RootsForProof}
+    \end{figure}
+    This function has two simple roots at $-\infty$ and $0$. We may factor it as 
+    $$p(x)=c_0\odot(x\oplus-\infty)\odot(x\oplus 0)$$
+    and even if $p(-\infty)=-\infty$ we can plug in $0$ to get $0$ back in order to get $c_0=1$.
+\end{Ex}
+
+\subsection{Correspondence Theorems}
+Recall the maps 
+\begin{align*}
+    &T_t\: \bC\to\bT\quad(\text{with }\max),\\
+    &\val\: \bC\set{\set{t}}\to\bT\quad(\text{with }\min).
+\end{align*}
+If we consider a polynomial 
+$$p(X)\in\bC[X]\word{or}p(x)\in\bC\set{\set{t}}[X]$$
+then we can produce a tropical polynomial as follows:
+\begin{enumerate}[i)]
+    \item Taking the images of the coefficients via $T_t$ or $\val$, and
+    \item tropicalizing the operations. 
+\end{enumerate}
+We hope that if $r\in\bC$ or $r\in\bC\set{\set{t}}$ was a root of $p$, then $\lim_{t\to\infty}T_t(r)$ is a root of the new polynomial.\par
+Or the other way around, given $p\in\bT[x]$, we can lift the coefficients to $\bC$ or the Puiseux series via the above maps. We can find the roots of the corresponding polynomials in $\bC[x]$ or $\bC\set{\set{t}}[x]$ and then the image of those roots via $T_t$ or $\val$ are the tropical roots of $p(x)$.
+
+\begin{Ex}
+    Consider the polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. We wish to construct a polynomial in $\bC[x]$ which tropicalizes to $p$.Take the polynomial 
+    $$q(x)=t^2X+t^3\in\bC[x]$$ 
+    where $t>0$ is a parameter. We could certainly add phase as $e^{i\te}$, but that won't change anything. Taking $\log_t$ of the coefficients we get $t^2\mapsto 2$ and $t^3\mapsto 3$. Taking tropical operations we get $2\odot X\oplus 3$ which was our original polynomial.\par 
+    If we ordinarily solve $q=0$ we get $X=-t^3/t^2=-t$, which maps to $1$ via $\log_t||$. Lo and behold, this is the same root of $p(x)$. 
+\end{Ex}
+We can be skeptical because the previous example was linear. So lets amp up the degree a bit.
+\begin{Ex}
+    Consider the polynomial
+    $$q(X)=X^2+t^2X+1\in\bC[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0.$$
+    The roots of $p$\red{ADD FIGURE} are located at $-2$ and $2$ but the roots of $q$ are
+    $$r_{1,2}=\frac{-t^2}{2}\pm\frac{\sqrt{t^2-4}}{2}.$$
+    Even if taking the logarithm seems hard, we are not interested in the logarithm, just the limit! Observe that 
+    $$\lim_{t\to\infty}\log_t\left(\frac{-t^2}{2}\left(1+\sqrt{1-\frac{4}{t^2}}\right)\right)=2+0.$$
 \end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
