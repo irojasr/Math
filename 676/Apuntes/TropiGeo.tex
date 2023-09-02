@@ -394,7 +394,7 @@ $$\val: \bC\set{\set{t}}\to\bR\cup\set{\infty},\begin{cases}
 In other words the valuation sends $\sum_{k=k_0}^\infty a_kt^{q_k}$ to $q_{k_0}$.
 \begin{Prop}
 The previous valuation enjoys the following properties:
-\begin{enumerate}[i)]
+\begin{enumerate}[i.]
     \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
     \item $\val(\al+\bt)\geq\min(\val(\al),\val(\bt))$.
 \end{enumerate}
@@ -430,7 +430,7 @@ There is a natural isomorphism between the two choices given by $x\mapsto -x$. A
 
 \begin{Prop}
 The following algebraic properties hold for $(\bT,+,\.)$:
-\begin{enumerate}[i)]
+\begin{enumerate}[i.]
     \item $0_\bT=-\infty$.
     \item $1_{\bT}=0$.
     \item $x+y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
@@ -440,7 +440,7 @@ The following algebraic properties hold for $(\bT,+,\.)$:
 \end{Prop}
 
 \begin{ptcbp}
-    \begin{enumerate}[i)]
+    \begin{enumerate}[i.]
     \item Observe that $x+0_\bT=\max(x,-\infty)=x$.
     \item $x\.1_\bT=x+0=x$.
     \item $x+y=0_\bT\iff \max(x,y)=-\infty\To x=y=-\infty$.
@@ -711,39 +711,95 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
 \end{Ex}
 
 \subsection{Correspondence Theorems}
-Recall the maps 
-\begin{align*}
+Recall the maps
+$$
+\left\lbrace 
+\begin{aligned}
     &T_t\: \bC\to\bT\quad(\text{with }\max),\\
     &\val\: \bC\set{\set{t}}\to\bT\quad(\text{with }\min).
-\end{align*}
+\end{aligned}
+\right.
+$$
 If we consider a polynomial 
 $$p(X)\in\bC[X]\word{or}p(x)\in\bC\set{\set{t}}[X]$$
 then we can produce a tropical polynomial as follows:
-\begin{enumerate}[i)]
-    \item Taking the images of the coefficients via $T_t$ or $\val$, and
-    \item tropicalizing the operations. 
+
+\begin{enumerate}[i.]
+    \item Apply $T_t$ or $\val$ to the coefficients, and
+    \item Perform tropical operations.
 \end{enumerate}
-We hope that if $r\in\bC$ or $r\in\bC\set{\set{t}}$ was a root of $p$, then $\lim_{t\to\infty}T_t(r)$ is a root of the new polynomial.\par
+
+We expect that if $r\in\bC$ or $r\in\bC\set{\set{t}}$ is a root of $p$, then $\lim_{t\to\infty}T_t(r)$ will be a root of the new polynomial.\par
 Or the other way around, given $p\in\bT[x]$, we can lift the coefficients to $\bC$ or the Puiseux series via the above maps. We can find the roots of the corresponding polynomials in $\bC[x]$ or $\bC\set{\set{t}}[x]$ and then the image of those roots via $T_t$ or $\val$ are the tropical roots of $p(x)$.
 
 \begin{Ex}
-    Consider the polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. We wish to construct a polynomial in $\bC[x]$ which tropicalizes to $p$.Take the polynomial 
-    $$q(x)=t^2X+t^3\in\bC[x]$$ 
-    where $t>0$ is a parameter. We could certainly add phase as $e^{i\te}$, but that won't change anything. Taking $\log_t$ of the coefficients we get $t^2\mapsto 2$ and $t^3\mapsto 3$. Taking tropical operations we get $2\odot X\oplus 3$ which was our original polynomial.\par 
-    If we ordinarily solve $q=0$ we get $X=-t^3/t^2=-t$, which maps to $1$ via $\log_t||$. Lo and behold, this is the same root of $p(x)$. 
+    Consider the polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. We wish to construct a polynomial in $\bC[x]$ which tropicalizes to $p$. Take the polynomial 
+    $$q(x)=t^2X+t^3\in\bC[x],\quad t>0$$ 
+    We could certainly add phase as $e^{i\te}$ to the $t^k$'s, but that won't change anything. Taking the logarithm of the coefficients we get 
+    $$t^2\mapsto 2\word{and}t^3\mapsto 3.$$ 
+    Then switching the operations to tropical operations we have
+    $$t^2X+t^3\xrightarrow[]{\Trop}2\odot X\oplus 3$$ 
+    which was our original polynomial $p$.\par 
+    Additionally if we solve the equation $q=0$ we obtain the root $X=-t^3/t^2=-t$. Now $\log_t|-t|=1$. Lo and behold, this is the same root of $p(x)$. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4.4CorrespondenceRoots1Example.png}
+        \caption{Root of $p(x)$ in correspondence with $-t$ of $q(x)$}
+        \label{fig:4.4-CorrespondenceRoots1Example}
+    \end{figure}
 \end{Ex}
-We can be skeptical because the previous example was linear. So lets amp up the degree a bit.
+
+We should be skeptical because this was only an example of a linear polynomial. Lets increase the degree and see what happens. Eventually this correspondence must be shown to hold in its entirety.
+
 \begin{Ex}
     Consider the polynomial
     $$q(X)=X^2+t^2X+1\in\bC[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0.$$
-    The roots of $p$\red{ADD FIGURE} are located at $-2$ and $2$ but the roots of $q$ are
-    $$r_{1,2}=\frac{-t^2}{2}\pm\frac{\sqrt{t^2-4}}{2}.$$
-    Even if taking the logarithm seems hard, we are not interested in the logarithm, just the limit! Observe that 
-    $$\lim_{t\to\infty}\log_t\left(\frac{-t^2}{2}\left(1+\sqrt{1-\frac{4}{t^2}}\right)\right)=2+0.$$
+    We can identity the roots of $p$ as $-2$ and $2$. However, we may find it difficult to interpret the roots of $q$ as roots of $p$. Observe that using the quadratic formula we may derive those to be:
+    $$X_{1,2}=\frac{-t^2}{2}\pm\frac{\sqrt{t^4-4}}{2}=\frac{-t^2}{2}\left(1\pm\sqrt{1-\frac{4}{t^4}}\right).$$
+    Even if taking the logarithm seems hard, we are not interested in the logarithm itself, just the limit! Observe that 
+    $$\lim_{t\to\infty}\log_t\left|\frac{-t^2}{2}\left(1+\sqrt{1-\frac{4}{t^4}}\right)\right|=2+\lim_{t\to\infty}\frac{1}{\log(t)}\log\left|\frac{1}{2}\left(1+\sqrt{1-\frac{4}{t^4}}\right)\right|$$
+    and the quantity on the right tends to $1/\infty$ which collapses to zero and then the logarithm only has $1$ as its argument. So overall we find one our original roots: $2$! The next limit has a different sign so it is not as direct. We may calculate that limit as follows:
+    $$\lim_{t\to\infty}\log_t\left|\frac{1}{2}\left(1-\sqrt{1-\frac{4}{t^4}}\right)\right|\approx\lim_{t\to\infty}\log_t\left|\frac{1}{2}\left(1-\left(1-\frac{4}{2t^4}\right)\right)\right|=\lim_{t\to\infty}\log_t\frac{1}{t^4}=-4.$$
+    So for the negative root we would actually obtain $2-4=-2$ which is the other root of our polynomial.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4.5CorrespondenceRoots2Example.png}
+        \caption{Indeed the roots of $q$ correspond with $p$'s}
+        \label{fig:4.5-CorrespondenceRoots2Example}
+    \end{figure}
 \end{Ex}
+
+\section{Interim 2}
+
+\begin{Def}
+    If $q(x)=\sum a_kx^k\in\bC[X]$ or $\bC\set{\set{t}}[x]$, then the \term{tropicalization} of $q$ is 
+    $$\Trop(q)=\sum T_{t\to\infty}(a_k)x^k$$
+    or respectively with the valuation. In this case we omit the notation for tropical operations but the sum and product are tropical.
+\end{Def}
+
+\begin{Th}
+For a polynomial $q$, $r_k$ is a root of $q(x)$ with multiplicity $m_k$ if and only if $T_{t\to\infty}(r_k)$ is a root of $\Trop(q)$ of multiplicity $m_k$.
+\end{Th}
+
+In the univariate case, we may prove the theorem using the following lemmas.
+
+\begin{Lem}
+$\Trop$ is a multiplicative function on polynomials. That is
+$$\Trop(pq)=\Trop(p)\Trop(q)\word{for}p,q\in\bC[x].$$
+\end{Lem}
+
+\begin{Lem}
+The roots of $\Trop(p)\Trop(q)$ are the union of the roots of the factors. If a root is repeated then the multiplicities are added.
+\end{Lem}
+
+\begin{Ej}[2]
+Prove the preceding lemmas and then conclude the theorem as a result.
+\end{Ej}
+%%6/12tg5
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
-%%%%%%% testing! testing testing testing testing!
 \ifx\nextra\undefined
 \printindex
 \else\fi
