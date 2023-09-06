@@ -849,7 +849,124 @@ The question now is: how do we turn this idea into a formal proof?
     $$\Trop(q(x+\al))>\Trop(\tilde{q})\oplus\Trop(q(\al)).$$
     \item Finally we iterate and check that the sequence of $r_i$'s goes to $\infty$.
 \end{enumerate}
-%FINISH TG5
+
+\subsection{Combinatorialization of Root Finding}
+
+We will be using the $\max$ convention now. So let us consider $p(x)=\sum_{k=0}^da_kx^k$. Can we a systematic and simple way to say how many roots, with what multiplicity, and what equations to solve?\par 
+The left-most root can be found via
+$$\min\left(\frac{a_0-a_k}{k}\right)=\text{achieved by }k\text{ such that }\frac{a_0-a_k}{k}\text{ is maximized}.$$
+In other words we are looking for the largest slope:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig6-1BiggestSlope.png}
+    \caption{Difference of coefficients as slopes}
+    \label{fig:6.1-BiggestSlope}
+\end{figure}
+We may repeat this argument for the following roots to get the following algorithm:
+\begin{enumerate}[i.]
+    \item Let $p_k=(k,a_k)\in\bonj{0,d}\x\set{-\infty}\cup\bR$.
+    \item Now $\Sg$ is the convex hull of the points $\set{p_k\:\ k\in[d]}$. We may divide the region into $\Sg^+$ and $\Sg^-$.
+    \item Call $q_i=\pi(p_i)$ for $p_i$'s that for the vertices of $\Sg^+$.
+\end{enumerate}
+The roots will be in bijection with the connected components of $\bonj{0,d}\less\set{q_i}_{i\in I}$ and the multiplicity is the length of the segment.
+
+\begin{Ex}
+    Take for example the polynomial 
+    $$p(x)=0+1\.x+1\.x^2+x^3+2\.x^4+1\.x^5.$$
+    We now place the points in our diagram and project:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-2CombinatorializationExample.png}
+        \caption{Root finding for $p(x)$}
+        \label{fig:6.2-CombinatorializationExample}
+    \end{figure}
+    From this we deduce that there are $2$ simple roots and $1$ triple root. This come from the equations
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &0=x+1&\To x=-1\\
+        &x+1=2+4x&\To x=-1/3\\
+        &2+4x=1+5x&\To x=1
+    \end{aligned}
+    \right.
+    $$
+\end{Ex}
+
+\subsection{Gr\"obner Complexes}
+
+If $K$ is a field with a valuation, then call
+$$
+\left\lbrace
+\begin{aligned}
+    &R_K\subseteq K=\text{ elements with non-negative valuation}\\
+    &\lie{m}\subseteq R_K=\text{ elements with positive valuation}
+\end{aligned}
+\right.
+$$
+so $\quot{R_K}{\lie{m}}$ is a residue field. In the case of tropical polynomials, they form a Gr\"obner complex\footnote{What are Gr\"obner comlpexes? To see in interim.}.
+$$\lie{m}=\bigcup_nt^{1/n}\bC\bonj{\bonj{t^{1/n}}}\subseteq R_K=\bigcup_n\bC\bonj{\bonj{t^{1/n}}}\subseteq\bC\set{\set{t}},\word{and}\quot{R_K}{\lie{m}}=\bC.$$
+
+\begin{Def}
+    Given $q\in K[x]$ and $w\in\bT$, the \term{initial form} of $q(x)$ with respect to $w$ is a polynomial in $k[x]$that records the part of $q$ that has lowest order when $\val(x)=w$.
+\end{Def}
+
+\begin{Ex}
+    Let us consider the polynomial 
+    $$q(x)=t^{-4}+\sqrt{2}x+3t^2x^2,$$
+    Here\footnote{What does this mean?}
+    $$t^{-4}\to -4,\quad \sqrt{2}x\to-3,\quad 3t^2x^2\to -4,\word{so}w=-3\footnote{I srsly don't understand}.$$
+    We may construct the initial form as $I_wq=1+3x^2$
+\end{Ex}
+
+\section{Day 7|20230906}
+
+\subsection{Our First Correspondence Theorem}
+
+\begin{Def}
+    Given a family of polynomials 
+    $$q_t=\sum A_k(t)x^k\in\bC[x]\word{with}t>1$$
+    then the \term{tropicalization} of $q_t$ is 
+    $$\Trop(q_t)(x)=\sum a_k\odot x^{\odot k},\word{where}a_k=\lim_{t\to\infty}T_t(A_k).$$
+    We may also use the $\min$ convention by exchanging the field to Puiseux series and $T_t$ by the valuation.
+\end{Def}
+
+\begin{Th}[Correspondence]
+For a polynomial $q_t$, $R_t$ is a root of $q_t$ if and only if $\Trop(R_t)=\lim_{t\to\infty}T_t(R_t)$ is a root of $\Trop(q_t)$.
+\end{Th}
+
+This is saying that we have an object in algebraic geometry, a polynomial. Tropical geometry will somehow knowing about its roots by degenerating it. Then its easy to find the tropical roots and then there must be certain algebraic roots which should map to them. It may not be easy to understand this last map but at least we have some qualitative information.\par 
+We will use the fundamental theorem of algebra to reduce to the linear case. So the first step is to prove the theorem for the case of linear polynomials. We have a couple of lemmas to finish the proof and expand it to the general case:
+
+\begin{Lem}
+    $\Trop$ is a multiplicative function on polynomials. That is
+    $$\Trop(pq)=\Trop(p)\odot\Trop(q)\word{for}p,q\in\bC[x].$$
+    \end{Lem}
+    
+This first lemma doesn't add anything weird because the tropical product is just the usual addition.
+
+    \begin{Lem}
+    The roots of $\Trop(p)\odot\Trop(q)$ are the union of the roots of the factors. If a root is repeated then the multiplicities are added.
+    \end{Lem}
+
+    Essentially what this is saying is that if we have two piecewise linear functions which change slope at the same place, then the sum will also change slope at the same place. As the functions are convex, a root can never be cancelled. Except possibly $-\infty$.
+
+    \subsection{Higher Dimension}
+
+    We will go back to the Puiseux series convention now:
+    $$P(X)\in\bC\set{\set{t}}\bonj{X},\ P(R)=0\iff \Trop(P)(\val(R))=0.$$
+    The easy direction is to begin with a root of our Puiseux polynomial. Let 
+    $$P(X)=\sum A_i(t)X^i,\word{and}\Trop(P)(X)\sum a_i\odot x^i$$
+    where $a_i=\val(A_i)$. Let $R=R(t)$ be a root of $P(X)$.\par 
+    We know $\val(P(R))=\infty$ because $P(R)=0$. Formally $\val(P(R))$ should greater or equal than the minimum of the valuation of each of the monomials evaluated at $R$. In other words 
+    $$\min(\val(A_i(t)R^i))=\min_i(a_i+i\val(R))=Trop(P)(R).$$
+    Since we know that strict inequality holds, the terms in the formal evaluation with lowest order must cancel, in other words, the minimum is attained at least twice by two different monomials.\par 
+    Last week we mentioned attaining the minimum twice is the same as being a root.
+
+    \begin{Ex}
+        Consider the polynomial $(t^2+7t^3)X+(t^5+t^{27})=Q(X)$. The root here is $R=-\frac{t^5+t^{27}}{t^2+7t^3}$ and its valuation is $5-2=3$. If we plug in something of this form instead of $X$ we get 
+        $$Q(-t^3+O(t^4))=(t^2+7t^3)(-t^3+O(t^4))+(t^5+t^{27})=(-t^5)+t^5+O(t^6)$$
+        In particular the first thing that will cancel is the lowest order term: $t^5$. So \emph{two} monomials must have lower order term.
+    \end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
