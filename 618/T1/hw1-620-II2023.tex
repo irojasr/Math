@@ -1,0 +1,107 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH618}
+\def\nsiglahead {Advanced Real Analysis}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+    In class, you have seen examples of infinite-dimensional spaces: Notably, (infinite) sequences of numbers and function spaces. But one can come up with many other sets of objects that 
+    \begin{enumerate}[(i)]
+        \item satisfy the vector space axioms, and 
+        \item are infinite-dimensional.
+    \end{enumerate}
+Come up with your own example of an infinite-dimensional space that doesn't fit the examples you have seen in class. Show
+that it is a vector space (if you define scalar multiplication and vector addition appropriately) and why you
+think that the set is infinite-dimensional.
+\end{Ej}
+
+\begin{ptcbr}
+Consider a set $A$, its power set $\cP(A)$ and the operation $\triangle$ as symmetric difference. Observe the following:
+\begin{itemize}
+    \item The symmetric difference of two subsets of $A$ is yet again a subset of $A$.
+    $$X,Y\subseteq A\To X\cup Y\subseteq A\word{and}X\triangle Y=(X\cup Y)\less(X\cap Y)\subseteq X\cup Y.$$
+    This means that, as a binary operation, the symmetric difference is closed in $A$,
+    \item As an operation, it is associative: For $X,Y,Z\subseteq A$ we have
+    $$(X\triangle Y)\triangle Z=X\triangle(Y\triangle Z).$$
+    The proof of this fact is attached at the end of this exercise. For now, this allows us to say that ``$3X$'' is well defined, because if it wasn't associative, then the expression $X\triangle X\triangle X$ would be ambiguous.
+    \item There is an additive identity for this operation, recall that the empty set is a subset of all sets. Observe then that for all $X\subseteq A$ we have
+    $$X\triangle \emptyset= (X\cup \emptyset)\less(X\cap \emptyset)=X\less \emptyset=X.$$
+    \item Finally observe that every element has an inverse. This is, there is an element $Y$ for each $X$ such that $X\triangle Y=\emptyset$. In this case, $Y$ is the same as $X$ because 
+    $$X\triangle X=(X\cup X)\less(X\cap X)=X\less X=\emptyset.$$
+    Now arises the question, about uniqueness of solutions to the equation $X\triangle Y=\emptyset$.\footnote{astrall recall to uniqueness of inverses.}
+\end{itemize}
+The previous statements show that $(\cP(A),\triangle)$ is a group. From the last fact we also deduce that every element has order $2$. Now, observe that our operation is commutative:
+$$X\triangle Y=(X\less Y)\cup (Y\less X)=(Y\less X)\cup(X\less Y)=Y\triangle X.$$
+Thus this is an Abelian group where every element has order $2$. Let us now define a scalar multiplication on this set via $\bF_2$. We declare that 
+$$0\.X=\emptyset,\word{and}1\.A=A.$$
+This makes sense as $2\equiv 0\pmod 2$ and $2A=A\triangle A=\emptyset$. The preceding operation satisfies all four axioms of scalar multiplication:
+\begin{itemize}
+    \item $1\.X=X$ by definition.
+    \item Scalar multiplication is associative with the field multiplication: $c(dX)=(cd)X$. To prove this, it must be done by cases, we will do it at the end.
+    \item Scalar multiplication distributes with respect to field multiplication: $(c+d)X=cX+dX$. And once again as this must be done in four cases, we leave it for the end.
+    \item Finally scalar multiplication distributes with respect to vector space addition: $c(X+Y)=cX+cY$. This we can verify in two cases:\par 
+    When $c=0$ we have 
+    $$\emptyset=\emptyset\triangle\emptyset$$ 
+    and $\emptyset\triangle\emptyset=\emptyset$.
+    In the other case when $c=1$ we have 
+    $$1(X\triangle Y)=1X\triangle1Y\To X\triangle Y=X\triangle Y.$$
+\end{itemize}
+Thus this operation is a well defined scalar multiplication over $\cP(A)$. This can be seen also in another way by recalling that any Abelian group is a $\bZ$-module. In this case, because every element has order $2$, it's a $\bZ/2\bZ$-module which means its an $\bF_2$-vector space.\par
+Let us now consider two different non-empty elements $X,Y\subseteq A$ and the equation 
+$$aX+bY=0$$
+If either $a,b$ are non-zero then the equation has no solutions:
+\begin{itemize}
+    \item $X+Y=0$ can't occur as $Y\neq X$.
+    \item $X=0$ also can't occur as $X$ is non-empty, similarly for $Y$.
+\end{itemize}
+So the only solution is $a=b=0$. This means that any two distinct elements are linearly independent.\par 
+Observe now that singleton sets are a generating set for our vector space as any set $A$ can be seen as 
+$$A=\bigtriangleup_{x\in A}\set{x}.$$
+Singletons in particular are all linearly independent from one another. Observe that this doesn't necessarily occur when we have $3$ different arbitrary sets, as we could have 
+$$X+Y+(X+Y)=0.$$
+If we assume that $A$ is uncountably infinite, then singletons are a set as big as $A$ which generates our vector space and is linearly independent. This means that our space is infinite-dimensional.
+\end{ptcbr}
+
+\begin{Ej}
+    Defining what the ``dimension'' of a space is is intuitively
+obvious, but \emph{technically} perhaps not quite as much.\par
+For $\bR^n$ and other finite-dimensional spaces, if you have a basis of the space with $n$ elements, then we say that the space has dimension $n$\footnote{Recall: A basis of a space $V$ is a set of vectors $\set{\vec a_i}$ so that every vector $\vec v\in V$ can be written as a unique linear combination $v=\sum_i\al_i\vec a_i$. Note that the basis vectors do not need to be normalized (we are only working with a vector space, no norms so far) and they do not have to be orthogonal (again, we are only working with a vector space, no inner products have been
+defined so far).}. Importantly, every other basis you can find will then also have exactly $n$ elements. This also means that the operation that converts one basis to another can be written as a square matrix/operator that is invertible. This all will turn out to be more complicated for infinite-dimensional
+spaces.
+\begin{enumerate}[(i)]
+    \item Take $V = \bR^3$. Provide a basis $\set{\vec{a}_i}_{i=1}^3$ (that is, a set of three vectors) for this space. Then provide
+    another basis $\set{\vec{b}_i}_{i=1}^3$.
+    \item There is an operator $R$ (here, a $3\x 3$ matrix) that converts from one basis to another. That is, if I
+    give you a vector $x\in\bR^3$, it can be written as $\vec x=\sum_{i=1}^3\al_i\vec a_i$ and as $\vec x=\sum_{i=1}^3\bt_i\vec b_i$. The operator $R$ is then the one that translates between expansion coefficients:
+    $$\threebyone{\bt_1}{\bt_2}{\bt_3}=R\threebyone{\al_1}{\al_2}{\al_3}.$$
+    Provide the form of $R$ for your choice of basis and show that it is invertible.
+    \item Repeat the previous two steps if $V$ is the space of symmetric $2\x 2$ matrices.
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[(i)]
+        \item Consider the vectors 
+        $$\vec a_1=\threebyone{0}{1}{0},\vec a_2=\threebyone{0}{1}{1},\word{and}\vec a_3=\threebyone{-1}{1}{0}$$
+        which form a basis because the matrix whose columns are the $\vec a_i$'s is invertible. The other basis we will pick is the canonical basis $\vec b_i=(\dl_{ij})_{j=1}^3$.
+        \item Suppose we have a vector 
+        $$\vec x=\al_1\vec a_1+\al_2\vec a_2+\al_3\vec a_3$$
+        which means $\vec x$ is written in $\vec a_i$ coordinates. Implicitly we claiming that we know the $\vec a_i$'s coordinates in canonical basis. If we wish to write $\vec x$ in canonical coordinates, then it suffices to expand the $\vec a_i$'s in terms of the canonical basis as follows:
+        $$\vec x=\threebyone{0}{\al_1}{0}+\threebyone{0}{\al_2}{\al_2}+\threebyone{-\al_3}{\al_3}{0}=\threebythree{0}{0}{-1}{1}{1}{1}{0}{1}{0}\threebyone{\al_1}{\al_2}{\al_3}.$$
+        This means that the matrix whose columns are the $\vec a_i$'s is the change of basis matrix which goes from $\vec a_i$ coordinates to $\vec b_i$ or canonical coordinates.\par 
+        The operator is invertible because $\set{\vec a_i}_{i=1}^3$ is a basis of $\bR^3$. We can also see it is invertible because the matrix has non-zero determinant:
+        $$\det\threebythree{0}{0}{-1}{1}{1}{1}{0}{1}{0}=-1.$$
+        \item Now let us consider the space of symmetric $2\x2$ matrices:
+        $$\left\lbrace\twobytwo{a}{b}{b}{c}\:\ a,b,c\in\bR\right\rbrace.$$
+        
+    \end{enumerate}
+\end{ptcbr}
+\end{document} 
