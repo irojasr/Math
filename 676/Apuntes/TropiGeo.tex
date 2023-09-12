@@ -34,7 +34,7 @@ Knowledge on stuff\par
     \item Write info on course description and requirements.
     \item Polish info from day 1
     \item Polish last part of day 2
-    \item Continue adding info from Renzo's digital notes
+    \item Write Interim about valued fields specifically Puiseux series and notation and on grobner complexes
 \end{itemize}
 }
 \newpage
@@ -367,12 +367,12 @@ So, summarizing this process:
 This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
 
 \section{Interim}
-%%valued fields
+%%valued fields and puiseux seires
 
 \section{Day 4|20230828}
 
 We have seen where our ideas come from. Certain kinds of minimization problems give rise to our tropical numbers. Also by expressing complex numbers in a logarithmic scale without phase then when inducing a sum we actually get a hypersum. The way we converted into an operation is by taking a limit. Then the algebraic structure we obtained was once again the tropical numbers. Let us talk about the perspective of valued fields.
-\subsubsection{Puiseux series}
+\subsection{Puiseux series}
 Recall from our times in Calculus 1 that when resolving indeterminate limits, the relevant information is contained in the order of vanishing of the function.
 
 \begin{Ex}
@@ -393,8 +393,8 @@ $$\val: \bC\set{\set{t}}\to\bR\cup\set{\infty},\begin{cases}
 \end{cases}$$
 
 In other words the valuation sends $\sum_{k=k_0}^\infty a_kt^{q_k}$ to $q_{k_0}$.
-\begin{Prop}
-The previous valuation enjoys the following properties:
+\begin{Prop}\label{prop:PropertiesOfValuation}
+For $\al,\bt\in\bC\set{\set{t}}$, the valuation enjoys the following properties:
 \begin{enumerate}[i.]
     \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
     \item $\val(\al+\bt)\geq\min(\val(\al),\val(\bt))$.
@@ -414,16 +414,17 @@ $$x\diamondplus y=\begin{cases}
 \begin{Ex}
     If we try to sum $0$ with itself, we get 
     $$0\diamondplus 0=\val\left((a_0+a_1t^{q_1}+\dots)+(-a_0+b_1t^{r_1}+\dots)\right)$$
+    and this could be either $q_1$ or $r_1$ because the constant terms cancel! 
 \end{Ex}
 The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\bR\cup\set{\infty},\min,+\right)$.
 
 \subsection{The Tropical Semifield}
 
 \begin{Def}
-    The \term{tropical semifield} is $(\bT,+,\.)$ where we can choose:
+    The \term{tropical semifield} is $(\bT,\oplus,\odot)$ where we can choose:
     \begin{itemize}
-        \item $\bT=\bR\cup\infty$, $+=\min$ and $\.=+$, the min convention.
-        \item $\bT=\set{-\infty}\cup\bR$, $+=\max$ and $\.=+$, the max convention.
+        \item $\bT=\bR\cup\infty$, $\oplus$ to be $\min$ and $\odot$ is $+$, the min convention.
+        \item $\bT=\set{-\infty}\cup\bR$, $\oplus=\max$ and $\odot=+$, the max convention.
     \end{itemize}
 \end{Def}
 
@@ -915,9 +916,27 @@ $$\lie{m}=\bigcup_nt^{1/n}\bC\bonj{\bonj{t^{1/n}}}\subseteq R_K=\bigcup_n\bC\bon
     $$q(x)=t^{-4}+\sqrt{2}x+3t^2x^2,$$
     Here\footnote{What does this mean?}
     $$t^{-4}\to -4,\quad \sqrt{2}x\to-3,\quad 3t^2x^2\to -4,\word{so}w=-3\footnote{I srsly don't understand}.$$
-    We may construct the initial form as $I_wq=1+3x^2$
+    We may construct the initial form as $I_wq=1+3x^2$ but formally this is $\bonj{t^4(q(t^{-3}x))}_{t=0}$ and in general if $W=\Trop q(w)$ then 
+    $$I_wq=\bonj{t^{-W}(q(t^{w}x))}_{t=0}.$$
 \end{Ex}
 
+\subsubsection{Gr\"obner Complex of $q(x)$}
+
+Polyhedral decomposition of $\bR$ (in the case of a valuation space if we want, we can also add in $\infty$ but it usually is left out.) induced by the equivalence relation
+$$w_1\sim w_2\iff In_{w_1}q=In_{w_2}q\footnote{Does this refer to initial form?}$$
+
+\begin{Ex}
+    Consider the polynomial 
+    $$t^2+\sqrt2x+3t^2x^2$$
+    and each monomial maps\footnote{Through what? The valuation?} to $2,w$ and $2+2w$ respectively.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        \caption{Initial form determination and roots}
+        \label{fig:6.3-InitialFormExample}
+    \end{figure}
+    So the tropical roots are the locus where the initial form is not a monomial.
+\end{Ex}
 \section{Day 7|20230906}
 
 \subsection{Our First Correspondence Theorem}
