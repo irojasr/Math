@@ -8,6 +8,7 @@
 \def\nsiglahead {Advanced Real Analysis}
 \def\nextra {HW1}
 \def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 
 \begin{document}
@@ -101,7 +102,53 @@ spaces.
         $$\det\threebythree{0}{0}{-1}{1}{1}{1}{0}{1}{0}=-1.$$
         \item Now let us consider the space of symmetric $2\x2$ matrices:
         $$\left\lbrace\twobytwo{a}{b}{b}{c}\:\ a,b,c\in\bR\right\rbrace.$$
-        
+        The canonical basis in this space is the following set of matrices:
+        $$E_1=\twobytwo{1}{0}{0}{0},\quad E_2=\twobytwo{0}{1}{1}{0},\word{and}E_3=\twobytwo{0}{0}{0}{1}.$$
+        Any symmetric matrix can be written as a linear combination of these matrices and the only way to get the zero matrix is to have $a=b=c=0$. So it is indeed a basis. On the other hand, we can also consider the basis given by 
+        $$B_1=E_2,\quad B_2=E_2+E_3=\twobytwo{0}{1}{1}{1},\word{and}B_3=-E_1+E_3=\twobytwo{-1}{1}{1}{0}.$$
+        \red{FINISH}
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    Let's see how this looks like for the infinite-dimensional case.
+The upshot of this problem is that infinite-dimensional spaces, obviously, do not have a finite basis but that a space can have both countable and uncountable bases!\par 
+As an example, let's consider the vector space of sequences, i.e.,
+$$V = \set{(q_1, q_2, q_3, . . .) : q_i\in\bR}.$$
+Let us think about bases of this space, i.e., sets of vectors $\vec a_i\in V$ so that every $v \in V$ can again be written
+as $\vec v=\sum_i\al_i\vec a_i$\footnote{This may not be obvious at first: Being able to write $\vec v=\sum_i\al_i\vec a_i$ with an infinite sum requires that the infinite sum makes
+sense - which we will interpret as saying that $\lim_{n\to\infty}\sum_{i=1}^n\al_i\vec a_i\to \vec v$. This in turn requires that we can measure convergence
+in $V$, which requires that we have a \emph{norm}. That is, bases in infinite-dimensional spaces inherently only make sense if the vector
+space $V$ is a \emph{normed} vector space! For the case here, let us assume that the norm on $V$ is $\norm{\vec v}=\sup_i|v_i|$. That is, we take $V=\l_\infty$.}
+\begin{enumerate}
+    \item Convince yourself that the set $\set{\vec a_i}_{i=1}^\infty$ where 
+    $$\vec a_1=(1,0,0,\dots),\quad\vec a_2=(0,1,0,\dots),\quad\vec a_3=(0,0,1,\dots),\word{and so on}$$
+    is a basis of $V$ . (To ``convince'' yourself, look up the formal properties of a basis.) It is obviously countable.
+    \item Create a second countable basis of your choice.
+    \item Can you somehow describe the operator $R$ that translates between these two bases, in the same way as was done in the previous problem?
+    \item Now convince yourself that the set of vectors $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ where $\vec b_\la=(1,\la,\la^2,\la^3,\dots)$ is also a basis. This is not a countable basis because the set is indexed by the real number $\la$!]\par 
+    For cases like this, one has to think about what it means to expand a vector in this basis. Before, we had that for every vector $\vec v\in V$, we can write $\vec v=\sum_i\al_i\vec a_i$. With the uncountable basis here, this has
+    to be replaced by $\vec v=\int_0^1\bt_\la\vec b_\la\dd\la$.
+    \item Can you come up with a description of the basis transformation operator $R$ for these two bases?
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[(i)]
+        \item Intuitively we may think of the $\vec a_i$'s as a basis for the space of sequences. This is because we can decompose a sequence into its components:
+        $$(q_1,q_2,q_3,\dots)=q_1(1,0,0,\dots)+q_2(0,1,0,\dots)+q_3(0,0,1,\dots)+\dots$$
+        And the $\vec a_i$'s are linearly independent because the only way to get the zero sequence as a linear combination of them is to have $q_i=0$ for all $i$.\par 
+        This type of basis is not a Hamel basis nor a Schauder basis, as we need finite linear combinations for the first type and a notion of convergence for the second one.
+        \item Another basis could be the sequences 
+        $$\vec b_1=\vec a_1,\ \vec b_2=(1,1,0,0,\dots),\ \vec b_3=(0,1,1,0,\dots),\ \vec b_4=(0,0,1,1,\dots).\dots$$
+        Once again we have a linearly independent set because we can induct on the sets of vectors of the form $e_{i-1}+e_{i}$ on finite dimension in order to see they are l.i. and transfer the arguemnt inductively to this set of vectors. We can show that this set is a generating set for the space of sequences by expanding the $\vec a_i$'s as a linear combination of the $\vec b_i$'s and then expanding the sequence normally. 
+        \item The operator which transfers from the $\vec b$ basis to the $\vec a$ basis can be ``represented'' as an infinite matrix whose columns are the $\vec b$ sequences. This operator can be explicity described as 
+        $$\vec a_1\mapsto\vec b_1,\quad \vec a_i\mapsto\vec a_{i-1}+\vec a_{i},\ i\geq 2.$$
+        \item The sequences $\vec b_\la$ can be seen to be eigenvectors of the operator 
+        $$L(a_0,a_1,a_2,a_3,\dots)=(a_1,a_2,a_3,a_4,\dots).$$
+        Each one has a different eigenvalue $\la\in\bonj{0,1}$, so as eigenvectors corresponding to different eigenvalues of an operator are l.i., we have that the $\vec b_\la$'s are l.i.\par 
+        \red{How to see generation}
+        \item A basis transformation operator has to be bijective. As $\set{\vec a_i}_{i\in\bN}$ is countable and $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ is uncountable, no such operator exists.
     \end{enumerate}
 \end{ptcbr}
 \end{document} 
