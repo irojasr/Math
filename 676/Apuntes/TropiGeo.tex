@@ -986,6 +986,69 @@ This first lemma doesn't add anything weird because the tropical product is just
         $$Q(-t^3+O(t^4))=(t^2+7t^3)(-t^3+O(t^4))+(t^5+t^{27})=(-t^5)+t^5+O(t^6)$$
         In particular the first thing that will cancel is the lowest order term: $t^5$. So \emph{two} monomials must have lower order term.
     \end{Ex}
+
+\section{Day 10|20230913}
+
+The next question is if this process makes sense if we instead begin with a Puiseux series polynomial. If the process ends up being the same, does this mean that tropical geometry over a trivial valued field is uninteresting? That's not the case, it's only because we are in dimension zero. 
+
+\subsection{Gr\"obner Complexes}
+
+These types of complexes arise in commutative algebra. The setup begins with a valuated field, in our case Puiseux series $\bC\set{\set{t}}$. We can find the ring of integers, the positive valuated elements, in our field. These types of functions are regular at $t=0$. Inside this ring we have the maximal ideal of functions which vanish at zero. If we wish we can take a quotient to find the residue field which is a copy of $\bC$.\par 
+Everytime we are given the data of polynomial $q$ in $\bC\set{\set{t}}\bonj{x}$ plus a choice of a valuation, we can recover the initial form of $q$ which is a polynomial with coefficients in the residue field.\par 
+The way to find it is to look at the valuation of each monomial assuming $\val(x)=w$ and then save only the monomials with the smallest valuation and only keep the coefficient in front of the smallest term.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(x)=t^{-4}+t^{2}+\sqrt{2}x+3t^2x^2$$
+    and take $w=-3$. This means that $\val(x)=-3$. Let us now consider the valuation monomial by monomial:\par 
+    The term $(t^{-4}+t^{2})$ has valuation $-4$ because there's no $x$, next for $\sqrt{2}x$ we have
+    $$\val(\sqrt{2}x)=\val(\sqrt{2})+\val(x)=0+(-3)=-3$$
+    so it has valuation $-3$ and $3t^2x^2$ has valuation $2-6=-4$. We now consider only the first and last terms as they have the smallest valuation and extract the coefficients of the smallest terms. In the case of $t^{-4}+t^{2}$ its the $1$ accompanying the $t^{-4}$ and a $3$ accompanying the last term. So the initial form is 
+    $$\operatorname{In}_{-3}(q)=1+3x^2.$$
+\end{Ex}
+
+\red{FORMULA for initial form}\par 
+We now define an equivalence relation over $(\bR,w)$: 
+$$w_1\sim w_2\iff In_{w_1}q=In_{w_2}q$$ 
+which separates $\bR$ into two types of equivalence classes:
+\begin{itemize}
+    \item Single points in which the initial form is not a monomial.
+    \item Open intervals where the initial is a monomial.
+\end{itemize}
+
+\begin{Ex}
+    Consider the polynomial 
+    $$t^2+\sqrt2x+3t^2x^2$$
+    and each monomial maps\footnote{Through what? The valuation?} to $2,w$ and $2+2w$ respectively.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        \caption{Initial form determination and roots}
+        \label{fig:6.3-InitialFormExample}
+    \end{figure}
+    So the tropical roots are the locus where the initial form is not a monomial.
+\end{Ex}
+
+\begin{Def}
+    The complement of the locus where the initial form is a monomial is called the \term{Gr\"obner complex} of $q(x)$.
+\end{Def}
+
+The Gr\"obner complex of $q(x)$ is equal to the roots of $\Trop(q)(x)$. This is indeed in correspondence with Gr\"obner basis, which is very interesting in higher dimension. 
+
+\subsection{1-dimensional Tropical Geometry}
+
+If we have $p(x,y)$ a tropical polynomial in two variables, then we can define its tropical variety to be $V(p)$:
+\begin{itemize}
+    \item The locus in the domain where the piecewise linear function where $p$ is not linear.
+    \item The locus of points $(x,y)$ where the $\max$ associated to each monomial is obtained more than once.
+\end{itemize}
+
+We will have a correspondence theorem which says that if $q(x,y)$ is a polynomial with coefficients over a valued field and the tropicalization of $q$ is $p$, then 
+$$V(p)=\ov{\set{(\val(x),\val(y))\: (x,y)\in V(q)}}.$$
+\begin{Ej}
+Show that pairs of rational numbers are dense here. \aside{It has to do with the valuation only taking rational numbers.}
+\end{Ej}
+In two dimensions we have way more features, the study of tropical curves will enclose the correspondence statement with subdivisions of Newton Polygon and balancing edge weights. Our objective now is to see the tropical versions of tropical curve theorems. For example, the tropical Bezout and tropical degree/genus formula.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
