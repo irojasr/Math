@@ -1049,6 +1049,88 @@ $$V(p)=\ov{\set{(\val(x),\val(y))\: (x,y)\in V(q)}}.$$
 Show that pairs of rational numbers are dense here. \aside{It has to do with the valuation only taking rational numbers.}
 \end{Ej}
 In two dimensions we have way more features, the study of tropical curves will enclose the correspondence statement with subdivisions of Newton Polygon and balancing edge weights. Our objective now is to see the tropical versions of tropical curve theorems. For example, the tropical Bezout and tropical degree/genus formula.
+
+\section{Day 11|20230915}
+
+\subsection{Tropical Lines}
+
+If we have a tropical polynomial of degree 1, 
+$$p(x,y)=a\odot x\oplus b\odot y\oplus c$$
+and assume for the sake of drawing pictures, that $-\infty,a,b,c$. This corresponds to the piecewise linear function 
+$$\max(a+x,b+y,c)$$
+and if we set any of these two equations equal to each other, we can see that there are three lines that play a role:
+\begin{align*}
+    &&a+x=b+y\To y=x+(a-b)\\
+    &&a+x=c\To x=c-a\\
+    &&b+y=c\To y=c-b
+\end{align*}
+So this is the locus where two functions are equal to each other. In each of the regions the maximum is attained by a particular linear function, the boundary between them is the locus of non-linearity. The point in the middle is $(c-a,c-b)$. \red{FIGURE}\par 
+So in general, tropical lines look like this ``tripod'' and changing the $a,b,c$ shifts the graph.
+
+\begin{Ej}[2]
+Figure out what happens when a coefficient is $-\infty$.
+\end{Ej}
+
+\begin{Ex}
+    Consider the same polynomial in terms of Puiseux series:
+    $$q(x,y)=t^ax+t^by+t^c$$
+    whose tropicalization is $p(x,y)$. \aside{Observe that it doesn't necessarily have to be $t^a$ as a coefficient, it can be any Puiseux series with valuation $a$.}\par 
+    We have that $V(q)=\set{q=0}$ and we can parametrize it as 
+    $$x=\al,\quad y=-t^{a-b}\al-t^{c-b},\word{where}\al\in\bK^\ast.$$
+    Now for any of these points we are going to take their valuation. Specifically we are looking at the set 
+    $$\set{\val(\al,-t^{a-b}\al-t^{c-b})}$$
+    $\al$ can have any valuation we want and depending on that, we decide the valuation of the binomial. The valuations are 
+    $$a-b+\val(\al)\word{and}c-b$$
+    which are equal when $\val(\al)=c-a$.
+    \begin{itemize}
+        \item What happens if $\val(\al)<c-a$ then $-t^{a-b}$
+        \item Something I fell asleep 
+    \end{itemize}
+    \textbf{Claim: We can obtain any value for $y$ but is to be greater than $c-b$.}
+    Let $r\geq 0$ and $\al=-t^{c-a}(1+t^r)$
+\end{Ex}
+
+\subsection{The Amoeba Perspective}
+
+Recall that what matters the most is the logarithm base $t$ of our function. So let us continue with 
+$$q(x,y)=t^ax+t^by+t^c$$
+and play the same as before. Look for solutions to the equation $q_t=0$ in $\bC^2$ which is a line intersecting the $x$ axis at $-t^{c-a}$ and the $y$ at $-t^{c-b}$. Every pair of points $(x,y)$, gives us a pair $(\log_t|x|,\log_t|y|)$. The real trace of this, when $x,y\in\bR$ can be parametrized with $x=t^\al$ and $y=-t^{a-b+\al}$. We analyze the trace in three intervals, 
+
+\section{Day 12|20230918}
+
+Our goal is to understand the image of the line 
+$$L_t=\set{t^ax+t^by-t^c=0}\subseteq\bC^2$$
+via the map $(x,y)\mapsto (\log_t|x|,\log_t|y|)$. The line $L_t$ has three sections, where both $x,y$ are positive and one section corresponding to each $x$ and $y$ being negative. For ease of calculation we may solve the equation as $y=-t^{a-b}x+t^{c-b}$\par 
+Let us consider the case where $x,y$ are both positive. We can see that $0<x<t^{c-a}$, this traces an $x$ in the parameter space such that $-\infty<x<c-a$. Via the solution for $y$ we may write 
+$$\log_t|y|=\log_t(t^{c-b}-t^{a-b+x})$$
+where we have solved the equation for $x$ which is why we have an $x$ exponent and $y$ is positive as we have assumed. We can simplify this as 
+$$\log_t\bonj{t^{c-b}\left(1-t^{a-c+x}\right)}=(c-b)+\log_t(1-t^{a-c+x}).$$
+This can be traced as a function of $t$ and in particular
+$$\lim_{x\to-\infty}(c-b)+\log_t(1-t^{a-c+x})=c-b\word{and}\lim_{x\to(c-a)^{-}}(c-b)+\log_t(1-t^{a-c+x})=-\infty.$$
+With this information we see two asymptotes for our function, $y=c-b$ and $x=c-a$.
+
+\subsection{Arbitrary Degree $d$}
+
+Recall that for a polynomial $q\in\bK[x,y]$, we may describe its algebraic variety in $\bK^2$. We may think of that field as Puiseux series. Along it, we may tropicalize it to $p$ and we get its tropical hypersurface, the set of non-linearity.\par
+Kapranov's theorem allows us to see a correspondence as follows:
+$$\ov{\Trop(V(q))}=V(\Trop(q)).$$
+Left-to-right is still the same idea as the correspondence theorem. If $(x_0,y_0)\in\Trop(V(q))$ then, there exists $(X_0,Y_0)\in\bK^2$ such that $\val(X_0)=x_0,\ \val(Y_0)=y_0$ and $q(X_0,Y_0)=0$. Let 
+$$q=\sum a_{ij}X^iY^j$$
+If we call $m_{ij}$ each monomial, then $\set{m_{ij}(X_0,Y_0)}_{i,j}$ is a set of elements of $\bK^\ast$ with the property that their sum is zero. Now call 
+$$\mu=\min\set{m_{ij}(X_0,Y_0)}_{i,j}$$
+we claim that there are at least two monomials whose valuation is $\mu$. If there was only one monomial with valuation $\mu$, then that power of $\mu$ \emph{cannot} be cancelled. This means that $(x_0,y_0) $ is in $V(p)$. Now we use minimality of closure and we are done.\par 
+Now the harder direction will use the fact that we have proven this in dimension zero and proceed by induction. First we want to show that $V(\Trop(q))\cap\bQ^2$ is dense in $V(\Trop(q))$. This is true because all monomials $m_{ij}$ correspond to all linear functions with integer slopes of rational coefficients.
+$$a_{ij}X^iY^j=\Trop(m_{ij})=\val(a_{ij}\odot x^{i}\odot y^j)=\val(a_{ij})+ix+jy$$
+It suffices to check that \red{ERASED TOO QUICK}\par 
+Now we wish to proceed by induction. For example a polynomial $q(X,Y)$ can be seen as 
+$$q(X,Y)=r_0(X)+r_1(X)Y+\dots+r_d(X)Y^d\word{with}r_i(X)\in\bK[X].$$
+We do not lose generality when assuming that all $r_i$'s are monomials\footnote{to see next time}. So we have $(x_0,y_0)\in\in V(\Trop(q))$ and we want to find $(X_0,Y_0)\in(\bK^\ast)^2$ such that 
+$$q(X_0,Y_0)=0\word{and}(\val(X_0),\val(Y_0))=(x_0,y_0).$$
+Choose $X_0$, however we want as long as we have the valuation condition. Given our assumption, this implies that $r_i(X_0)$ is non-zero for all $i$. Now consider the polynomial 
+$$q(X_0,Y)=\sum r_i(X_0)Y^i\in\bK[Y]$$
+and its tropicalization
+$\tilde{p}(y)=\Trop(q(X_0,Y))=\sum\val(r_i(X_0))y^i=\min(\val R_i(X_0)+iy)=\min$
+They are hidden in terms of unknown,
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
