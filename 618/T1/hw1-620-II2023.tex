@@ -37,7 +37,7 @@ Consider a set $A$, its power set $\cP(A)$ and the operation $\triangle$ as symm
     $$X\triangle \emptyset= (X\cup \emptyset)\less(X\cap \emptyset)=X\less \emptyset=X.$$
     \item Finally observe that every element has an inverse. This is, there is an element $Y$ for each $X$ such that $X\triangle Y=\emptyset$. In this case, $Y$ is the same as $X$ because 
     $$X\triangle X=(X\cup X)\less(X\cap X)=X\less X=\emptyset.$$
-    Now arises the question, about uniqueness of solutions to the equation $X\triangle Y=\emptyset$.\footnote{astrall recall to uniqueness of inverses.}
+    Now arises the question, about uniqueness of solutions to the equation $X\triangle Y=\emptyset$. Once we have existance of inverses, uniqueness is guaranteed because of commutativity.
 \end{itemize}
 The previous statements show that $(\cP(A),\triangle)$ is a group. From the last fact we also deduce that every element has order $2$. Now, observe that our operation is commutative:
 $$X\triangle Y=(X\less Y)\cup (Y\less X)=(Y\less X)\cup(X\less Y)=Y\triangle X.$$
@@ -46,8 +46,18 @@ $$0\.X=\emptyset,\word{and}1\.A=A.$$
 This makes sense as $2\equiv 0\pmod 2$ and $2A=A\triangle A=\emptyset$. The preceding operation satisfies all four axioms of scalar multiplication:
 \begin{itemize}
     \item $1\.X=X$ by definition.
-    \item Scalar multiplication is associative with the field multiplication: $c(dX)=(cd)X$. To prove this, it must be done by cases, we will do it at the end.
-    \item Scalar multiplication distributes with respect to field multiplication: $(c+d)X=cX+dX$. And once again as this must be done in four cases, we leave it for the end.
+    \item Scalar multiplication is associative with the field multiplication: $c(dX)=(cd)X$. Observe that 
+    \begin{align*}
+        &0(0X)=0(X)=\emptyset,\ (0\.0)X=(0)X=\emptyset\word{and}\\
+        &1(1X)=1(X)=X,\ (1\.1)X=(1)X=X    
+    \end{align*}
+    so when both scalars are the same we get the desired associative property. When they are different:
+    \begin{align*}
+        &0(1X)=0(X)=\emptyset,\ (0\.1)X=(0)X=\emptyset\word{and}\\
+        &1(0X)=1(\emptyset)=\emptyset,\ (1\.0)X=(0)X=\emptyset.    
+    \end{align*}
+    So even when scalars are different, the result is true. These are all the possibilities so associativity is guaranteed.
+    \item Scalar multiplication distributes with respect to field multiplication: $(c+d)X=cX+dX$. Checking this is analogous to the last item.
     \item Finally scalar multiplication distributes with respect to vector space addition: $c(X+Y)=cX+cY$. This we can verify in two cases:\par 
     When $c=0$ we have 
     $$\emptyset=\emptyset\triangle\emptyset$$ 
@@ -106,8 +116,16 @@ spaces.
         $$E_1=\twobytwo{1}{0}{0}{0},\quad E_2=\twobytwo{0}{1}{1}{0},\word{and}E_3=\twobytwo{0}{0}{0}{1}.$$
         Any symmetric matrix can be written as a linear combination of these matrices and the only way to get the zero matrix is to have $a=b=c=0$. So it is indeed a basis. On the other hand, we can also consider the basis given by 
         $$B_1=E_2,\quad B_2=E_2+E_3=\twobytwo{0}{1}{1}{1},\word{and}B_3=-E_1+E_3=\twobytwo{-1}{1}{1}{0}.$$
-        \red{FINISH}
+        To check this is a basis, we pile up the matrices into a $3\x4$ matrix and see that 
+        $$\begin{pmatrix}
+            0&1&1&0\\ 0&1&1&1\\-1&1&1&0
+            \end{pmatrix}\xrightarrow[]{\ttt{rref}}
+            \begin{pmatrix}
+                1&0&0&0\\ 0&1&1&0\\ 0&0&0&1
+                \end{pmatrix}$$
+        has rank $3$ so it generates a space of dimension $3$.
     \end{enumerate}
+    This means that we can find an isomorphism $\vf$ between this space and $\bR^3$. In fact, the matrices $B_i$ were not chosen randomly, the coordinates have been picked to match up with the $\vec a_i$ vectors from the first item. Assume $\vf(B_i)=\vec a_i$ for all $i$ and in that case, the linear transformation $R'$ which switches basis in terms of symmetric matrices is the composition $(\vf^{-1}\circ R\circ\vf)$ where $R$ is the original change of basis matrix from the first item.
 \end{ptcbr}
 
 \begin{Ej}
@@ -120,13 +138,15 @@ as $\vec v=\sum_i\al_i\vec a_i$\footnote{This may not be obvious at first: Being
 sense - which we will interpret as saying that $\lim_{n\to\infty}\sum_{i=1}^n\al_i\vec a_i\to \vec v$. This in turn requires that we can measure convergence
 in $V$, which requires that we have a \emph{norm}. That is, bases in infinite-dimensional spaces inherently only make sense if the vector
 space $V$ is a \emph{normed} vector space! For the case here, let us assume that the norm on $V$ is $\norm{\vec v}=\sup_i|v_i|$. That is, we take $V=\l_\infty$.}
-\begin{enumerate}
+\begin{enumerate}[(i)]
     \item Convince yourself that the set $\set{\vec a_i}_{i=1}^\infty$ where 
     $$\vec a_1=(1,0,0,\dots),\quad\vec a_2=(0,1,0,\dots),\quad\vec a_3=(0,0,1,\dots),\word{and so on}$$
     is a basis of $V$ . (To ``convince'' yourself, look up the formal properties of a basis.) It is obviously countable.
     \item Create a second countable basis of your choice.
     \item Can you somehow describe the operator $R$ that translates between these two bases, in the same way as was done in the previous problem?
-    \item Now convince yourself that the set of vectors $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ where $\vec b_\la=(1,\la,\la^2,\la^3,\dots)$ is also a basis. This is not a countable basis because the set is indexed by the real number $\la$!]\par 
+    \item Now convince yourself that the set of vectors $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ where 
+    $$\vec b_\la=(1,\la,\la^2,\la^3,\dots)$$ 
+    is also a basis. This is not a countable basis because the set is indexed by the real number $\la$!]\par 
     For cases like this, one has to think about what it means to expand a vector in this basis. Before, we had that for every vector $\vec v\in V$, we can write $\vec v=\sum_i\al_i\vec a_i$. With the uncountable basis here, this has
     to be replaced by $\vec v=\int_0^1\bt_\la\vec b_\la\dd\la$.
     \item Can you come up with a description of the basis transformation operator $R$ for these two bases?
@@ -138,8 +158,8 @@ space $V$ is a \emph{normed} vector space! For the case here, let us assume that
         \item Intuitively we may think of the $\vec a_i$'s as a basis for the space of sequences. This is because we can decompose a sequence into its components:
         $$(q_1,q_2,q_3,\dots)=q_1(1,0,0,\dots)+q_2(0,1,0,\dots)+q_3(0,0,1,\dots)+\dots$$
         And the $\vec a_i$'s are linearly independent because the only way to get the zero sequence as a linear combination of them is to have $q_i=0$ for all $i$.\par 
-        This type of basis is not a Hamel basis nor a Schauder basis, as we need finite linear combinations for the first type and a notion of convergence for the second one.
-        \item Another basis could be the sequences 
+        This type of basis is not a Hamel basis nor a Schauder basis, as we need finite linear combinations for the first type and a notion of convergence for the second one. Observe that if we were to restrict the space to the sequences which are eventually zero then we do have a formal Schauder basis.
+        \item Another ``basis'' could be the sequences 
         $$\vec b_1=\vec a_1,\ \vec b_2=(1,1,0,0,\dots),\ \vec b_3=(0,1,1,0,\dots),\ \vec b_4=(0,0,1,1,\dots).\dots$$
         Once again we have a linearly independent set because we can induct on the sets of vectors of the form $e_{i-1}+e_{i}$ on finite dimension in order to see they are l.i. and transfer the arguemnt inductively to this set of vectors. We can show that this set is a generating set for the space of sequences by expanding the $\vec a_i$'s as a linear combination of the $\vec b_i$'s and then expanding the sequence normally. 
         \item The operator which transfers from the $\vec b$ basis to the $\vec a$ basis can be ``represented'' as an infinite matrix whose columns are the $\vec b$ sequences. This operator can be explicity described as 
@@ -147,7 +167,7 @@ space $V$ is a \emph{normed} vector space! For the case here, let us assume that
         \item The sequences $\vec b_\la$ can be seen to be eigenvectors of the operator 
         $$L(a_0,a_1,a_2,a_3,\dots)=(a_1,a_2,a_3,a_4,\dots).$$
         Each one has a different eigenvalue $\la\in\bonj{0,1}$, so as eigenvectors corresponding to different eigenvalues of an operator are l.i., we have that the $\vec b_\la$'s are l.i.\par 
-        \red{How to see generation}
+        There's an infinite number of such eigenvectors and they generate a space with uncountable dimension. With my current tools, I'm unable to prove that sequence can be written as a (possibly) infinite linear combination of such sequences. Observe that the operator $L$ is not compact so we are not able to deduce, using the spectral theorem, that the eigenvectors of $L$ form a basis. The most we can conclude is that all eigenvectors are l.i.
         \item A basis transformation operator has to be bijective. As $\set{\vec a_i}_{i\in\bN}$ is countable and $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ is uncountable, no such operator exists.
     \end{enumerate}
 \end{ptcbr}
@@ -159,15 +179,23 @@ $$V=C^0=\set{f\:[0,1]\to \bR,\ f\quad\text{is continuous}},$$
 with the norm $\norm{f}=\sup_{\bonj{0,1}}|f(x)|$.
 \begin{enumerate}[i)]
     \item Is $\vec a_n=\sin(\pi n x)$ a countable basis?
-    \item Is $\vec b_\la=\dl(x-\la)$ for $\la\in\bonj{0,1}$ an uncountable basis? \red{rewrite}
+    \item Is 
+    $$\vec b_\la=\begin{cases}
+        1\word{if}x=\la\\
+        0\word{otherwise}
+    \end{cases}$$
+    for $\la\in\bonj{0,1}$ an uncountable basis? (If you think about exapnding a function as $\vec v=\int_0^1\bt_\la\vec b_\la\dd\la$, you will probably want to replace $\vec b_\la$ by a delta function, $\vec b_\la(x)=\dl(x-\la)$. If you don't know what that means, just ignore the difference.)
 \end{enumerate}
 \end{Ej}
 
 \begin{ptcbr}
     \begin{enumerate}[i)]
-        \item Via the Fourier series theorem, we know that the sine waves form a basis of $L^2[0,1]$. As $C^0$ is a subspace of $L^2$, we have that our sine waves basis can also serve as a basis for elements in $C^0$.
-        \item The delta functions are not a basis of $C^0$ as they are not continuous, moreover, no delta function belongs in $L^2$. \par %https://math.stackexchange.com/questions/1805184/the-dirac-delta-does-not-belong-in-l2
-        This seems counterintuitive as the delta function would 
+        \item Via the Fourier series theorem, we know that the sine waves form a basis of $L^2[0,1]$. Observe also that any function in $C^0$ is bounded since its a continuous function defined on a compact set. If $p>0$ then 
+        $$\norm{f}_{L^p[0,1]}^p=\int_0^1|f|^p\dd x\leq(\sup_{[0,1]}|f|)^p\int_0^1\dd x<\infty$$
+        which in particular means that $f\in V$ implies $f$ being in $L^2$. As sine waves can represent any function in $L^2$, they can also represent any continuous function as desired.  
+        \item Observe that the function $\vec b_\la$ is not continuous for any $x$ so it cannot form a basis of $C^0$. Intuitively it should be the case that those functions do form a basis, as we could ``decompose'' a function pointwise for all $\la\in\bR$ and then write it down as 
+        $$f(x)=f(0)\vec{b}_0(x)+\dots+f(\la)\vec b_\la(x)+\dots+f(1)\vec b_1(x)$$
+        for $\la\in\bonj{0,1}$. Moreover observe that if wanted to decompose a function 
     \end{enumerate}
 \end{ptcbr}
 \end{document} 
