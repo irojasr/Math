@@ -194,8 +194,31 @@ with the norm $\norm{f}=\sup_{\bonj{0,1}}|f(x)|$.
         $$\norm{f}_{L^p[0,1]}^p=\int_0^1|f|^p\dd x\leq(\sup_{[0,1]}|f|)^p\int_0^1\dd x<\infty$$
         which in particular means that $f\in V$ implies $f$ being in $L^2$. As sine waves can represent any function in $L^2$, they can also represent any continuous function as desired.  
         \item Observe that the function $\vec b_\la$ is not continuous for any $x$ so it cannot form a basis of $C^0$. Intuitively it should be the case that those functions do form a basis, as we could ``decompose'' a function pointwise for all $\la\in\bR$ and then write it down as 
-        $$f(x)=f(0)\vec{b}_0(x)+\dots+f(\la)\vec b_\la(x)+\dots+f(1)\vec b_1(x)$$
-        for $\la\in\bonj{0,1}$. Moreover observe that if wanted to decompose a function 
+        $$f(x)=f(0)\vec{b}_0(x)+\dots+f(\la)\vec b_\la(x)+\dots+f(1)\vec b_1(x)``=''\int_0^1f(t)\vec{b}_t(x)\dd t$$
+        for $\la\in\bonj{0,1}$. Moreover observe that if wanted to decompose a function in terms of delta functions it is true that 
+        $$\int_a^b f(t)\dl(x-t)\dd t=f(x)\ind_{\bonj{a,b}}(x).$$
+        However we cannot say that the delta functions form a basis of $L^2$ and even less of $C^0$, this is because delta functions do not belong in $L^2$. 
     \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[Operators on $\l_2$]
+    Recall that the set of sequences $V=\set{(q_1,q_2,\dots)\:\ q_i\in\bR}$. When equipped with the norm $\norm{\vec v}=\sum_i|q_i|^2$ then this defines the normed vector space
+    $$\l_2=(V,\norm{\.})=\set{\vec v=(v_1,v_2,\dots)\:\ v_i\in\bR,\ \norm{\vec v}<\infty}.$$
+    Now consider the set of linear operators $\l_2\to\l_2$, i.e., linear operators that map a sequence in $\l_2$ to
+another sequence in $\l_2$.\par
+Provide three examples of such operators. Argue that the set of linear operators $\l_2\to\l_2$ is (i) a vector space, (ii) infinite dimensional.
+\end{Ej}
+
+\begin{ptcbr}
+We can consider the shift operators on $\l_2$: 
+$$T(v_1,v_2,v_3,\dots)=(v_2,v_3,v_4,\dots),\word{and}T_n=T\circ T\circ\dots\circ T\quad n\ \text{times}.$$
+We could also consider a type of ``matrix multiplication'' operator. For $(c_{mn})_{m,n\in\bN}\subseteq\bR$ with the property that all ``rows'' and ``columns'' are uniformly in $\l_1$, i.e.
+$$\sup_{m\in\bN}\sum_{n\in\bN}|c_{mn}|<\infty,\word{and}\sup_{n\in\bN}\sum_{m\in\bN}|c_{mn}|<\infty$$
+we can define the operator $T\vec v$ pointwise as:
+$$(T\vec v)_k=\sum_{\l\in\bN}c_{k\l} v_\l.$$
+Also, summing a particular sequence or multiplying a sequence by a particular scalar define families of operators on $l_2$.\par 
+Defining sum and scalar product of operators over $l_2$ is analogous to defining it for functions. For two operators $S,T$ their sum $(S+T)$ is the pointwise sum. Likewise for $c\.T$, this is just multiplying the scalar after applying the operator to a sequence.\par 
+The previous families of operators are all infinite, between families of operators we have linear independence and so the dimension of $\set{T\:\l_2\to\l_2}$ must be infinite. 
+
 \end{ptcbr}
 \end{document} 
