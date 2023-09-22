@@ -1131,6 +1131,63 @@ $$q(X_0,Y)=\sum r_i(X_0)Y^i\in\bK[Y]$$
 and its tropicalization
 $\tilde{p}(y)=\Trop(q(X_0,Y))=\sum\val(r_i(X_0))y^i=\min(\val R_i(X_0)+iy)=\min$
 They are hidden in terms of unknown,
+
+\section{Day 13|20230920}
+
+\begin{Th}
+$V(\Trop(q))=\ov{\Trop(V(q))}$
+\end{Th}
+
+If we start with a polynomial in valued field, we can tropicalize or look at ... and then take the image of coordinates of points and back in $\bR^2$ then take closure, we end in the same place. The fact that every point of the algebraic curve  lies somewhere is an argument of cancellation of Lowest Order Terms. In particular when plugging the value for the Puiseux solution two terms must cancel. 
+\begin{ptcbp}
+We have shown that right-to-left is easy, cancellation of L.O.T.\par 
+The other direction is trickier, it's a lifting problem. Given $(x_0,y_0)\in V(\Trop(q))\subseteq\bR^2$, then we must find 
+$$(X_0,Y_0)\in V(q)\subseteq \bK^{\ast2},\quad\val(X_0)=x_0\quad\val(Y_0)=y_0$$
+If we write $q$ then we will assume that we can write 
+$$q(X,Y)=\sum r_i(X)Y^i,\quad r_i(X)\ \text{monomials}$$
+If we first plug in $X=X_0$ (which is any Puiseux series we want with valuation $x_0$ [We have picked such $X_0$]), 
+$$q(X_0,Y)=\sum r_i(X_0)Y^i$$
+is a polynomial in $Y$ with Puiseux series coefficients, now tropicalize this $q$ we get 
+$$\tilde{p}(y)=\sum\val r_i(X_0)y^i\quad\text{(tropical sum and product now)}.$$
+We claim that $y_0$ is a root of $\tilde{p}(y)$. HEre's where we are using the monomial assumption.\par 
+What is the linear function associated to $\tilde{p}(y)$:
+$$\tilde{p}(y)=\min(\val r_i(X_0)+iy)$$
+and as $r_i$ is monomial, call it $r_i(X_0)=A_{ij}X^j$ where $A_{ij}$ is a Puiseux series. So this $\tilde{p}$ becomes:
+$$\tilde{p}(y)=\min(\val(A_{ij})+jx_0+iy)$$
+which is exactly the tropicalization of $q(x,y)$ and plug in $x_0$. This is a univariate polynomial, which allows to apply the univariate case. So there exists a $Y_0$, Puiseux series, such that $Y_0$ is a root of $q(X_0,Y)$ with $\val(Y_0)=y_0$.\par 
+It remains to see that our monomial condition is not a restriction. 
+\end{ptcbp}
+
+This allows us not only to lift, but to pick one coordinate freely and then the other one is determined!
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(X,Y)=XY+X^2Y=(X+X^2)Y,\word{and}\tilde{q}(X,Y)=q(XY,Y)=XY^2+X^2Y^3$$
+    and $\tilde{q}$ does satisfy the previous assumption. If $(\tilde{X}_0,\tilde Y_0)$ is a solution to our problem for $\tilde{q}=0$, then $\left(\frac{\tilde{X}_0}{\tilde Y_0},\tilde Y_0\right)$ is a solution for $q=0$.\par 
+    The key point is that $\tilde q$ is obtained $q$ by an invertible transformation in the torus $(\bK^\ast)^2$.
+\end{Ex}
+
+\begin{ptcb}
+Given $q(X,Y)$ of degree $d$, then picking 
+$$\tilde{q}(X,Y)=q(XY,Y^{d+1})$$
+satisfies the monomials assumption. This is because \emph{we are giving enough space}.
+$$q(X,Y)=\sum r_{ij}X^iY^j\To \tilde{q}(X,Y)=\sum r_{ij}X^iY^{(d+1)j+i}$$
+where if we wished to find \dots then 
+$$(d+1)j_1+i_1=(d+1)j_2+i_2\To (d+1)(j_1-j_2)=i_2-i_1$$
+$j_1-j_2\geq d+1$ when $j_1=j_2$ and $i_2-i_1\leq d$.
+\end{ptcb}
+
+\begin{Ex}
+    Compute $V(p)$ for the following polynomials
+    \begin{itemize}
+        \item $p_1=0+x+y+xy$
+        \item $p_2=0+x+y-xy$
+        \item $p_3=0-x-y+xy$
+    \end{itemize}
+    For each of this polynomials there are $\binom{4}{2}=6$ line possibilities so we check each one.
+\end{Ex}
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
