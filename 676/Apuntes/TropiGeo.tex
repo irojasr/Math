@@ -1205,7 +1205,106 @@ $j_1-j_2\geq d+1$ when $j_1=j_2$ and $i_2-i_1\leq d$.
     For each of this polynomials there are $\binom{4}{2}=6$ line possibilities so we check each one.
 \end{Ex}
 
+\section{Day 14|20230922}
 
+Consider the polynomial 
+$$q(X,Y)=XY+X+Y+c,\quad c\in\bC$$
+as a polynomial in $\bK[X,Y]$ such that $\Trop q=p$. We can factor $q$ as 
+$$(X+1)(Y+1)+(c-1)=0\To(X+1)(Y+1)=\tilde{c}$$
+which looks hyperbolic. The real locus is PICTURE and we would like to compactify. However in $\bP^2$ we get an anomalous curve. PICTURE So we would like to compactify instead in $\bP^1\x\bP^1$.  We bi-homogenize $q$ to obtain 
+$$\tilde{q}=X_1Y_1+X_1Y_0+Y_1X_0+X_0Y_0c=0$$ 
+In this case PICTURE we won't intersect the special points. Instead just general points. The point we want to emphazise is the fact that the shape of the tropical curve tells us that this could be the tropicalization of  a curve but that the plane curve wants to be compactified in $\bP^1\x\bP^1$ instead of $\bP^2$.
+
+\subsection{Bummer Theorem}
+
+\begin{Th} 
+    Let $q\in\bC[X,Y]$ considered as a subset of Puiseux series polynomials where no coefficient is zero. We can write $q(X,Y)=\sum_{i+j\leq d}a_{ij}X^iY^j$ with $a_{ij}\neq 0$.\par 
+    Then $\ov{\Trop(V(q))}$ looks like a tropical line with a vertex at zero.
+\end{Th}
+
+This is a bummer because any polynomial of this form will look like a tripod. But what happens with \emph{lines off to infinity matches the degree}? We may able to endow lines with information about the degree, but nonetheless, we lose every other piece of information. So choosing coefficients in a trivially valued field reduces all information.\par 
+To prove this theorem we will unravel the definitions.
+
+\begin{ptcbp}
+We have that the tropicalization of $q$ is 
+$$\Trop q=\bigoplus(x^i\odot y^j)=\min_{i+j\leq d}(ix+jy)$$
+and so we can see that the minimum is attained by PICTURES
+\end{ptcbp}
+
+Working with Puiseux series is not only because its fancy, its because we wish to have non-trivial objects.
+
+\subsection{Structure Theorem for Tropical Curves}
+
+Let $p(x,y)=\bigoplus a_{ij}\odot x^i\odot y^j$ be a tropical polynomial. The Newton polygon of $p$ is the convex hull of $(i,j)$ such that $a_{ij}\neq 0$.\par 
+Let $\Sg$ be the convex hull of the points $(i,j,a_{ij})\subseteq V(NP)\x\bR$, which is for every $(i,j)$ point consider the height $a_{ij}$ so $\Sg$ is a convex polytope in $\bR^2\x\bR$. Seeing the polytope from the top and projecting down we get a subdivision of the Newton polygon.\par 
+Consider $\pi_z((x,y),z)=(x,y)$ and let $\tilde{N}$\~N be the subdivision of the N.P. obtained by projecting the corners of $\Sg$ you can see from above.
+If we want to say this in fancier words, a polytope is a finite intersection of half-spaces and then we look at intersections of planes with outward normal vector ($z$ postive coordinate) then project down to $xy$ plane.\par 
+Then the tropical curve is \textbf{DUAL} to such subdivision, meaning that:
+\begin{itemize}
+    \item Vertices of the tropical curve map to faces of \~N, edges map to edges of \~N.
+    \item There is a reversing structure given by inclusion into the closure.
+    \item Every edge of $V(p)$ is perpendicular to the edges of \~N, it corresponds to.
+    \item Coordinates of vertices $v$ are found by solving the linear system obtained by setting equal the linear functions corresponding to monomials corresponding to vertices of the face of \~N dual to $v$.
+\end{itemize}
+
+\begin{Ex}
+    Consider the polynomial
+    $$p(x,y)=0\oplus x^2\oplus y^2\oplus 1x\oplus 1y\oplus xy,$$
+    each monomial corresponds to a vertex in our triangle. Somehow now we know that our tropical curve has 4 vertices, then we can correspond edges.\par 
+    To get the coordinates of the lowe left vertex we look at the vertices surrounding the corresponding triangle. The linear system we ought to solve is 
+    $$0=1+x=1+y\To x=-1,\ y=-1$$
+    and in this fashion we obtained the coordinates. 
+\end{Ex}
+
+\section{Day 15|20230925}
+
+We were talking about how tropical plane curves are dual to the subdivisions of the Newton polygon of the tropical polynomial. Let's recall this with an example. 
+
+\begin{Ex}
+    Consider the polynomial $0+x^2+y^2+x+y+xy$. All coefficients are non infinity so we get 6 points corresponding to all terms, the convex hull is a triangle. We give each point a height, $0,x^2$ and $y^2$ have $0$ coefficient while $x,y$ and $xy$ have coefficient $1$. We imagine throwing a drape over that figure and then divide the faces, edges of tropical curve are perpendicular so the curve should look similar to the following figure.\par
+    \red{FIGURE}\par 
+    Now for example, the central vertex is dual to the face $F_2$ which corresponds to the monomials $1+x$, $1+y$ and $1+x+y$. The solution to the system 
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &1+x=0\\
+        &1+y=0\\
+        &1+x+y=0\\
+    \end{aligned}
+    \right.
+    \To (x,y)=(0,0)
+    $$
+    so $(0,0)$ is the coordinate of the central vertex.
+\end{Ex}
+
+\begin{Rmk}
+There's not metric duality between the triangle and the curve! It is possible to make a Newton polygon which doesn't fit in the curve as well.
+\end{Rmk}
+
+\begin{Ej}[5]
+Find such an example!
+\end{Ej}
+
+If we did this in the case of Puiseux series, then the subdivision of the Newton polytope keeps track of the initial forms of $q$ in the sense that for any cell in the Newton subdivision, the initial form is given by the monomials corresponding to the lattice points in this set.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(X,Y)=7+3X^2+2Y^2+t^{-1}X+2t^{-1}Y+t^{-1}XY,$$
+    this polynomial tropicalizes via $-\val$ to the polynomial $p$ from last example.\par \red{FIGURE}\par 
+    The initial form in the face $F_1$ corresponds to the monomials $XY+2Y+2Y^2$, then $XY+2Y+X$ in $F_2$, $X+2Y+7$ in $F_3$ and $3X^2+X+XY$ in the last $F_4$. The Gr\"obner fan is still the same as in the tropical curve.\par 
+    Along the edge $01$ of $F_1$ the initial form is $2Y^2+XY=In_w(q)$ where $w=(w_1,w_2)=-(\val X,\val Y)$ for $w$ in the blue edge of the tropical curve (corresponds to \red{stuff} which has that initial form). 
+\end{Ex}
+
+We will prove this fact by making a crucial observation. Evaluating a tropical monomial at a point $(x_0,y_0)$ can be done as a dot product. Take $m=a\odot x^i\odot y^j$ so the evaluation is at $(x_0,y_0)$ is 
+$$\braket{(i,j,a)}{(x_0,y_0,1)}.$$
+When we construct the subdivision of the N.P. we consider all points with coordinates $(i,j,a_{ij})$ as $i,j$ ranges over $\set{a_{ij}\neq -\infty}$
+So evaluating $p(x_0,y_0)$ amounts to looking for the maximum of the dot products of $(x_0,y_0,1)$ with all $(i,j,a_{ij})$.\par 
+\red{FIGURE}\par 
+In other words $m_{ij}(n_x,n_y)$ is equal for all monomials corresponding to vertices of the green face. For vertices below, it occurs that $\braket{\vec n}{\vec v}<0$ so 
+$$m_{ij}(n_x,n_y)<m_{\tilde i\tilde j}(n_x,n_y)$$
+when $m_{ij}$ corresponds to vertices not in the face and $m_{\tilde i\tilde j}(\dots)$ in face.\par 
+We have identified why the vertices correspond to tropical subdivisions, but the edges? If we focus on one, it bounds two faces $F_1$ and $F_2$ which span two planes with normal vectors $\vec n_1,\vec n_2$ with their respective $z$ coordinates equal to $1$. So any vector between these two, i.e. any one in with first two coordinates in the segment $n_1$ to $n_2$ has the property that 
+$$\braket{n}{m_1}=\braket{n}{m_2}>\braket{n}{m_{\text{other}}}$$ %Nate tiene los dibujos y revisar notas en canvas
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined

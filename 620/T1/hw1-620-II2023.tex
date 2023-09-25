@@ -89,6 +89,15 @@ dimension, but showing some kind of proof would be better :-)
         To that effect, let $(x_n)_{n\in\bN}\subseteq F$ be a sequence in $F$ and consider the $1^{\text{st}}$ coordinate of each $x_n$. Observe that $(x_n)$ is a bounded sequence so it holds that 
         $$|x^1_n|\leq\norm{x_n}\leq M\word{for some}M>0.$$
         This means that the real sequence $(x^1_n)_{n\in\bN}$ is also bounded and we may use the Bolzano-Weierstrass theorem in one dimension to find a subsequence $(x^1_{n_k})$ such that $x^1_{n_k}\xrightarrow[k\to\infty]{}x^1$. We now consider the $2^{\text{nd}}$
+        \item \red{FINISH}
+        \item To prove that the volume of the unit ball goes to zero as dimension grows we will calculate it using a Gaussian integral. First observe that 
+        $$\int_{\bR^n}e^{-\half\norm{x}^2}\dd x=(2\pi)^{n/2}$$
+        because we may separate the integral into a product, each equal to $\sqrt{2\pi}$. The function in question is radial, so we exploit that symmetry by calculating the last integral through the first dimension and then through an $n-1$ sphere. 
+        $$\int_{\bR^n}e^{-\half\norm{x}^2}\dd x=\int_0^\infty\int_{\del B(0,r)}e^{-\half r^2}\dd\sg\dd r$$
+        where $\sg$ is the Lebesgue measure on the surface of the sphere. Observe two facts, the function in question is independent of the inner integral so we may take it out and leave only the measure of $\del B(0,r)$. We can compare this to the area of the unit ball's boundary via the formula 
+        $$\sg(\del B(0,r))=r^{n-1}\sg(\del B(0,1))$$
+        which converts the integral to 
+        $$\sg(\del B(0,1))\int_0^\infty e^{-\half r^2}r^{n-1}\dd r$$
     \end{enumerate}
 \end{ptcbr}
 
