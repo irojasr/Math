@@ -86,10 +86,14 @@ dimension, but showing some kind of proof would be better :-)
 \begin{ptcbr}
     \begin{enumerate}[i)]
         \item Let $F\subseteq\bR^n$ be our closed and bounded set, we wish to see that every sequence in $F$ has a convergent subsequence.\par 
-        To that effect, let $(x_n)_{n\in\bN}\subseteq F$ be a sequence in $F$ and consider the $1^{\text{st}}$ coordinate of each $x_n$. Observe that $(x_n)$ is a bounded sequence so it holds that 
-        $$|x^1_n|\leq\norm{x_n}\leq M\word{for some}M>0.$$
-        This means that the real sequence $(x^1_n)_{n\in\bN}$ is also bounded and we may use the Bolzano-Weierstrass theorem in one dimension to find a subsequence $(x^1_{n_k})$ such that $x^1_{n_k}\xrightarrow[k\to\infty]{}x^1$. We now consider the $2^{\text{nd}}$
-        \item \red{FINISH}
+        To that effect, let $(x_n)_{n\in\bN}\subseteq F$ be a sequence in $F$ and observe that $F$ must be enclosed in a ball. Assume 
+        $$F\subseteq B(0,M)\word{with}\norm{\.}_\infty$$
+        and now let us bisect the ball \aside{which is actually a cube} in two halves.  By the pigeonhole principle, at least one of the halves will have an infinite number of points. Observe that the volume of the ball has been reduced by a half. Let us do that $(n-1)$ more times in order to obtain a fraction of our original box along with whatever fraction of $F$ is inside. Call this set $F_1=F\cap(\text{fraction of box})$.\par 
+        Elements in $F_1$ can't be further that $M/2$ apart (because even if we reduce the volume by a half like in the first step, the supremum of distance is still $M$, so that's why we reduce by $n$ cuts). We may iterate this process enough times so that for some large $N$, elements in $F_N$ will be no longer than $M/2^N$ apart.\par 
+        As $F_N$ has infinitely many elements of $(x_n)$ and 
+        $$\norm{x_n-x_m}\leq \frac{M}{2^N}\word{for}x_n,x_m\in F_N$$
+        we may extract the subsequence of elements of $(x_n)$ that lies completely inside $F_N$. This subsequence is a Cauchy sequence and therefore converges in $\bR^n$, call that limit $x$ and in particular, as $F$ is closed, $x\in F$. In conclusion, $F$ is sequentially compact.
+        \item Observe that in the infinite dimensional case our proof wouldn't work. Even if we consider a ball in $L_\infty$ norm, the cutting process requires to cut $n$ times our original box in order to reduce the distance by $M/2$. However, it is possible to have done infinitely many cuts and still have points which will be $M$ units apart.
         \item To prove that the volume of the unit ball goes to zero as dimension grows we will calculate it using a Gaussian integral. First observe that 
         $$\int_{\bR^n}e^{-\half\norm{x}^2}\dd x=(2\pi)^{n/2}$$
         because we may separate the integral into a product, each equal to $\sqrt{2\pi}$. The function in question is radial, so we exploit that symmetry by calculating the last integral through the first dimension and then through an $n-1$ sphere. 
@@ -97,7 +101,16 @@ dimension, but showing some kind of proof would be better :-)
         where $\sg$ is the Lebesgue measure on the surface of the sphere. Observe two facts, the function in question is independent of the inner integral so we may take it out and leave only the measure of $\del B(0,r)$. We can compare this to the area of the unit ball's boundary via the formula 
         $$\sg(\del B(0,r))=r^{n-1}\sg(\del B(0,1))$$
         which converts the integral to 
-        $$\sg(\del B(0,1))\int_0^\infty e^{-\half r^2}r^{n-1}\dd r$$
+        $$\sg(\del B(0,1))\int_0^\infty e^{-\half r^2}r^{n-1}\dd r.$$
+        This last integral can be transformed using the substitution $t=\frac{r^2}{2}$ which leads to $\dd t= r\dd r$. So the integral in question is 
+        $$\int_0^\infty e^{-t}r^{n-2}r\dd r=\int_0^\infty e^{-t}(2t)^{(n-2)/2}\dd t=2^{\frac{n}{2}-1}\int_0^\infty e^{-t}t^{\frac{n}{2}-1}\dd t.$$
+        The last integral is equal to the gamma function at $n/2$ so the equation we obtain is 
+        $$(2\pi)^{n/2}=2^{n/2-1}\sg(\del B(0,1))\Ga\left(\frac{n}{2}\right)\To\sg(\del B(0,1))=\frac{2\pi^{n/2}}{\Ga(n/2)}.$$
+        Now, with this surface area, we can find the volume of the unit ball by integrating the surface area of an $r$-ball from $0$ to $1$. This is 
+        $$V(B(0,1))=\int_0^1\frac{2\pi^{n/2}}{\Ga(n/2)}r^{n-1}\dd r=\frac{2\pi^{n/2}}{\Ga(n/2)}\left(\frac{1}{n}\right)=\frac{\pi^{n/2}}{\frac{n}{2}\Ga(n/2)}=\frac{\pi^{n/2}}{\Ga(n/2+1)}.$$
+        Using a Stirling approximation for the gamma function we have 
+        $$\Ga(n/2+1)\sim\sqrt{2\pi(n/2)}\left(\frac{n/2}{e}\right)^{n/2}\To V(B(0,1))\sim \frac{(2\pi e)^{n/2}}{n^{n/2}\sqrt{\pi n}}\xrightarrow[n\to\infty]{}0$$
+        and the term on the bottom grows super exponentially. This lets us conclude that the unit ball's volume goes to zero.
     \end{enumerate}
 \end{ptcbr}
 
