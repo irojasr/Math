@@ -116,11 +116,29 @@ dimension, but showing some kind of proof would be better :-)
 \end{ptcbr}
 
 \begin{Ej}[Compactness in finite and infinite dimensional spaces]
-    The spaces $\l_2$ and $\l_2$ are examples of spaces where closed and bounded sets are not sequentially compact.\par 
+    The spaces $\l_2$ and $L_2$ are examples of spaces where closed and bounded sets are not sequentially compact.\par 
     Consider $L_\infty[0,1]$ and the set of bounded linear operators over $L_\infty$: 
     $$\cA=\set{A\: L_\infty\to L_\infty\:\ A\ \text{is linear},\ \norm{A}_\cA<\infty}$$
     where the operator norm is defined as 
     $$\norm{A}_{\cA}=\sup_{\norm{f}_{\infty}=1}\norm{Af}_{\infty}$$
     Consider $D=\set{A\in\cA\:\ \norm{A}_\cA\leq 1}$ and construct a sequence of operators $(A_n)\subseteq D$ for which no subsequence converges.
 \end{Ej}
+
+\begin{ptcbr}%Incompleto
+    Let us consider a sequence of shift operators acting on $L_\infty[0,1]$. We would like to shift functions in a way that they don't overlap so that when considering 
+    $$\norm{f(x-a)-f(x-b)}_{L_\infty[0,1]},$$
+    the difference is large. We are restricted by two things, first that we are on a closed interval and that shifting by rational numbers might produce subsequences whose elements are very close. The idea then is to shift by irrational numbers. As they are uncountable, let us produce a countable set. Consider the sequence $a_n=\sqrt{p_n}$ where $p_n$ is the $n^{\text{th}}$ prime number. The sequence $(a_n)$ has no rational elements, is increasing and diverges as $n\leq p_n$ for all $n$.\par 
+    To solve our issue with the unit interval, instead of sliding by $a_n$ we will instead shift $x$ as $(x-a_n)\bmod 1$. This means that whenever $x-a_n<0$ we will consider 
+    $$(x-a_n)-\floor{x-a_n}$$
+    as the argument of our function. So consider the operator 
+    $$T_n\: L_\infty[0,1]\to L_\infty[0,1],\ f\mapsto f(x-a_n\bmod 1).$$
+    Observe that the sequence $(T_n)$ lies completely in the unit ball because 
+    $$\norm*{T_nf}_{L_\infty}=\norm*{f}_{L_\infty}\To \norm*{T_n}_{\cA}\leq 1$$
+    and also for the constant function $1$ the operator returns the same function. This means that $\norm{T_n(1)}_{L_\infty}=1$ and so $\norm{T_n}_\cA=1$.\par
+    Consider now the identity function on $[0,1]$, we claim that $(T_n(\id))$ has no convergent subsequence. This is equivalent to saying that there are no Cauchy subsequences. Notice that 
+    $$\norm*{T_{n_k}(\id)-T_{n_\l}(\id)}_{L_\infty}=\sup_{x\in[0,1]}|(x-a_{n_k})-(x-a_{n_\l})|\bmod 1=|a_{n_\l}-a_{n_k}|\bmod 1$$
+    and this difference is exactly 
+    $$|\sqrt{p_{n_\l}}-\sqrt{p_{n_k}}-(\floor{\sqrt{p_{n_\l}}}-\floor{\sqrt{p_{n_k}}})|.$$
+    I have an intuition that this difference must be larger than a constant because the numbers are irrational. So there's no ``controlled overlap'' which would make the lines be close together. We are not able to use prime numbers exactly because every integer modulo 1 is itself. But I'm not able to conclude the proof of this fact.
+\end{ptcbr}
 \end{document} 
