@@ -114,7 +114,7 @@ dimension, but showing some kind of proof would be better :-)
         and the term on the bottom grows super exponentially. This lets us conclude that the unit ball's volume goes to zero.
     \end{enumerate}
 \end{ptcbr}
-
+\newpage
 \begin{Ej}[Compactness in finite and infinite dimensional spaces]
     The spaces $\l_2$ and $L_2$ are examples of spaces where closed and bounded sets are not sequentially compact.\par 
     Consider $L_\infty[0,1]$ and the set of bounded linear operators over $L_\infty$: 
@@ -140,5 +140,21 @@ dimension, but showing some kind of proof would be better :-)
     and this difference is exactly 
     $$|\sqrt{p_{n_\l}}-\sqrt{p_{n_k}}-(\floor{\sqrt{p_{n_\l}}}-\floor{\sqrt{p_{n_k}}})|.$$
     I have an intuition that this difference must be larger than a constant because the numbers are irrational. So there's no ``controlled overlap'' which would make the lines be close together. We are not able to use prime numbers exactly because every integer modulo 1 is itself. But I'm not able to conclude the proof of this fact.
+\end{ptcbr}
+
+In the end, given that I was not able to finish proving this fact, I decided to tackle the problem with \textbf{Fernando}. The idea we came up with is in the vein of reducing the size of the interval, but similar to the ideas of my other classmates who shared them with me when I asked, I believe that this operator converges to the null operator. Even though I will add the thought process here, I wish for my original attempt to be the one considered for grading.
+
+\begin{ptcbr}
+    Consider the sequence of operators which bisects the unit interval into a half, a fourth, an eighth, and so on. Call $I_n$ such interval, explicitly
+    $$I_n=\bonj{1-\frac{1}{2^n},1-\frac{1}{2^{n+1}}}$$
+    and let $\ind_n=\ind_{I_n}$ be the indicator function of the $n^{\text{th}}$ interval.\par 
+    Then the operator is $T_n(f)=f\.\ind_n$. This operator is inside the unit ball because $\norm*{T_nf}_\infty=\norm*{f}_\infty$ which means it has operator norm less than $1$. Our intent with this operator is to note that for any $n$ and $m$
+    $$\norm*{T_n-T_m}_\cA\geq 1.$$
+    Taking the norm by definition, we have that its the supremum over functions with norm exactly $1$, which means that we may take 
+    $$\norm*{T_n-T_m}_\cA\geq\norm*{1\.\ind_n-1\.\ind_m}_{\infty}=\norm*{\ind_n-\ind_m}_{\infty}$$
+    which at the same time is a supremum over $x\in[0,1]$. So this quantity should be bigger than 
+    $$|\ind_n(2^{-(n+1)})-\ind_m(2^{-(n+1)})|=|1-0|=1.$$
+    The point $2^{-n-1}$ is the midpoint of $I_n$ which is not present in $I_m$ for any $m$.\par 
+    This means that no pair of operators can lie closer than $1$ unit apart after following the inequalities and therefore it cannot have a Cauchy subsequence.
 \end{ptcbr}
 \end{document} 
