@@ -1305,6 +1305,56 @@ $$m_{ij}(n_x,n_y)<m_{\tilde i\tilde j}(n_x,n_y)$$
 when $m_{ij}$ corresponds to vertices not in the face and $m_{\tilde i\tilde j}(\dots)$ in face.\par 
 We have identified why the vertices correspond to tropical subdivisions, but the edges? If we focus on one, it bounds two faces $F_1$ and $F_2$ which span two planes with normal vectors $\vec n_1,\vec n_2$ with their respective $z$ coordinates equal to $1$. So any vector between these two, i.e. any one in with first two coordinates in the segment $n_1$ to $n_2$ has the property that 
 $$\braket{n}{m_1}=\braket{n}{m_2}>\braket{n}{m_{\text{other}}}$$ %Nate tiene los dibujos y revisar notas en canvas
+
+\section{Day 16|20230927}
+
+We have discussed that tropical plane curves are dual to a subdivision of the Newton polytope. There's a combinatorial algorithm that will allow us to divide the N.P.\par 
+We will study a couple more characteristics to discern between stick figures and tropical curves. We need to introduce the fact that each \emph{stick} gets a weight.
+
+\begin{Def}
+    Any edge of a tropical curve $V(p)$ is given \term{weight} $w_e$ equal to the lattice length of the segment of the N.P. subdivision dual to the edge.
+\end{Def}
+
+Before even defining what things mean, let see an example. 
+
+\begin{Ex}
+    Consider the tropical cubic with subdivision edges $1\to yx^2$ and $yx^2\to y^2$. We may identify weights of edges with black in the coming figure:
+    \begin{figure}[h!]
+        \centering
+        %\includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        %\caption{Initial form determination and roots}
+        %\label{fig:6.3-InitialFormExample}
+    \end{figure}
+\end{Ex}
+
+\begin{Th}
+Tropical plane curves are balanced, meaning that at every vertex
+$$\sum_{v\in e}w_e\vec p_e=0.$$
+Here $w_e$ is the weight of the edge $\vec p_e$ outgoing primitive vector in the direction of $e$.
+\end{Th}
+
+Continuing the line of the previous example, at the vertex we were looking at we have outgoing primitive vectors 
+$$\twobyone{1}{2},\quad\twobyone{-1}{0}\word{and}\twobyone{1}{-2}.$$
+Observe that when taking the weighted sum at the vertex we get 
+$$2\twobyone{-1}{0}+\twobyone{1}{2}+\twobyone{1}{-2}=\twobyone{0}{0}.$$
+We will prove the theorem next.
+
+\begin{ptcbp}
+Any vertex is dual to a face $F_v$ of N.P. subdivision.
+For every edge bounding $F_v$, the vector $w_e\vec p_e$ is obtained by the vector tracing the dual edge via a $90^circ$ rotation. We claim to be done, the fact that the equation is satisfied is equivalent to the fact that the N.P. is a closed polygon.
+\end{ptcbp}
+
+So imagine a stick figure with weighted edges comes up to you, then we can check the compatibility condition. If it doesn't have weights, does there exist an assignment of weights in order to form a tropical curve? 
+
+\subsection{What do the weights mean?}
+
+\begin{Ex}
+    Suppose we have a subdivision with edges 
+    $$x^2y\to x^5y^2\to x^8y^3\to x^11y^4$$
+    and the corresponding edge in the tropical curve. We want to see the initial form. This subdivision \emph{remembers} the monomials that appear in the initial form! It will be a linear combination of the monomials in the edge!
+    $$\operatorname{In}_\omega(q)=Ax^2y+Bx^5y^2+Cx^8y^3+Dx^{11}y^4=x^2y(A+Bx^3y+Cx^6y^2+Dx^9y^3)=x^2yP(x^3y)$$
+    This polynomial factors so nicely because they lie on the same line! If we are just looking for solutions in $(\bC^\ast)^2$ or asymptotically $|x|,|y|\gg 0$ what happens is that the monomial part is irrelevant. Also $\deg(P)$ is equal to the lattice length of the segment. A 1-parameter subgroup orbits $x^3y=r_i$ where the $r_i$ is a root of $P$ counted with multiplicity.    
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
