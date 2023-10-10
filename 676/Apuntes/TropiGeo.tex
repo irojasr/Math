@@ -8,7 +8,7 @@
 \def\nsiglahead {Tropical Geometry}
 \def\nlang {ENG}
 %\def\darktheme{}
-\let\footruleskip\relax %%FADIR
+%\let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 \usepackage[enableskew]{youngtab}
 
@@ -74,13 +74,13 @@ Let us talk about ways to get into tropical geometry. We will first define the t
 \end{Def}
 
 With this set we can make multivariable polynomials 
-$$p(\un x)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
+$$p(x_1,\dots,x_n)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
 which gives rise to their \emph{tropicalization}, a piecewise linear function $\Trop(p)\:\bR^n\to\bR$.
 
 \begin{Ex}
     Consider the polynomial 
-    $$p(x,y)=x\oplus y\oplus 0,$$
-    its tropicalization is $\Trop(p)(x,y)=\max(x,y,0)$ which indeed is a piecewise linear function from $\bR^2$ to $\bR$.
+    $$p(x,y)=x\oplus y\oplus 0\in (\bR\cup\set{-\infty})[x,y].$$
+    When tropicalizing we get the piecewise linear function $\Trop(p)(x,y)=\max(x,y,0)$ which goes from $\bR^2$ to $\bR$.
     \begin{figure}[h!]
         \centering
         \subcaptionbox{$x\oplus y\oplus 0$\label{fig:2.1-LinearTropicalPolynomial}}{\includegraphics[width=0.3\textwidth]{figs/fig2-1-LinearTropicalPolynomial.pdf}}\quad
@@ -101,7 +101,7 @@ which gives rise to their \emph{tropicalization}, a piecewise linear function $\
 \begin{Ex}
 If we consider higher degree tropical polynomials, they will become linear in the usual sense. Consider 
 $$p(x)=3x^2=3\odot x\odot x=3+x+x=3+2x$$
-which is indeed linear.
+which is indeed linear with respect to usual sum and product.
 \end{Ex}
 
 \subsection{Valued fields}
@@ -112,22 +112,47 @@ $$f(t)=\sum_{i=k_0}^\infty a_it^{i/n}.$$
 The lower bound $k_0$ could be negative and the exponents, are rational with bounded denominators. 
 \end{Def}
 
-Consider the valuation 
+If we have not seen Puiseux series before it would be useful to consider a quick example:
+
+\begin{Ex}
+    Entirely by definition, consider the Puiseux series 
+    $$f(t)=\sum_{i=-12}^\infty \frac{-i}{12}t^{i/6}.$$
+    Expanding out the first few terms we get 
+    $$\frac{12}{12}t^{-12/6}+\frac{11}{12}t^{-11/6}+\frac{10}{12}t^{-10/6}+\frac{9}{12}t^{-9/6}+\dots=t^{-2}+\frac{11}{12}t^{-11/6}+\frac{5}{6}t^{-5/3}+\frac{3}{4}t^{-3/2}+\dots$$
+\end{Ex}
+This field can be equipped with a valuation
 $$\val_0\:\bC(t)\to\bR\cup\set{\infty},\begin{cases}
     0\mapsto \infty\\
     f\mapsto\text{order of vanishing at }0.
 \end{cases}$$
-This order of vanishing is the value $\al$ such that $f/t^\al$ approaches a finite non-zero value. The corresponding coefficient in the series expansion of $f$ for this value is called the valuation coefficient.
+This order of vanishing is the value $\al$ such that $f/t^\al$ approaches a finite non-zero value. Formally we can express this as 
+$$\val_0(f)=\min\Set{\al\leq\infty\:\ \lim_{t\to0}\frac{f}{t^\al}\in\obonj{0,\infty}}.$$
+The corresponding coefficient in the series expansion of $f$ for this value is called the valuation coefficient.
 
 \begin{Ex}
-    What happens to the order of vanishing when you add two functions? Consider $f=t^2,\ g=t^3$, then $f+g=t^2+t^3$ which has order of vanishing $2$. Observe that $2=\min(2,3)$.
-\end{Ex}
-In general what happens is that
-$$\val_0(f_1+f_2)\geq\min(\val_0 f_1,\val_0 f_2),\word{and}\val_0(f_1f_2)=\val_0(f_1)+\val_0(f_2).$$
+    In our original example, we can see that if we divide $f$ by $t^{-2}$ (or similarly multiply by $t^2$) we get 
+$$t^2f(t) = 1 + \frac{11}{12}t^{1/6} + \frac{5}{6}t^{1/3} + \frac{3}{4}t^{1/2} + \dots \xrightarrow[t\to0]{} 1 + 0 + 0 + \dots$$
+If we were to divide by a lower power of $t$, say $t^{-3}$, we would get 
+$$t^3f(t) = t + \frac{11}{12}t^{7/6} + \frac{5}{6}t^{4/3} + \frac{3}{4}t^{3/2} + \dots \xrightarrow[t\to0]{} 0 + 0 + \dots$$
+and even if zero is a finite value, we have stated that the order of vanishing makes $f/t^\alpha$ approach a finite \textbf{non-zero} value.\par 
+While on the other hand if we divide by a higher value than $-2$, say $-1$, then we get 
+$$tf(t) = t^{-1} + \frac{11}{12}t^{-5/6} + \frac{5}{6}t^{-2/3} + \frac{3}{4}t^{-1/2} + \dots \xrightarrow[t\to0]{} \infty.$$
+So in this case, we get a \textbf{non-finite} value. At least with this example, it gives us the intuition that the order of vanishing is a unique value.
 
-We can do algebraic geometry over this field! Let $K$ be the field of rational functions, if $p(\un x)\in K\bonj{\un x}$ then we consider the algebraic variety
-$$X=V(p)=\set{\vec{x}\:p(\vec{x})=0}\subseteq K^n.$$
-Taking the image through the $n$-fold valuation, we will obtain a set in $\left(\bR\cup\set{\infty}\right)^n$. The tropicalization of $X$ is the image via this map:
+\end{Ex}
+
+We now ask, how does the order of vanishing behave when operating functions algebraically? What happens to the order of vanishing when you add two functions? Or when we multiply them?
+
+\begin{Ex}
+    Consider two small functions $f(t)=t^2$ and $g(t)=t^3$, then $f+g=t^2+t^3$ which has order of vanishing $2$. Observe that $2=\min(2,3)$.
+\end{Ex}
+
+In general what happens is that
+$$\val_0(f+g)\geq\min(\val_0 f,\val_0 g),\word{and}\val_0(fg)=\val_0(f)+\val_0(g).$$
+
+We can do algebraic geometry over this field! Let $\bK$ be the field of Puiseux series, if $p(x_1,\dots,x_n)\in \bK\bonj{x_1,\dots,x_n}$ then we consider the algebraic variety
+$$X=V(p)=\set{\vec{x}\in\bK^n\:p(\vec{x})=0}\subseteq \bK^n.$$
+Each entry of $\vec x$ is a Puiseux series we can take the valuation of. So the image through the $n$-fold valuation of $X$ will be a set in $\left(\bR\cup\set{\infty}\right)^n$. We will call the tropicalization of $X$ the image through this map. This is the tropical hypersurface for $p$.
 \begin{figure}[h!]
     
 \centering
@@ -145,7 +170,7 @@ Taking the image through the $n$-fold valuation, we will obtain a set in $\left(
 \draw [shift={(241,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
 
 % Text Node
-\draw (208,53.4) node [anchor=north west][inner sep=0.75pt]    {$K^{n}$};
+\draw (208,53.4) node [anchor=north west][inner sep=0.75pt]    {$\bK^{n}$};
 % Text Node
 \draw (303,53.4) node [anchor=north west][inner sep=0.75pt]    {$(\bR\cup\set{\infty})^{n}$};
 % Text Node
@@ -169,19 +194,20 @@ Taking the image through the $n$-fold valuation, we will obtain a set in $\left(
 
 
 \end{tikzpicture}
+\caption{Diagram on the tropical hypersurface}
+\label{fig:2a-diagram-trop-hypersurf}
+\end{figure}
 
-\end{figure}\\
-and here $\Trop(V(p))$ is the tropical hypersurface for $p$.
 \begin{Ex}
-    Consider the polynomial in $K\bonj{x,y}$ 
+    Consider the polynomial in $\bK\bonj{x,y}$ 
     $$p(x,y)=tx+y+t^2,$$
-    then the variety is $X=\set{(x,y)\: tx+y+t^2=0}$ which we can solve to $y=-tx-t^2$.\par 
-    If we choose $x=0$ then $y$ becomes $-t^2$. Now we take the valuation of $(0,-t^2)$ and so $(\infty,2)\in\Trop(X)$.
+    then the variety is $X=\set{(x,y)\: tx+y+t^2=0}$. We can solve the equation to $y=-tx-t^2$.\par 
+    If we choose $x=0$ then $y$ becomes $-t^2$. Now we take the valuation of $(0,-t^2)$ and so $(\infty,2)$ is a point in $\Trop(X)$.
 \end{Ex}
 
 \subsection{Amoebas}
 
-Let us return to the usual stage and consider $p\in\bC[\un x]$ which defines an algebraic variety $X=V(p)\subseteq\bC^n$. Now consider the map which sends every coordinate's modulus to its logarithm in base $t$: 
+Let us return to the usual stage and consider $p\in\bC[x_1,\dots,x_n]$ which defines an algebraic variety $X=V(p)\subseteq\bC^n$. Now consider the map which sends every coordinate's modulus to its logarithm in base $t$: 
 $$\bC^n\to\left(\bR\cup\set{-\infty}\right)^n,\quad (z_1,\dots,z_n)\to(\log_t|z_1|,\dots,\log_t|z_n|).$$
 
 
@@ -190,7 +216,7 @@ The image of $X$ under this map, $\log_t(X)$, is the $t$-amoeba of $X$. If we ta
 \begin{Ex}
     When $p(x,y)=x+y-1$ then we can describe $V(p)$ via the parametrization $(x,1-x)$. So the corresponding $t$-amoeba in the real case is 
     $$\set{(\log_t|x|,\log_t|1-x|)\: x\in\bR}$$
-    and we ordinarily take the limit, we see that the functions converge to zero point-by-point. But the set is actually approaching the spine!
+    and we ordinarily take the limit $\lim_{t\to\infty}\frac{\log|x|}{\log t}$, we see that the functions converge to zero point-by-point. But the set is actually approaching the spine!
     \begin{figure}[h!]
         \centering
         \subcaptionbox{$X=V(x+y-1)$\label{fig:2.4-Variety}}{\includegraphics[width=0.25\textwidth]{figs/fig2-4-V(x+y-1).pdf}}\quad
@@ -255,12 +281,14 @@ This gives us an intuition that minimization problems correspond to linear algeb
 
 \subsubsection{Forgetting phases}
 
-Recall that any complex number can be written as $z=re^{i\te}$ where $r\geq 0$. Consider the map $T_t\:\bC\to\set{-\infty}\cup\bR,\quad z\mapsto\log_t(r)$.
+Consider the map $T_t\:\bC\to\set{-\infty}\cup\bR,\quad z\mapsto\log_t(|z|)$.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{figs/fig1-3.png}
 \end{figure}
-This map is surjective, and this we can see by checking it is right-invertible. Observe that:
+This map is surjective, and this we can see by checking it. Any $x\in\bR$ is 
+$$T_t(t^xe^{i\te})=\log_t|t^xe^{i\te}|=\log_tt^x=x,\quad\te\in\bR.$$
+This means that the inverse image of a point contains a plethora of points, in fact:
 $$
 \left\lbrace
 \begin{aligned}
@@ -270,8 +298,8 @@ $$
 \right.
 $$
 With this in hand, we wish to define an exotic addition and multiplication on $\set{-\infty}\cup\bR$ using $T_t$. We will dequantize!\par 
-We begin with \textbf{hyper-addition}, the output will be a subset of $\set{-\infty}$ so it's not a binary operation by itself. 
-$$x\diamondplus_t y\:= T_t(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.$$
+We begin with \textbf{hyper-addition}, the output will be a subset of $\set{-\infty}\cup\bR$ so it's not a binary operation by itself. 
+$$x\diamondplus_t y\:= T_t(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.\label{problem1-hyperAddition}$$
 This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$ into an operation we take a limit:
 \begin{figure}[h!] 
     \centering
@@ -315,7 +343,7 @@ This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$
 \end{figure}
 
 \begin{Rmk}
-Note that $\diamondplus$ is still a hyperoperation. Its output is not a singleton \emph{only} when a dding a number to itself:
+Note that $\diamondplus$ is still a hyperoperation. Its output is not a singleton \emph{only} when adding a number to itself:
 $$x\diamondplus y=\begin{cases}
     \max(x,y),\quad x\neq y\\
     \bonj{-\infty,x},\quad x=y
@@ -324,17 +352,15 @@ $$x\diamondplus y=\begin{cases}
 
 Formally this process, taking a limit of a family of operations, is known as \emph{dequantization}.\par
 
-In the case of multiplication, things go a lot smoother when defining it:
+In the case of multiplication, the process goes a lot smoother when defining it:
 
-$$x\.y =T_t\bonj{T^{-1}(x)\.T^{-1}(y)}=\log_t\bonj{(t^xe^{i\te})(t^ye^{i\vf})}=\log_t\left(t^{x+y}e^{i(\te+\vf)}\right)$$
-
-Separating the logarithm we get $(x+y)+\log(e^{i(\te+\vf)})/\log(t)$, then letting $t$ grow without bound we see that the operation converges to $x+y$. 
+$$x\.y =T_t\bonj{T^{-1}(x)\.T^{-1}(y)}=\log_t\bonj{|(t^xe^{i\te})(t^ye^{i\vf})|}=\log_tt^{x+y}=x+y$$
 
 \begin{Ex}
     Let us consider a small example like summing $2$ and $4$. Observe that 
-    $$4\diamondplus_t 2=T_t(T_t^{-1}(4)+T_t^{-1}(2))=T_t\left(t^4e^{i\te}+t^2e^{i\vf}\right)$$
+    $$4\diamondplus_t 2=T_t(T_t^{-1}(4)+T_t^{-1}(2))=T_t\left|t^4e^{i\te}+t^2e^{i\vf}\right|$$
     and the term on the inside can be simplified to $t^{4}(e^{i\te}+t^{-2}e^{i\vf})$. $T_t$ takes that expression to
-    $$4+\log_t(e^{i\te}+t^{-2}e^{i\vf})=4+\frac{\log(e^{i\te}+t^{-2}e^{i\vf})}{\log t}.$$
+    $$4+\log_t|e^{i\te}+t^{-2}e^{i\vf}|=4+\frac{\log|e^{i\te}+t^{-2}e^{i\vf}|}{\log t}.$$
     What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! 
     The term on the right vanishes and we are left with $4=\max(4,2)$. So it got a tad bit better, but it's still a hyperoperation!
 \end{Ex}
@@ -366,8 +392,47 @@ So, summarizing this process:
 \end{itemize}
 This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
 
-\section{Interim}
+\section{Interim 1|Valuations}
 %%valued fields and puiseux seires
+
+\subsection{Valuations}
+
+In essence a valuation provides a measure of the \emph{size} (or multiplicity) of elements in a field. 
+
+\begin{Def}
+    If $K$ is a field, a \term{valuation} on $K$ is a mapping
+    $$\val\:\ K\to\bR\cup\set{\infty}$$
+    with the properties:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em 
+        \item $\val(x)=\infty\iff x=0$,
+        \item $\val(xy)=\val(x)+\val(y)$,
+        \item $\val(x+y)\geq\min(\val(x),\val(y))$, with equality if $\val(x)\neq\val(y)$.
+    \end{enumerate}
+    In this case, we say that $K$ is a valued field.
+\end{Def}
+
+Previous discussion has shown us that the order of vanishing, $\val_0$ is a valuation of the field of Puiseux series $\bK$. The properties can be shown to be true by writing out two Puiseux series and showing that indeed they obey the properties.
+
+\begin{Ej}
+Verify that the field of Puiseux series, is indeed a valued field with valuation $\val_0$.
+\end{Ej}
+
+There's also a another common example coming from number theory which is the $p$-adic valuation. 
+
+\begin{Ex}
+    We first define the valuation on $\bZ$ as 
+    $$v_p(a)=\max\set{k\in\bZ\:\ p^k\mid a},$$
+    where $p$ is a prime number. For the rational numbers the valuation is defined as $v_p(m/n)=v_p(m)-v_p(n)$.
+\end{Ex}
+
+This valuation can be used to study the field of $p$-adic numbers which is the completion of $\bQ$ with respect to the $p$-adic absolute value $|r|_p=p^{-v_p(r)}$.
+
+\begin{Ej}
+In a similar fashion, verify that $v_p$ is a valuation over $\bQ$.
+\end{Ej}
+
+\chapter{The Tropical Numbers}
 
 \section{Day 4|20230828}
 
@@ -428,39 +493,61 @@ The only natural way to turn this into an operation is to define $x+y=\min(x,y)$
     \end{itemize}
 \end{Def}
 
-There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will tipically use the $\max$ convention. 
+There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will typically use the $\max$ convention. 
 
 \begin{Prop}
 The following algebraic properties hold for $(\bT,+,\.)$:
-\begin{enumerate}[i.]
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
     \item $0_\bT=-\infty$.
     \item $1_{\bT}=0$.
-    \item $x+y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
-    \item Addition is idempotent: $x+x=x$.
+    \item $x\oplus y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
+    \item Addition is idempotent: $x\oplus x=x$.
     \item Every non-zero element has a multiplicative inverse: $1/x=-x$.
 \end{enumerate}
 \end{Prop}
 
 \begin{ptcbp}
-    \begin{enumerate}[i.]
-    \item Observe that $x+0_\bT=\max(x,-\infty)=x$.
-    \item $x\.1_\bT=x+0=x$.
-    \item $x+y=0_\bT\iff \max(x,y)=-\infty\To x=y=-\infty$.
-    \item $x+x=\max(x,x)=x$.
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+    \item Observe that $x\oplus0_\bT=\max(x,-\infty)=x$.
+    \item $x\odot 1_\bT=x+0=x$.
+    \item $x\oplus y=0_\bT\iff \max(x,y)=-\infty\To x=y=-\infty$.
+    \item $x\oplus x=\max(x,x)=x$.
     \item $x\.(1/x)=x+(-x)=0=1_\bT$.
 \end{enumerate}
 \end{ptcbp}
 Observe that it is not possible to adjoin formal additive inverses. Suppose that for $x\in\bT$ there exists a $y$ such that $x+y=0_\bT$, then 
-$$(x+x)+y=x+y=0_\bT\word{and}x+(x+y)=x+0_\bT=x\word{but}x\neq 0\_\bT.$$
+$$(x\oplus x)\oplus y=x\oplus y=0_\bT\word{and}x\oplus (x\oplus y)=x\oplus 0_\bT=x\word{but}x\neq 0_\bT.$$
 This means that any invertible element necessarily has to be $-\infty$.
 
 \begin{Ej}[2-]
-Which other algebraic properties do these operations enjoy? We have claimed for example that $+$ is associative. Prove this.\par 
+Which other algebraic properties do these operations enjoy? We have claimed for example that $\oplus$ is associative. Prove this.\par 
 Are the operations commutative? Do they distribute with respect to each other?
 \end{Ej}
 
+\begin{ptcb}
+Let us assume without losing generality that 
+$$x<y<z$$
+and then 
+\begin{align*}
+    &x\oplus (y\oplus z)=\max(x,\max(y,z))=\max(x,z)=z\\
+    &(x\oplus y)\oplus z=\max(\max(x,y),z)=\max(y,z)=z
+\end{align*}
+which shows us that $\oplus$ is associative. We can see that it's commutative by realizing that $\max$ is also commutative.\par 
+Finally we ask if distribution occurs, but let us observe first that 
+$$y<z\To x+y<x+z,$$
+now we can see that 
+\begin{align*}
+&x\odot(y\oplus z)=x\odot y\oplus x\odot z\\
+\iff &x+\max(y,z)=\max(x+y,x+z)\\
+\iff &x+z=x+z
+\end{align*}
+which proves distributivity. Also it is not necessary to check distribution on the other side as our operations are commutative.
+\end{ptcb}
+
 \begin{Prop}[Weird Fun Facts]
-Recall that the usual Pascal Triangle is built by adding the \emph{previous two} elements to get the next one. In the tropical case we have 
+Recall that the usual Pascal Triangle is built by adding the previous two elements to get the next one. In the tropical case we have 
 $$
 %https://tex.stackexchange.com/questions/17522/pascals-triangle-in-tikz
 \begin{tikzpicture}
@@ -480,13 +567,27 @@ $$
         \end{tikzpicture}
     $$
     and this extends downwards with the same pattern.\par 
-    In the case of the tropical binomial theorem, the identity is
-    $$(x+y)^n=x^n+y^n\iff n\max(x,y)=\max(nx,ny).$$
+    In the case of the tropical binomial theorem, we have a ``freshman's dream'' type of identity:
+    $$(x\oplus y)^n=x^n\oplus y^n.$$
+
+Observe that in other words, what the binomial theorem is telling us is a restatement of the identity $n\max(x,y)=\max(nx,ny)$.
 \end{Prop}
 
 \begin{Ej}[2]
 Recall that the coefficients in the expansion for the binomial theorem are the corresponding elements in the rows of the Pascal Triangle. Verify if the coefficients agree in the tropical case for the binomial theorem.
 \end{Ej}
+
+\begin{ptcb}
+We must verify that the coefficient of every monomial in the expansion of $(x\oplus y)^n$ does match the $n^{\text{th}}$ row of Pascal's triangle. To that effect note that 
+\begin{align*}
+    (x\oplus y)^n&=(x\oplus y)\odot(x\oplus y)\odot\dots\odot(x\oplus y)\\
+    &=x^n\oplus x^{n-1}y\oplus\dots\oplus xy^{n-1}+y^n\\
+    &=x^n\oplus y^n
+\end{align*}
+and in the second line, remember we would usually have $\binom{n}{k}$ terms of the form $x^ky^{n-k}$. However, as addition is idempotent here, all those terms become just one term.\par 
+Also, observe that the coefficient (tropically) multiplying each term is $1_\bT$. This is because multiplication by one is just adding by zero. So it is indeed the case that all coefficients in the binomial expansion are $1_\bT$.\par 
+Finally observe that for any $k$, $kx+(n-k)y\leq\max(nx,ny)$ which means that the only terms that survive are the power $n$ monomials in the expansion. 
+\end{ptcb}
 
 
 \subsubsection{The Optimal Assignment Problem}
@@ -507,13 +608,43 @@ Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and 
 
 \begin{Ej}
     Do the following:
-    \begin{itemize}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
         \item[(1-)] Construct a $3\x3$ matrix with non-permuted entries such that there's more than one possible assignment for the optimal jobs.
         \item[(1)] Use the combinatorial definition of permanent to show that the tropical determinant of $M$ is indeed the maximal profit. \hint{The definition of permanent is the same as the determinant but without the $(-1)^{\sgn\sg}$.}
-        \item[(5)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. 
-    \end{itemize}
+        \item[(1)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. \aside{Actually! It is not necessary to know the value of the determinant.}
+    \end{enumerate}
 \end{Ej}
 
+\begin{ptcb}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Consider a matrix $A\in \bR^{3\x3}$. For a given $n\in\bN$, the profit, we may build an infinite family of matrices which satisfy the required conditions.\par 
+        The conditions our matrix must satisfy are sums of permuted entries.\par 
+        In this case the solution is given by $5$ parameters including the profit:
+        $$(n-f-h,n-g-g,n-f-g-h+i,f+g-i,f+h-i,f,g,h,i)$$
+        so a valid matrix could be 
+        $$\threebythree{1}{3}{1}{3}{5}{3}{2}{4}{2}.$$
+        \item The permanent by definition is 
+        $$\bigoplus_{\sg\in S_n}\bigodot_{i=1}^n M_{i\sg_i}=\max_{\sg\in S_n}\left(\sum_{i=1}^n M_{i\sg_i}\right).$$
+        What the last expression says is, out all the possible permutations, which is the highest sum over all possible job assignments. So the permanent will indeed find the maximal profit.
+        \item We can proceed with a greedy algorithm. Row by row, choose the largest element. Then eliminate the column the found element was in and repeat the process.\par 
+        For example, pick $A_{1k}=\max(\text{row }1)$, then throw out column $k$ and repeat the process with the $(1,k)$ minor of $A$.\aside{This doesn't actually prove that the greedy algorithm works.} 
+    \end{enumerate}
+\end{ptcb}
+
+\begin{Rmk}
+Observe that the first problem can be solved in any dimension $d$, because in total we have $2d$ equations while having $d^2$ indeterminates. As $2d<d^2$ for $d\geq 2$, we have that the problem will always be under-determined. So there's always more than one possible optimal assignment. 
+\end{Rmk}
+
+We now have another question, 
+\begin{significant}
+    Is there an instance where the greedy algorithm fails to find an optimal assignment for the jobs?
+\end{significant}
+
+\begin{Ej}[5]
+Prove or disprove, the greedy algorithm will find an optimal assignment for the jobs given the conditions above. You may assume to know the value of the permanent of the matrix.
+\end{Ej}
 \section{Day 5|20230830}
 
 The last time we talked about the algebraic structure of the value group of the Puiseux series. We now have plenty of motivation of why would we define the tropical numbers. 
@@ -525,8 +656,8 @@ $$a\odot x^{\odot m},\quad a\in\bT,\quad m\in\bZ.$$
 
 \begin{Ex}
     We have for example:
-    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x\ (\text{Laurent}).$$
-    Also consider $\sqrt 5\odot x^{\odot 3}$ which corresponds to $y=\sqrt{5}+3y$. Notice how the slope is always an integer, meanwhile the translation can be any number.
+    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x.$$
+    The second one is a Laurent monomial because of the negative power. Also consider $\sqrt 5\odot x^{\odot 3}$ which corresponds to $y=\sqrt{5}+3x$. Notice how the slope is always an integer, meanwhile the translation can be any number.
 \end{Ex}
 
 An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise, affine linear function with integer slopes. 
@@ -1048,15 +1179,17 @@ $$V(p)=\ov{\set{(\val(x),\val(y))\: (x,y)\in V(q)}}.$$
 \begin{Ej}
 Show that pairs of rational numbers are dense here. \aside{It has to do with the valuation only taking rational numbers.}
 \end{Ej}
-In two dimensions we have way more features, the study of tropical curves will enclose the correspondence statement with subdivisions of Newton Polygon and balancing edge weights. Our objective now is to see the tropical versions of tropical curve theorems. For example, the tropical Bezout and tropical degree/genus formula.
+In two dimensions we have way more features, the study of tropical curves will enclose the correspondence statement with subdivisions of Newton Polygon and balancing edge weights. Our objective now is to see the tropical versions of tropical curve theorems. For example, the tropical Bézout and tropical degree/genus formula.
 
 \section{Day 11|20230915}
 
 \subsection{Tropical Lines}
 
+\subsubsection{The $\max$ convention}
+
 If we have a tropical polynomial of degree 1, 
 $$p(x,y)=a\odot x\oplus b\odot y\oplus c$$
-and assume for the sake of drawing pictures, that $-\infty,a,b,c$. This corresponds to the piecewise linear function 
+and assume for the sake of drawing pictures, that $-\infty\neq a,b,c$. This corresponds to the piecewise linear function 
 $$\max(a+x,b+y,c)$$
 and if we set any of these two equations equal to each other, we can see that there are three lines that play a role:
 \begin{align*}
@@ -1073,33 +1206,47 @@ So this is the locus where two functions are equal to each other. In each of the
     \label{fig:7.1-TropicalLineExample}
 \end{figure}
 
-So in general, tropical lines look like this ``tripod'' and changing the $a,b,c$ shifts the graph.
+So in general, tropical lines look like this ``tripod'' and changing the $a,b,c$ shifts the graph. 
 
 \begin{Ej}[2]
 Figure out what happens when a coefficient is $-\infty$.
 \end{Ej}
 
-\subsection{The Case of Puiseux Series}
+This is analogous to what we have done with tropical univariate polynomials. The tropical line $V(p)$ is the locus of non-linearity of our function:
+$$V(p)=\set{(x,y)\in\bR^2\:\ df_p\!\mid\!_{(x,y)}\text{ isn't defined}}.$$
+\subsubsection{The Case of Puiseux Series}
 
 In this case, lines will we the zero loci of polynomials of the form 
 $$p(X,Y)=A(t)X+B(t)Y+C(t)$$
 with 
 $$a=\val(A),\quad b=\val(B)\word{and}c=\val(C).$$
-We let $L=\set{(X,Y)\in\bC\set{\set{y}}^2\:\ p(X,Y)=0}$ be the zero locus and then define
+We let $L=\set{(X,Y)\in\bK^2\:\ p(X,Y)=0}$ be the zero locus and then define
 $$\Trop(L)=\ov{\set{(\val(X),\val(Y))\:\ (X,Y)\in L}}\subseteq\bT^2.$$
 We may parametrize $p$ in the following way, we let $X=\ga(t)$ with an arbitrary valuation and then we solve for $Y$:
 $$Y=\underbrace{\frac{-A(t)}{B(t)}\ga(t)}_{a-b+\val\ga}-\underbrace{\frac{C(t)}{B(t)}}_{c-b}$$ 
+\red{ASK RENZO} Depending on the value of $\val\ga(t)$, then we may get different values for $\val Y(\ga(t))$. 
+\begin{itemize}
+    \itemsep=-0.4em 
+    \item If $\val\ga(t)>c-a$, then $\val Y(\ga(t))=c-b$.
+    \item If $\val\ga(t)<c-a$, then $\val Y(\ga(t))=x+a-b$.
+    \item And if $\val\ga(t)=c-a$ then $\val Y(\ga(t))$ can be anything above $c-b$. We thus set 
+    $$\ga(t)=\left(-\frac{C(t)}{A(t)}\right)(1+t^{\odot m}),\word{where}m>0$$
+\end{itemize}
+The first two items represent a graph of $(a-b)x+(c-a)$\footnote{ask Renzo because I don't understand, page 4 of TG7.}
+\begin{Rmk}
+If we send $a,b,c,X$ and $Y$ to their negatives then $\Trop(L)$ agrees with the previous perspective. Alternatively, we can check that $\Trop(L)$ agrees with the previous perspective but using the $\min$ convention.
+\end{Rmk}
 \begin{Ex}
-    Consider the same polynomial in terms of Puiseux series:
-    $$q(x,y)=t^ax+t^by+t^c$$
-    whose tropicalization is $p(x,y)$. \aside{Observe that it doesn't necessarily have to be $t^a$ as a coefficient, it can be any Puiseux series with valuation $a$.}\par 
-    We have that $V(q)=\set{q=0}$ and we can parametrize it as 
-    $$x=\al,\quad y=-t^{a-b}\al-t^{c-b},\word{where}\al\in\bK^\ast.$$
-    Now for any of these points we are going to take their valuation. Specifically we are looking at the set 
-    $$\set{\val(\al,-t^{a-b}\al-t^{c-b})}$$
-    $\al$ can have any valuation we want and depending on that, we decide the valuation of the binomial. The valuations are 
-    $$a-b+\val(\al)\word{and}c-b$$
-    which are equal when $\val(\al)=c-a$.
+    Let us explicitly choose $A,B$ and $C$:
+    $$q(X,Y)=t^aX+t^bY+t^c.$$
+    Note that $q$'s tropicalization is $p(X,Y)$.
+    Points in $V(q)$ can be parametrized as 
+    $$X=\al,\quad Y=\frac{-t^a}{t^b}\al-\frac{t^c}{t^b}=-t^{a-b}\al-t^{c-b},\word{where}\al\in\bK^\ast.$$
+    Taking valuations of $X$ and $Y$ we get $\Trop(L)$ (but without closing it). Specifically we are looking at the set 
+    $$\Trop(L)=\set{\left(\val(\al),\val(-t^{a-b}\al-t^{c-b})\right)\in\bT^2\:\ \al\in\bK^\ast}$$
+    We can let $\al$ have any valuation we want and depending on that, we determine the valuation of the binomial $Y$. The possible valuations are 
+    $$\val Y=a-b+\val(\al)\word{or}\val Y =c-b$$
+    which are equal when $\val(\al)=c-a$. \red{ASK RENZO ABOUT THIS HOW TO DETERMINE THE CRITERION ABOUT VAL AND STUFF}
     \begin{itemize}
         \item What happens if $\val(\al)<c-a$ then $-t^{a-b}$
         \item Something I fell asleep 
@@ -1108,13 +1255,22 @@ $$Y=\underbrace{\frac{-A(t)}{B(t)}\ga(t)}_{a-b+\val\ga}-\underbrace{\frac{C(t)}{
     Let $r\geq 0$ and $\al=-t^{c-a}(1+t^r)$
 \end{Ex}
 
-\subsection{The Amoeba Perspective}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig7-2-TropicalLinePuiseuxExample.png}
+    \caption{The tropical line from the Puiseux perspective}
+    \label{fig:7.2-TropicalLinePuiseuxExample}
+\end{figure}
+
+\subsubsection{Glimpse into Amoebas}
 
 Recall that what matters the most is the logarithm base $t$ of our function. So let us continue with 
 $$q(x,y)=t^ax+t^by+t^c$$
 and play the same as before. Look for solutions to the equation $q_t=0$ in $\bC^2$ which is a line intersecting the $x$ axis at $-t^{c-a}$ and the $y$ at $-t^{c-b}$. Every pair of points $(x,y)$, gives us a pair $(\log_t|x|,\log_t|y|)$. The real trace of this, when $x,y\in\bR$ can be parametrized with $x=t^\al$ and $y=-t^{a-b+\al}$. We analyze the trace in three intervals, 
 
 \section{Day 12|20230918}
+
+\subsection{The Amoeba Perspective}%%VAMOS POR AQUI TG7
 
 Our goal is to understand the image of the line 
 $$L_t=\set{t^ax+t^by-t^c=0}\subseteq\bC^2$$
@@ -1355,6 +1511,140 @@ So imagine a stick figure with weighted edges comes up to you, then we can check
     $$\operatorname{In}_\omega(q)=Ax^2y+Bx^5y^2+Cx^8y^3+Dx^{11}y^4=x^2y(A+Bx^3y+Cx^6y^2+Dx^9y^3)=x^2yP(x^3y)$$
     This polynomial factors so nicely because they lie on the same line! If we are just looking for solutions in $(\bC^\ast)^2$ or asymptotically $|x|,|y|\gg 0$ what happens is that the monomial part is irrelevant. Also $\deg(P)$ is equal to the lattice length of the segment. A 1-parameter subgroup orbits $x^3y=r_i$ where the $r_i$ is a root of $P$ counted with multiplicity.    
 \end{Ex}
+
+\section{Day 17|20230929}
+
+Last time we talked about edges weighted by lattice length determines the segments of the Newton Polygon it is dual to. Today we will draw topological types of tropical plane curves and cubics. The objective is to experiment with various tropical curves and seek a conjecture to compute their $b_1$. Study a pencil of tropical conics, in other words draw a conic and pick 4 points on it in general position. Then find all conics through those 4 points.
+
+\section{Day 18|20231002}
+
+For any interior point of the Newton Polygon, we can make sure that we can find as many cycles can a tropical curve have. There is a correspondence theorem.\par 
+The solution to the parameter space of conics is that we get a trivalent tree with $6$ edges. This corresponds to $\bP^5$ which has $6$ boundary divisors.
+
+\subsection{Intersections of tropical curves}
+
+\begin{Def}
+    Two tropical curves \term{intersect transversally} if they intersect in finitely many points which are not vertices of either curve.
+\end{Def}
+
+\begin{Ex}
+    Two tropical lines seen as tripods which touch just at a point intersect transversally. They could also intersect non-transversally if they intersect at a whole line.\par 
+    If for example we now have a conic, it could intersect the vertex of a line non-transversally. Or two vertices could intersect.
+\end{Ex}
+
+It looks like if the intersection is transversal then the set of intersection is just a point. Otherwise let's be very topological and talk about stable intersections.
+
+\begin{Def}
+    For a vector $\vec v\in\bR^2\less\set{0}$, call the \term{vector intersection} of $\Ga_1,\Ga_2$ as 
+    $$\Ga_1\cap_{\vec v}\Ga_2=\lim_{t\to 0}\left(\Ga_1\cap(\Ga_2+t\vec c)\right).$$
+\end{Def}
+\red{FIGURE DRAWING}
+Observe that this definition may be troublesome because of the choice of the vector $\vec v$. What happens if we get another intersection point with another $\vec v$?\par
+\red{FIGURE DRAWING}
+From this we deduce that intersection points should be weighted by multiplicity of the edges they belong to. We need to build theory in order to consider this idea.\par 
+As an aside, let us ask how the curves 
+$$C_1=\set{x^a=y^b},\word{and} C_2=\set{x^c=y^d}$$
+intersect in $\bC^2$. Observe that we may parametrize $(x,y)=(t^b,t^a)$ and substitute into the other equation to get 
+$$t^{bc}(t^{ad-bc}-1)=0$$
+which means that at zero we have a point of high multiplicity and $(ad-bc)$ points away from the origin. The interesting question is how does this relate to our problem. And the connection is the valuation. 
+
+\begin{Def}
+    Let $p$ be a point of transversal intersection of two tropical curves $\Ga_1,\Ga_2$. Then the multiplicity of the intersection is determined by the primitive directions of the intersection as 
+    $$m_p(\Ga_1,\Ga_2)=w_1w_2|\det(p_1,p_2)|=w_1w_2\bonj{\bZ^2\: p_1\bZ+p_2\bZ}.$$
+    Where the last quantity is the subgroup index.
+\end{Def}
+
+\section{Day 19|20231004}
+
+Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? 
+
+\begin{Ex}
+\red{FIGURE} 
+In the first case we have intersections at $Q_1,Q_2$, where the first intersection has multiplicity
+$$m_{Q_1}=\left|\det\twobytwo{0}{1}{1}{-1}\right|$$
+and the other point also has multiplicity $1$. But if we move to the non-transversal intersection we get multiplicity $2$. This goes according to the definition. 
+\end{Ex}
+
+\begin{Lem}
+The amount of intersections of two tropical curves is invariant under generic translation.
+\end{Lem}
+
+The proof follows from the balancing conditions and it suffices to analyze cases locally.
+
+\begin{ptcbp}
+Consider an edge of a tropical curve and a local intersection. The edge partitions the plane into two half planes $H^+,H^-$. Then the contribution to a $\vec v$ deformed intersection is the same when $\vec v$ points in the direction of $H^+$ or $H^-$.\par 
+Suppose $\vec v_1$ and $\vec v_2$ are two vectors pointing in different directions, if we raise the intersection, we get the lower edges intersecting. Their primitive vectors are all in the clockwise direction form $p_e$. So the weight of the $\vec v_1$-deformed intersection is 
+           $$\sum_{e'\in E^-}w_ew_{e'}|\det(p_1,p_2)|$$
+\end{ptcbp}
+
+\subsection{Tropical Bézout}
+
+From this lemma the result follows immediately!
+
+\begin{Th}
+Let $\Ga_1,\Ga_2$ be two tropical curves of degree $d_1,d_2$. Then $|\Ga_1\cap\Ga_2|=d_1d_2$.
+\end{Th}
+
+A curve has degree $d$ if its dual to a subdivision of $0,(d,0)$ and $(0,d)$. We know that if we have a tropical curve of degree $d_1$ then we can move one of degree $d_2$ in such a way that just so many edges intersect. Counting down we get the product of the multiplicities.
+
+\section{Day 20|20231009}
+
+Last time we started talking about the idea behind Bézout's theorem. Recall, that a curve with degree $d_i$ is dual to the polygon with vertices $0$, $(0,d_i)$ and $(d_i,0)$. Intersections, as in the ordinary case, are counted with multiplicities.\par 
+The quantity $|\Ga_1\cap \Ga_2|$ is invariant under translation, so we can move two curves so that only unbounded ends intersect. Looking at this picture from far away and squinting our eyes what we see is two tripods with degree $d_i$. This means that all the information needed to compute the intersection is independent of the subdivisions of the Newton Polygon.
+\begin{Def}
+    In $\bP^1\x\bP^1$, coordinates are $([x_0:x_1],[y_0:y_1])$, a \term{bi-degree $(a,b)$ curve} is the zero locus of a bi-homogenous polynomial in the aforementioned variables which is 
+    \begin{itemize}
+        \item homogenous of degree $a$ is $x_i$,
+        \item homogenous of degree $b$ is $y_i$.
+    \end{itemize}    
+    Tropically, this means that $\Ga$ is dual to a subdivision of a rectangle with sides $a$, $b$.
+\end{Def}
+
+\begin{Ex}
+    The polynomial $x_0y_0+x_1x_0y_1=0$ is a bidegree $(2,1)$ curve. On the tropical side we have \red{FIGURE} which is a $(1,1)$ curve.
+\end{Ex}
+
+The tropical Bézout theorem for $\bP^1\x\bP^1$ says that if we have $\Ga_i$ with bidegree $(a_i,b_i)$, then 
+$$|\Ga_1\cap\Ga_2|=a_1b_2+a_2b_1.$$
+
+But what if we wanted to intersect a degree $d$ curve with a bidegree $(a,b)$ curve? We just draw the stick figure and notice that degree of the intersection is $d(a+b)$. We can ask how to generalize it and the answer is precisely Bernstien's theorem.
+
+\begin{Th}
+Let $\Ga_i$ be tropical curves of degree $\Dl_i$. Then 
+$$|\Ga_1\cap\Ga_2|=\operatorname{MixedArea}(\Dl_1,\Dl_2).$$
+\end{Th}
+
+In this case the degree of a tropical curve is the Newton polygon of its equation. In other words a lattice polygon.
+
+\subsection{Minkowski Sum of Polytopes}
+
+Once a long time ago we were told that a degree is a number, but a degree is actually a polygon.
+\begin{Def}
+    Consider $\Dl_i\subseteq\bR^2$ lattice polygon, then the \term{Minkowski sum} is 
+    $$\Dl_1+\Dl_2=\set{(x_1,y_1)+(x_2,y_2)\in\bR^2\:\ (x_i,y_i)\in\Dl_i}.$$
+\end{Def}
+This definition is \textbf{compatible} with translations! At this moment we can choose how to put two polygons in $\bR^2$ and sum them. 
+
+\begin{Ex}
+    The Minkowski sum of a square and a right triangle is a gem-shaped pentagon. The idea is that we decide one of the vertices to be the origin and then make the polygon travel through the perimeter of the other one.
+\end{Ex}
+
+\begin{Ej}
+The Minkowski sum appears to be commutative, prove it! Which other properties does the Minkowski sum enjoy?
+\end{Ej}
+
+\begin{Ex}
+\red{FIGURE ABOUT MIXED SUDVISIONS}
+\end{Ex}
+
+\begin{Def}
+    The \term{mixed area} of $\Dl_1,\Dl_2$ is either of 
+    \begin{enumerate}[i)]
+        \item $A(\Dl_1+\Dl_2)-A(\Dl_1)-A(\Dl_2)$,
+        \item the area of the mixed cells in any mixed subdivision of $\Dl_1+\Dl_2$,
+        \item the $\la\mu$ coefficient in $A(\la P+\mu Q)$.
+    \end{enumerate}
+\end{Def}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
