@@ -59,8 +59,36 @@
    
 \end{Ej}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth, trim= 0.3cm 19.5cm 0.6cm 0.1cm,clip]{fig1.pdf}
+\end{figure}
+
 \begin{ptcbr}
     Imagine first the function $z=|x|$. When viewing the slice at $y=0$ we get a $\bigvee$ shaped curve. So as there's no dependence on the $y$ variable, the shape of the surface $z=|x|$ is a $\bigvee$ shaped trough follwing the $y$ axis. The surface $z=|y|$ has the same kind of story but rotated $90^\circ$. If we reduce the opacity of one of the troughs and increase it for the other, we can see that the section of the dim trough is covered above by the more visible one. This can't happen if we are taking the minimum, so we must eliminate that part.\par 
-    If we cut the shape by a plane $z=c$, then the resulting surface is an $\bigtimes$ shaped trough. The final detail is considering what happens we multiply by $\sgn(x)$. On the right half of plane we still have our trough cut in half so it is $\vdash$ shaped now. However on the left, we take the same mirror image of our trough but flip it $180^\circ$ with respect to the $yz$ plane.
+    If we cut the shape by a plane $z=c$, then the resulting surface is an $\bigtimes$ shaped trough. The final detail is considering what happens we multiply by $\sgn(x)$. On the right half of plane we still have our trough cut in half so it is $\vdash$ shaped now. However on the left, we take the same mirror image of our trough but flip it $180^\circ$ with respect to the $yz$ plane\footnote{I just realized I messed up in my drawing, I flipped it with respect to the $xz$ plane and not the $yz$ plane. I hope you will excuse that mistake. If it helps, imagine rotating the figure in question along the $xy$ plane $90^\circ$ counter-clockwise and exchanging the red blue coloring. The function I have drawn by mistake is instead $\sgn(y)\min(|x|,|y|)$}.\par 
+    Now, observe that at the origin the gradient is zero as it is only contemplating the $x$ and $y$ directions. However we can see that when taking the limit definition of the Gateaux derivative at zero we get
+    $$\lim_{\eps\to 0}\frac{f(0+\eps v)-f(0)}{\eps}=\lim_{\eps\to0}\frac{f(\eps v)}{\eps}.$$
+    For directions like $v=(1,1)$ and $(-1,1)$ we get 
+    $$\eps^{-1}f(\eps,\eps)=1\word{and}\eps^{-1}f(-\eps,\eps)=-1$$
+    which means that we don't have a Gateaux derivative in every direction.\par 
+    The issue is that our function is not continuously differentiable at every point. In order to find minima using the necessary conditions, we will have to work around this either by asking the whole function to be $C^1$ or search inside the region where our function is $C^1$ to find global minima. 
+\end{ptcbr}
+
+\begin{Ej}
+    Take the following variation of the function of the previous
+problem:
+$$f(x,y)=\min(|x|,|y|).$$
+Visualize this function. Then show rigorously that this function still has $\nb f(0)=0$, but that it does not
+have a Gateaux derivative $Df(x;v)$ for all $v$.
+\end{Ej}
+
+\begin{ptcbr}
+    We have already seen this function in the previous exercise. In order to find the derivative at zero, we take the partial derivatives by definition:
+    $$\lim_{h\to 0}\frac{f(0+h,0)-f(0,0)}{h}=\lim_{h\to 0}\frac{\min(|h|,0)}{h}=0$$
+    and similarly $k^{-1}f(0,k)$ tends to $0$ so it holds that $\nb f(0)=0$.\par 
+    With a similar argument as before, we can see that there's no Gateaux derivative in the direction $(1,1)$:
+    $$\lim_{\eps\to 0}\frac{f(0+\eps(1,1))}{\eps}=\lim_{\eps\to0}\frac{|\eps|}{\eps}=\text{two-sided limit}.$$
+    As the limit doesn't exist, there's no Gateaux derivative in the direction of $(1,1)$ so $f$ isn't Gateaux differentiable in \emph{all} directions.
 \end{ptcbr}
 \end{document} 
