@@ -1645,6 +1645,41 @@ The Minkowski sum appears to be commutative, prove it! Which other properties do
         \item the $\la\mu$ coefficient in $A(\la P+\mu Q)$.
     \end{enumerate}
 \end{Def}
+
+\chapter{Toric Varieties}
+\section{Day 21|20231011}
+
+IT says that if we have two tropical curves of degree $\Dl_1,\Dl_2$ (polytopes), and we wish to compute the intersections, then this is counted via the mixed area. This correspondence is very tight, satisfying. When taking stuff, we get the mixed cells (parallelograms with sides parallel to our original polygons). Having the polygons in positions means that the curves have been moved and the mixed cells correspond to the intersections.\par 
+The weight of the edges is the length of sides of the polygon, in particular the Minkowski sum of two lattice polytopes is itself a lattice polytope.
+
+\subsection{Torus actions}
+
+A space $X$ with a torus action $T\.X$ and an open set isomorphic to the torus on which $T$ acts by multiplication is a toric variety. The geometry of a torus is fairly simple or trivial, which means that \emph{most} of the geometry of $X$ can be recovered from the complement of this dense open set (the one isomorphic to $T$). The fact that we have a torus action allows for a \emph{combinatorialization} of the geometric information.\par 
+If we don't know what a torus is, it's a group, and the space is just the space. The action moves the points in a certain way. Geometry is connected to the representation theory of the group.
+
+\begin{Def}
+    The \term{algebraic torus} of rank $k$ is $G_m^k$ (think of it as $(\bC^\ast)^k$) \aside[If we have a different field than $\bC$, actually $G$ is a multiplicative group \emph{scheme}]. This object is a group under pointwise multiplication and in general we can view it as the scheme 
+    $$\Spec\left(\bC\bonj{x_1,\frac{1}{x_1},\dots,x_k,\frac{1}{x_k}}\right).$$
+    If we are more familiar with differential geometry, local coordinates are similar but the coordinate is a generalization. We can imagine elements on the scheme as regular functions from the torus to $\bC$. We will usually denote the torus by $T$.
+\end{Def}
+
+Recall a group acts on itself via multiplication and in a similar faction the torus action on a space $X$ will be a map $T\x X\to X$. We can thus relate the characters of $T$ to invertible regular functions on $T$ and if we are choosing coordinates, then they are also related to monomial functions in $x_i$'s.\par 
+The characters of $T$ are the group homomorphisms from $T$ to $\bC^\ast$. It is actually the trace of an irreducible representation of $T$, but they are one dimensional and\dots Monomial functions on the $x_i$'s are precisely regular functions vanish. Those places are on the coordinate axis so nowhere near the torus. As a $\bC$-vector space, monomials are a basis of our ring. That is gonna play an important role.\par 
+All of these interpretations are groups under multiplication. Given a monomial we can read a vector of exponents: 
+$$x^3y^{-5}\mapsto (3,-5)$$
+so this is also related to the lattice of exponents of the monomial functions. This gives a multiplicative to additive isomorphism. This lattice is called $M$, it is also called the character lattice and is isomorphic to $\bZ^k\subseteq \bR^k$ which we will also called $M_\bR$. This is actually a \emph{tensor product}. In this sense we can match 
+$$(3,-5)\mapsto \vf_{(3,-5)}\: T\to\bC^\ast,\ (t_1,t_2)\mapsto t_1^3t_2^{-5}.$$
+We also have a relationship between co-characters (linear functions on characters), one parameter subgroups of $T$ (group homomorphisms $\bC^\ast\to T$, $t\mapsto(t^a,t^b))$. The co-character lattice $N$ is the dual of the character lattice is isomorphic to $\bZ^k\subseteq\bR^k=N_\bR$. There is a natural pairing $M\x N\to\bZ$ which turns out to be the usual dot product. Slightly more satisfying, the natural way to get a pairing is to imagine we have a character $\chi$ and a one parameter subgroup $\ga$ we get a map 
+$$\bC^\ast\xrightarrow[]{\chi}T\xrightarrow[]{\ga}\bC^\ast,\ t\mapsto(t^a,t^b)\mapsto t^{aA+bB}$$
+so the exponent is precisely $\braket{(a,b)}{(A,B)}$.\par
+After talking about so many ingredients, let us talk about one more thing. If we have one parameter subgroups, we can think of them as acting on the torus so we have torus orbits. Let's see some torus orbits we get with different actions. 
+
+\begin{Ex}
+    Consider the one parameter subgroup $\ga_{(1,1)}(t)=(t,t)$. Acting on a point $(a,b)$ we get the point $(ta,tb)$. So the orbits are lines through the origin. And notice the in fact, $\ga_{(-1,-1)}(t)=(t^{-1},t^{-1})$, even if we get the same orbits, on the first case we get flow inwards while on the second one we get \emph{outwards} flow.\par 
+    We could get $\ga_{(1,0)}(t)=(t,1)$, the orbits are horizontal lines. Finally $\ga_{(1,-1)}(t)=(t,t^{-1})$, then the orbits are hyperbolas. 
+\end{Ex}
+
+Now we are gonna say ok, we are gonna allow ourselves to grow the torus a little bit by saying that we want to add limit points of one parameter or allow/decide that some monomial functions are regular and some are not and then add the points. In the case of $\ga_{(1,1)}$ we are going to need to fill in the point of the origin. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
