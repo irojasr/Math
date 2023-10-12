@@ -8,7 +8,7 @@
 \def\nsiglahead {Tropical Geometry}
 \def\nlang {ENG}
 %\def\darktheme{}
-%\let\footruleskip\relax %%FADIR
+\let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 \usepackage[enableskew]{youngtab}
 
@@ -1516,7 +1516,7 @@ So imagine a stick figure with weighted edges comes up to you, then we can check
 
 Last time we talked about edges weighted by lattice length determines the segments of the Newton Polygon it is dual to. Today we will draw topological types of tropical plane curves and cubics. The objective is to experiment with various tropical curves and seek a conjecture to compute their $b_1$. Study a pencil of tropical conics, in other words draw a conic and pick 4 points on it in general position. Then find all conics through those 4 points.
 
-\section{Day 18|20231002}
+\section{Day 18|20231002}%% TG11
 
 For any interior point of the Newton Polygon, we can make sure that we can find as many cycles can a tropical curve have. There is a correspondence theorem.\par 
 The solution to the parameter space of conics is that we get a trivalent tree with $6$ edges. This corresponds to $\bP^5$ which has $6$ boundary divisors.
@@ -1524,21 +1524,37 @@ The solution to the parameter space of conics is that we get a trivalent tree wi
 \subsection{Intersections of tropical curves}
 
 \begin{Def}
-    Two tropical curves \term{intersect transversally} if they intersect in finitely many points which are not vertices of either curve.
+    Two tropical curves have a \term{transversal intersection} if they intersect in finitely many points which are not vertices of either curve.
 \end{Def}
 
 \begin{Ex}
-    Two tropical lines seen as tripods which touch just at a point intersect transversally. They could also intersect non-transversally if they intersect at a whole line.\par 
-    If for example we now have a conic, it could intersect the vertex of a line non-transversally. Or two vertices could intersect.
+    Two tropical lines seen as tripods which touch just at a point intersect transversally. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig11-1-TransversalIntersectionExample.png}
+        \caption{Example of a Transversal Intersection}
+        \label{fig:11.1-TransversalIntersectionExample}
+    \end{figure}
+\end{Ex}
+
+\begin{Ex}
+    If the line is placed right on top of the other one, they could also intersect non-transversally on the whole edge.\par 
+    If for example we had a conic, it could intersect the vertex of another tropical line non-transversally. Or two vertices could intersect!
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig11-2-NonTransversalIntersectionExample.png}
+        \caption{Example of Non-Transversal Intersections}
+        \label{fig:11.2-NonTransversalIntersectionExample}
+    \end{figure}
 \end{Ex}
 
 It looks like if the intersection is transversal then the set of intersection is just a point. Otherwise let's be very topological and talk about stable intersections.
 
 \begin{Def}
-    For a vector $\vec v\in\bR^2\less\set{0}$, call the \term{vector intersection} of $\Ga_1,\Ga_2$ as 
+    For a vector $\vec v\in\bR^2\less\set{0}$, call the \term{vector intersection} of $\Ga_1,\Ga_2$
     $$\Ga_1\cap_{\vec v}\Ga_2=\lim_{t\to 0}\left(\Ga_1\cap(\Ga_2+t\vec c)\right).$$
 \end{Def}
-\red{FIGURE DRAWING}
+\red{FIGURE DRAWING}%PAGE 2/13 TG11
 Observe that this definition may be troublesome because of the choice of the vector $\vec v$. What happens if we get another intersection point with another $\vec v$?\par
 \red{FIGURE DRAWING}
 From this we deduce that intersection points should be weighted by multiplicity of the edges they belong to. We need to build theory in order to consider this idea.\par 
