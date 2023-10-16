@@ -1696,6 +1696,112 @@ After talking about so many ingredients, let us talk about one more thing. If we
 \end{Ex}
 
 Now we are gonna say ok, we are gonna allow ourselves to grow the torus a little bit by saying that we want to add limit points of one parameter or allow/decide that some monomial functions are regular and some are not and then add the points. In the case of $\ga_{(1,1)}$ we are going to need to fill in the point of the origin. 
+
+\section{Day 22|20231013}
+
+Last time we talked about the setup: the toric variety is a space $X$. One is that it contains the torus as a dense open set and the other is that the torus acts on $X$ and in particular in the open set it acts by multiplication. We linked objects from the algebraic geoemtry and representation theory of the torus. The way we think of characters of the torus are monomial functions on the coordinates of the torus. These are regular functions because there are no poles on the torus. On the other hand $N$ is a lattice of one-parameter subgroups, a map from a one dimensional torus to a $k$-dimensional one. In particular inside the torus, if we take a point and act on it via a one parameter subgroup, we get a one-dimensional orbit. It is always the case that if we let $t=0$ then the point falls off of the torus. These objects are dual to each other via dot product.
+
+\begin{Ex}
+    An example of a toric variety is $\bP^1$, the set of homogenous points $[x:y]$. Take out zero and infinity and we get a one-dimensional torus.\par 
+    We can also think of points in $\bP^1$ as points of $\bC^\x$ as $[x:1]$ or $[1:y]$. Our objective is to build toric varieties from simpler varieties.
+\end{Ex}
+
+\begin{Def}
+    A \term{cone} in $N_\bR$ will tell us how to add points to a torus in two ways:
+    \begin{enumerate}[i)]
+        \item It would tell us what orbits of one-parameter subgroups acquire a limit point when $t\to 0$.
+        \item Or it would tell us what monomial functions are regular on such limit points. 
+    \end{enumerate}
+\end{Def}
+
+Let us illustrate with an example taking two dimensional $N_\bR$:
+
+\begin{Ex}
+    A cone is what we think is a cone.\red{FIGURE}
+This cone $\sg_1$ contains all lattice points corresponding to one-parameter subgroups of the form 
+$$t\mapsto (t^a,t^b),\quad a,b>0$$
+Now let's assume that we have a point of the two dimensional torus $P=(r_p,s_p),\ r_p,s_p\neq 0$. We now look at the orbit of $P$ via the coordinate-wise multiplication action:
+$$t\.P=(t^ar_p,t^bs_p)$$
+and now taking the limit $t\to 0$ of $t\.P$ and we want it to exist, then we introduce three cases:
+\begin{itemize}
+    \item Both $a,b$ are non-zero.
+    \item $a=0$ but $b$ not, then we get points of the form $(r_p,0)$.
+    \item The other way around for $b$: $(0,s_p)$.
+\end{itemize}
+$$\lim_{t\to 0}t\.P=\begin{cases}
+    &(0,0),\ a,b\neq0\\
+    &(r_p,0),\ a=0\\
+    &(0,s_p),\ b=0
+\end{cases}$$
+The cone contains all the ways to pick the map. All the dots in the \emph{interior} go to zero! If $a,b$ are both zero the action is trivial. This cone is telling us to add the axes to $T$ to get $\bC^2$.\par 
+Notice that if we had taken the lower cone we would've obtained a similar situation but instead of adding zeroes we would get infinities. We would still get $\bC^2$ but adding different axes.\par 
+If we instead were algebraic geometers we would be interested on regular functions at the limit points. Take $f=x^\al y^\bt$, when is it regular at the $t\to 0$ limit point of the orbit of a 1.p.s. $t\mapsto (t^a,t^b)$, then 
+$$f(t)=t^{a\al+b\bt}r_ps_p,$$
+the limit exists as long as $a\al+b\bt$ is non-negative. This is precisely the dot product, so we are basically saying that we want all vectors in $M$ whose dot products with vectors in $N$ is non-negative. This defines the notion of \emph{dual cone}. This combinatorial object acquires the meaning of telling us what are the regular functions when adding the limit points. In this case $\sg_1^\lor$ looks exactly like $\sg_1$ \red{PICTURE}. This also tells us that $x,y$ are regular functions so every polynomial in $x,y$ is a regular function. So in particular $\bC[x,y]$ is the ring of regular functions. 
+\end{Ex}
+
+Let us focus our attention now on the projective plane.
+
+\begin{Def}
+    A \term{fan} is a collection of cones living \emph{nicely} in $N$. This means that we are not just wacking at random at some cones. All cones will have the vertex at the origin and the only overlaps occur at boundary edges. \red{PICTURE}
+\end{Def}
+
+This particular fan $\Sg$ is the fan of $\bP^2$. To construct it we follow this strategy 
+\begin{enumerate}
+    \item Each top dimensional cone produces an affine open chart in the sense of manifolds.
+    \item Each face, or ray in common, provides transition functions. 
+\end{enumerate}
+
+If we understand how it works in $\bP^2$, generalizing is pretty simple. We will look at dual cones, monomial functions there give us regular functions. 
+
+\begin{Ex}
+    The dual to the red cone is itself, the dual to the blue cone is $\set{x<0,0<y<-x}$ and for green its $\set{y<0,0<x<-y}$. Call two monomial functions $x_1,y_1$ on $\text{red}^{\lor}$ so the regular functions are $\bC[x_1,y_1]$.\par 
+    On the blue we take the points $(-1,0)$ and $(-1,1)$, they correspond to the functions $\frac{1}{t_1}$ and $\frac{t_2}{t_1}$. But actually let's just call them $x_2,y_2$ so the coordinate ring is $\bC[x_2,y_2]$ so our affine chart is a copy of $\bC^2$ with coordinates $x_2,y_2$. In a similar fashion we will get $\bC[x_3,y_3]$ from the green dual.\par 
+    To make them talk to each other, we take a ray in $\Sg$ and ask for its dual. The dual of the positive $y$-axis is the upper half plane. The regular functions for this space are $\bC[\tilde x,\tilde y,\tilde x^{-1}]$ so it is $\bC^\x\x\bC$ with coordinates $\tilde x,\tilde y$. Now notice that this black cone contains the red and blue dual cones. So in particular we can express $x_1,y_1$ in terms of $\tilde x, \tilde y$. The key point is that $\bC^\x\x\bC$ is contained in the two copies of $\bC^2$ we had before. We get the following relations 
+    $$\tilde x=x_1=x_2^{-1},\quad \tilde y=y_1=y_2x_2^{-1}.$$
+    These are the transition functions which allow us to glue this two patches! 
+\end{Ex}
+
+Cones select subsets and produces regular monomials, this produces coordinate ring, take the algebraic variety corresponding to this ring. This variety contains the torus. This can be done in various ways so that's how we build the atlas.
+
+\section{Day 23|20231016}
+
+Then the combinatorial date of the fan gives us a way to construct a toric variety a s a amanigold. Every face gives us the transition functions. The way to construct this chart is the dual cone. Then we take the algebra spanned by the monomials and we ask what variety's coordinate ring is this span. 
+
+\subsection{Consequences of our construction}
+
+\begin{enumerate}
+    \item There is an inclusion into closure reversing bijection between cones of $\Sg$ and the torus orbits of $X_\Sg$, the toric variety. And in particular, also exchanging dimension with codimension.\par 
+    In action, the fan of $\bP^2$ has 3 two dimensional cones $R,G,B$ and likewise $\bP^2$ has 3 two-codimensional points. Similarly the fan has 3 one dimensional cones. $\bP^2$ has 3 one dimensional torus orbits. From the fan of $\bP^2$ we can immediately read the Euler characteristic of $\bP^2$. The only things that will contribute are the zero dimensional cones.\par 
+    In general, to see how the bijection works you can take two different approach:
+    \begin{itemize}
+        \item The geoemtric approach is: for every cone $\tau$ of $\Sg$, look at the limits as $t\to 0$ of the torus orbits of 1-parameter subgroups $\ga$ with $\ga\in\tau^\circ$. (stuff) and instead we pick a 1 parameter subgroup which lies on a ray, take for example $b=0$, the $y$ coordinate doesn't change and $x$ goes to zero.
+        \item The algebraic perspective is that for every affine patch dual to a cone, set all the coordinates that you can set to zero to zero. \par 
+        What we mean by that is that if we look at the spec of the algebra dual to  the red cone we get $\bC[x_1,y_1]$ that's why it's affine. Setting both to zero we get the origin. When looking for transition functions, the ray has an affine chart, the algebra generated by the dual cone $\bC[\hat x,\frac{1}{\hat x},\hat y]$. In this case $\hat x$ can't be set to zero. Doing it, we get any non-zero complex number so we get a one dimensional something. And the origin is itself a cone, the dual cone corresponding to the trivial cone is the whole thing. The corresponding algebra is $\bC[x,\frac1x,y,\frac1y]$ and that's why we can't set anything equal to zero.
+        \begin{significant}
+            Coordinates here correspond to local coordinates in the affine patch. There's a lot of things with the same name. 
+        \end{significant}
+        Even if in blue we get the same algebra, setting coordinates to zero gives us a different point.
+    \end{itemize}
+    \item The second useful thing is very natural. $T$-equivarant maps of toric varieties correspond to maps of fans. (Maps of fans: Given $\Sg_k\subseteq N_{k,\bR}$, a \term{map of fans} is a $\bZ$-linear map $L\: N_{1,\bR}\to N_{2,\bR}$ such that for $\tau$ cone of $\Sg$, $L(\tau)\subseteq$ cone of $\Sg_2$.)\par 
+    Consider the fan of $\bP^1\x\bP^1$, a 2 dimensional toric variety, for $\Sg,\ X_\Sg=\bP^1\x\bP^1$. We have a projection map $\pi\: X_{\Sg_1}\to\bP^1$ which is equivalent to the map of fans $\tilde{\pi}$ form $\Sg_1$ to $\Sg_2$. It is also the case for $\bP^2\less\set{pt}$ to $\bP^1$ which is projecting from that point.
+\end{enumerate}
+The proof of this facts is left to the reader. Even without the proof this is a natural statement which makes sense.
+\begin{significant}
+    $L(\tau)$ doesn't have to be a full cone. In the previous examples it is, but that's just an accident. We would allow it to not be a full cone because we can allow mor maps.
+\end{significant}
+For example if we wanted to send a line in a plane as a map of.k0
+
+\subsection{Quotient construction}
+
+Given a fan $\Sg$, the toric variety $X_\Sg$ can be obtained as a quotient space of the form:\par 
+We start with affine space, cheack the irrelevant locus and then we take something that if we are lucky is a torus:
+$$\quot{\bC^N\less\set{irrelevant}}{G}$$
+$N$ is the numnber of rays in $\Sg$. The irrelevant set is the set determind by rays that dont span cones.And $G$ is given by lienar relations among maps. 
+
+\begin{Ex}
+In $\bP^2$  we have the tripod fan with three coordinates. So we have a $\bC^3$. We throw away the rays which don't span a cone. In this case th irrelevant. This is $\bC^3\less$ \red{FELL ASLEEP}
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
