@@ -1,0 +1,104 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW2}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+\begin{Ej}
+    We have proven rigorously that any succinctly smooth minimizer (say, if the minimizer happens to be in $C^2$) of the functional
+    $$I\bonj{u}=\int\limits_a^b f(x,u(x),u'(x))\dd x $$
+    has to satisfy the Euler-Lagrange equations
+    $$f_u(x,u(x),u'(x))=\dv{x}f_\xi(x,u(x),u'(x))$$
+    for all $x\in\obonj{a,b}$. The energy related to the vertical defection of a thin (one-dimensional) beam subject to a vertical gravity geld with strength $g$ is given by
+    $$I\bonj{u}=\int\limits_a^b \bonj{\mu\left(\sqrt{1+u'(x)^2}-1\right)-gu(x)}\dd x $$
+    where $\mu$ is related to the elasticity constants of the material.
+    \begin{enumerate}[i)]
+        \item Derive the Euler-Lagrange equations (including boundary conditions) for $u(x)$ for this problem if you
+        try to minimize the energy over the set of functions
+        $$D=\set{\vf\in C^2\:\ \vf(a)=\vf(b)=1}.$$
+        \item Can you prove that the solution $\ov u$ of the (Euler-Lagrange) deferential equations is (i) a minimizer of
+        $I\bonj{u}$, and (ii) is unique?
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    
+\end{ptcbr}
+
+\begin{Ej}
+    In general, the Euler-Lagrange equations will be a (system
+    of) nonlinear ordinary deferential equation. Most often, they will not be exactly solvable. But occasionally,
+    we can solve simplices problems.\par
+    If you take Problem 1, consider the case of stir materials that do not deform very much. In that case, $u'$
+    will be small, and we can use the approximation
+    $$\sqrt{1+y}\approx 1+\half y.$$
+    (This is just Taylor expansion around $y = 0$.) Use this to dene an approximate energy functional $\ov I\bonj{u}$.
+    \begin{enumerate}[i)]
+        \item Derive the Euler-Lagrange equations (including boundary conditions) for $u(x)$ for this approximate
+        problem with the same $D$ as before.
+        \item Can you prove that the solution $\ov u$ of the (Euler-Lagrange) deferential equations is the unique minimizer
+        of $\ov I\bonj{u}$? (In other words, that the solution of the Euler-Lagrange equation is not just a stationary
+        point of $\ov I\bonj{u}$, but in fact a minimizer?)
+        \item Actually solve this problem, i.e., ﬁnd $\ov u$ that satires the Euler-Lagrange equations.
+    \end{enumerate}
+\end{Ej}
+
+
+\begin{ptcbr}
+
+\end{ptcbr}
+
+\begin{Ej}
+    We have started the semester by considering Newton's
+    minimal resistance problem and Bernoulli's brachystochrone problem (the ``bead on a wire''). The former is
+    a bit more complicated because the right integration bound $ b$ depends on the solution. But for the former,
+    the case is easy: We have
+    $$I\bonj{u}=\int\limits_0^L\sqrt{\frac{\half(1+u'(x)^2)}{gH-gu(x)}}\dd x$$
+    and
+    $$D=\set{\vf\in C^2\:\ \vf(0)=H,\ \vf(L)=0}.$$
+    State the Euler-Lagrange equations and boundary conditions any scent smooth minimizer $\ov u$ would
+have to satisfy. Is the solution unique?
+\end{Ej}
+
+\begin{ptcbr}
+   
+\end{ptcbr}
+
+\begin{nonum-Ej}
+    If you can, also solve the Euler-Lagrange equations. The solution can of course be found on the internet
+or in any number of books, but if you want to get these bonus points, you will need to show step by step
+how you solve the equations - this is going to be non-trivial.
+\end{nonum-Ej}
+
+\begin{Ej}
+    Everything we have done in class was based on functions $u(x)$ of a
+single argument $x\in\bonj{a,b}\subseteq\bR$. But in reality, it is not very dict to derive the same kind of Euler-Lagrange
+equations also for functions of multiple arguments $u(\vec x),\ \vec x\in\Om\subseteq\bR^n$.
+To this end, let us assume that we want to ﬁnd a minimizer of
+$$I\bonj{u}=\int\limits_\Om f(\vec x,u(\vec x),\nb u(\vec x))\dd x$$
+and
+$$D=\set{\vf\in C^2(\Om)\:\ \vf(\vec x)=g(\vec x),\ \vec x\in\del\Om}.$$
+Go through the one-dimensional derivation of the Euler-Lagrange equations and adapt it as appropriate to
+derive the (now partial) deferential equation any succinctly smooth minimizer $\ov u\in D$ has to satisfy. The
+key step is to remember your integration-by-parts rules and use what you know about the boundary values
+of the variations. You will also have to keep in mind that you now really have $f(x, u,\xi_1,\dots,\xi_n)$.
+State both the Euler-Lagrange equations and boundary conditions.
+\end{Ej}
+
+\begin{Ej}
+    The generalization to higher dimensions of the erst problem is to
+look for the minimizer of the functional
+$$I\bonj{u}=\int\limits_\Om\bonj{\mu\left(\sqrt{1+|\nb u(\vec x)|^2}-1\right)-gu(\vec x)}\dd x,$$
+state the Euler-Lagrange equations for this problem.
+Next, apply the same simplification we considered in Problem 2 and again derive the corresponding
+Euler-Lagrange equations.
+\end{Ej}
+\end{document} 
