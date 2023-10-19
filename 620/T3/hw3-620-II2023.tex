@@ -30,7 +30,27 @@
 \end{Ej}
 
 \begin{ptcbr}
-    
+    \begin{enumerate}[i)]
+        \item Our function in question is 
+        $$f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu$$
+        so differentiating with respect to $u$ and $\xi$ we get 
+        $$
+        \begin{cases}
+            f_u(x,u,\xi)=-g\\
+            f_\xi(x,u,\xi)=\mu\frac{\xi}{\sqrt{1+\xi^2}}
+        \end{cases}
+        $$
+        Now taking the derivative with respect to $x$ of $f_{\xi}(x,u(x),u'(x))$ we get 
+        \begin{align*}
+            \dv{x}f_{\xi}(x,u(x),u'(x))&=\mu\dv{x}\frac{u'(x)}{\sqrt{1+u'(x)^2}}\\
+            &=\mu\frac{u''(x)\sqrt{1+u'(x)^2}-u'(x)\frac{u'(x)}{\sqrt{1+u'(x)^2}}}{1+u'(x)^2}\\
+            &=\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{(1+u'(x)^2)^{3/2}}
+        \end{align*}
+    So the Euler-Lagrange equations in this case are given by
+    $$\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{(1+u'(x)^2)^{3/2}}=-g$$
+    \red{FINISH BDRY CONDS}
+    \item \red{LOOK FOR THEOREM}
+    \end{enumerate}
 \end{ptcbr}
 
 \begin{Ej}
@@ -47,13 +67,23 @@
         \item Can you prove that the solution $\ov u$ of the (Euler-Lagrange) deferential equations is the unique minimizer
         of $\ov I\bonj{u}$? (In other words, that the solution of the Euler-Lagrange equation is not just a stationary
         point of $\ov I\bonj{u}$, but in fact a minimizer?)
-        \item Actually solve this problem, i.e., ﬁnd $\ov u$ that satires the Euler-Lagrange equations.
+        \item Actually solve this problem, i.e., find $\ov u$ that satires the Euler-Lagrange equations.
     \end{enumerate}
 \end{Ej}
 
 
 \begin{ptcbr}
-
+    \begin{enumerate}[i)]
+        \item Observe that our new functional is 
+        $$\ov I\bonj{u}=\int\limits_a^b \bonj{\mu\left(1+\half u'(x)^2-1\right)-gu(x)}\dd x=\int\limits_a^b \left(\frac{\mu}{2}u'(x)^2-gu(x)\right)\dd x$$
+        so the new function for us is 
+        $$f(x,u,\xi)=\frac{\mu}{2}\xi^2-gu\To f_u=-g,\quad f_\xi=\mu\xi.$$
+        Now we can see that
+        $$\dv{x}f_{\xi}(x,u(x),u'(x))=\dv{x}\mu u'(x)=\mu u''(x).$$
+        The corresponding equation is now $\mu u''(x)=-g$. \red{FINISH BDRY CONDS}
+        \item \red{ASK THM}
+        \item \red{SOLVE}
+    \end{enumerate}
 \end{ptcbr}
 
 \begin{Ej}
@@ -69,7 +99,30 @@ have to satisfy. Is the solution unique?
 \end{Ej}
 
 \begin{ptcbr}
-   
+Observe that in this case, the function in question is 
+$$f(x,u,\xi)=\sqrt{\frac{\half(1+\xi^2)}{gH-gu}}=\sqrt{\frac{1}{2g}}\sqrt{\frac{1+\xi^2}{H-u}}.$$
+Call $\la=\sqrt{\frac{1}{2g}}$ so when differentiating we obtain 
+$$\left\lbrace
+\begin{aligned}
+    &f_u(x,u,\xi)=\la\sqrt{1+\xi^2}\frac{-1}{(\sqrt{H-u})^2}\frac{1}{2\sqrt{H-u}}(-1)=\frac{\la}{2}\sqrt{\frac{1+\xi^2}{(H-u)^3}}\\
+    &f_\xi(x,u,\xi)=\frac{\la}{\sqrt{H-u}}\frac{\xi}{\sqrt{1+\xi^2}}
+\end{aligned}
+\right.
+$$
+We now must differentiate $f_\xi$ with respect to $x$. This is 
+\begin{align*}
+    \dv{x}f_{\xi}(x,u(x),u'(x))&=\dv{x}\frac{\la}{\sqrt{H-u(x)}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}.
+\end{align*}
+Using the product rule and the fact that we have already calculated the derivative of a term similar to the second one in the previous exercise, we obtain:
+$$\frac{\la u'(x)}{2\sqrt{(H-u(x))^3}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}+\frac{\la}{\sqrt{H-u(x)}}\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{\sqrt{(1+u'(x)^2)^3}}.$$
+We may factor out some terms to clean up the expression as follows:
+$$\frac{\la}{\sqrt{(H-u(x))(1+u'(x)^2)}}\left(\frac{u'(x)^2}{2(H-u(x))}+\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{1+u'(x)^2}\right).$$
+We now homogenize the terms inside the parenthesis. The numerator is an expression of the form 
+\begin{gather*}
+u'(x)^2(1+u'(x)^2)+2(H-u(x))\bonj{u''(x)(1+u'(x)^2)-u'(x)^2}\\
+=u'(x)^2+u'(x)^4+2(Hu''(x)+Hu''(x)u'(x)^2-Hu'(x)^2\\
+-u''(x)u(x)-u''(x)u'(x)^2u(x)+u'(x)^2u(x))
+\end{gather*}
 \end{ptcbr}
 
 \begin{nonum-Ej}
@@ -82,7 +135,7 @@ how you solve the equations - this is going to be non-trivial.
     Everything we have done in class was based on functions $u(x)$ of a
 single argument $x\in\bonj{a,b}\subseteq\bR$. But in reality, it is not very dict to derive the same kind of Euler-Lagrange
 equations also for functions of multiple arguments $u(\vec x),\ \vec x\in\Om\subseteq\bR^n$.
-To this end, let us assume that we want to ﬁnd a minimizer of
+To this end, let us assume that we want to find a minimizer of
 $$I\bonj{u}=\int\limits_\Om f(\vec x,u(\vec x),\nb u(\vec x))\dd x$$
 and
 $$D=\set{\vf\in C^2(\Om)\:\ \vf(\vec x)=g(\vec x),\ \vec x\in\del\Om}.$$
