@@ -1540,7 +1540,7 @@ The solution to the parameter space of conics is that we get a trivalent tree wi
     If for example we had a conic, it could intersect the vertex of another tropical line non-transversally. Or two vertices could intersect!
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.5\textwidth]{figs/fig11-2-NonTransversalIntersectionExample.png}
+        \includegraphics[width=0.8\textwidth]{figs/fig11-2-NonTransversalIntersectionExample.png}
         \caption{Example of Non-Transversal Intersections}
         \label{fig:11.2-NonTransversalIntersectionExample}
     \end{figure}
@@ -1587,18 +1587,18 @@ which means that at zero we have a point of high multiplicity and $(ad-bc)$ poin
 \begin{Def}
     Let $q$ be a point of transversal intersection of two tropical curves $\Ga_1,\Ga_2$. Then the multiplicity of the intersection is determined by the primitive\footnote{Primitive lattice vectors are the shortest lattice vectors possible}
     directions $\vec p_1,\vec p_2$  of the intersection as 
-    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|=w_1w_2\bonj{\bZ^2\: p_1\bZ\oplus p_2\bZ}.$$
-    Where the last quantity is the subgroup index. %TG11 page 5
+    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|=w_1w_2\bonj{\bZ^2\: \vec p_1\bZ\oplus \vec p_2\bZ}.$$
+    The last quantity is the subgroup index of $\vec p_1\bZ\oplus \vec p_2\bZ$ inside $\bZ^2$. %TG11 page 5
 \end{Def}
 %%https://ocw.mit.edu/courses/12-108-structure-of-earth-materials-fall-2004/9df654250315660f294bf6c9acd49ae1_lec7.pdf PRIMITIVE VECTORS
 %% https://en.wikipedia.org/wiki/Unit_cell
 %% https://www.physics.rutgers.edu/grad/601/CM601/crystals.pdf
 \section{Day 19|20231004}
 %Pages 6 to 8 TG11
-Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? 
+Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? \red{WHAT WAS THE ISSUE?}
 
 \begin{Ex}
-\red{FIGURE} 
+\red{FIGURE} \blu{WHICH FIGURE THERES NO PICTURE}
 In the first case we have intersections at $Q_1,Q_2$, where the first intersection has multiplicity
 $$m_{Q_1}=\left|\det\twobytwo{0}{1}{1}{-1}\right|$$
 and the other point also has multiplicity $1$. But if we move to the non-transversal intersection we get multiplicity $2$. This goes according to the definition. 
@@ -1863,6 +1863,59 @@ In tropical geometry, the \emph{field} is the tropical numbers $\bR\cup\set{\inf
     To see what this objects glue to, take for example the line $(s,\infty)$, in the second $\bT^2$ we get $x_2=-s$ and $y_2=\infty-s=\infty$ (this is ordinary algebra). So the $(s,\infty)$ line maps to line at infinity \emph{in the reverse direction}. For the $1\to3$ transitions we get $x_3=s-\infty=-\infty$ and $y_3=-\infty$.\red{Finish discussing}.\par 
     What happens is that we get an infinite triangle.
 \end{Ex}
+
+\section{Day 25|20231020}
+
+Patching construction for toric varieties: Dual cone gives affine patches, edges give transtition functions. This can be switched to tropical numbers. The charts are now affine $\bT$ spaces, sometimes it could be without infinity. Transition functions become linear.\par 
+With the example of $\bT\bP^2$ we had an infinite triangle. By removing the line and two points all we get is a copy of $\bT^2$. The $y$-axis of the first chart sticks to the $y$-axis of the second chart, while the $x$ axis becomes $y=x$. \red{LOOK AT PICTURE}
+\begin{Rmk}
+When removing the lines at infinity we get a copy of $\bR^2$, which is just the tropical torus! Even if the lines are arranged differently, the charts differ by an element of $\GL(\bZ)$. 
+\end{Rmk}
+
+The difficulty of transforming this into a general process is just painful notation. This process can always be done.
+
+\begin{itemize}
+    \item The tropical toric variety $\bT X_\Sg$ has a \emph{stratification} into $\bR^k$ strata which has a natural poset isomorphism with the stratification of the toric variety of $X_\Sg$.\par 
+    \red{AUDIO AROUND 10min} Stratification means a disjoint union into locally closed spaces. Think of it as chopping into pieces of different dimensions. All pieces are tropical tori $\bR^k$ for some $k$. 
+    \item The tropical toric variety has the structure of an ``infinite polytope'' (not precise, but it's what me imagine) which the normal polytope or dual to the fan of the toric variety.\par 
+    In the case of $\bP^2$, the fan is the tripod fan. For every 0-cell, we have a 2-stratum, for every ray we have a codimension 1 stratum whihc is incident at exactly one point. And for each 2-cone we have a 0-strata. This is similar to the orbit-cone correspondence, now its a dimension reversing map. Composing both we get a dimension-\emph{preserving} map. \blu{AUDIO BEFORE 17 min}\par 
+    The role taken by limits as $t\to 0$ of $t\.p$ in complex toric land, is replaced by $\lim_{T\to\infty}T+P$. In particular, given a 1-parameter subgroup $(1,1)$, what are the orbits?\par 
+    They will act on a point $(x_1,y_1)$ as 
+    $$T\.(x_1,y_1)=(x_1+T,y_1+T).$$
+    With this, no matter where we start, we go to $(\infty,\infty)$. The cones of the toric variety tells us how to add the point to infinity, it works the same way here but the action is now additive instead of multiplicative. 
+\end{itemize}
+
+\subsection{The Quotient Construction}
+
+Let's go back to $\bP^1$. In our quotient construction this is 
+$$\bP^1=\quot{\bC^2\less\set{(0,0)}}{\bC^\x},\quad t\.(x,y)=(tx,ty).$$
+We now read the same information from the fan, our affine space is over tropical numbers now:
+$$\bT\bP^1=\quot{\bT^2\less\set{(\infty,\infty)}}{\bR},\quad T\.(x,y)=(T+x,T+y).$$
+Without considering anything as of now, just by intuition, the tropical projective line should be a line segment! Formally when constructing like this, we first remove the point at infinity and then look at the orbits. They are all parallel lines and each correspond to one point in the quotient. \red{PICTURE 32min}
+
+\subsection{Subvarieties}
+
+We aim to answer the question about how subvarieties behave under tropicalization. The main point is that we begin with a curve in a torus and then we tropicalize.\par 
+Suppose now $Y\subseteq T\subseteq X_\Sg$, where $T$ is a torus and the other is a toric variety. What is 
+$$\Trop(Y)\subseteq\bR^n\subseteq \bT X_\Sg?$$
+
+\begin{Def}
+    The \term{extended tropicalization} of $Y$ inside $X_\Sg$ is the closure of $\Trop Y$ inside $\bT X_\Sg$. 
+\end{Def}
+
+\begin{Ex}
+    Lines in $\bP^2$ give rise to tropical lines (tripods) in $\bR^2$. Now we know that we can close this as tropical $\bP^2$. Then we take the closure in $\bT\bP^2$ so we only get 3 additional points. \red{PIC 41 min}
+\end{Ex}
+
+\begin{Ex}
+    Same line as before but we close in $\bP^1\x\bP^1$. So now we compactify inside an infinite square. Before the 3 points were part of 3 one dimensional orbits, but now one of the points corresponds to a zero-dimensional stratum.
+\end{Ex}
+
+\begin{Ex}
+    If we let a line go through the origin and close in $\bP^2$. The corner locus is $\min(x,y)$ which is non linear where $y=x$. Closing in $\bP^2$ gives us a point in a line and a point in the point. But when closing in $\bP^1\x\bP^1$ we get only points.
+\end{Ex}
+
+We wish to discuss how the position is related to the original position of the complex variety.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
