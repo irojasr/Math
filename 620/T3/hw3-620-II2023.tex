@@ -61,7 +61,21 @@
     $$\pdv{\xi}\left(\mu\frac{\xi}{\sqrt{1+\xi^2}}\right)=\mu\frac{\sqrt{1+\xi^2}-\xi\left(\frac{\xi}{\sqrt{1+\xi^2}}\right)}{1+\xi^2}=\mu\frac{1+\xi^2-\xi^2}{(1+\xi^2)^{3/2}}=\frac{\mu}{(1+\xi^2)^{3/2}}$$
     we know that the Hessian matrix is thus 
     $$\twobytwo{0}{0}{0}{\frac{\mu}{(1+\xi^2)^{3/2}}}$$
-    which is positive semi-definite. This is because the eigenvalues $0$ and $\frac{\mu}{(1+\xi^2)^{3/2}}$ are non-negative. We may guarantee that the function is convex.
+    which is positive semi-definite. This is because the eigenvalues $0$ and $\frac{\mu}{(1+\xi^2)^{3/2}}$ are non-negative. We may guarantee that the function is convex.\par
+    However the function is not strictly convex: consider a path along a fixed $\xi=\xi_0$. If we call the mapping 
+    $$h\: (u,\xi)\mapsto f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu$$
+    and consider two points $(u_0,\xi_0), (u_1,\xi_0)$, then the segment connecting their images is the same as the image of the segment connecting them. This is because as a function of $u$, $h$ is linear. To see this, observe that 
+    \begin{align*}
+        &th(u_1,\xi_0)+(1-t)h(u_0,\xi_0)\\
+        =&t\bonj{\mu\left(\sqrt{1+\xi_0^2}-1\right)-gu_1}+(1-t)\bonj{\mu\left(\sqrt{1+\xi_0^2}-1\right)-gu_0}\\
+        =&t\mu\left(\sqrt{1+\xi_0^2}-1\right)+(1-t)\mu\left(\sqrt{1+\xi_0^2}-1\right)-\bonj{tgu_1+(1-t)gu_0}\\
+        =&\mu\left(\sqrt{1+\xi_0^2}-1\right)-g(tu_1+(1-t)u_0)
+    \end{align*} 
+    and on the other hand we have 
+    $$h(t(u_1,\xi_0)+(1-t)(u_0,\xi_0))=h(tu_1+(1-t)u_0,\xi_0).$$
+    When evaluating this expression we get the same expression as the last procedure. Thus we have found families of points where equality is reached in the inequality 
+    $$h(\text{segment})\leq\text{segment of }h\text{'s}.$$
+    Using the theorem we conclude that if we find a solution then it is a minimizer but it need not be unique.
     \end{enumerate}
 \end{ptcbr}
 
@@ -93,7 +107,11 @@
         Now we can see that
         $$\dv{x}f_{\xi}(x,u(x),u'(x))=\dv{x}\mu u'(x)=\mu u''(x).$$
         The corresponding equation is now $\mu u''(x)=-g$ and the conditions remain the same, $u(a)=u(b)=1$
-        \item \red{ASK FOR THM}
+        \item Observe that the function in question is now 
+        $$h\:(u,\xi)\mapsto \mu\frac{\xi^2}{2}-gu$$
+        so we use the Hessian criterion to determine convexity. Observe that in this case the Hessian is constant:
+        $$\twobytwo{0}{0}{0}{\mu}\leftarrow\text{positive semi-definite}.$$
+        This means that our function is convex, but once again taking a constant $\xi_0$ and expanding in a similar fashion, we can see that our function is not strictly convex. We cannot guarantee uniqueness of the solutions.
         \item The equation in question can be solved as follows:
         $$u''(x)=\frac{-g}{\mu}\To u'(x)=\frac{-g}{\la}x+c_1\To u(x)=\frac{-g}{2\la}x^2+c_1x+c_2.$$
         Applying the initial conditions we get a system of the form 
@@ -107,9 +125,13 @@
         \twobythree{a}{1}{1+ga^2/2\la}{b}{1}{1+gb^2/2\la}\xrightarrow[]{\ttt{RREF}}\twobythree{1}{0}{g\la(b+a)/2}{0}{1}{1-abg\la/2}
         $$
         so the solution of our equation is of the form 
-        $$u(x)=\frac{-g}{2\la}x^2+\frac{g\la(b+a)}{2}x+1-\frac{abg\la}{2}$$
+        $$u(x)=\frac{-g}{2\la}x^2+\frac{g\la(b+a)}{2}x+1-\frac{abg\la}{2}.$$
     \end{enumerate}
 \end{ptcbr}
+
+\begin{nonum-Rmk}
+I can't see exactly why we have found a unique solution even though we can't guarantee the existence of one. I know that I'm thinking about the reverse implication, because the point talking about uniqueness says $f$ is strictly convex and a solution exists, then the solution is unique. But $f$ not being strictly convex does not imply the existence of several solutions.
+\end{nonum-Rmk}
 
 \begin{Ej}
     We have started the semester by considering Newton's
