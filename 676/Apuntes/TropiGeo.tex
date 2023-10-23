@@ -1595,7 +1595,7 @@ which means that at zero we have a point of high multiplicity and $(ad-bc)$ poin
 %% https://www.physics.rutgers.edu/grad/601/CM601/crystals.pdf
 \section{Day 19|20231004}
 %Pages 6 to 8 TG11
-Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? \red{WHAT WAS THE ISSUE?}
+Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? \red{WHAT WAS THE ISSUE?} The issue is that we must define multiplicity in order to talk about weights/multiplicities of non-transversal intersections.
 
 \begin{Ex}
 \red{FIGURE} \blu{WHICH FIGURE THERES NO PICTURE}
@@ -1608,10 +1608,26 @@ and the other point also has multiplicity $1$. But if we move to the non-transve
 The amount of intersections of two tropical curves is invariant under generic translation.
 \end{Lem}
 
-The proof follows from the balancing conditions and it suffices to analyze cases locally.
+The proof follows from two facts:
+
+\begin{itemize}
+    \item The definition of multiplicity of an intersection:
+    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|$$
+    \item And the balancing condition at $q$: 
+    $$\sum_{e\to v}w_e\vec{p}_e=0$$
+    where $e\to v$ means edges incident at $v$.
+\end{itemize}
+
+It also suffices to analyze cases locally so we may zoom in into an edge of one of our curves.
 
 \begin{ptcbp}
-Consider an edge of a tropical curve and a local intersection. The edge partitions the plane into two half planes $H^+,H^-$. Then the contribution to a $\vec v$ deformed intersection is the same when $\vec v$ points in the direction of $H^+$ or $H^-$.\par 
+Consider an edge of a tropical curve $\Ga_1$ locally intersecting $\Ga_2$ at a vertex. The edge of $\Ga_1$ partitions the plane into two half planes $H^+,H^-$.\par 
+Let us partition the edges into those ``in'' $H^+$ and $H^-$ and pick $\vec v_+$ in any direction pointing to $H^+$ and let us take the vector intersection with respect to such $\vec v_+$. Considering the multiplicities we get a contribution of 
+$$w_1\sum_{e\in H^-}w_e\|\det(\vec p_1,\vec p_e)\|.
+\footnote{The edges we have are from $H^-$ because of the relative positions. It does sound counterintuitive however.}$$
+Similarly if we take a vector $\vec v_-$ pointing towards $H^-$ and translate $\Ga_2$ in that direction we get a contribution of 
+$$w_1\sum_{e\in H^+}w_e\|\det(\vec p_1,\vec p_e)\|.$$
+Then the contribution to a $\vec v$ deformed intersection is the same when $\vec v$ points in the direction of $H^+$ or $H^-$.\par 
 Suppose $\vec v_1$ and $\vec v_2$ are two vectors pointing in different directions, if we raise the intersection, we get the lower edges intersecting. Their primitive vectors are all in the clockwise direction form $p_e$. So the weight of the $\vec v_1$-deformed intersection is 
            $$\sum_{e'\in E^-}w_ew_{e'}|\det(p_1,p_2)|$$
 \end{ptcbp}
@@ -1916,6 +1932,49 @@ $$\Trop(Y)\subseteq\bR^n\subseteq \bT X_\Sg?$$
 \end{Ex}
 
 We wish to discuss how the position is related to the original position of the complex variety.
+
+\section{Day 26|20231023}
+
+Recall we defined the tropicalization of a toric variety and if we had a $Y\subseteq T\subseteq X_\Sg$ then the tropicalization in $X_\Sg$ is 
+$$\ov{\Trop(Y)}\subseteq \bT X_\Sg.$$
+\begin{Ex}
+    By taking the equations $x+y+1=0$ and $y+1=0$ then the associated tropical lines are a tripod and a horizontal line. We may either embed them into $\bP^2$ or $\bP^1\x\bP^1$.\par 
+    We know that tropical $\bP^2$ looks like an infinite triangle while the other looks like an infinite square.\red{FIGURE around 5 min}
+\end{Ex}
+
+What will discuss is the relation between how the clousure of $Y$ in $X_\Sg$ intersects the orbits with respect to the intersections of the tropical toric variety. We summarize this into a question 
+
+\begin{significant}
+    Given $Y\subseteq T\subseteq X_\Sg$
+\end{significant}
+
+In the first example, $x+y+1=0$ is a line which closed into $\bP^2$ intersects 3 lines in $\bP^2$. In tropical land, it intersects the 3 copies of $\bR$ and misses the vertices. While in $\bP^1\x\bP^1$, the correspondence persists. The fan of $\bP^1\x\bP^1$ consists of 4 rays and 4 2 dimensional fans. In this case one of the edges of the tripods is inside the 2 dimensional fan which is dual to the vertex that \red{Didn't understand}
+
+\begin{Th}
+Assume $K$ has a trivial valuation and $\sg\in\Sg$ a cone. Then 
+$$\ov Y\cap O_\sg\neq\emptyset\iff \Trop(Y)\cap\sg^\circ\neq\emptyset.$$
+\end{Th}
+
+\begin{Rmk}
+Trivial valuation implies that when \emph{throwing the blanket}, everything stays at the same level.
+\end{Rmk}
+
+\begin{ptcbp}
+To show the result, we will show that both facts are equivalent to the statement. \red{SLEEP} Put yourself in a local chart that contains this orbit. This is a copy of $\bC$.\red{sleep}\par 
+Now we want to show that a face intersection then the non-extended intersects the interior of the cone. This is because the tropical toric variety is dual to the fan. The trivial valuation gives us a tropicalization which is always a cone over the origin. 
+\end{ptcbp}
+
+In conclusion, we know that if we draw a tropical curve which corresponds to an algebraic curve in the torus, after closing it into the toric variety we will know which orbits we intersect just by looking at the variety.\par 
+If we are an algebraic variety $Y$ inside a torus, which toric variety do we want to be compactified into? The answer lies in the tropicalization.\par 
+But what does this question even mean? 
+\begin{itemize}
+    \item The variety $Y$ certainly wants to be compact.
+    \item It also doesn't want to acquire a whole bunch of singularities. (Think about the Alexandroff compactification, one-point compactification. Good luck doing geometry there.)
+    \item To compactify we must add some points, and since we are in a \emph{stratified} toric variety, the stratification of $\ov Y$ inside $X_\Sg$ matches, including dimension grading, with the stratification of $\Sg$. 
+    \item Lastly the compactification must not bw wasteful (because varieties care about the enviroment). The torus itself shouldn't have so many points not needed to compactify.
+\end{itemize}
+$x+y+1=0$ likes to be compactified in $\bP^2$ as \red{picure}. Except none of the infinite points are touched, so it likes to be compactification in $\bP^2$ without the three infinite points. \red{picture}.
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined

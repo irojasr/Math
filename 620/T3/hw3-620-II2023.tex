@@ -48,8 +48,20 @@
         \end{align*}
     So the Euler-Lagrange equations in this case are given by
     $$\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{(1+u'(x)^2)^{3/2}}=-g$$
-    and the boundary conditions will be satisfied when $u\in D$. This is $u(a)=u(b)=1$. \red{IS THIS THE CORRECT INTERPRETATION FOR BDRY CONDS?}
-    \item \red{LOOK FOR THEOREM}
+    and the boundary conditions will be satisfied when $u\in D$. This is $u(a)=u(b)=1$. %\red{IS THIS THE CORRECT INTERPRETATION FOR BDRY CONDS?}
+    \item Recall that the theorem about minimization problems and Euler-Lagrange equations can be summarized as follows:
+    \begin{itemize}
+        \item (Necessary condition) A solution to the minimization problem is a solution of the associated E-L equations.
+        \item If $(u,\xi)\mapsto f(x,u,\xi)$ is convex, then solutions of the E-L equations are minimizers.
+        \item If the previous mapping is \emph{strictly convex} then there's a \emph{unique} solution when there is one.
+    \end{itemize}
+    Based on this we must analyze the convexity of the associated mapping
+    $$(u,\xi)\mapsto f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu.$$
+    Observe that our function is smooth, so we may apply the Hessian criterion in order to show it is convex. We already know the first order derivatives of our function so by taking 
+    $$\pdv{\xi}\left(\mu\frac{\xi}{\sqrt{1+\xi^2}}\right)=\mu\frac{\sqrt{1+\xi^2}-\xi\left(\frac{\xi}{\sqrt{1+\xi^2}}\right)}{1+\xi^2}=\mu\frac{1+\xi^2-\xi^2}{(1+\xi^2)^{3/2}}=\frac{\mu}{(1+\xi^2)^{3/2}}$$
+    we know that the Hessian matrix is thus 
+    $$\twobytwo{0}{0}{0}{\frac{\mu}{(1+\xi^2)^{3/2}}}$$
+    which is positive semi-definite. This is because the eigenvalues $0$ and $\frac{\mu}{(1+\xi^2)^{3/2}}$ are non-negative. We may guarantee that the function is convex.
     \end{enumerate}
 \end{ptcbr}
 
