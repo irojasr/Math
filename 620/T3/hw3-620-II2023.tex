@@ -43,11 +43,12 @@
         Now taking the derivative with respect to $x$ of $f_{\xi}(x,u(x),u'(x))$ we get 
         \begin{align*}
             \dv{x}f_{\xi}(x,u(x),u'(x))&=\mu\dv{x}\frac{u'(x)}{\sqrt{1+u'(x)^2}}\\
-            &=\mu\frac{u''(x)\sqrt{1+u'(x)^2}-u'(x)\frac{u'(x)}{\sqrt{1+u'(x)^2}}}{1+u'(x)^2}\\
-            &=\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{(1+u'(x)^2)^{3/2}}
+            &=\mu\frac{u''(x)\sqrt{1+u'(x)^2}-u'(x)\frac{u'(x)u''(x)}{\sqrt{1+u'(x)^2}}}{1+u'(x)^2}\\
+            &=\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2u''(x)}{(1+u'(x)^2)^{3/2}}\\
+            &=\mu\frac{u''(x)}{(1+u'(x)^2)^{3/2}}
         \end{align*}
     So the Euler-Lagrange equations in this case are given by
-    $$\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{(1+u'(x)^2)^{3/2}}=-g$$
+    $$\mu\frac{u''(x)}{(1+u'(x)^2)^{3/2}}=-g$$
     and the boundary conditions will be satisfied when $u\in D$. This is $u(a)=u(b)=1$. %\red{IS THIS THE CORRECT INTERPRETATION FOR BDRY CONDS?}
     \item Recall that the theorem about minimization problems and Euler-Lagrange equations can be summarized as follows:
     \begin{itemize}
@@ -192,6 +193,9 @@ or in any number of books, but if you want to get these bonus points, you will n
 how you solve the equations - this is going to be non-trivial.
 \end{nonum-Ej}
 
+\begin{ptcb}
+This will done in another time. I just believe that the way I wrote the equations makes it incredibly complicated. I'll look for a reference to read it (or maybe a youtube video, there sometimes are good ones out there).
+\end{ptcb}
 \begin{Ej}
     Everything we have done in class was based on functions $u(x)$ of a
 single argument $x\in\bonj{a,b}\subseteq\bR$. But in reality, it is not very dict to derive the same kind of Euler-Lagrange
@@ -208,7 +212,23 @@ State both the Euler-Lagrange equations and boundary conditions.
 \end{Ej}
 
 \begin{ptcbr}
-    We are to show that if $\ov u$ is a minimizer, then $\ov u$ satisfies a E-L type equation but in several variables.
+    We are to show that if $ u$ is a minimizer, then $\ov u$ satisfies a E-L type equation but in several variables. Following the same idea as in the proof, we take the Gateaux derivative of $I$ in direction $v\in D'$ and set it equal to zero: $D_vI[u]=0$. Recall that this tangent space $D'$ consists of the functions which are zero at the boundary. Expanding the definition of $D$ we have 
+    $$0=\lim_{\eps\to 0}\frac{I[u+\eps v]-I[u]}{\eps}$$
+    and the term with a $v$ we expand as 
+    $$I[u+\eps v]=\int\limits_\Om f(\vec x,u(\vec x)+\eps v(\vec x),\nb u(\vec x)+\eps\nb v(\vec x))\dd x$$
+    so when taking the difference and collecting terms we have 
+    $$0=\lim_{\eps\to 0}\int\limits_\Om \frac{f(\vec x,u(\vec x)+\eps v(\vec x),\nb u(\vec x)+\eps\nb v(\vec x))-f(\vec x,u(\vec x),\nb u(\vec x))}{\eps}\dd x.$$
+    Now I'm having some troubles in the next step so let me do a quick verification that\dots
+    $$\lim_{\eps\to 0}\frac{f(x+\eps y)-f(x)}{\eps}=\lim_{\tilde{\eps}\to 0}\frac{f(x+\tilde{\eps})-f(x)}{\frac{\tilde{\eps}}{y}}=yf'(x).$$
+    Before proceeding though, we assume that $f_u,f_\xi$ satisfy the hypothesis of the dominated convergence theorem so that we may exchange the limit with the integral. After doing so, our expression becomes 
+    $$0=\int\limits_\Om v(\vec{x})f_u(\vec x,u(\vec x),\nb u(\vec x))+\braket{\nb v(\vec x)}{\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))}\dd x.$$
+    The first integral we leave as is and to the second integral we apply the divergence theorem. Observe that 
+    $$\int\limits_\Om\braket{\nb v(\vec x)}{\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))}\dd x=\oint\limits_{\del\Om}v(x)\pdv{\vec n}(\nb_\xi f)\dd\sg(x)-\int\limits_\Om v(\vec x)\div_{\vec x}\nb_\xi f\dd x$$
+    and as $v\in D'$, the contour integral about $\del\Om$ is zero. It follows that our expression becomes
+    $$0=\int\limits_\Om v(\vec{x})f_u(\vec x,u(\vec x),\nb u(\vec x))-v(\vec x)\div_{\vec x}\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))\dd x.$$
+    From this, using the fundamental theorem of calculus of variations we deduce that $f$ must satisfy 
+    $$f_u(\vec x,u,\vec \xxi)=\div_{\vec x}\nb_\xi f(\vec x,u,\xxi)$$
+    where $u\in D$ or $u$ is $g$ on the boundary.
 \end{ptcbr}
 \begin{Ej}
     The generalization to higher dimensions of the erst problem is to
@@ -218,4 +238,19 @@ state the Euler-Lagrange equations for this problem.
 Next, apply the same simplification we considered in Problem 2 and again derive the corresponding
 Euler-Lagrange equations.
 \end{Ej}
+
+\begin{ptcbr}
+    Observe that our function is 
+    $$f(\vec x,u,\xxi)=\mu\left(\sqrt{1+|\xxi|^2}-1\right)-gu,$$
+    we have $f_u=-g$ and for $\nb_\xxi$:
+    $$\nb_\xxi f=\frac{\mu}{\sqrt{1+|\xxi|^2}}\xxi.$$
+    Switching back to $\vec x$ variables we have 
+    $$\div_{\vec x}\nb_\xxi f(\vec x,u(\vec x),\nb u(\vec x))=\div_{\vec x}\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\nb u(\vec x)\right)$$
+    where we use the product rule for the last expression in order to obtain 
+    \begin{align*}
+        &\braket{\nb_x\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\right)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\div_x\nb u(\vec x)\\
+        =&\frac{-\mu}{(1+|\nb u(\vec x)|^2)^{3/2}}\braket{\vec x}{\nb u(\vec x)}+\dots
+    \end{align*}
+    
+\end{ptcbr}
 \end{document} 
