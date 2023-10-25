@@ -162,16 +162,17 @@ We now must differentiate $f_\xi$ with respect to $x$. This is
     \dv{x}f_{\xi}(x,u(x),u'(x))&=\dv{x}\frac{\la}{\sqrt{H-u(x)}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}.
 \end{align*}
 Using the product rule and the fact that we have already calculated the derivative of a term similar to the second one in the previous exercise, we obtain:
-$$\frac{\la u'(x)}{2\sqrt{(H-u(x))^3}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}+\frac{\la}{\sqrt{H-u(x)}}\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{\sqrt{(1+u'(x)^2)^3}}.$$
+$$\frac{\la u'(x)}{2\sqrt{(H-u(x))^3}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}+\frac{\la}{\sqrt{H-u(x)}}\frac{u''(x)}{\sqrt{(1+u'(x)^2)^{3}}}.$$
 We may factor out some terms to clean up the expression as follows:
-$$\frac{\la}{\sqrt{(H-u(x))(1+u'(x)^2)}}\left(\frac{u'(x)^2}{2(H-u(x))}+\frac{u''(x)(1+u'(x)^2)-u'(x)^2}{1+u'(x)^2}\right).$$
+$$\frac{\la}{\sqrt{(H-u(x))(1+u'(x)^2)}}\left(\frac{u'(x)^2}{2(H-u(x))}+\frac{u''(x)}{1+u'(x)^2}\right).$$
 We now homogenize the terms inside the parenthesis. The numerator is an expression of the form 
-\begin{gather*}
-u'(x)^2(1+u'(x)^2)+2(H-u(x))\bonj{u''(x)(1+u'(x)^2)-u'(x)^2}\\
-=u'(x)^2+u'(x)^4+2(Hu''(x)+Hu''(x)u'(x)^2-Hu'(x)^2\\
--u''(x)u(x)-u''(x)u'(x)^2u(x)+u'(x)^2u(x))
-\end{gather*}
-so that gathering all this up we get a differential equation with conditions $u(0)=H$ and $u(L)=0$.\par 
+\begin{align*}
+&u'(x)^2(1+u'(x)^2)+2(H-u(x))u''(x)\\
+=&u'(x)^2+u'(x)^4+2Hu''(x)-2u(x)u''(x)
+\end{align*}
+so that gathering all this up we get the differential equation
+$$\frac{\la}{2}\sqrt{\frac{1+u'(x)^2}{(H-u(x))^3}}=\frac{\la(u'(x)^2+u'(x)^4+2Hu''(x)-2u(x)u''(x))}{2\sqrt{\bonj{(H-u(x))(1+u'(x)^2)}^3}}$$
+with conditions $u(0)=H$ and $u(L)=0$.\par 
 In order to talk about the convexity of the function 
 $$h\: (u,\xi)\mapsto \sqrt{\frac{1}{2g}}\sqrt{\frac{1+\xi^2}{H-u}}$$
 we could analyze the Hessian taking into account the fact that $u$ is bounded by $H$. It would be senseless to assume that the curve goes over the top height. This guarantees that $h$ is defined for all $\xi$ and $u\leq H$.\par
@@ -248,9 +249,36 @@ Euler-Lagrange equations.
     $$\div_{\vec x}\nb_\xxi f(\vec x,u(\vec x),\nb u(\vec x))=\div_{\vec x}\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\nb u(\vec x)\right)$$
     where we use the product rule for the last expression in order to obtain 
     \begin{align*}
-        &\braket{\nb_x\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\right)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\div_x\nb u(\vec x)\\
-        =&\frac{-\mu}{(1+|\nb u(\vec x)|^2)^{3/2}}\braket{\vec x}{\nb u(\vec x)}+\dots
+        &\braket{\nb_{\vec x}\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\right)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\div_{\vec x}\nb u(\vec x)\\
+        =&\braket{\frac{-\mu}{2(1+|\nb u(\vec x)|^2)^{3/2}}\nb_{\vec x}|\nb u(\vec x)|^2}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\Dl u(\vec x).
     \end{align*}
-    
+    We use the chain rule to find $\nb|\nb u(\vec x)|^2$. Observe that if we call $n(\vec{x})=|\vec x|^2$ and $U(\vec x)=\nb u(\vec x)$ then 
+    $$D(n(\vec x))= 2\vec x,\word{and}DU(\vec x)= Hu(\vec x)$$
+    where $Hu$ is the Hessian matrix of $u$. Using this we have 
+    $$\nb|\nb u(\vec x)|^2=D(n(U(\vec x)))=Dn(U(\vec x))DU(\vec x)=2\nb u(\vec x)\bonj{Hu(\vec x)}$$
+    and in this case it may seem strange to multiply the vector by the matrix on the right, however this is because we are interpreting $\nb u(\vec x)$ as a row vector. As $u\in C^2$ we may actually write this expression as $2\bonj{Hu(\vec x)}\nb u(\vec x)$ considering now $\nb u$ as a column. We may now write our expression as
+    $$\frac{-\mu}{(1+|\nb u(\vec x)|^2)^{3/2}}\braket{Hu(\vec x)\nb u(\vec x)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\Dl u(\vec x).$$
+    We recognize the inner product in question as a quadratic form of the form $q_A(\vec x)=\vec x^\sT A\vec x=\braket{A\vec x}{\vec x}$, so we may simplify the expression into 
+    \begin{align*}
+        &\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\left(\frac{-q_{Hu(\vec x)}(\nb u(\vec x))}{1+|\nb u(\vec x)|^2}+\Dl u(\vec x)\right)\\
+        =&\mu\frac{\Dl u(\vec x)+\Dl u(\vec x)|\nb u(\vec x)|^2-(\nb u(\vec x))^\sT Hu(\vec x)\nb u(\vec x)}{(1+|\nb u(\vec x)|^2)^{3/2}}.
+    \end{align*}
+    Sadly it is not the case that the numerator doesn't cancel out to be $\Dl u(\vec x)$, so this is the expression we obtain. The E-L equations in this case correspond to 
+    $$\frac{\Dl u(\vec x)+\Dl u(\vec x)|\nb u(\vec x)|^2-(\nb u(\vec x))^\sT Hu(\vec x)\nb u(\vec x)}{(1+|\nb u(\vec x)|^2)^{3/2}}=\frac{-g}{\mu}.$$
+    In the simplified case our function is 
+    $$f(\vec x,u,\xxi)=\mu\left(1+\half|\xxi|^2-1\right)-gu=\frac{\mu}{2}|\xxi|^2-gu.$$
+    Once again $f_u=-g$ and $\nb_\xxi f=\mu\xxi$. When taking $\xxi =\nb u(\vec x)$ and differentiating again we get 
+    $$\div_{\vec x}f_\xxi(\vec x,u(\vec x),\nb u(\vec x))=\div_{\vec x}(\mu\nb u(\vec x))=\mu\Dl u(\vec x).$$
+    The equation we obtain is the Laplace equation in several variables:
+    $$-\Dl u(\vec x)=\frac{g}{\mu}$$
+
 \end{ptcbr}
+
+\begin{nonum-Rmk}
+Without giving up and trying to simplify the expression $\Dl u|\nb u|^2-\nb u^\sT Hu\nb u$ we may either transform it into 
+$$-(R\nb u)^\sT Hu(R\nb u),\quad R=\twobytwo{0}{-1}{1}{0}$$
+where we have used coordinates to get this form or we may use bilinearity of the inner product:
+$$\braket{\Dl u\nb u}{\nb u}-\braket{Hu\nb u}{\nb u}=\braket{\Dl u\nb u-Hu\nb u}{\nb u}.$$
+It would optimal to simplify further the expression $\Dl u\nb u-Hu \nb u$, and believe me, I really would like to do it. But I've invested far too long on this problem, so I'll do it another time. The expression looks like it should have a \emph{nice} form, but I don't know, maybe that's the \emph{nicest} form. 
+\end{nonum-Rmk}
 \end{document} 
