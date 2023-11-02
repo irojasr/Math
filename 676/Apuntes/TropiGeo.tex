@@ -1975,6 +1975,171 @@ But what does this question even mean?
 \end{itemize}
 $x+y+1=0$ likes to be compactified in $\bP^2$ as \red{picure}. Except none of the infinite points are touched, so it likes to be compactification in $\bP^2$ without the three infinite points. \red{picture}.
 
+\section{Day 27|20231025}
+
+Last time we had a subvariety of a torus which is the open dense set of a toric variety. The question we addressed was 
+\begin{significant}
+    What are the orbits of the toric variety that $\ov Y$ intersects?
+\end{significant}mn,
+An orbit intersects the closure of $Y$ iff the tropicalization of $Y$ intersects the relative interior of the cone corresponding to the orbit. This went through an intermediate step, extended tropicalization intersects the face corresponding to $\sg$. Now we know when an orbit intersects $\ov Y$.\par 
+Stepping up sophistification, if we have a $Y\subseteq T$, when is the toric variety a good choice to close $Y$ in? 
+\begin{itemize}
+    \item When $\ov Y$ is compact/complete. (Not synonyms, compact in Zariski is trivial but Euclid not. Complete means all limit points.)
+    \item When $\ov Y$ doesn't become too singular
+    \item When codimension $i$ strata of $\ov Y$ corresponds to codimension $i$ \emph{stuff} of $X_\Sg$ 
+\end{itemize}
+We can always take a toric variety corresponding to a complete fan which corresponds to a compact toric variety so that's where we wanna close $Y$ into.\par
+Recall we saw the example $x+y+1=0$ inside the torus $(\bC^\x)^2$ then we can close it into $\ov L\subseteq \bP^2\less\set{e_1,e_2,e_3}$. And looking at the tropicalization of $L$, it happens to be the fan of $\bP^2\less\set{e_1,\dots e_3}$. We ask now, why is this not a coincidence?\par 
+In what follows, $K$ is trivially valued. Any Newton Polygon will not be subdivided.
+
+\begin{Th}
+$Y\subseteq T_n$ is $d$-dimensional and irreducible and $\ov Y\subseteq X_\Sg$ the closure of $Y$ in $X_\Sg$ then 
+$$\ov Y\word{is complete}\iff \Trop Y\subseteq |\Sg|.$$
+\end{Th}
+
+The support $|\Sg|$ is the locus of points in $N$ that belong to some cone of $\Sg$.
+
+\begin{ptcbp}
+Assume by contradiction that $\Trop Y$ is not inside of $|\Sg|$. Let us draw a picture: \red{figure 20 min}
+So let us add fans to get a complete toric variety. Consider a complete fan $\tilde \Sg$ that contains $\Sg$ as a sub fan. In the picture $\tilde \Sg$ is both red and green. Complete means that the support is the whole vector space. Then by a known theorem $X_{\tilde{\Sg}}$ is compact and also has $X_\Sg$.\par 
+Their difference is $\bigcup_{\sg green}O_\sg$ by the orbit cone correspondence something.\par 
+Because $\Trop Y$ intersects the green cone, then the closure has a point in the orbit corresponding to the green cone. That means $Y$ has a limit point in the cone corresponding to the differnece. So when closing in $X_\Sg$ that point\dots\par 
+As $\Trop Y\cap \sg^\circ\neq\emptyset$, for some green cone $\sg$, then $\ov Y\cap O_\sg\neq \emptyset$. Say $y$ is a point in such intersection, $y$ is a limit point of $Y$ in $X_{\tilde\Sg}\less X_\Sg$. So this means that $\ov Y\subseteq X_\Sg$ is not complete.\par 
+Let's go the other direction now, assume $\Trop Y\subseteq |\Sg|$. We add cones to $\Sg$ to get a complete fan $\tilde \Sg$:
+$$Y\subseteq T\subseteq X_\Sg\subseteq X_{\tilde \Sg} (\text{compact}).$$
+Lets draw another picture (\red{fig 30 min}), when closing $Y$ inside $X_{\tilde\Sg}$ we get a compact \red{sleeping} But $\ov Y\cap O_\sg$ is empty for all orbits in $X_{\tilde{\Sg}}.$
+\end{ptcbp}
+\red{SLEEP SLEEP}
+\begin{Th}
+
+\end{Th}
+
+\begin{ptcbp}
+For tevery $\sg$, $\ov Y\cap O_\sg\neq \emptyset$ and $\dim(\ov Y\cap O_\sg)=d-dim\sg$ iff $\Trop Y=|\Sg|$.\par 
+We must show $|\Sg|\subseteq\Trop Y$
+\begin{enumerate}
+    \item Every cone in $\Sg$ must intersect $\Trop Y$, in other words $\sg^\circ\cap\Trop Y\neq\emptyset$.
+    \item The cones of $\Sg$ are at most dimension $d$. Which comes from the hypothesis. If $\Sg$ had a $d+1$ dimensional cone, this corresponds to an orbit of codimension $d+1$. By the first observation it should intersect $\ov Y$, but that means 
+    $$\dim (\ov Y\cap O_\sg)=d-(d+1)<0\To \ov Y\cap O_\sg=\emptyset$$
+    which contradicts our first observation.
+    \item If we have a $d$-dim cone of $\Sg$ its not possible to be intersected by $\Trop\Sg$ in a smaller dimension. This means $\Sg$ has cones of higher dimension.
+    \item Is it possible to be covered by higher dimensional? Not possible because balancing condition.
+\end{enumerate}
+\end{ptcbp}
+
+\section{Day 28|20231027}
+
+The big picture is that our world has trivially valued field and we have a subvariety of a toric variety. We looked at the combinatorial properties of tropicalization, what we should hold is that tropical toric varieties are like adding stuff to a torus which corresponds to cones in a space. We concluded that if a tropicalization is contained in the support of a fan then the variety is compact. The last property we wish to prove is dimension transversality. Those properties are equivalent to the fact the the tropicalization \emph{is} the support of the fan.
+
+\begin{ptcbp}
+We already know that $\Trop(Y)\subseteq |\Sg|$, we want to show the other inclusion. 
+\begin{enumerate}
+    \item Every cone $\sg$ in $\Sg$ must intersect $\Trop Y$. If we have a cone that doesn't intersect $\Trop Y$, we should throw it away.
+    \item The dimension of $\Sg$ as a fan is \emph{at most} the dimension of $Y$. This is because we assumed 
+    $$\codim_{\ov Y}(\ov Y\cap O_\sg)=\codim_{X_\Sg} O_\sg.$$
+    \item If we have a top-dimensional cone of $\Sg$, then it can't intersect $\Trop Y$ in a positive codimensional locus. Otherwise $\Trop Y$ would intersect $d+1$-dimensional cones of $\Sg$ (which don't exist).\red{pic 10 min}
+    \item A top dimensional cone of $\Sg$ cannot be partially covered by $\Trop Y$. This would violate the balancing condition for $\Trop Y$. What does it mean to be balanced along $\tau$? We go to the quotient by projecting down. We quotient away the linear span of $\tau$. So the cones now become $1$-dimensional and so we can apply the old definition of balancing.\par 
+    If that were to be the case, now we take $\tau$ a face of $\Trop Y$, then the point is unbalanced. 
+\end{enumerate}
+Altogether, every $d$-dimensional cone of $\Sg$, must be completely covered by $\Trop Y$ then $|\Sg|\subseteq\Trop Y$. \blu{Renzo is thinking very hard about the drawing around 25min} Apparently the last comment is not true. When checking incidence conditions, we only care about cones incident to a face.\par 
+For the other direction we want to show the properties. We need the following facts:
+\begin{enumerate}
+    \item There are no positive dimensional compact subvarieties of tori. Tori are full of holes. Prove it for $\bC^\x$ and then induction.
+    \item An orbit of codimension $k$ of a toric variety is locally a complete intersection.
+    \item For any $Z\subseteq X_\Sg$ and a hypersurface, the intersection with $Z$ either remains the same dimension or the dimension goes down by 1 or they have empty intersection.
+\end{enumerate}
+With this we tackle the other side of the theorem. Take a top dimensional cone $\sg_d$ in $\Sg$. Then $O_{\sg_d}$ is a codimension $d$ orbit and $O_{\sg_d}$ intersects $\ov Y$ non-trivially. We know $O_{\sg_d}$ is isomorphic to a torus and because $\ov Y$ is complete, then $ O_{\sg_d}\cap\ov Y$ is complete and so it has a finite number of points. \red{LAST PICTURE} At every step we have to drop codimension by one.
+\end{ptcbp}
+
+When all of the conditions happen, we may have a new concept!
+
+\begin{Def}
+    $\ov Y\subseteq T\subseteq X_\Sg$ is a \term{tropical compactification} when $\Trop Y=|\Sg|$. In particular the properties of the previous theorem hold.
+\end{Def}
+
+Right now we haven't talked about how singular $Y$ become when compactified. Let us just talk a bit. A tropical compactification.
+
+\section{Day 29|20231030}
+
+Recall that the theorem we are proving is that the conditions
+\begin{itemize}
+    \item $\ov Y\cap O_\sg\neq \emptyset$  for all $\sg$, and
+    \item $\codim_{\ov Y}(\ov Y\cap O_\sg)=\codim_{X_\Sg} O_\sg$
+\end{itemize}
+are equivalent to $\Trop Y=|\Sg|$.\par 
+In the course of proving left-to-right, we do know that 
+$$\Trop Y\subseteq |\Sg|,$$
+otherwise we'd be missing a limit point. We only have to prove the other direction. With a bunch of reductions:
+\begin{itemize}
+    \item $\Sg$ should be $d$-dimensional, where $d$ is $\dim Y$.
+    \item We also saw that $\Sg$ must intersect the top-dimensional cones of $Y$ in top dimension. This means it can't be cutting the space in locus with strictly less dimension.
+    \item If we fix a cone $\sg\in\Sg$, then $\Trop Y$ must contain all of it.
+\end{itemize}
+With this the argument is that we imagine a cone $\sg\in\Sg$ and a piece of $\Trop Y$ and we wanted to derive a contradiction by balancing. We must analyze two cases:
+\begin{enumerate}
+    \item Call $\tau$ the border between $\sg$ and $\Trop Y$. We can call $s$ the part from $\Trop Y$, it is the only top dimensional part of $\Trop Y$ containing $\tau$. And if that's the case the balancing argument holds because 
+    $\Trop Y$ is not balanced. This is because all the action occurs on \emph{the lower side of the plane} so we quotient out by $\tau$. This is projecting away the linear subspace generated by $\tau$ and we have all of the projection of $s$ on one side \emph{not balancing} the vertex.
+    \item In the other case $\Trop Y$ has other parts incident to $\tau$ and not inside of $\sg$. Then it is not possible for $\tau$ to be \emph{in the middle} of a cone. \red{picture 14 min}
+\end{enumerate}
+For the other directions we use some facts of algebraic geoemtry:
+\begin{itemize}
+    \item The only complete/compact subvarieties of a torus are 0-dimensional.
+    \item In a toric variety, every orbit of $\sg$ of codimension $k$ is cut out locally by $k$ equations.
+    \item If $Y\subseteq X_\Sg$ and we cut it down with a hypersurface, then dimension of $Y\cap H$ goes down at most by $1$.
+    $$Y\cap H\neq\emptyset\To \dim(Y\cap H)\geq \dim(Y)-1.$$
+    \red{GRabbing water}
+\end{itemize}
+Every orbit will correspond to some cone. \red{picture begins at 21 min}. Maybe the face is a face of a higher dimensional cone $\tilde{\sg}$. We choose it as a top dimensional cone of $\Sg$ containing $\sg$ as a face. Now we choose an ordering of the rays of $\tilde{\sg}$ in such fashion that the first $k$ rays belong to $\sg$. Every ray corresponds to a codimension 1 orbit. If we keep cutting \red{something}.\par 
+Let $H_i$ be the closure of the orbit corresponding to the ray $\rho_i$:
+$$H_i=\ov O_{\rho_i}\word{a hypersurface in}X_\Sg.$$
+Now $\ov Y\cap H_1$ has dimension either $\dim\ov Y$ or $\dim \ov Y-1$. Then 
+$$\dim (\ov Y\cap H_1)\cap H_2=\dim \ov Y\word{or}\dim \ov Y-1\word{or}\dim\ov Y-2,$$
+and in general $\dim(\ov Y\cap H_1\capycap H_k)$ can range from $\dim Y$ to $\dim \ov Y-k$. We want to show it's the lowest, to rule the other options we go down all the way:
+%$$\dim(\ov Y\cap H_1\capycap H_d)=\dim(\ov Y\cap O_{\tilde}\sg)$$
+%and as $\ov Y\cap \ov O_{\tilde{\sg}}=\ov Y\cap O_{\tilde{\sg}}$
+In conclusion 
+\begin{itemize}
+    \item One can always refine $\Sg$ so that $\ov Y$ is Cohen-Macaulay. (Understand this as not too badly singular). 
+    \item In characteristic zero, and $X_\Sg$, we can find open subsets such that $\ov Y\cap O_\sg$ is smooth for some $\sg$.
+\end{itemize}
+
+\section{Day 30|20231101}
+
+\subsection{Geometric Tropicalization}
+
+This is the \emph{philosophical} reverse direction of compactification. If $Y\subseteq X_\Sg$ and it sits nicely inside it, then $X_\Sg$. allows us to compactify $Y$ to figure out $\Trop Y$.
+
+\begin{Ex}
+    We will consider the line in the projective plane. Take $X+Y-Z=0$ inside $\bP^2$. The stratification of $\bP^2$ induces a stratification on our line. Our line has 3 codimension 1 strata and one codimension 0 stratum. We may encode this into a boundary complex which turns out to be 3 points.\par 
+    Then we may construct the cone over the boundary complex by just taking a point outside in an independet dimension and then joining them. We call this $C\Dl_{\del L}$.\par 
+    We have 3 boundary divisors on $\bP^2$ which determine 3 boundary divisors on $L$. These give rise to divisorial valuations:
+    $$\val_D\: K(L)\to\bZ\cup\set{\infty},\quad f\mapsto\text{order of vanishing or pole of }f\text{ along }D.$$
+    \red{something} The valuation $\val_a$ naturally sits inside $N_T$ the co-character lattice. First let's see the recipe and then see that it works:
+    \begin{enumerate}
+        \item Use $\val_a,\val_b$ and $\val_c$ to get $3$ points in $N_T$. But think of each of these points as the boundary complex.
+        \item Take the cone in $N_T$.
+        \item This delivers $\Trop Y$. 
+    \end{enumerate}
+    In our case 
+    $$a=[0:1:1],\quad b=[1:0:1],\word{and}[1:-1:0].$$
+    If we place ourselves at $a$, then we can give local coordiantes for the line as $t$. This allows to view rational functions as functions of $t$ and observe the order of vanishing and poles. We may parametrize the line in the affine chart $Z=1$ to get
+    $$x(t)=t,\quad y(t)=1-t.$$
+    We compute $\val_a$ on the generators of $\bZ^2$ to get $(1,0)$. Another way to see this is to see that $a$ lies in the $y$ axis and not on the $x$ axis. To find the exact value we must compute. At $b$ we are switching the roles of $x$ and $y$ to get 
+    $$x(t)=1-t,\quad y(t)=t\To \val_b(x,y)=(0,1).$$
+    Finally at $c$, the point at infinity, we may parametrize $L$ centered at $c$ as 
+    $$x(t)=\frac{1}{t},\quad y(t)=1-\frac1t\To\val_c(x)=-1\word{and}\val_c(y)=-1.$$
+    Those three points in $N_T$ determine $\Trop L$. \red{pics 27 min}
+\end{Ex}
+
+In general, we start with a space $Y$ whose boundary is composed of multiple divisors. Also $Y\less\del Y$ is isomorphic to a subvariety of a torus. We will say that the boundary has combinatorial normal crossing if every time $k$ divisors intersect, they intersect in codimension $k$. If the intersection is transversal, then the intersection is a simple normal crossing. This means that the boundary looks like hyperplanes, the local model of this is coordiante $x_i=0$. Just a normal crossing is something which is locally a simple normal crossing.\par
+What kind of divisorial valuation we have access to? In practice \red{stuff} so when $Y\less\del Y\subseteq T$, then any toric variety containing $T$ as their dense torus gives rise to divisorial valuations.
+\begin{enumerate}
+    \item $\Trop Y$ is equal to the cone 
+    $$\set{c\.\val_D\:\ c\geq 0,\ D\ \text{divisor coming from any }X_\Sg\supseteq T}\subseteq N_T(\ox_\bZ\bR).$$
+    \item If $\del Y$ is a combinatorial normal crossing, then we may find a map $C\Dl_{\del Y}\to N_T$ which maps $(D_i,1)\mapsto \val_{D_i}$, then extend by linearity. So $\Im\bT\supseteq\Trop Y$ and if we want equality we can either take it to be a simple normal crossing or assume only combinatorial normal crossing and characteristic zero.
+\end{enumerate}
+and so somehow such a variety knows its tropicalization without going through Puiseux because a source of valuations comes from the divisors. 
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
