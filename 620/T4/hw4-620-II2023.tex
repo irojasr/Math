@@ -1,0 +1,245 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW2}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+\begin{Ej}
+    On finite dimensional spaces, all norms are equivalent. Let us test
+    this for a subset of all possible norms on $\bR^n$. For this, first
+    recall the definition of the three norms we care about:
+    \begin{align*}
+      \| x \|_{l_1} &:= \sum_{i=1}^n |x_i|, \\
+      \| x \|_{l_2} &:= \left(\sum_{i=1}^n |x_i|^2 \right)^{1/2}, \\
+      \| x \|_{l_\infty} &:= \max_{i=1}^n |x_i|.
+    \end{align*}
+    Now show that there
+    exist constants $0<c_{12}\le C_{12} <\infty$ so that
+    \begin{align*}
+      c_{12} \| x \|_{l_1} \le \| x \|_{l_2} \le C_{12} \| x \|_{l_1}
+    \end{align*}
+    for all vectors $x\in \bR^n$. In other words, that the $l_1$ and $l_2$
+    norms on $\bR^n$ are ``equivalent''.
+    
+    Then show the same for the $l_2$ and $l_\infty$ norms: Show that there
+    exist constants $0<c_{2\infty}\le C_{2\infty} <\infty$ so that
+    \begin{align*}
+      c_{2\infty} \| x \|_{l_2} \le \| x \|_{l_\infty} \le C_{2\infty} \| x \|_{l_2}
+    \end{align*}
+    for all vectors $x\in \bR^n$.
+    
+    Combine these estimates to show that the $l_1$ and the $l_\infty$
+    norms are equivalent.
+\end{Ej}
+
+\begin{ptcbr}
+\end{ptcbr}
+
+\begin{Ej}
+    Consider the (infinite dimensional) vector space $C^1([0,1])$.
+Define on this space the same three norms as before:
+\begin{itemize}
+\item $\|u\|_1 = \max_{x \in [0,1]} |u(x)|$,
+\item $\|u\|_2 = \max_{x \in [0,1]} |u(x)| + \max_{x \in [0,1]}
+  |u'(x)|$,
+\item $\|u\|_3 = \left(\int_0^1 |u(x)|^2 \, dx\right)^{1/2}$.
+\end{itemize}
+(You will notice that these are the $L^\infty$, $W^{1,\infty}$, and
+$L^2$ norms when taking into account that the members of $X$ are all
+functions that are continuous and continuously differentiable.) 
+Then answer the following questions:
+\begin{itemize}
+\item[(a)] For each of these three norms, show that it is indeed a
+  norm on $X$, i.e., that it satisfies the norm axioms.
+\item[(b)] Are any of these norms equivalent to each other? If you
+  can't show that they are, demonstrate that they are \textit{not}
+  equivalent by showing that no constants $0<c\le C<\infty$ can exist as are
+  necessary for equivalence of norms.
+\end{itemize}
+\end{Ej}
+\begin{nonum-Rmk}
+    Let's say you want to show that two norms are
+    \textit{not} equivalent, say the first two. Then you need to show that either
+    there is no constant $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$, or that there is no constant $C_{12}<\infty$ so
+    that $\|u\|_2 \le C_{12} \| u \|_{1}$ for all $u$. For this, it is
+    not sufficient to think about a single $u$, because for one specific
+    $u$ the inequalities can always be made to work with an appropriate
+    constant. What you have to do instead is to work with
+    \textit{sequences of functions $u_k$} appropriately chosen, and to
+    show that the inequalities cannot be true for all elements of a
+    sequence at the same time. A different perspective is to see that
+    the statement ``there exists $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$'' is equivalent to saying that
+    $$
+      0 < \inf_{u} \frac{\| u \|_{2}}{\| u \|_{1}}.
+    $$
+    To disprove that this is the case, you will want to find a sequence
+    of functions $u_k$ so that
+    $$
+      \frac{\| u_k \|_{2}}{\| u_k \|_{1}} \rightarrow 0.
+    $$
+    If you can find such a sequence, then clearly $\inf_{u} \frac{\| u
+      \|_{2}}{\| u \|_{1}}=0$, which then implies that there is no
+    $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$.
+  
+    For the other inequality, consider that the statement ``there exists
+    $C_{12}<\infty$ so that $\|u\|_2 \le C_{12} \| u \|_{1}$'' is
+    equivalent to
+    $$
+      \sup_{u} \frac{\| u \|_{2}}{\| u \|_{1}} < \infty.
+    $$
+    To disprove this statement, you want to find a sequence so that
+    $$
+      \frac{\| u_k \|_{2}}{\| u_k \|_{1}} \rightarrow \infty.
+    $$
+\end{nonum-Rmk}
+
+\begin{ptcbr}
+\begin{enumerate}[(a)]
+    \item First observe that all the norms are positive. The absolute value is always positive, sum of positive terms is positive as well and the integral of a positive function is positive.\par 
+    Assume now that $\norm*{u(x)}_1=0$, so for all $x\in\bonj{0,1}$, $|u(x)|$ is sandwiched between $0$ and $0$
+\end{enumerate}
+\end{ptcbr}
+\begin{Ej}
+    Consider the ($n+1$ dimensional) space of polynomials of degree at most $n$:
+\begin{align*}
+  X := \left\{ 
+   u : [0,1] \rightarrow \bR \; :
+   u=\sum_{k=0}^n a_k x^k
+  \right\}.
+\end{align*}
+Define on this space the following norms (the same as in the previous problem):
+\begin{itemize}
+\item $\|u\|_1 = \max_{x \in [0,1]} |u(x)|$,
+\item $\|u\|_2 = \max_{x \in [0,1]} |u(x)| + \max_{x \in [0,1]}
+  |u'(x)|$,
+\item $\|u\|_3 = \left(\int_0^1 |u(x)|^2 \, dx\right)^{1/2}$.
+\end{itemize}
+Then answer the following questions:
+\begin{itemize}
+\item[(a)] For each of these three norms, show that it is indeed a
+  norm, i.e., that it satisfies the norm axioms. You should be able to
+  infer this from the work you have done for the previous problem;
+  instead of repeating the work for the special case here, feel free
+  to argue why the work for the previous problem \textit{implies} what you are
+  asked to show here.
+\item[(b)] Show that all of these norms are equivalent on $X$ -- as they
+  ought to be because the space $X$ is finite dimensional.
+\end{itemize}
+
+\end{Ej}
+\begin{nonum-Rmk}
+    It turns out to actually be quite complicated to
+  show the equivalence of norms, even though we know that it is true. While the equivalence of
+  $\|\cdot\|_1$ and  $\|\cdot\|_2$ is not difficult, the one with the
+  $\|\cdot\|_3$ norm is. In the end, I would be surprised if any of you figure
+  out all pieces of the proof without substantial time reading up on
+  the material and spending more time on the problem than it is likely
+  worth given your other obligations (including leisure time). That's
+  ok -- give it a shot and see how far you get, I will accept partial results!
+\end{nonum-Rmk}
+
+\begin{Ej}
+    
+Let's build some intuition. If one thinks of functions that have $k$
+derivatives, i.e., are in the set of functions usually denoted by
+$C^k(\Omega)$, then we think of them as quite smooth and definitely
+not singular. Is this true also for the functions in $W^{k,p}$ that
+have $k$ \textit{weak} derivatives whose $p$th power is integrable?
+Recall that
+\begin{align*}
+  W^{k,p}(\Omega) = \left\{ \varphi: \ \int |u|^p < \infty,
+  \quad
+  \int |\nabla u|^p < \infty,
+  \quad
+  \ldots,
+  \quad
+  \int |\nabla^k u|^p < \infty
+  \right\}.
+\end{align*}
+To test whether a given function $u$ is in $W^{k,p}$ for some $k,p$ on
+\textit{bounded} domains $\Omega$,
+we really only have to check that the highest order term $\int |\nabla^k u|^p < \infty$
+because if this is the case then all of the lower order derivatives
+also have finite integrals.
+
+Now think about singular functions $u : B_1(0)\subset \bR^d \rightarrow \bR\cup\{\pm\infty\}$
+of the form
+\begin{align*}
+  u(x) = \frac{1}{\|x\|^s}
+\end{align*}
+with $s>0$. (The domain $\Omega=B_1(0)$ is the ball of radius 1
+around the origin 0. For simplicity of calculations, use the Euclidean norm
+for $\|x\|$ -- although the equivalence of norms on finite dimensional
+spaces implies that none of the results below actually depend on which
+norm $\|x\|$ you choose.)
+
+For given values of the space dimension $d\ge 1$, the degree $k\ge 0$,
+and the exponent $1\le p\le \infty$, state for which values $s$ the
+function satisfies $u \in W^{k,p}(B_1(0))$.
+
+The spaces $H^k=W^{k,2}$ have special importance in the theory of
+partial differential equations.
+Does the space $H^1 = W^{1,2}$ contain any singular functions with $s>0$ for
+$d=1$? For $d=2$? For $d>3$? How about the space $H^2=W^{2,2}$?
+\end{Ej}
+
+\begin{Ej}
+    The previous problem let you explore whether functions of the form
+  \begin{align*}
+    u_s(x) = \frac{1}{\|x\|^s}
+  \end{align*}
+  are in $W^{k,p}$. (The result also depends on the space dimension
+  $d$.) One can turn this around: Given $k,p,d$, for which set
+  $S(k,p,d)\subset \bR$ of exponents $s$ do these functions lie in $W^{k,p}$?
+
+  We can use this to speculate whether a space $W^{k',p'}$ may be a
+  subset or superset of a space $W^{k,p}$ in the following way: Let's
+  say that $u_s \in W^{k,p}$ for all $s\in S(k,p,d)$ and 
+  $u_s \in W^{k',p'}$ for all $s\in S(k',p',d)$, and that 
+  $S(k,p,d) \supset S(k',p',d)$, then we might believe that 
+  $W^{k,p} \subset W^{k',p'}$ in this space dimension $d$.
+
+  \begin{itemize}
+  \item[(a)] Explain why the speculative inference
+  $$
+    S(k,p,d) \supset S(k',p',d)
+    \qquad\To\qquad
+    W^{k,p} \subset W^{k',p'}
+  $$
+  makes sense.
+
+  \item[(b)] In the previous problem, you found what values $s$ lead
+    $u_s$ to be in $W^{k,p}$. That is, you have an explicit
+    representation for the set $S(k,p,d)$. Express the statement
+    $$
+    S(k,p,d) \supset S(k',p',d)
+    \qquad\To\qquad
+    W^{k,p} \subset W^{k',p'}
+  $$
+  in a way where the left side of the inference is simply an
+  inequality involving $k,k',p,p',d$.
+
+  \item[(c)] Explain why the statement in (a) is just speculation, rather than a
+    proof.
+
+  \item[(d)] Statements about the inclusion $W^{k,p} \subset
+    W^{k',p'}$ are collectively known as
+    \href{https://en.wikipedia.org/wiki/Sobolev_inequality}{Sobolev
+      inequalities}. Look up the Sobolev inequalities for $W^{k,p} \subset
+    W^{k',p'}$ and compare with the speculation above. 
+  \end{itemize}
+\end{Ej}
+
+\subsection*{Project}
+\end{document} 
