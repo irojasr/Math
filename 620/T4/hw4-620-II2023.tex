@@ -6,7 +6,7 @@
 \def\nprofesor {Wolfgang Bangerth}
 \def\nsigla {MATH620}
 \def\nsiglahead {Variational Methods and Optimization I}
-\def\nextra {HW2}
+\def\nextra {HW4}
 \def\nlang {ENG}
 \let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
@@ -107,7 +107,35 @@ Then answer the following questions:
 \begin{ptcbr}
 \begin{enumerate}[(a)]
     \item First observe that all the norms are positive. The absolute value is always positive, sum of positive terms is positive as well and the integral of a positive function is positive.\par 
-    Assume now that $\norm*{u(x)}_1=0$, so for all $x\in\bonj{0,1}$, $|u(x)|$ is sandwiched between $0$ and $0$
+    Assume now that $\norm*{u(x)}_1=0$, so for all $x\in\bonj{0,1}$, $|u(x)|$ is sandwiched between $0$ and $0$ this means that $u(x)$ must be identically zero.\par 
+    In a similar fashion $\norm{\.}_2$ is a sum of positive terms which we assume to be zero. This means that both of them must be zero and by a similar argument we can deduce that $u(x)$ is also zero.\par 
+    Finally if $\norm*{u}_3$ is zero then $\int_{[0,1]}|u(x)|^2\dd x$ is also zero. We know that if the integral of a positive function is zero, then the function itself must've been zero to begin with. This means that 
+    $$|u(x)|^2=0\To u(x)=0,\word{for all}x.$$
+    Now suppose $c$ is a scalar. Then 
+    $$\norm*{cu}_1=\max_{\bonj{0,1}}|cu(x)|=\max_{\bonj{0,1}}|c||u(x)|=|c|\max_{\bonj{0,1}}|u(x)|=|c|\norm*{u}_1,$$
+    while for the second case we have
+    $$\norm*{cu}_2=\max_{\bonj{0,1}}|cu(x)|+\max_{\bonj{0,1}}|cu'(x)|=\max_{\bonj{0,1}}|c||u(x)|+\max_{\bonj{0,1}}|c||u'(x)|=|c|\norm*{u}_2.$$
+    In the final case we take advantage of the linearity of the integral:
+    $$\left(\int_{\bonj{0,1}}|cu|^2\dd x\right)^{1/2}=\left(|c|^2\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}=|c|\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}=|c|\norm*{u}_3.$$
+    Now, take another continuous function $v$, it holds that
+    $$|u(x)|\leq\sup_{\bonj{0,1}}|u(x)|,\word{and}|v(x)|\leq\sup_{\bonj{0,1}}|v(x)|.$$
+    This means that $\sup_{\bonj{0,1}}|u(x)|+\sup_{\bonj{0,1}}|v(x)|$ is an upper bound for $|u(x)|+|v(x)|$. From this, using the usual triangle inequality we have 
+    $$\sup_{\bonj{0,1}}|u(x)+v(x)|\leq\sup_{\bonj{0,1}}(|u(x)|+|v(x)|)\leq\sup_{\bonj{0,1}}|u(x)|+\sup_{\bonj{0,1}}|v(x)|.$$
+    As all of the functions are defined on the compact set $[0,1]$, then we may exchange all supremums by maximums which verifies the triangle inequality for $\norm*{\.}_1$.\par 
+    Using this fact, we may conclude $\norm*{\.}_2$ is a norm, because
+    $$\norm*{u+v}_2=\norm*{u+v}_1+\norm*{u'+v'}_1$$
+    so applying the triangle inequality for $\norm*{\.}_1$ and arranging terms we get 
+    $$\norm*{u+v}_2\leq\norm*{u}_1+\norm*{v}_1+\norm*{u'}_1+\norm*{v'}_1=\norm*{u}_2+\norm*{v}_2.$$
+    Without appealing to the Minkowski inequality, but using the Cauchy-Schwarz inequality we have 
+    $$\int_{\bonj{0,1}}|u+v|^2\dd x\leq \int_{\bonj{0,1}}(|u|+|v|)^2\dd x=\int_{\bonj{0,1}}|u|^2+|v|^2+2|u||v|\dd x$$
+    and by the Cauchy-Schwarz inequality we have 
+    $$\int_{\bonj{0,1}}|u||v|\dd x\leq\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}.$$
+    Combining this with the previous inequality we have
+    \begin{align*}
+    \int_{\bonj{0,1}}|u+v|^2\dd x&\leq \int_{\bonj{0,1}}|u|^2+|v|^2+2\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}\\
+    &=\bonj{\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}+\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}}^2
+    \end{align*}%https://math.stackexchange.com/questions/710254/triangle-inequality-for-l2-norm
+    \item \red{FINISH COUNTEREXAMPLES}
 \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -136,7 +164,6 @@ Then answer the following questions:
 \item[(b)] Show that all of these norms are equivalent on $X$ -- as they
   ought to be because the space $X$ is finite dimensional.
 \end{itemize}
-
 \end{Ej}
 \begin{nonum-Rmk}
     It turns out to actually be quite complicated to
@@ -149,6 +176,13 @@ Then answer the following questions:
   ok -- give it a shot and see how far you get, I will accept partial results!
 \end{nonum-Rmk}
 
+\begin{ptcbr}
+\begin{enumerate}[(a)]
+    \item Observe that every polynomial is a smooth in the whole of $\bR$, so in particular it is of class $C^1$ across $\bR$. In this fashion, the polynomials form a subspace of the $C^1$ functions.\par 
+    Now, a norm restricted to a subspace continues being a norm. So this means that the previous functions do define norms on the space of polynomials we have.
+    \item 
+\end{enumerate}
+\end{ptcbr}
 \begin{Ej}
     
 Let's build some intuition. If one thinks of functions that have $k$
@@ -194,6 +228,10 @@ Does the space $H^1 = W^{1,2}$ contain any singular functions with $s>0$ for
 $d=1$? For $d=2$? For $d>3$? How about the space $H^2=W^{2,2}$?
 \end{Ej}
 
+\begin{ptcbr}
+To check membership in $W^{k,p}$, it suffices to analyze $\nb^k u$. It may appear as an insurmountable task to analyze $|\nb^k u|$, however we may take it as 
+$$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where}\al\in[k]^d.$$
+\end{ptcbr}
 \begin{Ej}
     The previous problem let you explore whether functions of the form
   \begin{align*}
