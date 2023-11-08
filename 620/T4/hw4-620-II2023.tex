@@ -41,6 +41,24 @@
 \end{Ej}
 
 \begin{ptcbr}
+  Observe that 
+  $$\norm*{x}_{\l_1}^2=(|x_1|^2+\dots+|x_n|^2)+2\sum_{i\neq j}|x_i||x_j|\geq|x_1|^2+\dots+|x_n|^2=\norm*{x}_{\l_2}^2.$$
+  This means that $\norm*{x}_{\l_2}\leq\norm{x}_{\l_1}$ so $C_{12}=1$. On the other hand observe that $\norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}$. Suppose without loss of generality that for a particular $j\leq n$
+  $$\norm*{x}_{\l_\infty}=|x_j|$$
+  then
+  \begin{align*}
+    \norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}&\iff \norm*{x}_{\l_\infty}^2\leq\norm*{x}^2_{\l_2}\\
+    &\iff |x_j|^2\leq \sum_{i=1}^n |x_i|^2\\
+    &\iff 0\leq \sum_{\substack{i=1\\i\neq j}}^n |x_i|^2
+  \end{align*}
+  This means that $C_{2\infty}=1$. We will actually combine these estimates to find $c_{12}$. Observe that 
+  $$\norm{x}_{\l_1}\leq n\norm{x}_{\l_\infty}\leq n\norm{x}_{\l_2}$$
+  where the first inequality comes from the fact that every term in the sum must be smaller than the greatest term and the second one from the $C_{2\infty}$ inequality. Combining these we see that 
+  $$\frac{1}{n}\norm*{x}_{\l_1}\leq\norm{x}_{\l_2}\leq\norm{x}_{\l_1}.$$
+  On the other hand, taking inspiration from the argument of $\l_1$
+  $$\norm{x}_{\l_2}^2\leq n\norm{x}_{\l_\infty}^2\To \frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}.$$
+  From this 
+  $$\frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}\leq\norm{x}_{\l_2}\To \frac{1}{n\sqrt{n}}\norm{x}_{\l_1}\leq \norm{x}_{\l_\infty}\leq\norm{x}_{\l_1}.$$
 \end{ptcbr}
 
 \begin{Ej}
@@ -135,7 +153,21 @@ Then answer the following questions:
     \int_{\bonj{0,1}}|u+v|^2\dd x&\leq \int_{\bonj{0,1}}|u|^2+|v|^2+2\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}\\
     &=\bonj{\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}+\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}}^2
     \end{align*}%https://math.stackexchange.com/questions/710254/triangle-inequality-for-l2-norm
-    \item \red{FINISH COUNTEREXAMPLES}
+    \item Observe that equivalent norms induce the same topology over our set. This means that convergent sequence in one norm must converge with respect to equivalent norms. However, if we take a sequence which isn't convergent in one norm, but is in another norm, then our norms won't be equivalent.
+    \begin{itemize}
+      \item We have seen that $\norm*{u}_2=\norm*{u}_1+\norm*{u'}_1$. From this we can see that convergence in $\norm*{\.}_2$ immediately implies convergence in $\norm*{u}_1$.\par 
+      Consider now the sequence $u_n=\frac1nx^n$, pointwise $u_n\to 0$ so we expect that to be the limit. We have 
+      $$\left\lbrace
+      \begin{aligned}
+        &\norm*{u_n}_1=\frac1n\to0\To u_n\xrightarrow{\norm*{\.}_1}0\\
+        &\norm*{u_n}_2=\frac1n+1\to1
+      \end{aligned}
+      \right.$$ 
+      which means that $(u_n)$ doesn't converge with respect to the $\norm*{\.}_2$.
+      \item If we now take the sequence $u_n=x^n$ we can see that in $\norm*{\.}_3$ it converges to zero, as the limit of $u_n$ is the zero function with a jump to 1 at $x=1$. On the other hand, in the norm $\norm{\.}_1$, its maximum value is still $1$.
+      \item Finally, $\norm*{x^n}_2>1$ for all $n$ but still $x^n$ converges to zero in $\norm*{\.}_3$. 
+    \end{itemize}
+    This means that none of our norms is equivalent to one another.
 \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -231,6 +263,10 @@ $d=1$? For $d=2$? For $d>3$? How about the space $H^2=W^{2,2}$?
 \begin{ptcbr}
 To check membership in $W^{k,p}$, it suffices to analyze $\nb^k u$. It may appear as an insurmountable task to analyze $|\nb^k u|$, however we may take it as 
 $$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where}\al\in[k]^d.$$
+We may change variables to polar coordinates and notice that as our function is radial, then all derivatives with respect to polar coordinates are zero except the $r$ derivatives. This means that we may analyze 
+$$\pdv[k]{r}\frac{1}{r^s}=(-s)_kr^{-s-k}\word{where}(x)_k=x(x-1)(x-2)\dots(x-(k-1)).$$
+Observe that the falling factorial does not depend on $r$ so when computing $\int|\nb^k u|^p\dd x$ we analyze
+$$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{}\dd r$$
 \end{ptcbr}
 \begin{Ej}
     The previous problem let you explore whether functions of the form
