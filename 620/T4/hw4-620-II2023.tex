@@ -212,7 +212,12 @@ Then answer the following questions:
 \begin{enumerate}[(a)]
     \item Observe that every polynomial is a smooth in the whole of $\bR$, so in particular it is of class $C^1$ across $\bR$. In this fashion, the polynomials form a subspace of the $C^1$ functions.\par 
     Now, a norm restricted to a subspace continues being a norm. So this means that the previous functions do define norms on the space of polynomials we have.
-    \item 
+    \item We can compare $\norm*{\.}_3$ and $\norm{\.}_1$ as follows:
+    $$\norm*{u}_3^2=\int\limits_0^1|u(x)|^2\dd x\leq\int\limits_0^1\norm*{u}_1^2\dd x=\norm*{u}_1^2\To\norm*{u}_3\leq \norm*{u}_1.$$
+    Observe also that $\norm{u}_1\leq\norm*{u}_2$ immediately so this also gives us an inequality for the $\norm*{\.}_3$.\par 
+    Observe that we may not bound $\norm*{\.}_1$ by $\norm*{\.}_3$ in the same fashion that we did for sequences. If we took $x^\ast$ to be $\max_{\bonj{0,1}}|u(x)|$ then the argument would be 
+    $$|u(x^\ast)|^2\leq\int\limits_0^1|u(x)|^2\dd x\iff 0\leq\int\limits_0^1(|u(x)|^2-|u(x^\ast)|^2)\dd x$$
+    and the issue is that in the last integral we are treating $|u(x^\ast)|^2$ as a constant function. That quantity is negative so the inequality would not hold. We would like to treat that as a function which is exactly $u(x^\ast)$ exactly at $x^\ast$ but zero everywhere else. \red{I must admit that this is it for me, I couldn't continue pushing on.}
 \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -265,8 +270,16 @@ To check membership in $W^{k,p}$, it suffices to analyze $\nb^k u$. It may appea
 $$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where}\al\in[k]^d.$$
 We may change variables to polar coordinates and notice that as our function is radial, then all derivatives with respect to polar coordinates are zero except the $r$ derivatives. This means that we may analyze 
 $$\pdv[k]{r}\frac{1}{r^s}=(-s)_kr^{-s-k}\word{where}(x)_k=x(x-1)(x-2)\dots(x-(k-1)).$$
-Observe that the falling factorial does not depend on $r$ so when computing $\int|\nb^k u|^p\dd x$ we analyze
-$$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{}\dd r$$
+Observe that the falling factorial does not depend on $r$ so when computing $\int|\nb^k u|^p\dd x$ over the unit ball, it suffices to analyze
+$$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{-sp-kp+d-1}\dd r$$
+and for this integral to converge it is needed that 
+$$-sp-kp+d-1>-1\To-sp-kp>-d\To -s>k-\frac{d}{p}\To s<\frac{d}{p}-k.$$
+This is because the remaining $n-1$ dimensions are concentrated on the surface area of the unit ball.\par 
+To analyze the particular spaces we look first at $H^1(\obonj{-1,1})$. In this set we should have 
+$$s<\frac{1}{2}-1=\frac{-1}{2}\word{but}s>0.$$
+Thus we don't have any singular function on $1$-dimensional $H^1$. The situation doesn't change in two dimensions as we should have $s<0$. But in 3 dimensions we may start seeing functions with $s\in\obonj{0,1/2}$. For example
+$$\frac{1}{(x^2+y^2+z^2)^{1/8}}\in H^1(B(0,1))\word{in}\bR^3.$$
+When increasing $k$ to 2 we don't start seeing functions in $H^2$ until we pass $d>4$. Thus an example of a function in $H^2(B(0,1))$ in $\bR^5$ could be the same function $\norm*{x}^{-1/8}$ but in $\bR^5$.
 \end{ptcbr}
 \begin{Ej}
     The previous problem let you explore whether functions of the form
@@ -315,5 +328,10 @@ $$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{}\dd r$$
   \end{itemize}
 \end{Ej}
 
+\red{I sadly didn't give myself time to do this exercise. Between the weekend seminar and preparing for a topology seminar talk, I didn't work on this one.}
+
 \subsection*{Project}
+
+Regarding the project I'm still on board to do the rocket project. I basically want to find the Euler-Lagrange equations for that situation. Discuss the equation as we did in the last homework and if possible, model solutions using \ttt{MATLAB}. However, I haven't used it since the beginning of the pandemic I believe that this goal is a stretch goal.\par 
+My current progress with the project is nil, as I mentioned, I've kept myself occupied but as soon as I submit this I'll (go home, sleep very well, wake up tomorrow and) work on this project.
 \end{document} 
