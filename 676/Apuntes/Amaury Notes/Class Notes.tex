@@ -1259,6 +1259,115 @@ The key will then be the matrix $K_a=K_b=K$. We can then use these matrices to c
 
 
 
+\subsection{Ian, A walk through the Tropics of eigenvalues}
+
+Max convention
+As an example, we have instructions for making mac and cheese
+s1)  boil whatever
+s2) cook pasta
+s3) grate cheese
+s4) make bachemel
+s4.5) lightly cook tomatoes
+s5) melt cheese
+s6) combine. But there are steps that can happen at the same time. step 2 depends on step 1, but grating cheese and making bachemel can happen at the same time. But melting cheese requires rating cheese. Step six is a final step that everything else needs to happen first. This provides a flow of operations. We want to ask when is the soonest we can start a step.
+
+We create a vector $\overrightarrow{x}$ where $x_j$ says when we can start task $j$. For example, step 6 can start some time after starting step $2$. We get a weighted graph where the weights say when can subsequent steps can occur. The max of all paths leading to step $6$ gives us $x_6$. Thus $x_i = \max\{A_{ij} +x_j\}$, where $A_{ij}$ is how long it takes to go from $j$ to $i$. This correpsodns to the matrix equation $A \odot x = x$
+
+
+
+\begin{defn}
+$\lambda \odot x = A \dot x$, where $\lambda$ is an eigenvalue with eigenvector $x$
+\end{defn}
+
+
+We let $A$ be a equare matrix, and we consider it as an adjacency matrix, where $-\infty$ denotes no edge. existing, and zero and negative edges are allowed, $A_{ij}$ is $j \rightarrow i$.
+
+
+We can think of eigenvalues with respect to this graph.
+
+\begin{lemma}
+    If $A\odot x = x \odot \lambda$, there exists a normalized cycle of averaged wieght $\lambda$
+\end{lemma}
+
+A normalized cycle is the sum of weights devided by the number of edges
+\begin{ex}
+Let $A = \begin{bmatrix}
+    -\infty & 2 & - \infty\\ -\infty &4 & - \infty \\ -\infty & - \infty &5
+\end{bmatrix} \begin{bmatrix}
+    0\\2\\-\infty
+\end{bmatrix}= \begin{bmatrix}
+    4 \\ 6 \\-\infty
+\end{bmatrix}.$ Here $|lambda = 4$, and we have another igenvector $(-\infty, -\infty, 5)$ with eigenvalue $5$.
+\end{ex}
+
+
+
+\begin{lemma}
+    Let $\sigma$ be any cycle in our graph. Then the maximum normalized cyucle $\max\limits_{\sigma} w(\sigma)/|\sigma| (\neq \pm \infty)$ is an eigenvalue for the associated matrix $A$.
+\end{lemma}
+
+
+\begin{theorem}
+    If the graph  associated with $A$ is strongly connected then there is exactly one eigenvalue, $\lambda=\max\limits_{\sigma} w(\sigma)/|\sigma|$.
+\end{theorem}
+
+
+In terms of our computation, we have $A \odot x = \lambda \odot x$, which rewrites as $\max\limits_{j} (A_{ij} + x_j) = \lambda + c_i$, sow  get an inequality $a_{ij} x_j \leq \lambda + x_i$, so we have $A_{ij}+x_j-x_i\leq\lambda$.
+
+
+
+
+\subsection{Seth, Tropical varieties of Higher codimension}
+
+We begin by discussing classic algebraic geometry and the varieites there. In this setting
+
+\begin{defn}
+A \emph{hypersurface} is a vanishing set of a single polynmial $f \in K[x_1, \dots, x_n]$, denoted $V(f) = \{(x_1, \dots, x_n) \; |\; f(x_1, \dots, x_n)=0\}$
+\end{defn}
+
+\begin{ex}
+    For $f(x+y+1)$, then $V(f)$ is the line $y=-x-1$.
+\end{ex}
+
+
+
+In higer cosien sion varieties are vanishing sets of ideals $V(I)$, whre $I=(f,g)$. Then we get $V(I)= \bigcap\limits-{f \in I} V(f)$. THis is nice because $I$ is finitely generated (Hilbert Basis THeorem), and $V(I) = \bigcap\limits_{f \in gen(I)} V(f)$. In the tropical setting, $V(I) = \bigcap V(f)$ for $f$ a genratr does not work.
+
+
+To translate into tropical geometry, we let $f \in K[x_1^{\pm1}, \dots, x_n^{\pm1}]$, then$ trop(f):\RR^n \rightarrow \RR$, where $w=(w_1, \dots, w_n) \mapsto$ max of hte valuation of terms. A tropical hypersurface is the set of ties, $trop(v(f)) = \{w \in \RR^n \; |\; \text{trop(f) attains max at least twice}\}$.
+
+
+
+
+\begin{ex}
+Let $f=x++1 \in K[X^{\pm1}]$. Then $trop(f) :\RR^2\rightarrow \RR$, where $(w_1,w_2) \mapsto \max(w_1,w_2, 0)$. Then $trop(V(f))= _1=w_2\geq 0$, $w_1=0\geq w_2$, or $w_2 = 0 \ffeq w_1$, so we get a tropical curve. 
+\end{ex}
+
+By Kapranov's THeorem, $\trop(V(f)) = \overline{\val(V(f))}$.
+
+\begin{defn}
+A \emph{tropical variety} is $trop(V(I))= \bigcap\limits_{f \in I} \trop(V(f))$
+\end{defn}
+
+
+\begin{theorem}{Fundamental Theorem of tropical algebraic geometry}
+    $trop(V(I))= \overline{\val(V(f))}$.
+\end{theorem}
+
+However, $\bigcap\limits_{f \in I} \trop(V(f)) \neq \bigcap\limits_{g \in gens(I) \in I} \trop(V(g))$. Similarly to Grobner basis, we define a basis whcih works to work In
+
+\begin{defn}
+    A \emph{Tropical basis} T for an ideal $I$ is any basis for which $\bigcap\limits_{f \in I} \trop(V(f)) = \bigcap\limits_{g \in gens(I) \in I} \trop(V(g))$
+\end{defn}
+
+
+
+
+
+
+
+
+
 
 
 
