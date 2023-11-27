@@ -1340,7 +1340,7 @@ To translate into tropical geometry, we let $f \in K[x_1^{\pm1}, \dots, x_n^{\pm
 
 
 \begin{ex}
-Let $f=x++1 \in K[X^{\pm1}]$. Then $trop(f) :\RR^2\rightarrow \RR$, where $(w_1,w_2) \mapsto \max(w_1,w_2, 0)$. Then $trop(V(f))= _1=w_2\geq 0$, $w_1=0\geq w_2$, or $w_2 = 0 \ffeq w_1$, so we get a tropical curve. 
+Let $f=x++1 \in K[X^{\pm1}]$. Then $trop(f) :\RR^2\rightarrow \RR$, where $(w_1,w_2) \mapsto \max(w_1,w_2, 0)$. Then $trop(V(f))= _1=w_2\geq 0$, $w_1=0\geq w_2$, or $w_2 = 0 \geq w_1$, so we get a tropical curve. 
 \end{ex}
 
 By Kapranov's THeorem, $\trop(V(f)) = \overline{\val(V(f))}$.
@@ -1366,11 +1366,91 @@ So when we consider $f=x+y+1$ and $ g= x+2y$ (the line is $w_1=w_2$), we conside
 
 
 
+%Nov 27 11/27
+
+\subsection{Sam Line Bundles over CP1 and TP1}
+
+\center{Manifold Structure on $\CC\PP^1$}
+
+. We define $\CC\PP^1$ as $(\CC^2-\{(0,0)\})/ ( (X,Y) ~ (\lambda X,\lambda Y))$ for all $\lambda \in \CC$. We take open covers $U_1 = \{[X:Y] \in \CC\PP^1 \; |\; Y \neq 0\}$ and $U_2 = \{[X:Y] \in \CC\PP^1 \; |\; X \neq 0\}$, an maps $\varphi_1,\varphi_2:\CC\PP^2 \rightarrow \CC$ defined by $\varphi_1:[X:Y]\mapsto \frac{X}{Y}=: x$ and $\varphi_2:[X:Y]\mapsto \frac{Y}{X} =: y$. 
+
+
+We have an equivalent contruction $\CC\PP^1:= ( (\CC,x) \sqcup (\CC,y))/(x=\frac{1}{y})$.
+
+
+
+\center{line bundles}
+
+\begin{defn}
+    A \emph{vector bundle} of rank$ n$ over a space $X$ is itself a space $L$ together with a projection $\pi:L \rightarrow X$ such that
+    \begin{enumerate}
+        \item There exists an opern cover of $X$ $U:= \bigcup\limits_i U_i$ satisfying $\pi^{-1} (U_i) \simeq u_ix\CC^n$, and if $\phi_i$ is such a morphism, $\pi:(\pi^{-1}(U_i))\rightarrow U_i$ is equal to $p_1\circ \phi_i$, where $p_1$ is the projection onto the first coordinate.
+        \item The map $\phi_j \circ \phi_i^{-1}:(U_i \cap U_j) \times \CC^n \rightarrow (u_i \cap u_j)\times \CC^n$ is a lienar map on $\CC$ and the identity on the intersection.
+    \end{enumerate}
+\end{defn}
+
+\begin{defn}
+    the $\phi_i$ are called \emph{trivializations}. 
+\end{defn}
+
+\begin{defn}
+    A \emph{line bundle} is a rank 1 vector bundle
+\end{defn}
+
+
+
+\begin{defn}
+    Let $\pi:L \rightarrow X$ be a vector bundle (line bundle). Let $U\subset X$ be open. A \emph{section of the bunle} over $U$ is a morphism $s:U \rightarrow L$ such that $\pi \circ s =id_U$.
+\end{defn}
+
+Sections choose a vector space element for each point of $X$.
+
+\begin{ex}
+    We can take $L= \CC\PP^1 \times \CC$ which is the trivial line bundle over compelx projective space. Sections have th eform $s:x \mapsto (x,f(x))$, where $f(x)$ is a compelx number associated to $x$. So sections of $\pi:L \rightarrow \PP^1$ define functions on complex projective space.
+\end{ex}
+
+
+\begin{ex}
+    The Tautological Line bundle Is
+    \begin{align*}
+        L=\{([X:Y],(x,y)) \in \CC\PP^1 \times \CC^2 \; |\; (x,y) = (\lambda X, \lambda Y)\}
+    \end{align*}
+
+    So for each line in $\CC\PP^1$ we pick a representative point on that line.
+\end{ex}
 
 
 
 
+\center{Tropical Line Bundles}
 
+We have a similar defintiion when defining line bundles over a tropical space $X$.
+
+
+\begin{defn}
+    A \emph{line bundle} over a tropical space $X$ is a space $L$ and a projection $\pi:L rightarrow X$ so that
+    \begin{enumerate}
+        \item There exists an open cover $U = \bigcup \limits_{i} U_i$, and
+        \item there exist $\phi_i:\pi^{-1}(U_i) \rightarrow U_i \times \TT$, which are tropical isomorphisms, and such that $p_1 \circ \phi_i = \pi$ on $\pi^{-1}(U_i)$.
+    \end{enumerate}
+\end{defn}
+
+
+  These maps induce automorphisms on the tropical semiring $\TT$. We define $\tilde{\varphi_{ij}} := \phi_j \circ \phi_i^{-1}: (U_i \cap U_j) \times \TT \rightarrow (u_i \cap u_j)\times \TT$. In particular,$ \tilde{\phi_{ij}}$ is an automrophism on each $\{x\} \times \TT$.
+
+  \begin{note}
+    $Aut(\TT) \simeq \RR$.
+  \end{note}
+
+
+
+  This lets us define the map $\phi_{ij} : U _i \cap U_j \rightarrow \RR$ via
+  $\tilde{\phi_{ij}}(x,t) = (x,\phi_{ij}(x) \odot t)$.
+
+
+  \begin{ex}
+    Take $\TT\PP^1 := (\TT,x) \sqcup (\TT,y)/(x=-y)=[-\infty,\infty]$. We take an open cover $U_1:= [-\infty, \infty)$ and $U_2:=(-\infty, \infty]$. We can take the trivial line bundle $L:=\TT\PP^1 \times \TT$. Then the morphisms are $\phi_1=\phi_2=0$, and so the induced map we get is $\phi_{12}:(\infty,\infty) \rightarrow \RR$, whcih is the constant $0$ function.
+  \end{ex}
 
 
 
