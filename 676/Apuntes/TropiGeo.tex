@@ -2435,6 +2435,67 @@ Tropical basis exist and are computable, for example we can use \ttt{Gfan}.
     \item Correspondence between grobner and tropical? 
     \item Bound on Joseph?
 \end{itemize}
+
+\section{Day 37|20231127}
+
+\subsection{Line bundles over $bP^1$ and tropical $\bP^1$|Sam}
+
+Recall that the complex projective plane can be defined via an equivalence relation and it has an open cover which is the affine charts. These charts have the usual transition functions. 
+
+\begin{Def}
+    A \term{vector bundle} of rank $n$ over a space $X$ (can be replaced with manifold/variety) is a space $L$ together with a projection $\pi\: L\to X$ which satisfies two conditions:
+    \begin{enumerate}[i)]
+        \item There is an open cover of $X$ $(U_i)$ satisfying 
+        $$\pi^{-1}[U_i]\isom U_i\x\bC^n,$$
+        that's where the rank $n$ comes in. And if $\vf_i$ is such isomorphism, then $\pi=p_1\phi_i$ where $p_1$ is the projection $U_i\x\bC^n\to U_i$.
+        \item And the other condition is that the map 
+        $$\vf_j\vf_i^{-1}\: (U_i\cap U_j)\x\bC^n\to(U_i\cap U_j)\x\bC^n$$
+        is a linear map on $\bC^n$ and the identity on the intersection.
+    \end{enumerate}
+    Particularly, a \term{line bundle} is a vector bundle of rank 1.
+\end{Def}
+
+\begin{Ex}
+    Consider the real projective line. It is covered by two circles with one point removed. Then $\pi^{-1}(U_i)$ ``looks like'' a squiggly cylinder and the map $\vf_1$ ``straightens it out''. The map $\vf_2\vf_1^{-1}$ basically straightens and shrinks. But remember \emph{not all scalars are the same}, take for example multiplication by $-1$. This is an example of a line bundle.
+\end{Ex}
+
+\begin{Def}
+    Suppose $L\xrightarrow[]{\pi}X$ is a line bundle, $U\subseteq X$ is open. Then a \term{section} of $L$ over $U$ is a morphism $s\: U\to L$ such that $\pi s$ is the identity on $U$.
+\end{Def}
+
+What this is doing is choosing a vector space element for each point of $X$.
+
+\begin{Ex}
+    The trivial line bundle over complex projective space is $\bP^1\x\bC$. A section has the form 
+    $$s\: x\mapsto (x,f(x))$$
+    and what this is doing is defining a function on $\bP^1$.
+\end{Ex}
+
+\begin{Ex}
+    The tautological line bundle is 
+    $$L=\set{([X:Y],(x,y))\:\ (x,y)=(\la X,\la Y)}$$
+    this gathers all the points in $\bP^1$ and lines in $\bC^2$. This has a lot of information. 
+\end{Ex}
+
+Let's go now to the tropical setting. Similar to our line bundle definition, 
+
+\begin{Def}
+a \term{line bundle} over $X$ a tropical space, is a space $L$ and a projection $\pi$ such that 
+\begin{enumerate}[i)]
+    \item There is an open cover of $X$, $(U_i)$, and
+    \item there are maps $\vf_i\: \pi^{-1}[U_i]\to U_i\x\bT$ where they are tropical isomorphisms and the same commuting relation holds.
+\end{enumerate}    
+\end{Def}
+
+In this case, the local trivializations induce automorphisms of $\bT$ as $\tilde\vf_{ij}=\vf_j\vf_i^{-1}$. Actually $\Aut(\bT)\isom \bR$. This lets us define $\vf_{ij}$ such that $\tilde\vf_{ij}(x,y)\mapsto (x,\vf_{ij}(x)\odot y)$.
+
+\begin{Ex}
+    If we define tropical projective space as $\bT\cupdot\bT$ via $x=-y$ then the trivializations are both $0$ so 
+    $$\vf_{12}\:\obonj{-\infty,\infty}\to\bR$$
+    is the constant zero function.
+\end{Ex}
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
