@@ -180,4 +180,26 @@ weakly or weak-* to the \textit{mean value} $\int_0^1 w(x)\,
 \text{d}x$. The proof is not much different but does not shed any
 further light on the issue, so we are content with the simpler case above.)
 \end{Ej}
+
+\begin{ptcbr}
+  \begin{enumerate}[(a)]
+    \item Let us assume that $u_n$ converges weakly to $1/2(\al+\bt)$. Observe that if $u_n$ were to converge strongly, then it should converge to its weak limit and for sake of argument assume $\bt=-\al$, in this case the limit is zero.\par 
+    If we let $m=\min(\al,-\al)$ then taking the $L^p$ norm of $u_n$ we get
+    $$\norm*{u_n}_{L^p}^p=\int_0^1 |u_n(x)|^p\dd x=\int_0^1 |\ov{w}(nx)|^p\dd x\geq \int_0^1 |m|^p\dd x=|\al|^p$$
+    which means that if $\al\neq 0$ (and we are assuming ($\bt=-\al$)), then the sequence is always bounded below and thus can't go to zero in $L^p$ norm. On the other hand if it were the case that $\al=0$ then the result would be true and $u_n$ would converge to zero.
+    \item We must show that $\int_0^1u_nv\dd x\to0$ for $v\in L^q$ where $1/p+1/q=1$. Let $0=a_0<a_1<\dots<a_r=1$, by density of step functions in $L^q$ we have that
+    $$s(x)=\sum_{k=1}^r \al_k\ind_{A_k}(x),\word{where}A_k=\obonj{a_{k-1},a_k}\footnote{I know this is the other notation, but I just get too confused when reading it with parenthesis because I read it as an ordered pair.}$$
+    approximates $v$: $\norm*{v-s}_{L^q}\leq\eps$ for $\eps>0$. Then 
+    $$\int_0^1u_nv\dd x=\int_0^1u_n(v-s+s)\dd x=\int_0^1u_n(v-s)\dd x+\int_0^1u_ns\dd x.$$
+    We may bound this quantity using the triangle inequality as follows:
+    $$\left|\int_0^1u_nv\dd x\right|\leq\int_0^1|u_n||v-s|\dd x+\left|\int_0^1u_ns\dd x\right|.$$
+    The first integral we bound using H\"older's inequality as follows: 
+    $$\int_0^1|u_n||v-s|\dd x\leq\norm*{u_n}_{L^p}\norm*{v-s}_{L^q}$$
+    and observe that from our first discussion about $u_n$ we may deduce that its norm is actually $w$'s norm. We may use a change of variables to see that 
+    $$\int_0^1 |\ov{w}(nx)|^p\dd x=\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n),\word{where}\left(\substack{y=nx\ \To\ \dd y=n\dd x\\ x=0,x=1\ \To\ y=0,y=n}\right).$$
+    But the last integral contains a periodic function of period 1. So this is actually 
+    $$\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n)=n\int_{0}^{1}|\ov{w}(y)|^p(\dd y/n)=\int_{0}^{1}|\ov{w}(y)|^p\dd y=\norm*{w}_{L^p}^p.$$
+    This lets us conclude that $\norm*{u_n}_{L^p}=\norm*{w}_{L^p}$ and as $w$ is a step function, we can find its integral to be
+  \end{enumerate}
+\end{ptcbr}
 \end{document} 
