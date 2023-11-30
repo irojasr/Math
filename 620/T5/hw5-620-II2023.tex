@@ -200,6 +200,16 @@ further light on the issue, so we are content with the simpler case above.)
     But the last integral contains a periodic function of period 1. So this is actually 
     $$\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n)=n\int_{0}^{1}|\ov{w}(y)|^p(\dd y/n)=\int_{0}^{1}|\ov{w}(y)|^p\dd y=\norm*{w}_{L^p}^p.$$
     This lets us conclude that $\norm*{u_n}_{L^p}=\norm*{w}_{L^p}$ and as $w$ is a step function, we can find its integral to be
+    $$\norm*{w}_{L^p}^p=\int_0^{1/2}|\al|^p\dd x+\int_{1/2}^1|\bt|^p\dd x=\frac{|\al|^p+|\bt|^p}{2}<\infty.$$
+    So in this way we may finish bounding our original first integral as $\int_0^1|u_n||v-s|\dd x\leq \eps\norm*{w}_{L^p}$.\par 
+    The second integral we rewrite as 
+    $$\int_0^1u_ns\dd x=\sum_{k=1}^{r}\al_k\int_0^1u_n\ind_{A_k}\dd x=\sum_{k=1}^{r}\al_k\int_{A_k}u_n\dd x$$
+    and we treat the integrals over $A_k$ as follows:
+    \begin{align*}
+    \int_{A_k}u_n\dd x&=\int_{a_{k-1}}^{a_k}u_n\dd x\\
+    &=\int_{a_{k-1}}^{a_k}\ov{w}(nx)\dd x\\  
+    \left(\substack{y=nx\ \To\ \dd y=n\dd x\\ y=na_{k-1},y=na_k}\right)&=\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n)  
+    \end{align*}
   \end{enumerate}
 \end{ptcbr}
 \end{document} 
