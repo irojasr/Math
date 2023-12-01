@@ -74,7 +74,7 @@ continuous. (In other words, a linear functional $\varphi$ is in $X'$
 
 \begin{Ej}
     Every $a\in L^q$ induces a
-bounded linear functional $\varphi:L^p\rightarrow R$ of the form
+bounded linear functional $\varphi:L^p\rightarrow \bR$ of the form
 \begin{align*}
   \varphi(u) = \int_\Omega a(x) u(x) \, \text{d}x.
 \end{align*}
@@ -113,6 +113,17 @@ theorem}
 that states that such other ways do not, in fact, exist.)
 \end{Ej}
 
+\begin{ptcbr}
+  To show that $\vf$ is linear, consider $u,v\in L^p$ and $c\in\bR$, then 
+  \begin{align*}
+  \vf(cu+v)&=\int_\Om a(x)(cu+v)(x)\dd x\\
+  &=\int_\Om ca(x)u(x)+a(x)v(x)\dd x\\
+  &=c\int_\Om a(x)u(x)\dd x+\int_\Om a(x)v(x)\dd x\\
+  &=c\vf(u)+\vf(v)
+  \end{align*}
+  which shows $\vf$ is linear. On the other hand observe that using H\"older's inequality we have 
+$$|\vf(u)|=\left|\int_\Om a(x)u(x)\dd x\right|\leq$$
+\end{ptcbr}
 \begin{Ej}
     The previous problem claimed that every (dual) functional $\varphi\in (L^p(\Omega))'$
 can be written in the form
@@ -208,8 +219,21 @@ further light on the issue, so we are content with the simpler case above.)
     \begin{align*}
     \int_{A_k}u_n\dd x&=\int_{a_{k-1}}^{a_k}u_n\dd x\\
     &=\int_{a_{k-1}}^{a_k}\ov{w}(nx)\dd x\\  
-    \left(\substack{y=nx\ \To\ \dd y=n\dd x\\ y=na_{k-1},y=na_k}\right)&=\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n)  
+    \left(\substack{y=nx\ \To\ \dd y=n\dd x\\ y=na_{k-1},y=na_k}\right)&=\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n).  
     \end{align*}
+    This last integral we chop into pieces:
+    \begin{align*}
+      &\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n)\\
+      =&\frac1n\left(\int_{na_{k-1}}^{\floor{na_{k-1}}+1}\ov{w}(y)\dd y+\int_{\floor{na_{k-1}}+1}^{\floor{na_k}}\ov{w}(y)\dd y+\int_{\floor{na_k}}^{na_k}\ov{w}(y)\dd y\right)  
+    \end{align*}
+    and observe that the quantities
+    $$\bonj{(\floor{na_{k-1}}+1)-na_{k-1}}\word{and}(na_k-\floor{na_k})$$
+    are both between $0$ and $1$. Also the second integral is between two integer values. We may apply periodicity of $\ov{w}$ to conclude that 
+    $$\left|\int_0^1u_ns\dd x\right|\leq \frac{2}{n}\int_{0}^{1}|\ov w|\dd y+\frac{\floor{na_k}-\floor{na_{k-1}}+1}{n}\left|\int_{0}^{1}\ov w\dd y\right|.$$
+    The first integral is $(2/n)\norm*{\ov w}_{L^1}$ and the second one is zero because we have assumed that $\bt=-\al$. In total, we have 
+    $$\left|\int_0^1u_nv\dd x\right|\leq \eps\norm*{w}_{L^p}+\frac2n\norm*{\ov w}_{L^1}$$
+    and letting $n$ grow we get the desired result.
+    \item Observe that the previous argument also applies for weak * convergence as we may take $v\in L^1$.
   \end{enumerate}
 \end{ptcbr}
 \end{document} 
