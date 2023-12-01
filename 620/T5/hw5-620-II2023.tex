@@ -72,6 +72,18 @@ continuous. (In other words, a linear functional $\varphi$ is in $X'$
 \textit{if and only if} it is also bounded.)
 \end{Ej}
 
+\begin{ptcbr}
+  Suppose $\vf$ is bounded, then there is a $c>0$ such that 
+  $$|\vf(x)|\leq c\norm{x}.$$
+  For $\eps>0$, let $\dl=\eps/c$ and suppose $\norm{x-y}\leq\dl$ for $x,y\in X$. Then 
+  $$|\vf(x)-\vf(y)|=|\vf(x-y)|\leq c\norm{x-y}\leq c\dl=\eps$$
+  and so $\vf$ is continuous.\par 
+  If $\vf$ were continuous, it would be continuous at $y=0$. So for all $\eps$, in particular $\eps=1$, there exists a $\dl>0$ such that $\norm{x}\leq\dl$ implies 
+  $$|\vf(x)|=|\vf(x)-\vf(0)|\leq 1.$$
+  About zero, $\vf$ is bounded by any value as $\vf(0)=0$, so now take $x\neq 0$. The vector $\dl(x/\norm{x})$ has norm $\dl$, so by our previous observation it holds that
+  $$\vf\left(\dl\frac{x}{\norm{x}}\right)\leq 1\To \vf(x)\leq\frac{1}{\dl}\norm{x}.$$
+  Thus $\vf$ is bounded and therefore, boundedness is equivalent to continuity here.
+\end{ptcbr}
 \begin{Ej}
     Every $a\in L^q$ induces a
 bounded linear functional $\varphi:L^p\rightarrow \bR$ of the form
@@ -122,7 +134,12 @@ that states that such other ways do not, in fact, exist.)
   &=c\vf(u)+\vf(v)
   \end{align*}
   which shows $\vf$ is linear. On the other hand observe that using H\"older's inequality we have 
-$$|\vf(u)|=\left|\int_\Om a(x)u(x)\dd x\right|\leq$$
+\begin{align*}
+  &|\vf(u)|=\left|\int_\Om a(x)u(x)\dd x\right|\leq\norm{a}_{L^q}\norm{u}_{L^p}\\
+  \To& \frac{|\vf(u)|}{\norm{u}_{L^p}}\leq\norm{a}_{L^q}\\
+  \To&\sup_{u\neq 0}\frac{|\vf(u)|}{\norm{u}_{L^p}}\leq\norm{a}_{L^q}
+\end{align*}
+  and this last quantity is the operator norm of $\vf$. This means that $\norm{\vf}_{\text{op}}\leq\norm{a}_{L^q}$ and so $\vf$ is a bounded functional. \red{FINISH}
 \end{ptcbr}
 \begin{Ej}
     The previous problem claimed that every (dual) functional $\varphi\in (L^p(\Omega))'$
@@ -196,23 +213,23 @@ further light on the issue, so we are content with the simpler case above.)
   \begin{enumerate}[(a)]
     \item Let us assume that $u_n$ converges weakly to $1/2(\al+\bt)$. Observe that if $u_n$ were to converge strongly, then it should converge to its weak limit and for sake of argument assume $\bt=-\al$, in this case the limit is zero.\par 
     If we let $m=\min(\al,-\al)$ then taking the $L^p$ norm of $u_n$ we get
-    $$\norm*{u_n}_{L^p}^p=\int_0^1 |u_n(x)|^p\dd x=\int_0^1 |\ov{w}(nx)|^p\dd x\geq \int_0^1 |m|^p\dd x=|\al|^p$$
+    $$\norm{u_n}_{L^p}^p=\int_0^1 |u_n(x)|^p\dd x=\int_0^1 |\ov{w}(nx)|^p\dd x\geq \int_0^1 |m|^p\dd x=|\al|^p$$
     which means that if $\al\neq 0$ (and we are assuming ($\bt=-\al$)), then the sequence is always bounded below and thus can't go to zero in $L^p$ norm. On the other hand if it were the case that $\al=0$ then the result would be true and $u_n$ would converge to zero.
     \item We must show that $\int_0^1u_nv\dd x\to0$ for $v\in L^q$ where $1/p+1/q=1$. Let $0=a_0<a_1<\dots<a_r=1$, by density of step functions in $L^q$ we have that
     $$s(x)=\sum_{k=1}^r \al_k\ind_{A_k}(x),\word{where}A_k=\obonj{a_{k-1},a_k}\footnote{I know this is the other notation, but I just get too confused when reading it with parenthesis because I read it as an ordered pair.}$$
-    approximates $v$: $\norm*{v-s}_{L^q}\leq\eps$ for $\eps>0$. Then 
+    approximates $v$: $\norm{v-s}_{L^q}\leq\eps$ for $\eps>0$. Then 
     $$\int_0^1u_nv\dd x=\int_0^1u_n(v-s+s)\dd x=\int_0^1u_n(v-s)\dd x+\int_0^1u_ns\dd x.$$
     We may bound this quantity using the triangle inequality as follows:
     $$\left|\int_0^1u_nv\dd x\right|\leq\int_0^1|u_n||v-s|\dd x+\left|\int_0^1u_ns\dd x\right|.$$
     The first integral we bound using H\"older's inequality as follows: 
-    $$\int_0^1|u_n||v-s|\dd x\leq\norm*{u_n}_{L^p}\norm*{v-s}_{L^q}$$
+    $$\int_0^1|u_n||v-s|\dd x\leq\norm{u_n}_{L^p}\norm{v-s}_{L^q}$$
     and observe that from our first discussion about $u_n$ we may deduce that its norm is actually $w$'s norm. We may use a change of variables to see that 
     $$\int_0^1 |\ov{w}(nx)|^p\dd x=\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n),\word{where}\left(\substack{y=nx\ \To\ \dd y=n\dd x\\ x=0,x=1\ \To\ y=0,y=n}\right).$$
     But the last integral contains a periodic function of period 1. So this is actually 
-    $$\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n)=n\int_{0}^{1}|\ov{w}(y)|^p(\dd y/n)=\int_{0}^{1}|\ov{w}(y)|^p\dd y=\norm*{w}_{L^p}^p.$$
-    This lets us conclude that $\norm*{u_n}_{L^p}=\norm*{w}_{L^p}$ and as $w$ is a step function, we can find its integral to be
-    $$\norm*{w}_{L^p}^p=\int_0^{1/2}|\al|^p\dd x+\int_{1/2}^1|\bt|^p\dd x=\frac{|\al|^p+|\bt|^p}{2}<\infty.$$
-    So in this way we may finish bounding our original first integral as $\int_0^1|u_n||v-s|\dd x\leq \eps\norm*{w}_{L^p}$.\par 
+    $$\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n)=n\int_{0}^{1}|\ov{w}(y)|^p(\dd y/n)=\int_{0}^{1}|\ov{w}(y)|^p\dd y=\norm{w}_{L^p}^p.$$
+    This lets us conclude that $\norm{u_n}_{L^p}=\norm{w}_{L^p}$ and as $w$ is a step function, we can find its integral to be
+    $$\norm{w}_{L^p}^p=\int_0^{1/2}|\al|^p\dd x+\int_{1/2}^1|\bt|^p\dd x=\frac{|\al|^p+|\bt|^p}{2}<\infty.$$
+    So in this way we may finish bounding our original first integral as $\int_0^1|u_n||v-s|\dd x\leq \eps\norm{w}_{L^p}$.\par 
     The second integral we rewrite as 
     $$\int_0^1u_ns\dd x=\sum_{k=1}^{r}\al_k\int_0^1u_n\ind_{A_k}\dd x=\sum_{k=1}^{r}\al_k\int_{A_k}u_n\dd x$$
     and we treat the integrals over $A_k$ as follows:
@@ -230,8 +247,8 @@ further light on the issue, so we are content with the simpler case above.)
     $$\bonj{(\floor{na_{k-1}}+1)-na_{k-1}}\word{and}(na_k-\floor{na_k})$$
     are both between $0$ and $1$. Also the second integral is between two integer values. We may apply periodicity of $\ov{w}$ to conclude that 
     $$\left|\int_0^1u_ns\dd x\right|\leq \frac{2}{n}\int_{0}^{1}|\ov w|\dd y+\frac{\floor{na_k}-\floor{na_{k-1}}+1}{n}\left|\int_{0}^{1}\ov w\dd y\right|.$$
-    The first integral is $(2/n)\norm*{\ov w}_{L^1}$ and the second one is zero because we have assumed that $\bt=-\al$. In total, we have 
-    $$\left|\int_0^1u_nv\dd x\right|\leq \eps\norm*{w}_{L^p}+\frac2n\norm*{\ov w}_{L^1}$$
+    The first integral is $(2/n)\norm{\ov w}_{L^1}$ and the second one is zero because we have assumed that $\bt=-\al$. In total, we have 
+    $$\left|\int_0^1u_nv\dd x\right|\leq \eps\norm{w}_{L^p}+\frac2n\norm{\ov w}_{L^1}$$
     and letting $n$ grow we get the desired result.
     \item Observe that the previous argument also applies for weak * convergence as we may take $v\in L^1$.
   \end{enumerate}
