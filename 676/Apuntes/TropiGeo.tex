@@ -2141,6 +2141,77 @@ What kind of divisorial valuation we have access to? In practice \red{stuff} so 
 \end{enumerate}
 and so somehow such a variety knows its tropicalization without going through Puiseux because a source of valuations comes from the divisors. 
 
+\section{Day 31|20231103}
+\section{Day 32|20231106}
+
+Essentially we started with an equation 
+$$1+x+y+txy=0$$
+and at the beginning of the semester we tropicalized to a stick figure. Last time, starting from this equation we can construct a family of surfaces in $\bP^3\x\bA^1$ simply by putting atwo dimensional torus (the one the curves lives in) in $\bP^3$ and then think of the $t$ parameter as a \emph{time deformation parameter}. \red{stuff} And then we can cut this family of surfaces via the hyperplane 
+$$x_0+\dots+x_3=0$$
+because there's \red{some relation with the torus}. This hyperplane cuts generically on the smooth but on the special fiber it cuts \red{in a cool way}.\par 
+The subdiviosion of the Newton polygon tells us how the degenerations occur onto the special fiber. This is because each of the triangles in the Newton polygon is a copy of $\bP^2$. \red{something} corresponds to the vertices of the curves being $(0,0)$ and $(1,1)$. So what the picture tells us \red{something}. And then there's two planes one with valuation zero and one with valuation $-1$ that play a specific part in the sense that they contain lines that meet $x_0x_3=0$ which holds regardless of the valuation and this gives us a vertical line.\par 
+We break the surface into two surfaces and the curve into two simple curves.\par 
+Somehow all this information can be described combinatorially with the information of toric geometry. When we see this sort of things we should think of a fan or a sort of cone on $N_T\x\bR$. Then we say at $t=1$ we see the tropical cruve. Then we take the cone over the tropical curve. \red{flaps expand}. Pointing out the $t=0$ what we see is the recession fan of the tropical curve. This picks up the unbounded directions of the tropical curve. And this is a fan which allows to make a map from one toric variety to another. The inverse image of the generic fiber, is \red{something projective}. That means that our old picture can be described with toric geometry. \red{There's a map}
+$$T^2\To\bP^3_\bK,\ [s:u]\mapsto[1:s:u:tsu] \To X_0X_3=tX_1X_2.$$
+
+\subsection{GFAN| Joel BN}
+
+Gfan is used to compute Gr\"obner complexes. In terms of graphical interface, there's no interface. It all runs on the terminal. Gr\"obner basis gives us a Gr\"obner cone which is a sub-cone of our usual tropical cone. In order to visualize, the app uses an auxiliary called \ttt{xfig}. The utility of this is that it exports figures to \LaTeX.
+
+\chapter{Projects}
+
+\section{Day 33|20231108}
+
+\subsection{Polymake|Andre}
+
+Polymake was made to study combinatorial properties of polyhedra. It has been extended to study far more. It is open source.\par 
+In programming terms, objects are divided in two categories: big and small. Big objects are the most abstract mathematical objects while small ones are the usual programming objects. Groups can be used to see group actions for example.
+
+\begin{Ex}
+    The handle \ttt{pm} allows code to be run in the context of polymake inside \ttt{Julia}.\par 
+    We can also use it to visualize fans, there is a context menu to turn option on/off. In this particular example, we create three tropical numbers and its important to note that we must define the convention we are using.
+\end{Ex}
+
+In principle, \ttt{polymake} can visualize polynomials, hypersurfaces, but there's no documentation on how to do that with \ttt{Julia}. It can be used with $C++$ in a more easier way.
+
+\subsection{Persistence Landscapes and Tropical Rational Functions|Tatum}
+
+The focus is to view persistence landscapes as Tropical Rational Functions. This is based on work by Peter Bubenik.\par 
+Suppose we have a data set, the topology is boring because its just points. We could connect points if they are \emph{close enough}. The threshold can be determined by a parameter $\al$. The idea of persistence is that we have the choice made for us.\par 
+What people want to do with TDA is
+\begin{itemize}
+    \item Persistence with statistics and machine learning
+    \item No kernel methods with persistence diagrams
+    \item Basic stats is hard
+\end{itemize}
+The ultimate goal is to have a representation in Hilbert spaces. This way we can represent them as functions. A way to define a persistence landscape is hard, this is a piecewise linear function. We can create it using the points 
+$$f_{(a,b)}=\max(0,\min(a-t,t-b))\To\la(k,t)=k\max_if_{(a_i,b_i)}.$$
+Can we view this as a tropical rational function? Observe that 
+$$f_{(a,b)}=0\oplus((a\odot t^{-1})\oplus(t\odot b^{-1}))^{-1}$$
+We can see that the roots of these functions are the birth, the death and the midpoint which is the peak. Adding the degrees of this points gives us zero. This makes sense because convex shapes have only positive degree. We may also factor our function as 
+$$0\odot(t\oplus a)\odot(t\oplus b)\odot(t\oplus \frac{a+b}{2})^{-2}.$$
+The constant coefficient can be found using persistence as $f(\text{midpoint})=\frac{b-a}{2}$. To talk about the $k\max$ we must use elementary symmetric polynomials. Tropical $e_k$ looks like 
+$$\max_{S_n}\sum x_{\pi(k)}\To \la(k,t)=e_k(f_{(a_i,b_i)})-e_{k-1}(f_{(a_i,b_i)}).$$
+The minus can be written tropically.
+
+\begin{significant}
+    Recall that the elementary symmetric function recovers the coefficient of $x^k$ when operated with the roots. Does that also happen tropically?
+\end{significant}
+
+\begin{Ex}
+    We will see two small cases. Take a diagram with two points $(1,4)$ and $(2,3)$. We recover a two mountain tropical landscape. Then we have 
+    $$\la_1(t)=f_{(1,4)}(t),\quad\la_2(t)=f_{(2,3)}(t).$$
+    If we have points with the same persistence $(2,4)$ and $(1,3)$ we get two mountains of the same height. Here we see that 
+    $$\la_1(t),\la_2(t)\neq f_{(2,4)},f_{(1,3)}.$$
+    Instead we have $5$ roots: $1,2,5/2,3,4$. $5/2$ is a root for $\la_1$ but a pole for $\la_2$.
+\end{Ex}
+
+With this in mind, there arise questions:
+\begin{itemize}
+    \item $\la_k$ functions seem to have combinatorial properties. Regarding number of points in persistence diagrams and so on.
+    \item For theoretical reasons we can't use the original definition for locally finite posets.
+    \item Instead of viewing $\la$ as a function of $f_i$'s we could view it as a $2n+1$ variable function $a_i,b_i$'s and $t$. Peter Bubenik mentions that it can be done. 
+\end{itemize}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined

@@ -1,0 +1,166 @@
+\documentclass{article}
+\usepackage{comment}
+\excludecomment{answers}
+\include{macros}
+
+\begin{document}
+
+\homework{6}
+
+\problem{A small variation for the Dirichlet problem}{40}{
+In class, we have gone through the details of a proof for guaranteeing
+that a minimizer exists for the functional
+\begin{align*}
+  I(u) = \int_\Omega \frac 12 |\nabla u|^2
+\end{align*}
+over the (affine) space
+\begin{align*}
+  X_g = \left\{ u \in W^{1,2}(\Omega) : u|_{\partial\Omega} = g \right\}.
+\end{align*}
+Among the other consequences of the theorem were that the (unique)
+minimizer $\bar u$ had to satisfy the weak Euler-Lagrange equation
+\begin{align*}
+  \int_\Omega \nabla \bar u \cdot \nabla \varphi = 0
+  \qquad
+  \forall \varphi\in X_0,
+\end{align*}
+where $X_0$ is the tangent space to $X_g$ (i.e., consists of functions
+with zero boundary values), and that if $\bar u$ happens to be smooth
+enough, that it then has to satisfy the partial differential equation
+\begin{align*}
+  -\Delta \bar u &= 0 && \text{in $\Omega$},
+  \\
+  \bar u &= g \qquad && \text{on $\partial\Omega$},
+\end{align*}
+i.e., it has to solve the Laplace equation.
+
+Repeat some of the steps of the proof for the following variation:
+\begin{align*}
+  I(u) &= \int_\Omega \frac 12 |\nabla u|^2 - hu,
+\end{align*}
+where $h\in L^2(\Omega)$ is a given function. For simplicity take
+$X_0=W^{1,2}_0$ as the set to find a minimum over, i.e., $g=0$.
+
+In particular, do the
+following:
+\begin{itemize}
+  \item Repeat the first step of showing that a minimizer exists.
+    Namely, we needed to show that for a minimizing sequence $\{u_n\}\subset X_g$ so that
+    $I(u_n)\rightarrow m=\inf_{u\in X_g} I(u)$, there exists an
+    $N$ and $\gamma<\infty$ so that for all $n\ge N$, we have that
+    $\|u_n\|_{W^{1,2}} \le \gamma$.
+    \begin{align*}
+      \|u\|_{W^{1,2}} \le \gamma.
+    \end{align*}
+    The key to this was to show that
+    \begin{align*}
+      \|u\|_{W^{1,2}}^2 \le c_1 I(u) + c_2.
+    \end{align*}
+    If this is true, then we know -- because $u_n$ is a \textit{minimizing
+    sequence} -- that there are $N<\infty, |a|<\infty, b<\infty$ so that
+    \begin{align*}
+      I(u_n) \le am + b
+    \end{align*}
+    for all sufficiently large $n\ge N$. As a consequence, we know
+    that after that point in the sequence, $\|u\|_{W^{1,2}} \le
+    \sqrt{c_1(am+b)+c_2}=\gamma$ and the weak compactness of the ball
+    of radius $\gamma$ in $W^{1,2}$ then guarantees that there is a
+    weakly convergent subsequence.
+
+    Show a similar proof with the variation of the functional $I(u)$ above.
+
+  \item Show the weak Euler-Lagrange equation a minimizer has to
+    satisfy.
+
+  \item Show the strong Euler-Lagrange equation a minimizer has to
+    satisfy if it is regular (smooth) enough.
+\end{itemize}
+}
+
+
+The remainder of the homework is concerned with finding
+counter-examples for extensions of the general theorem we have
+mentioned in class. It reads as follows:
+
+\textit{\textbf{Theorem:} Let $\Omega\subset \R^n$ be a bounded open
+  set with a Lipschitz boundary. Let $f\in C^0(\Omega\times\R\times
+  \R^n)$, $f=f(x,u,\xi)$ be a function that satisfies the following
+  conditions:
+  \begin{enumerate}
+    \item[(i)] $\xi \mapsto f(x,u,\xi)$ is convex for all $x\in
+      \Omega,u\in \R$;
+    \item[(ii)] there exist $p>q\ge 1$ and $\alpha_1>0$,
+      $\alpha_2,\alpha_3\in\R$ (i.e., they must be finite) so that
+      \begin{align*}
+        f(x,u,\xi) \ge \alpha_1 |\xi|^p + \alpha_2|u|^q + \alpha_3
+      \end{align*}
+      for all $x\in \Omega,u\in \R,\xi\in\R^n$.
+  \end{enumerate}
+  Then the functional
+  \begin{align*}
+    I(u) = \int_\Omega f(x,u(x),\nabla u(x)) \, \text{d}x
+  \end{align*}
+  has a minimizer $\bar u$ in 
+  \begin{align*}
+    X_g = \left\{ u \in W^{1,p}(\Omega) : u|_{\partial\Omega} = g \right\},
+  \end{align*}
+  where $g$ is the restriction of some $\tilde g\in W^{1,p}(\Omega)$
+  to $\partial \Omega$. (Or viewed differently, $g$ are prescribed boundary
+  values that are nice enough so that we can find an
+  \textit{extension} of $g$ called $\tilde g$ so that $\tilde g\in
+  W^{1,p}(\Omega)$ and so that $\tilde g|_{\partial\Omega}=g$.)
+}
+
+\textit{
+  If, furthermore, 
+  \begin{enumerate}
+    \item[(iii)] $f\in C^1$ and if there is a $\beta\ge 0$ so that
+      \begin{align*}
+        |f_u(x,u,\xi)| &\le  \beta(1+|u|^{p-1} + |\xi|^{p-1}),
+        \\
+        |f_\xi(x,u,\xi)| &\le  \beta(1+|u|^{p-1} + |\xi|^{p-1}),
+      \end{align*}
+      for all $x\in \Omega,u\in \R,\xi\in\R^n$,
+  \end{enumerate}
+  then $\bar u$ satisfies the weak Euler-Lagrange equations
+  \begin{align*}
+    \int_\Omega (f_u(x,\bar u(x),\nabla\bar u(x))\varphi +
+    f_\xi(x,\bar u(x),\nabla\bar u(x))\cdot\nabla\varphi) \text{d}x = 0
+  \end{align*}
+  for all $\varphi\in X_0$.
+}
+
+The theorem as stated seems to have a lot of restrictions, but it
+turns out that they all seem necessary since one can find
+counter-examples without too much trouble. The following exercises are
+therefore meant to probe the applicability of the theorem.
+
+\problem{Application 1 of the general theorem}{20}{
+Consider the function $f(x,u,\xi)=\frac{1}{4}|\xi|^4+g(x,u)$ where
+$g\in C^{0,1}(\Omega\times\R)$. Show that the theorem applies.
+}
+
+\problem{Application 2 of the general theorem}{20}{
+Consider the function $f(x,u,\xi)=\frac12 |\xi|^2-\frac12\lambda^2u^2$ where
+$\lambda$ is large -- say, larger than the constant in the Poincar\'e
+inequality for functions in $W^{1,2}_0(\Omega)$. Show that the
+theorem does not apply by checking each condition individually. Then try to construct a sequence $u_n$ so that
+$I(u_n)\rightarrow -\infty$, i.e., show that $I(u)$ is not bounded
+from below on $X_0=W^{1,2}_0$. For this part of the example, choose
+$\Omega=(0,1)$ and $\lambda>\pi$.
+}
+
+
+\problem{Application 3 of the general theorem}{20}{
+Consider the function $f(x,u,\xi)=(|\xi|^2-1)^2$ on
+$\Omega=(0,1)\subset \R$ and with $X_g=W^{1,4}_0(0,1)$. Show that the
+theorem does not apply by checking each condition individually.
+
+Derive the weak and strong Euler-Lagrange equations for this
+case. Show that $u=0$ satisfies both of these equations; then show
+that it is not a minimizer of $I(u)$, for example by finding another
+function $v\in X_g$ so that $I(v)<I(u)$.
+}
+
+
+\end{document}

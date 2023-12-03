@@ -41,6 +41,24 @@
 \end{Ej}
 
 \begin{ptcbr}
+  Observe that 
+  $$\norm*{x}_{\l_1}^2=(|x_1|^2+\dots+|x_n|^2)+2\sum_{i\neq j}|x_i||x_j|\geq|x_1|^2+\dots+|x_n|^2=\norm*{x}_{\l_2}^2.$$
+  This means that $\norm*{x}_{\l_2}\leq\norm{x}_{\l_1}$ so $C_{12}=1$. On the other hand observe that $\norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}$. Suppose without loss of generality that for a particular $j\leq n$
+  $$\norm*{x}_{\l_\infty}=|x_j|$$
+  then
+  \begin{align*}
+    \norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}&\iff \norm*{x}_{\l_\infty}^2\leq\norm*{x}^2_{\l_2}\\
+    &\iff |x_j|^2\leq \sum_{i=1}^n |x_i|^2\\
+    &\iff 0\leq \sum_{\substack{i=1\\i\neq j}}^n |x_i|^2
+  \end{align*}
+  This means that $C_{2\infty}=1$. We will actually combine these estimates to find $c_{12}$. Observe that 
+  $$\norm{x}_{\l_1}\leq n\norm{x}_{\l_\infty}\leq n\norm{x}_{\l_2}$$
+  where the first inequality comes from the fact that every term in the sum must be smaller than the greatest term and the second one from the $C_{2\infty}$ inequality. Combining these we see that 
+  $$\frac{1}{n}\norm*{x}_{\l_1}\leq\norm{x}_{\l_2}\leq\norm{x}_{\l_1}.$$
+  On the other hand, taking inspiration from the argument of $\l_1$
+  $$\norm{x}_{\l_2}^2\leq n\norm{x}_{\l_\infty}^2\To \frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}.$$
+  From this 
+  $$\frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}\leq\norm{x}_{\l_2}\To \frac{1}{n\sqrt{n}}\norm{x}_{\l_1}\leq \norm{x}_{\l_\infty}\leq\norm{x}_{\l_1}.$$
 \end{ptcbr}
 
 \begin{Ej}
@@ -135,7 +153,21 @@ Then answer the following questions:
     \int_{\bonj{0,1}}|u+v|^2\dd x&\leq \int_{\bonj{0,1}}|u|^2+|v|^2+2\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}\\
     &=\bonj{\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}+\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}}^2
     \end{align*}%https://math.stackexchange.com/questions/710254/triangle-inequality-for-l2-norm
-    \item \red{FINISH COUNTEREXAMPLES}
+    \item Observe that equivalent norms induce the same topology over our set. This means that convergent sequence in one norm must converge with respect to equivalent norms. However, if we take a sequence which isn't convergent in one norm, but is in another norm, then our norms won't be equivalent.
+    \begin{itemize}
+      \item We have seen that $\norm*{u}_2=\norm*{u}_1+\norm*{u'}_1$. From this we can see that convergence in $\norm*{\.}_2$ immediately implies convergence in $\norm*{u}_1$.\par 
+      Consider now the sequence $u_n=\frac1nx^n$, pointwise $u_n\to 0$ so we expect that to be the limit. We have 
+      $$\left\lbrace
+      \begin{aligned}
+        &\norm*{u_n}_1=\frac1n\to0\To u_n\xrightarrow{\norm*{\.}_1}0\\
+        &\norm*{u_n}_2=\frac1n+1\to1
+      \end{aligned}
+      \right.$$ 
+      which means that $(u_n)$ doesn't converge with respect to the $\norm*{\.}_2$.
+      \item If we now take the sequence $u_n=x^n$ we can see that in $\norm*{\.}_3$ it converges to zero, as the limit of $u_n$ is the zero function with a jump to 1 at $x=1$. On the other hand, in the norm $\norm{\.}_1$, its maximum value is still $1$.
+      \item Finally, $\norm*{x^n}_2>1$ for all $n$ but still $x^n$ converges to zero in $\norm*{\.}_3$. 
+    \end{itemize}
+    This means that none of our norms is equivalent to one another.
 \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -180,7 +212,12 @@ Then answer the following questions:
 \begin{enumerate}[(a)]
     \item Observe that every polynomial is a smooth in the whole of $\bR$, so in particular it is of class $C^1$ across $\bR$. In this fashion, the polynomials form a subspace of the $C^1$ functions.\par 
     Now, a norm restricted to a subspace continues being a norm. So this means that the previous functions do define norms on the space of polynomials we have.
-    \item 
+    \item We can compare $\norm*{\.}_3$ and $\norm{\.}_1$ as follows:
+    $$\norm*{u}_3^2=\int\limits_0^1|u(x)|^2\dd x\leq\int\limits_0^1\norm*{u}_1^2\dd x=\norm*{u}_1^2\To\norm*{u}_3\leq \norm*{u}_1.$$
+    Observe also that $\norm{u}_1\leq\norm*{u}_2$ immediately so this also gives us an inequality for the $\norm*{\.}_3$.\par 
+    Observe that we may not bound $\norm*{\.}_1$ by $\norm*{\.}_3$ in the same fashion that we did for sequences. If we took $x^\ast$ to be $\max_{\bonj{0,1}}|u(x)|$ then the argument would be 
+    $$|u(x^\ast)|^2\leq\int\limits_0^1|u(x)|^2\dd x\iff 0\leq\int\limits_0^1(|u(x)|^2-|u(x^\ast)|^2)\dd x$$
+    and the issue is that in the last integral we are treating $|u(x^\ast)|^2$ as a constant function. That quantity is negative so the inequality would not hold. We would like to treat that as a function which is exactly $u(x^\ast)$ exactly at $x^\ast$ but zero everywhere else. \red{I must admit that this is it for me, I couldn't continue pushing on.}
 \end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -231,6 +268,18 @@ $d=1$? For $d=2$? For $d>3$? How about the space $H^2=W^{2,2}$?
 \begin{ptcbr}
 To check membership in $W^{k,p}$, it suffices to analyze $\nb^k u$. It may appear as an insurmountable task to analyze $|\nb^k u|$, however we may take it as 
 $$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where}\al\in[k]^d.$$
+We may change variables to polar coordinates and notice that as our function is radial, then all derivatives with respect to polar coordinates are zero except the $r$ derivatives. This means that we may analyze 
+$$\pdv[k]{r}\frac{1}{r^s}=(-s)_kr^{-s-k}\word{where}(x)_k=x(x-1)(x-2)\dots(x-(k-1)).$$
+Observe that the falling factorial does not depend on $r$ so when computing $\int|\nb^k u|^p\dd x$ over the unit ball, it suffices to analyze
+$$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{-sp-kp+d-1}\dd r$$
+and for this integral to converge it is needed that 
+$$-sp-kp+d-1>-1\To-sp-kp>-d\To -s>k-\frac{d}{p}\To s<\frac{d}{p}-k.$$
+This is because the remaining $n-1$ dimensions are concentrated on the surface area of the unit ball.\par 
+To analyze the particular spaces we look first at $H^1(\obonj{-1,1})$. In this set we should have 
+$$s<\frac{1}{2}-1=\frac{-1}{2}\word{but}s>0.$$
+Thus we don't have any singular function on $1$-dimensional $H^1$. The situation doesn't change in two dimensions as we should have $s<0$. But in 3 dimensions we may start seeing functions with $s\in\obonj{0,1/2}$. For example
+$$\frac{1}{(x^2+y^2+z^2)^{1/8}}\in H^1(B(0,1))\word{in}\bR^3.$$
+When increasing $k$ to 2 we don't start seeing functions in $H^2$ until we pass $d>4$. Thus an example of a function in $H^2(B(0,1))$ in $\bR^5$ could be the same function $\norm*{x}^{-1/8}$ but in $\bR^5$.
 \end{ptcbr}
 \begin{Ej}
     The previous problem let you explore whether functions of the form
@@ -279,5 +328,10 @@ $$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where
   \end{itemize}
 \end{Ej}
 
+\red{I sadly didn't give myself time to do this exercise. Between the weekend seminar and preparing for a topology seminar talk, I didn't work on this one.}
+
 \subsection*{Project}
+
+Regarding the project I'm still on board to do the rocket project. I basically want to find the Euler-Lagrange equations for that situation. Discuss the equation as we did in the last homework and if possible, model solutions using \ttt{MATLAB}. However, I haven't used it since the beginning of the pandemic I believe that this goal is a stretch goal.\par 
+My current progress with the project is nil, as I mentioned, I've kept myself occupied but as soon as I submit this I'll (go home, sleep very well, wake up tomorrow and) work on this project.
 \end{document} 
