@@ -1537,6 +1537,101 @@ THis describes classes (pts, lines, concis, etc.) by givinf their intersection n
 
 
 
+\subsection{Daniel, Tropical Covers \& Tropical Riemann Hurwitz formula}
+
+We are trying to emmulate Riemann surfaces.
+
+
+\begin{define}
+    A \emph{Riemann surface} is a complex anaytic maniforld of dimension 1.
+\end{define}
+
+
+
+\begin{note}
+    A space is a compact riemann surface if and only if it is  asmooth projective curve over $\CC$
+\end{note}
+
+Compact Riemann surfaces are classified by their genus. We say $X$ has genus $n$ if and only if $x \hookrightarrow \RR^3$ is an $n-$holed torus. Furthermore, holomorphic maps btween compact Riemann SUrfaces $f:X \rightarrow Y$ are branch coverings, i.e. almost everywhere $d$-to-one, where cutting out finitely many problematic points and their pre-images, we get $d$-to-one. Where the map is not $d$-to-one we call that remification. i.e. we say $z^2$ is ramified over $0$ and $\infty$
+
+
+We have flobal information, which is the genu of $X$ and $Y$, and local information, which is the ramification profile. This information is mro combinatorial. THe Riemann-Hurwitz formula is how we relate the two. If we have $f:X \rightarrow Y$ is nonconstant, holomorphic, and degree $d$, we get the equality $2g(X)-2=d(2g(Y)-2) + \sum\limits_{x \in X} (e_x -1)$, where $d$ si the degree of the map, $2g(X)-2$ is the Euler characterisitc of the space, and $e_x$ is the rammification index of the the point i.e looking at the pre-images and how many branches intersect. This is a realizability condition.
+
+
+\begin{define}
+    An abstract Tropical ucurve is a connected metric graph $\Gamma$ with unbounded rays called ends and a genus function $g:V \rightarrow \NN$ whcih assings a genus to every vertex of our graph
+\end{define}
+
+
+We hav eht egenus fuction so that we can think of the curves as being dual to deformations of Riemann surfaces.
+    We can think of the single vertex of degree two as being dual to the genus 2 torus. The deformation splits the genus two surface into two surfaces conncted at a single point, so we get two vertiexs of deree 1 with an edge connecting them. Vertices of degree 1 correspond to the ``irreducible'' surfaces of genus one (the torus), and the vertice connecting them correpsond to the surfaces intersecting at a point.
+    \begin{define}
+        The local degree at a vertex is the sum of the surrounding weights
+    \end{define}
+\begin{define}
+    A tropical cover $\Pi: Gamma_1 \rightarrow \Gamma_2$ is a surjective map satisfying
+    \begin{enumerate}
+        \item localy integer affine linear ($\Pi$ scales length by an integer factor). This factor is called the weight of the edge $w(e)$.
+        \item Harmonic/Balancing condition
+    \end{enumerate}
+\end{define}
+
+The first condition allos us to label edges by weights. FOr the seocnd condition, returning to earlier in these notes. If we have a tropical curve, we label with weights so that we get a ``balancing'' of the weights on either sides of verticices.
+
+
+
+\begin{define}
+    The local Riemann-Hurwitz condition states that for $v \in \Gamma_1$, $v \mapsto v'$ with local deree $d_v$, we have $2g(v) - 2 \geq d_v(2g(v')-2) + \sum\limits_{e \in E, \; v \in e} (w(e) -1)$.
+\end{define}
+
+
+When w conside ra cover of a tropical curve $\Pi$, we get a duality too a cover of Riemann surfaces $\hat{\Pi}$. So satisfying local condition at verticies allows us to satisgy global condition of covers on surfaces.
+
+
+
+\subsection{Eve, (Tropical) Hurwitz numbers}
+
+
+If we have two maps $f:X \rightarrow Y$ and $g: \tilde{X} \rightarrow Y$ between Riemann surfaces we say $f$ and $g$ ar eisomorphic if there exists $\varphi:X \rightarrow \tilde{X}$ such that $f= \varphi \circ g$.. We can allow $X=\tilde{X}$.
+
+
+
+Let $Y$ by a connected compact RIemann surface with genus $g$. Fix $b_1, \dots, b_h \in Y$, and $\lambda_1, \dots, \lambda_h$ be a partition of $d \geq 1$. THen $f:X \rightarrow Y$ is a Hurwizst cover if 
+
+\begin{enumerate}
+    \item $f$ is holomorphic, 
+    \item $X$ is a connected compact genus $h$,
+    \item Branch locus of $f$ is $\{b_1, \dots, b_h\}$,
+    \item $\lambda_i$ is the ramification produle of $b_i$.
+\end{enumerate}
+
+
+
+From here, we can say the Hurwitz Number is $H_{d:h \rightarrow g}(\lambda_1, \dots, \lambda_n):= \sum\limits-{[f]} \frac{1}{|Aut(f)|}$.
+
+
+
+Now, a tropical cover of $\RR \cup \{\pm\infty\}$. We need to send one valent vertices (ends) to $\pm \infty$. We can count these tropical covers via more discrete data. We fix $\mu$ and $\nu$ as partitions of $d \in \ZZ_{\geq 1}$. If our degree of h tetropical curve is $4$, we can get the left end has parititon $4$, our right end has partition $(2,2)$, the genus of our raph is $1$. We let $r:=2g-2+l(\mu) + l(\nu) >0$ (lenght of partition $\mu$ and $|\nu$), and we then fix $p_1, \dots, p_r \in \RR$. Then the tropical Hurwitz number is $H^{trop}_{d: g \rightarrow 0}(\mu,\nu): \sum\limits_{f} m(f)$, where $M(f)$ is the multiplicity of $f$, defined as $\frac{1}{|Aut(f)|}\prod_{\text{e a bounded edge}}w(e)$
+
+
+The automorphisms of our graph are either swap two vertices or swap to edges, so the automorphism group has size 4.
+
+\begin{ex}
+    \begin{align*}
+        H^{trop}_{4:1\rightarrow 0} ((4),(2,2))=\left( \frac{1}{4} 2*2*4\right) +6+3+1 =14
+    \end{align*}
+    
+\end{ex}
+
+We get four total graph coverings.
+
+
+
+We have the following correspondence: $H^{trop}_{d: g \rightarrow 0}(\mu,\nu)=H_{d: g \rightarrow 0}(\mu,\nu)$
+
+
+
+
 
 
 
