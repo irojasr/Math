@@ -1,0 +1,2684 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Renzo Cavalieri}
+\def\nsigla {MATH676}
+\def\nsiglahead {Tropical Geometry}
+\def\nlang {ENG}
+%\def\darktheme{}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+\usepackage[enableskew]{youngtab}
+\DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\Trop}{Trop}
+\newcommand{\diamondplus}{\mathbin{\rotatebox[origin=c]{45}{$\boxtimes$}}} %https://tex.stackexchange.com/questions/73275/rotated-ltimes-symbol
+
+
+%---------------------------------------------------------------------------
+%Amaury's Commands
+
+
+\usepackage[utf8]{inputenc}	% Para caracteres en español
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd,mathtools}
+%-------------------------------------
+
+%-------------------------------------
+
+\usepackage{fullpage}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[retainorgcmds]{IEEEtrantools}
+
+\usepackage{empheq}
+\usepackage{framed}
+
+
+%--------------------
+%--------------------
+%Theorem
+%\theoremstyle{definition}
+%\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+%\newtheorem{ex}{Example}
+\newtheorem{note}{Note}
+\newtheorem{remark}{Remark}
+\newtheorem{axiom}{Axiom}[section] 
+%\newtheorem{theorem}{Theorem}[section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{conjecture}{Conjecture}[section]
+%\newtheorem{lemma}{Lemma}[section] 
+%\newtheorem{corollary}{Corollary}[section] 
+
+%The following is to color corollary, theorems, etc.
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{framed}
+%\theoremstyle{plain}% default
+\newtheorem{prototheorem}{Theorem}[section]
+
+\newenvironment{theorem}
+   {\begin{prototheorem}}
+   {\end{prototheorem}}
+
+\newtheorem{protolemma}[prototheorem]{Lemma}
+\newenvironment{lemma}
+   {\begin{protolemma}}
+   {\end{protolemma}}
+
+\newtheorem{protocorollary}[prototheorem]{Corollary}
+\newenvironment{corollary}
+   {\begin{protocorollary}}
+   {\end{protocorollary}}
+
+\theoremstyle{definition}
+\newtheorem{protonotation}{Notation}[section]
+\newenvironment{notation}
+   {\begin{protonotation}}
+   {\end{protonotation}}
+
+\newtheorem{protoexample}{Example}[section]
+\newenvironment{ex}
+   {\begin{protoexample}}
+   {\end{protoexample}}
+
+\newtheorem{protodefinition}{Definition}[section]
+\newenvironment{define}
+   {\begin{protodefinition}}
+   {\end{protodefinition}}
+
+
+%--------------------
+%Commands
+\def\a{\alpha}
+\def\l{\lambda}
+\def\r{\rho}
+\def\ZZ{{\mathbb Z}}
+\def\QQ{{\mathbb Q}}
+\def\RR{{\mathbb R}}
+\def\FF{{\mathbb F}}
+\def\KK{{\mathbb K}}
+\def\CC{{\mathbb C}}
+\def\NN{{\mathbb N}}
+\def\XX{{\mathbb X}}
+\def\YY{{\mathbb Y}}
+\def\TT{{\mathbb T}}
+\def\PP{{\mathbb P}}
+\def\AA{{\mathbb A}}
+\def\subgroup{{ \; \leqslant \;}}
+\def\normalsubgroup{{ \; \trianglelefteq \;}}
+\allowdisplaybreaks
+\def\B{\mathcal{B}}
+\def\C{\mathcal{C}}
+\def\A{\mathcal{A}}
+\def\D{\mathcal{D}}
+\def\a{\alpha}
+\def\w{\varpi}
+\def\al{\alpha}
+\def\fg{\mathfrak{g}}
+\def\fh{\mathfrak{h}}
+\def\la{\lambda}
+\def\be{\beta}
+\def\P{\mathscr{P}}
+\def\so{\mathfrak{so}}
+\def\sp{\mathfrak{sp}}
+
+
+\DeclareMathOperator{\trop}{trop}
+
+
+
+%------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+\begin{document}
+%\clearpage
+\maketitle
+%\thispagestyle{empty}
+{\small 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This is a topics course on this stuff
+
+\subsubsection*{Requirements}
+Knowledge on stuff\par 
+
+\textbf{TO DO:}
+\begin{itemize}
+    \item Write info on course description and requirements.
+    \item Polish notes from TG11 about primitive vectors and pages 6-8
+    \item Write Interim about grobner complexes
+    \item Check lines 2274 and 2279
+\end{itemize}
+}
+\newpage
+\tableofcontents
+%\begin{multicols}{2}
+\chapter{Combinatorial Shadow of Algebraic Geometry}
+
+\section{Day 1|20230821}
+
+Think of an algorithm where the input is an algebraic variety and the output is a combinatorial object, a piecewise linear object.
+
+\begin{Ex}
+    Consider as an input a line in the plane. Say $V(x+y-1)$, then an output would be a tropical line. If we remain in the plane and consider a higher degree polynomial, say an elliptic curve, as an output we obtain a tropical cubic.\par 
+    Leaving the plane behind and thinking of abstract nodal curves, we can think of a sphere attached to a torus which is attached to a genus 2 torus, then the corresponding object is what we call the \term{dual graph}.
+\end{Ex}
+
+Right now we do not know the specific algorithm, but we can observe that the outputs are \emph{more simple} than the inputs. So the important question is:
+\begin{significant}
+What algebraic information does the simplified object remember? How do we extract the information the object remembers? And once we know how to work with this objects, can we return to algebraic geometry from any kind of these objects?
+\end{significant}
+
+Observe that the number of ends which go to infinity corresponds with the degree. 
+
+\section{Day 2|20230823}
+%%Based on 676-Intro
+\subsection{Algebraic Geometry on $\bT$}
+Let us talk about ways to get into tropical geometry. We will first define the tropical semifield which the base set over which we will do algebraic geometry.
+
+\begin{Def}
+    The \term{tropical semifield} is the set $(\bR\cup\set{-\infty})$ equipped with tropical addition and multiplication:
+    $$
+    \begin{cases}
+        x\oplus y=\max(x,y)\\
+        x\odot y=x+y
+    \end{cases}
+    $$
+\end{Def}
+
+With this set we can make multivariable polynomials 
+$$p(x_1,\dots,x_n)\:\left(\bR\cup\set{-\infty}\right)^n\to\bR\cup\set{-\infty}$$
+which gives rise to their \emph{tropicalization}, a piecewise linear function $\Trop(p)\:\bR^n\to\bR$.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$p(x,y)=x\oplus y\oplus 0\in (\bR\cup\set{-\infty})[x,y].$$
+    When tropicalizing we get the piecewise linear function $\Trop(p)(x,y)=\max(x,y,0)$ which goes from $\bR^2$ to $\bR$.
+    \begin{figure}[h!]
+        \centering
+        \subcaptionbox{$x\oplus y\oplus 0$\label{fig:2.1-LinearTropicalPolynomial}}{\includegraphics[width=0.3\textwidth]{figs/fig2-1-LinearTropicalPolynomial.pdf}}\quad
+        \subcaptionbox{Projection onto $xy$-plane\label{fig:2.2-ProjectionLinearTropicalPolynomial}}{\includegraphics[width=0.25\textwidth]{figs/fig2-2-LinearTropicalPolynomialProjected.pdf}}\quad
+        \subcaptionbox{Corner locus\label{fig:2.3-CornerLocus}}{\includegraphics[width=0.25\textwidth]{figs/fig2-3-CornerLocus.pdf}}
+        %\caption{This is the caption.}
+        \label{fig:2.1-and-2.2-and-2.3}
+    \end{figure}
+    %https://mathematica.stackexchange.com/questions/169777/listplot3d-with-contours-projected-onto-the-xy-plane
+    Observe that the surface is not smooth where the planes meet, this is what we will call the \emph{corner locus} or \emph{tropical hypersurface}.
+    %In two variables we have a PICTURE. The polynomial $x\oplus y\oplus 0$ is actually $\max(x,y,0)$. This picture is actually the projection of the corner locus. In 3D we can visualize this better.
+\end{Ex}
+
+\begin{Def}
+    The \term{tropical hypersurface} $V(\Trop(p))$ is the codimension 1 locus in $\bR^n$ where the function is non-linear (corner locus).
+\end{Def}
+
+\begin{Ex}
+If we consider higher degree tropical polynomials, they will become linear in the usual sense. Consider 
+$$p(x)=3x^2=3\odot x\odot x=3+x+x=3+2x$$
+which is indeed linear with respect to usual sum and product.
+\end{Ex}
+
+\subsection{Valued fields}
+
+\begin{Def}
+The field of \term{Puiseux series} or rational functions over $\bC$ is $\bC(t)$ where the elements are of the form 
+$$f(t)=\sum_{i=k_0}^\infty a_it^{i/n}.$$
+The lower bound $k_0$ could be negative and the exponents, are rational with bounded denominators. 
+\end{Def}
+
+If we have not seen Puiseux series before it would be useful to consider a quick example:
+
+\begin{Ex}
+    Entirely by definition, consider the Puiseux series 
+    $$f(t)=\sum_{i=-12}^\infty \frac{-i}{12}t^{i/6}.$$
+    Expanding out the first few terms we get 
+    $$\frac{12}{12}t^{-12/6}+\frac{11}{12}t^{-11/6}+\frac{10}{12}t^{-10/6}+\frac{9}{12}t^{-9/6}+\dots=t^{-2}+\frac{11}{12}t^{-11/6}+\frac{5}{6}t^{-5/3}+\frac{3}{4}t^{-3/2}+\dots$$
+\end{Ex}
+This field can be equipped with a valuation
+$$\val_0\:\bC(t)\to\bR\cup\set{\infty},\begin{cases}
+    0\mapsto \infty\\
+    f\mapsto\text{order of vanishing at }0.
+\end{cases}$$
+This order of vanishing is the value $\al$ such that $f/t^\al$ approaches a finite non-zero value. Formally we can express this as 
+$$\val_0(f)=\min\Set{\al\leq\infty\:\ \lim_{t\to0}\frac{f}{t^\al}\in\obonj{0,\infty}}.$$
+The corresponding coefficient in the series expansion of $f$ for this value is called the valuation coefficient.
+
+\begin{Ex}
+    In our original example, we can see that if we divide $f$ by $t^{-2}$ (or similarly multiply by $t^2$) we get 
+$$t^2f(t) = 1 + \frac{11}{12}t^{1/6} + \frac{5}{6}t^{1/3} + \frac{3}{4}t^{1/2} + \dots \xrightarrow[t\to0]{} 1 + 0 + 0 + \dots$$
+If we were to divide by a lower power of $t$, say $t^{-3}$, we would get 
+$$t^3f(t) = t + \frac{11}{12}t^{7/6} + \frac{5}{6}t^{4/3} + \frac{3}{4}t^{3/2} + \dots \xrightarrow[t\to0]{} 0 + 0 + \dots$$
+and even if zero is a finite value, we have stated that the order of vanishing makes $f/t^\alpha$ approach a finite \textbf{non-zero} value.\par 
+While on the other hand if we divide by a higher value than $-2$, say $-1$, then we get 
+$$tf(t) = t^{-1} + \frac{11}{12}t^{-5/6} + \frac{5}{6}t^{-2/3} + \frac{3}{4}t^{-1/2} + \dots \xrightarrow[t\to0]{} \infty.$$
+So in this case, we get a \textbf{non-finite} value. At least with this example, it gives us the intuition that the order of vanishing is a unique value.
+
+\end{Ex}
+
+We now ask, how does the order of vanishing behave when operating functions algebraically? What happens to the order of vanishing when you add two functions? Or when we multiply them?
+
+\begin{Ex}
+    Consider two small functions $f(t)=t^2$ and $g(t)=t^3$, then $f+g=t^2+t^3$ which has order of vanishing $2$. Observe that $2=\min(2,3)$.
+\end{Ex}
+
+In general what happens is that
+$$\val_0(f+g)\geq\min(\val_0 f,\val_0 g),\word{and}\val_0(fg)=\val_0(f)+\val_0(g).$$
+
+We can do algebraic geometry over this field! Let $\bK$ be the field of Puiseux series, if $p(x_1,\dots,x_n)\in \bK\bonj{x_1,\dots,x_n}$ then we consider the algebraic variety
+$$X=V(p)=\set{\vec{x}\in\bK^n\:p(\vec{x})=0}\subseteq \bK^n.$$
+Each entry of $\vec x$ is a Puiseux series we can take the valuation of. So the image through the $n$-fold valuation of $X$ will be a set in $\left(\bR\cup\set{\infty}\right)^n$. We will call the tropicalization of $X$ the image through this map. This is the tropical hypersurface for $p$.
+\begin{figure}[h!]
+    
+\centering
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da2454102694181276] 
+\draw    (235,63) -- (299,63) ;
+\draw [shift={(301,63)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5779705315012776] 
+\draw    (241,113) -- (298,113) ;
+\draw [shift={(300,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw [shift={(241,113)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+
+% Text Node
+\draw (208,53.4) node [anchor=north west][inner sep=0.75pt]    {$\bK^{n}$};
+% Text Node
+\draw (303,53.4) node [anchor=north west][inner sep=0.75pt]    {$(\bR\cup\set{\infty})^{n}$};
+% Text Node
+\draw (202,103.4) node [anchor=north west][inner sep=0.75pt]    {$V( p)$};
+% Text Node
+\draw (304,99.4) node [anchor=north west][inner sep=0.75pt]    {$\overline{\operatorname{val}_0( V( p))}$};
+% Text Node
+\draw (172,153.4) node [anchor=north west][inner sep=0.75pt]    {$\{\vec{x} :p(\vec{x}) =0\}$};
+% Text Node
+\draw (302,153.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{Trop}( V( p))$};
+% Text Node
+\draw (210.4,98) node [anchor=north west][inner sep=0.75pt]  [rotate=-270]  {$\subseteq $};
+% Text Node
+\draw (328.4,98) node [anchor=north west][inner sep=0.75pt]  [rotate=-270]  {$\subseteq $};
+% Text Node
+\draw (229.6,127) node [anchor=north west][inner sep=0.75pt]  [rotate=-90]  {$=$};
+% Text Node
+\draw (346.6,127) node [anchor=north west][inner sep=0.75pt]  [rotate=-90]  {$=$};
+% Text Node
+\draw (172,53.4) node [anchor=north west][inner sep=0.75pt]    {$\operatorname{val}_0\:$};
+
+
+\end{tikzpicture}
+\caption{Diagram on the tropical hypersurface}
+\label{fig:2a-diagram-trop-hypersurf}
+\end{figure}
+
+\begin{Ex}
+    Consider the polynomial in $\bK\bonj{x,y}$ 
+    $$p(x,y)=tx+y+t^2,$$
+    then the variety is $X=\set{(x,y)\: tx+y+t^2=0}$. We can solve the equation to $y=-tx-t^2$.\par 
+    If we choose $x=0$ then $y$ becomes $-t^2$. Now we take the valuation of $(0,-t^2)$ and so $(\infty,2)$ is a point in $\Trop(X)$.
+\end{Ex}
+
+\subsection{Amoebas}
+
+Let us return to the usual stage and consider $p\in\bC[x_1,\dots,x_n]$ which defines an algebraic variety $X=V(p)\subseteq\bC^n$. Now consider the map which sends every coordinate's modulus to its logarithm in base $t$: 
+$$\bC^n\to\left(\bR\cup\set{-\infty}\right)^n,\quad (z_1,\dots,z_n)\to(\log_t|z_1|,\dots,\log_t|z_n|).$$
+
+
+The image of $X$ under this map, $\log_t(X)$, is the $t$-amoeba of $X$. If we take the limit as $t\to\infty$ then we get the \emph{spine} of the amoeba. 
+
+\begin{Ex}
+    When $p(x,y)=x+y-1$ then we can describe $V(p)$ via the parametrization $(x,1-x)$. So the corresponding $t$-amoeba in the real case is 
+    $$\set{(\log_t|x|,\log_t|1-x|)\: x\in\bR}$$
+    and we ordinarily take the limit $\lim_{t\to\infty}\frac{\log|x|}{\log t}$, we see that the functions converge to zero point-by-point. But the set is actually approaching the spine!
+    \begin{figure}[h!]
+        \centering
+        \subcaptionbox{$X=V(x+y-1)$\label{fig:2.4-Variety}}{\includegraphics[width=0.25\textwidth]{figs/fig2-4-V(x+y-1).pdf}}\quad
+        \subcaptionbox{$2$-amoeba of $X$\label{fig:2.5-2Amoeba}}{\includegraphics[width=0.25\textwidth]{figs/fig2-5-2amoeba.pdf}}\quad
+        \subcaptionbox{Sequence of amoebas as $t\to\infty$\label{fig:2.6-ApproxAmoebas}}{\includegraphics[width=0.25\textwidth]{figs/fig2-6-ApproximatingAmoebas.pdf}}
+        %\caption{This is the caption.}
+        \label{fig:2.4-thru-2.6}
+    \end{figure}
+\end{Ex}
+
+Observe that the spine approaches the tropical hypersurface associated to $p$. In other words we have that the tropical hypersurface is $\lim_{t\to\infty}\log_t(V(p))$.
+
+\subsection{Degenerations}
+We may parametrize any algebraic variety with a time variable, then converting the information to a graph, edges code the information about how fast the node forms related to the length.\par
+Consider a family of \red{of what, what is this family of?! Stuff? Curve in P1xP1 which eventually becomes P2?}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig1-1.png}
+\end{figure}
+
+It is too early to understand this point of view. We will set everything up to get to it.\par 
+In general, the big idea will be to explore and understand these perspectives in the case of plane curves. We want to show how they are equivalent and then recover classical algebraic geometry results in terms of tropical geometry.
+
+\section{Day 3|20230825}
+
+Recall that the last time we discussed the classical (25 to 30 years old) ways to get to tropical geoemtry. We now would like to answer the question
+\begin{significant}
+    Where do tropical numbers come from?
+\end{significant}
+So let us begin with an applications problem and see how the tropical numbers arise from the context of the problem.
+
+\subsection{Tropical Arithmetics}%%%Based on TropicalNumbers.pdf
+
+\subsubsection{Minimizing Tolls}
+
+Consider a set of cities connected by a network of toll-ways:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig1-2.png}
+\end{figure}
+If we only care about minimizing toll expenses when traveling, what would be the cheapest way to go from one given city to another? Let us record the information as an incidence matrix:
+$$M_{ij}=\text{price of going from city }i\text{ to city }j\text{ in at most one trip}\To M=\threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}$$
+In this matrix, the rows determine the outbound city, while the columns are the destination. Each entry records the cost of a toll and tolls are considered to be infinite when the road does not exist. We can also think of $M$ as recording the cheapest toll to go from one city to another with at most one move.\par 
+How would we compute the best strategy of going from city $i$ to $j$ in \emph{at most two trips}? If for example we want to find trips from $A$ to $B$ in two steps then we have three choices:
+$$AAB,\quad ABB,\quad ACB.$$
+The costs of each one are 
+$$(0,\infty),\quad (\infty,0),\quad (2,1)$$
+so we sum them and take the minimum. That will be the optimal route from $A$ to $B$ in two steps. In fact, if we relate this to the entries of the matrix $M$, we could use $M^2$. However we must redefine our basic operations as follows: 
+$$+=\min,\quad\.=+$$
+So we have the identification 
+$$(1,2)\text{ entry of }M^2=\sum_{j=1}^{3}M_{1k}M_{k2}=\min(M_{11}+M_{12},M_{12}+M_{22},M_{13}+M_{32}).$$
+In general:
+\begin{align*}
+    \threebythree{0}{\infty}{2}{x}{0}{y}{\infty}{1}{0}^2&=\threebythree{\min\threebyone{0+0}{\infty+x}{2+\infty}}{\min\threebyone{0+\infty}{\infty+0}{2+1}}{\min\threebyone{0+2}{\infty+y}{2+0}}{\min\threebyone{x+0}{0+x}{y+\infty}}{\min\threebyone{x+\infty}{0+0}{y+1}}{\min\threebyone{x+2}{0+y}{y+0}}{\min\threebyone{\infty+0}{1+x}{0+\infty}}{\min\threebyone{\infty+\infty}{1+0}{0+1}}{\min\threebyone{\infty+2}{1+y}{0+0}}\\
+    &=\threebythree{0}{3}{2}{x}{\min(0,y+1)}{\min(x+2,y)}{1+x}{1}{\min(0,1+y)}.
+\end{align*}
+Observe that $1+y$ can be the minimum in the diagonal when we allow \emph{negative tolls}.
+\begin{Rmk}
+If we disallow negative tolls, the products $M^n$ eventually stabilize to a matrix whose entries record the cheapest way to get from one city to another in $n$ steps.
+\end{Rmk}
+This gives us an intuition that minimization problems correspond to linear algebra problems over $(\bT,+,\.)$ which is precisely $(\bR\cup\set{\infty},\min,+)$.
+
+\subsubsection{Forgetting phases}
+
+Consider the map $T_t\:\bC\to\set{-\infty}\cup\bR,\quad z\mapsto\log_t(|z|)$.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig1-3.png}
+\end{figure}
+This map is surjective, and this we can see by checking it. Any $x\in\bR$ is 
+$$T_t(t^xe^{i\te})=\log_t|t^xe^{i\te}|=\log_tt^x=x,\quad\te\in\bR.$$
+This means that the inverse image of a point contains a plethora of points, in fact:
+$$
+\left\lbrace
+\begin{aligned}
+    &T_t^{-1}(x)=\set{t^xe^{i\te}}\subseteq\bC,\word{for}x\in\bR,\\
+    &T_t^{-1}(-\infty)=0.
+\end{aligned}
+\right.
+$$
+With this in hand, we wish to define an exotic addition and multiplication on $\set{-\infty}\cup\bR$ using $T_t$. We will dequantize!\par 
+We begin with \textbf{hyper-addition}, the output will be a subset of $\set{-\infty}\cup\bR$ so it's not a binary operation by itself. 
+$$x\diamondplus_t y\:= T_t(T_t^{-1}(x)+T_t^{-1}(y))=\bonj{\log_t(|t^x-t^y|),\log_t(t^x+t^y)}.\label{problem1-hyperAddition}$$
+This is an interval in $\set{-\infty}\cup\bR$, in order to make $\diamondplus_t$ into an operation we take a limit:
+\begin{figure}[h!] 
+    \centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da5156276968518897] 
+\draw    (85,62.6) -- (142,62.99) ;
+\draw [shift={(144,63)}, rotate = 180.39] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Straight Lines [id:da8224691621679702] 
+\draw    (96,133) -- (144,133.38) ;
+\draw [shift={(146,133.4)}, rotate = 180.46] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da27001319663870027] 
+\draw    (57,77) -- (57,118) ;
+\draw [shift={(57,120)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8909494911629017] 
+\draw    (195,83) -- (195,120) ;
+\draw [shift={(195,122)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (34,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus_t y$};
+% Text Node
+\draw (34,123.4) node [anchor=north west][inner sep=0.75pt]    {$x\ +_{t} \ y$};
+% Text Node
+\draw (152,53.4) node [anchor=north west][inner sep=0.75pt]    {$x\diamondplus y=\lim _{t\rightarrow \infty } x\diamondplus_t y$};
+% Text Node
+\draw (152,123.4) node [anchor=north west][inner sep=0.75pt]    {$x+y=\max( x,y)$};
+% Text Node
+\draw (60,98.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
+% Text Node
+\draw (114.5,59.4) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\displaystyle\lim _{t\rightarrow \infty }$};
+% Text Node
+\draw (121,129.8) node [anchor=south] [inner sep=0.75pt]  [font=\scriptsize]  {$\displaystyle\lim _{t\rightarrow \infty }$};
+% Text Node
+\draw (197,102.5) node [anchor=west] [inner sep=0.75pt]  [font=\scriptsize]  {$\max$};
+
+
+\end{tikzpicture}
+
+\end{figure}
+
+\begin{Rmk}
+Note that $\diamondplus$ is still a hyperoperation. Its output is not a singleton \emph{only} when adding a number to itself:
+$$x\diamondplus y=\begin{cases}
+    \max(x,y),\quad x\neq y\\
+    \bonj{-\infty,x},\quad x=y
+\end{cases}$$
+\end{Rmk}
+
+Formally this process, taking a limit of a family of operations, is known as \emph{dequantization}.\par
+
+In the case of multiplication, the process goes a lot smoother when defining it:
+
+$$x\.y =T_t\bonj{T^{-1}(x)\.T^{-1}(y)}=\log_t\bonj{|(t^xe^{i\te})(t^ye^{i\vf})|}=\log_tt^{x+y}=x+y$$
+
+\begin{Ex}
+    Let us consider a small example like summing $2$ and $4$. Observe that 
+    $$4\diamondplus_t 2=T_t(T_t^{-1}(4)+T_t^{-1}(2))=T_t\left|t^4e^{i\te}+t^2e^{i\vf}\right|$$
+    and the term on the inside can be simplified to $t^{4}(e^{i\te}+t^{-2}e^{i\vf})$. $T_t$ takes that expression to
+    $$4+\log_t|e^{i\te}+t^{-2}e^{i\vf}|=4+\frac{\log|e^{i\te}+t^{-2}e^{i\vf}|}{\log t}.$$
+    What happens if we take the limit as $t\to\infty$? We get an independent from $t$ result! 
+    The term on the right vanishes and we are left with $4=\max(4,2)$. So it got a tad bit better, but it's still a hyperoperation!
+\end{Ex}
+
+\begin{Ej}
+Check how the definition of $+$ and $\.$ extend to the \emph{number} $-\infty$.
+\end{Ej}
+
+\begin{ptcb}
+The point of this exercise is to operate $-\infty$ with finite numbers and itself.\par
+For a finite $x$ we will find $x+(-\infty)$. This is the limit of the previous hyperoperation:
+$$x\diamondplus_t(-\infty)=T_t(T_t^{-1}(x)+T_t^{-1}(-\infty))=T_t(T_t^{-1}(x)+0)=T_t(T_t^{-1}(x))=x.$$
+If we let $t$ grow, the result doesn't change and so this goes according to $\max(x,-\infty)=x$.\par 
+On the other hand when taking the product:
+$$x\.(-\infty)=T_t\bonj{T^{-1}(x)\.T^{-1}(-\infty)}=T_t\bonj{T^{-1}(x)\.0}=T_t(0)=\log_t(0)\to-\infty$$
+which is also similar to the notion of $x+(-\infty)=-\infty$.\par 
+We can now proceed to operate $-\infty$ with itself:
+$$(-\infty)\diamondplus_t(-\infty)=T_t(0)=\log_t(0)=-\infty=\max(-\infty,-\infty),$$
+and when taking the product:
+$$(-\infty)\.(-\infty)=T_t(0)\log_t(0)=-\infty=(-\infty)+(-\infty)$$
+where the last sum is a sum in the usual sense.
+\end{ptcb}
+
+So, summarizing this process:
+\begin{itemize}
+    \item We forgot about the phase of the complex numbers and only looked at them radially. 
+    \item The modulus of these numbers was scaled logarithmically.
+    \item Finally we took the limit of these operations and obtained the desired (somewhat) result.
+\end{itemize}
+This is known as Maslov\footnote{Viktor Pavlovich Maslov (1930615-20230803)} dequantization and with this we can see $(\bT,+,\.)$ as $(\set{-\infty}\cup\bR,\max,+)$. Also, we will abbreviate $\lim_{t\to\infty}T_t$ with $T_{t\to\infty}$
+
+\section{Interim 1|Valuations}
+%%valued fields and puiseux seires
+
+\subsection{Valuations}
+
+In essence a valuation provides a measure of the \emph{size} (or multiplicity) of elements in a field. 
+
+\begin{Def}
+    If $K$ is a field, a \term{valuation} on $K$ is a mapping
+    $$\val\:\ K\to\bR\cup\set{\infty}$$
+    with the properties:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em 
+        \item $\val(x)=\infty\iff x=0$,
+        \item $\val(xy)=\val(x)+\val(y)$,
+        \item $\val(x+y)\geq\min(\val(x),\val(y))$, with equality if $\val(x)\neq\val(y)$.
+    \end{enumerate}
+    In this case, we say that $K$ is a valued field.
+\end{Def}
+
+Previous discussion has shown us that the order of vanishing, $\val_0$ is a valuation of the field of Puiseux series $\bK$. The properties can be shown to be true by writing out two Puiseux series and showing that indeed they obey the properties.
+
+\begin{Ej}
+Verify that the field of Puiseux series, is indeed a valued field with valuation $\val_0$.
+\end{Ej}
+
+There's also a another common example coming from number theory which is the $p$-adic valuation. 
+
+\begin{Ex}
+    We first define the valuation on $\bZ$ as 
+    $$v_p(a)=\max\set{k\in\bZ\:\ p^k\mid a},$$
+    where $p$ is a prime number. For the rational numbers the valuation is defined as $v_p(m/n)=v_p(m)-v_p(n)$.
+\end{Ex}
+
+This valuation can be used to study the field of $p$-adic numbers which is the completion of $\bQ$ with respect to the $p$-adic absolute value $|r|_p=p^{-v_p(r)}$.
+
+\begin{Ej}
+In a similar fashion, verify that $v_p$ is a valuation over $\bQ$.
+\end{Ej}
+
+\chapter{The Tropical Numbers}
+
+\section{Day 4|20230828}
+
+We have seen where our ideas come from. Certain kinds of minimization problems give rise to our tropical numbers. Also by expressing complex numbers in a logarithmic scale without phase then when inducing a sum we actually get a hypersum. The way we converted into an operation is by taking a limit. Then the algebraic structure we obtained was once again the tropical numbers. Let us talk about the perspective of valued fields.
+\subsection{Puiseux series}
+Recall from our times in Calculus 1 that when resolving indeterminate limits, the relevant information is contained in the order of vanishing of the function.
+
+\begin{Ex}
+    Consider the limit $\lim_{t\to 0}\frac{\sin(x)}{x}=1$. Near $t=0$ we have 
+    $$\sin(t)=t+o(t)\sim t^1\word{and}\frac{1}{t}=t^{-1}\word{so}t^1t^{-1}=t^0=1.$$
+\end{Ex}
+
+From this, we care to study the orders of zeroes and poles of Laurent series. In order to extend the class of functions to an algebraically closed field, we consider Puiseux series, or rational functions. We can identify Puiseux series as 
+$$\bC\set{\set{t}}=\bigcup_{n\in\bN}\bC(t^{1/n}).$$
+Concretely, elements here are Laurent series with rational exponents and the exponents of terms with non-zero coefficients have a common denominator. 
+\begin{Ex}
+    The series $\sum_{k=-37}^{\infty}t^{k/42}$ is a Puiseux series while $\sum_{k=1}^\infty t^{1/k}$ is not because the exponents keep getting smaller and smaller.
+\end{Ex}
+This is the most natural algebraically closed field with a \emph{canonical} valuation. This is the function:
+$$\val: \bC\set{\set{t}}\to\bR\cup\set{\infty},\begin{cases}
+    0\mapsto\infty\\
+    t^{p/q}+\text{higher order}\mapsto p/q
+\end{cases}$$
+
+In other words the valuation sends $\sum_{k=k_0}^\infty a_kt^{q_k}$ to $q_{k_0}$.
+\begin{Prop}\label{prop:PropertiesOfValuation}
+For $\al,\bt\in\bC\set{\set{t}}$, the valuation enjoys the following properties:
+\begin{enumerate}[i.]
+    \item $\val(\al\.\bt)=\val(\al)+\val(\bt)$.
+    \item $\val(\al+\bt)\geq\min(\val(\al),\val(\bt))$.
+\end{enumerate}
+Equality holds when $\val(\al)\neq\val(\bt)$.
+\end{Prop}
+So if we decide to define operations on $\bR\cup\set{\infty}$ by inducing them from the operations on $\bC\set{\set{t}}$, then we obtain
+\begin{align*}
+    &x\diamondplus y=\val\left(\val^{-1}(x)+\val^{-1}(y)\right),
+    &x\. y=\val\left(\val^{-1}(x)\.\val^{-1}(y)\right).
+\end{align*}
+Now $\.$ coincides with usual addition and $+$ is the hyperoperation
+$$x\diamondplus y=\begin{cases}
+    \min(x,y)\word{when}x\neq y,\\
+    [\min(x,y),\infty]\word{when}x=y.
+\end{cases}$$
+\begin{Ex}
+    If we try to sum $0$ with itself, we get 
+    $$0\diamondplus 0=\val\left((a_0+a_1t^{q_1}+\dots)+(-a_0+b_1t^{r_1}+\dots)\right)$$
+    and this could be either $q_1$ or $r_1$ because the constant terms cancel! 
+\end{Ex}
+The only natural way to turn this into an operation is to define $x+y=\min(x,y)$. In conclusion, the field of Puiseux series with the order of vanishing and poles is congruent to $(\bT,+,\.)$ which in this case is $\left(\bR\cup\set{\infty},\min,+\right)$.
+
+\subsection{The Tropical Semifield}
+
+\begin{Def}
+    The \term{tropical semifield} is $(\bT,\oplus,\odot)$ where we can choose:
+    \begin{itemize}
+        \item $\bT=\bR\cup\infty$, $\oplus$ to be $\min$ and $\odot$ is $+$, the min convention.
+        \item $\bT=\set{-\infty}\cup\bR$, $\oplus=\max$ and $\odot=+$, the max convention.
+    \end{itemize}
+\end{Def}
+
+There is a natural isomorphism between the two choices given by $x\mapsto -x$. As we have mentioned, different contexts may be more natural than the other when using certain conventions. We will typically use the $\max$ convention. 
+
+\begin{Prop}
+The following algebraic properties hold for $(\bT,+,\.)$:
+\begin{enumerate}[i)]
+    \itemsep=-0.4em
+    \item $0_\bT=-\infty$.
+    \item $1_{\bT}=0$.
+    \item $x\oplus y=0_\bT$ only has the solution $x=y=0_\bT$. This means that only $-\infty$ has an additive inverse.
+    \item Addition is idempotent: $x\oplus x=x$.
+    \item Every non-zero element has a multiplicative inverse: $1/x=-x$.
+\end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+    \item Observe that $x\oplus0_\bT=\max(x,-\infty)=x$.
+    \item $x\odot 1_\bT=x+0=x$.
+    \item $x\oplus y=0_\bT\iff \max(x,y)=-\infty\To x=y=-\infty$.
+    \item $x\oplus x=\max(x,x)=x$.
+    \item $x\.(1/x)=x+(-x)=0=1_\bT$.
+\end{enumerate}
+\end{ptcbp}
+Observe that it is not possible to adjoin formal additive inverses. Suppose that for $x\in\bT$ there exists a $y$ such that $x+y=0_\bT$, then 
+$$(x\oplus x)\oplus y=x\oplus y=0_\bT\word{and}x\oplus (x\oplus y)=x\oplus 0_\bT=x\word{but}x\neq 0_\bT.$$
+This means that any invertible element necessarily has to be $-\infty$.
+
+\begin{Ej}[2-]
+Which other algebraic properties do these operations enjoy? We have claimed for example that $\oplus$ is associative. Prove this.\par 
+Are the operations commutative? Do they distribute with respect to each other?
+\end{Ej}
+
+\begin{ptcb}
+Let us assume without losing generality that 
+$$x<y<z$$
+and then 
+\begin{align*}
+    &x\oplus (y\oplus z)=\max(x,\max(y,z))=\max(x,z)=z\\
+    &(x\oplus y)\oplus z=\max(\max(x,y),z)=\max(y,z)=z
+\end{align*}
+which shows us that $\oplus$ is associative. We can see that it's commutative by realizing that $\max$ is also commutative.\par 
+Finally we ask if distribution occurs, but let us observe first that 
+$$y<z\To x+y<x+z,$$
+now we can see that 
+\begin{align*}
+&x\odot(y\oplus z)=x\odot y\oplus x\odot z\\
+\iff &x+\max(y,z)=\max(x+y,x+z)\\
+\iff &x+z=x+z
+\end{align*}
+which proves distributivity. Also it is not necessary to check distribution on the other side as our operations are commutative.
+\end{ptcb}
+
+\begin{Prop}[Weird Fun Facts]
+Recall that the usual Pascal Triangle is built by adding the previous two elements to get the next one. In the tropical case we have 
+$$
+%https://tex.stackexchange.com/questions/17522/pascals-triangle-in-tikz
+\begin{tikzpicture}
+    \foreach \n in {0,...,2} {
+      \foreach \k in {0,...,\n} {
+        \node at (\k-\n/2,-\n) {$1_\bT$};
+      }
+    }
+    \end{tikzpicture}
+    \word{\raisebox{2.5em}{=}}%tex.se/47016
+    \begin{tikzpicture}
+        \foreach \n in {0,...,2} {
+          \foreach \k in {0,...,\n} {
+            \node at (\k-\n/2,-\n) {$0$};
+          }
+        }
+        \end{tikzpicture}
+    $$
+    and this extends downwards with the same pattern.\par 
+    In the case of the tropical binomial theorem, we have a ``freshman's dream'' type of identity:
+    $$(x\oplus y)^n=x^n\oplus y^n.$$
+
+Observe that in other words, what the binomial theorem is telling us is a restatement of the identity $n\max(x,y)=\max(nx,ny)$.
+\end{Prop}
+
+\begin{Ej}[2]
+Recall that the coefficients in the expansion for the binomial theorem are the corresponding elements in the rows of the Pascal Triangle. Verify if the coefficients agree in the tropical case for the binomial theorem.
+\end{Ej}
+
+\begin{ptcb}
+We must verify that the coefficient of every monomial in the expansion of $(x\oplus y)^n$ does match the $n^{\text{th}}$ row of Pascal's triangle. To that effect note that 
+\begin{align*}
+    (x\oplus y)^n&=(x\oplus y)\odot(x\oplus y)\odot\dots\odot(x\oplus y)\\
+    &=x^n\oplus x^{n-1}y\oplus\dots\oplus xy^{n-1}+y^n\\
+    &=x^n\oplus y^n
+\end{align*}
+and in the second line, remember we would usually have $\binom{n}{k}$ terms of the form $x^ky^{n-k}$. However, as addition is idempotent here, all those terms become just one term.\par 
+Also, observe that the coefficient (tropically) multiplying each term is $1_\bT$. This is because multiplication by one is just adding by zero. So it is indeed the case that all coefficients in the binomial expansion are $1_\bT$.\par 
+Finally observe that for any $k$, $kx+(n-k)y\leq\max(nx,ny)$ which means that the only terms that survive are the power $n$ monomials in the expansion. 
+\end{ptcb}
+
+
+\subsubsection{The Optimal Assignment Problem}
+
+Suppose we have $n$ jobs for $n$ workers. Each worker can only work one job and once the job is taken, no one else can do it. We wish to assign a job to each worker in order to maximize our company's profit.
+
+\begin{Ex}
+    As a little example consider Alice and Bob's hydroponics farm. When working with the weeds Alice produces $5$ credits while working with the water she produces $6$. On the other hand Bob produces $3$ and $5$ respectively.\par 
+    It is easy to see that Alice should be assigned to to the weed and Bob to the water in order to maximize. But let us apply what we know with tropical arithmetics.\par 
+    Call 
+    $$M_{ij}=\text{amount of credits work }i\text{ produces when doing job }j.$$
+    Then we can summarize the previous information in a matrix 
+    $$M=\twobytwo{5}{6}{3}{5}$$
+    and if we take the tropical determinant (which is really a permanent since we lack subtraction) we get
+    $$\Trop\det M=5\.5+6\.3=\max(5+5,6+3)=10$$
+    which is the maximal profit we can make by assigning our workers.
+\end{Ex}
+
+\begin{Ej}
+    Do the following:
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item[(1-)] Construct a $3\x3$ matrix with non-permuted entries such that there's more than one possible assignment for the optimal jobs.
+        \item[(1)] Use the combinatorial definition of permanent to show that the tropical determinant of $M$ is indeed the maximal profit. \hint{The definition of permanent is the same as the determinant but without the $(-1)^{\sgn\sg}$.}
+        \item[(1)] Assuming you know the tropical determinant of a matrix, devise a way to identify one job combination which reaches the optimum value. \aside{Actually! It is not necessary to know the value of the determinant.}
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcb}
+    \begin{enumerate}[i)]
+        \itemsep=-0.4em
+        \item Consider a matrix $A\in \bR^{3\x3}$. For a given $n\in\bN$, the profit, we may build an infinite family of matrices which satisfy the required conditions.\par 
+        The conditions our matrix must satisfy are sums of permuted entries.\par 
+        In this case the solution is given by $5$ parameters including the profit:
+        $$(n-f-h,n-g-g,n-f-g-h+i,f+g-i,f+h-i,f,g,h,i)$$
+        so a valid matrix could be 
+        $$\threebythree{1}{3}{1}{3}{5}{3}{2}{4}{2}.$$
+        \item The permanent by definition is 
+        $$\bigoplus_{\sg\in S_n}\bigodot_{i=1}^n M_{i\sg_i}=\max_{\sg\in S_n}\left(\sum_{i=1}^n M_{i\sg_i}\right).$$
+        What the last expression says is, out all the possible permutations, which is the highest sum over all possible job assignments. So the permanent will indeed find the maximal profit.
+        \item We can proceed with a greedy algorithm. Row by row, choose the largest element. Then eliminate the column the found element was in and repeat the process.\par 
+        For example, pick $A_{1k}=\max(\text{row }1)$, then throw out column $k$ and repeat the process with the $(1,k)$ minor of $A$.\aside{This doesn't actually prove that the greedy algorithm works.} 
+    \end{enumerate}
+\end{ptcb}
+
+\begin{Rmk}
+Observe that the first problem can be solved in any dimension $d$, because in total we have $2d$ equations while having $d^2$ indeterminates. As $2d<d^2$ for $d\geq 2$, we have that the problem will always be under-determined. So there's always more than one possible optimal assignment. 
+\end{Rmk}
+
+We now have another question, 
+\begin{significant}
+    Is there an instance where the greedy algorithm fails to find an optimal assignment for the jobs?
+\end{significant}
+
+\begin{Ej}[5]
+Prove or disprove, the greedy algorithm will find an optimal assignment for the jobs given the conditions above. You may assume to know the value of the permanent of the matrix.
+\end{Ej}
+\section{Day 5|20230830}
+
+The last time we talked about the algebraic structure of the value group of the Puiseux series. We now have plenty of motivation of why would we define the tropical numbers. 
+
+\subsection{Tropical Polynomials and Roots}
+
+An univariate,tropical, (Laurent) monomial is equivalent to an affine linear function with integer coefficients. Such a monomial is an expression of the form 
+$$a\odot x^{\odot m},\quad a\in\bT,\quad m\in\bZ.$$
+
+\begin{Ex}
+    We have for example:
+    $$5x^2\otto 5+2x,\quad 2x^{-3}\otto 2-3x.$$
+    The second one is a Laurent monomial because of the negative power. Also consider $\sqrt 5\odot x^{\odot 3}$ which corresponds to $y=\sqrt{5}+3x$. Notice how the slope is always an integer, meanwhile the translation can be any number.
+\end{Ex}
+
+An univariate tropical (Laurent) polynomial is a finite sum of monomials which give rise to a \emph{convex}, continuous, piecewise, affine linear function with integer slopes. 
+
+\begin{Ex}
+    Consider the function $-5\odot x^{\odot2}\oplus(-2)\odot x^{\odot-3}\oplus 0$ which corresponds to 
+    $$\max(-5+2x,-2-3x,0).$$
+    If we graph this functions we obtain
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-1RenzoNotes3.png}
+        %\caption{This is the caption.}
+        \label{fig:3.1-ConvPLFunc}
+    \end{figure}
+    Observe that this function is indeed convex, and fulfills all of the previous properties from before. 
+\end{Ex}
+
+In fact the map from $\bT[x]$ to convex, affine piecewise linear functions with \emph{finitely} many distinct regions of linearity is surjective. If we don't want to take the finiteness condition into consideration, we have to amplify the domain to tropical Laurent series.\par 
+A small measure of care should be taken because there are multiple tropical polynomials which map to the same function.
+
+\begin{Ex}
+    Consider the functions 
+    $$p_1=x+\frac{1}{x}+0,\quad p_2=x+\frac1x-2.$$
+    When converting we get 
+    $$\max(x,-x,0),\quad\max(x,-x,-2)$$
+    which produce $|x|$ in both cases.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-2RenzoNotes3.png}
+        \caption{Failure of injectivity as both functions map to $|x|$ with $y=0$ and $y=-2$ shown.}
+        \label{fig:3.2-InjectivityFailure}
+    \end{figure}
+    Adding something which is smaller than the minimum value of the function doesn't change it in general. It also doesn't have to be a constant in general. In the previous example, the the monomial $(-4)\odot x^{\odot 1}$ is smaller than any of the linear functions, so adding it changes nothing.
+\end{Ex}
+
+To talk about the roots, we will start with a purely combinatorial definition. 
+
+\begin{Def}
+    Given a polynomial $p\in\bT[x]$ of degree $d$ we say the following:
+    \begin{itemize}
+        \item $-\infty$ is a root of $p$ if the slope of the piecewise linear function is non-zero for $x\ll 0$.
+        \item $x_0\in\bR$ is a root of $p$ if $p'(x_0)$ is undefined. Observe that the derivative is undefined only when there's a change in slope.
+    \end{itemize}
+    We say that the \term{multiplicity} of $x_0$ is the difference between slopes across $x_0$. If $-\infty$ is a root, then its multiplicity is equal to the slope of the associated function for $x\ll 0$.
+\end{Def}
+
+\begin{Ex}
+    Consider the polynomial $x^{\odot2}\oplus1\odot x^1\oplus 0=\max(2x,x,0)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-3SimpleFiniteRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.3-SimpleFiniteRoots}
+    \end{figure}
+    We can see that there are changes in slope at $x_1=-1$ and $x_2=1$. The number of roots coincides with the degree of the polynomial as in the usual sense.
+\end{Ex}
+
+\begin{Ex}
+    Let's remove the zero, recall zero isn't the additive identity, so the polynomial we have is $x^{\odot2}\oplus1\odot x^1=\max(2x,x)$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-4SimpleRootsTropicalPolynomial.png}
+        %\caption{}
+        \label{fig:3.4-OneFiniteRootOneInfiniteRoot}
+    \end{figure}
+    Now one of the roots is still $x=1$, but remember that if the slope is non-zero when $x\ll 0$, then $-\infty$ is a root of $p$. This is the case here because the slope is $1$ as $x\to-\infty$. Once again there's two roots $x_1=-\infty$ and $x_2=1$.
+\end{Ex}
+
+\begin{Ex}
+    Let us change a sign in a coefficient, take $x^2-1\.x^1+0$. But what is tropical subtraction? It's not that, let's convert this slowly into what it's supposed to be:
+    $$x^2-1\.x^1+0=(x\.x)+(-1)\.x+0=(2x)+(x+(-1))+0=\max(2x.x-1,0).$$
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-5DoubleRootTropicalPolynomial1.png}
+        %\caption{}
+        \label{fig:3.5-DoubleRoot1}
+    \end{figure}
+    Observe that because the line $y=x-1$ is below our graphs, it doesn't interfere with the calculation of zeroes. So the only place where there occurs a change in sign is $x=0$. The slope on the right is $2$ and on the left is $0$ so the multiplicity is $2-0=2$.
+\end{Ex}
+
+\begin{Ex}
+    In a similar fashion, $x^2+0$ also has a double root at $x=0$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig3-6DoubleRootTropicalPolynomial2.png}
+        %\caption{}
+        \label{fig:3.6-DoubleRoot6}
+    \end{figure}
+    There is only one change in slope once again at $x=0$ and the difference in slopes is $2$.
+\end{Ex}
+
+\begin{Lem}
+For a tropical polynomial $p$, a finite $x_0$ is a root of $f$ if and only if when we write the function as a $\max$ of linear functions, at $x_0$ the maximum value is obtained at least twice.\par 
+The multiplicity of the root is equal to the difference in the two extremal positions where the $\max$ is attained.
+\end{Lem}
+
+This should be more or less obvious. Being a root means that we are an intersection of two lines which are above all the others. It's pretty useful to have this notions around.
+
+Questions arise:
+\begin{significant}
+    Which functions have only one simple zero at $-\infty$? What would a function with an order 2 zero at $-\infty$ look like?
+\end{significant}
+
+\begin{Ej}
+    Do the following:
+    \begin{itemize}
+        \item[(5)] Is it possible for a function to have only a simple zero at $-\infty$? Provide an example of function with one simple zero at $-\infty$ or prove that such function cannot exist. 
+        \item[(5)] Do functions with zeroes at $-\infty$ have infinite order at such zero or is it arbitrarily high? If a function has a finite order zero at $-\infty$ provide an example of one with a double zero at $-\infty$. Else, prove that such functions have infinite order at that zero.
+    \end{itemize}
+\end{Ej}
+
+\section{Day 6|20230901}
+
+How do we know that the notions of roots are natural or useful?
+
+\subsection{Factorization of Tropical Polynomials}
+
+Suppose a polynomial $p\in\bT[x]$ has roots $a_k$ with multiplicity $m_k$. Then we may factor $p$ as a product of linear polynomials 
+$$p(x)=c_0\bigodot(x\oplus a_k)^{m_k}.$$
+This $p$ is the affine piecewise-linear function, not the formal object. And so, in a sense, $\bT$ is algebraically closed. But instead of proving this, we will sketch the proof to get an idea of how things \emph{work} with a couple of examples.\par 
+The idea of the proof is that we check that product does define a P.L. function with the right slopes and then $c_0$ gives the translation factor.
+\begin{Ex}
+First lets deal with the case where $-\infty$ is not a root. Consider the polynomial 
+$$p(x)=(-1)\oplus(-1)\odot x\oplus(-4)\odot x^4=\max(-1,x-1,4x-4).$$
+Remember, as in the case of real polynomials, the square and cube terms are still there. The coefficient that foes along them is just $-\infty$. We can graph the polynomial in order to see the roots:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig4-1-InfinityNotRoot.png}
+    \caption{Graph of $p(x)$ with roots shown}
+    \label{fig:4.1-InfinityNotRoot}
+\end{figure}
+The points where there is a change in slope are $a_1=0$ and $a_2=1$. Then their multiplicities are $1-0=1$ and $4-1=3$ respectively. We may write $p$ as 
+$$p(x)=c_0\odot(x\oplus 0)\odot(x\oplus 1)^{3}=c_0+\max(x,0)+\max(3x,3).$$
+Whatever function we have, we can write as the sum of three terms. So let us subdivide the tropical line in order to see which terms goes where.
+\begin{table*}[h!]
+    \centering
+    %\arraystretch{1.3}
+    \begin{tabular}{rrrr}\toprule
+        $x\leq 0$ & $0\leq x\leq 1$ & $1\leq x$\\ \midrule
+        $c_0$& $c_0$&$c_0$\\
+        $0$&$x$ & $x$\\
+        $3$& $3$ & $3x$\\ \midrule
+        $c_0+3$&$c_0+3+x$&$c_0+4x$\\
+   \bottomrule
+    \end{tabular}
+    \legend{Behavior of $p(x)$ across $\bT$}
+    \end{table*}
+    The constant can be determined by plugging in $x=-\infty$. We can see that 
+    \begin{align*}
+        p(-\infty)&=(-1)\oplus(-1)\odot (-\infty)\oplus(-4)\odot (-\infty)^4=-1\\
+        &=c_0\odot(-\infty\oplus 0)\odot(-\infty\oplus 1)^3=c_0\odot0\odot 1^{\odot 3}.
+    \end{align*}
+    This gives us the equation $c_0+0+3=-1$ which leads us to $c_0=-4$. With this we verify that 
+    $$p(x)=\begin{cases}
+        -1&x\leq 0\\
+        x-1&0\leq x\leq 1\\
+        4x-4&1\leq x
+    \end{cases}$$
+    So in this case $c_0=p(-\infty)-\sum m_ka_k\in\bR$.
+\end{Ex}
+
+\begin{Ex}
+    We now explore the case where $-\infty$ is a root or a pole. The argument will essentially be the same with a small modification.\par 
+    Consider the function $\frac{1}{x}\oplus x$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4-2RootAndPoleProof.png}
+        %\caption{}
+        \label{fig:4.2-RootAndPoleProof}
+    \end{figure}
+    We have $-\infty$ as a pole of order $1$ and $0$ is a root of order $1-(-1)=2$. So this can be factored as 
+    $$p(x)=c_0\odot(x^{-1})\odot(x+\oplus 1)^2$$
+    and even if $-\infty$ doesn't give us a particular value for the function, we can still find $c_0=0$ from the equation $p(0)=0$.\par 
+    If on the other hand we have a negative slope then we have a zero at $-\infty$. Consider the function $p(x)=x+x^2$:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4-3RootsForProof.png}
+        %\caption{}
+        \label{fig:4.3-RootsForProof}
+    \end{figure}
+    This function has two simple roots at $-\infty$ and $0$. We may factor it as 
+    $$p(x)=c_0\odot(x\oplus-\infty)\odot(x\oplus 0)$$
+    and even if $p(-\infty)=-\infty$ we can plug in $0$ to get $0$ back in order to get $c_0=1$.
+\end{Ex}
+
+\subsection{Correspondence Theorems}
+Recall the maps
+$$
+\left\lbrace 
+\begin{aligned}
+    &T_t\: \bC\to\bT\quad(\text{with }\max),\\
+    &\val\: \bC\set{\set{t}}\to\bT\quad(\text{with }\min).
+\end{aligned}
+\right.
+$$
+If we consider a polynomial 
+$$p(X)\in\bC[X]\word{or}p(x)\in\bC\set{\set{t}}[X]$$
+then we can produce a tropical polynomial as follows:
+
+\begin{enumerate}[i.]
+    \item Apply $T_t$ or $\val$ to the coefficients, and
+    \item Perform tropical operations.
+\end{enumerate}
+
+We expect that if $r\in\bC$ or $r\in\bC\set{\set{t}}$ is a root of $p$, then $\lim_{t\to\infty}T_t(r)$ will be a root of the new polynomial.\par
+Or the other way around, given $p\in\bT[x]$, we can lift the coefficients to $\bC$ or the Puiseux series via the above maps. We can find the roots of the corresponding polynomials in $\bC[x]$ or $\bC\set{\set{t}}[x]$ and then the image of those roots via $T_t$ or $\val$ are the tropical roots of $p(x)$.
+
+\begin{Ex}
+    Consider the polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. We wish to construct a polynomial in $\bC[x]$ which tropicalizes to $p$. Take the polynomial 
+    $$q(x)=t^2X+t^3\in\bC[x],\quad t>0$$ 
+    We could certainly add phase as $e^{i\te}$ to the $t^k$'s, but that won't change anything. Taking the logarithm of the coefficients we get 
+    $$t^2\mapsto 2\word{and}t^3\mapsto 3.$$ 
+    Then switching the operations to tropical operations we have
+    $$t^2X+t^3\xrightarrow[]{\Trop}2\odot X\oplus 3$$ 
+    which was our original polynomial $p$.\par 
+    Additionally if we solve the equation $q=0$ we obtain the root $X=-t^3/t^2=-t$. Now $\log_t|-t|=1$. Lo and behold, this is the same root of $p(x)$. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4-4CorrespondenceRoots1Example.png}
+        \caption{Root of $p(x)$ in correspondence with $-t$ of $q(x)$}
+        \label{fig:4.4-CorrespondenceRoots1Example}
+    \end{figure}
+\end{Ex}
+
+We should be skeptical because this was only an example of a linear polynomial. Lets increase the degree and see what happens. Eventually this correspondence must be shown to hold in its entirety.
+
+\begin{Ex}
+    Consider the polynomial
+    $$q(X)=X^2+t^2X+1\in\bC[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0.$$
+    We can identity the roots of $p$ as $-2$ and $2$. However, we may find it difficult to interpret the roots of $q$ as roots of $p$. Observe that using the quadratic formula we may derive those to be:
+    $$X_{1,2}=\frac{-t^2}{2}\pm\frac{\sqrt{t^4-4}}{2}=\frac{-t^2}{2}\left(1\pm\sqrt{1-\frac{4}{t^4}}\right).$$
+    Even if taking the logarithm seems hard, we are not interested in the logarithm itself, just the limit! Observe that 
+    $$\lim_{t\to\infty}\log_t\left|\frac{-t^2}{2}\left(1+\sqrt{1-\frac{4}{t^4}}\right)\right|=2+\lim_{t\to\infty}\frac{1}{\log(t)}\log\left|\frac{1}{2}\left(1+\sqrt{1-\frac{4}{t^4}}\right)\right|$$
+    and the quantity on the right tends to $1/\infty$ which collapses to zero and then the logarithm only has $1$ as its argument. So overall we find one our original roots: $2$! The next limit has a different sign so it is not as direct. We may calculate that limit as follows:
+    $$\lim_{t\to\infty}\log_t\left|\frac{1}{2}\left(1-\sqrt{1-\frac{4}{t^4}}\right)\right|\approx\lim_{t\to\infty}\log_t\left|\frac{1}{2}\left(1-\left(1-\frac{4}{2t^4}\right)\right)\right|=\lim_{t\to\infty}\log_t\frac{1}{t^4}=-4.$$
+    So for the negative root we would actually obtain $2-4=-2$ which is the other root of our polynomial.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig4-5CorrespondenceRoots2Example.png}
+        \caption{Indeed the roots of $q$ correspond with $p$'s}
+        \label{fig:4.5-CorrespondenceRoots2Example}
+    \end{figure}
+\end{Ex}
+
+\section{Interim 2}
+
+\begin{Def}
+    If $q(x)=\sum a_kx^k\in\bC[X]$ or $\bC\set{\set{t}}[x]$, then the \term{tropicalization} of $q$ is 
+    $$\Trop(q)=\sum T_{t\to\infty}(a_k)x^k$$
+    or respectively with the valuation. In this case we omit the notation for tropical operations but the sum and product are tropical.
+\end{Def}
+
+\begin{Th}
+For a polynomial $q$, $r_k$ is a root of $q(x)$ with multiplicity $m_k$ if and only if $T_{t\to\infty}(r_k)$ is a root of $\Trop(q)$ of multiplicity $m_k$.
+\end{Th}
+
+In the univariate case, we may prove the theorem using the following lemmas.
+
+\begin{Lem}
+$\Trop$ is a multiplicative function on polynomials. That is
+$$\Trop(pq)=\Trop(p)\Trop(q)\word{for}p,q\in\bC[x].$$
+\end{Lem}
+
+\begin{Lem}
+The roots of $\Trop(p)\Trop(q)$ are the union of the roots of the factors. If a root is repeated then the multiplicities are added.
+\end{Lem}
+
+\begin{Ej}[2]
+Prove the preceding lemmas and then conclude the theorem as a result.
+\end{Ej}
+
+Otherwise, we may prove the correspondence theorem in a different way. This is more conducive to a higher number of variables. This is helpful, as in higher dimensions we don't have a fundamental theorem of algebra. But, in this case, the most convenient perspective is the valued field perspective. So let us swtich to that point of view and interpret 
+$$x\oplus y=\min(x,y).$$
+
+\begin{Th}
+Let $q\in\bC\set{\set{t}}[x]$, then $r\in\bC\set{\set{t}}$ is a root of $q$ if and only if $\val(r)\in\bT\cap\bQ$ is a root of $\Trop(q)$.
+\end{Th}
+
+\begin{ptcbp}
+Let us begin by considering a root $r$ of $q$, then $q(r)=0$ which means that 
+$$a_0+a_1r+\dots+a_dr=0.$$
+This is formal sum of monomials which in order to vanish, at least two of the monomials must reach a minimum order of vanishing to cancel. This is equivalent to $\val(r)$ being a root of $\Trop(q)$. \par %%REVIEW
+The other directior is substantially more difficult. This will be an instance of a realizability question. We have two cases, $r$ is a finite root or $r=\infty$. We will assume that $r$ is finite and do a proof by example. 
+\end{ptcbp}
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(x)=tx^3+x^2+x+t\To\Trop q(x)=1\.x^3+x^2+x+1$$
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.85\textwidth]{figs/fig5-1RealizabilityExampleProof.png}
+        \caption{Tropicalization of $q$ in $\min$ convention}
+        \label{fig:5.1-RealizabilityExampleProof}
+    \end{figure}
+    The roots of this polynomial are $-1,0$, and $1$. We will now find a root $r_1\in\bC\set{\set{t}}$ of $q$ with $\val(r_1)=r_1$. For this to happen we requiere 
+    $$r_1=yt^{-1}+z\word{where}y\in\bC\word{and}z\in\bC\set{\set{t}},\ \val z>r_1.$$
+    We now plug in $r_1$ into $q$ and we obtain
+    \begin{align*}
+        q(r_1)&=t(yt^{-1}+z)^3+(yt^{-1}+z)^2+(yt^{-1}+z)+t\\
+        &=\un{y^3t^{-2}}+3y^2zt^{-1}+3yz^2+z^3t+\un{y^2t^{-2}}+2yzt^{-1}+z^2+yt^{-1}+z+t
+    \end{align*}
+    Extracting the coefficients we get $y^3+y^2=0$ which means that $y=-1$. Plugging this back into our expression as $y$ we get 
+    $$3zt^{-1}-3z^2+z^3t-2zt^{-1}+z^2-t^{-1}+z+t=tz^3-2z^2+(t^{-1}+1)z+(-t^{-1}+t).$$
+    Tropicalizing (\red{is it actually or is it the reverse operation?}) we get 
+    $$1\.z^3+z^2+(-1)z+(-1)$$
+    which has as a root $1>-1$ So 
+    $$z=y+z_1\word{with}y\in\bC,\quad z_1\in\bC\set{\set{t}}.$$  
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig5-2EndOfProofFiniteCase.png}
+        \caption{I don't know what this is}
+        \label{fig:5.2-EndOfProofFiniteCase}
+    \end{figure}
+    \red{ASK MAPLE CODE}
+\end{Ex} 
+
+The question now is: how do we turn this idea into a formal proof?
+\begin{enumerate}[i.]
+    \item We do one root at a time, starting with the rightmost one.
+    \item Observe that if $r$ is a tropical root and $\al=yt^r$ with $y$ chosen so cancellation happens, then denoting $\tilde{q}$, $q$ without the $x^0$ term:
+    $$\Trop(q(x+\al))>\Trop(\tilde{q})\oplus\Trop(q(\al)).$$
+    \item Finally we iterate and check that the sequence of $r_i$'s goes to $\infty$.
+\end{enumerate}
+
+\subsection{Combinatorialization of Root Finding}
+
+We will be using the $\max$ convention now. So let us consider $p(x)=\sum_{k=0}^da_kx^k$. Can we a systematic and simple way to say how many roots, with what multiplicity, and what equations to solve?\par 
+The left-most root can be found via
+$$\min\left(\frac{a_0-a_k}{k}\right)=\text{achieved by }k\text{ such that }\frac{a_0-a_k}{k}\text{ is maximized}.$$
+In other words we are looking for the largest slope:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig6-1BiggestSlope.png}
+    \caption{Difference of coefficients as slopes}
+    \label{fig:6.1-BiggestSlope}
+\end{figure}
+We may repeat this argument for the following roots to get the following algorithm:
+\begin{enumerate}[i.]
+    \item Let $p_k=(k,a_k)\in\bonj{0,d}\x\set{-\infty}\cup\bR$.
+    \item Now $\Sg$ is the convex hull of the points $\set{p_k\:\ k\in[d]}$. We may divide the region into $\Sg^+$ and $\Sg^-$.
+    \item Call $q_i=\pi(p_i)$ for $p_i$'s that for the vertices of $\Sg^+$.
+\end{enumerate}
+The roots will be in bijection with the connected components of $\bonj{0,d}\less\set{q_i}_{i\in I}$ and the multiplicity is the length of the segment.
+
+\begin{Ex}
+    Take for example the polynomial 
+    $$p(x)=0+1\.x+1\.x^2+x^3+2\.x^4+1\.x^5.$$
+    We now place the points in our diagram and project:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-2CombinatorializationExample.png}
+        \caption{Root finding for $p(x)$}
+        \label{fig:6.2-CombinatorializationExample}
+    \end{figure}
+    From this we deduce that there are $2$ simple roots and $1$ triple root. This come from the equations
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &0=x+1&\To x=-1\\
+        &x+1=2+4x&\To x=-1/3\\
+        &2+4x=1+5x&\To x=1
+    \end{aligned}
+    \right.
+    $$
+\end{Ex}
+
+\subsection{Gr\"obner Complexes}
+
+If $K$ is a field with a valuation, then call
+$$
+\left\lbrace
+\begin{aligned}
+    &R_K\subseteq K=\text{ elements with non-negative valuation}\\
+    &\lie{m}\subseteq R_K=\text{ elements with positive valuation}
+\end{aligned}
+\right.
+$$
+so $\quot{R_K}{\lie{m}}$ is a residue field. In the case of tropical polynomials, they form a Gr\"obner complex\footnote{What are Gr\"obner comlpexes? To see in interim.}.
+$$\lie{m}=\bigcup_nt^{1/n}\bC\bonj{\bonj{t^{1/n}}}\subseteq R_K=\bigcup_n\bC\bonj{\bonj{t^{1/n}}}\subseteq\bC\set{\set{t}},\word{and}\quot{R_K}{\lie{m}}=\bC.$$
+
+\begin{Def}
+    Given $q\in K[x]$ and $w\in\bT$, the \term{initial form} of $q(x)$ with respect to $w$ is a polynomial in $k[x]$that records the part of $q$ that has lowest order when $\val(x)=w$.
+\end{Def}
+
+\begin{Ex}
+    Let us consider the polynomial 
+    $$q(x)=t^{-4}+\sqrt{2}x+3t^2x^2,$$
+    Here\footnote{What does this mean?}
+    $$t^{-4}\to -4,\quad \sqrt{2}x\to-3,\quad 3t^2x^2\to -4,\word{so}w=-3\footnote{I srsly don't understand}.$$
+    We may construct the initial form as $I_wq=1+3x^2$ but formally this is $\bonj{t^4(q(t^{-3}x))}_{t=0}$ and in general if $W=\Trop q(w)$ then 
+    $$I_wq=\bonj{t^{-W}(q(t^{w}x))}_{t=0}.$$
+\end{Ex}
+
+\subsubsection{Gr\"obner Complex of $q(x)$}
+
+Polyhedral decomposition of $\bR$ (in the case of a valuation space if we want, we can also add in $\infty$ but it usually is left out.) induced by the equivalence relation
+$$w_1\sim w_2\iff In_{w_1}q=In_{w_2}q\footnote{Does this refer to initial form?}$$
+
+\begin{Ex}
+    Consider the polynomial 
+    $$t^2+\sqrt2x+3t^2x^2$$
+    and each monomial maps\footnote{Through what? The valuation?} to $2,w$ and $2+2w$ respectively.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        \caption{Initial form determination and roots}
+        \label{fig:6.3-InitialFormExample}
+    \end{figure}
+    So the tropical roots are the locus where the initial form is not a monomial.
+\end{Ex}
+\section{Day 7|20230906}
+
+\subsection{Our First Correspondence Theorem}
+
+\begin{Def}
+    Given a family of polynomials 
+    $$q_t=\sum A_k(t)x^k\in\bC[x]\word{with}t>1$$
+    then the \term{tropicalization} of $q_t$ is 
+    $$\Trop(q_t)(x)=\sum a_k\odot x^{\odot k},\word{where}a_k=\lim_{t\to\infty}T_t(A_k).$$
+    We may also use the $\min$ convention by exchanging the field to Puiseux series and $T_t$ by the valuation.
+\end{Def}
+
+\begin{Th}[Correspondence]
+For a polynomial $q_t$, $R_t$ is a root of $q_t$ if and only if $\Trop(R_t)=\lim_{t\to\infty}T_t(R_t)$ is a root of $\Trop(q_t)$.
+\end{Th}
+
+This is saying that we have an object in algebraic geometry, a polynomial. Tropical geometry will somehow knowing about its roots by degenerating it. Then its easy to find the tropical roots and then there must be certain algebraic roots which should map to them. It may not be easy to understand this last map but at least we have some qualitative information.\par 
+We will use the fundamental theorem of algebra to reduce to the linear case. So the first step is to prove the theorem for the case of linear polynomials. We have a couple of lemmas to finish the proof and expand it to the general case:
+
+\begin{Lem}
+    $\Trop$ is a multiplicative function on polynomials. That is
+    $$\Trop(pq)=\Trop(p)\odot\Trop(q)\word{for}p,q\in\bC[x].$$
+    \end{Lem}
+    
+This first lemma doesn't add anything weird because the tropical product is just the usual addition.
+
+    \begin{Lem}
+    The roots of $\Trop(p)\odot\Trop(q)$ are the union of the roots of the factors. If a root is repeated then the multiplicities are added.
+    \end{Lem}
+
+    Essentially what this is saying is that if we have two piecewise linear functions which change slope at the same place, then the sum will also change slope at the same place. As the functions are convex, a root can never be cancelled. Except possibly $-\infty$.
+
+    \subsection{Higher Dimension}
+
+    We will go back to the Puiseux series convention now:
+    $$P(X)\in\bC\set{\set{t}}\bonj{X},\ P(R)=0\iff \Trop(P)(\val(R))=0.$$
+    The easy direction is to begin with a root of our Puiseux polynomial. Let 
+    $$P(X)=\sum A_i(t)X^i,\word{and}\Trop(P)(X)\sum a_i\odot x^i$$
+    where $a_i=\val(A_i)$. Let $R=R(t)$ be a root of $P(X)$.\par 
+    We know $\val(P(R))=\infty$ because $P(R)=0$. Formally $\val(P(R))$ should greater or equal than the minimum of the valuation of each of the monomials evaluated at $R$. In other words 
+    $$\min(\val(A_i(t)R^i))=\min_i(a_i+i\val(R))=Trop(P)(R).$$
+    Since we know that strict inequality holds, the terms in the formal evaluation with lowest order must cancel, in other words, the minimum is attained at least twice by two different monomials.\par 
+    Last week we mentioned attaining the minimum twice is the same as being a root.
+
+    \begin{Ex}
+        Consider the polynomial $(t^2+7t^3)X+(t^5+t^{27})=Q(X)$. The root here is $R=-\frac{t^5+t^{27}}{t^2+7t^3}$ and its valuation is $5-2=3$. If we plug in something of this form instead of $X$ we get 
+        $$Q(-t^3+O(t^4))=(t^2+7t^3)(-t^3+O(t^4))+(t^5+t^{27})=(-t^5)+t^5+O(t^6)$$
+        In particular the first thing that will cancel is the lowest order term: $t^5$. So \emph{two} monomials must have lower order term.
+    \end{Ex}
+
+\section{Day 10|20230913}
+
+The next question is if this process makes sense if we instead begin with a Puiseux series polynomial. If the process ends up being the same, does this mean that tropical geometry over a trivial valued field is uninteresting? That's not the case, it's only because we are in dimension zero. 
+
+\subsection{Gr\"obner Complexes}
+
+These types of complexes arise in commutative algebra. The setup begins with a valuated field, in our case Puiseux series $\bC\set{\set{t}}$. We can find the ring of integers, the positive valuated elements, in our field. These types of functions are regular at $t=0$. Inside this ring we have the maximal ideal of functions which vanish at zero. If we wish we can take a quotient to find the residue field which is a copy of $\bC$.\par 
+Everytime we are given the data of polynomial $q$ in $\bC\set{\set{t}}\bonj{x}$ plus a choice of a valuation, we can recover the initial form of $q$ which is a polynomial with coefficients in the residue field.\par 
+The way to find it is to look at the valuation of each monomial assuming $\val(x)=w$ and then save only the monomials with the smallest valuation and only keep the coefficient in front of the smallest term.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(x)=t^{-4}+t^{2}+\sqrt{2}x+3t^2x^2$$
+    and take $w=-3$. This means that $\val(x)=-3$. Let us now consider the valuation monomial by monomial:\par 
+    The term $(t^{-4}+t^{2})$ has valuation $-4$ because there's no $x$, next for $\sqrt{2}x$ we have
+    $$\val(\sqrt{2}x)=\val(\sqrt{2})+\val(x)=0+(-3)=-3$$
+    so it has valuation $-3$ and $3t^2x^2$ has valuation $2-6=-4$. We now consider only the first and last terms as they have the smallest valuation and extract the coefficients of the smallest terms. In the case of $t^{-4}+t^{2}$ its the $1$ accompanying the $t^{-4}$ and a $3$ accompanying the last term. So the initial form is 
+    $$\operatorname{In}_{-3}(q)=1+3x^2.$$
+\end{Ex}
+
+\red{FORMULA for initial form}\par 
+We now define an equivalence relation over $(\bR,w)$: 
+$$w_1\sim w_2\iff In_{w_1}q=In_{w_2}q$$ 
+which separates $\bR$ into two types of equivalence classes:
+\begin{itemize}
+    \item Single points in which the initial form is not a monomial.
+    \item Open intervals where the initial is a monomial.
+\end{itemize}
+
+\begin{Ex}
+    Consider the polynomial 
+    $$t^2+\sqrt2x+3t^2x^2$$
+    and each monomial maps\footnote{Through what? The valuation?} to $2,w$ and $2+2w$ respectively.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        \caption{Initial form determination and roots}
+        \label{fig:6.3-InitialFormExample}
+    \end{figure}
+    So the tropical roots are the locus where the initial form is not a monomial.
+\end{Ex}
+
+\begin{Def}
+    The complement of the locus where the initial form is a monomial is called the \term{Gr\"obner complex} of $q(x)$.
+\end{Def}
+
+The Gr\"obner complex of $q(x)$ is equal to the roots of $\Trop(q)(x)$. This is indeed in correspondence with Gr\"obner basis, which is very interesting in higher dimension. 
+
+\subsection{1-dimensional Tropical Geometry}
+
+If we have $p(x,y)$ a tropical polynomial in two variables, then we can define its tropical variety to be $V(p)$:
+\begin{itemize}
+    \item The locus in the domain where the piecewise linear function where $p$ is not linear.
+    \item The locus of points $(x,y)$ where the $\max$ associated to each monomial is obtained more than once.
+\end{itemize}
+
+We will have a correspondence theorem which says that if $q(x,y)$ is a polynomial with coefficients over a valued field and the tropicalization of $q$ is $p$, then 
+$$V(p)=\ov{\set{(\val(x),\val(y))\: (x,y)\in V(q)}}.$$
+\begin{Ej}
+Show that pairs of rational numbers are dense here. \aside{It has to do with the valuation only taking rational numbers.}
+\end{Ej}
+In two dimensions we have way more features, the study of tropical curves will enclose the correspondence statement with subdivisions of Newton Polygon and balancing edge weights. Our objective now is to see the tropical versions of tropical curve theorems. For example, the tropical Bézout and tropical degree/genus formula.
+
+\section{Day 11|20230915}
+
+\subsection{Tropical Lines}
+
+\subsubsection{The $\max$ convention}
+
+If we have a tropical polynomial of degree 1, 
+$$p(x,y)=a\odot x\oplus b\odot y\oplus c$$
+and assume for the sake of drawing pictures, that $-\infty\neq a,b,c$. This corresponds to the piecewise linear function 
+$$\max(a+x,b+y,c)$$
+and if we set any of these two equations equal to each other, we can see that there are three lines that play a role:
+\begin{align*}
+    &a+x=b+y\To y=x+(a-b)\\
+    &a+x=c\To x=c-a\\
+    &b+y=c\To y=c-b
+\end{align*}
+So this is the locus where two functions are equal to each other. In each of the regions the maximum is attained by a particular linear function, the boundary between them is the locus of non-linearity. The point in the middle is $(c-a,c-b)$. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig7-1-TropicalLineExample.png}
+    \caption{Graph of $p(x,y)=0$ in $\bR^2$}
+    \label{fig:7.1-TropicalLineExample}
+\end{figure}
+
+So in general, tropical lines look like this ``tripod'' and changing the $a,b,c$ shifts the graph. 
+
+\begin{Ej}[2]
+Figure out what happens when a coefficient is $-\infty$.
+\end{Ej}
+
+This is analogous to what we have done with tropical univariate polynomials. The tropical line $V(p)$ is the locus of non-linearity of our function:
+$$V(p)=\set{(x,y)\in\bR^2\:\ df_p\!\mid\!_{(x,y)}\text{ isn't defined}}.$$
+\subsubsection{The Case of Puiseux Series}
+
+In this case, lines will we the zero loci of polynomials of the form 
+$$p(X,Y)=A(t)X+B(t)Y+C(t)$$
+with 
+$$a=\val(A),\quad b=\val(B)\word{and}c=\val(C).$$
+We let $L=\set{(X,Y)\in\bK^2\:\ p(X,Y)=0}$ be the zero locus and then define
+$$\Trop(L)=\ov{\set{(\val(X),\val(Y))\:\ (X,Y)\in L}}\subseteq\bT^2.$$
+We may parametrize $p$ in the following way, we let $X=\ga(t)$ with an arbitrary valuation and then we solve for $Y$:
+$$Y=\underbrace{\frac{-A(t)}{B(t)}\ga(t)}_{a-b+\val\ga}-\underbrace{\frac{C(t)}{B(t)}}_{c-b}$$ 
+\red{ASK RENZO} Depending on the value of $\val\ga(t)$, then we may get different values for $\val Y(\ga(t))$. 
+\begin{itemize}
+    \itemsep=-0.4em 
+    \item If $\val\ga(t)>c-a$, then $\val Y(\ga(t))=c-b$.
+    \item If $\val\ga(t)<c-a$, then $\val Y(\ga(t))=x+a-b$.
+    \item And if $\val\ga(t)=c-a$ then $\val Y(\ga(t))$ can be anything above $c-b$. We thus set 
+    $$\ga(t)=\left(-\frac{C(t)}{A(t)}\right)(1+t^{\odot m}),\word{where}m>0$$
+\end{itemize}
+The first two items represent a graph of $(a-b)x+(c-a)$\footnote{ask Renzo because I don't understand, page 4 of TG7.}
+\begin{Rmk}
+If we send $a,b,c,X$ and $Y$ to their negatives then $\Trop(L)$ agrees with the previous perspective. Alternatively, we can check that $\Trop(L)$ agrees with the previous perspective but using the $\min$ convention.
+\end{Rmk}
+\begin{Ex}
+    Let us explicitly choose $A,B$ and $C$:
+    $$q(X,Y)=t^aX+t^bY+t^c.$$
+    Note that $q$'s tropicalization is $p(X,Y)$.
+    Points in $V(q)$ can be parametrized as 
+    $$X=\al,\quad Y=\frac{-t^a}{t^b}\al-\frac{t^c}{t^b}=-t^{a-b}\al-t^{c-b},\word{where}\al\in\bK^\ast.$$
+    Taking valuations of $X$ and $Y$ we get $\Trop(L)$ (but without closing it). Specifically we are looking at the set 
+    $$\Trop(L)=\set{\left(\val(\al),\val(-t^{a-b}\al-t^{c-b})\right)\in\bT^2\:\ \al\in\bK^\ast}$$
+    We can let $\al$ have any valuation we want and depending on that, we determine the valuation of the binomial $Y$. The possible valuations are 
+    $$\val Y=a-b+\val(\al)\word{or}\val Y =c-b$$
+    which are equal when $\val(\al)=c-a$. \red{ASK RENZO ABOUT THIS HOW TO DETERMINE THE CRITERION ABOUT VAL AND STUFF}
+    \begin{itemize}
+        \item What happens if $\val(\al)<c-a$ then $-t^{a-b}$
+        \item Something I fell asleep 
+    \end{itemize}
+    \textbf{Claim: We can obtain any value for $y$ but is to be greater than $c-b$.}
+    Let $r\geq 0$ and $\al=-t^{c-a}(1+t^r)$
+\end{Ex}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/fig7-2-TropicalLinePuiseuxExample.png}
+    \caption{The tropical line from the Puiseux perspective}
+    \label{fig:7.2-TropicalLinePuiseuxExample}
+\end{figure}
+
+\subsubsection{Glimpse into Amoebas}
+
+Recall that what matters the most is the logarithm base $t$ of our function. So let us continue with 
+$$q(x,y)=t^ax+t^by+t^c$$
+and play the same as before. Look for solutions to the equation $q_t=0$ in $\bC^2$ which is a line intersecting the $x$ axis at $-t^{c-a}$ and the $y$ at $-t^{c-b}$. Every pair of points $(x,y)$, gives us a pair $(\log_t|x|,\log_t|y|)$. The real trace of this, when $x,y\in\bR$ can be parametrized with $x=t^\al$ and $y=-t^{a-b+\al}$. We analyze the trace in three intervals, 
+
+\section{Day 12|20230918}
+
+\subsection{The Amoeba Perspective}%%VAMOS POR AQUI TG7
+
+Our goal is to understand the image of the line 
+$$L_t=\set{t^ax+t^by-t^c=0}\subseteq\bC^2$$
+via the map $(x,y)\mapsto (\log_t|x|,\log_t|y|)$. The line $L_t$ has three sections, where both $x,y$ are positive and one section corresponding to each $x$ and $y$ being negative. For ease of calculation we may solve the equation as $y=-t^{a-b}x+t^{c-b}$\par 
+Let us consider the case where $x,y$ are both positive. We can see that $0<x<t^{c-a}$, this traces an $x$ in the parameter space such that $-\infty<x<c-a$. Via the solution for $y$ we may write 
+$$\log_t|y|=\log_t(t^{c-b}-t^{a-b+x})$$
+where we have solved the equation for $x$ which is why we have an $x$ exponent and $y$ is positive as we have assumed. We can simplify this as 
+$$\log_t\bonj{t^{c-b}\left(1-t^{a-c+x}\right)}=(c-b)+\log_t(1-t^{a-c+x}).$$
+This can be traced as a function of $t$ and in particular
+$$\lim_{x\to-\infty}(c-b)+\log_t(1-t^{a-c+x})=c-b\word{and}\lim_{x\to(c-a)^{-}}(c-b)+\log_t(1-t^{a-c+x})=-\infty.$$
+With this information we see two asymptotes for our function, $y=c-b$ and $x=c-a$.
+
+\subsection{Arbitrary Degree $d$}
+
+Recall that for a polynomial $q\in\bK[x,y]$, we may describe its algebraic variety in $\bK^2$. We may think of that field as Puiseux series. Along it, we may tropicalize it to $p$ and we get its tropical hypersurface, the set of non-linearity.\par
+Kapranov's theorem allows us to see a correspondence as follows:
+$$\ov{\Trop(V(q))}=V(\Trop(q)).$$
+Left-to-right is still the same idea as the correspondence theorem. If $(x_0,y_0)\in\Trop(V(q))$ then, there exists $(X_0,Y_0)\in\bK^2$ such that $\val(X_0)=x_0,\ \val(Y_0)=y_0$ and $q(X_0,Y_0)=0$. Let 
+$$q=\sum a_{ij}X^iY^j$$
+If we call $m_{ij}$ each monomial, then $\set{m_{ij}(X_0,Y_0)}_{i,j}$ is a set of elements of $\bK^\ast$ with the property that their sum is zero. Now call 
+$$\mu=\min\set{m_{ij}(X_0,Y_0)}_{i,j}$$
+we claim that there are at least two monomials whose valuation is $\mu$. If there was only one monomial with valuation $\mu$, then that power of $\mu$ \emph{cannot} be cancelled. This means that $(x_0,y_0) $ is in $V(p)$. Now we use minimality of closure and we are done.\par 
+Now the harder direction will use the fact that we have proven this in dimension zero and proceed by induction. First we want to show that $V(\Trop(q))\cap\bQ^2$ is dense in $V(\Trop(q))$. This is true because all monomials $m_{ij}$ correspond to all linear functions with integer slopes of rational coefficients.
+$$a_{ij}X^iY^j=\Trop(m_{ij})=\val(a_{ij}\odot x^{i}\odot y^j)=\val(a_{ij})+ix+jy$$
+It suffices to check that \red{ERASED TOO QUICK}\par 
+Now we wish to proceed by induction. For example a polynomial $q(X,Y)$ can be seen as 
+$$q(X,Y)=r_0(X)+r_1(X)Y+\dots+r_d(X)Y^d\word{with}r_i(X)\in\bK[X].$$
+We do not lose generality when assuming that all $r_i$'s are monomials\footnote{to see next time}. So we have $(x_0,y_0)\in\in V(\Trop(q))$ and we want to find $(X_0,Y_0)\in(\bK^\ast)^2$ such that 
+$$q(X_0,Y_0)=0\word{and}(\val(X_0),\val(Y_0))=(x_0,y_0).$$
+Choose $X_0$, however we want as long as we have the valuation condition. Given our assumption, this implies that $r_i(X_0)$ is non-zero for all $i$. Now consider the polynomial 
+$$q(X_0,Y)=\sum r_i(X_0)Y^i\in\bK[Y]$$
+and its tropicalization
+$\tilde{p}(y)=\Trop(q(X_0,Y))=\sum\val(r_i(X_0))y^i=\min(\val R_i(X_0)+iy)=\min$
+They are hidden in terms of unknown,
+
+\section{Day 13|20230920}
+
+\begin{Th}
+$V(\Trop(q))=\ov{\Trop(V(q))}$
+\end{Th}
+
+If we start with a polynomial in valued field, we can tropicalize or look at ... and then take the image of coordinates of points and back in $\bR^2$ then take closure, we end in the same place. The fact that every point of the algebraic curve  lies somewhere is an argument of cancellation of Lowest Order Terms. In particular when plugging the value for the Puiseux solution two terms must cancel. 
+\begin{ptcbp}
+We have shown that right-to-left is easy, cancellation of L.O.T.\par 
+The other direction is trickier, it's a lifting problem. Given $(x_0,y_0)\in V(\Trop(q))\subseteq\bR^2$, then we must find 
+$$(X_0,Y_0)\in V(q)\subseteq \bK^{\ast2},\quad\val(X_0)=x_0\quad\val(Y_0)=y_0$$
+If we write $q$ then we will assume that we can write 
+$$q(X,Y)=\sum r_i(X)Y^i,\quad r_i(X)\ \text{monomials}$$
+If we first plug in $X=X_0$ (which is any Puiseux series we want with valuation $x_0$ [We have picked such $X_0$]), 
+$$q(X_0,Y)=\sum r_i(X_0)Y^i$$
+is a polynomial in $Y$ with Puiseux series coefficients, now tropicalize this $q$ we get 
+$$\tilde{p}(y)=\sum\val r_i(X_0)y^i\quad\text{(tropical sum and product now)}.$$
+We claim that $y_0$ is a root of $\tilde{p}(y)$. HEre's where we are using the monomial assumption.\par 
+What is the linear function associated to $\tilde{p}(y)$:
+$$\tilde{p}(y)=\min(\val r_i(X_0)+iy)$$
+and as $r_i$ is monomial, call it $r_i(X_0)=A_{ij}X^j$ where $A_{ij}$ is a Puiseux series. So this $\tilde{p}$ becomes:
+$$\tilde{p}(y)=\min(\val(A_{ij})+jx_0+iy)$$
+which is exactly the tropicalization of $q(x,y)$ and plug in $x_0$. This is a univariate polynomial, which allows to apply the univariate case. So there exists a $Y_0$, Puiseux series, such that $Y_0$ is a root of $q(X_0,Y)$ with $\val(Y_0)=y_0$.\par 
+It remains to see that our monomial condition is not a restriction. 
+\end{ptcbp}
+
+This allows us not only to lift, but to pick one coordinate freely and then the other one is determined!
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(X,Y)=XY+X^2Y=(X+X^2)Y,\word{and}\tilde{q}(X,Y)=q(XY,Y)=XY^2+X^2Y^3$$
+    and $\tilde{q}$ does satisfy the previous assumption. If $(\tilde{X}_0,\tilde Y_0)$ is a solution to our problem for $\tilde{q}=0$, then $\left(\frac{\tilde{X}_0}{\tilde Y_0},\tilde Y_0\right)$ is a solution for $q=0$.\par 
+    The key point is that $\tilde q$ is obtained $q$ by an invertible transformation in the torus $(\bK^\ast)^2$.
+\end{Ex}
+
+\begin{ptcb}
+Given $q(X,Y)$ of degree $d$, then picking 
+$$\tilde{q}(X,Y)=q(XY,Y^{d+1})$$
+satisfies the monomials assumption. This is because \emph{we are giving enough space}.
+$$q(X,Y)=\sum r_{ij}X^iY^j\To \tilde{q}(X,Y)=\sum r_{ij}X^iY^{(d+1)j+i}$$
+where if we wished to find \dots then 
+$$(d+1)j_1+i_1=(d+1)j_2+i_2\To (d+1)(j_1-j_2)=i_2-i_1$$
+$j_1-j_2\geq d+1$ when $j_1=j_2$ and $i_2-i_1\leq d$.
+\end{ptcb}
+
+\begin{Ex}
+    Compute $V(p)$ for the following polynomials
+    \begin{itemize}
+        \item $p_1=0+x+y+xy$
+        \item $p_2=0+x+y-xy$
+        \item $p_3=0-x-y+xy$
+    \end{itemize}
+    For each of this polynomials there are $\binom{4}{2}=6$ line possibilities so we check each one.
+\end{Ex}
+
+\section{Day 14|20230922}
+
+Consider the polynomial 
+$$q(X,Y)=XY+X+Y+c,\quad c\in\bC$$
+as a polynomial in $\bK[X,Y]$ such that $\Trop q=p$. We can factor $q$ as 
+$$(X+1)(Y+1)+(c-1)=0\To(X+1)(Y+1)=\tilde{c}$$
+which looks hyperbolic. The real locus is PICTURE and we would like to compactify. However in $\bP^2$ we get an anomalous curve. PICTURE So we would like to compactify instead in $\bP^1\x\bP^1$.  We bi-homogenize $q$ to obtain 
+$$\tilde{q}=X_1Y_1+X_1Y_0+Y_1X_0+X_0Y_0c=0$$ 
+In this case PICTURE we won't intersect the special points. Instead just general points. The point we want to emphazise is the fact that the shape of the tropical curve tells us that this could be the tropicalization of  a curve but that the plane curve wants to be compactified in $\bP^1\x\bP^1$ instead of $\bP^2$.
+
+\subsection{Bummer Theorem}
+
+\begin{Th} 
+    Let $q\in\bC[X,Y]$ considered as a subset of Puiseux series polynomials where no coefficient is zero. We can write $q(X,Y)=\sum_{i+j\leq d}a_{ij}X^iY^j$ with $a_{ij}\neq 0$.\par 
+    Then $\ov{\Trop(V(q))}$ looks like a tropical line with a vertex at zero.
+\end{Th}
+
+This is a bummer because any polynomial of this form will look like a tripod. But what happens with \emph{lines off to infinity matches the degree}? We may able to endow lines with information about the degree, but nonetheless, we lose every other piece of information. So choosing coefficients in a trivially valued field reduces all information.\par 
+To prove this theorem we will unravel the definitions.
+
+\begin{ptcbp}
+We have that the tropicalization of $q$ is 
+$$\Trop q=\bigoplus(x^i\odot y^j)=\min_{i+j\leq d}(ix+jy)$$
+and so we can see that the minimum is attained by PICTURES
+\end{ptcbp}
+
+Working with Puiseux series is not only because its fancy, its because we wish to have non-trivial objects.
+
+\subsection{Structure Theorem for Tropical Curves}
+
+Let $p(x,y)=\bigoplus a_{ij}\odot x^i\odot y^j$ be a tropical polynomial. The Newton polygon of $p$ is the convex hull of $(i,j)$ such that $a_{ij}\neq 0$.\par 
+Let $\Sg$ be the convex hull of the points $(i,j,a_{ij})\subseteq V(NP)\x\bR$, which is for every $(i,j)$ point consider the height $a_{ij}$ so $\Sg$ is a convex polytope in $\bR^2\x\bR$. Seeing the polytope from the top and projecting down we get a subdivision of the Newton polygon.\par 
+Consider $\pi_z((x,y),z)=(x,y)$ and let $\tilde{N}$\~N be the subdivision of the N.P. obtained by projecting the corners of $\Sg$ you can see from above.
+If we want to say this in fancier words, a polytope is a finite intersection of half-spaces and then we look at intersections of planes with outward normal vector ($z$ postive coordinate) then project down to $xy$ plane.\par 
+Then the tropical curve is \textbf{DUAL} to such subdivision, meaning that:
+\begin{itemize}
+    \item Vertices of the tropical curve map to faces of \~N, edges map to edges of \~N.
+    \item There is a reversing structure given by inclusion into the closure.
+    \item Every edge of $V(p)$ is perpendicular to the edges of \~N, it corresponds to.
+    \item Coordinates of vertices $v$ are found by solving the linear system obtained by setting equal the linear functions corresponding to monomials corresponding to vertices of the face of \~N dual to $v$.
+\end{itemize}
+
+\begin{Ex}
+    Consider the polynomial
+    $$p(x,y)=0\oplus x^2\oplus y^2\oplus 1x\oplus 1y\oplus xy,$$
+    each monomial corresponds to a vertex in our triangle. Somehow now we know that our tropical curve has 4 vertices, then we can correspond edges.\par 
+    To get the coordinates of the lowe left vertex we look at the vertices surrounding the corresponding triangle. The linear system we ought to solve is 
+    $$0=1+x=1+y\To x=-1,\ y=-1$$
+    and in this fashion we obtained the coordinates. 
+\end{Ex}
+
+\section{Day 15|20230925}
+
+We were talking about how tropical plane curves are dual to the subdivisions of the Newton polygon of the tropical polynomial. Let's recall this with an example. 
+
+\begin{Ex}
+    Consider the polynomial $0+x^2+y^2+x+y+xy$. All coefficients are non infinity so we get 6 points corresponding to all terms, the convex hull is a triangle. We give each point a height, $0,x^2$ and $y^2$ have $0$ coefficient while $x,y$ and $xy$ have coefficient $1$. We imagine throwing a drape over that figure and then divide the faces, edges of tropical curve are perpendicular so the curve should look similar to the following figure.\par
+    \red{FIGURE}\par 
+    Now for example, the central vertex is dual to the face $F_2$ which corresponds to the monomials $1+x$, $1+y$ and $1+x+y$. The solution to the system 
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &1+x=0\\
+        &1+y=0\\
+        &1+x+y=0\\
+    \end{aligned}
+    \right.
+    \To (x,y)=(0,0)
+    $$
+    so $(0,0)$ is the coordinate of the central vertex.
+\end{Ex}
+
+\begin{Rmk}
+There's not metric duality between the triangle and the curve! It is possible to make a Newton polygon which doesn't fit in the curve as well.
+\end{Rmk}
+
+\begin{Ej}[5]
+Find such an example!
+\end{Ej}
+
+If we did this in the case of Puiseux series, then the subdivision of the Newton polytope keeps track of the initial forms of $q$ in the sense that for any cell in the Newton subdivision, the initial form is given by the monomials corresponding to the lattice points in this set.
+
+\begin{Ex}
+    Consider the polynomial 
+    $$q(X,Y)=7+3X^2+2Y^2+t^{-1}X+2t^{-1}Y+t^{-1}XY,$$
+    this polynomial tropicalizes via $-\val$ to the polynomial $p$ from last example.\par \red{FIGURE}\par 
+    The initial form in the face $F_1$ corresponds to the monomials $XY+2Y+2Y^2$, then $XY+2Y+X$ in $F_2$, $X+2Y+7$ in $F_3$ and $3X^2+X+XY$ in the last $F_4$. The Gr\"obner fan is still the same as in the tropical curve.\par 
+    Along the edge $01$ of $F_1$ the initial form is $2Y^2+XY=In_w(q)$ where $w=(w_1,w_2)=-(\val X,\val Y)$ for $w$ in the blue edge of the tropical curve (corresponds to \red{stuff} which has that initial form). 
+\end{Ex}
+
+We will prove this fact by making a crucial observation. Evaluating a tropical monomial at a point $(x_0,y_0)$ can be done as a dot product. Take $m=a\odot x^i\odot y^j$ so the evaluation is at $(x_0,y_0)$ is 
+$$\braket{(i,j,a)}{(x_0,y_0,1)}.$$
+When we construct the subdivision of the N.P. we consider all points with coordinates $(i,j,a_{ij})$ as $i,j$ ranges over $\set{a_{ij}\neq -\infty}$
+So evaluating $p(x_0,y_0)$ amounts to looking for the maximum of the dot products of $(x_0,y_0,1)$ with all $(i,j,a_{ij})$.\par 
+\red{FIGURE}\par 
+In other words $m_{ij}(n_x,n_y)$ is equal for all monomials corresponding to vertices of the green face. For vertices below, it occurs that $\braket{\vec n}{\vec v}<0$ so 
+$$m_{ij}(n_x,n_y)<m_{\tilde i\tilde j}(n_x,n_y)$$
+when $m_{ij}$ corresponds to vertices not in the face and $m_{\tilde i\tilde j}(\dots)$ in face.\par 
+We have identified why the vertices correspond to tropical subdivisions, but the edges? If we focus on one, it bounds two faces $F_1$ and $F_2$ which span two planes with normal vectors $\vec n_1,\vec n_2$ with their respective $z$ coordinates equal to $1$. So any vector between these two, i.e. any one in with first two coordinates in the segment $n_1$ to $n_2$ has the property that 
+$$\braket{n}{m_1}=\braket{n}{m_2}>\braket{n}{m_{\text{other}}}$$ %Nate tiene los dibujos y revisar notas en canvas
+
+\section{Day 16|20230927}
+
+We have discussed that tropical plane curves are dual to a subdivision of the Newton polytope. There's a combinatorial algorithm that will allow us to divide the N.P.\par 
+We will study a couple more characteristics to discern between stick figures and tropical curves. We need to introduce the fact that each \emph{stick} gets a weight.
+
+\begin{Def}
+    Any edge of a tropical curve $V(p)$ is given \term{weight} $w_e$ equal to the lattice length of the segment of the N.P. subdivision dual to the edge.
+\end{Def}
+
+Before even defining what things mean, let see an example. 
+
+\begin{Ex}
+    Consider the tropical cubic with subdivision edges $1\to yx^2$ and $yx^2\to y^2$. We may identify weights of edges with black in the coming figure:
+    \begin{figure}[h!]
+        \centering
+        %\includegraphics[width=0.5\textwidth]{figs/fig6-3-InitialFormExample.png}
+        %\caption{Initial form determination and roots}
+        %\label{fig:6.3-InitialFormExample}
+    \end{figure}
+\end{Ex}
+
+\begin{Th}
+Tropical plane curves are balanced, meaning that at every vertex
+$$\sum_{v\in e}w_e\vec p_e=0.$$
+Here $w_e$ is the weight of the edge $\vec p_e$ outgoing primitive vector in the direction of $e$.
+\end{Th}
+
+Continuing the line of the previous example, at the vertex we were looking at we have outgoing primitive vectors 
+$$\twobyone{1}{2},\quad\twobyone{-1}{0}\word{and}\twobyone{1}{-2}.$$
+Observe that when taking the weighted sum at the vertex we get 
+$$2\twobyone{-1}{0}+\twobyone{1}{2}+\twobyone{1}{-2}=\twobyone{0}{0}.$$
+We will prove the theorem next.
+
+\begin{ptcbp}
+Any vertex is dual to a face $F_v$ of N.P. subdivision.
+For every edge bounding $F_v$, the vector $w_e\vec p_e$ is obtained by the vector tracing the dual edge via a $90^circ$ rotation. We claim to be done, the fact that the equation is satisfied is equivalent to the fact that the N.P. is a closed polygon.
+\end{ptcbp}
+
+So imagine a stick figure with weighted edges comes up to you, then we can check the compatibility condition. If it doesn't have weights, does there exist an assignment of weights in order to form a tropical curve? 
+
+\subsection{What do the weights mean?}
+
+\begin{Ex}
+    Suppose we have a subdivision with edges 
+    $$x^2y\to x^5y^2\to x^8y^3\to x^11y^4$$
+    and the corresponding edge in the tropical curve. We want to see the initial form. This subdivision \emph{remembers} the monomials that appear in the initial form! It will be a linear combination of the monomials in the edge!
+    $$\operatorname{In}_\omega(q)=Ax^2y+Bx^5y^2+Cx^8y^3+Dx^{11}y^4=x^2y(A+Bx^3y+Cx^6y^2+Dx^9y^3)=x^2yP(x^3y)$$
+    This polynomial factors so nicely because they lie on the same line! If we are just looking for solutions in $(\bC^\ast)^2$ or asymptotically $|x|,|y|\gg 0$ what happens is that the monomial part is irrelevant. Also $\deg(P)$ is equal to the lattice length of the segment. A 1-parameter subgroup orbits $x^3y=r_i$ where the $r_i$ is a root of $P$ counted with multiplicity.    
+\end{Ex}
+
+\section{Day 17|20230929}
+
+Last time we talked about edges weighted by lattice length determines the segments of the Newton Polygon it is dual to. Today we will draw topological types of tropical plane curves and cubics. The objective is to experiment with various tropical curves and seek a conjecture to compute their $b_1$. Study a pencil of tropical conics, in other words draw a conic and pick 4 points on it in general position. Then find all conics through those 4 points.
+
+\section{Day 18|20231002}%% TG11
+
+For any interior point of the Newton Polygon, we can make sure that we can find as many cycles can a tropical curve have. There is a correspondence theorem.\par 
+The solution to the parameter space of conics is that we get a trivalent tree with $6$ edges. This corresponds to $\bP^5$ which has $6$ boundary divisors.
+
+\subsection{Intersections of tropical curves}
+
+\begin{Def}
+    Two tropical curves have a \term{transversal intersection} if they intersect in finitely many points which are not vertices of either curve.
+\end{Def}
+
+\begin{Ex}
+    Two tropical lines seen as tripods which touch just at a point intersect transversally. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figs/fig11-1-TransversalIntersectionExample.png}
+        \caption{Example of a Transversal Intersection}
+        \label{fig:11.1-TransversalIntersectionExample}
+    \end{figure}
+\end{Ex}
+
+\begin{Ex}
+    If the line is placed right on top of the other one, they could also intersect non-transversally on the whole edge.\par 
+    If for example we had a conic, it could intersect the vertex of another tropical line non-transversally. Or two vertices could intersect!
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figs/fig11-2-NonTransversalIntersectionExample.png}
+        \caption{Example of Non-Transversal Intersections}
+        \label{fig:11.2-NonTransversalIntersectionExample}
+    \end{figure}
+\end{Ex}
+
+It looks like if the intersection is transversal then the set of intersection is just a point. Otherwise let's be very topological and talk about stable intersections.
+
+\begin{Def}
+    For a vector $\vec v\in\bR^2\less\set{0}$, call the \term{vector intersection} of $\Ga_1,\Ga_2$
+    $$\Ga_1\cap_{\vec v}\Ga_2=\lim_{t\to 0}\left(\Ga_1\cap(\Ga_2+t\vec v)\right).$$
+\end{Def}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.1cm 23.25cm 5cm 0.25cm,clip]{figs/fig11-3-4-and-5-VectorIntersections.pdf}
+    \caption{Example of Vector Intersections}
+    \label{fig:11.3-VectorIntersection1}
+\end{figure} 
+
+Observe that this definition may be troublesome because of the choice of the vector $\vec v$. What happens if we get another intersection point with another $\vec v$?
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.1cm 17.75cm 9cm 5.5cm,clip]{figs/fig11-3-4-and-5-VectorIntersections.pdf}
+    \caption{Weighted Vector Intersections}
+    \label{fig:11.4-WeightedVectorIntersection2}
+\end{figure}
+   
+From this we deduce that intersection points should be weighted by multiplicity of the edges they belong to. We need more than just the edge weights to define this.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth, trim= 0.1cm 13cm 9cm 10.75cm,clip]{figs/fig11-3-4-and-5-VectorIntersections.pdf}
+    \caption{Problematic Vector Intersections}
+    \label{fig:11.5-NonWeightedVectorIntersection2}
+\end{figure}
+%Amaury Was here
+%double checking to see if this worked
+Before we jump into the theory, let's have an aside question, let us ask how the curves 
+$$C_1=\set{x^a=y^b},\word{and} C_2=\set{x^c=y^d}$$
+intersect in $\bC^2$. Observe that we may parametrize $C_1$ as $(x,y)=(t^b,t^a)$ and substitute into $C_2$'s to get 
+$$t^{bc}=t^{ad}\To t^{bc}(t^{ad-bc}-1)=0$$ 
+which means that at zero we have a point of high multiplicity and $(ad-bc)$ points away from the origin. The interesting question is how does this relate to our problem. At a glance there doesn't seem to be a connection, but if we look at the \emph{valuation} we might just start to see some hints of it.
+
+\begin{Def}
+    Let $q$ be a point of transversal intersection of two tropical curves $\Ga_1,\Ga_2$. Then the multiplicity of the intersection is determined by the primitive\footnote{Primitive lattice vectors are the shortest lattice vectors possible}
+    directions $\vec p_1,\vec p_2$  of the intersection as 
+    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|=w_1w_2\bonj{\bZ^2\: \vec p_1\bZ\oplus \vec p_2\bZ}.$$
+    The last quantity is the subgroup index of $\vec p_1\bZ\oplus \vec p_2\bZ$ inside $\bZ^2$. %TG11 page 5
+\end{Def}
+%%https://ocw.mit.edu/courses/12-108-structure-of-earth-materials-fall-2004/9df654250315660f294bf6c9acd49ae1_lec7.pdf PRIMITIVE VECTORS
+%% https://en.wikipedia.org/wiki/Unit_cell
+%% https://www.physics.rutgers.edu/grad/601/CM601/crystals.pdf
+\section{Day 19|20231004}
+%Pages 6 to 8 TG11
+Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? \red{WHAT WAS THE ISSUE?} The issue is that we must define multiplicity in order to talk about weights/multiplicities of non-transversal intersections.
+
+\begin{Ex}
+\red{FIGURE} \blu{WHICH FIGURE THERES NO PICTURE}
+In the first case we have intersections at $Q_1,Q_2$, where the first intersection has multiplicity
+$$m_{Q_1}=\left|\det\twobytwo{0}{1}{1}{-1}\right|$$
+and the other point also has multiplicity $1$. But if we move to the non-transversal intersection we get multiplicity $2$. This goes according to the definition. 
+\end{Ex}
+
+\begin{Lem}
+The amount of intersections of two tropical curves is invariant under generic translation.
+\end{Lem}
+
+The proof follows from two facts:
+
+\begin{itemize}
+    \item The definition of multiplicity of an intersection:
+    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|$$
+    \item And the balancing condition at $q$: 
+    $$\sum_{e\to v}w_e\vec{p}_e=0$$
+    where $e\to v$ means edges incident at $v$.
+\end{itemize}
+
+It also suffices to analyze cases locally so we may zoom in into an edge of one of our curves.
+
+\begin{ptcbp}
+Consider an edge of a tropical curve $\Ga_1$ locally intersecting $\Ga_2$ at a vertex. The edge of $\Ga_1$ partitions the plane into two half planes $H^+,H^-$.\par 
+Let us partition the edges into those ``in'' $H^+$ and $H^-$ and pick $\vec v_+$ in any direction pointing to $H^+$ and let us take the vector intersection with respect to such $\vec v_+$. Considering the multiplicities we get a contribution of 
+$$w_1\sum_{e\in H^-}w_e\|\det(\vec p_1,\vec p_e)\|.
+\footnote{The edges we have are from $H^-$ because of the relative positions. It does sound counterintuitive however.}$$
+Similarly if we take a vector $\vec v_-$ pointing towards $H^-$ and translate $\Ga_2$ in that direction we get a contribution of 
+$$w_1\sum_{e\in H^+}w_e\|\det(\vec p_1,\vec p_e)\|.$$
+Then the contribution to a $\vec v$ deformed intersection is the same when $\vec v$ points in the direction of $H^+$ or $H^-$.\par 
+Suppose $\vec v_1$ and $\vec v_2$ are two vectors pointing in different directions, if we raise the intersection, we get the lower edges intersecting. Their primitive vectors are all in the clockwise direction form $p_e$. So the weight of the $\vec v_1$-deformed intersection is 
+           $$\sum_{e'\in E^-}w_ew_{e'}|\det(p_1,p_2)|$$
+\end{ptcbp}
+%%PAGES 6 to 8 TG11
+\subsection{Tropical Bézout}
+
+From this lemma the result follows immediately!
+
+\begin{Th}
+Let $\Ga_1,\Ga_2$ be two tropical curves of degree $d_1,d_2$. Then $|\Ga_1\cap\Ga_2|=d_1d_2$.
+\end{Th}
+
+A curve has degree $d$ if its dual to a subdivision of $0,(d,0)$ and $(0,d)$. We know that if we have a tropical curve of degree $d_1$ then we can move one of degree $d_2$ in such a way that just so many edges intersect. Counting down we get the product of the multiplicities.
+
+\section{Day 20|20231009}
+
+Last time we started talking about the idea behind Bézout's theorem. Recall, that a curve with degree $d_i$ is dual to the polygon with vertices $0$, $(0,d_i)$ and $(d_i,0)$. Intersections, as in the ordinary case, are counted with multiplicities.\par 
+The quantity $|\Ga_1\cap \Ga_2|$ is invariant under translation, so we can move two curves so that only unbounded ends intersect. Looking at this picture from far away and squinting our eyes what we see is two tripods with degree $d_i$. This means that all the information needed to compute the intersection is independent of the subdivisions of the Newton Polygon.
+\begin{Def}
+    In $\bP^1\x\bP^1$, coordinates are $([x_0:x_1],[y_0:y_1])$, a \term{bi-degree $(a,b)$ curve} is the zero locus of a bi-homogenous polynomial in the aforementioned variables which is 
+    \begin{itemize}
+        \item homogenous of degree $a$ is $x_i$,
+        \item homogenous of degree $b$ is $y_i$.
+    \end{itemize}    
+    Tropically, this means that $\Ga$ is dual to a subdivision of a rectangle with sides $a$, $b$.
+\end{Def}
+
+\begin{Ex}
+    The polynomial $x_0y_0+x_1x_0y_1=0$ is a bidegree $(2,1)$ curve. On the tropical side we have \red{FIGURE} which is a $(1,1)$ curve.
+\end{Ex}
+
+The tropical Bézout theorem for $\bP^1\x\bP^1$ says that if we have $\Ga_i$ with bidegree $(a_i,b_i)$, then 
+$$|\Ga_1\cap\Ga_2|=a_1b_2+a_2b_1.$$
+
+But what if we wanted to intersect a degree $d$ curve with a bidegree $(a,b)$ curve? We just draw the stick figure and notice that degree of the intersection is $d(a+b)$. We can ask how to generalize it and the answer is precisely Bernstien's theorem.
+
+\begin{Th}
+Let $\Ga_i$ be tropical curves of degree $\Dl_i$. Then 
+$$|\Ga_1\cap\Ga_2|=\operatorname{MixedArea}(\Dl_1,\Dl_2).$$
+\end{Th}
+
+In this case the degree of a tropical curve is the Newton polygon of its equation. In other words a lattice polygon.
+
+\subsection{Minkowski Sum of Polytopes}
+
+Once a long time ago we were told that a degree is a number, but a degree is actually a polygon.
+\begin{Def}
+    Consider $\Dl_i\subseteq\bR^2$ lattice polygon, then the \term{Minkowski sum} is 
+    $$\Dl_1+\Dl_2=\set{(x_1,y_1)+(x_2,y_2)\in\bR^2\:\ (x_i,y_i)\in\Dl_i}.$$
+\end{Def}
+This definition is \textbf{compatible} with translations! At this moment we can choose how to put two polygons in $\bR^2$ and sum them. 
+
+\begin{Ex}
+    The Minkowski sum of a square and a right triangle is a gem-shaped pentagon. The idea is that we decide one of the vertices to be the origin and then make the polygon travel through the perimeter of the other one.
+\end{Ex}
+
+\begin{Ej}
+The Minkowski sum appears to be commutative, prove it! Which other properties does the Minkowski sum enjoy?
+\end{Ej}
+
+\begin{Ex}
+\red{FIGURE ABOUT MIXED SUDVISIONS}
+\end{Ex}
+
+\begin{Def}
+    The \term{mixed area} of $\Dl_1,\Dl_2$ is either of 
+    \begin{enumerate}[i)]
+        \item $A(\Dl_1+\Dl_2)-A(\Dl_1)-A(\Dl_2)$,
+        \item the area of the mixed cells in any mixed subdivision of $\Dl_1+\Dl_2$,
+        \item the $\la\mu$ coefficient in $A(\la P+\mu Q)$.
+    \end{enumerate}
+\end{Def}
+
+\chapter{Toric Varieties}
+\section{Day 21|20231011}
+
+IT says that if we have two tropical curves of degree $\Dl_1,\Dl_2$ (polytopes), and we wish to compute the intersections, then this is counted via the mixed area. This correspondence is very tight, satisfying. When taking stuff, we get the mixed cells (parallelograms with sides parallel to our original polygons). Having the polygons in positions means that the curves have been moved and the mixed cells correspond to the intersections.\par 
+The weight of the edges is the length of sides of the polygon, in particular the Minkowski sum of two lattice polytopes is itself a lattice polytope.
+
+\subsection{Torus actions}
+
+A space $X$ with a torus action $T\.X$ and an open set isomorphic to the torus on which $T$ acts by multiplication is a toric variety. The geometry of a torus is fairly simple or trivial, which means that \emph{most} of the geometry of $X$ can be recovered from the complement of this dense open set (the one isomorphic to $T$). The fact that we have a torus action allows for a \emph{combinatorialization} of the geometric information.\par 
+If we don't know what a torus is, it's a group, and the space is just the space. The action moves the points in a certain way. Geometry is connected to the representation theory of the group.
+
+\begin{Def}
+    The \term{algebraic torus} of rank $k$ is $G_m^k$ (think of it as $(\bC^\ast)^k$) \aside[If we have a different field than $\bC$, actually $G$ is a multiplicative group \emph{scheme}]. This object is a group under pointwise multiplication and in general we can view it as the scheme 
+    $$\Spec\left(\bC\bonj{x_1,\frac{1}{x_1},\dots,x_k,\frac{1}{x_k}}\right).$$
+    If we are more familiar with differential geometry, local coordinates are similar but the coordinate is a generalization. We can imagine elements on the scheme as regular functions from the torus to $\bC$. We will usually denote the torus by $T$.
+\end{Def}
+
+Recall a group acts on itself via multiplication and in a similar faction the torus action on a space $X$ will be a map $T\x X\to X$. We can thus relate the characters of $T$ to invertible regular functions on $T$ and if we are choosing coordinates, then they are also related to monomial functions in $x_i$'s.\par 
+The characters of $T$ are the group homomorphisms from $T$ to $\bC^\ast$. It is actually the trace of an irreducible representation of $T$, but they are one dimensional and\dots Monomial functions on the $x_i$'s are precisely regular functions vanish. Those places are on the coordinate axis so nowhere near the torus. As a $\bC$-vector space, monomials are a basis of our ring. That is gonna play an important role.\par 
+All of these interpretations are groups under multiplication. Given a monomial we can read a vector of exponents: 
+$$x^3y^{-5}\mapsto (3,-5)$$
+so this is also related to the lattice of exponents of the monomial functions. This gives a multiplicative to additive isomorphism. This lattice is called $M$, it is also called the character lattice and is isomorphic to $\bZ^k\subseteq \bR^k$ which we will also called $M_\bR$. This is actually a \emph{tensor product}. In this sense we can match 
+$$(3,-5)\mapsto \vf_{(3,-5)}\: T\to\bC^\ast,\ (t_1,t_2)\mapsto t_1^3t_2^{-5}.$$
+We also have a relationship between co-characters (linear functions on characters), one parameter subgroups of $T$ (group homomorphisms $\bC^\ast\to T$, $t\mapsto(t^a,t^b))$. The co-character lattice $N$ is the dual of the character lattice is isomorphic to $\bZ^k\subseteq\bR^k=N_\bR$. There is a natural pairing $M\x N\to\bZ$ which turns out to be the usual dot product. Slightly more satisfying, the natural way to get a pairing is to imagine we have a character $\chi$ and a one parameter subgroup $\ga$ we get a map 
+$$\bC^\ast\xrightarrow[]{\chi}T\xrightarrow[]{\ga}\bC^\ast,\ t\mapsto(t^a,t^b)\mapsto t^{aA+bB}$$
+so the exponent is precisely $\braket{(a,b)}{(A,B)}$.\par
+After talking about so many ingredients, let us talk about one more thing. If we have one parameter subgroups, we can think of them as acting on the torus so we have torus orbits. Let's see some torus orbits we get with different actions. 
+
+\begin{Ex}
+    Consider the one parameter subgroup $\ga_{(1,1)}(t)=(t,t)$. Acting on a point $(a,b)$ we get the point $(ta,tb)$. So the orbits are lines through the origin. And notice the in fact, $\ga_{(-1,-1)}(t)=(t^{-1},t^{-1})$, even if we get the same orbits, on the first case we get flow inwards while on the second one we get \emph{outwards} flow.\par 
+    We could get $\ga_{(1,0)}(t)=(t,1)$, the orbits are horizontal lines. Finally $\ga_{(1,-1)}(t)=(t,t^{-1})$, then the orbits are hyperbolas. 
+\end{Ex}
+
+Now we are gonna say ok, we are gonna allow ourselves to grow the torus a little bit by saying that we want to add limit points of one parameter or allow/decide that some monomial functions are regular and some are not and then add the points. In the case of $\ga_{(1,1)}$ we are going to need to fill in the point of the origin. 
+
+\section{Day 22|20231013}
+
+Last time we talked about the setup: the toric variety is a space $X$. One is that it contains the torus as a dense open set and the other is that the torus acts on $X$ and in particular in the open set it acts by multiplication. We linked objects from the algebraic geoemtry and representation theory of the torus. The way we think of characters of the torus are monomial functions on the coordinates of the torus. These are regular functions because there are no poles on the torus. On the other hand $N$ is a lattice of one-parameter subgroups, a map from a one dimensional torus to a $k$-dimensional one. In particular inside the torus, if we take a point and act on it via a one parameter subgroup, we get a one-dimensional orbit. It is always the case that if we let $t=0$ then the point falls off of the torus. These objects are dual to each other via dot product.
+
+\begin{Ex}
+    An example of a toric variety is $\bP^1$, the set of homogenous points $[x:y]$. Take out zero and infinity and we get a one-dimensional torus.\par 
+    We can also think of points in $\bP^1$ as points of $\bC^\x$ as $[x:1]$ or $[1:y]$. Our objective is to build toric varieties from simpler varieties.
+\end{Ex}
+
+\begin{Def}
+    A \term{cone} in $N_\bR$ will tell us how to add points to a torus in two ways:
+    \begin{enumerate}[i)]
+        \item It would tell us what orbits of one-parameter subgroups acquire a limit point when $t\to 0$.
+        \item Or it would tell us what monomial functions are regular on such limit points. 
+    \end{enumerate}
+\end{Def}
+
+Let us illustrate with an example taking two dimensional $N_\bR$:
+
+\begin{Ex}
+    A cone is what we think is a cone.\red{FIGURE}
+This cone $\sg_1$ contains all lattice points corresponding to one-parameter subgroups of the form 
+$$t\mapsto (t^a,t^b),\quad a,b>0$$
+Now let's assume that we have a point of the two dimensional torus $P=(r_p,s_p),\ r_p,s_p\neq 0$. We now look at the orbit of $P$ via the coordinate-wise multiplication action:
+$$t\.P=(t^ar_p,t^bs_p)$$
+and now taking the limit $t\to 0$ of $t\.P$ and we want it to exist, then we introduce three cases:
+\begin{itemize}
+    \item Both $a,b$ are non-zero.
+    \item $a=0$ but $b$ not, then we get points of the form $(r_p,0)$.
+    \item The other way around for $b$: $(0,s_p)$.
+\end{itemize}
+$$\lim_{t\to 0}t\.P=\begin{cases}
+    &(0,0),\ a,b\neq0\\
+    &(r_p,0),\ a=0\\
+    &(0,s_p),\ b=0
+\end{cases}$$
+The cone contains all the ways to pick the map. All the dots in the \emph{interior} go to zero! If $a,b$ are both zero the action is trivial. This cone is telling us to add the axes to $T$ to get $\bC^2$.\par 
+Notice that if we had taken the lower cone we would've obtained a similar situation but instead of adding zeroes we would get infinities. We would still get $\bC^2$ but adding different axes.\par 
+If we instead were algebraic geometers we would be interested on regular functions at the limit points. Take $f=x^\al y^\bt$, when is it regular at the $t\to 0$ limit point of the orbit of a 1.p.s. $t\mapsto (t^a,t^b)$, then 
+$$f(t)=t^{a\al+b\bt}r_ps_p,$$
+the limit exists as long as $a\al+b\bt$ is non-negative. This is precisely the dot product, so we are basically saying that we want all vectors in $M$ whose dot products with vectors in $N$ is non-negative. This defines the notion of \emph{dual cone}. This combinatorial object acquires the meaning of telling us what are the regular functions when adding the limit points. In this case $\sg_1^\lor$ looks exactly like $\sg_1$ \red{PICTURE}. This also tells us that $x,y$ are regular functions so every polynomial in $x,y$ is a regular function. So in particular $\bC[x,y]$ is the ring of regular functions. 
+\end{Ex}
+
+Let us focus our attention now on the projective plane.
+
+\begin{Def}
+    A \term{fan} is a collection of cones living \emph{nicely} in $N$. This means that we are not just wacking at random at some cones. All cones will have the vertex at the origin and the only overlaps occur at boundary edges. \red{PICTURE}
+\end{Def}
+
+This particular fan $\Sg$ is the fan of $\bP^2$. To construct it we follow this strategy 
+\begin{enumerate}
+    \item Each top dimensional cone produces an affine open chart in the sense of manifolds.
+    \item Each face, or ray in common, provides transition functions. 
+\end{enumerate}
+
+If we understand how it works in $\bP^2$, generalizing is pretty simple. We will look at dual cones, monomial functions there give us regular functions. 
+
+\begin{Ex}
+    The dual to the red cone is itself, the dual to the blue cone is $\set{x<0,0<y<-x}$ and for green its $\set{y<0,0<x<-y}$. Call two monomial functions $x_1,y_1$ on $\text{red}^{\lor}$ so the regular functions are $\bC[x_1,y_1]$.\par 
+    On the blue we take the points $(-1,0)$ and $(-1,1)$, they correspond to the functions $\frac{1}{t_1}$ and $\frac{t_2}{t_1}$. But actually let's just call them $x_2,y_2$ so the coordinate ring is $\bC[x_2,y_2]$ so our affine chart is a copy of $\bC^2$ with coordinates $x_2,y_2$. In a similar fashion we will get $\bC[x_3,y_3]$ from the green dual.\par 
+    To make them talk to each other, we take a ray in $\Sg$ and ask for its dual. The dual of the positive $y$-axis is the upper half plane. The regular functions for this space are $\bC[\tilde x,\tilde y,\tilde x^{-1}]$ so it is $\bC^\x\x\bC$ with coordinates $\tilde x,\tilde y$. Now notice that this black cone contains the red and blue dual cones. So in particular we can express $x_1,y_1$ in terms of $\tilde x, \tilde y$. The key point is that $\bC^\x\x\bC$ is contained in the two copies of $\bC^2$ we had before. We get the following relations 
+    $$\tilde x=x_1=x_2^{-1},\quad \tilde y=y_1=y_2x_2^{-1}.$$
+    These are the transition functions which allow us to glue this two patches! 
+\end{Ex}
+
+Cones select subsets and produces regular monomials, this produces coordinate ring, take the algebraic variety corresponding to this ring. This variety contains the torus. This can be done in various ways so that's how we build the atlas.
+
+\section{Day 23|20231016}
+
+Then the combinatorial date of the fan gives us a way to construct a toric variety a s a amanigold. Every face gives us the transition functions. The way to construct this chart is the dual cone. Then we take the algebra spanned by the monomials and we ask what variety's coordinate ring is this span. 
+
+\subsection{Consequences of our construction}
+
+\begin{enumerate}
+    \item There is an inclusion into closure reversing bijection between cones of $\Sg$ and the torus orbits of $X_\Sg$, the toric variety. And in particular, also exchanging dimension with codimension.\par 
+    In action, the fan of $\bP^2$ has 3 two dimensional cones $R,G,B$ and likewise $\bP^2$ has 3 two-codimensional points. Similarly the fan has 3 one dimensional cones. $\bP^2$ has 3 one dimensional torus orbits. From the fan of $\bP^2$ we can immediately read the Euler characteristic of $\bP^2$. The only things that will contribute are the zero dimensional cones.\par 
+    In general, to see how the bijection works you can take two different approach:
+    \begin{itemize}
+        \item The geoemtric approach is: for every cone $\tau$ of $\Sg$, look at the limits as $t\to 0$ of the torus orbits of 1-parameter subgroups $\ga$ with $\ga\in\tau^\circ$. (stuff) and instead we pick a 1 parameter subgroup which lies on a ray, take for example $b=0$, the $y$ coordinate doesn't change and $x$ goes to zero.
+        \item The algebraic perspective is that for every affine patch dual to a cone, set all the coordinates that you can set to zero to zero. \par 
+        What we mean by that is that if we look at the spec of the algebra dual to  the red cone we get $\bC[x_1,y_1]$ that's why it's affine. Setting both to zero we get the origin. When looking for transition functions, the ray has an affine chart, the algebra generated by the dual cone $\bC[\hat x,\frac{1}{\hat x},\hat y]$. In this case $\hat x$ can't be set to zero. Doing it, we get any non-zero complex number so we get a one dimensional something. And the origin is itself a cone, the dual cone corresponding to the trivial cone is the whole thing. The corresponding algebra is $\bC[x,\frac1x,y,\frac1y]$ and that's why we can't set anything equal to zero.
+        \begin{significant}
+            Coordinates here correspond to local coordinates in the affine patch. There's a lot of things with the same name. 
+        \end{significant}
+        Even if in blue we get the same algebra, setting coordinates to zero gives us a different point.
+    \end{itemize}
+    \item The second useful thing is very natural. $T$-equivarant maps of toric varieties correspond to maps of fans. (Maps of fans: Given $\Sg_k\subseteq N_{k,\bR}$, a \term{map of fans} is a $\bZ$-linear map $L\: N_{1,\bR}\to N_{2,\bR}$ such that for $\tau$ cone of $\Sg$, $L(\tau)\subseteq$ cone of $\Sg_2$.)\par 
+    Consider the fan of $\bP^1\x\bP^1$, a 2 dimensional toric variety, for $\Sg,\ X_\Sg=\bP^1\x\bP^1$. We have a projection map $\pi\: X_{\Sg_1}\to\bP^1$ which is equivalent to the map of fans $\tilde{\pi}$ form $\Sg_1$ to $\Sg_2$. It is also the case for $\bP^2\less\set{pt}$ to $\bP^1$ which is projecting from that point.
+\end{enumerate}
+The proof of this facts is left to the reader. Even without the proof this is a natural statement which makes sense.
+\begin{significant}
+    $L(\tau)$ doesn't have to be a full cone. In the previous examples it is, but that's just an accident. We would allow it to not be a full cone because we can allow mor maps.
+\end{significant}
+For example if we wanted to send a line in a plane as a map of.k0
+
+\subsection{Quotient construction}
+
+Given a fan $\Sg$, the toric variety $X_\Sg$ can be obtained as a quotient space of the form:\par 
+We start with affine space, cheack the irrelevant locus and then we take something that if we are lucky is a torus:
+$$\quot{\bC^N\less\set{irrelevant}}{G}$$
+$N$ is the numnber of rays in $\Sg$. The irrelevant set is the set determind by rays that dont span cones.And $G$ is given by lienar relations among maps. 
+
+\begin{Ex}
+In $\bP^2$  we have the tripod fan with three coordinates. So we have a $\bC^3$. We throw away the rays which don't span a cone. In this case th irrelevant. This is $\bC^3\less$ \red{FELL ASLEEP}
+\end{Ex}
+
+\section{Day 24|20231018}
+
+Last time we talked about orbit-cone correspondence for toric varieties. This is a poset-reversing bijection, every biggest cone corresponds to a smallest orbit and vice-versa. In particular, this helps us do really funky things. An orthant corresponds to affine space, the dual cone is the same orthant and those are the coordinates of affine space. The fan with only the axes is $\bC^2\less\set{(0,0)}$ and so on.\par 
+Maps of fans corresponds to good maps of toric varieties. They both have combinatorial descriptions, maps beteween fans are the restriciton of an integral linear map between vector spaces. Cones of the first fan move to cones of the second fan. Integral in the sense that integer coefficients.\par 
+With that now we have a quotient construction: take $\bC^N$ remove \emph{stuff} which is obtained from equations coming from rays that do not span a cone and then we mod out by linear relations among rays.
+
+\begin{Ex}
+    In the case of $\bP^2$ we have the fan which looks like a tripod. As it has $3$ rays we begin with $\bC^3$. Each ray corresponds to a coordinate of $\bC^3$: $x,y$ and $z$. The only subset of rays that does not span a cone of the fan is the three rays together $\set{\rho_x,\rho_y,\rho_z}$. We take the coordinates corresponding to the rays and set them equal to zero. Then we take that locus and throw it away: $\set{x=y=z=0}$. The way to determine the group is that we see the primitive vectors: $\vec p_x=\vec 1,\dots$ $p_z=-e_1-e_2$ and the fact that we have one relation 
+    $$1\.p_x+1\.p_y+1\.p_z=0$$
+    means that the torus is one dimensional. $t$ acts on $(x,y,z)$ as $(t^1x,t^1y,t^1z)$. The quotient we obtain is 
+    $$\quot{\bC^3\less 0}{\bC^\x}.$$
+    Observe that the exponents in the action are the coefficients in the relation.
+\end{Ex}
+
+\begin{significant}
+If the coefficients were $2,3,4$ the action would be $(t^2x,\dots)$
+\end{significant}
+
+If we were working with $\bP^1\x\bP^1$ the quotient would be by $(\bC^\x)^2$ and the action would be $(s,t)\.(x_1,x_2,y_1,y_2)=(sx_1,sx_2,ty_1,ty_2)$. More relations means more copies of $\bC^\x$. The real question is \emph{why is this true}? What if we take a fan and declare that any ray of the fan becomes a basis of a new vector space? Artificially we create a vector space.
+
+\begin{Ex}
+    In the case of the $\bP^2$ fan, $\vec p_x$ becomes $(1,0,0)$ and so on. Now we want to lift the other cones as cones generated by the vectors. The space we just made is the first quadrant. All the cones that we get are in the totally positive quadrant. We are actually missing a three dimensional cone. We have \emph{removed} from this fan that 3-cone. The orbits we are removing are \emph{not} lifts of cones back in the tripod. Now what we want is a map of fans that will make the quadrant go into the tripod. This will be a map of vector spaces. In particular in this case the map is projection by $(1,1,1)$. This is a one-parameter subgroup of the torus. Basically the orbits of our one-parameter subgroup get identified, so the projection is the quotient map of the action whose exponent vector is the coefficients of the relation.
+\end{Ex}
+
+\subsection{Tropicalizing Toric}
+
+In tropical geometry, the \emph{field} is the tropical numbers $\bR\cup\set{\infty}$, then $k^\x$ is $\bR$. So the torus which is $(k^\x)^n$ is $\bR^n$, since multiplication is the action, then tropical multiplication corresponds to addition. 
+
+\begin{Ex}
+    How do we make the tropical projective plane $\bP^2$? Remember we had the fan of $\bP^2$ (the tripod inside $N$) and then from here we got the dual cones inside $M$. Each of the dual cones gave us a copy of $\bC^2$ and then we had transtition functions of the form $x_2=\frac{1}{x_1}$, and $y_2=\frac{y_1}{x_1}$. Also between red and green $x_3=\frac{x_1}{y_1}$ and $y_3=\frac{1}{y_1}$. This is what we did a couple of days ago.\par 
+    To do it tropically we do it exactly the same, but instead of $\bC^2$ we get $\bT^2$. Specifically three copies with coordinates:
+    $$\bT^2,x_1,y_1,\quad\bT^2,x_2,y_2,\quad\bT^2,x_3,y_3.$$ 
+    These sets are basically copies of $\bR^2$ with lines at infinity so we get points like $(\infty,\infty)$, $(\infty,r)$ and $(s,\infty)$. Now we have to glue this things together to obtain one space. Every time we see a times we see a plus actually:
+    $$x_2=-x_1,\quad y_2=y_1-x_1,\quad x_3=x_1-y_1,\quad y_3=-y_1$$
+    To see what this objects glue to, take for example the line $(s,\infty)$, in the second $\bT^2$ we get $x_2=-s$ and $y_2=\infty-s=\infty$ (this is ordinary algebra). So the $(s,\infty)$ line maps to line at infinity \emph{in the reverse direction}. For the $1\to3$ transitions we get $x_3=s-\infty=-\infty$ and $y_3=-\infty$.\red{Finish discussing}.\par 
+    What happens is that we get an infinite triangle.
+\end{Ex}
+
+\section{Day 25|20231020}
+
+Patching construction for toric varieties: Dual cone gives affine patches, edges give transtition functions. This can be switched to tropical numbers. The charts are now affine $\bT$ spaces, sometimes it could be without infinity. Transition functions become linear.\par 
+With the example of $\bT\bP^2$ we had an infinite triangle. By removing the line and two points all we get is a copy of $\bT^2$. The $y$-axis of the first chart sticks to the $y$-axis of the second chart, while the $x$ axis becomes $y=x$. \red{LOOK AT PICTURE}
+\begin{Rmk}
+When removing the lines at infinity we get a copy of $\bR^2$, which is just the tropical torus! Even if the lines are arranged differently, the charts differ by an element of $\GL(\bZ)$. 
+\end{Rmk}
+
+The difficulty of transforming this into a general process is just painful notation. This process can always be done.
+
+\begin{itemize}
+    \item The tropical toric variety $\bT X_\Sg$ has a \emph{stratification} into $\bR^k$ strata which has a natural poset isomorphism with the stratification of the toric variety of $X_\Sg$.\par 
+    \red{AUDIO AROUND 10min} Stratification means a disjoint union into locally closed spaces. Think of it as chopping into pieces of different dimensions. All pieces are tropical tori $\bR^k$ for some $k$. 
+    \item The tropical toric variety has the structure of an ``infinite polytope'' (not precise, but it's what me imagine) which the normal polytope or dual to the fan of the toric variety.\par 
+    In the case of $\bP^2$, the fan is the tripod fan. For every 0-cell, we have a 2-stratum, for every ray we have a codimension 1 stratum whihc is incident at exactly one point. And for each 2-cone we have a 0-strata. This is similar to the orbit-cone correspondence, now its a dimension reversing map. Composing both we get a dimension-\emph{preserving} map. \blu{AUDIO BEFORE 17 min}\par 
+    The role taken by limits as $t\to 0$ of $t\.p$ in complex toric land, is replaced by $\lim_{T\to\infty}T+P$. In particular, given a 1-parameter subgroup $(1,1)$, what are the orbits?\par 
+    They will act on a point $(x_1,y_1)$ as 
+    $$T\.(x_1,y_1)=(x_1+T,y_1+T).$$
+    With this, no matter where we start, we go to $(\infty,\infty)$. The cones of the toric variety tells us how to add the point to infinity, it works the same way here but the action is now additive instead of multiplicative. 
+\end{itemize}
+
+\subsection{The Quotient Construction}
+
+Let's go back to $\bP^1$. In our quotient construction this is 
+$$\bP^1=\quot{\bC^2\less\set{(0,0)}}{\bC^\x},\quad t\.(x,y)=(tx,ty).$$
+We now read the same information from the fan, our affine space is over tropical numbers now:
+$$\bT\bP^1=\quot{\bT^2\less\set{(\infty,\infty)}}{\bR},\quad T\.(x,y)=(T+x,T+y).$$
+Without considering anything as of now, just by intuition, the tropical projective line should be a line segment! Formally when constructing like this, we first remove the point at infinity and then look at the orbits. They are all parallel lines and each correspond to one point in the quotient. \red{PICTURE 32min}
+
+\subsection{Subvarieties}
+
+We aim to answer the question about how subvarieties behave under tropicalization. The main point is that we begin with a curve in a torus and then we tropicalize.\par 
+Suppose now $Y\subseteq T\subseteq X_\Sg$, where $T$ is a torus and the other is a toric variety. What is 
+$$\Trop(Y)\subseteq\bR^n\subseteq \bT X_\Sg?$$
+
+\begin{Def}
+    The \term{extended tropicalization} of $Y$ inside $X_\Sg$ is the closure of $\Trop Y$ inside $\bT X_\Sg$. 
+\end{Def}
+
+\begin{Ex}
+    Lines in $\bP^2$ give rise to tropical lines (tripods) in $\bR^2$. Now we know that we can close this as tropical $\bP^2$. Then we take the closure in $\bT\bP^2$ so we only get 3 additional points. \red{PIC 41 min}
+\end{Ex}
+
+\begin{Ex}
+    Same line as before but we close in $\bP^1\x\bP^1$. So now we compactify inside an infinite square. Before the 3 points were part of 3 one dimensional orbits, but now one of the points corresponds to a zero-dimensional stratum.
+\end{Ex}
+
+\begin{Ex}
+    If we let a line go through the origin and close in $\bP^2$. The corner locus is $\min(x,y)$ which is non linear where $y=x$. Closing in $\bP^2$ gives us a point in a line and a point in the point. But when closing in $\bP^1\x\bP^1$ we get only points.
+\end{Ex}
+
+We wish to discuss how the position is related to the original position of the complex variety.
+
+\section{Day 26|20231023}
+
+Recall we defined the tropicalization of a toric variety and if we had a $Y\subseteq T\subseteq X_\Sg$ then the tropicalization in $X_\Sg$ is 
+$$\ov{\Trop(Y)}\subseteq \bT X_\Sg.$$
+\begin{Ex}
+    By taking the equations $x+y+1=0$ and $y+1=0$ then the associated tropical lines are a tripod and a horizontal line. We may either embed them into $\bP^2$ or $\bP^1\x\bP^1$.\par 
+    We know that tropical $\bP^2$ looks like an infinite triangle while the other looks like an infinite square.\red{FIGURE around 5 min}
+\end{Ex}
+
+What will discuss is the relation between how the clousure of $Y$ in $X_\Sg$ intersects the orbits with respect to the intersections of the tropical toric variety. We summarize this into a question 
+
+\begin{significant}
+    Given $Y\subseteq T\subseteq X_\Sg$
+\end{significant}
+
+In the first example, $x+y+1=0$ is a line which closed into $\bP^2$ intersects 3 lines in $\bP^2$. In tropical land, it intersects the 3 copies of $\bR$ and misses the vertices. While in $\bP^1\x\bP^1$, the correspondence persists. The fan of $\bP^1\x\bP^1$ consists of 4 rays and 4 2 dimensional fans. In this case one of the edges of the tripods is inside the 2 dimensional fan which is dual to the vertex that \red{Didn't understand}
+
+\begin{Th}
+Assume $K$ has a trivial valuation and $\sg\in\Sg$ a cone. Then 
+$$\ov Y\cap O_\sg\neq\emptyset\iff \Trop(Y)\cap\sg^\circ\neq\emptyset.$$
+\end{Th}
+
+\begin{Rmk}
+Trivial valuation implies that when \emph{throwing the blanket}, everything stays at the same level.
+\end{Rmk}
+
+\begin{ptcbp}
+To show the result, we will show that both facts are equivalent to the statement. \red{SLEEP} Put yourself in a local chart that contains this orbit. This is a copy of $\bC$.\red{sleep}\par 
+Now we want to show that a face intersection then the non-extended intersects the interior of the cone. This is because the tropical toric variety is dual to the fan. The trivial valuation gives us a tropicalization which is always a cone over the origin. 
+\end{ptcbp}
+
+In conclusion, we know that if we draw a tropical curve which corresponds to an algebraic curve in the torus, after closing it into the toric variety we will know which orbits we intersect just by looking at the variety.\par 
+If we are an algebraic variety $Y$ inside a torus, which toric variety do we want to be compactified into? The answer lies in the tropicalization.\par 
+But what does this question even mean? 
+\begin{itemize}
+    \item The variety $Y$ certainly wants to be compact.
+    \item It also doesn't want to acquire a whole bunch of singularities. (Think about the Alexandroff compactification, one-point compactification. Good luck doing geometry there.)
+    \item To compactify we must add some points, and since we are in a \emph{stratified} toric variety, the stratification of $\ov Y$ inside $X_\Sg$ matches, including dimension grading, with the stratification of $\Sg$. 
+    \item Lastly the compactification must not bw wasteful (because varieties care about the enviroment). The torus itself shouldn't have so many points not needed to compactify.
+\end{itemize}
+$x+y+1=0$ likes to be compactified in $\bP^2$ as \red{picure}. Except none of the infinite points are touched, so it likes to be compactification in $\bP^2$ without the three infinite points. \red{picture}.
+
+\section{Day 27|20231025}
+
+Last time we had a subvariety of a torus which is the open dense set of a toric variety. The question we addressed was 
+\begin{significant}
+    What are the orbits of the toric variety that $\ov Y$ intersects?
+\end{significant}mn,
+An orbit intersects the closure of $Y$ iff the tropicalization of $Y$ intersects the relative interior of the cone corresponding to the orbit. This went through an intermediate step, extended tropicalization intersects the face corresponding to $\sg$. Now we know when an orbit intersects $\ov Y$.\par 
+Stepping up sophistification, if we have a $Y\subseteq T$, when is the toric variety a good choice to close $Y$ in? 
+\begin{itemize}
+    \item When $\ov Y$ is compact/complete. (Not synonyms, compact in Zariski is trivial but Euclid not. Complete means all limit points.)
+    \item When $\ov Y$ doesn't become too singular
+    \item When codimension $i$ strata of $\ov Y$ corresponds to codimension $i$ \emph{stuff} of $X_\Sg$ 
+\end{itemize}
+We can always take a toric variety corresponding to a complete fan which corresponds to a compact toric variety so that's where we wanna close $Y$ into.\par
+Recall we saw the example $x+y+1=0$ inside the torus $(\bC^\x)^2$ then we can close it into $\ov L\subseteq \bP^2\less\set{e_1,e_2,e_3}$. And looking at the tropicalization of $L$, it happens to be the fan of $\bP^2\less\set{e_1,\dots e_3}$. We ask now, why is this not a coincidence?\par 
+In what follows, $K$ is trivially valued. Any Newton Polygon will not be subdivided.
+
+\begin{Th}
+$Y\subseteq T_n$ is $d$-dimensional and irreducible and $\ov Y\subseteq X_\Sg$ the closure of $Y$ in $X_\Sg$ then 
+$$\ov Y\word{is complete}\iff \Trop Y\subseteq |\Sg|.$$
+\end{Th}
+
+The support $|\Sg|$ is the locus of points in $N$ that belong to some cone of $\Sg$.
+
+\begin{ptcbp}
+Assume by contradiction that $\Trop Y$ is not inside of $|\Sg|$. Let us draw a picture: \red{figure 20 min}
+So let us add fans to get a complete toric variety. Consider a complete fan $\tilde \Sg$ that contains $\Sg$ as a sub fan. In the picture $\tilde \Sg$ is both red and green. Complete means that the support is the whole vector space. Then by a known theorem $X_{\tilde{\Sg}}$ is compact and also has $X_\Sg$.\par 
+Their difference is $\bigcup_{\sg green}O_\sg$ by the orbit cone correspondence something.\par 
+Because $\Trop Y$ intersects the green cone, then the closure has a point in the orbit corresponding to the green cone. That means $Y$ has a limit point in the cone corresponding to the differnece. So when closing in $X_\Sg$ that point\dots\par 
+As $\Trop Y\cap \sg^\circ\neq\emptyset$, for some green cone $\sg$, then $\ov Y\cap O_\sg\neq \emptyset$. Say $y$ is a point in such intersection, $y$ is a limit point of $Y$ in $X_{\tilde\Sg}\less X_\Sg$. So this means that $\ov Y\subseteq X_\Sg$ is not complete.\par 
+Let's go the other direction now, assume $\Trop Y\subseteq |\Sg|$. We add cones to $\Sg$ to get a complete fan $\tilde \Sg$:
+$$Y\subseteq T\subseteq X_\Sg\subseteq X_{\tilde \Sg} (\text{compact}).$$
+Lets draw another picture (\red{fig 30 min}), when closing $Y$ inside $X_{\tilde\Sg}$ we get a compact \red{sleeping} But $\ov Y\cap O_\sg$ is empty for all orbits in $X_{\tilde{\Sg}}.$
+\end{ptcbp}
+\red{SLEEP SLEEP}
+\begin{Th}
+
+\end{Th}
+
+\begin{ptcbp}
+For tevery $\sg$, $\ov Y\cap O_\sg\neq \emptyset$ and $\dim(\ov Y\cap O_\sg)=d-dim\sg$ iff $\Trop Y=|\Sg|$.\par 
+We must show $|\Sg|\subseteq\Trop Y$
+\begin{enumerate}
+    \item Every cone in $\Sg$ must intersect $\Trop Y$, in other words $\sg^\circ\cap\Trop Y\neq\emptyset$.
+    \item The cones of $\Sg$ are at most dimension $d$. Which comes from the hypothesis. If $\Sg$ had a $d+1$ dimensional cone, this corresponds to an orbit of codimension $d+1$. By the first observation it should intersect $\ov Y$, but that means 
+    $$\dim (\ov Y\cap O_\sg)=d-(d+1)<0\To \ov Y\cap O_\sg=\emptyset$$
+    which contradicts our first observation.
+    \item If we have a $d$-dim cone of $\Sg$ its not possible to be intersected by $\Trop\Sg$ in a smaller dimension. This means $\Sg$ has cones of higher dimension.
+    \item Is it possible to be covered by higher dimensional? Not possible because balancing condition.
+\end{enumerate}
+\end{ptcbp}
+
+\section{Day 28|20231027}
+
+The big picture is that our world has trivially valued field and we have a subvariety of a toric variety. We looked at the combinatorial properties of tropicalization, what we should hold is that tropical toric varieties are like adding stuff to a torus which corresponds to cones in a space. We concluded that if a tropicalization is contained in the support of a fan then the variety is compact. The last property we wish to prove is dimension transversality. Those properties are equivalent to the fact the the tropicalization \emph{is} the support of the fan.
+
+\begin{ptcbp}
+We already know that $\Trop(Y)\subseteq |\Sg|$, we want to show the other inclusion. 
+\begin{enumerate}
+    \item Every cone $\sg$ in $\Sg$ must intersect $\Trop Y$. If we have a cone that doesn't intersect $\Trop Y$, we should throw it away.
+    \item The dimension of $\Sg$ as a fan is \emph{at most} the dimension of $Y$. This is because we assumed 
+    $$\codim_{\ov Y}(\ov Y\cap O_\sg)=\codim_{X_\Sg} O_\sg.$$
+    \item If we have a top-dimensional cone of $\Sg$, then it can't intersect $\Trop Y$ in a positive codimensional locus. Otherwise $\Trop Y$ would intersect $d+1$-dimensional cones of $\Sg$ (which don't exist).\red{pic 10 min}
+    \item A top dimensional cone of $\Sg$ cannot be partially covered by $\Trop Y$. This would violate the balancing condition for $\Trop Y$. What does it mean to be balanced along $\tau$? We go to the quotient by projecting down. We quotient away the linear span of $\tau$. So the cones now become $1$-dimensional and so we can apply the old definition of balancing.\par 
+    If that were to be the case, now we take $\tau$ a face of $\Trop Y$, then the point is unbalanced. 
+\end{enumerate}
+Altogether, every $d$-dimensional cone of $\Sg$, must be completely covered by $\Trop Y$ then $|\Sg|\subseteq\Trop Y$. \blu{Renzo is thinking very hard about the drawing around 25min} Apparently the last comment is not true. When checking incidence conditions, we only care about cones incident to a face.\par 
+For the other direction we want to show the properties. We need the following facts:
+\begin{enumerate}
+    \item There are no positive dimensional compact subvarieties of tori. Tori are full of holes. Prove it for $\bC^\x$ and then induction.
+    \item An orbit of codimension $k$ of a toric variety is locally a complete intersection.
+    \item For any $Z\subseteq X_\Sg$ and a hypersurface, the intersection with $Z$ either remains the same dimension or the dimension goes down by 1 or they have empty intersection.
+\end{enumerate}
+With this we tackle the other side of the theorem. Take a top dimensional cone $\sg_d$ in $\Sg$. Then $O_{\sg_d}$ is a codimension $d$ orbit and $O_{\sg_d}$ intersects $\ov Y$ non-trivially. We know $O_{\sg_d}$ is isomorphic to a torus and because $\ov Y$ is complete, then $ O_{\sg_d}\cap\ov Y$ is complete and so it has a finite number of points. \red{LAST PICTURE} At every step we have to drop codimension by one.
+\end{ptcbp}
+
+When all of the conditions happen, we may have a new concept!
+
+\begin{Def}
+    $\ov Y\subseteq T\subseteq X_\Sg$ is a \term{tropical compactification} when $\Trop Y=|\Sg|$. In particular the properties of the previous theorem hold.
+\end{Def}
+
+Right now we haven't talked about how singular $Y$ become when compactified. Let us just talk a bit. A tropical compactification.
+
+\section{Day 29|20231030}
+
+Recall that the theorem we are proving is that the conditions
+\begin{itemize}
+    \item $\ov Y\cap O_\sg\neq \emptyset$  for all $\sg$, and
+    \item $\codim_{\ov Y}(\ov Y\cap O_\sg)=\codim_{X_\Sg} O_\sg$
+\end{itemize}
+are equivalent to $\Trop Y=|\Sg|$.\par 
+In the course of proving left-to-right, we do know that 
+$$\Trop Y\subseteq |\Sg|,$$
+otherwise we'd be missing a limit point. We only have to prove the other direction. With a bunch of reductions:
+\begin{itemize}
+    \item $\Sg$ should be $d$-dimensional, where $d$ is $\dim Y$.
+    \item We also saw that $\Sg$ must intersect the top-dimensional cones of $Y$ in top dimension. This means it can't be cutting the space in locus with strictly less dimension.
+    \item If we fix a cone $\sg\in\Sg$, then $\Trop Y$ must contain all of it.
+\end{itemize}
+With this the argument is that we imagine a cone $\sg\in\Sg$ and a piece of $\Trop Y$ and we wanted to derive a contradiction by balancing. We must analyze two cases:
+\begin{enumerate}
+    \item Call $\tau$ the border between $\sg$ and $\Trop Y$. We can call $s$ the part from $\Trop Y$, it is the only top dimensional part of $\Trop Y$ containing $\tau$. And if that's the case the balancing argument holds because 
+    $\Trop Y$ is not balanced. This is because all the action occurs on \emph{the lower side of the plane} so we quotient out by $\tau$. This is projecting away the linear subspace generated by $\tau$ and we have all of the projection of $s$ on one side \emph{not balancing} the vertex.
+    \item In the other case $\Trop Y$ has other parts incident to $\tau$ and not inside of $\sg$. Then it is not possible for $\tau$ to be \emph{in the middle} of a cone. \red{picture 14 min}
+\end{enumerate}
+For the other directions we use some facts of algebraic geoemtry:
+\begin{itemize}
+    \item The only complete/compact subvarieties of a torus are 0-dimensional.
+    \item In a toric variety, every orbit of $\sg$ of codimension $k$ is cut out locally by $k$ equations.
+    \item If $Y\subseteq X_\Sg$ and we cut it down with a hypersurface, then dimension of $Y\cap H$ goes down at most by $1$.
+    $$Y\cap H\neq\emptyset\To \dim(Y\cap H)\geq \dim(Y)-1.$$
+    \red{GRabbing water}
+\end{itemize}
+Every orbit will correspond to some cone. \red{picture begins at 21 min}. Maybe the face is a face of a higher dimensional cone $\tilde{\sg}$. We choose it as a top dimensional cone of $\Sg$ containing $\sg$ as a face. Now we choose an ordering of the rays of $\tilde{\sg}$ in such fashion that the first $k$ rays belong to $\sg$. Every ray corresponds to a codimension 1 orbit. If we keep cutting \red{something}.\par 
+Let $H_i$ be the closure of the orbit corresponding to the ray $\rho_i$:
+$$H_i=\ov O_{\rho_i}\word{a hypersurface in}X_\Sg.$$
+Now $\ov Y\cap H_1$ has dimension either $\dim\ov Y$ or $\dim \ov Y-1$. Then 
+$$\dim (\ov Y\cap H_1)\cap H_2=\dim \ov Y\word{or}\dim \ov Y-1\word{or}\dim\ov Y-2,$$
+and in general $\dim(\ov Y\cap H_1\capycap H_k)$ can range from $\dim Y$ to $\dim \ov Y-k$. We want to show it's the lowest, to rule the other options we go down all the way:
+%$$\dim(\ov Y\cap H_1\capycap H_d)=\dim(\ov Y\cap O_{\tilde}\sg)$$
+%and as $\ov Y\cap \ov O_{\tilde{\sg}}=\ov Y\cap O_{\tilde{\sg}}$
+In conclusion 
+\begin{itemize}
+    \item One can always refine $\Sg$ so that $\ov Y$ is Cohen-Macaulay. (Understand this as not too badly singular). 
+    \item In characteristic zero, and $X_\Sg$, we can find open subsets such that $\ov Y\cap O_\sg$ is smooth for some $\sg$.
+\end{itemize}
+
+\section{Day 30|20231101}
+
+\subsection{Geometric Tropicalization}
+
+This is the \emph{philosophical} reverse direction of compactification. If $Y\subseteq X_\Sg$ and it sits nicely inside it, then $X_\Sg$. allows us to compactify $Y$ to figure out $\Trop Y$.
+
+\begin{Ex}
+    We will consider the line in the projective plane. Take $X+Y-Z=0$ inside $\bP^2$. The stratification of $\bP^2$ induces a stratification on our line. Our line has 3 codimension 1 strata and one codimension 0 stratum. We may encode this into a boundary complex which turns out to be 3 points.\par 
+    Then we may construct the cone over the boundary complex by just taking a point outside in an independet dimension and then joining them. We call this $C\Dl_{\del L}$.\par 
+    We have 3 boundary divisors on $\bP^2$ which determine 3 boundary divisors on $L$. These give rise to divisorial valuations:
+    $$\val_D\: K(L)\to\bZ\cup\set{\infty},\quad f\mapsto\text{order of vanishing or pole of }f\text{ along }D.$$
+    \red{something} The valuation $\val_a$ naturally sits inside $N_T$ the co-character lattice. First let's see the recipe and then see that it works:
+    \begin{enumerate}
+        \item Use $\val_a,\val_b$ and $\val_c$ to get $3$ points in $N_T$. But think of each of these points as the boundary complex.
+        \item Take the cone in $N_T$.
+        \item This delivers $\Trop Y$. 
+    \end{enumerate}
+    In our case 
+    $$a=[0:1:1],\quad b=[1:0:1],\word{and}[1:-1:0].$$
+    If we place ourselves at $a$, then we can give local coordiantes for the line as $t$. This allows to view rational functions as functions of $t$ and observe the order of vanishing and poles. We may parametrize the line in the affine chart $Z=1$ to get
+    $$x(t)=t,\quad y(t)=1-t.$$
+    We compute $\val_a$ on the generators of $\bZ^2$ to get $(1,0)$. Another way to see this is to see that $a$ lies in the $y$ axis and not on the $x$ axis. To find the exact value we must compute. At $b$ we are switching the roles of $x$ and $y$ to get 
+    $$x(t)=1-t,\quad y(t)=t\To \val_b(x,y)=(0,1).$$
+    Finally at $c$, the point at infinity, we may parametrize $L$ centered at $c$ as 
+    $$x(t)=\frac{1}{t},\quad y(t)=1-\frac1t\To\val_c(x)=-1\word{and}\val_c(y)=-1.$$
+    Those three points in $N_T$ determine $\Trop L$. \red{pics 27 min}
+\end{Ex}
+
+In general, we start with a space $Y$ whose boundary is composed of multiple divisors. Also $Y\less\del Y$ is isomorphic to a subvariety of a torus. We will say that the boundary has combinatorial normal crossing if every time $k$ divisors intersect, they intersect in codimension $k$. If the intersection is transversal, then the intersection is a simple normal crossing. This means that the boundary looks like hyperplanes, the local model of this is coordiante $x_i=0$. Just a normal crossing is something which is locally a simple normal crossing.\par
+What kind of divisorial valuation we have access to? In practice \red{stuff} so when $Y\less\del Y\subseteq T$, then any toric variety containing $T$ as their dense torus gives rise to divisorial valuations.
+\begin{enumerate}
+    \item $\Trop Y$ is equal to the cone 
+    $$\set{c\.\val_D\:\ c\geq 0,\ D\ \text{divisor coming from any }X_\Sg\supseteq T}\subseteq N_T(\ox_\bZ\bR).$$
+    \item If $\del Y$ is a combinatorial normal crossing, then we may find a map $C\Dl_{\del Y}\to N_T$ which maps $(D_i,1)\mapsto \val_{D_i}$, then extend by linearity. So $\Im\bT\supseteq\Trop Y$ and if we want equality we can either take it to be a simple normal crossing or assume only combinatorial normal crossing and characteristic zero.
+\end{enumerate}
+and so somehow such a variety knows its tropicalization without going through Puiseux because a source of valuations comes from the divisors. 
+
+\section{Day 31|20231103}
+\section{Day 32|20231106}
+
+Essentially we started with an equation 
+$$1+x+y+txy=0$$
+and at the beginning of the semester we tropicalized to a stick figure. Last time, starting from this equation we can construct a family of surfaces in $\bP^3\x\bA^1$ simply by putting atwo dimensional torus (the one the curves lives in) in $\bP^3$ and then think of the $t$ parameter as a \emph{time deformation parameter}. \red{stuff} And then we can cut this family of surfaces via the hyperplane 
+$$x_0+\dots+x_3=0$$
+because there's \red{some relation with the torus}. This hyperplane cuts generically on the smooth but on the special fiber it cuts \red{in a cool way}.\par 
+The subdiviosion of the Newton polygon tells us how the degenerations occur onto the special fiber. This is because each of the triangles in the Newton polygon is a copy of $\bP^2$. \red{something} corresponds to the vertices of the curves being $(0,0)$ and $(1,1)$. So what the picture tells us \red{something}. And then there's two planes one with valuation zero and one with valuation $-1$ that play a specific part in the sense that they contain lines that meet $x_0x_3=0$ which holds regardless of the valuation and this gives us a vertical line.\par 
+We break the surface into two surfaces and the curve into two simple curves.\par 
+Somehow all this information can be described combinatorially with the information of toric geometry. When we see this sort of things we should think of a fan or a sort of cone on $N_T\x\bR$. Then we say at $t=1$ we see the tropical cruve. Then we take the cone over the tropical curve. \red{flaps expand}. Pointing out the $t=0$ what we see is the recession fan of the tropical curve. This picks up the unbounded directions of the tropical curve. And this is a fan which allows to make a map from one toric variety to another. The inverse image of the generic fiber, is \red{something projective}. That means that our old picture can be described with toric geometry. \red{There's a map}
+$$T^2\To\bP^3_\bK,\ [s:u]\mapsto[1:s:u:tsu] \To X_0X_3=tX_1X_2.$$
+
+\subsection{GFAN| Joel BN}
+
+Gfan is used to compute Gr\"obner complexes. In terms of graphical interface, there's no interface. It all runs on the terminal. Gr\"obner basis gives us a Gr\"obner cone which is a sub-cone of our usual tropical cone. In order to visualize, the app uses an auxiliary called \ttt{xfig}. The utility of this is that it exports figures to \LaTeX.
+
+\chapter{Projects}
+
+\section{Day 33|20231108}
+
+\subsection{Polymake|Andre}
+
+Polymake was made to study combinatorial properties of polyhedra. It has been extended to study far more. It is open source.\par 
+In programming terms, objects are divided in two categories: big and small. Big objects are the most abstract mathematical objects while small ones are the usual programming objects. Groups can be used to see group actions for example.
+
+\begin{Ex}
+    The handle \ttt{pm} allows code to be run in the context of polymake inside \ttt{Julia}.\par 
+    We can also use it to visualize fans, there is a context menu to turn option on/off. In this particular example, we create three tropical numbers and its important to note that we must define the convention we are using.
+\end{Ex}
+
+In principle, \ttt{polymake} can visualize polynomials, hypersurfaces, but there's no documentation on how to do that with \ttt{Julia}. It can be used with $C++$ in a more easier way.
+
+\subsection{Persistence Landscapes and Tropical Rational Functions|Tatum}
+
+The focus is to view persistence landscapes as Tropical Rational Functions. This is based on work by Peter Bubenik.\par 
+Suppose we have a data set, the topology is boring because its just points. We could connect points if they are \emph{close enough}. The threshold can be determined by a parameter $\al$. The idea of persistence is that we have the choice made for us.\par 
+What people want to do with TDA is
+\begin{itemize}
+    \item Persistence with statistics and machine learning
+    \item No kernel methods with persistence diagrams
+    \item Basic stats is hard
+\end{itemize}
+The ultimate goal is to have a representation in Hilbert spaces. This way we can represent them as functions. A way to define a persistence landscape is hard, this is a piecewise linear function. We can create it using the points 
+$$f_{(a,b)}=\max(0,\min(a-t,t-b))\To\la(k,t)=k\max_if_{(a_i,b_i)}.$$
+Can we view this as a tropical rational function? Observe that 
+$$f_{(a,b)}=0\oplus((a\odot t^{-1})\oplus(t\odot b^{-1}))^{-1}$$
+We can see that the roots of these functions are the birth, the death and the midpoint which is the peak. Adding the degrees of this points gives us zero. This makes sense because convex shapes have only positive degree. We may also factor our function as 
+$$0\odot(t\oplus a)\odot(t\oplus b)\odot(t\oplus \frac{a+b}{2})^{-2}.$$
+The constant coefficient can be found using persistence as $f(\text{midpoint})=\frac{b-a}{2}$. To talk about the $k\max$ we must use elementary symmetric polynomials. Tropical $e_k$ looks like 
+$$\max_{S_n}\sum x_{\pi(k)}\To \la(k,t)=e_k(f_{(a_i,b_i)})-e_{k-1}(f_{(a_i,b_i)}).$$
+The minus can be written tropically.
+
+\begin{significant}
+    Recall that the elementary symmetric function recovers the coefficient of $x^k$ when operated with the roots. Does that also happen tropically?
+\end{significant}
+
+\begin{Ex}
+    We will see two small cases. Take a diagram with two points $(1,4)$ and $(2,3)$. We recover a two mountain tropical landscape. Then we have 
+    $$\la_1(t)=f_{(1,4)}(t),\quad\la_2(t)=f_{(2,3)}(t).$$
+    If we have points with the same persistence $(2,4)$ and $(1,3)$ we get two mountains of the same height. Here we see that 
+    $$\la_1(t),\la_2(t)\neq f_{(2,4)},f_{(1,3)}.$$
+    Instead we have $5$ roots: $1,2,5/2,3,4$. $5/2$ is a root for $\la_1$ but a pole for $\la_2$.
+\end{Ex}
+
+With this in mind, there arise questions:
+\begin{itemize}
+    \item $\la_k$ functions seem to have combinatorial properties. Regarding number of points in persistence diagrams and so on.
+    \item For theoretical reasons we can't use the original definition for locally finite posets.
+    \item Instead of viewing $\la$ as a function of $f_i$'s we could view it as a $2n+1$ variable function $a_i,b_i$'s and $t$. Peter Bubenik mentions that it can be done. 
+\end{itemize}
+
+\section{Day 34|20231110}
+\subsection{Neural Networks|Kristina}
+
+\begin{Ex}
+    What features of two animals let us decide whther a picture of a cat and a dog is either? There are more important feature than others. Also, does the orientation matter? Our brains focus on different features and where those features are.
+\end{Ex}
+
+A neural network is an attempt to realize the way that brain works. Say we pixelate a picture so for each pixel we hive it to a program as an input. Then the input is sent to hidden functions and then give us an output.\par 
+For each input we add a weight and have a bias. In this way for example we get 
+$$a_1^{(1)}=\sg\left(\sum_{i=1}^n w_{1,i}a_i^{(0)}+b_1^{(0)}\right)$$
+where $b$ is a bias and $\sg$ is an activation factor.\par 
+There's a problem with this, assigning the weights! This can be solved via the \emph{machine learning}. What we give to the machine is a cost function, as we know what is it that we want.\par 
+The activation function can be a sigmoid, or a ReLU which is $\max(0,Ax+b)$. We can apply tropical geometry to this! We are assuming that 
+\begin{itemize}
+    \item Weight matrices are integer valued.
+    \item Bias vectors have real values.
+    \item And activiation functions have the form $\max(x,t^{(\l)})$.
+\end{itemize}
+We can rewrite our activation function as 
+$$\max(Ax+b,t)=\max(A_+x+b,A_-x+t)-A_-b$$
+Under the previous assumptions we can write our neural network as a tropical rational function. The paper explores number of linear regions of the decision boundary. This can be used to find the complexity of the neural network.
+
+\subsection{Joswig Algorithm|Jacob}
+
+The Joswig algorithm is an algorithm for graphs. We will use the $\min$ convention to minimize. For example Djisktra's algorithm optimizes path cost when traveling graphs. In general fixed weight edges are too restrictive. For a communication network the cost might change. If we assume that some edges have cost $x,y\in\bR\cup\set{\infty}$ then the Joswig algorithm solves this problem. So as an idea, the Joswig algorithm generalizes Djisktra's algorithm.
+\begin{Ex}
+    In this graph, edges have weights $x,y,4,5$ (each variable only appears once, for independence) so the optimization between $4+y$ or $5+x$ becomes 
+    $$\min(4+y,5+x)=4\odot y\oplus5\odot x.$$
+    Observe that the regions where one solution is better than another are bounded by a tropical variety. In this case $4\odot y=5\odot x$.
+\end{Ex}
+
+To be tropically interesting, what happens when there are multiple regions? In terms of the graph we can imagine that there are multiple destinations.
+
+\begin{Ex}
+    Consider the weighted graph. The Joswig algorithm reduces a big polynomial and saves time by introducing redundancies.
+\end{Ex}
+
+Not every decomposition can be described as a tropical variety of some polynomial. The counterexample is the one just mentioned. In summary the Joswig algorithm produces a subdivision of the Newton Polygon \red{and things happen}.
+
+\section{Day 35|20231113}
+\subsection{Group Theory and Tropical|Natalie}
+
+Consider a $\xi\in\bR$ non-zero. Consider the group $G_\xi$ generated by 
+$$A=\twobytwo{1}{1}{0}{1},\quad X=\twobytwo{1}{\xi}{0}{1}.$$
+Our big question is: is $G_\xi$ finitely presented? For our effects, suppose $\xi$ is the root of an irreducible polynomial $f\in\bZ[x]$. The idea is the if $\xi$ or $\xi^{-1}$ are algebraic integers over $\bQ$, then the highest/lowest order term of $f$ is $\pm1$.\par 
+For sake of notation, call $S$ the set of Laurent polynomials over $\bZ$. Observe that units in this ring are monomials. Recall also that an initial form of a polynomial $f(\vec x)$ with respect to $w$ is another polynomial that records the terms from $f(\vec x)$ that admit the minimum when tropicalized with $\vec w=\val(\vec x)$.
+
+\begin{Ex}
+    For simplicity in one variable take 
+    $$f(x)=4x^3+3x+2\To\Trop(f)=\min(3\val(x),\val(x),0).$$
+    If $w=1=\val(x)$, then $\Trop(f)=\min(3,1,0)=0$ and so $\operatorname*{In}_{w=1}(f)=2$. So when we evaluate at $\val(x)=0$ for example, then the initial form is the whole polynomial.
+\end{Ex}
+
+\begin{Def}
+    Take $I\triangleleft S$, then the \term{initial ideal} $\operatorname{In}_w(I)$ is the ideal generated by the initial forms of $f\in I$.
+\end{Def}
+
+\begin{Def}
+    The tropical variety of $I$ is 
+    %$$V_\Trop(I)=\set{\vec w\in\bR^n\:\ \operatorname{In}_w(I)\neq S}$$
+    or equivalently, this is the vectors such that $\operatorname{In}_w(I)$ has no unit of $S$.
+\end{Def}
+
+\begin{Ex}
+    %Consider the ideal $I=\gen(x+y+3)\triangleleft \bZ[x,x^{-1},y,y^{-1}]$. Let us find $V_\Trop(I)$. First we find the initial forms, observe that 
+    $$\Trop(f)=\min(\val(s)+\val(x),\val(s)+\val(y),\val(s)).$$
+    We could be in a lot of possibilities for $(a,b)=(\val(x),\val(y))$.\par 
+    If $a<0,b$, then the initial form is $sx$ which is a unit so its not in the tropical variety. But if $a,b>0$ then the initial form would be $3s$. So this idel wouldn't contain a unit and so it's a variety. \red{TABLE}\par 
+    If we were to instead work with rational coefficients $3$ wouldn't be a unit. So our variety would be the usual tripod.
+\end{Ex}
+
+\begin{Ex}
+    Take $p=ax^2+bx+c$, irreducible, then $\Trop(p)=\min(2\val(x),\val(x),0)$.
+\end{Ex}
+
+Remember that if $\xi$ algebraic integer, then $\xi^{-1}$ is not so $b=\pm 1=c$. We have a lot cases, in essence we recover pieces of the real line.
+
+\subsection{Tropical Cryptography|Kylie}
+
+Cryptography is sending messages to one another and reduce probabilities that another person might decode it. There are two major schools in cryptography, public and private key. The first one has the idea that there's two keys, a public and a secret one. The public one is used to encrypt information and the secret one decrypts information. For the second one, the private key is used for both encryption and decryption. An advantage of private key is that it's symmetric, this means that the protocols are computationally faster than the public key protocols.\par 
+An idea is to do the key exchange for private keys via public methods. The key will be based on the algorithm used.
+
+\subsubsection{The Tropicalness of it all}
+
+We willm be working with the $\min$ convention. 
+
+\begin{Ex}
+    Quick tropical sum of matrices:
+    $$\twobytwo{1}{2}{\infty}{-1}\oplus\twobytwo{0}{3}{4}{1}=\twobytwo{0}{2}{4}{-1}$$
+    and
+    $$\twobytwo{1}{2}{\infty}{-1}\odot\twobytwo{0}{3}{4}{1}=\twobytwo{1}{3}{3}{0}.$$
+    Tropical multiplication is not commutative. And also the tropical identity is composed of infinities all across except in the diagonal. In that place looks like zeroes. Diagonal matrices have non-zero entries on the diagonal.
+\end{Ex}
+
+We want two public matrices $A,B$ such that they are not commutative. This doesn't change a lot of the algorithm, but it makes sure that the space of matrices is large enough. Alice picks two tropical polynomials $p_1,p_2$ with integer coefficients. Bob also picks two polynomials secretly. Then they compute $p_1(A)\odot p_2(B)$ and $q_1(A)\odot q_2(B)$. Call these matrices $P_A,Q_B$. Then Alice computes $p_1(A)\odot Q_B\odot p_2(B)$ while Bob does $q_1(A)\odot P_A\odot q_2(B)$.
+
+\begin{Lem}
+We have 
+$$p_1(A)\odot Q_B\odot p_2(B)=q_1(A)\odot P_A\odot q_2(B).$$
+This is the private key.
+\end{Lem}
+
+The proof goes along the lines that any matrix commutes with itself. Now, the key is also a matrix, so it suffices to multiply by the inverse. However, tropical invertible matrices are rare. 
+
+\begin{Prop}
+The only tropical invertible matrices are permutations of a diagonal matrices.
+\end{Prop}
+
+It takes a little bit of thought as to why a tropical invertible matrix is a diagonal matrix but we know that $A\odot A^{-1}=I$. \red{finish} An idea is to only get the matrix key and then use usual matrix multiplication.
+
+\section{Day 36|20231115}
+
+\subsection{Tropical Eigenvalues|Ian}
+
+\begin{Ex}
+    The first example comes from cooking mac and cheese. It might be efficient to do some steps in parallel, this creates a network of flow. To do step $2$ and $5$ you need to have done some other steps and to do step $6$ we need all the previous steps. Call $x_j$ the soonest time you can start step $j$. Say steps $2$ and $5$ take $3$ and $9$ minutes, so step $6$ can be started at least after $9$ minutes, then 
+    $$x_i=\max_j(A_{ij}+x_j)$$
+    where $A_{ij}$ is how long does it take to go from $j\to i$. Observe that this corresponds to the tropical matrix equation $A\odot x=x$ and this is an eigenvalue problem for $\la=0$.
+\end{Ex}
+
+\begin{Rmk}
+This is also corresponding to the longest path search in the Joswig algorithm.
+\end{Rmk}
+
+\begin{Def}
+    A \emph{tropical eigenvalue} is a solution $\la$ to the equation $A\odot x=\la\odot x$.
+\end{Def}
+
+\begin{Ex}
+    Consider 
+    $$A=\threebythree{1}{2}{3}{-\infty}{0}{2}{1}{1}{1}$$
+    and think of it as an (transpose) adjacency matrix for a directed graph. 
+\end{Ex}
+
+\begin{Lem}
+If we have an eigenvalue of $A$, then there exists a \emph{normalized} cycle of average weight $\la$.
+\end{Lem}
+
+\begin{Ex}
+    Consider the matrix 
+    $$\threebythree{-\infty}{2}{-\infty}{-\infty}{4}{-\infty}{-\infty}{-\infty}{5}$$
+    with eigenvector $(0,2,-\infty)$. When applying the matrix product to it we get $(4,6,-\infty)$ with eigenvalue $4$. This corresponds to the cycle about vertex $2$. As we also notice a cycle about vertex $3$ then we may ask if it corresponds to an eigenvector $(-\infty,-\infty,5)$ with eigenvalue $5$.
+\end{Ex}
+
+In general however this is not true. Not all cycles corresponds to an eigenvalue.
+
+\begin{Lem}
+    If $C\subseteq G$ is a cycle in our graph then 
+    $$\la=\max_{C}\frac{w(C)}{|C|}$$
+    is an eigenvalue of the adjacency matrix of $G$ whenever the quantity is not infinite.
+\end{Lem}
+
+Observe that in the previous case, the eigenvalue $4$ was extraneous as it didn't correspond to a max weight cycle.
+
+\begin{Th}
+If the graph is strongly connected, then the adjacency matrix has a unique eigenvalue which is the previous eigenvalue mentioned, the normalized weight.
+\end{Th}
+
+We can decompose the eigenvalue equation as 
+$$\la+x_i=\max_j(A_{ij}+x_j)\To A_{ij}+x_j\leq\la+x_i\To A_{ij}+x_j-x_i\leq\la$$
+and this gives a system of linear inequalities. Using linear programming we can find a solution to that inequality.
+\begin{itemize}
+    \item Are there conditions when the maximum is achieved by a unique cycle? \emph{It is not necessarily unique, even if the graph is strongly connected}.
+    \item Are the eigenvalues located in the matrix? \emph{Not necessarily}.
+    \item Is there a characteristic polynomial for tropical matrix? \emph{Squinting it is the same as the usual, as we also have a fundamental theorem of algebra, we have a correspondence.}
+\end{itemize}
+
+\subsection{Tropical Varieties of Higher Codimension|Seth}
+
+Recall most our varieties have had codimension one. This topic is a connection between algebraic geometry and tropical geometry.
+
+\begin{Def}
+    A \term{hypersurface} is the vanishing set of a single polynomial in classical algebraic sense. We denote $V(f)$ the set of points $x$ such that $f(x)=0$ for $f\in K[x_1,x_2,\dots,x_n]$.
+\end{Def}
+
+\begin{Ex}
+    The variety $V(x+y+1)$ is a line with slope $-1$. 
+\end{Ex}
+
+Most objects are \emph{not} going to be hypersurfaces. Points for example are an intersection of two hypersurfaces in the affine plane. We could say that $\text{pt}=V(f,g)$ but what we are really doing is looking at the vanishing set of an ideal. If $I=\gen(f,g)$ then everything in $I$ is a polynomial combination of $f$ and $g$ and polynomials there vanish whenever $f,g$ vanish.  This means that $V(I)=\set{x\:\ \forall f\in I(f(x)=0)}$.\par 
+This is a sensible way to reason because 
+
+\begin{itemize}
+    \item $I$ is always finitely generated by the Hilbert basis theorem.
+    \item We can think of $V(I)$ as the intersection of all the hypersurfaces, but we can do better, it is the intersection of the hypersurfaces generated by the generators of the ideal. However, this won't work in the tropical sense. 
+\end{itemize}
+
+Let us walk the same path through tropical hypersurfaces. Remember that we are now looking at polynomials in the Laurent ring while $\Trop(f)(w_1,\dots,w_n)=\max(\text{valuation of terms})$. We can define a tropical hypersurface with this, instead of a vanishing set it is a tying set. 
+$$\Trop(V(f))=\set{w\:\ \Trop(f)\text{ attains }\max\text{ at least twice}}.$$
+In this case we don't want $K$ to be trivially valued.
+
+\begin{Ex}
+    Let us take the same polynomial as before but now it lives somewhere different. Now $\Trop(f)$ takes $(w_1,w_2)$ to $\max(w_1,w_2,0)$. Now our tropical variety contains the sets 
+    $$w_1=w_2\geq 0,\quad w_1=0\geq w_2,\word{and}w_2=0\geq w_1.$$
+    This is the usual tripod.
+\end{Ex}
+
+We also have Kapranov's theorem which basically tells us that $\Trop(V(f))=\ov{\val(V(f))}$. However this theorem only works for hypersurfaces.
+
+\begin{Def}
+    For an ideal $I$ we define its tropical variety as 
+    $$\Trop(V(I))=\bigcap_{f\in I}\Trop(V(f)).$$
+\end{Def}
+
+When defining it this way then Kapranov's theorem also holds. However we the small caveat that $\Trop(V(I))$ is not necessarily the intersection of the tropical hypersurfaces of the generators. This has a very \emph{Gr\"obner basis}-like feeling. So we define the basis that works. 
+
+\begin{Def}
+    A \term{tropical basis} for an ideal $I$ is any basis such that 
+    $$\Trop(V(I))=\bigcap_{g\in B\subseteq I}\Trop(V(g)).$$
+\end{Def}
+
+Tropical basis exist and are computable, for example we can use \ttt{Gfan}.
+\begin{Ex}
+    If $f=x+y+1$ and $g=x+2y$. The tropical hypersurface of $g$ is the $w_1=w_2$ line. The intersection of this two varieties is a ray which is most definitely not a tropical variety. This is because $f,g$ don't form a tropical basis of $\gen(f,g)$, but if we take $\gen(f,g,y-1)$ it still generates the same ideal and now its a tropical basis. When intersecting we now get a point.
+\end{Ex}
+
+\begin{itemize}
+    \item In general the right hand side is too big? \emph{stuff}
+    \item Ross 
+    \item Correspondence between grobner and tropical? 
+    \item Bound on Joseph?
+\end{itemize}
+
+\section{Day 37|20231127}
+
+\subsection{Line bundles over $bP^1$ and tropical $\bP^1$|Sam}
+
+Recall that the complex projective plane can be defined via an equivalence relation and it has an open cover which is the affine charts. These charts have the usual transition functions. 
+
+\begin{Def}
+    A \term{vector bundle} of rank $n$ over a space $X$ (can be replaced with manifold/variety) is a space $L$ together with a projection $\pi\: L\to X$ which satisfies two conditions:
+    \begin{enumerate}[i)]
+        \item There is an open cover of $X$ $(U_i)$ satisfying 
+        $$\pi^{-1}[U_i]\isom U_i\x\bC^n,$$
+        that's where the rank $n$ comes in. And if $\vf_i$ is such isomorphism, then $\pi=p_1\phi_i$ where $p_1$ is the projection $U_i\x\bC^n\to U_i$.
+        \item And the other condition is that the map 
+        $$\vf_j\vf_i^{-1}\: (U_i\cap U_j)\x\bC^n\to(U_i\cap U_j)\x\bC^n$$
+        is a linear map on $\bC^n$ and the identity on the intersection.
+    \end{enumerate}
+    Particularly, a \term{line bundle} is a vector bundle of rank 1.
+\end{Def}
+
+\begin{Ex}
+    Consider the real projective line. It is covered by two circles with one point removed. Then $\pi^{-1}(U_i)$ ``looks like'' a squiggly cylinder and the map $\vf_1$ ``straightens it out''. The map $\vf_2\vf_1^{-1}$ basically straightens and shrinks. But remember \emph{not all scalars are the same}, take for example multiplication by $-1$. This is an example of a line bundle.
+\end{Ex}
+
+\begin{Def}
+    Suppose $L\xrightarrow[]{\pi}X$ is a line bundle, $U\subseteq X$ is open. Then a \term{section} of $L$ over $U$ is a morphism $s\: U\to L$ such that $\pi s$ is the identity on $U$.
+\end{Def}
+
+What this is doing is choosing a vector space element for each point of $X$.
+
+\begin{Ex}
+    The trivial line bundle over complex projective space is $\bP^1\x\bC$. A section has the form 
+    $$s\: x\mapsto (x,f(x))$$
+    and what this is doing is defining a function on $\bP^1$.
+\end{Ex}
+
+\begin{Ex}
+    The tautological line bundle is 
+    $$L=\set{([X:Y],(x,y))\:\ (x,y)=(\la X,\la Y)}$$
+    this gathers all the points in $\bP^1$ and lines in $\bC^2$. This has a lot of information. 
+\end{Ex}
+
+Let's go now to the tropical setting. Similar to our line bundle definition, 
+
+\begin{Def}
+a \term{line bundle} over $X$ a tropical space, is a space $L$ and a projection $\pi$ such that 
+\begin{enumerate}[i)]
+    \item There is an open cover of $X$, $(U_i)$, and
+    \item there are maps $\vf_i\: \pi^{-1}[U_i]\to U_i\x\bT$ where they are tropical isomorphisms and the same commuting relation holds.
+\end{enumerate}    
+\end{Def}
+
+In this case, the local trivializations induce automorphisms of $\bT$ as $\tilde\vf_{ij}=\vf_j\vf_i^{-1}$. Actually $\Aut(\bT)\isom \bR$. This lets us define $\vf_{ij}$ such that $\tilde\vf_{ij}(x,y)\mapsto (x,\vf_{ij}(x)\odot y)$.
+
+\begin{Ex}
+    If we define tropical projective space as $\bT\cupdot\bT$ via $x=-y$ then the trivializations are both $0$ so 
+    $$\vf_{12}\:\obonj{-\infty,\infty}\to\bR$$
+    is the constant zero function.
+\end{Ex}
+
+\section{Day 39|20231201}
+
+\subsection{Tropical Intersection Theory|Jake and Conager}
+
+For the Grassmanian, the Chow ring coincides with cohomology. Elements of this ring are subvarieties of $X$, it is graded by codimension and operations are the usual set operations.
+
+\begin{Ex}
+    Consider $\bP^2$, $A^0$ is the codimension 0 part and so on. In this case $A^0$ is only $\bP^2$ so we have that it is $\bZ$. For $A^2$ its the same story. And $A^1$ is generated by a line and all lines are rationally equivalent.\par 
+    If we had two lines 
+    $$L_1:\ ax+by=0,\quad L_2:\ cx+dy=0$$
+    then we get a rational equivalence by setting $\al L_1+\bt L_2=0$.
+\end{Ex}
+
+\begin{Ex}
+    If $X=\bA^2$, the Chow ring is trivial for if we have $F\: V(f(x,y))$ then $\al F+\bt(1)=0$ is a rational equivalence. So the Chow ring of affine space is $\bZ$ generated by the space itself. This equivalence works here because $1$ is not the same degree as $F$ (most likely).
+\end{Ex}
+
+\begin{Ex}
+    If we have a subvariety $X$ of $Y$ then the Chow ring of $X$ includes in the Chow ring of $Y$ and then we can restrict into $Y\less X$. This means that the sequence 
+    $$A^*(X)\to A^*(Y)\to A^*(Y\less X)\to 0$$
+    is exact and $\Im(i_\ast)=\ker(r_\ast)$ and $\Im(r_\ast)=A^\ast(Y\less X)$. So by the first isomorphism theorem we have 
+    $$\quot{A^\ast(Y)}{\Im(i_\ast)}\isom \Im(r_\ast)=A^\ast(Y\less X).$$
+    Applying this to the coordinate axes of $\bC^2$ we get
+    $$A^\ast(Z)\to A^\ast(\bC^2)\to A^\ast((\bC^\x)^2)\to 0.$$
+\end{Ex}
+
+\begin{Ex}
+    For a toric variety $X_\Sg$ with torus $T$, then 
+    $$A^\ast(X_\Sg\less T)\to A^\ast(X_\Sg)\to A^\ast(T)\to 0$$
+    so as long as $\al\in A^\ast(X_\Sg)$ doesn't go zero then its no the whole space. This means that $\al\neq X_\Sg$ and $\al\in\ker r_\ast$. By exactness $\al\in\Im i_\ast$.
+\end{Ex}
+
+\subsubsection{Minkowski weights}
+
+Giving intersection numbers of points, lines and conics, we can describe classes of them. 
+
+\begin{Ex}
+    For $\bP^2$ we can take a generic line which will intersect \red{SLEEP}
+\end{Ex}
+
+\begin{Ex}
+    For the blowup of $\bP^2$ the fan looks like a tripod with an extra legend.
+\end{Ex}
+
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiTropiGeo.bib}
+\end{document} 
+
