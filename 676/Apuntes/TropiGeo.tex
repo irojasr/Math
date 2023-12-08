@@ -2538,9 +2538,10 @@ Giving intersection numbers of points, lines and conics, we can describe classes
 \end{Ex}
 
 \begin{Ex}
-    For the blowup of $\bP^2$ the fan looks like a tripod with an extra legend.
+    For the blowup of $\bP^2$ the fan looks like a tripod with an extra legend. \red{SLEEP}
 \end{Ex}
 
+<<<<<<< HEAD
 =======
 <<<<<<< Updated upstream
 =======
@@ -2568,6 +2569,143 @@ Taking $\log_t$ we get
 $$4+\log_t(stuff)\xrightarrow[subscript]{t\to\infty}4+0.$$ 
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
+=======
+\section{Day 40|20231203}
+
+\subsection{Tropical Covers|Daniel}
+
+We want to reach the tropical Riemann-Hurwitz formula. Let's begin with a review.
+
+\begin{Def}
+    A \term{Riemann surface} is a complex analytic manifold of dimension 1.
+\end{Def}
+
+They come into play because we have a correspondence between compact Riemann surfaces and smooth projective curves over $\bC$, so these are all projective varieties. Compact Riemann surfaces are classified by genus. We say that $X$ has genus $n$ when it can be embedded into $\bR^3$ and it looks like an $n$ holed torus.\par 
+Holomorphic maps between compact Riemann surfaces emulate branched covers. If $f:X\to Y$ is non-constant, say a torus mapping to a sphere, and it's $d$-to-1 almost everywhere (except at ramification points).
+
+\begin{Ex}
+    $\bZ^2$ is ramified between $0$ and $\infty$ because everyone has a square root besides those points.
+\end{Ex}
+
+The Riemann-Hurwitz formula here talks about maps between compact Riemann surfaces. We can think about the global information as the genus and the local information is the ramification profile. This is basically combinatorial information, how many points are there which ramify and so on. The Riemann-Hurwitz formula relates these quantities. If $f: X\to Y$ is Holomorphic, non-constant and has degree $d$ then 
+$$2g(X)-2=d(2g(Y)-2)+\sum_{x\in X} (e_x-1).$$
+Here the $e_x$ quantity is the ramification index at a point. 
+
+\begin{Ex}
+    \red{DRAWING} Imagine this as a stack of pancakes. Then almost everywhere \red{things happen}
+\end{Ex}
+
+The reason we talk about Riemann-Hurwitz is because we talk about combinatorial data and we can check if a map exists. This is a \emph{realizability condition}.\par 
+The same idea applies for tropical covers, we will look at a different picture though. We have to start by defining a tropical curve, not coming from a particular polynomial. An abstract tropical curve is a connected and metric graph $\Ga$ with unbounded rays called ends. A genus function $g\: V\to\bN$ comes with it.
+
+\begin{Ex}
+    Consider \red{DRAWING}, we have a degree $1$ and degree $0$ vertex. 
+\end{Ex}
+
+The genus function allows us to see the curves as dual to deformations of Riemann surfaces.
+
+\begin{Ex}
+    Consider \red{DRAWINGS}.
+\end{Ex}
+
+\begin{Def}
+    A \term{tropical cover} between two \red{stuffs} is a map $\pi\:\Ga_1\to\Ga_2$ is a surjective map satisfying 
+    \begin{enumerate}
+        \item It is locally integer affine linear. This means that $\pi$ scales lengths \red{SLEEP}
+    \end{enumerate}
+\end{Def}
+
+\subsection{Tropical Hurwitz Numbers|Eve}
+
+We say $f,g$ are isomorphic as maps of Riemann surfaces if there's a $\vf$ such that $g\vf=f$. We will be counting such maps as isomorphism.\par 
+Suppose $Y$ is a connected, compact Riemann surface with genus $g$  and we fix $b_1,\dots,b_n$ through $Y$ with partitions $\la_1,\dots,\la_n$, then $f\: X\to Y$ is a Hurwitz cover when 
+\begin{enumerate}
+    \item $f$ is holomorphic,
+    \item $X$ is connected and compact, with genus $h$
+    \item The branch locus of $f$ is $b_1,\dots,b_n$. These are the points where the ramification happens.
+    \item and the ramification profile of $f$ at $b_i$ is $\la_i$.
+\end{enumerate}
+This cover exists only if the Riemann-Hurwitz formula is satisfied. The Hurwitz number is 
+$$H_{h\xrightarrow{d}g}(\la_i)=\sum_{[f]}\frac{1}{|\Aut(f)|}.$$
+If we have a cover of $\bR\cup\set{\infty}$ then we have \red{a DRAWING}. We have our curve $\Ga$ going to $\bR\cup\set{\infty}$ and the curve has a balancing condition. Given this cover we can count them up to a certain multiplicity. Fix $\mu,\nu\vdash d\in\bZ_{>0}$, which will be the partitions of our left and right ends. In this case $\mu=(4),\nu=(2,2)$. Then we fix the genus, in this case it has genus $1$ and let $r=2g-2+\l(\mu)+\l(\nu)>0$. Fix $p_1,\dots,p_r\in\bR$, the tropical Hurwitz number is 
+%$$H_{g\to 0}^\Trop(\mu,\nu)=\sum_fm(f),\quad m(f)=\frac{1}{|\Aut f|}\prod_{e\ \text{bounded}}w(e).$$
+So given this set of discrete data, we'll get the tropical Hurwitz numbers.
+
+\begin{Ex}
+   % For our example we calculate $H^\Trop_{1\xrightarrow{4}0}((4),(2,2))$. The automorphism group of this graph has size $4$, then multiplying the edge weights we get $4$. So we get $H=4+\dots$. The other $3$ covers are \red{DRAWING}, and we have the following contributions
+    $$\frac{1}{2}\.1\.3\.4=6,\quad\frac{1}{2}\.2\.1\.1=1\word{and} \frac{1}{1}\.3\.1\.1=3.$$
+    That gives us $H=4+6+1+3=14$.
+\end{Ex}
+
+We get a correspondence between the tropical Hurwitz number and the classical one via representations of the symmetric group and monodromies.
+
+\section{Day 41|20231205}
+
+\subsection{Tropical Moduli Space|Andrew}
+
+The regular $M_{0,n}$ is the moduli space of genus $0$ curves with $n$ marked points. 
+
+\begin{Ex}
+    $M_{0,3}$ is just a point via projective transformation, $M_{0,4}$ is $\bP^1$ minus $3$ points which we can choose to be $0,1,\infty$. In the case of $M_{0,5}$ we have $M_{0,4}^2\less\text{diagonal}$.\par 
+    The closure of $M_{0,4}$ is $\ov{M}_{0,4}=\bP^1$.
+\end{Ex}
+
+Dual trees are another way to see these moduli spaces. However we will consider phylogenitic trees which are trees whose edges have a weight/length assigned to them. The space of phylogenitic trees is the tropicalization of $M_{0,n}$. First observe that 
+$$M_{0,n}\into (\bC^\ast)^{\binom{n}{2}-n}\To \Dl_n\into(\bR)^{\binom{n}{2}-n}$$
+where the first map is the embedding of distinct minors of a matrix $\twobythree{x_1}{\dots}{x_n}{y_1}{\dots}{y_n}$ into $(\bC^\ast)^{\binom{n}{2}-1}$. Quotienting by $(\bC^\ast)^{n-1}$ we get $M_{0,n}$ into $(\bC^\ast)^{\binom{n}{2}-n}$.
+
+\begin{Ex}
+    In the case $n=4$, we have a map from $M_{0,4}$ to $(\bC^\ast)^2$ \red{DIDNT UNDERSTAND}
+\end{Ex}
+
+For a phylogenitic tree we build a map from a tree to $\bR^{\binom{n}{2}}$ as $T\mapsto (d_{ij})$, but this map has a lot of redundancy. We quotient by the map 
+$$(a,b,c,d)\mapsto(a+b,a+c,a+d,b+c,b+d,c+d)$$
+in the case $n=4$ for example. In this case we can rescale (by adding) to get \red{some trees}. This allows to eliminate redundant dimensions and we get a map into $\bR^2$ (\red{how did the matrix come about?})\par 
+In the case of $M_{0,5}^{\Trop}$, this is the cone complex over the Petersen graph. 
+
+\subsection{Tropical Admissible Covers|Erin}
+
+\begin{Def}
+    A tropical curve with genus $g$ and $n$ marked points is a metric (edges with length) graph where the marked points is the $\infty$ ends and the genus is the number of cycles plus genus of vertices.\par 
+    A ramification can be described via a stack of pancakes. Ramification indices can be described with partitions.\par 
+    A tropical Hurwitz cover is a map of graphs $f\:\Ga\to B$ such that 
+    \begin{itemize}
+        \item $\Ga$ is connected and has genus $g$,
+        \item ends of $\Ga$ are mapped to the $i^{\text{th}}$ end of $B$ which are labeled with parts of the $i^{\text{th}}$ partition,
+        \item and every vertex satisfies the local Riemann-Hurwitz condition.
+        $$\val(v)=\deg(v)+2-2g_v.$$
+        This puts a constraint on how our vertices will look like. 
+    \end{itemize}
+\end{Def}
+
+\begin{Ex}
+    If $d=1$ we will only have a vertex with three rays labeled 1 coming out of it. When $d=2$ we will have two $1$-rays and two $2$-rays. When $d=3$ its the first time we get genus. There's three possibilities. This is only for the trivalent case, we have covers of a tropical line.
+\end{Ex}
+
+\begin{Ex}
+    We can cover a tree like \red{5-leaved tree drawing} by \red{cover drawing}. By the Riemann-Hurwitz formula we have 
+    $$2g-2=3(-2)+\sum(r-1)\To 2g-2=-6+6\To g=1$$
+    so cover must have genus 1.\par
+    If we have the same base curve we can also cover it with a tree with a cycle. \red{cover with cycle drawing}.
+\end{Ex}
+
+\begin{Def}
+    The multiplicity of a Hurwitz cover is 
+    $$m(f)=\frac{1}{|\Aut f|}\prod w_e\prod (\text{Loc. Hurwitz numbers}).$$
+\end{Def}
+
+For the first cover, the multiplicity would be 
+$$m_1=1\.3^2\.1\.\frac13\.1=3$$
+which tells us how many ordinary covers ``fit'' into thi stropical cover.
+
+The Hurwitz space parametrizes Hurwitz covers, but it's not compact. By compactifying we get the space of \emph{admissible} covers. The question is how do we compactify? \red{Drawings drawings} We denote it $\operatorname{Adm}^{\Trop}_{g\to 0,d}(X)$.
+
+\begin{Ex}
+    The space of admissible covers $\operatorname{Adm}^{\Trop}_{1\to 0,3}((3)^2,(2,1)^2)$ looks like \red{more drawings}
+\end{Ex}
+
+
+>>>>>>> main
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
