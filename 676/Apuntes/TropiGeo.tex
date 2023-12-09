@@ -2598,11 +2598,11 @@ Suppose $Y$ is a connected, compact Riemann surface with genus $g$  and we fix $
 This cover exists only if the Riemann-Hurwitz formula is satisfied. The Hurwitz number is 
 $$H_{h\xrightarrow{d}g}(\la_i)=\sum_{[f]}\frac{1}{|\Aut(f)|}.$$
 If we have a cover of $\bR\cup\set{\infty}$ then we have \red{a DRAWING}. We have our curve $\Ga$ going to $\bR\cup\set{\infty}$ and the curve has a balancing condition. Given this cover we can count them up to a certain multiplicity. Fix $\mu,\nu\vdash d\in\bZ_{>0}$, which will be the partitions of our left and right ends. In this case $\mu=(4),\nu=(2,2)$. Then we fix the genus, in this case it has genus $1$ and let $r=2g-2+\l(\mu)+\l(\nu)>0$. Fix $p_1,\dots,p_r\in\bR$, the tropical Hurwitz number is 
-%$$H_{g\to 0}^\Trop(\mu,\nu)=\sum_fm(f),\quad m(f)=\frac{1}{|\Aut f|}\prod_{e\ \text{bounded}}w(e).$$
+$$H_{g\to 0}^{\Trop}(\mu,\nu)=\sum_fm(f),\quad m(f)=\frac{1}{|\Aut f|}\prod_{e\ \text{bounded}}w(e).$$
 So given this set of discrete data, we'll get the tropical Hurwitz numbers.
 
 \begin{Ex}
-   % For our example we calculate $H^\Trop_{1\xrightarrow{4}0}((4),(2,2))$. The automorphism group of this graph has size $4$, then multiplying the edge weights we get $4$. So we get $H=4+\dots$. The other $3$ covers are \red{DRAWING}, and we have the following contributions
+    For our example we calculate $H^{\Trop}_{1\xrightarrow{4}0}((4),(2,2))$. The automorphism group of this graph has size $4$, then multiplying the edge weights we get $4$. So we get $H=4+\dots$. The other $3$ covers are \red{DRAWING}, and we have the following contributions
     $$\frac{1}{2}\.1\.3\.4=6,\quad\frac{1}{2}\.2\.1\.1=1\word{and} \frac{1}{1}\.3\.1\.1=3.$$
     That gives us $H=4+6+1+3=14$.
 \end{Ex}
@@ -2674,7 +2674,42 @@ The Hurwitz space parametrizes Hurwitz covers, but it's not compact. By compacti
     The space of admissible covers $\operatorname{Adm}^{\Trop}_{1\to 0,3}((3)^2,(2,1)^2)$ looks like \red{more drawings}
 \end{Ex}
 
+\section{Day 42|20231207}
 
+Tropical geometry is a tool to understand the intersection theory of moduli spaces. Let us remind ourselves that $M_{g,n}$ is the space of genus $g$ curves with $n$ distinct marked points. This means that there is a natural bijection between points of $M_{g,n}$ and donuts with $g$ holes with a complex manifold structure. With this our notion that donuts with 3 holes for examples are not all equal to each other. Adding the points, this means that as a complex manifold, the dimension of the moduli space is $3g-3+n$.
+
+\begin{Rmk}
+    As pointed topological spaces all $(g,n)$ curves are homemorphic to each other.
+\end{Rmk}
+
+Also the geometry of the moduli space should reflect the geometry of the curves. Continuously moving the marked point should amount to continuously deform a curve. There's a way to go there, but we won't see it. As we've seen, the moduli space is not compact, so the way that we compactify \emph{is not} to put a point to tie all loose ends. Doing that we damage by adding singularities and the other thing is that all points in our space have a geometric meaning. So what is the geometric meaning of that \emph{new point}?\par 
+On one hand we want to add enough degenerations to plug all the holes, but we don't want to add to many to not add singularities. The key point is that $\ov{M}_{g.n}$ means that we allow only one type of degeneration, nodal singularities. It is a miracle that by adding these, we get a compact space. Cusps for example are not here, but via semi-stable reduction we may replace cusps by nodal singularities.\par 
+The compact moduli space comes with a stratification, we can chop into nicely closed pieces. Thinking about this, we can define an equivalence if there's an homemorphism, then this partition gives us a nice stratification. 
+
+\begin{Ex}
+    Let us consider genus 1 curves with two marked points: $\ov M_{1,2}$. This is a surface whose generic element is a torus with two marked points. We have 2 one codimensional loci of curves. One of them looks like the donuts with with a sphere with two marked points and the other like a pinched torus.\par 
+    We have two 1 dimensional strata, one which looks like a pinched torus attached to a sphere with two marked points. And finally one last one dimensional strata with a twice pinched torus. In total we have one 2-dim strata, two 1-dim strata and two 0-dim strata.
+\end{Ex}
+
+At this point, we've seen that we can define a notion of abstract stable tropical curves. They are parametrized by spaces whose points correspond to metric graphs.
+
+\begin{Ex}
+    We ask what is $M_{1,2}^{\Trop}$ and what we see is that there is a single point that corresponds to a \emph{silly} tropical curve. It's a graph with a vertex of genus 1 and two edges. Then we have a ray which parametrizes the length of the loop and a 0 degree vertex. We have another ray that parametrizes tropical curves with a genus 1 vertex and an edge between the two edges and the vertex. We also have a two dimensional cone in between the two rays. We now have two lengths which we may parametrize by $x$ and $y$. If we send either to zero we go to one of the rays. There's one more type of curve, which looks like a candy wrapper. The parametrized edges are the ones around the loop. As we may switch the two edges then we get half a cone.\par 
+    This means that $M_{1,2}^{\Trop}$ is a cone complex, and this is naturally stratified via inclusion of cones. There is an identification between strata which is reversing in terms of dimension/codimension. A dimension 2 strata in $\ov{M}_{1,2}$ becomes a codimesion 2 stratum in the tropics. The bijection is through dual graphs.
+\end{Ex}
+
+Does this stop here? Is there more? To see this, let's go to $\bP^1$ and the tropical line. If we put $\bP^1$ as a line inside $\bP^2$, we have a degree 1 embedding. Then we can tropicalize this and then we get the tripod inside $\bR^2$. But the moment that we put $\bP^1$ inside $\bP^2$ we induce a stratification by intersection. In this case we pick out 3 points in $\bP^1$ and there is a reversing bijection stratification between the one induced by the embedding and the stratification of the fan induced by the cones. Somehow we've seen that we can go from the stratified $\bP^1$ to the tripod via tropical compactification or geometric tropicalization which we did by studying divisorial valuation. Indeed observe that we have 3 divisors, for any function in $\bP^1$ what is the order of vanishing of it at the divisors, then we can put the divisorial valuation in the plane and it forms the tripod.\par 
+Can we do without the embedding of $\bP^1$? We require the Berkovich space, its points correspond to \emph{all} possible valuations over all possible schematic \red{stuff}. In a trivially valued field, the valuations are the divisorial valuations. Berkovich $\bP^1$ amounts to uncountably many rays for each point of $\bP^1$. Having the stratification allows us to pick a \emph{skeleton} of the Berkovich space which means \emph{look at the divisorial valuations} for divisors induced by the stratification. We are losing one thing though, the $\bR^2$. Berkovich $\bP^1$ does not know how to put the tripod in $\bR^2$. The key point is that if we have a stratified space we can use the Berkovich space which assigns \red{something something}. And this is really geoemtric, tropicalization is a correspondence that goes through the Berkovich space. Or we could say that if we are in a non-interesting ray, then we contract to the origin.
+
+\subsection{Divisorial valuations}
+
+Suppose we have a space $X$ with very nice divisors, say with equations $D=\set{f=0}$. Then we can think of equations $f=t$ as a slightly parallel \emph{thing} to $D$. So we can think of $t$ as \emph{how much we are going away} from being at $D$. Then $t$ is a local coordinate for a normal direction to $D$. We can now interpret this in the terms of the moduli space. 
+
+\begin{Ex}
+    In the case of the blue divisor of $M12$ then to poke out, at time $0$ we are a $T\lor S_2$ and at time greater than zero we are a $T$. So this amounts to \emph{smoothing} the singularity. Choosing local coordinates for divisors in $\ov M_{g,n}$ are identified with smoothing parameters for node of curves. And by the way, the order of vanishing along a divisor for a function can be measured to \red{stuff}. So divisorial valuations are measured using $xy=t$. If $t$ has valuation 23 then that's the order to which our function vanishes along the blue divisor for example.
+\end{Ex}
+
+What is the point of length of edges of tropical curves, we don't need the length of edges? Why is it needed? And now we are starting to see, take a tropical curves with edge lengths $\pi$ and $\sqrt{2}$. Then we have an infnitesimal motion parametrized by $t$. We can say more if we can control the rate of smoothing of the nodes. What this is realizing is that points can be approached by directions, directions in the fan that have to do with 1-parameter subgroups. Tropical geometry gives us a way to understand infinitesimal geometry, the Berkovich correspondence happens to be functorial, this idea is what underlies all the ideas of Erin, Daniel and Eve. If we now take the moduli space of covers, it is a stratified space, there's a natural map to the space of branched divisors. The idea is to degenerate as much as possible, that way tropical geometry sees the most. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
