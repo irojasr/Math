@@ -1,0 +1,271 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW5}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+\begin{Ej}[Weak derivatives and membership in $W^{1,2}$]
+  In talking about the definition of weak derivatives, we have
+  discussed that functions with kinks and, in some cases, functions
+  that are discontinuous can have weak derivatives even though they
+  clearly are not differentiable in the ``classical'' sense.
+  
+But not all discontinuous functions have a weak derivative. For example,
+the following function of one variable,
+\begin{align*}
+  u(x) = \begin{cases}
+    -1 & \text{if}\; x<0
+    \\
+    0 & \text{if}\; x\ge 0,
+  \end{cases}
+\end{align*}
+does not have a weak derivative. Convince yourself that that is true,
+and explain your thinking.
+
+Next, consider the function $u : \bR^2 \rightarrow \bR$ of two arguments,
+\begin{align*}
+  u(\mathbf x) = \sin(\arctan(x_2/x_1))
+\end{align*}
+that is discontinuous at the origin?%
+\footnote{For the given expression for $u$ to make sense, we need to
+  make sure that you define $\arctan$ with the right branch cut. It is
+  here to be understood as $\arctan(x_2/x_1)=\theta$ where $\theta$ is
+  the angle a point $\mathbf x\in{\mathbb R}^2$ makes against the
+  positive $x_1$ axis.}
+Can you guess a weak gradient for
+this function $u$ (which is of course a two-dimensional vector field) and
+prove that it really is \textit{the} weak gradient?
+
+If so, what spaces $W^{1,p}(B_1(0))$ is $u$ in if we take
+the unit ball in $\bR^2$ as the domain?
+
+(Hint: Plot the function. Then think about whether there is possibly a
+coordinate system better suitable to the task.)
+\end{Ej}
+
+I sadly, was unable to tackle this exercise.
+
+\begin{Ej}
+    The dual space $X'$ of a vector space $X$ is the set of all linear,
+continuous functionals $\varphi: X \rightarrow \bR$.
+
+We say that a functional $\varphi$ is
+bounded if it satisfies the condition
+\begin{align*}
+  |\varphi(x)| \le c \|x\|_X
+\end{align*}
+for all $x\in X$ and with some constant $c=c(\varphi)<\infty$.
+
+Show that (i)~if $\varphi\in X'$, then it is bounded; and
+(ii)~that if a linear functional is bounded, then it is also
+continuous. (In other words, a linear functional $\varphi$ is in $X'$
+\textit{if and only if} it is also bounded.)
+\end{Ej}
+
+\begin{ptcbr}
+  Suppose $\vf$ is bounded, then there is a $c>0$ such that 
+  $$|\vf(x)|\leq c\norm{x}.$$
+  For $\eps>0$, let $\dl=\eps/c$ and suppose $\norm{x-y}\leq\dl$ for $x,y\in X$. Then 
+  $$|\vf(x)-\vf(y)|=|\vf(x-y)|\leq c\norm{x-y}\leq c\dl=\eps$$
+  and so $\vf$ is continuous.\par 
+  If $\vf$ were continuous, it would be continuous at $y=0$. So for all $\eps$, in particular $\eps=1$, there exists a $\dl>0$ such that $\norm{x}\leq\dl$ implies 
+  $$|\vf(x)|=|\vf(x)-\vf(0)|\leq 1.$$
+  About zero, $\vf$ is bounded by any value as $\vf(0)=0$, so now take $x\neq 0$. The vector $\dl(x/\norm{x})$ has norm $\dl$, so by our previous observation it holds that
+  $$\vf\left(\dl\frac{x}{\norm{x}}\right)\leq 1\To \vf(x)\leq\frac{1}{\dl}\norm{x}.$$
+  Thus $\vf$ is bounded and therefore, boundedness is equivalent to continuity here.
+\end{ptcbr}
+\begin{Ej}
+    Every $a\in L^q$ induces a
+bounded linear functional $\varphi:L^p\rightarrow \bR$ of the form
+\begin{align*}
+  \varphi(u) = \int_\Omega a(x) u(x) \, \text{d}x.
+\end{align*}
+Here and below, we will always assume that $\frac 1p + \frac 1q = 1$,
+and that $\Omega\subset\bR^d$ is a bounded domain.
+
+Show in a first step that this functional is linear and bounded (and
+consequently continuous), i.e., that indeed we have $\varphi\in (L^p(\Omega))'$.
+
+It is of course conceivable that $X'$ is indeed larger than just the
+functionals introduced above. One of the possibilities would be that
+one could choose a larger class of functions $a$ than just the $L^q$
+functions above. Show that this is not the case, i.e., that a function
+$a\not\in L^q$ (for example if $a\in L^r$ with $r<q$ but $a\not\in
+L^q$) does not induce a functional $\varphi\in X'$.
+
+This statement is not easy to show in its full generality -- though as
+often, it's all about finding the right approach. Here, it means
+showing that for such an $a$, $\varphi$ can not be linear and
+continuous (or linear and bounded). If you
+don't see how to do this, create an example: Pick a particular $p$ and
+corresponding $q$, then choose a specific $a\in L^r\backslash L^q$
+(for example, a function with a singularity) and show that the
+corresponding $\varphi$ is either not linear, not continuous, or not
+bounded by playing with functions $u\in L^p$ and investigating what
+$\varphi(u)$ is.
+
+(It is worth noting that this argument only shows that linear
+functionals of the form shown above with $a \in L^r\backslash L^q$ do
+not give rise to functionals $\varphi$ in $(L^p(\Omega))'$. It does
+not show that there are no \textit{completely different} ways to
+construct linear and continuous functionals. It is the
+\href{https://en.wikipedia.org/wiki/Riesz_representation_theorem}{Riesz
+representation
+theorem}
+that states that such other ways do not, in fact, exist.)
+\end{Ej}
+
+\begin{ptcbr}
+  To show that $\vf$ is linear, consider $u,v\in L^p$ and $c\in\bR$, then 
+  \begin{align*}
+  \vf(cu+v)&=\int_\Om a(x)(cu+v)(x)\dd x\\
+  &=\int_\Om ca(x)u(x)+a(x)v(x)\dd x\\
+  &=c\int_\Om a(x)u(x)\dd x+\int_\Om a(x)v(x)\dd x\\
+  &=c\vf(u)+\vf(v)
+  \end{align*}
+  which shows $\vf$ is linear. On the other hand observe that using H\"older's inequality we have 
+\begin{align*}
+  &|\vf(u)|=\left|\int_\Om a(x)u(x)\dd x\right|\leq\norm{a}_{L^q}\norm{u}_{L^p}\\
+  \To& \frac{|\vf(u)|}{\norm{u}_{L^p}}\leq\norm{a}_{L^q}\\
+  \To&\sup_{u\neq 0}\frac{|\vf(u)|}{\norm{u}_{L^p}}\leq\norm{a}_{L^q}
+\end{align*}
+  and this last quantity is the operator norm of $\vf$. This means that $\norm{\vf}_{\text{op}}\leq\norm{a}_{L^q}$ and so $\vf$ is a bounded functional.\par
+  Let us consider the function $a(x)=1/x^{2/3}$\footnote{Thanks for helping me out with the example.} which is in $L^1([0,1])$, its integral has a value of $3$, but not in $L^2([0,1])$. Observe that linearity doesn't depend on our choice of function, what should fail is boundedness of the functional. So let us pick a function in $u\in L^2$ like $u(x)=\frac{1}{x^{1/3}}$, observe that when we apply the function $\vf_a$ to $u$ we get 
+  $$\int_{0}^{1}\left(\frac{1}{x^{2/3}}\right)\left(\frac{1}{x^{1/3}}\right)\dd x=\int_{0}^{1}\frac{1}{x}\dd x=\infty.$$ 
+  In order to show $\vf_a$ is unbounded we can construct a sequence of functions $(u_n)\subseteq L^2$ which converged to $u(x)$ and then show that the operator norm of $\vf_a$ does indeed grow without bound.
+\end{ptcbr}
+
+Indeed as mentioned, this is not sufficient to show that all functionals are of the desired form. Also a non-explicit way to construct an unbounded functional would be to invoke Zorn's lemma. It is indeed with the Riesz representation theorem that we can show how all functionals look.\par 
+But quick question, how does one represent the evaluation functionals? I believe that those functionals are unbounded so we can't represent them in the desired way, is that correct?
+
+\begin{Ej}
+    The previous problem claimed that every (dual) functional $\varphi\in (L^p(\Omega))'$
+can be written in the form
+\begin{align*}
+  \varphi(u) = \int_\Omega a(x) u(x) \, \text{d}x
+\end{align*}
+for some $a\in L^q$. Furthermore, we have defined the norm on the dual
+space as
+\begin{align*}
+  \|\varphi\|_{(L^p(\Omega))'} =
+  \sup_{u\in L^p(\Omega)} \frac{|\varphi(u)|}{\|u\|_{L^p(\Omega)}}.
+\end{align*}
+Prove that
+\begin{align*}
+  \|\varphi\|_{(L^p(\Omega))'} = \|a\|_{L^q(\Omega)}.
+\end{align*}
+
+(Hint: It is not difficult to show that $\|\varphi\|_{(L^p(\Omega))'}
+\le \|a\|_{L^q(\Omega)}$ using H\"older's inequality. To complete the proof, find a $u\in L^p$ so
+  that $|\varphi(u)|=\|a\|_{L^q(\Omega)}\|u\|_{L^p(\Omega)}$ for which
+  a good approach is to try $u(x)=|a(x)|^s \,\text{sign}(a(x))$ with some exponent $s$ to
+  be chosen conveniently. You'll then have to check that this $u$ is
+  in $L^p$, as well as what $\varphi(u)$ is.)
+\end{Ej}
+
+\begin{ptcbr}
+  Indeed consider the function $u$ as hinted with exponent $s=q/p$. We claim that the $\sup$ is reached for such a $u$. This is, $\norm{\vf}_{\text{op}}=\norm{a}_{L^q}$. Observe that 
+  $$|\vf(u)|=\left|\int_{\Om}a(x)|a(x)|^{q/p}\sgn(a(x))\dd x\right|$$
+  and $a(x)\sgn(a(x))=|a(x)|$ so the integrand is $|a(x)|^{q/p+1}$. The exponent in question is in fact $q$, because 
+  $$\frac{1}{p}+\frac{1}{q}=1\To \frac{q}{p}+1=q.$$
+  From this we have $|\vf(u)|=\norm{a}^q_{L^q}$.\par 
+  On the other hand the $L^p$ norm of $u$ is 
+  $$\int_\Om||a(x)|^{q/p}\sgn(a(x))|^p\dd x=\int_{\Om}|a(x)|^q\dd x=\norm{a}_{L^q}^q.$$
+  \red{I feel that I'm really really close. I just can't finish the argument. How does one finish the argument?}
+\end{ptcbr}
+\begin{Ej}
+    Define the function $w$ on $[0,1]$ as
+\begin{align*}
+  w(x) = \begin{cases}
+    \alpha & \text{if $x\le\frac 12$} \\
+    \beta & \text{if $x>\frac 12$},
+  \end{cases}
+\end{align*}
+and let $\bar w$ be its periodic extension to all of $\bR$.
+
+Next consider the following sequence of functions on the set $\Omega=[0,1]$:
+\begin{align*}
+  u_n(x) = \bar w(nx).
+\end{align*}
+In other words, $u_n(x)$ takes the periodic extension $\bar w(x)$,
+compresses it by a factor of $n$ in $x$ direction, and then restricts
+consideration to the domain $[0,1]$.
+
+Show the following statements
+\begin{itemize}
+\item[(a)] The sequence $u_n$ does not converge strongly to any $u$ in
+  any of the $L^p$ spaces, $1\le p \le \infty$.
+
+\item[(b)] We have
+\begin{align*}
+  u_n(x) \rightharpoonup \frac{\alpha+\beta}{2} \qquad \text{in $L^p$}
+\end{align*}
+for any $1\le p<\infty$.
+  
+\item[(c)] We have
+\begin{align*}
+  u_n(x) \overset{\ast}{\rightharpoonup} \frac{\alpha+\beta}{2}  \qquad \text{in $L^\infty$}.
+\end{align*}
+\end{itemize}
+
+(A similar result is actually true for more general cases: If you
+start with \textit{any} bounded function $w:[0,1]\rightarrow \bR$ and its
+periodic extension $\bar w$, then the $u_n$ defined above converges
+weakly or weak-* to the \textit{mean value} $\int_0^1 w(x)\,
+\text{d}x$. The proof is not much different but does not shed any
+further light on the issue, so we are content with the simpler case above.)
+\end{Ej}
+
+\begin{ptcbr}
+  \begin{enumerate}[(a)]
+    \item Let us assume that $u_n$ converges weakly to $1/2(\al+\bt)$. Observe that if $u_n$ were to converge strongly, then it should converge to its weak limit and for sake of argument assume $\bt=-\al$, in this case the limit is zero.\par 
+    If we let $m=\min(\al,-\al)$ then taking the $L^p$ norm of $u_n$ we get
+    $$\norm{u_n}_{L^p}^p=\int_0^1 |u_n(x)|^p\dd x=\int_0^1 |\ov{w}(nx)|^p\dd x\geq \int_0^1 |m|^p\dd x=|\al|^p$$
+    which means that if $\al\neq 0$ (and we are assuming ($\bt=-\al$)), then the sequence is always bounded below and thus can't go to zero in $L^p$ norm. On the other hand if it were the case that $\al=0$ then the result would be true and $u_n$ would converge to zero.
+    \item We must show that $\int_0^1u_nv\dd x\to0$ for $v\in L^q$ where $1/p+1/q=1$. Let $0=a_0<a_1<\dots<a_r=1$, by density of step functions in $L^q$ we have that
+    $$s(x)=\sum_{k=1}^r \al_k\ind_{A_k}(x),\word{where}A_k=\obonj{a_{k-1},a_k}\footnote{I know this is the other notation, but I just get too confused when reading it with parenthesis because I read it as an ordered pair.}$$
+    approximates $v$: $\norm{v-s}_{L^q}\leq\eps$ for $\eps>0$. Then 
+    $$\int_0^1u_nv\dd x=\int_0^1u_n(v-s+s)\dd x=\int_0^1u_n(v-s)\dd x+\int_0^1u_ns\dd x.$$
+    We may bound this quantity using the triangle inequality as follows:
+    $$\left|\int_0^1u_nv\dd x\right|\leq\int_0^1|u_n||v-s|\dd x+\left|\int_0^1u_ns\dd x\right|.$$
+    The first integral we bound using H\"older's inequality as follows: 
+    $$\int_0^1|u_n||v-s|\dd x\leq\norm{u_n}_{L^p}\norm{v-s}_{L^q}$$
+    and observe that from our first discussion about $u_n$ we may deduce that its norm is actually $w$'s norm. We may use a change of variables to see that 
+    $$\int_0^1 |\ov{w}(nx)|^p\dd x=\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n),\word{where}\left(\substack{y=nx\ \To\ \dd y=n\dd x\\ x=0,x=1\ \To\ y=0,y=n}\right).$$
+    But the last integral contains a periodic function of period 1. So this is actually 
+    $$\int_{0}^{n}|\ov{w}(y)|^p(\dd y/n)=n\int_{0}^{1}|\ov{w}(y)|^p(\dd y/n)=\int_{0}^{1}|\ov{w}(y)|^p\dd y=\norm{w}_{L^p}^p.$$
+    This lets us conclude that $\norm{u_n}_{L^p}=\norm{w}_{L^p}$ and as $w$ is a step function, we can find its integral to be
+    $$\norm{w}_{L^p}^p=\int_0^{1/2}|\al|^p\dd x+\int_{1/2}^1|\bt|^p\dd x=\frac{|\al|^p+|\bt|^p}{2}<\infty.$$
+    So in this way we may finish bounding our original first integral as $\int_0^1|u_n||v-s|\dd x\leq \eps\norm{w}_{L^p}$.\par 
+    The second integral we rewrite as 
+    $$\int_0^1u_ns\dd x=\sum_{k=1}^{r}\al_k\int_0^1u_n\ind_{A_k}\dd x=\sum_{k=1}^{r}\al_k\int_{A_k}u_n\dd x$$
+    and we treat the integrals over $A_k$ as follows:
+    \begin{align*}
+    \int_{A_k}u_n\dd x&=\int_{a_{k-1}}^{a_k}u_n\dd x\\
+    &=\int_{a_{k-1}}^{a_k}\ov{w}(nx)\dd x\\  
+    \left(\substack{y=nx\ \To\ \dd y=n\dd x\\ y=na_{k-1},y=na_k}\right)&=\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n).  
+    \end{align*}
+    This last integral we chop into pieces:
+    \begin{align*}
+      &\int_{na_{k-1}}^{na_k}\ov{w}(y)(\dd y/n)\\
+      =&\frac1n\left(\int_{na_{k-1}}^{\floor{na_{k-1}}+1}\ov{w}(y)\dd y+\int_{\floor{na_{k-1}}+1}^{\floor{na_k}}\ov{w}(y)\dd y+\int_{\floor{na_k}}^{na_k}\ov{w}(y)\dd y\right)  
+    \end{align*}
+    and observe that the quantities
+    $$\bonj{(\floor{na_{k-1}}+1)-na_{k-1}}\word{and}(na_k-\floor{na_k})$$
+    are both between $0$ and $1$. Also the second integral is between two integer values. We may apply periodicity of $\ov{w}$ to conclude that 
+    $$\left|\int_0^1u_ns\dd x\right|\leq \frac{2}{n}\int_{0}^{1}|\ov w|\dd y+\frac{\floor{na_k}-\floor{na_{k-1}}+1}{n}\left|\int_{0}^{1}\ov w\dd y\right|.$$
+    The first integral is $(2/n)\norm{\ov w}_{L^1}$ and the second one is zero because we have assumed that $\bt=-\al$. In total, we have 
+    $$\left|\int_0^1u_nv\dd x\right|\leq \eps\norm{w}_{L^p}+\frac2n\norm{\ov w}_{L^1}$$
+    and letting $n$ grow we get the desired result.
+    \item Observe that the previous argument also applies for weak * convergence as we may take $v\in L^1$.
+  \end{enumerate}
+\end{ptcbr}
+\end{document} 

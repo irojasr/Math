@@ -1,0 +1,337 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW4}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+\begin{Ej}
+    On finite dimensional spaces, all norms are equivalent. Let us test
+    this for a subset of all possible norms on $\bR^n$. For this, first
+    recall the definition of the three norms we care about:
+    \begin{align*}
+      \| x \|_{l_1} &:= \sum_{i=1}^n |x_i|, \\
+      \| x \|_{l_2} &:= \left(\sum_{i=1}^n |x_i|^2 \right)^{1/2}, \\
+      \| x \|_{l_\infty} &:= \max_{i=1}^n |x_i|.
+    \end{align*}
+    Now show that there
+    exist constants $0<c_{12}\le C_{12} <\infty$ so that
+    \begin{align*}
+      c_{12} \| x \|_{l_1} \le \| x \|_{l_2} \le C_{12} \| x \|_{l_1}
+    \end{align*}
+    for all vectors $x\in \bR^n$. In other words, that the $l_1$ and $l_2$
+    norms on $\bR^n$ are ``equivalent''.
+    
+    Then show the same for the $l_2$ and $l_\infty$ norms: Show that there
+    exist constants $0<c_{2\infty}\le C_{2\infty} <\infty$ so that
+    \begin{align*}
+      c_{2\infty} \| x \|_{l_2} \le \| x \|_{l_\infty} \le C_{2\infty} \| x \|_{l_2}
+    \end{align*}
+    for all vectors $x\in \bR^n$.
+    
+    Combine these estimates to show that the $l_1$ and the $l_\infty$
+    norms are equivalent.
+\end{Ej}
+
+\begin{ptcbr}
+  Observe that 
+  $$\norm*{x}_{\l_1}^2=(|x_1|^2+\dots+|x_n|^2)+2\sum_{i\neq j}|x_i||x_j|\geq|x_1|^2+\dots+|x_n|^2=\norm*{x}_{\l_2}^2.$$
+  This means that $\norm*{x}_{\l_2}\leq\norm{x}_{\l_1}$ so $C_{12}=1$. On the other hand observe that $\norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}$. Suppose without loss of generality that for a particular $j\leq n$
+  $$\norm*{x}_{\l_\infty}=|x_j|$$
+  then
+  \begin{align*}
+    \norm*{x}_{\l_\infty}\leq\norm*{x}_{\l_2}&\iff \norm*{x}_{\l_\infty}^2\leq\norm*{x}^2_{\l_2}\\
+    &\iff |x_j|^2\leq \sum_{i=1}^n |x_i|^2\\
+    &\iff 0\leq \sum_{\substack{i=1\\i\neq j}}^n |x_i|^2
+  \end{align*}
+  This means that $C_{2\infty}=1$. We will actually combine these estimates to find $c_{12}$. Observe that 
+  $$\norm{x}_{\l_1}\leq n\norm{x}_{\l_\infty}\leq n\norm{x}_{\l_2}$$
+  where the first inequality comes from the fact that every term in the sum must be smaller than the greatest term and the second one from the $C_{2\infty}$ inequality. Combining these we see that 
+  $$\frac{1}{n}\norm*{x}_{\l_1}\leq\norm{x}_{\l_2}\leq\norm{x}_{\l_1}.$$
+  On the other hand, taking inspiration from the argument of $\l_1$
+  $$\norm{x}_{\l_2}^2\leq n\norm{x}_{\l_\infty}^2\To \frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}.$$
+  From this 
+  $$\frac{1}{\sqrt{n}}\norm{x}_{\l_2}\leq\norm{x}_{\l_\infty}\leq\norm{x}_{\l_2}\To \frac{1}{n\sqrt{n}}\norm{x}_{\l_1}\leq \norm{x}_{\l_\infty}\leq\norm{x}_{\l_1}.$$
+\end{ptcbr}
+
+\begin{Ej}
+    Consider the (infinite dimensional) vector space $C^1([0,1])$.
+Define on this space the same three norms as before:
+\begin{itemize}
+\item $\|u\|_1 = \max_{x \in [0,1]} |u(x)|$,
+\item $\|u\|_2 = \max_{x \in [0,1]} |u(x)| + \max_{x \in [0,1]}
+  |u'(x)|$,
+\item $\|u\|_3 = \left(\int_0^1 |u(x)|^2 \, dx\right)^{1/2}$.
+\end{itemize}
+(You will notice that these are the $L^\infty$, $W^{1,\infty}$, and
+$L^2$ norms when taking into account that the members of $X$ are all
+functions that are continuous and continuously differentiable.) 
+Then answer the following questions:
+\begin{itemize}
+\item[(a)] For each of these three norms, show that it is indeed a
+  norm on $X$, i.e., that it satisfies the norm axioms.
+\item[(b)] Are any of these norms equivalent to each other? If you
+  can't show that they are, demonstrate that they are \textit{not}
+  equivalent by showing that no constants $0<c\le C<\infty$ can exist as are
+  necessary for equivalence of norms.
+\end{itemize}
+\end{Ej}
+\begin{nonum-Rmk}
+    Let's say you want to show that two norms are
+    \textit{not} equivalent, say the first two. Then you need to show that either
+    there is no constant $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$, or that there is no constant $C_{12}<\infty$ so
+    that $\|u\|_2 \le C_{12} \| u \|_{1}$ for all $u$. For this, it is
+    not sufficient to think about a single $u$, because for one specific
+    $u$ the inequalities can always be made to work with an appropriate
+    constant. What you have to do instead is to work with
+    \textit{sequences of functions $u_k$} appropriately chosen, and to
+    show that the inequalities cannot be true for all elements of a
+    sequence at the same time. A different perspective is to see that
+    the statement ``there exists $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$'' is equivalent to saying that
+    $$
+      0 < \inf_{u} \frac{\| u \|_{2}}{\| u \|_{1}}.
+    $$
+    To disprove that this is the case, you will want to find a sequence
+    of functions $u_k$ so that
+    $$
+      \frac{\| u_k \|_{2}}{\| u_k \|_{1}} \rightarrow 0.
+    $$
+    If you can find such a sequence, then clearly $\inf_{u} \frac{\| u
+      \|_{2}}{\| u \|_{1}}=0$, which then implies that there is no
+    $c_{12}>0$ so that $c_{12} \| u \|_{1} \le \| u
+    \|_{2}$ for all $u$.
+  
+    For the other inequality, consider that the statement ``there exists
+    $C_{12}<\infty$ so that $\|u\|_2 \le C_{12} \| u \|_{1}$'' is
+    equivalent to
+    $$
+      \sup_{u} \frac{\| u \|_{2}}{\| u \|_{1}} < \infty.
+    $$
+    To disprove this statement, you want to find a sequence so that
+    $$
+      \frac{\| u_k \|_{2}}{\| u_k \|_{1}} \rightarrow \infty.
+    $$
+\end{nonum-Rmk}
+
+\begin{ptcbr}
+\begin{enumerate}[(a)]
+    \item First observe that all the norms are positive. The absolute value is always positive, sum of positive terms is positive as well and the integral of a positive function is positive.\par 
+    Assume now that $\norm*{u(x)}_1=0$, so for all $x\in\bonj{0,1}$, $|u(x)|$ is sandwiched between $0$ and $0$ this means that $u(x)$ must be identically zero.\par 
+    In a similar fashion $\norm{\.}_2$ is a sum of positive terms which we assume to be zero. This means that both of them must be zero and by a similar argument we can deduce that $u(x)$ is also zero.\par 
+    Finally if $\norm*{u}_3$ is zero then $\int_{[0,1]}|u(x)|^2\dd x$ is also zero. We know that if the integral of a positive function is zero, then the function itself must've been zero to begin with. This means that 
+    $$|u(x)|^2=0\To u(x)=0,\word{for all}x.$$
+    Now suppose $c$ is a scalar. Then 
+    $$\norm*{cu}_1=\max_{\bonj{0,1}}|cu(x)|=\max_{\bonj{0,1}}|c||u(x)|=|c|\max_{\bonj{0,1}}|u(x)|=|c|\norm*{u}_1,$$
+    while for the second case we have
+    $$\norm*{cu}_2=\max_{\bonj{0,1}}|cu(x)|+\max_{\bonj{0,1}}|cu'(x)|=\max_{\bonj{0,1}}|c||u(x)|+\max_{\bonj{0,1}}|c||u'(x)|=|c|\norm*{u}_2.$$
+    In the final case we take advantage of the linearity of the integral:
+    $$\left(\int_{\bonj{0,1}}|cu|^2\dd x\right)^{1/2}=\left(|c|^2\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}=|c|\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}=|c|\norm*{u}_3.$$
+    Now, take another continuous function $v$, it holds that
+    $$|u(x)|\leq\sup_{\bonj{0,1}}|u(x)|,\word{and}|v(x)|\leq\sup_{\bonj{0,1}}|v(x)|.$$
+    This means that $\sup_{\bonj{0,1}}|u(x)|+\sup_{\bonj{0,1}}|v(x)|$ is an upper bound for $|u(x)|+|v(x)|$. From this, using the usual triangle inequality we have 
+    $$\sup_{\bonj{0,1}}|u(x)+v(x)|\leq\sup_{\bonj{0,1}}(|u(x)|+|v(x)|)\leq\sup_{\bonj{0,1}}|u(x)|+\sup_{\bonj{0,1}}|v(x)|.$$
+    As all of the functions are defined on the compact set $[0,1]$, then we may exchange all supremums by maximums which verifies the triangle inequality for $\norm*{\.}_1$.\par 
+    Using this fact, we may conclude $\norm*{\.}_2$ is a norm, because
+    $$\norm*{u+v}_2=\norm*{u+v}_1+\norm*{u'+v'}_1$$
+    so applying the triangle inequality for $\norm*{\.}_1$ and arranging terms we get 
+    $$\norm*{u+v}_2\leq\norm*{u}_1+\norm*{v}_1+\norm*{u'}_1+\norm*{v'}_1=\norm*{u}_2+\norm*{v}_2.$$
+    Without appealing to the Minkowski inequality, but using the Cauchy-Schwarz inequality we have 
+    $$\int_{\bonj{0,1}}|u+v|^2\dd x\leq \int_{\bonj{0,1}}(|u|+|v|)^2\dd x=\int_{\bonj{0,1}}|u|^2+|v|^2+2|u||v|\dd x$$
+    and by the Cauchy-Schwarz inequality we have 
+    $$\int_{\bonj{0,1}}|u||v|\dd x\leq\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}.$$
+    Combining this with the previous inequality we have
+    \begin{align*}
+    \int_{\bonj{0,1}}|u+v|^2\dd x&\leq \int_{\bonj{0,1}}|u|^2+|v|^2+2\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}\\
+    &=\bonj{\left(\int_{\bonj{0,1}}|u|^2\dd x\right)^{1/2}+\left(\int_{\bonj{0,1}}|v|^2\dd x\right)^{1/2}}^2
+    \end{align*}%https://math.stackexchange.com/questions/710254/triangle-inequality-for-l2-norm
+    \item Observe that equivalent norms induce the same topology over our set. This means that convergent sequence in one norm must converge with respect to equivalent norms. However, if we take a sequence which isn't convergent in one norm, but is in another norm, then our norms won't be equivalent.
+    \begin{itemize}
+      \item We have seen that $\norm*{u}_2=\norm*{u}_1+\norm*{u'}_1$. From this we can see that convergence in $\norm*{\.}_2$ immediately implies convergence in $\norm*{u}_1$.\par 
+      Consider now the sequence $u_n=\frac1nx^n$, pointwise $u_n\to 0$ so we expect that to be the limit. We have 
+      $$\left\lbrace
+      \begin{aligned}
+        &\norm*{u_n}_1=\frac1n\to0\To u_n\xrightarrow{\norm*{\.}_1}0\\
+        &\norm*{u_n}_2=\frac1n+1\to1
+      \end{aligned}
+      \right.$$ 
+      which means that $(u_n)$ doesn't converge with respect to the $\norm*{\.}_2$.
+      \item If we now take the sequence $u_n=x^n$ we can see that in $\norm*{\.}_3$ it converges to zero, as the limit of $u_n$ is the zero function with a jump to 1 at $x=1$. On the other hand, in the norm $\norm{\.}_1$, its maximum value is still $1$.
+      \item Finally, $\norm*{x^n}_2>1$ for all $n$ but still $x^n$ converges to zero in $\norm*{\.}_3$. 
+    \end{itemize}
+    This means that none of our norms is equivalent to one another.
+\end{enumerate}
+\end{ptcbr}
+\begin{Ej}
+    Consider the ($n+1$ dimensional) space of polynomials of degree at most $n$:
+\begin{align*}
+  X := \left\{ 
+   u : [0,1] \rightarrow \bR \; :
+   u=\sum_{k=0}^n a_k x^k
+  \right\}.
+\end{align*}
+Define on this space the following norms (the same as in the previous problem):
+\begin{itemize}
+\item $\|u\|_1 = \max_{x \in [0,1]} |u(x)|$,
+\item $\|u\|_2 = \max_{x \in [0,1]} |u(x)| + \max_{x \in [0,1]}
+  |u'(x)|$,
+\item $\|u\|_3 = \left(\int_0^1 |u(x)|^2 \, dx\right)^{1/2}$.
+\end{itemize}
+Then answer the following questions:
+\begin{itemize}
+\item[(a)] For each of these three norms, show that it is indeed a
+  norm, i.e., that it satisfies the norm axioms. You should be able to
+  infer this from the work you have done for the previous problem;
+  instead of repeating the work for the special case here, feel free
+  to argue why the work for the previous problem \textit{implies} what you are
+  asked to show here.
+\item[(b)] Show that all of these norms are equivalent on $X$ -- as they
+  ought to be because the space $X$ is finite dimensional.
+\end{itemize}
+\end{Ej}
+\begin{nonum-Rmk}
+    It turns out to actually be quite complicated to
+  show the equivalence of norms, even though we know that it is true. While the equivalence of
+  $\|\cdot\|_1$ and  $\|\cdot\|_2$ is not difficult, the one with the
+  $\|\cdot\|_3$ norm is. In the end, I would be surprised if any of you figure
+  out all pieces of the proof without substantial time reading up on
+  the material and spending more time on the problem than it is likely
+  worth given your other obligations (including leisure time). That's
+  ok -- give it a shot and see how far you get, I will accept partial results!
+\end{nonum-Rmk}
+
+\begin{ptcbr}
+\begin{enumerate}[(a)]
+    \item Observe that every polynomial is a smooth in the whole of $\bR$, so in particular it is of class $C^1$ across $\bR$. In this fashion, the polynomials form a subspace of the $C^1$ functions.\par 
+    Now, a norm restricted to a subspace continues being a norm. So this means that the previous functions do define norms on the space of polynomials we have.
+    \item We can compare $\norm*{\.}_3$ and $\norm{\.}_1$ as follows:
+    $$\norm*{u}_3^2=\int\limits_0^1|u(x)|^2\dd x\leq\int\limits_0^1\norm*{u}_1^2\dd x=\norm*{u}_1^2\To\norm*{u}_3\leq \norm*{u}_1.$$
+    Observe also that $\norm{u}_1\leq\norm*{u}_2$ immediately so this also gives us an inequality for the $\norm*{\.}_3$.\par 
+    Observe that we may not bound $\norm*{\.}_1$ by $\norm*{\.}_3$ in the same fashion that we did for sequences. If we took $x^\ast$ to be $\max_{\bonj{0,1}}|u(x)|$ then the argument would be 
+    $$|u(x^\ast)|^2\leq\int\limits_0^1|u(x)|^2\dd x\iff 0\leq\int\limits_0^1(|u(x)|^2-|u(x^\ast)|^2)\dd x$$
+    and the issue is that in the last integral we are treating $|u(x^\ast)|^2$ as a constant function. That quantity is negative so the inequality would not hold. We would like to treat that as a function which is exactly $u(x^\ast)$ exactly at $x^\ast$ but zero everywhere else. \red{I must admit that this is it for me, I couldn't continue pushing on.}
+\end{enumerate}
+\end{ptcbr}
+\begin{Ej}
+    
+Let's build some intuition. If one thinks of functions that have $k$
+derivatives, i.e., are in the set of functions usually denoted by
+$C^k(\Omega)$, then we think of them as quite smooth and definitely
+not singular. Is this true also for the functions in $W^{k,p}$ that
+have $k$ \textit{weak} derivatives whose $p$th power is integrable?
+Recall that
+\begin{align*}
+  W^{k,p}(\Omega) = \left\{ \varphi: \ \int |u|^p < \infty,
+  \quad
+  \int |\nabla u|^p < \infty,
+  \quad
+  \ldots,
+  \quad
+  \int |\nabla^k u|^p < \infty
+  \right\}.
+\end{align*}
+To test whether a given function $u$ is in $W^{k,p}$ for some $k,p$ on
+\textit{bounded} domains $\Omega$,
+we really only have to check that the highest order term $\int |\nabla^k u|^p < \infty$
+because if this is the case then all of the lower order derivatives
+also have finite integrals.
+
+Now think about singular functions $u : B_1(0)\subset \bR^d \rightarrow \bR\cup\{\pm\infty\}$
+of the form
+\begin{align*}
+  u(x) = \frac{1}{\|x\|^s}
+\end{align*}
+with $s>0$. (The domain $\Omega=B_1(0)$ is the ball of radius 1
+around the origin 0. For simplicity of calculations, use the Euclidean norm
+for $\|x\|$ -- although the equivalence of norms on finite dimensional
+spaces implies that none of the results below actually depend on which
+norm $\|x\|$ you choose.)
+
+For given values of the space dimension $d\ge 1$, the degree $k\ge 0$,
+and the exponent $1\le p\le \infty$, state for which values $s$ the
+function satisfies $u \in W^{k,p}(B_1(0))$.
+
+The spaces $H^k=W^{k,2}$ have special importance in the theory of
+partial differential equations.
+Does the space $H^1 = W^{1,2}$ contain any singular functions with $s>0$ for
+$d=1$? For $d=2$? For $d>3$? How about the space $H^2=W^{2,2}$?
+\end{Ej}
+
+\begin{ptcbr}
+To check membership in $W^{k,p}$, it suffices to analyze $\nb^k u$. It may appear as an insurmountable task to analyze $|\nb^k u|$, however we may take it as 
+$$|\nb^k u|=\sup_{\substack{|\al|\leq k\\ |x|\leq 1}}|\del^\al u(x)|,\word{where}\al\in[k]^d.$$
+We may change variables to polar coordinates and notice that as our function is radial, then all derivatives with respect to polar coordinates are zero except the $r$ derivatives. This means that we may analyze 
+$$\pdv[k]{r}\frac{1}{r^s}=(-s)_kr^{-s-k}\word{where}(x)_k=x(x-1)(x-2)\dots(x-(k-1)).$$
+Observe that the falling factorial does not depend on $r$ so when computing $\int|\nb^k u|^p\dd x$ over the unit ball, it suffices to analyze
+$$\int_0^1(r^{-s-k})^pr^{d-1}\dd r=\int_0^1r^{-sp-kp+d-1}\dd r$$
+and for this integral to converge it is needed that 
+$$-sp-kp+d-1>-1\To-sp-kp>-d\To -s>k-\frac{d}{p}\To s<\frac{d}{p}-k.$$
+This is because the remaining $n-1$ dimensions are concentrated on the surface area of the unit ball.\par 
+To analyze the particular spaces we look first at $H^1(\obonj{-1,1})$. In this set we should have 
+$$s<\frac{1}{2}-1=\frac{-1}{2}\word{but}s>0.$$
+Thus we don't have any singular function on $1$-dimensional $H^1$. The situation doesn't change in two dimensions as we should have $s<0$. But in 3 dimensions we may start seeing functions with $s\in\obonj{0,1/2}$. For example
+$$\frac{1}{(x^2+y^2+z^2)^{1/8}}\in H^1(B(0,1))\word{in}\bR^3.$$
+When increasing $k$ to 2 we don't start seeing functions in $H^2$ until we pass $d>4$. Thus an example of a function in $H^2(B(0,1))$ in $\bR^5$ could be the same function $\norm*{x}^{-1/8}$ but in $\bR^5$.
+\end{ptcbr}
+\begin{Ej}
+    The previous problem let you explore whether functions of the form
+  \begin{align*}
+    u_s(x) = \frac{1}{\|x\|^s}
+  \end{align*}
+  are in $W^{k,p}$. (The result also depends on the space dimension
+  $d$.) One can turn this around: Given $k,p,d$, for which set
+  $S(k,p,d)\subset \bR$ of exponents $s$ do these functions lie in $W^{k,p}$?
+
+  We can use this to speculate whether a space $W^{k',p'}$ may be a
+  subset or superset of a space $W^{k,p}$ in the following way: Let's
+  say that $u_s \in W^{k,p}$ for all $s\in S(k,p,d)$ and 
+  $u_s \in W^{k',p'}$ for all $s\in S(k',p',d)$, and that 
+  $S(k,p,d) \supset S(k',p',d)$, then we might believe that 
+  $W^{k,p} \subset W^{k',p'}$ in this space dimension $d$.
+
+  \begin{itemize}
+  \item[(a)] Explain why the speculative inference
+  $$
+    S(k,p,d) \supset S(k',p',d)
+    \qquad\To\qquad
+    W^{k,p} \subset W^{k',p'}
+  $$
+  makes sense.
+
+  \item[(b)] In the previous problem, you found what values $s$ lead
+    $u_s$ to be in $W^{k,p}$. That is, you have an explicit
+    representation for the set $S(k,p,d)$. Express the statement
+    $$
+    S(k,p,d) \supset S(k',p',d)
+    \qquad\To\qquad
+    W^{k,p} \subset W^{k',p'}
+  $$
+  in a way where the left side of the inference is simply an
+  inequality involving $k,k',p,p',d$.
+
+  \item[(c)] Explain why the statement in (a) is just speculation, rather than a
+    proof.
+
+  \item[(d)] Statements about the inclusion $W^{k,p} \subset
+    W^{k',p'}$ are collectively known as
+    \href{https://en.wikipedia.org/wiki/Sobolev_inequality}{Sobolev
+      inequalities}. Look up the Sobolev inequalities for $W^{k,p} \subset
+    W^{k',p'}$ and compare with the speculation above. 
+  \end{itemize}
+\end{Ej}
+
+\red{I sadly didn't give myself time to do this exercise. Between the weekend seminar and preparing for a topology seminar talk, I didn't work on this one.}
+
+\subsection*{Project}
+
+Regarding the project I'm still on board to do the rocket project. I basically want to find the Euler-Lagrange equations for that situation. Discuss the equation as we did in the last homework and if possible, model solutions using \ttt{MATLAB}. However, I haven't used it since the beginning of the pandemic I believe that this goal is a stretch goal.\par 
+My current progress with the project is nil, as I mentioned, I've kept myself occupied but as soon as I submit this I'll (go home, sleep very well, wake up tomorrow and) work on this project.
+\end{document} 

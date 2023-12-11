@@ -1,0 +1,284 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH620}
+\def\nsiglahead {Variational Methods and Optimization I}
+\def\nextra {HW2}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+\begin{Ej}
+    We have proven rigorously that any succinctly smooth minimizer (say, if the minimizer happens to be in $C^2$) of the functional
+    $$I\bonj{u}=\int\limits_a^b f(x,u(x),u'(x))\dd x $$
+    has to satisfy the Euler-Lagrange equations
+    $$f_u(x,u(x),u'(x))=\dv{x}f_\xi(x,u(x),u'(x))$$
+    for all $x\in\obonj{a,b}$. The energy related to the vertical defection of a thin (one-dimensional) beam subject to a vertical gravity geld with strength $g$ is given by
+    $$I\bonj{u}=\int\limits_a^b \bonj{\mu\left(\sqrt{1+u'(x)^2}-1\right)-gu(x)}\dd x $$
+    where $\mu$ is related to the elasticity constants of the material.
+    \begin{enumerate}[i)]
+        \item Derive the Euler-Lagrange equations (including boundary conditions) for $u(x)$ for this problem if you
+        try to minimize the energy over the set of functions
+        $$D=\set{\vf\in C^2\:\ \vf(a)=\vf(b)=1}.$$
+        \item Can you prove that the solution $\ov u$ of the (Euler-Lagrange) deferential equations is (i) a minimizer of
+        $I\bonj{u}$, and (ii) is unique?
+    \end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \item Our function in question is 
+        $$f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu$$
+        so differentiating with respect to $u$ and $\xi$ we get 
+        $$
+        \begin{cases}
+            f_u(x,u,\xi)=-g\\
+            f_\xi(x,u,\xi)=\mu\frac{\xi}{\sqrt{1+\xi^2}}
+        \end{cases}
+        $$
+        Now taking the derivative with respect to $x$ of $f_{\xi}(x,u(x),u'(x))$ we get 
+        \begin{align*}
+            \dv{x}f_{\xi}(x,u(x),u'(x))&=\mu\dv{x}\frac{u'(x)}{\sqrt{1+u'(x)^2}}\\
+            &=\mu\frac{u''(x)\sqrt{1+u'(x)^2}-u'(x)\frac{u'(x)u''(x)}{\sqrt{1+u'(x)^2}}}{1+u'(x)^2}\\
+            &=\mu\frac{u''(x)(1+u'(x)^2)-u'(x)^2u''(x)}{(1+u'(x)^2)^{3/2}}\\
+            &=\mu\frac{u''(x)}{(1+u'(x)^2)^{3/2}}
+        \end{align*}
+    So the Euler-Lagrange equations in this case are given by
+    $$\mu\frac{u''(x)}{(1+u'(x)^2)^{3/2}}=-g$$
+    and the boundary conditions will be satisfied when $u\in D$. This is $u(a)=u(b)=1$. %\red{IS THIS THE CORRECT INTERPRETATION FOR BDRY CONDS?}
+    \item Recall that the theorem about minimization problems and Euler-Lagrange equations can be summarized as follows:
+    \begin{itemize}
+        \item (Necessary condition) A solution to the minimization problem is a solution of the associated E-L equations.
+        \item If $(u,\xi)\mapsto f(x,u,\xi)$ is convex, then solutions of the E-L equations are minimizers.
+        \item If the previous mapping is \emph{strictly convex} then there's a \emph{unique} solution when there is one.
+    \end{itemize}
+    Based on this we must analyze the convexity of the associated mapping
+    $$(u,\xi)\mapsto f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu.$$
+    Observe that our function is smooth, so we may apply the Hessian criterion in order to show it is convex. We already know the first order derivatives of our function so by taking 
+    $$\pdv{\xi}\left(\mu\frac{\xi}{\sqrt{1+\xi^2}}\right)=\mu\frac{\sqrt{1+\xi^2}-\xi\left(\frac{\xi}{\sqrt{1+\xi^2}}\right)}{1+\xi^2}=\mu\frac{1+\xi^2-\xi^2}{(1+\xi^2)^{3/2}}=\frac{\mu}{(1+\xi^2)^{3/2}}$$
+    we know that the Hessian matrix is thus 
+    $$\twobytwo{0}{0}{0}{\frac{\mu}{(1+\xi^2)^{3/2}}}$$
+    which is positive semi-definite. This is because the eigenvalues $0$ and $\frac{\mu}{(1+\xi^2)^{3/2}}$ are non-negative. We may guarantee that the function is convex.\par
+    However the function is not strictly convex: consider a path along a fixed $\xi=\xi_0$. If we call the mapping 
+    $$h\: (u,\xi)\mapsto f(x,u,\xi)=\mu\left(\sqrt{1+\xi^2}-1\right)-gu$$
+    and consider two points $(u_0,\xi_0), (u_1,\xi_0)$, then the segment connecting their images is the same as the image of the segment connecting them. This is because as a function of $u$, $h$ is linear. To see this, observe that 
+    \begin{align*}
+        &th(u_1,\xi_0)+(1-t)h(u_0,\xi_0)\\
+        =&t\bonj{\mu\left(\sqrt{1+\xi_0^2}-1\right)-gu_1}+(1-t)\bonj{\mu\left(\sqrt{1+\xi_0^2}-1\right)-gu_0}\\
+        =&t\mu\left(\sqrt{1+\xi_0^2}-1\right)+(1-t)\mu\left(\sqrt{1+\xi_0^2}-1\right)-\bonj{tgu_1+(1-t)gu_0}\\
+        =&\mu\left(\sqrt{1+\xi_0^2}-1\right)-g(tu_1+(1-t)u_0)
+    \end{align*} 
+    and on the other hand we have 
+    $$h(t(u_1,\xi_0)+(1-t)(u_0,\xi_0))=h(tu_1+(1-t)u_0,\xi_0).$$
+    When evaluating this expression we get the same expression as the last procedure. Thus we have found families of points where equality is reached in the inequality 
+    $$h(\text{segment})\leq\text{segment of }h\text{'s}.$$
+    Using the theorem we conclude that if we find a solution then it is a minimizer but it need not be unique.
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    In general, the Euler-Lagrange equations will be a (system
+    of) nonlinear ordinary deferential equation. Most often, they will not be exactly solvable. But occasionally,
+    we can solve simplices problems.\par
+    If you take Problem 1, consider the case of stir materials that do not deform very much. In that case, $u'$
+    will be small, and we can use the approximation
+    $$\sqrt{1+y}\approx 1+\half y.$$
+    (This is just Taylor expansion around $y = 0$.) Use this to dene an approximate energy functional $\ov I\bonj{u}$.
+    \begin{enumerate}[i)]
+        \item Derive the Euler-Lagrange equations (including boundary conditions) for $u(x)$ for this approximate
+        problem with the same $D$ as before.
+        \item Can you prove that the solution $\ov u$ of the (Euler-Lagrange) deferential equations is the unique minimizer
+        of $\ov I\bonj{u}$? (In other words, that the solution of the Euler-Lagrange equation is not just a stationary
+        point of $\ov I\bonj{u}$, but in fact a minimizer?)
+        \item Actually solve this problem, i.e., find $\ov u$ that satires the Euler-Lagrange equations.
+    \end{enumerate}
+\end{Ej}
+
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \item Observe that our new functional is 
+        $$\ov I\bonj{u}=\int\limits_a^b \bonj{\mu\left(1+\half u'(x)^2-1\right)-gu(x)}\dd x=\int\limits_a^b \left(\frac{\mu}{2}u'(x)^2-gu(x)\right)\dd x$$
+        so the new function for us is 
+        $$f(x,u,\xi)=\frac{\mu}{2}\xi^2-gu\To f_u=-g,\quad f_\xi=\mu\xi.$$
+        Now we can see that
+        $$\dv{x}f_{\xi}(x,u(x),u'(x))=\dv{x}\mu u'(x)=\mu u''(x).$$
+        The corresponding equation is now $\mu u''(x)=-g$ and the conditions remain the same, $u(a)=u(b)=1$
+        \item Observe that the function in question is now 
+        $$h\:(u,\xi)\mapsto \mu\frac{\xi^2}{2}-gu$$
+        so we use the Hessian criterion to determine convexity. Observe that in this case the Hessian is constant:
+        $$\twobytwo{0}{0}{0}{\mu}\leftarrow\text{positive semi-definite}.$$
+        This means that our function is convex, but once again taking a constant $\xi_0$ and expanding in a similar fashion, we can see that our function is not strictly convex. We cannot guarantee uniqueness of the solutions.
+        \item The equation in question can be solved as follows:
+        $$u''(x)=\frac{-g}{\mu}\To u'(x)=\frac{-g}{\la}x+c_1\To u(x)=\frac{-g}{2\la}x^2+c_1x+c_2.$$
+        Applying the initial conditions we get a system of the form 
+        $$
+        \left\lbrace
+        \begin{aligned}
+            1=\frac{-g}{2\la}a^2+c_1a+c_2\\
+            1=\frac{-g}{2\la}b^2+c_1b+c_2
+        \end{aligned}
+        \right.\To
+        \twobythree{a}{1}{1+ga^2/2\la}{b}{1}{1+gb^2/2\la}\xrightarrow[]{\ttt{RREF}}\twobythree{1}{0}{g\la(b+a)/2}{0}{1}{1-abg\la/2}
+        $$
+        so the solution of our equation is of the form 
+        $$u(x)=\frac{-g}{2\la}x^2+\frac{g\la(b+a)}{2}x+1-\frac{abg\la}{2}.$$
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{nonum-Rmk}
+I can't see exactly why we have found a unique solution even though we can't guarantee the existence of one. I know that I'm thinking about the reverse implication, because the point talking about uniqueness says $f$ is strictly convex and a solution exists, then the solution is unique. But $f$ not being strictly convex does not imply the existence of several solutions.
+\end{nonum-Rmk}
+
+\begin{Ej}
+    We have started the semester by considering Newton's
+    minimal resistance problem and Bernoulli's brachystochrone problem (the ``bead on a wire''). The former is
+    a bit more complicated because the right integration bound $ b$ depends on the solution. But for the former,
+    the case is easy: We have
+    $$I\bonj{u}=\int\limits_0^L\sqrt{\frac{\half(1+u'(x)^2)}{gH-gu(x)}}\dd x$$
+    and
+    $$D=\set{\vf\in C^2\:\ \vf(0)=H,\ \vf(L)=0}.$$
+    State the Euler-Lagrange equations and boundary conditions any scent smooth minimizer $\ov u$ would
+have to satisfy. Is the solution unique?
+\end{Ej}
+
+\begin{ptcbr}
+Observe that in this case, the function in question is 
+$$f(x,u,\xi)=\sqrt{\frac{\half(1+\xi^2)}{gH-gu}}=\sqrt{\frac{1}{2g}}\sqrt{\frac{1+\xi^2}{H-u}}.$$
+Call $\la=\sqrt{\frac{1}{2g}}$ so when differentiating we obtain 
+$$\left\lbrace
+\begin{aligned}
+    &f_u(x,u,\xi)=\la\sqrt{1+\xi^2}\frac{-1}{(\sqrt{H-u})^2}\frac{1}{2\sqrt{H-u}}(-1)=\frac{\la}{2}\sqrt{\frac{1+\xi^2}{(H-u)^3}}\\
+    &f_\xi(x,u,\xi)=\frac{\la}{\sqrt{H-u}}\frac{\xi}{\sqrt{1+\xi^2}}
+\end{aligned}
+\right.
+$$
+We now must differentiate $f_\xi$ with respect to $x$. This is 
+\begin{align*}
+    \dv{x}f_{\xi}(x,u(x),u'(x))&=\dv{x}\frac{\la}{\sqrt{H-u(x)}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}.
+\end{align*}
+Using the product rule and the fact that we have already calculated the derivative of a term similar to the second one in the previous exercise, we obtain:
+$$\frac{\la u'(x)}{2\sqrt{(H-u(x))^3}}\frac{u'(x)}{\sqrt{1+u'(x)^2}}+\frac{\la}{\sqrt{H-u(x)}}\frac{u''(x)}{\sqrt{(1+u'(x)^2)^{3}}}.$$
+We may factor out some terms to clean up the expression as follows:
+$$\frac{\la}{\sqrt{(H-u(x))(1+u'(x)^2)}}\left(\frac{u'(x)^2}{2(H-u(x))}+\frac{u''(x)}{1+u'(x)^2}\right).$$
+We now homogenize the terms inside the parenthesis. The numerator is an expression of the form 
+\begin{align*}
+&u'(x)^2(1+u'(x)^2)+2(H-u(x))u''(x)\\
+=&u'(x)^2+u'(x)^4+2Hu''(x)-2u(x)u''(x)
+\end{align*}
+so that gathering all this up we get the differential equation
+$$\frac{\la}{2}\sqrt{\frac{1+u'(x)^2}{(H-u(x))^3}}=\frac{\la(u'(x)^2+u'(x)^4+2Hu''(x)-2u(x)u''(x))}{2\sqrt{\bonj{(H-u(x))(1+u'(x)^2)}^3}}$$
+with conditions $u(0)=H$ and $u(L)=0$.\par 
+In order to talk about the convexity of the function 
+$$h\: (u,\xi)\mapsto \sqrt{\frac{1}{2g}}\sqrt{\frac{1+\xi^2}{H-u}}$$
+we could analyze the Hessian taking into account the fact that $u$ is bounded by $H$. It would be senseless to assume that the curve goes over the top height. This guarantees that $h$ is defined for all $\xi$ and $u\leq H$.\par
+Instead of providing detailed argument about the Hessian of this function, we will proceed with a more visual approach. The function $h$ has been plotted using \ttt{GeoGebra}:
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{fig1HW3Vari.png}    
+\end{center}
+In this first instance we see the surface from the viewpoint of $(-1,-1,1)$. The traced curve is $h(u,0)$ for $u\leq H$. The same surface can be seen from the viewpoint of $(1,1,-1)$:
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{fig2HW3Vari.png}    
+\end{center}
+This viewpoints do indeed show us that the function is convex. We would think that certain curves in $h$ were not strictly convex but in both $u$ and $\xi$ directions the function appears to be strictly convex.\par 
+From this, we may deduce that our problem has a unique solution.
+\end{ptcbr}
+
+\begin{nonum-Ej}
+    If you can, also solve the Euler-Lagrange equations. The solution can of course be found on the internet
+or in any number of books, but if you want to get these bonus points, you will need to show step by step
+how you solve the equations - this is going to be non-trivial.
+\end{nonum-Ej}
+
+\begin{ptcb}
+This will done in another time. I just believe that the way I wrote the equations makes it incredibly complicated. I'll look for a reference to read it (or maybe a youtube video, there sometimes are good ones out there).
+\end{ptcb}
+\begin{Ej}
+    Everything we have done in class was based on functions $u(x)$ of a
+single argument $x\in\bonj{a,b}\subseteq\bR$. But in reality, it is not very dict to derive the same kind of Euler-Lagrange
+equations also for functions of multiple arguments $u(\vec x),\ \vec x\in\Om\subseteq\bR^n$.
+To this end, let us assume that we want to find a minimizer of
+$$I\bonj{u}=\int\limits_\Om f(\vec x,u(\vec x),\nb u(\vec x))\dd x$$
+and
+$$D=\set{\vf\in C^2(\Om)\:\ \vf(\vec x)=g(\vec x),\ \vec x\in\del\Om}.$$
+Go through the one-dimensional derivation of the Euler-Lagrange equations and adapt it as appropriate to
+derive the (now partial) deferential equation any succinctly smooth minimizer $\ov u\in D$ has to satisfy. The
+key step is to remember your integration-by-parts rules and use what you know about the boundary values
+of the variations. You will also have to keep in mind that you now really have $f(x, u,\xi_1,\dots,\xi_n)$.
+State both the Euler-Lagrange equations and boundary conditions.
+\end{Ej}
+
+\begin{ptcbr}
+    We are to show that if $ u$ is a minimizer, then $\ov u$ satisfies a E-L type equation but in several variables. Following the same idea as in the proof, we take the Gateaux derivative of $I$ in direction $v\in D'$ and set it equal to zero: $D_vI[u]=0$. Recall that this tangent space $D'$ consists of the functions which are zero at the boundary. Expanding the definition of $D$ we have 
+    $$0=\lim_{\eps\to 0}\frac{I[u+\eps v]-I[u]}{\eps}$$
+    and the term with a $v$ we expand as 
+    $$I[u+\eps v]=\int\limits_\Om f(\vec x,u(\vec x)+\eps v(\vec x),\nb u(\vec x)+\eps\nb v(\vec x))\dd x$$
+    so when taking the difference and collecting terms we have 
+    $$0=\lim_{\eps\to 0}\int\limits_\Om \frac{f(\vec x,u(\vec x)+\eps v(\vec x),\nb u(\vec x)+\eps\nb v(\vec x))-f(\vec x,u(\vec x),\nb u(\vec x))}{\eps}\dd x.$$
+    Now I'm having some troubles in the next step so let me do a quick verification that\dots
+    $$\lim_{\eps\to 0}\frac{f(x+\eps y)-f(x)}{\eps}=\lim_{\tilde{\eps}\to 0}\frac{f(x+\tilde{\eps})-f(x)}{\frac{\tilde{\eps}}{y}}=yf'(x).$$
+    Before proceeding though, we assume that $f_u,f_\xi$ satisfy the hypothesis of the dominated convergence theorem so that we may exchange the limit with the integral. After doing so, our expression becomes 
+    $$0=\int\limits_\Om v(\vec{x})f_u(\vec x,u(\vec x),\nb u(\vec x))+\braket{\nb v(\vec x)}{\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))}\dd x.$$
+    The first integral we leave as is and to the second integral we apply the divergence theorem. Observe that 
+    $$\int\limits_\Om\braket{\nb v(\vec x)}{\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))}\dd x=\oint\limits_{\del\Om}v(x)\pdv{\vec n}(\nb_\xi f)\dd\sg(x)-\int\limits_\Om v(\vec x)\div_{\vec x}\nb_\xi f\dd x$$
+    and as $v\in D'$, the contour integral about $\del\Om$ is zero. It follows that our expression becomes
+    $$0=\int\limits_\Om v(\vec{x})f_u(\vec x,u(\vec x),\nb u(\vec x))-v(\vec x)\div_{\vec x}\nb_\xi f(\vec x,u(\vec x),\nb u(\vec x))\dd x.$$
+    From this, using the fundamental theorem of calculus of variations we deduce that $f$ must satisfy 
+    $$f_u(\vec x,u,\vec \xxi)=\div_{\vec x}\nb_\xi f(\vec x,u,\xxi)$$
+    where $u\in D$ or $u$ is $g$ on the boundary.
+\end{ptcbr}
+\begin{Ej}
+    The generalization to higher dimensions of the erst problem is to
+look for the minimizer of the functional
+$$I\bonj{u}=\int\limits_\Om\bonj{\mu\left(\sqrt{1+|\nb u(\vec x)|^2}-1\right)-gu(\vec x)}\dd x,$$
+state the Euler-Lagrange equations for this problem.
+Next, apply the same simplification we considered in Problem 2 and again derive the corresponding
+Euler-Lagrange equations.
+\end{Ej}
+
+\begin{ptcbr}
+    Observe that our function is 
+    $$f(\vec x,u,\xxi)=\mu\left(\sqrt{1+|\xxi|^2}-1\right)-gu,$$
+    we have $f_u=-g$ and for $\nb_\xxi$:
+    $$\nb_\xxi f=\frac{\mu}{\sqrt{1+|\xxi|^2}}\xxi.$$
+    Switching back to $\vec x$ variables we have 
+    $$\div_{\vec x}\nb_\xxi f(\vec x,u(\vec x),\nb u(\vec x))=\div_{\vec x}\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\nb u(\vec x)\right)$$
+    where we use the product rule for the last expression in order to obtain 
+    \begin{align*}
+        &\braket{\nb_{\vec x}\left(\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\right)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\div_{\vec x}\nb u(\vec x)\\
+        =&\braket{\frac{-\mu}{2(1+|\nb u(\vec x)|^2)^{3/2}}\nb_{\vec x}|\nb u(\vec x)|^2}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\Dl u(\vec x).
+    \end{align*}
+    We use the chain rule to find $\nb|\nb u(\vec x)|^2$. Observe that if we call $n(\vec{x})=|\vec x|^2$ and $U(\vec x)=\nb u(\vec x)$ then 
+    $$D(n(\vec x))= 2\vec x,\word{and}DU(\vec x)= Hu(\vec x)$$
+    where $Hu$ is the Hessian matrix of $u$. Using this we have 
+    $$\nb|\nb u(\vec x)|^2=D(n(U(\vec x)))=Dn(U(\vec x))DU(\vec x)=2\nb u(\vec x)\bonj{Hu(\vec x)}$$
+    and in this case it may seem strange to multiply the vector by the matrix on the right, however this is because we are interpreting $\nb u(\vec x)$ as a row vector. As $u\in C^2$ we may actually write this expression as $2\bonj{Hu(\vec x)}\nb u(\vec x)$ considering now $\nb u$ as a column. We may now write our expression as
+    $$\frac{-\mu}{(1+|\nb u(\vec x)|^2)^{3/2}}\braket{Hu(\vec x)\nb u(\vec x)}{\nb u(\vec x)}+\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\Dl u(\vec x).$$
+    We recognize the inner product in question as a quadratic form of the form $q_A(\vec x)=\vec x^\sT A\vec x=\braket{A\vec x}{\vec x}$, so we may simplify the expression into 
+    \begin{align*}
+        &\frac{\mu}{\sqrt{1+|\nb u(\vec x)|^2}}\left(\frac{-q_{Hu(\vec x)}(\nb u(\vec x))}{1+|\nb u(\vec x)|^2}+\Dl u(\vec x)\right)\\
+        =&\mu\frac{\Dl u(\vec x)+\Dl u(\vec x)|\nb u(\vec x)|^2-(\nb u(\vec x))^\sT Hu(\vec x)\nb u(\vec x)}{(1+|\nb u(\vec x)|^2)^{3/2}}.
+    \end{align*}
+    Sadly it is not the case that the numerator doesn't cancel out to be $\Dl u(\vec x)$, so this is the expression we obtain. The E-L equations in this case correspond to 
+    $$\frac{\Dl u(\vec x)+\Dl u(\vec x)|\nb u(\vec x)|^2-(\nb u(\vec x))^\sT Hu(\vec x)\nb u(\vec x)}{(1+|\nb u(\vec x)|^2)^{3/2}}=\frac{-g}{\mu}.$$
+    In the simplified case our function is 
+    $$f(\vec x,u,\xxi)=\mu\left(1+\half|\xxi|^2-1\right)-gu=\frac{\mu}{2}|\xxi|^2-gu.$$
+    Once again $f_u=-g$ and $\nb_\xxi f=\mu\xxi$. When taking $\xxi =\nb u(\vec x)$ and differentiating again we get 
+    $$\div_{\vec x}f_\xxi(\vec x,u(\vec x),\nb u(\vec x))=\div_{\vec x}(\mu\nb u(\vec x))=\mu\Dl u(\vec x).$$
+    The equation we obtain is the Laplace equation in several variables:
+    $$-\Dl u(\vec x)=\frac{g}{\mu}$$
+
+\end{ptcbr}
+
+\begin{nonum-Rmk}
+Without giving up and trying to simplify the expression $\Dl u|\nb u|^2-\nb u^\sT Hu\nb u$ we may either transform it into 
+$$-(R\nb u)^\sT Hu(R\nb u),\quad R=\twobytwo{0}{-1}{1}{0}$$
+where we have used coordinates to get this form or we may use bilinearity of the inner product:
+$$\braket{\Dl u\nb u}{\nb u}-\braket{Hu\nb u}{\nb u}=\braket{\Dl u\nb u-Hu\nb u}{\nb u}.$$
+It would optimal to simplify further the expression $\Dl u\nb u-Hu \nb u$, and believe me, I really would like to do it. But I've invested far too long on this problem, so I'll do it another time. The expression looks like it should have a \emph{nice} form, but I don't know, maybe that's the \emph{nicest} form. 
+\end{nonum-Rmk}
+\end{document} 

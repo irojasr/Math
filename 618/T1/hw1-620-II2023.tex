@@ -1,0 +1,224 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2023}
+\def\nprofesor {Wolfgang Bangerth}
+\def\nsigla {MATH618}
+\def\nsiglahead {Advanced Real Analysis}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+    In class, you have seen examples of infinite-dimensional spaces: Notably, (infinite) sequences of numbers and function spaces. But one can come up with many other sets of objects that 
+    \begin{enumerate}[(i)]
+        \item satisfy the vector space axioms, and 
+        \item are infinite-dimensional.
+    \end{enumerate}
+Come up with your own example of an infinite-dimensional space that doesn't fit the examples you have seen in class. Show
+that it is a vector space (if you define scalar multiplication and vector addition appropriately) and why you
+think that the set is infinite-dimensional.
+\end{Ej}
+
+\begin{ptcbr}
+Consider a set $A$, its power set $\cP(A)$ and the operation $\triangle$ as symmetric difference. Observe the following:
+\begin{itemize}
+    \item The symmetric difference of two subsets of $A$ is yet again a subset of $A$.
+    $$X,Y\subseteq A\To X\cup Y\subseteq A\word{and}X\triangle Y=(X\cup Y)\less(X\cap Y)\subseteq X\cup Y.$$
+    This means that, as a binary operation, the symmetric difference is closed in $A$,
+    \item As an operation, it is associative: For $X,Y,Z\subseteq A$ we have
+    $$(X\triangle Y)\triangle Z=X\triangle(Y\triangle Z).$$
+    The proof of this fact is attached at the end of this exercise. For now, this allows us to say that ``$3X$'' is well defined, because if it wasn't associative, then the expression $X\triangle X\triangle X$ would be ambiguous.
+    \item There is an additive identity for this operation, recall that the empty set is a subset of all sets. Observe then that for all $X\subseteq A$ we have
+    $$X\triangle \emptyset= (X\cup \emptyset)\less(X\cap \emptyset)=X\less \emptyset=X.$$
+    \item Finally observe that every element has an inverse. This is, there is an element $Y$ for each $X$ such that $X\triangle Y=\emptyset$. In this case, $Y$ is the same as $X$ because 
+    $$X\triangle X=(X\cup X)\less(X\cap X)=X\less X=\emptyset.$$
+    Now arises the question, about uniqueness of solutions to the equation $X\triangle Y=\emptyset$. Once we have existance of inverses, uniqueness is guaranteed because of commutativity.
+\end{itemize}
+The previous statements show that $(\cP(A),\triangle)$ is a group. From the last fact we also deduce that every element has order $2$. Now, observe that our operation is commutative:
+$$X\triangle Y=(X\less Y)\cup (Y\less X)=(Y\less X)\cup(X\less Y)=Y\triangle X.$$
+Thus this is an Abelian group where every element has order $2$. Let us now define a scalar multiplication on this set via $\bF_2$. We declare that 
+$$0\.X=\emptyset,\word{and}1\.A=A.$$
+This makes sense as $2\equiv 0\pmod 2$ and $2A=A\triangle A=\emptyset$. The preceding operation satisfies all four axioms of scalar multiplication:
+\begin{itemize}
+    \item $1\.X=X$ by definition.
+    \item Scalar multiplication is associative with the field multiplication: $c(dX)=(cd)X$. Observe that 
+    \begin{align*}
+        &0(0X)=0(X)=\emptyset,\ (0\.0)X=(0)X=\emptyset\word{and}\\
+        &1(1X)=1(X)=X,\ (1\.1)X=(1)X=X    
+    \end{align*}
+    so when both scalars are the same we get the desired associative property. When they are different:
+    \begin{align*}
+        &0(1X)=0(X)=\emptyset,\ (0\.1)X=(0)X=\emptyset\word{and}\\
+        &1(0X)=1(\emptyset)=\emptyset,\ (1\.0)X=(0)X=\emptyset.    
+    \end{align*}
+    So even when scalars are different, the result is true. These are all the possibilities so associativity is guaranteed.
+    \item Scalar multiplication distributes with respect to field multiplication: $(c+d)X=cX+dX$. Checking this is analogous to the last item.
+    \item Finally scalar multiplication distributes with respect to vector space addition: $c(X+Y)=cX+cY$. This we can verify in two cases:\par 
+    When $c=0$ we have 
+    $$\emptyset=\emptyset\triangle\emptyset$$ 
+    and $\emptyset\triangle\emptyset=\emptyset$.
+    In the other case when $c=1$ we have 
+    $$1(X\triangle Y)=1X\triangle1Y\To X\triangle Y=X\triangle Y.$$
+\end{itemize}
+Thus this operation is a well defined scalar multiplication over $\cP(A)$. This can be seen also in another way by recalling that any Abelian group is a $\bZ$-module. In this case, because every element has order $2$, it's a $\bZ/2\bZ$-module which means its an $\bF_2$-vector space.\par
+Let us now consider two different non-empty elements $X,Y\subseteq A$ and the equation 
+$$aX+bY=0$$
+If either $a,b$ are non-zero then the equation has no solutions:
+\begin{itemize}
+    \item $X+Y=0$ can't occur as $Y\neq X$.
+    \item $X=0$ also can't occur as $X$ is non-empty, similarly for $Y$.
+\end{itemize}
+So the only solution is $a=b=0$. This means that any two distinct elements are linearly independent.\par 
+Observe now that singleton sets are a generating set for our vector space as any set $A$ can be seen as 
+$$A=\bigtriangleup_{x\in A}\set{x}.$$
+Singletons in particular are all linearly independent from one another. Observe that this doesn't necessarily occur when we have $3$ different arbitrary sets, as we could have 
+$$X+Y+(X+Y)=0.$$
+If we assume that $A$ is uncountably infinite, then singletons are a set as big as $A$ which generates our vector space and is linearly independent. This means that our space is infinite-dimensional.
+\end{ptcbr}
+
+\begin{Ej}
+    Defining what the ``dimension'' of a space is is intuitively
+obvious, but \emph{technically} perhaps not quite as much.\par
+For $\bR^n$ and other finite-dimensional spaces, if you have a basis of the space with $n$ elements, then we say that the space has dimension $n$\footnote{Recall: A basis of a space $V$ is a set of vectors $\set{\vec a_i}$ so that every vector $\vec v\in V$ can be written as a unique linear combination $v=\sum_i\al_i\vec a_i$. Note that the basis vectors do not need to be normalized (we are only working with a vector space, no norms so far) and they do not have to be orthogonal (again, we are only working with a vector space, no inner products have been
+defined so far).}. Importantly, every other basis you can find will then also have exactly $n$ elements. This also means that the operation that converts one basis to another can be written as a square matrix/operator that is invertible. This all will turn out to be more complicated for infinite-dimensional
+spaces.
+\begin{enumerate}[(i)]
+    \item Take $V = \bR^3$. Provide a basis $\set{\vec{a}_i}_{i=1}^3$ (that is, a set of three vectors) for this space. Then provide
+    another basis $\set{\vec{b}_i}_{i=1}^3$.
+    \item There is an operator $R$ (here, a $3\x 3$ matrix) that converts from one basis to another. That is, if I
+    give you a vector $x\in\bR^3$, it can be written as $\vec x=\sum_{i=1}^3\al_i\vec a_i$ and as $\vec x=\sum_{i=1}^3\bt_i\vec b_i$. The operator $R$ is then the one that translates between expansion coefficients:
+    $$\threebyone{\bt_1}{\bt_2}{\bt_3}=R\threebyone{\al_1}{\al_2}{\al_3}.$$
+    Provide the form of $R$ for your choice of basis and show that it is invertible.
+    \item Repeat the previous two steps if $V$ is the space of symmetric $2\x 2$ matrices.
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[(i)]
+        \item Consider the vectors 
+        $$\vec a_1=\threebyone{0}{1}{0},\vec a_2=\threebyone{0}{1}{1},\word{and}\vec a_3=\threebyone{-1}{1}{0}$$
+        which form a basis because the matrix whose columns are the $\vec a_i$'s is invertible. The other basis we will pick is the canonical basis $\vec b_i=(\dl_{ij})_{j=1}^3$.
+        \item Suppose we have a vector 
+        $$\vec x=\al_1\vec a_1+\al_2\vec a_2+\al_3\vec a_3$$
+        which means $\vec x$ is written in $\vec a_i$ coordinates. Implicitly we claiming that we know the $\vec a_i$'s coordinates in canonical basis. If we wish to write $\vec x$ in canonical coordinates, then it suffices to expand the $\vec a_i$'s in terms of the canonical basis as follows:
+        $$\vec x=\threebyone{0}{\al_1}{0}+\threebyone{0}{\al_2}{\al_2}+\threebyone{-\al_3}{\al_3}{0}=\threebythree{0}{0}{-1}{1}{1}{1}{0}{1}{0}\threebyone{\al_1}{\al_2}{\al_3}.$$
+        This means that the matrix whose columns are the $\vec a_i$'s is the change of basis matrix which goes from $\vec a_i$ coordinates to $\vec b_i$ or canonical coordinates.\par 
+        The operator is invertible because $\set{\vec a_i}_{i=1}^3$ is a basis of $\bR^3$. We can also see it is invertible because the matrix has non-zero determinant:
+        $$\det\threebythree{0}{0}{-1}{1}{1}{1}{0}{1}{0}=-1.$$
+        \item Now let us consider the space of symmetric $2\x2$ matrices:
+        $$\left\lbrace\twobytwo{a}{b}{b}{c}\:\ a,b,c\in\bR\right\rbrace.$$
+        The canonical basis in this space is the following set of matrices:
+        $$E_1=\twobytwo{1}{0}{0}{0},\quad E_2=\twobytwo{0}{1}{1}{0},\word{and}E_3=\twobytwo{0}{0}{0}{1}.$$
+        Any symmetric matrix can be written as a linear combination of these matrices and the only way to get the zero matrix is to have $a=b=c=0$. So it is indeed a basis. On the other hand, we can also consider the basis given by 
+        $$B_1=E_2,\quad B_2=E_2+E_3=\twobytwo{0}{1}{1}{1},\word{and}B_3=-E_1+E_3=\twobytwo{-1}{1}{1}{0}.$$
+        To check this is a basis, we pile up the matrices into a $3\x4$ matrix and see that 
+        $$\begin{pmatrix}
+            0&1&1&0\\ 0&1&1&1\\-1&1&1&0
+            \end{pmatrix}\xrightarrow[]{\ttt{rref}}
+            \begin{pmatrix}
+                1&0&0&0\\ 0&1&1&0\\ 0&0&0&1
+                \end{pmatrix}$$
+        has rank $3$ so it generates a space of dimension $3$.
+    \end{enumerate}
+    This means that we can find an isomorphism $\vf$ between this space and $\bR^3$. In fact, the matrices $B_i$ were not chosen randomly, the coordinates have been picked to match up with the $\vec a_i$ vectors from the first item. Assume $\vf(B_i)=\vec a_i$ for all $i$ and in that case, the linear transformation $R'$ which switches basis in terms of symmetric matrices is the composition $(\vf^{-1}\circ R\circ\vf)$ where $R$ is the original change of basis matrix from the first item.
+\end{ptcbr}
+
+\begin{Ej}
+    Let's see how this looks like for the infinite-dimensional case.
+The upshot of this problem is that infinite-dimensional spaces, obviously, do not have a finite basis but that a space can have both countable and uncountable bases!\par 
+As an example, let's consider the vector space of sequences, i.e.,
+$$V = \set{(q_1, q_2, q_3, . . .) : q_i\in\bR}.$$
+Let us think about bases of this space, i.e., sets of vectors $\vec a_i\in V$ so that every $v \in V$ can again be written
+as $\vec v=\sum_i\al_i\vec a_i$\footnote{This may not be obvious at first: Being able to write $\vec v=\sum_i\al_i\vec a_i$ with an infinite sum requires that the infinite sum makes
+sense - which we will interpret as saying that $\lim_{n\to\infty}\sum_{i=1}^n\al_i\vec a_i\to \vec v$. This in turn requires that we can measure convergence
+in $V$, which requires that we have a \emph{norm}. That is, bases in infinite-dimensional spaces inherently only make sense if the vector
+space $V$ is a \emph{normed} vector space! For the case here, let us assume that the norm on $V$ is $\norm{\vec v}=\sup_i|v_i|$. That is, we take $V=\l_\infty$.}
+\begin{enumerate}[(i)]
+    \item Convince yourself that the set $\set{\vec a_i}_{i=1}^\infty$ where 
+    $$\vec a_1=(1,0,0,\dots),\quad\vec a_2=(0,1,0,\dots),\quad\vec a_3=(0,0,1,\dots),\word{and so on}$$
+    is a basis of $V$ . (To ``convince'' yourself, look up the formal properties of a basis.) It is obviously countable.
+    \item Create a second countable basis of your choice.
+    \item Can you somehow describe the operator $R$ that translates between these two bases, in the same way as was done in the previous problem?
+    \item Now convince yourself that the set of vectors $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ where 
+    $$\vec b_\la=(1,\la,\la^2,\la^3,\dots)$$ 
+    is also a basis. This is not a countable basis because the set is indexed by the real number $\la$!]\par 
+    For cases like this, one has to think about what it means to expand a vector in this basis. Before, we had that for every vector $\vec v\in V$, we can write $\vec v=\sum_i\al_i\vec a_i$. With the uncountable basis here, this has
+    to be replaced by $\vec v=\int_0^1\bt_\la\vec b_\la\dd\la$.
+    \item Can you come up with a description of the basis transformation operator $R$ for these two bases?
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[(i)]
+        \item Intuitively we may think of the $\vec a_i$'s as a basis for the space of sequences. This is because we can decompose a sequence into its components:
+        $$(q_1,q_2,q_3,\dots)=q_1(1,0,0,\dots)+q_2(0,1,0,\dots)+q_3(0,0,1,\dots)+\dots$$
+        And the $\vec a_i$'s are linearly independent because the only way to get the zero sequence as a linear combination of them is to have $q_i=0$ for all $i$.\par 
+        This type of basis is not a Hamel basis nor a Schauder basis, as we need finite linear combinations for the first type and a notion of convergence for the second one. Observe that if we were to restrict the space to the sequences which are eventually zero then we do have a formal Schauder basis.
+        \item Another ``basis'' could be the sequences 
+        $$\vec b_1=\vec a_1,\ \vec b_2=(1,1,0,0,\dots),\ \vec b_3=(0,1,1,0,\dots),\ \vec b_4=(0,0,1,1,\dots).\dots$$
+        Once again we have a linearly independent set because we can induct on the sets of vectors of the form $e_{i-1}+e_{i}$ on finite dimension in order to see they are l.i. and transfer the arguemnt inductively to this set of vectors. We can show that this set is a generating set for the space of sequences by expanding the $\vec a_i$'s as a linear combination of the $\vec b_i$'s and then expanding the sequence normally. 
+        \item The operator which transfers from the $\vec b$ basis to the $\vec a$ basis can be ``represented'' as an infinite matrix whose columns are the $\vec b$ sequences. This operator can be explicity described as 
+        $$\vec a_1\mapsto\vec b_1,\quad \vec a_i\mapsto\vec a_{i-1}+\vec a_{i},\ i\geq 2.$$
+        \item The sequences $\vec b_\la$ can be seen to be eigenvectors of the operator 
+        $$L(a_0,a_1,a_2,a_3,\dots)=(a_1,a_2,a_3,a_4,\dots).$$
+        Each one has a different eigenvalue $\la\in\bonj{0,1}$, so as eigenvectors corresponding to different eigenvalues of an operator are l.i., we have that the $\vec b_\la$'s are l.i.\par 
+        There's an infinite number of such eigenvectors and they generate a space with uncountable dimension. With my current tools, I'm unable to prove that sequence can be written as a (possibly) infinite linear combination of such sequences. Observe that the operator $L$ is not compact so we are not able to deduce, using the spectral theorem, that the eigenvectors of $L$ form a basis. The most we can conclude is that all eigenvectors are l.i.
+        \item A basis transformation operator has to be bijective. As $\set{\vec a_i}_{i\in\bN}$ is countable and $\set{\vec b_\la}_{\la\in\bonj{0,1}}$ is uncountable, no such operator exists.
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}
+    Let's repeat the previous problem once more for spaces of
+functions. Concretely, take
+$$V=C^0=\set{f\:[0,1]\to \bR,\ f\quad\text{is continuous}},$$
+with the norm $\norm{f}=\sup_{\bonj{0,1}}|f(x)|$.
+\begin{enumerate}[i)]
+    \item Is $\vec a_n=\sin(\pi n x)$ a countable basis?
+    \item Is 
+    $$\vec b_\la=\begin{cases}
+        1\word{if}x=\la\\
+        0\word{otherwise}
+    \end{cases}$$
+    for $\la\in\bonj{0,1}$ an uncountable basis? (If you think about exapnding a function as $\vec v=\int_0^1\bt_\la\vec b_\la\dd\la$, you will probably want to replace $\vec b_\la$ by a delta function, $\vec b_\la(x)=\dl(x-\la)$. If you don't know what that means, just ignore the difference.)
+\end{enumerate}
+\end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \item Via the Fourier series theorem, we know that the sine waves form a basis of $L^2[0,1]$. Observe also that any function in $C^0$ is bounded since its a continuous function defined on a compact set. If $p>0$ then 
+        $$\norm{f}_{L^p[0,1]}^p=\int_0^1|f|^p\dd x\leq(\sup_{[0,1]}|f|)^p\int_0^1\dd x<\infty$$
+        which in particular means that $f\in V$ implies $f$ being in $L^2$. As sine waves can represent any function in $L^2$, they can also represent any continuous function as desired.  
+        \item Observe that the function $\vec b_\la$ is not continuous for any $x$ so it cannot form a basis of $C^0$. Intuitively it should be the case that those functions do form a basis, as we could ``decompose'' a function pointwise for all $\la\in\bR$ and then write it down as 
+        $$f(x)=f(0)\vec{b}_0(x)+\dots+f(\la)\vec b_\la(x)+\dots+f(1)\vec b_1(x)``=''\int_0^1f(t)\vec{b}_t(x)\dd t$$
+        for $\la\in\bonj{0,1}$. Moreover observe that if wanted to decompose a function in terms of delta functions it is true that 
+        $$\int_a^b f(t)\dl(x-t)\dd t=f(x)\ind_{\bonj{a,b}}(x).$$
+        However we cannot say that the delta functions form a basis of $L^2$ and even less of $C^0$, this is because delta functions do not belong in $L^2$. 
+    \end{enumerate}
+\end{ptcbr}
+
+\begin{Ej}[Operators on $\l_2$]
+    Recall that the set of sequences $V=\set{(q_1,q_2,\dots)\:\ q_i\in\bR}$. When equipped with the norm $\norm{\vec v}=\sum_i|q_i|^2$ then this defines the normed vector space
+    $$\l_2=(V,\norm{\.})=\set{\vec v=(v_1,v_2,\dots)\:\ v_i\in\bR,\ \norm{\vec v}<\infty}.$$
+    Now consider the set of linear operators $\l_2\to\l_2$, i.e., linear operators that map a sequence in $\l_2$ to
+another sequence in $\l_2$.\par
+Provide three examples of such operators. Argue that the set of linear operators $\l_2\to\l_2$ is (i) a vector space, (ii) infinite dimensional.
+\end{Ej}
+
+\begin{ptcbr}
+We can consider the shift operators on $\l_2$: 
+$$T(v_1,v_2,v_3,\dots)=(v_2,v_3,v_4,\dots),\word{and}T_n=T\circ T\circ\dots\circ T\quad n\ \text{times}.$$
+We could also consider a type of ``matrix multiplication'' operator. For $(c_{mn})_{m,n\in\bN}\subseteq\bR$ with the property that all ``rows'' and ``columns'' are uniformly in $\l_1$, i.e.
+$$\sup_{m\in\bN}\sum_{n\in\bN}|c_{mn}|<\infty,\word{and}\sup_{n\in\bN}\sum_{m\in\bN}|c_{mn}|<\infty$$
+we can define the operator $T\vec v$ pointwise as:
+$$(T\vec v)_k=\sum_{\l\in\bN}c_{k\l} v_\l.$$
+Also, summing a particular sequence or multiplying a sequence by a particular scalar define families of operators on $l_2$.\par 
+Defining sum and scalar product of operators over $l_2$ is analogous to defining it for functions. For two operators $S,T$ their sum $(S+T)$ is the pointwise sum. Likewise for $c\.T$, this is just multiplying the scalar after applying the operator to a sequence.\par 
+The previous families of operators are all infinite, between families of operators we have linear independence and so the dimension of $\set{T\:\l_2\to\l_2}$ must be infinite. 
+
+\end{ptcbr}
+\end{document} 

@@ -8,6 +8,7 @@
 \def\nsiglahead {Variational Methods and Optimization I}
 \def\nextra {HW1}
 \def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 
 \begin{document}
@@ -50,7 +51,13 @@ dimensional spaces) and continuity of $f$ - were in fact necessary to guarantee 
     \end{cases}$$
     defined on $\bonj{0,1}$. Observe that the first derivative test doesn't yield information, so evaluating at the endpoints of each subinterval we see that $f(\half)=0$ is the minimum value.\par 
     In $\bR^2$ consider the indicator function $f(x,y)=\ind_{(\bQ\cap\bonj{0,1})^2}(x,y)$. However let us redefine $f$ at $(0,0)$ as $-1$. Then $f$ is discontinuous everywhere on $[0,1]^2$ but has a minimum value at the origin and it's $z=-1$.
-    \item 
+    \item Let us assume that $f$ is lower semicontinuous and call $\ga=\inf_D f$. There are two possibilities, either $\ga$ is infinite or its not. No finite minimum exists when $f$ is not bounded so let us assume that $\ga$ is finite.\par 
+    By definition of $\inf$, there exists $x_k\in D$ such that 
+    $$f(x_k)<\ga+\frac1k.$$
+    The collection $(x_k)\subseteq D$ forms a sequence inside a compact set, given this we can find $(x_{k_\l})_{\l\in\bN}$ such that $x_{k_\l}\xrightarrow[\l\to\infty]{}x\in D$. This means that 
+    $$f(x_{k_\l})<\ga+\frac{1}{k_\l}\To f(x)=f(\lim x_{k_\l})\leq \lim f(x_{k_l})\leq \ga+\lim\frac{1}{k_\l}=\ga.$$
+    This means that $f(x)\leq \ga$, but since $\ga$ is the $\inf$, it must happen that $f$ reaches $\ga$ at $x$.\par 
+    The difference between this proof and the one in the class is that for continuous functions, the limit interchanges with the function. In this case we only have the inequality between $f(\lim x_{k_\l})$ and $\lim f(x_{k_\l})$. Also, in the class we have assumed that there's a sequence $(x_k)$ such that $f(x_k)$ converges to $\ga$, but here the sequence is constructed, albeit not explicitly. 
 \end{enumerate}
 \end{ptcbr}
 
@@ -76,4 +83,78 @@ dimensional spaces) and continuity of $f$ - were in fact necessary to guarantee 
 dimension, but showing some kind of proof would be better :-)
     \end{enumerate}
 \end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}[i)]
+        \item Let $F\subseteq\bR^n$ be our closed and bounded set, we wish to see that every sequence in $F$ has a convergent subsequence.\par 
+        To that effect, let $(x_n)_{n\in\bN}\subseteq F$ be a sequence in $F$ and observe that $F$ must be enclosed in a ball. Assume 
+        $$F\subseteq B(0,M)\word{with}\norm{\.}_\infty$$
+        and now let us bisect the ball \aside{which is actually a cube} in two halves.  By the pigeonhole principle, at least one of the halves will have an infinite number of points. Observe that the volume of the ball has been reduced by a half. Let us do that $(n-1)$ more times in order to obtain a fraction of our original box along with whatever fraction of $F$ is inside. Call this set $F_1=F\cap(\text{fraction of box})$.\par 
+        Elements in $F_1$ can't be further that $M/2$ apart (because even if we reduce the volume by a half like in the first step, the supremum of distance is still $M$, so that's why we reduce by $n$ cuts). We may iterate this process enough times so that for some large $N$, elements in $F_N$ will be no longer than $M/2^N$ apart.\par 
+        As $F_N$ has infinitely many elements of $(x_n)$ and 
+        $$\norm{x_n-x_m}\leq \frac{M}{2^N}\word{for}x_n,x_m\in F_N$$
+        we may extract the subsequence of elements of $(x_n)$ that lies completely inside $F_N$. This subsequence is a Cauchy sequence and therefore converges in $\bR^n$, call that limit $x$ and in particular, as $F$ is closed, $x\in F$. In conclusion, $F$ is sequentially compact.
+        \item Observe that in the infinite dimensional case our proof wouldn't work. Even if we consider a ball in $L_\infty$ norm, the cutting process requires to cut $n$ times our original box in order to reduce the distance by $M/2$. However, it is possible to have done infinitely many cuts and still have points which will be $M$ units apart.
+        \item To prove that the volume of the unit ball goes to zero as dimension grows we will calculate it using a Gaussian integral. First observe that 
+        $$\int_{\bR^n}e^{-\half\norm{x}^2}\dd x=(2\pi)^{n/2}$$
+        because we may separate the integral into a product, each equal to $\sqrt{2\pi}$. The function in question is radial, so we exploit that symmetry by calculating the last integral through the first dimension and then through an $n-1$ sphere. 
+        $$\int_{\bR^n}e^{-\half\norm{x}^2}\dd x=\int_0^\infty\int_{\del B(0,r)}e^{-\half r^2}\dd\sg\dd r$$
+        where $\sg$ is the Lebesgue measure on the surface of the sphere. Observe two facts, the function in question is independent of the inner integral so we may take it out and leave only the measure of $\del B(0,r)$. We can compare this to the area of the unit ball's boundary via the formula 
+        $$\sg(\del B(0,r))=r^{n-1}\sg(\del B(0,1))$$
+        which converts the integral to 
+        $$\sg(\del B(0,1))\int_0^\infty e^{-\half r^2}r^{n-1}\dd r.$$
+        This last integral can be transformed using the substitution $t=\frac{r^2}{2}$ which leads to $\dd t= r\dd r$. So the integral in question is 
+        $$\int_0^\infty e^{-t}r^{n-2}r\dd r=\int_0^\infty e^{-t}(2t)^{(n-2)/2}\dd t=2^{\frac{n}{2}-1}\int_0^\infty e^{-t}t^{\frac{n}{2}-1}\dd t.$$
+        The last integral is equal to the gamma function at $n/2$ so the equation we obtain is 
+        $$(2\pi)^{n/2}=2^{n/2-1}\sg(\del B(0,1))\Ga\left(\frac{n}{2}\right)\To\sg(\del B(0,1))=\frac{2\pi^{n/2}}{\Ga(n/2)}.$$
+        Now, with this surface area, we can find the volume of the unit ball by integrating the surface area of an $r$-ball from $0$ to $1$. This is 
+        $$V(B(0,1))=\int_0^1\frac{2\pi^{n/2}}{\Ga(n/2)}r^{n-1}\dd r=\frac{2\pi^{n/2}}{\Ga(n/2)}\left(\frac{1}{n}\right)=\frac{\pi^{n/2}}{\frac{n}{2}\Ga(n/2)}=\frac{\pi^{n/2}}{\Ga(n/2+1)}.$$
+        Using a Stirling approximation for the gamma function we have 
+        $$\Ga(n/2+1)\sim\sqrt{2\pi(n/2)}\left(\frac{n/2}{e}\right)^{n/2}\To V(B(0,1))\sim \frac{(2\pi e)^{n/2}}{n^{n/2}\sqrt{\pi n}}\xrightarrow[n\to\infty]{}0$$
+        and the term on the bottom grows super exponentially. This lets us conclude that the unit ball's volume goes to zero.
+    \end{enumerate}
+\end{ptcbr}
+\newpage
+\begin{Ej}[Compactness in finite and infinite dimensional spaces]
+    The spaces $\l_2$ and $L_2$ are examples of spaces where closed and bounded sets are not sequentially compact.\par 
+    Consider $L_\infty[0,1]$ and the set of bounded linear operators over $L_\infty$: 
+    $$\cA=\set{A\: L_\infty\to L_\infty\:\ A\ \text{is linear},\ \norm{A}_\cA<\infty}$$
+    where the operator norm is defined as 
+    $$\norm{A}_{\cA}=\sup_{\norm{f}_{\infty}=1}\norm{Af}_{\infty}$$
+    Consider $D=\set{A\in\cA\:\ \norm{A}_\cA\leq 1}$ and construct a sequence of operators $(A_n)\subseteq D$ for which no subsequence converges.
+\end{Ej}
+
+\begin{ptcbr}%Incompleto
+    Let us consider a sequence of shift operators acting on $L_\infty[0,1]$. We would like to shift functions in a way that they don't overlap so that when considering 
+    $$\norm{f(x-a)-f(x-b)}_{L_\infty[0,1]},$$
+    the difference is large. We are restricted by two things, first that we are on a closed interval and that shifting by rational numbers might produce subsequences whose elements are very close. The idea then is to shift by irrational numbers. As they are uncountable, let us produce a countable set. Consider the sequence $a_n=\sqrt{p_n}$ where $p_n$ is the $n^{\text{th}}$ prime number. The sequence $(a_n)$ has no rational elements, is increasing and diverges as $n\leq p_n$ for all $n$.\par 
+    To solve our issue with the unit interval, instead of sliding by $a_n$ we will instead shift $x$ as $(x-a_n)\bmod 1$. This means that whenever $x-a_n<0$ we will consider 
+    $$(x-a_n)-\floor{x-a_n}$$
+    as the argument of our function. So consider the operator 
+    $$T_n\: L_\infty[0,1]\to L_\infty[0,1],\ f\mapsto f(x-a_n\bmod 1).$$
+    Observe that the sequence $(T_n)$ lies completely in the unit ball because 
+    $$\norm*{T_nf}_{L_\infty}=\norm*{f}_{L_\infty}\To \norm*{T_n}_{\cA}\leq 1$$
+    and also for the constant function $1$ the operator returns the same function. This means that $\norm{T_n(1)}_{L_\infty}=1$ and so $\norm{T_n}_\cA=1$.\par
+    Consider now the identity function on $[0,1]$, we claim that $(T_n(\id))$ has no convergent subsequence. This is equivalent to saying that there are no Cauchy subsequences. Notice that 
+    $$\norm*{T_{n_k}(\id)-T_{n_\l}(\id)}_{L_\infty}=\sup_{x\in[0,1]}|(x-a_{n_k})-(x-a_{n_\l})|\bmod 1=|a_{n_\l}-a_{n_k}|\bmod 1$$
+    and this difference is exactly 
+    $$|\sqrt{p_{n_\l}}-\sqrt{p_{n_k}}-(\floor{\sqrt{p_{n_\l}}}-\floor{\sqrt{p_{n_k}}})|.$$
+    I have an intuition that this difference must be larger than a constant because the numbers are irrational. So there's no ``controlled overlap'' which would make the lines be close together. We are not able to use prime numbers exactly because every integer modulo 1 is itself. But I'm not able to conclude the proof of this fact.
+\end{ptcbr}
+
+In the end, given that I was not able to finish proving this fact, I decided to tackle the problem with \textbf{Fernando}. The idea we came up with is in the vein of reducing the size of the interval, but similar to the ideas of my other classmates who shared them with me when I asked, I believe that this operator converges to the null operator. Even though I will add the thought process here, I wish for my original attempt to be the one considered for grading.
+
+\begin{ptcbr}
+    Consider the sequence of operators which bisects the unit interval into a half, a fourth, an eighth, and so on. Call $I_n$ such interval, explicitly
+    $$I_n=\bonj{1-\frac{1}{2^n},1-\frac{1}{2^{n+1}}}$$
+    and let $\ind_n=\ind_{I_n}$ be the indicator function of the $n^{\text{th}}$ interval.\par 
+    Then the operator is $T_n(f)=f\.\ind_n$. This operator is inside the unit ball because $\norm*{T_nf}_\infty=\norm*{f}_\infty$ which means it has operator norm less than $1$. Our intent with this operator is to note that for any $n$ and $m$
+    $$\norm*{T_n-T_m}_\cA\geq 1.$$
+    Taking the norm by definition, we have that its the supremum over functions with norm exactly $1$, which means that we may take 
+    $$\norm*{T_n-T_m}_\cA\geq\norm*{1\.\ind_n-1\.\ind_m}_{\infty}=\norm*{\ind_n-\ind_m}_{\infty}$$
+    which at the same time is a supremum over $x\in[0,1]$. So this quantity should be bigger than 
+    $$|\ind_n(2^{-(n+1)})-\ind_m(2^{-(n+1)})|=|1-0|=1.$$
+    The point $2^{-n-1}$ is the midpoint of $I_n$ which is not present in $I_m$ for any $m$.\par 
+    This means that no pair of operators can lie closer than $1$ unit apart after following the inequalities and therefore it cannot have a Cauchy subsequence.
+\end{ptcbr}
 \end{document} 
