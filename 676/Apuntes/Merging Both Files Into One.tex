@@ -176,7 +176,7 @@ Knowledge on stuff\par
 \section{Day 1|20230821}
 
 \subsection{Tropical Geometry}
-%Page testing changes
+
 The current books on Tropical Geometry include:
 \begin{itemize}
     \item \emph{Tropical Geometry} by Maclagan-Sturmfels, which has a very algebraic take on the subject,
@@ -1922,25 +1922,17 @@ Imagine that a stick figure with weighted edges comes up to you. We can then che
 \end{Ex}
 
 
+%Page start here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\section{Intersection of Tropical Curves}
+
+\begin{define}
+Two tropical curves intersect \emph{transversally} if they intersect in finitely many points which are not vertices of either curve.
+\end{define}
 
 
-\section{Day 17|20230929}
-
-Last time we talked about edges weighted by lattice length determines the segments of the Newton Polygon it is dual to. Today we will draw topological types of tropical plane curves and cubics. The objective is to experiment with various tropical curves and seek a conjecture to compute their $b_1$. Study a pencil of tropical conics, in other words draw a conic and pick 4 points on it in general position. Then find all conics through those 4 points.
-
-\section{Day 18|20231002}%% TG11
-
-
-
-
-For any interior point of the Newton Polygon, we can make sure that we can find as many cycles can a tropical curve have. There is a correspondence theorem.\par 
-The solution to the parameter space of conics is that we get a trivalent tree with $6$ edges. This corresponds to $\bP^5$ which has $6$ boundary divisors.
-
-\subsection{Intersections of tropical curves}
-
-\begin{Def}
-    Two tropical curves have a \term{transversal intersection} if they intersect in finitely many points which are not vertices of either curve.
-\end{Def}
+Our second kind of intersection will be \emph{stable intersection}.
+Let $v \in \RR^2 -\{(0,0)\}$, and define $\Gamma_1 \cap_v \Gamma_2= \lim\limits_{t \rightarrow 0} \Gamma_1 \cap (\Gamma_2 +tv)$, i.e. translate $\Gamma_2$ by the vector $v $. We ask ourselves if distinct choices of $v$ may lead to different limits and thus intersections.
 
 \begin{Ex}
     Two tropical lines seen as tripods which touch just at a point intersect transversally. 
@@ -1962,8 +1954,6 @@ The solution to the parameter space of conics is that we get a trivalent tree wi
         \label{fig:11.2-NonTransversalIntersectionExample}
     \end{figure}
 \end{Ex}
-
-It looks like if the intersection is transversal then the set of intersection is just a point. Otherwise let's be very topological and talk about stable intersections.
 
 \begin{Def}
     For a vector $\vec v\in\bR^2\less\set{0}$, call the \term{vector intersection} of $\Ga_1,\Ga_2$
@@ -1995,51 +1985,17 @@ From this we deduce that intersection points should be weighted by multiplicity 
     \label{fig:11.5-NonWeightedVectorIntersection2}
 \end{figure}
 %Amaury Was here
+%Hi Amaury
 %double checking to see if this worked
 Before we jump into the theory, let's have an aside question, let us ask how the curves 
 $$C_1=\set{x^a=y^b},\word{and} C_2=\set{x^c=y^d}$$
 intersect in $\bC^2$. Observe that we may parametrize $C_1$ as $(x,y)=(t^b,t^a)$ and substitute into $C_2$'s to get 
 $$t^{bc}=t^{ad}\To t^{bc}(t^{ad-bc}-1)=0$$ 
-which means that at zero we have a point of high multiplicity and $(ad-bc)$ points away from the origin. The interesting question is how does this relate to our problem. At a glance there doesn't seem to be a connection, but if we look at the \emph{valuation} we might just start to see some hints of it.
+which means that at zero we have a point of high multiplicity and $(ad-bc)$ points away from the origin. The interesting question is how this relates to our problem of multiplicity. At a glance there doesn't seem to be a connection, but if we look at the \emph{valuation} we might just start to see some hints of a solution.
 
-\begin{Def}
-    Let $q$ be a point of transversal intersection of two tropical curves $\Ga_1,\Ga_2$. Then the multiplicity of the intersection is determined by the primitive\footnote{Primitive lattice vectors are the shortest lattice vectors possible}
-    directions $\vec p_1,\vec p_2$  of the intersection as 
-    $$m_q(\Ga_1,\Ga_2)=w_1w_2|\det(\vec p_1,\vec p_2)|=w_1w_2\bonj{\bZ^2\: \vec p_1\bZ\oplus \vec p_2\bZ}.$$
-    The last quantity is the subgroup index of $\vec p_1\bZ\oplus \vec p_2\bZ$ inside $\bZ^2$. %TG11 page 5
-\end{Def}
 %%https://ocw.mit.edu/courses/12-108-structure-of-earth-materials-fall-2004/9df654250315660f294bf6c9acd49ae1_lec7.pdf PRIMITIVE VECTORS
 %% https://en.wikipedia.org/wiki/Unit_cell
 %% https://www.physics.rutgers.edu/grad/601/CM601/crystals.pdf
-
-
-
-
-%Amaury Notes begin
-
-\section{Intersection of Tropical Curves}
-
-\begin{define}
-Two tropical curves intersect \emph{transversally} if they intersect in finitely many points which are not vertices of either curve.
-\end{define}
-
-
-Our second kind of intersection will be stable intersection.
-Let $v \in \RR^2 -\{(0,0)\}$, and define $\Gamma_1 \cap_v \Gamma_2= \lim\limits_{t \rightarrow 0} \Gamma_1 \cap (\Gamma_2 +tv)$, i.e. translate $\Gamma_2$ by the vector $v $. If we were to pick another $v$, our translations would be different. We are forced to ask ourselves if distinct choices of $v$ may lead to different limits.
-
-
-\begin{note}
-    Points of intersections should be weighted by multiplicites of the edged they belong to.
-\end{note}
-
-
-
-\begin{ex}
-    How do the complex curves $C_1=\{x^a=y^b\}$ and $C_2=\{x^c=y^d\}$ intersect in $\CC^2$?
-
-        We can parameterize $x=t^b$, $y=t^a$, then we get $t^{bc}(t^{ad-bc}-1)=0$
-\end{ex}
-
 
 \begin{define}
     Let $p$ be a point of transversal intersection of $\Gamma_1, \Gamma_2$. We let the multiplciity of the point of intersection $p$ to be 
@@ -2052,9 +2008,7 @@ Let $v \in \RR^2 -\{(0,0)\}$, and define $\Gamma_1 \cap_v \Gamma_2= \lim\limits_
     Where $p_i$ are the direction vectors of the edges for the interection, $p_{1,x}$ is the $x$ coordinate of the direction vector for edge $1$, and $w_{ei}$ is the weight of the corresponding edge
 \end{define}
 
-\section{Day 19|20231004}
-%Pages 6 to 8 TG11
-Our objective last time was to motivate the idea of intersections with certain multiplicity. With out new definition of multiplicity, does this resolve the issue we had? \red{WHAT WAS THE ISSUE?} The issue is that we must define multiplicity in order to talk about weights/multiplicities of non-transversal intersections.
+Does this definition resolve the issue we had? \red{WHAT WAS THE ISSUE?} The issue is that we must define multiplicity in order to talk about weights/multiplicities of non-transversal intersections.
 
 \begin{Ex}
 \red{FIGURE} \blu{WHICH FIGURE THERES NO PICTURE}
@@ -2101,10 +2055,10 @@ Let $\Ga_1,\Ga_2$ be two tropical curves of degree $d_1,d_2$. Then $|\Ga_1\cap\G
 
 A curve has degree $d$ if its dual to a subdivision of $0,(d,0)$ and $(0,d)$. We know that if we have a tropical curve of degree $d_1$ then we can move one of degree $d_2$ in such a way that just so many edges intersect. Counting down we get the product of the multiplicities.
 
-\section{Day 20|20231009}
+Recall, that a curve with degree $d_i$ is dual to the polygon with vertices $0$, $(0,d_i)$ and $(d_i,0)$. Intersections, as in the ordinary case, are counted with multiplicities.\par 
+Since the quantity $|\Ga_1\cap \Ga_2|$ is invariant under translation, we can move two curves so that only unbounded ends intersect. Looking at this picture from far away and squinting our eyes what we see is two tripods with degree $d_i$. This means that all the information needed to compute the intersection is independent of the subdivisions of the Newton Polygon.
 
-Last time we started talking about the idea behind Bézout's theorem. Recall, that a curve with degree $d_i$ is dual to the polygon with vertices $0$, $(0,d_i)$ and $(d_i,0)$. Intersections, as in the ordinary case, are counted with multiplicities.\par 
-The quantity $|\Ga_1\cap \Ga_2|$ is invariant under translation, so we can move two curves so that only unbounded ends intersect. Looking at this picture from far away and squinting our eyes what we see is two tripods with degree $d_i$. This means that all the information needed to compute the intersection is independent of the subdivisions of the Newton Polygon.
+\subsection{Degrees}
 \begin{Def}
     In $\bP^1\x\bP^1$, coordinates are $([x_0:x_1],[y_0:y_1])$, a \term{bi-degree $(a,b)$ curve} is the zero locus of a bi-homogenous polynomial in the aforementioned variables which is 
     \begin{itemize}
@@ -2128,7 +2082,7 @@ Let $\Ga_i$ be tropical curves of degree $\Dl_i$. Then
 $$|\Ga_1\cap\Ga_2|=\operatorname{MixedArea}(\Dl_1,\Dl_2).$$
 \end{Th}
 
-In this case the degree of a tropical curve is the Newton polygon of its equation. In other words a lattice polygon.
+It says that if we have two tropical curves of degree $\Dl_1,\Dl_2$ (polytopes), and we wish to compute the intersections, then this is counted via the mixed area. In this case the degree of a tropical curve is the Newton polygon of its equation, aka a lattice polygon.
 
 \subsection{Minkowski Sum of Polytopes}
 
@@ -2160,14 +2114,14 @@ The Minkowski sum appears to be commutative, prove it! Which other properties do
     \end{enumerate}
 \end{Def}
 
+This correspondence is very tight, satisfying. When taking stuff, we get the mixed cells (parallelograms with sides parallel to our original polygons). Having the polygons in positions means that the curves have been moved and the mixed cells correspond to the intersections.\par 
+The weight of the edges is the length of sides of the polygon, in particular the Minkowski sum of two lattice polytopes is itself a lattice polytope.
 
 
 
 \chapter{Toric Varieties}
-\section{Day 21|20231011}
 
-IT says that if we have two tropical curves of degree $\Dl_1,\Dl_2$ (polytopes), and we wish to compute the intersections, then this is counted via the mixed area. This correspondence is very tight, satisfying. When taking stuff, we get the mixed cells (parallelograms with sides parallel to our original polygons). Having the polygons in positions means that the curves have been moved and the mixed cells correspond to the intersections.\par 
-The weight of the edges is the length of sides of the polygon, in particular the Minkowski sum of two lattice polytopes is itself a lattice polytope.
+
 
 \subsection{Torus actions}
 
@@ -2175,13 +2129,13 @@ A space $X$ with a torus action $T\.X$ and an open set isomorphic to the torus o
 If we don't know what a torus is, it's a group, and the space is just the space. The action moves the points in a certain way. Geometry is connected to the representation theory of the group.
 
 \begin{Def}
-    The \term{algebraic torus} of rank $k$ is $G_m^k$ (think of it as $(\bC^\ast)^k$) \aside[If we have a different field than $\bC$, actually $G$ is a multiplicative group \emph{scheme}]. This object is a group under pointwise multiplication and in general we can view it as the scheme 
+    The \term{algebraic torus} of rank $k$ is $G_m^k$ (think of it as $(\bC^\ast)^k$) \aside{If we have a different field than $\bC$, actually $G$ is a multiplicative group \emph{scheme}}. This object is a group under pointwise multiplication and in general we can view it as the scheme 
     $$\Spec\left(\bC\bonj{x_1,\frac{1}{x_1},\dots,x_k,\frac{1}{x_k}}\right).$$
     If we are more familiar with differential geometry, local coordinates are similar but the coordinate is a generalization. We can imagine elements on the scheme as regular functions from the torus to $\bC$. We will usually denote the torus by $T$.
 \end{Def}
 
 Recall a group acts on itself via multiplication and in a similar faction the torus action on a space $X$ will be a map $T\x X\to X$. We can thus relate the characters of $T$ to invertible regular functions on $T$ and if we are choosing coordinates, then they are also related to monomial functions in $x_i$'s.\par 
-The characters of $T$ are the group homomorphisms from $T$ to $\bC^\ast$. It is actually the trace of an irreducible representation of $T$, but they are one dimensional and\dots Monomial functions on the $x_i$'s are precisely regular functions vanish. Those places are on the coordinate axis so nowhere near the torus. As a $\bC$-vector space, monomials are a basis of our ring. That is gonna play an important role.\par 
+The characters of $T$ are the group homomorphisms from $T$ to $\bC^\ast$. It is actually the trace of an irreducible representation of $T$, but they are one dimensional and\dots Monomial functions on the $x_i$'s are precisely regular functions vanish. Those places are on the coordinate axis so nowhere near the torus. As a $\bC$-vector space, monomials are a basis of our ring. That is going to play an important role.\par 
 All of these interpretations are groups under multiplication. Given a monomial we can read a vector of exponents: 
 $$x^3y^{-5}\mapsto (3,-5)$$
 so this is also related to the lattice of exponents of the monomial functions. This gives a multiplicative to additive isomorphism. This lattice is called $M$, it is also called the character lattice and is isomorphic to $\bZ^k\subseteq \bR^k$ which we will also called $M_\bR$. This is actually a \emph{tensor product}. In this sense we can match 
@@ -2197,10 +2151,6 @@ After talking about so many ingredients, let us talk about one more thing. If we
 \end{Ex}
 
 Now we are gonna say ok, we are gonna allow ourselves to grow the torus a little bit by saying that we want to add limit points of one parameter or allow/decide that some monomial functions are regular and some are not and then add the points. In the case of $\ga_{(1,1)}$ we are going to need to fill in the point of the origin. 
-
-\section{Day 22|20231013}
-
-Last time we talked about the setup: the toric variety is a space $X$. One is that it contains the torus as a dense open set and the other is that the torus acts on $X$ and in particular in the open set it acts by multiplication. We linked objects from the algebraic geoemtry and representation theory of the torus. The way we think of characters of the torus are monomial functions on the coordinates of the torus. These are regular functions because there are no poles on the torus. On the other hand $N$ is a lattice of one-parameter subgroups, a map from a one dimensional torus to a $k$-dimensional one. In particular inside the torus, if we take a point and act on it via a one parameter subgroup, we get a one-dimensional orbit. It is always the case that if we let $t=0$ then the point falls off of the torus. These objects are dual to each other via dot product.
 
 \begin{Ex}
     An example of a toric variety is $\bP^1$, the set of homogenous points $[x:y]$. Take out zero and infinity and we get a one-dimensional torus.\par 
@@ -2265,9 +2215,7 @@ If we understand how it works in $\bP^2$, generalizing is pretty simple. We will
 
 Cones select subsets and produces regular monomials, this produces coordinate ring, take the algebraic variety corresponding to this ring. This variety contains the torus. This can be done in various ways so that's how we build the atlas.
 
-\section{Day 23|20231016}
-
-Then the combinatorial date of the fan gives us a way to construct a toric variety a s a amanigold. Every face gives us the transition functions. The way to construct this chart is the dual cone. Then we take the algebra spanned by the monomials and we ask what variety's coordinate ring is this span. 
+Then the combinatorial date of the fan gives us a way to construct a toric variety as a amanigold. Every face gives us the transition functions. The way to construct this chart is the dual cone. Then we take the algebra spanned by the monomials and we ask what variety's coordinate ring is this span. 
 
 \subsection{Consequences of our construction}
 
@@ -2298,33 +2246,15 @@ For example if we wanted to send a line in a plane as a map of.k0
 Given a fan $\Sg$, the toric variety $X_\Sg$ can be obtained as a quotient space of the form:\par 
 We start with affine space, cheack the irrelevant locus and then we take something that if we are lucky is a torus:
 $$\quot{\bC^N\less\set{irrelevant}}{G}$$
-$N$ is the numnber of rays in $\Sg$. The irrelevant set is the set determind by rays that dont span cones.And $G$ is given by lienar relations among maps. 
+$N$ is the numnber of rays in $\Sg$. The irrelevant set is the set determind by rays that dont span cones.And $G$ is given by linear relations among maps. 
 
-\begin{Ex}
-In $\bP^2$  we have the tripod fan with three coordinates. So we have a $\bC^3$. We throw away the rays which don't span a cone. In this case th irrelevant. This is $\bC^3\less$ \red{FELL ASLEEP}
-\end{Ex}
+With the embedding, we do not necessarily want to subdivide fans, as that introduces non trivial orbits.
 
-
-%Amaury notes begin
-Last week: Fans $\Sigma$ lead to toric varieties $X_\Sigma$. Maximal cones lead to affine charts, and faces lead to transition functions. $\Sigma \subset N_\RR$. 
-
-
-we get two neat consequences.
-\begin{enumerate}
-    \item THere is an incluision into closure reversing bijection between cones of $\sigma$ and the torus orbits of $X_\Sigma$ (also,e xhcanging dimension with co dimension).
-    \item $T$-equivariant maps of toric varieties correspond to maps of fans.
-\end{enumerate}
-
-\begin{define}
-    givne $\Sigma_1 \subset N_{1\RR}$ and $\Sigma_2 \subset N_{2\RR}$ a \emph{map of fans} is a $\ZZ$-linear map $L: N_{1\RR}\rightarrow N_{2\RR}$ such that for every cone $\tau$ of $\Sigma_1$, $L(\tau) \subset $ a cone of $\Sigma_2$
-\end{define}
-with the embedding, we do not necessarily want to subdivide fans,a s that introduces non trivial orbits.
-
-If a toric varitey is made of toric variteies, torus are homotopic to circles, whch have genus 0, os they contribute trivially.
-TO see how this bijection works
+If a toric varitey is made of toric variteies, torus are homotopic to circles, whch have genus 0, as they contribute trivially.
+To see how this bijection works,
 
 \begin{enumerate}
-    \item FOr every cone $\tau$ of $\Sigma$, look at the limits a $t \rightarrow 0$ of  torus orbits of $1$-parameter subgroups $|gamma$< with $\gamma \in \tau^0$ (in the interior of the cone $\tau$ ).
+    \item For every cone $\tau$ of $\Sigma$, look at the limits a $t \rightarrow 0$ of  torus orbits of $1$-parameter subgroups $|gamma$< with $\gamma \in \tau^0$ (in the interior of the cone $\tau$ ).
     \item For every affine patch dual to a cone, set all the coordinates taht you can set to zero to zero
 \end{enumerate}
 
@@ -2333,11 +2263,9 @@ TO see how this bijection works
 Toric varieties can be viewed as a genralization fo projective space (we basically have homogenous coordinates). We consider the Quotient Construction. Given a fan $\Sigma$, the toric variety $X_\Sigma$ can be obtianed a a quotient space of the form $\CC^{N}- \{Irrelevalnt\} / G$, where $N$ is the number of rays in the fan $\Sigma$ (for every ray we get a homorgenous coordinate in the toric variety), the irrelevant stuff is the locus determined by sets of rays that do not span cones of the fan, and $G$ is given by linear relations among rays.
 
 
-\section{Day 24|20231018}
-
-Last time we talked about orbit-cone correspondence for toric varieties. This is a poset-reversing bijection, every biggest cone corresponds to a smallest orbit and vice-versa. In particular, this helps us do really funky things. An orthant corresponds to affine space, the dual cone is the same orthant and those are the coordinates of affine space. The fan with only the axes is $\bC^2\less\set{(0,0)}$ and so on.\par 
+So we have orbit-cone correspondence for toric varieties. This is a poset-reversing bijection, every biggest cone corresponds to a smallest toric orbit and vice-versa. In particular, this helps us do really funky things. An orthant corresponds to affine space, the dual cone is the same orthant and those are the coordinates of affine space. The fan with only the axes is $\bC^2\less\set{(0,0)}$ and so on.\par 
 Maps of fans corresponds to good maps of toric varieties. They both have combinatorial descriptions, maps beteween fans are the restriciton of an integral linear map between vector spaces. Cones of the first fan move to cones of the second fan. Integral in the sense that integer coefficients.\par 
-With that now we have a quotient construction: take $\bC^N$ remove \emph{stuff} which is obtained from equations coming from rays that do not span a cone and then we mod out by linear relations among rays.
+With that now we have a quotient construction: take $\bC^N$ remove \emph{stuff} which is obtained from equations coming from rays that do not span a cone and then we mod out by linear relations among rays, the quotient contruction $X_\Sigma = \CC^N - \{stuff\}$, where $N$ is the number of rays, the stuff is the collection of rays not spanning a cone, and $G$ is a linear relation among rays.
 
 \begin{Ex}
     In the case of $\bP^2$ we have the fan which looks like a tripod. As it has $3$ rays we begin with $\bC^3$. Each ray corresponds to a coordinate of $\bC^3$: $x,y$ and $z$. The only subset of rays that does not span a cone of the fan is the three rays together $\set{\rho_x,\rho_y,\rho_z}$. We take the coordinates corresponding to the rays and set them equal to zero. Then we take that locus and throw it away: $\set{x=y=z=0}$. The way to determine the group is that we see the primitive vectors: $\vec p_x=\vec 1,\dots$ $p_z=-e_1-e_2$ and the fact that we have one relation 
@@ -2371,45 +2299,50 @@ In tropical geometry, the \emph{field} is the tropical numbers $\bR\cup\set{\inf
     What happens is that we get an infinite triangle.
 \end{Ex}
 
-
-%----------Amaury after this
-
-
-Toric varieties have an orbit cone corespondence. THis a bijection between the cones of a toric variety, and the toric orbits.  We have that good maps of toric varieties correpsond to maps of fans. We also hav a quotient contruction $X_\Sigma = \CC^N - \{stuff\}$, where $N$ is the number of rays, the stuff is the collection of rays not spanning a cone, and $G$ is a linear relation among rays.
-
 \begin{ex}
-    $\PP^2$ has three rays, denoted by $P_Y$, $P_X$, and $P_Z$. THe only subset of rays NOT spanning a cone is the subset $\{P_X, P_Y, P_Z\}$ (any two span a cone). so we throw away the locus $\{X=Y=Z=0\}$, i.e.e the origin. The relation we have between the three is that $1P_X + 1 P_Y + 1 P_Z=0$ (the vectors are $P_X=(1,0)$, $P_Y=(0,1)$, and $P_Z=(-1,-1)$). all of the 1's tell us we have a one dimensiaonl torus, and our action will be $t(X,Y,Z) = (t^1 X,t^1,Y,t^1Z)$ With these relations, we get $\CC^*$
+    $\PP^2$ has three rays, denoted by $P_Y$, $P_X$, and $P_Z$. The only subset of rays NOT spanning a cone is the subset $\{P_X, P_Y, P_Z\}$ (any two span a cone). so we throw away the locus $\{X=Y=Z=0\}$, i.e.e the origin. The relation we have between the three is that $1P_X + 1 P_Y + 1 P_Z=0$ (the vectors are $P_X=(1,0)$, $P_Y=(0,1)$, and $P_Z=(-1,-1)$). all of the 1's tell us we have a one dimensiaonl torus, and our action will be $t(X,Y,Z) = (t^1 X,t^1,Y,t^1Z)$ With these relations, we get $\CC^*$
 
-    Now,w e can take the fan, and declare that any ray of the fan is generated bya  basis vector of a new vector space. so $P_X=(1,0,0)$, $P_Y=(0,1,0)$, and $P_Z=(0,0,1)$. Then our three corrsponding rays in $\RR^2$ become the three positive half lines of the X, Y, Z axis. Now we want to lift the cones in our toric variety, so we get octant planes Now, everything we make is contained in the first octant of $|RR^3$, so ths is a subset of all the cones of the first octant, but the first octant with removal Bu the first octant is $\CC^n$, and we removed something. We remove orbits corresponding to not being centered in th eoctan, i.e.e we remove the three dimensional cone, so teh toric variety is $\CC^3$ minus the orbit correpsonding to the cetner cone, whcih is $(0,0,0)$.
+    Now, we can take the fan, and declare that any ray of the fan is generated bya  basis vector of a new vector space. so $P_X=(1,0,0)$, $P_Y=(0,1,0)$, and $P_Z=(0,0,1)$. Then our three corrsponding rays in $\RR^2$ become the three positive half lines of the X, Y, Z axis. Now we want to lift the cones in our toric variety, so we get octant planes Now, everything we make is contained in the first octant of $|RR^3$, so ths is a subset of all the cones of the first octant, but the first octant with removal Bu the first octant is $\CC^n$, and we removed something. We remove orbits corresponding to not being centered in th eoctan, i.e.e we remove the three dimensional cone, so teh toric variety is $\CC^3$ minus the orbit correpsonding to the cetner cone, whcih is $(0,0,0)$.
 \end{ex}
 
 
 
 
 
-In tropica geoemtry, $k $ is identitfied with $\TT= \RR \cup \{\infty\}$, then $k^*$ corresponds to $\RR$> THen $T= (k^*)^n$ correpsonds to $\RR^n$, and the action $*$ corresponds to $+$. 
+In tropical geoemtry, $k$ is identitfied with $\TT= \RR \cup \{\infty\}$, then $k^*$ corresponds to $\RR$> THen $T= (k^*)^n$ correpsonds to $\RR^n$, and the action $*$ corresponds to $+$. 
+
+
+%PLACE MARKER FOR PAGE DAY 25
+\section{Tropical Toric Varieties}
+
+From the fan $\Sigma$ we use tropical numbers and tropical operations for transition functions, i.e. $\TT \PP^2$ provides us with $\TT^2, x_1,y_i$, for $i=1,2,3$. We get relations from $i=1$ and $i=2$ via $x_i=-x_2$ \& $y_1=y_2-x_2$, from $2$ to $3$ via $x_2 = y_3-x_3$ \& $y_2 = -x_3$, and finally from 1 and 3 via $x_1 = x_3-y_3$ \& $y_1 = -y_3$.
+
+We get invertible in GLZ, which is our notion of automorphism of the torus. We can always do this translation. We observe that the tropical toric variety $\TT X_\Sigma$ has a stratification into ``$\RR^k$''strata, whcih has a natural poset isomorphism with the stratification of the complex toric variety toric variety $X_\Sigma$. 
+Furthermore, $\TT X_\Sigma$ has the structure of an $``\infty''$ polytope, i.e. scale the polytope so that lengths go to infinity, which is the normal/dual polytope to the fan of $X_\Sigma$.
+
+The role taken by $\lim\limits-{t\rightarrow 0} t*p$ in $\CC$-toric land is replaced by $\lim\limits-{T \rightarrow \infty} T+p$ in tropical rotic land. So if we take a one parameter subgroup, say $(1,1)$, and we ask for hte orbits of this subgroup, the orbits are found fvia $T(x_1,y_1) = (T+x_1,T+y_1)$. SO regardles of the starting point, the orbit gets to the point at infinity. For the one parameter subgroup $(2,1)$, we have $T(x_1,y_1) = (2T+x_1, T+y_1)$.
+
+We have parallel lines connecting to the singular point at infinity which we remove. This means that each parallel ray hits a different point at infinity. We can create an orthoognal line to these rays, and we say this ray hits two other points at infinity (at the limtis of identifying the x and y axis).
 
 
 
-How to make tropical $\PP^2$
+We get some kind of orthogonal line to these parallel rays, and this line intersects each orbit exactly once. This line connects at poitns which represent $(\infty,0)$ and $(0, \infty)$. 
 
+So we start with a line $L \subset (\CC^*)^2 \subset \PP^2$. This gives rise to a tropical line $Trop(L) \subset \RR^2$. THe closure of $Trop(L)$ gives three aditional points, one for each section of the tropical $L$ which hits lines at infinities. 
 
-
-
-\section{Day 25|20231020}
-
-Patching construction for toric varieties: Dual cone gives affine patches, edges give transtition functions. This can be switched to tropical numbers. The charts are now affine $\bT$ spaces, sometimes it could be without infinity. Transition functions become linear.\par 
+Patching construction for toric varieties: Dual cones give affine patches, edges give transtition functions. This structure can be paralleled with tropical numbers. The charts are now affine $\bT$ spaces, sometimes it could be without infinity. Transition functions become linear. Now, the shortcut to get the tropical toric variety via the fan of $\PP^2$, we make rays orthogonal to the rays of $\PP^2$, introduce fans correspodnign to each of the 2-dim pieces of the fan, and set the lines to infinty.\par 
 With the example of $\bT\bP^2$ we had an infinite triangle. By removing the line and two points all we get is a copy of $\bT^2$. The $y$-axis of the first chart sticks to the $y$-axis of the second chart, while the $x$ axis becomes $y=x$. \red{LOOK AT PICTURE}
 \begin{Rmk}
 When removing the lines at infinity we get a copy of $\bR^2$, which is just the tropical torus! Even if the lines are arranged differently, the charts differ by an element of $\GL(\bZ)$. 
 \end{Rmk}
 
-The difficulty of transforming this into a general process is just painful notation. This process can always be done.
+The difficulty of transforming this into a general process is just painful notation. This process can always be done. 
 
 \begin{itemize}
     \item The tropical toric variety $\bT X_\Sg$ has a \emph{stratification} into $\bR^k$ strata which has a natural poset isomorphism with the stratification of the toric variety of $X_\Sg$.\par 
-    \red{AUDIO AROUND 10min} Stratification means a disjoint union into locally closed spaces. Think of it as chopping into pieces of different dimensions. All pieces are tropical tori $\bR^k$ for some $k$. 
-    \item The tropical toric variety has the structure of an ``infinite polytope'' (not precise, but it's what me imagine) which the normal polytope or dual to the fan of the toric variety.\par 
+    \red{AUDIO AROUND 10min} Stratification means a disjoint union into locally closed spaces. We get 0-dim, 1-dim, and 2-dim spaces, each is a tropical tori. This is similar as how $\CC\PP^2$ has a startification as points, lines, and the surface of the triangle. 
+
+    \item The tropical toric variety has the structure of an ``infinite polytope'' (not precise, but it's what we imagine) which the normal polytope or dual to the fan of the toric variety.\par 
     In the case of $\bP^2$, the fan is the tripod fan. For every 0-cell, we have a 2-stratum, for every ray we have a codimension 1 stratum whihc is incident at exactly one point. And for each 2-cone we have a 0-strata. This is similar to the orbit-cone correspondence, now its a dimension reversing map. Composing both we get a dimension-\emph{preserving} map. \blu{AUDIO BEFORE 17 min}\par 
     The role taken by limits as $t\to 0$ of $t\.p$ in complex toric land, is replaced by $\lim_{T\to\infty}T+P$. In particular, given a 1-parameter subgroup $(1,1)$, what are the orbits?\par 
     They will act on a point $(x_1,y_1)$ as 
@@ -2419,11 +2352,7 @@ The difficulty of transforming this into a general process is just painful notat
 
 \subsection{The Quotient Construction}
 
-Let's go back to $\bP^1$. In our quotient construction this is 
-$$\bP^1=\quot{\bC^2\less\set{(0,0)}}{\bC^\x},\quad t\.(x,y)=(tx,ty).$$
-We now read the same information from the fan, our affine space is over tropical numbers now:
-$$\bT\bP^1=\quot{\bT^2\less\set{(\infty,\infty)}}{\bR},\quad T\.(x,y)=(T+x,T+y).$$
-Without considering anything as of now, just by intuition, the tropical projective line should be a line segment! Formally when constructing like this, we first remove the point at infinity and then look at the orbits. They are all parallel lines and each correspond to one point in the quotient. \red{PICTURE 32min}
+We can also show how the quotient construction works tropically. We being at $\PP^1$. In our quotient construction, this is $\CC^2-(0,0)/\CC^*(t(x,y)=(tx,ty))$, where $t*(x,y)=(tx,ty)$. The one parameter subgroup comes from the linear relation on the fans of $\PP^1$, the relation being $p_1+p_2=0$. Now we do the same from the fan to get us into tropical space. $\TT\PP^1 = \TT^2 -(\infty, \infty)/\RR (T(X,Y)=(T+X,T+Y))$, where $\RR$ is the torus on $\TT$. We expect $\TT\PP^1$ to be a line segment, as we have $\PP^1$ is two rays connected. We get a point for the first ray, a point for the second, and a line connecting the two. This is related to initial forms (See other texts). Formally when constructing like this, we first remove the point at infinity and then look at the orbits. They are all parallel lines and each correspond to one point in the quotient. \red{PICTURE 32min}
 
 \subsection{Subvarieties}
 
@@ -2431,9 +2360,9 @@ We aim to answer the question about how subvarieties behave under tropicalizatio
 Suppose now $Y\subseteq T\subseteq X_\Sg$, where $T$ is a torus and the other is a toric variety. What is 
 $$\Trop(Y)\subseteq\bR^n\subseteq \bT X_\Sg?$$
 
-\begin{Def}
-    The \term{extended tropicalization} of $Y$ inside $X_\Sg$ is the closure of $\Trop Y$ inside $\bT X_\Sg$. 
-\end{Def}
+\begin{define}
+    The \emph{extended Tropicalization} of $Y$ inside of $X_\Sigma$ is the closure of $Trop(Y)$ inside of $\TT X_\Sigma$.
+\end{define}
 
 \begin{Ex}
     Lines in $\bP^2$ give rise to tropical lines (tripods) in $\bR^2$. Now we know that we can close this as tropical $\bP^2$. Then we take the closure in $\bT\bP^2$ so we only get 3 additional points. \red{PIC 41 min}
@@ -2447,56 +2376,7 @@ $$\Trop(Y)\subseteq\bR^n\subseteq \bT X_\Sg?$$
     If we let a line go through the origin and close in $\bP^2$. The corner locus is $\min(x,y)$ which is non linear where $y=x$. Closing in $\bP^2$ gives us a point in a line and a point in the point. But when closing in $\bP^1\x\bP^1$ we get only points.
 \end{Ex}
 
-We wish to discuss how the position is related to the original position of the complex variety.
-
-%------- Amaury after this
-
-
-\section{Tropical Toric Varieties}
-
-From th efan $\Sigma$ we use tropical numbers and tropical operations for transition functions, i.e. $\TT \PP^2$ provides us with $\TT^2, x_1,y_i$, for $i=1,2,3$. We get relations from $i=1$ and $i=2$ via $x_i=-x_2$ \& $y_1=y_2-x_2$, from $2$ to $3$ via $x_2 = y_3-x_3$ \& $y_2 = -x_3$, and finally from 1 and 3 via $x_1 = x_3-y_3$ \& $y_1 = -y_3$.
-
-We get invertible in GLZ, which is our notion of automorphism of the torus. We can always do this translation. We observe that the tropical toric variety $\TT X_\Sigma$ has a stratification into ``$\RR^k$''strata, whcih has a natural poset isomorphism with the stratification of the complex toric variety toric variety $X_\Sigma$. 
-Furthermore, $\TT X_\Sigma$ has the structure of an $``\infty''$ polytope, i.e. scale the polytope so that lengths go to infinity, which is the normal/dual polytope to the fan of $X_\Sigma$.
-
-A stratification is a disjoint union into locally closed spaces. We get 0-dim, 1-dim, and 2-dim spaces, each is a tropical tori. THis is similar as how $\CC\PP^2$ has a startification as points, lines, and the surface of the triangle. 
-
-
-
-Now, the shortcut to get the tropical troic variety via the fan of $\PP^2$, we make rays orthogonal to the rays of $\PP^2$, introduce fans correspodnign to each of the 2-dim pieces of the fan, and set the lines to infinty.
-
-The role taken by $\lim\limits-{t\rightarrow 0} t*p$ in $\CC$-toric land is replaced by $\lim\limits-{T \rightarrow \infty} T+p$ in tropical rotic land. So if we tak e a one parameter subgroup, say $(1,1)$, and we ask for hte orbits of this subgroup, the orbits are found fvia $T(x_1,y_1) = (T+x_1,T+y_1)$. SO regardles of the starting point, the orbit gets to the point at infinity. FOr the one parameter subgroup $(2,1)$, we have $T(x_1,y_1) = (2T+x_1, T+y_1)$.
-
-
-
-We can also show how the quotient construction works tropically. We being at $\PP^1$. IN our quptient construction, this is $\CC^2-(0,0)/\CC^*(t(x,y)=(tx,ty))$, where $t*(x,y)=(tx,ty)$. THe one parameter subgroup comes from the linear relation on the fans of $\PP^1$, the relation being $p_1+p_2=0$. Now we do the same from the fan to get us into tropical space. $\TT\PP^1 = \TT^2 -(\infty, \infty)/\RR (T(X,Y)=(T+X,T+Y))$, where $\RR$ is the torus on $\TT$. We expect $\TT\PP^1$ to be a line segment, as we have $\PP^1$ is two rays connected. We get a point for the first ray, a point for the second, and a line connecting the two. THis is related to initial forms (See other texts).
-
-
-We have parallel lines connecting to the singular point at infinity which we remove. This means that each parallel ray hits a different point at infinity. We can create an orthoognal line to these rays, and we say this ray hits two other points at infinity (at the limtis of identifying the x and y axis).
-
-
-
-We get some kind of orthogonal line to these parallel rays, and this line intersects each orbit exactly once. This line connects at poitns which represent $(\infty,0)$ and $(0, \infty)$. 
-
-
-We have our original consturction of tropical curves. Now, assume we have $Y \subset Torus \subset X_\Sigma$, so a curve in a torus in a toric variety. Now e have $Trop(Y) \subset \RR^n \subset \TT X_\Sigma$. 
-
-\begin{define}
-    The \emph{extended Tropicalization} of $Y$ inside of $X_\Sigma$ is the closure of $Trop(Y)$ inside of $\TT X_\Sigma$.
-\end{define}
-
-
-So we start with a line $L \subset (\CC^*)^2 \subset \PP^2$. This gives rise to a tropical line $Trop(L) \subset \RR^2$. THe closure of $Trop(L)$ gives three aditional points, one for each section of the tropical $L$ which hits lines at infinities. 
-
-
-Next time, we will compare the combinatorics of troical liens in varieiteis to toric varieities. 
-
-
-
-\section{Day 26|20231023}
-
-Recall we defined the tropicalization of a toric variety and if we had a $Y\subseteq T\subseteq X_\Sg$ then the tropicalization in $X_\Sg$ is 
-$$\ov{\Trop(Y)}\subseteq \bT X_\Sg.$$
+%DAY 26 MARKER FOR PAGE
 \begin{Ex}
     By taking the equations $x+y+1=0$ and $y+1=0$ then the associated tropical lines are a tripod and a horizontal line. We may either embed them into $\bP^2$ or $\bP^1\x\bP^1$.\par 
     We know that tropical $\bP^2$ looks like an infinite triangle while the other looks like an infinite square.\red{FIGURE around 5 min}
@@ -2534,11 +2414,6 @@ But what does this question even mean?
     \item Lastly the compactification must not bw wasteful (because varieties care about the enviroment). The torus itself shouldn't have so many points not needed to compactify.
 \end{itemize}
 $x+y+1=0$ likes to be compactified in $\bP^2$ as \red{picure}. Except none of the infinite points are touched, so it likes to be compactification in $\bP^2$ without the three infinite points. \red{picture}.
-
-
-
-
-\section{Day 27|20231025}
 
 Last time we had a subvariety of a torus which is the open dense set of a toric variety. The question we addressed was 
 \begin{significant}
@@ -2590,13 +2465,6 @@ We must show $|\Sg|\subseteq\Trop Y$
 \end{enumerate}
 \end{ptcbp}
 
-
-
-
-
-
-\section{Day 28|20231027}
-
 The big picture is that our world has trivially valued field and we have a subvariety of a toric variety. We looked at the combinatorial properties of tropicalization, what we should hold is that tropical toric varieties are like adding stuff to a torus which corresponds to cones in a space. We concluded that if a tropicalization is contained in the support of a fan then the variety is compact. The last property we wish to prove is dimension transversality. Those properties are equivalent to the fact the the tropicalization \emph{is} the support of the fan.
 
 \begin{ptcbp}
@@ -2619,47 +2487,18 @@ For the other direction we want to show the properties. We need the following fa
 With this we tackle the other side of the theorem. Take a top dimensional cone $\sg_d$ in $\Sg$. Then $O_{\sg_d}$ is a codimension $d$ orbit and $O_{\sg_d}$ intersects $\ov Y$ non-trivially. We know $O_{\sg_d}$ is isomorphic to a torus and because $\ov Y$ is complete, then $ O_{\sg_d}\cap\ov Y$ is complete and so it has a finite number of points. \red{LAST PICTURE} At every step we have to drop codimension by one.
 \end{ptcbp}
 
-When all of the conditions happen, we may have a new concept!
+All together, this says we can obtain the orbit $O_\sigma$ by cutting down by $k$ hypersurfaces. In particular, if we have our cone $\sigma$, we can take a chain of subsequent surfaces $r_1$, $span(r_1,r_2)$, $span(r_1,_2,r_3)$, and correpsonding to $r_1$ we have a hypersurface $H_1$ (orbit of $r_1$, $H_1 \cap H_2$ is orbit of $\sigma_2$, and so on), we can take $\overline{Y} \cap H_1$, then$ \overline{Y}\cap H_1 \cap H_2$, and then $\overline{Y}\cap H_1 \cap H_2 \cap H_2$. We know $\overline{Y}$ has dimension 3, at the end we have just points at the end, and we drop dimensions by exactly one at every step.
+
 
 \begin{Def}
     $\ov Y\subseteq T\subseteq X_\Sg$ is a \term{tropical compactification} when $\Trop Y=|\Sg|$. In particular the properties of the previous theorem hold.
 \end{Def}
 
-Right now we haven't talked about how singular $Y$ become when compactified. Let us just talk a bit. A tropical compactification.
 
-%------Amaury after this
+%DAY 29 MARKER
+\vspace{.15in}
 
-
-\begin{theorem}
-    $\overline{Y} \cap O_\sigma \neq \emptyset$ and dimensional transversality $codim_{\overline{Y}}(\overline{Y} \cap O_\sigma) = codim_{X_\Sigma}(O_\sigma)$ iff $Trop Y= |\Sigma|$
-\end{theorem}
-
-\begin{proof}
-   $\implies$ we know that $trop(Y) \subset |\Sigma|$. We want to prove $\supset$. First, we have that any $\sigma \in \Sigma$ must intersect $trop Y$, as $\overline{Y} \cap O_\sigma \neq \emptyset$. Second, we have that $\dim(\Sigma)$ is at most $\dim(Y)$, by the dimensional transversality. Third, we have that a top dimensional cone of $\Sigma$ cannot intersect $trop(Y)$ in a positive codimension locus, otherwise $Trop(Y)$ would intersect $(d+1)$ dimensional cones of $\Sigma$ (which don't exist). Finally, a top dimenional cone of $\sigma$ cannot be partially covered by $trop(Y)$, as either this would violate the balacing condition for $Trop (Y)$ (balancing condition in hgiher dimensions is done by quotienting), or trop Y has to intersect at a face of $\Sigma$, not the of a face. 
-   
-   
-   With these four conditions, we get that every $\sigma \in \Sigma$ must interect $trop(Y)$, and the itnersections are all showing $trop()$ is covering $\sigma$, so we must have that $|\Sigma| \subset trop(Y)$.
-
-
-   $\impliedby$ Now we are assuming that $trop(Y) = |\Sigma|$. We need some algebraic geometry black boxes.
-
-   \begin{enumerate}
-       \item There are no positive dimensional compact subvarieties of tori.
-       \item For toric varieties, an orbit $O_\sigma$ of codimension $k$ is (locally) cut out be exactly $k$ equations
-       \item FOr any subvariety $Z \subset X_\Sigma$ and any hypersurface $HS \subset X_\Sigma$, $Z \cap HS$ either rmains the same dimension of $Z$, the dimension goes down by exactly one, or the intersection is empty.
-   \end{enumerate}
-
-   WIth these three facts we can beign to show the other implication. We begin with $\sigma_d$ being a top dimensional cone in $\Sigma$. Then$ O_{\sigma_d}$ is a codimension $d$ orbit. FUrthermore, we have $O_{\sigma_d} \cap \overline{Y} \neq \emptyset$, and that $O_{\sigma_D}$ is isomorphic to some torus. Because $\overline{Y}$ is complete, the intersection $O_{\sigma_d} \cap \overline{Y}$ is complete, and so it has a finite number of points.
-
-
-   All together, this says we can obtain the orbit $O_\sigma$ by cutting down by $k$ hypersurfaces. In particular, if we have our cone $\sigma$, we can take a chain of subsequent surfaces $r_1$, $span(r_1,r_2)$, $span(r_1,_2,r_3)$, and correpsonding to $r_1$ we have a hypersurface $H_1$ (orbit of $r_1$, $H_1 \cap H_2$ is orbit of $\sigma_2$, and so on), we can take $\overline{Y} \cap H_1$, then$ \overline{Y}\cap H_1 \cap H_2$, and then $\overline{Y}\cap H_1 \cap H_2 \cap H_2$. We know $\overline{Y}$ has dimension 3, at the end we have just points at the end, and we drop dimensions by exactly one at every step.
-
-
-
-
-\section{Day 29|20231030}
-
-Recall that the theorem we are proving is that the conditions
+This is a weird break in the notes where the proof restarts on the next day and some things are said differently and might give different insight so I do not want to remove any of it. So here is a recap of what was just going on:
 \begin{itemize}
     \item $\ov Y\cap O_\sg\neq \emptyset$  for all $\sg$, and
     \item $\codim_{\ov Y}(\ov Y\cap O_\sg)=\codim_{X_\Sg} O_\sg$
@@ -2685,52 +2524,30 @@ For the other directions we use some facts of algebraic geoemtry:
     \item In a toric variety, every orbit of $\sg$ of codimension $k$ is cut out locally by $k$ equations.
     \item If $Y\subseteq X_\Sg$ and we cut it down with a hypersurface, then dimension of $Y\cap H$ goes down at most by $1$.
     $$Y\cap H\neq\emptyset\To \dim(Y\cap H)\geq \dim(Y)-1.$$
-    \red{GRabbing water}
 \end{itemize}
 Every orbit will correspond to some cone. \red{picture begins at 21 min}. Maybe the face is a face of a higher dimensional cone $\tilde{\sg}$. We choose it as a top dimensional cone of $\Sg$ containing $\sg$ as a face. Now we choose an ordering of the rays of $\tilde{\sg}$ in such fashion that the first $k$ rays belong to $\sg$. Every ray corresponds to a codimension 1 orbit. If we keep cutting \red{something}.\par 
 Let $H_i$ be the closure of the orbit corresponding to the ray $\rho_i$:
 $$H_i=\ov O_{\rho_i}\word{a hypersurface in}X_\Sg.$$
 Now $\ov Y\cap H_1$ has dimension either $\dim\ov Y$ or $\dim \ov Y-1$. Then 
 $$\dim (\ov Y\cap H_1)\cap H_2=\dim \ov Y\word{or}\dim \ov Y-1\word{or}\dim\ov Y-2,$$
-and in general $\dim(\ov Y\cap H_1\capycap H_k)$ can range from $\dim Y$ to $\dim \ov Y-k$. We want to show it's the lowest, to rule the other options we go down all the way:
+and in general $\dim(\ov Y\cap H_1\capycap H_k)$ can range from $\dim Y$ to $\dim \ov Y-k$. We want to show it's the lowest, to rule the other options we go down all the way.
 %$$\dim(\ov Y\cap H_1\capycap H_d)=\dim(\ov Y\cap O_{\tilde}\sg)$$
 %and as $\ov Y\cap \ov O_{\tilde{\sg}}=\ov Y\cap O_{\tilde{\sg}}$
-In conclusion 
-\begin{itemize}
-    \item One can always refine $\Sg$ so that $\ov Y$ is Cohen-Macaulay. (Understand this as not too badly singular). 
-    \item In characteristic zero, and $X_\Sg$, we can find open subsets such that $\ov Y\cap O_\sg$ is smooth for some $\sg$.
-\end{itemize}
 
 
-%-----Amaury After this
-
-
-We now reiterate the previously stated algebraic geometry black boxes.
-\begin{enumerate}
-    \item The only complete/compact subvariety of a torus are 0-dimensional
-    \item In a smooth toric variety, every orbit of sigma $O_\sigma$ of codimension $k$ i locally cut out by $K$-equations.
-    \item If $Y \subset X_\Sigma$, and $Y \cap Hypersurface \neq 0$, then the dimension of the intersection goes down at most by $1$.
-\end{enumerate}
-
-Now we assume $Trop(Y)=|\Sigma|$   We can consider some gace $\sigma\in \Sigma$, and let $\tilde{\sigma}$ to be a top dimenisional cone of $\Sigma$ containign $\sigma$ as a face. We choose an ordeing o the rays of $\tilde{\sigma}$ such that the first $k$ rays belong to $\sigma$. (Each ray corresponds to a codimension 1 orbit, after the $k$ steps we get to an intersection with $O_\sigma \cap Y$). We let $H_i$ be the closure $\overline{O_{\rho_i}}$, i.e. the hupersurface in $X _\sigma$ corresponding to the ray $\rho_i$. Now, $dim(\overline{Y} \cap H_1) \geq dim(\overline{Y}) -1$. Then, $\dim ((\overline{Y} \cap H_1)\cap H_2) \geq \dim(\overline{Y})-2$. Eventually we get to $dim(\overline{Y} \cap H_1 \cap \cdots \cap H_k) \geq dim(\overline{Y})-k$. To check that we get minimal dimensions,w e terminate at $dim(\overline{Y} \cap \cdots \cap H_d) = dim(\overline{Y} \cap O_{\tilde{\sigma}})$. Note $\overline{Y} \cap \overline{O}_{\tilde{\sigma}} = \overline{Y} \cap O_{\tilde{\sigma}}$ (inherently the closure of $Y$ misse s any missing limit points of the orbit). So we know that $\overline{Y} \cap \overline{O_{\tilde{\sigma}}}$ is compact, comapct living in the torus $O_{\tilde{\sigma}}$, but by our black box we get that subvariety of a torus is 0 dimension, at every step we needed to reduce our dimension by exactly once, so at no point would our dimenion ever stay the same.
-
-
-
-
-\end{proof}
 
 \begin{define}
 $\overline{Y} \subset T \subset X_\Sigma$ is a \emph{tropical compactification} when $trop(Y) = |\Sigma|$
 \end{define}
 
 
-This definition says that $Y$ thinks $X_\Sigma$ is a good place to be comapctified in. This is because $X_\Sigma$ doesnt waste any orbits, and all orbit of $X_\Sigma$ are dimensionalyl transverse to $\overline{Y}$.
+This definition says that $Y$ thinks $X_\Sigma$ is a good place to be compactified in. This is because $X_\Sigma$ does not waste any orbits, and all orbits of $X_\Sigma$ are dimensionaly transverse to $\overline{Y}$.
 
 
-In particular, the nice properiesof the left hand side of the theorem hold. So far we have not talekd about the singularity of $\overline{Y}$ when we compactify it. It is possibly that $\overline{Y}$ could have hotten singular in this process. Via a technical process and analysis with a toolkit from a third course in algebraic geometry, we notice that he statement of tropical compactificatioojon is discussing the support of $\Sigma$, not the fan itself.
+In particular, the nice properies of the left hand side of the theorem hold. So far we have not talekd about the singularity of $\overline{Y}$ when we compactify it. It is possibly that $\overline{Y}$ could have became singular in this process. Through a technical process and analysis with a toolkit from a third course in algebraic geometry, we notice that he statement of tropical compactification is discussing the support of $\Sigma$, not the fan itself.
 
 
-In torc geoemtry if we take a fan and subdivide into cones, this corresponds to blow ups in strata of troic varieties (whcih are used to resolve singularities). So maybe we had singlaurities, but we use blow ups to reslve singularities.
+In toric geoemtry if we take a fan and subdivide into cones, this corresponds to blow ups in strata of troic varieties (which are used to resolve singularities). So maybe we had singlaurities, but we use the blow ups to resolve singularities.
 
 \begin{enumerate}
 \item One can always refine $\Sigma$ so that $\overline{Y}$ is Cohen-Macaulay (read ``not too badly singular'')
@@ -2741,11 +2558,13 @@ In torc geoemtry if we take a fan and subdivide into cones, this corresponds to 
 
 
 
-\section{Day 30|20231101}
+%DAY 30 MARKER FOR PAGE
 
 \subsection{Geometric Tropicalization}
 
-This is the \emph{philosophical} reverse direction of compactification. If $Y\subseteq X_\Sg$ and it sits nicely inside it, then $X_\Sg$. allows us to compactify $Y$ to figure out $\Trop Y$.
+This is the \emph{philosophical} reverse direction of compactification. Now, $K$-trivially valued, tropical compactification tells us that if $Y \subset T$, we get that $trop(Y)$ determins a toric variety inside which $Y$ compactifies nicely!
+
+If $Y\subset X_\Sigma$ is  a subset of a toric variety, and $Y$ sits ``nicely'' in $X_\Sigma$, then the toric variety allows us to know $trop(Y)$. We illustrate this in an example, and then generalize.
 
 \begin{Ex}
     We will consider the line in the projective plane. Take $X+Y-Z=0$ inside $\bP^2$. The stratification of $\bP^2$ induces a stratification on our line. Our line has 3 codimension 1 strata and one codimension 0 stratum. We may encode this into a boundary complex which turns out to be 3 points.\par 
@@ -2770,6 +2589,17 @@ This is the \emph{philosophical} reverse direction of compactification. If $Y\su
 \end{Ex}
 
 In general, we start with a space $Y$ whose boundary is composed of multiple divisors. Also $Y\less\del Y$ is isomorphic to a subvariety of a torus. We will say that the boundary has combinatorial normal crossing if every time $k$ divisors intersect, they intersect in codimension $k$. If the intersection is transversal, then the intersection is a simple normal crossing. This means that the boundary looks like hyperplanes, the local model of this is coordiante $x_i=0$. Just a normal crossing is something which is locally a simple normal crossing.\par
+
+\begin{define}
+    We say $\partial Y$ has combinatorial normal crossings if every time $n$ divisors intersect the intersect in codimension $n$. If the intersection is transversal, we say this is a simple normal crossing.
+\end{define}
+
+Simple normal crossing means that the boundary locally looks like hyperplane coordinates in our space.
+
+\begin{define}
+A normal crossing is locally SNC.
+\end{define}
+
 What kind of divisorial valuation we have access to? In practice \red{stuff} so when $Y\less\del Y\subseteq T$, then any toric variety containing $T$ as their dense torus gives rise to divisorial valuations.
 \begin{enumerate}
     \item $\Trop Y$ is equal to the cone 
@@ -2780,78 +2610,16 @@ and so somehow such a variety knows its tropicalization without going through Pu
 
 
 
-%------Amaury After this
-
-
-
-Now, $K$-trivially valued, tropical compactification tells us that if $Y \subset T$, we get that $trop(Y)$ determins a toric variety inside whcih $Y$ compactifies nicely!
-
-\section{Geometric Tropicalization}
-
-If $Y\subset X_\Sigma$ is  a subset of a toric variety, and $Y$ sits ``nicely'' in $X_\Sigma$, then the toric variety allows us to know $trop(Y)$. We illustrate this in an example, and then generalize.
-
-\begin{ex}
-    We take the line in $\PP^2$, $\{X+Y+Z=0\} \subset \PP^2$. THe strate of the line is defiend via a boundary complex, where smaller stratifications lead to larger structures in the boundary complex. In the case of $\PP^2$ and the boundary complex of $L$, we get three points $\{a,b,c\}$. We can construct the cone over the boundary complex $cx$ by takinga  point in an independent dimension from $a,b,c$, and joinign th epoints with half lines. The toric variety has 3 divisors (codimension 1 subvarieties, in $\PP^2$ it is the lines, not lying within the torus) on $\PP^2$ that induce (via intersection) 3 divisors on $L$ (the points of intersection of $L$ with the toric invariant lines of $\PP^2$). DIvisors give rise to ``divisorial valuation'' $val_D:K(L) \rightarrow \ZZ \cup \infty$, where for every function $f\in K(L)$ it defines the order of vansihing or pole of $f$ along $D$. so as longa s the space is tnot too singluar, locally and divisor has one local equation, take the rational function where on this local set is valid, and see how many times we can factor the equation with our function.
-
-
-    Notice that $val_a:K(L) \rightarrow \ZZ\cup \infty$, where we get a rational function on $\PP^2$, restrict to $L$, then do the evaluation, but we really like monomials as rational functions. So we actually take $val_a:M _T\rightarrow K(L) \rightarrow \ZZ\cup \infty$, where $M_T \rightarrow K(L)$ is via restricution, and $K(L) \rightarrow \ZZ \cup \infty$ is the order of vanishing. So we asign an elmeent of $M$ a valuation, which is dual to M, so $image(val_a) \subset N_T$, which is connected to the co-character lattice.
-
-    $M_T$ is the character space of the torus i.e. monomials, and $N_T$ is the co-character 1-parameter subgroups.
-
-    For our recipe, we use $val_a$, $val_b$, and $val_c$ to get three points in $N_T$. But we think of each of these points as points of height one in the cone of the boundary complex, and we take hte cone over these point in $N^T$. We then get $Trop(Y)$. 
-
-
-
-    Now we do comupations, we take the point $a=(0:1:1)$. We can parameterize ht elien $L$ aroundhte neighborhood of $a$ via $t$ by defineing affine coordiantes in $\PP^2$, so we take $x = \frac{X}{Z}$, $y= \frac{Y}{Z}$, asn the line we paraterize as $x(t)=t$, and $y(t) =1-t$. We now need to compute $val_a$. In thise case, $M_T$ is $\ZZ_2$, so we can test on the generating set $x$ and $y$. So $val_a(x)=1$, as the ordering of vanishing of $t$ at $0$ is $1$. $val_a()=0$, as the order of vanishing of $1-t$ at $t=0$ is $0$. Similarly, $b=(1:0:1)$, this swithces the role of $x$ and $y$, so $xx(t) = 1-t$ ad $y(t)=t$, so $val_b(x)=0$ and $val_a(y)=1$. THe trickier point is $c$, whcih is the point at infinity. We can choose a parameteriation of $L$ near this point centered at $c$, which becomes $x(t)=\frac{1}{t}$ and $y(t) = 1-\frac{1}{t}$. Now $val_c(x)=-1$ and $val_c(y)=-1$. We thus define $val_a=(1,0)$, $val_b=(0,1)$, and $val_c=(-1,-1)$. THis gives us Trop(L). 
-
-
-\end{ex}
-
-
-
-In general, we start witha  avery affine variety with divisorial boundary. A divisorial boundary, we start with a space $Y$, with codimension $1$ subvarietiies, verry affine means that $Y- \partial Y$ is isomorphic to a closed subvariety of a torus (closed inside the torus, typically the complement lies in a torus).
-
-\begin{define}
-    We say $\partial Y$ has combinatorial normal crossings if every time $n$ divisors intersect hte intersect in codimension $n$. If the intersection is transversal, we say this is a simple normal crossing
-\end{define}
-
-Simple normal crossing means that the boundary locally looks like hyperplane coordinates in our space.
-
-\begin{define}
-A noraml crossing is locally SNC
-\end{define}
-
-
-
-
-
-
-We can ask for divisorial evaluations. We embedd the curvve minus its boundary intoa  torus. In practice we can embedd tours boundary into any toric variety we choose. When $Y- \partial Y \subset T$, and toric variety containing $T$ as their dense torus gives rise toa  divisorial valuations.
-
-\begin{lemma}
-    \begin{enumerate}
-        \item $Trop(Y) = \{c *val_D \; |\; c \in \RR_{\geq 0}, \ \text{D is any divisor comiong from and }\; X_\Sigma \supset T\} \subset N_T$
-        \item If $\partial Y$ is combinatorial normal crossing, then there xists a map $\pi: C \triangle_{\partial Y} \rightarrow N_T$, $Y$ was a variety with some divisor, sow e use those varieties, so that $\pi(D_i,1) \mapsto val_{D_i}$, and we extend by linearlity.With combinatorial normal crossings, we can guarantee that $Trop(Y) \subset Im(\pi)$. IF we want equality, we ensure simple normal crossing boundaries, or (if char 0 is fine), comibinatorial normal crossing with characterisitc 0 is sufficient.
-    \end{enumerate}
-\end{lemma}
-
-
-\section{Day 31|20231103}
-\section{Day 32|20231106}
-
 Essentially we started with an equation 
 $$1+x+y+txy=0$$
-and at the beginning of the semester we tropicalized to a stick figure. Last time, starting from this equation we can construct a family of surfaces in $\bP^3\x\bA^1$ simply by putting atwo dimensional torus (the one the curves lives in) in $\bP^3$ and then think of the $t$ parameter as a \emph{time deformation parameter}. \red{stuff} And then we can cut this family of surfaces via the hyperplane 
+and at the beginning of the semester we tropicalized to a stick figure. Previously we started from this equation we can construct a family of surfaces in $\bP^3\x\bA^1$ simply by putting a two dimensional torus (the one the curves lives in) in $\bP^3$ and then thinking of the $t$ parameter as a \emph{time deformation parameter}. \red{stuff} Then we can cut this family of surfaces via the hyperplane 
 $$x_0+\dots+x_3=0$$
 because there's \red{some relation with the torus}. This hyperplane cuts generically on the smooth but on the special fiber it cuts \red{in a cool way}.\par 
-The subdiviosion of the Newton polygon tells us how the degenerations occur onto the special fiber. This is because each of the triangles in the Newton polygon is a copy of $\bP^2$. \red{something} corresponds to the vertices of the curves being $(0,0)$ and $(1,1)$. So what the picture tells us \red{something}. And then there's two planes one with valuation zero and one with valuation $-1$ that play a specific part in the sense that they contain lines that meet $x_0x_3=0$ which holds regardless of the valuation and this gives us a vertical line.\par 
+The subdivision of the Newton polygon tells us how the degenerations occur onto the special fiber. This is because each of the triangles in the Newton polygon is a copy of $\bP^2$. \red{something} corresponds to the vertices of the curves being $(0,0)$ and $(1,1)$. So what the picture tells us \red{something}. Then there is two planes one with valuation zero and one with valuation $-1$ that play a specific part in the sense that they contain lines that meet $x_0x_3=0$ which holds regardless of the valuation and this gives us a vertical line.\par 
 We break the surface into two surfaces and the curve into two simple curves.\par 
-Somehow all this information can be described combinatorially with the information of toric geometry. When we see this sort of things we should think of a fan or a sort of cone on $N_T\x\bR$. Then we say at $t=1$ we see the tropical cruve. Then we take the cone over the tropical curve. \red{flaps expand}. Pointing out the $t=0$ what we see is the recession fan of the tropical curve. This picks up the unbounded directions of the tropical curve. And this is a fan which allows to make a map from one toric variety to another. The inverse image of the generic fiber, is \red{something projective}. That means that our old picture can be described with toric geometry. \red{There's a map}
+Somehow all this information can be described combinatorially with the information of toric geometry. When we see this sort of things we should think of a fan or a sort of cone on $N_T\x\bR$. Then we say at $t=1$ we see the tropical cruve. Then we take the cone over the tropical curve. \red{flaps expand}. Pointing out the $t=0$ what we see is the recession fan of the tropical curve. This picks up the unbounded directions of the tropical curve. And this is a fan which allows to make a map from one toric variety to another. The inverse image of the generic fiber is \red{something projective}. That means that our old picture can be described with toric geometry. \red{There's a map}
 $$T^2\To\bP^3_\bK,\ [s:u]\mapsto[1:s:u:tsu] \To X_0X_3=tX_1X_2.$$
 
-\subsection{GFAN| Joel BN}
-
-Gfan is used to compute Gr\"obner complexes. In terms of graphical interface, there's no interface. It all runs on the terminal. Gr\"obner basis gives us a Gr\"obner cone which is a sub-cone of our usual tropical cone. In order to visualize, the app uses an auxiliary called \ttt{xfig}. The utility of this is that it exports figures to \LaTeX.
 
 \chapter{Projects}
 
@@ -2859,7 +2627,7 @@ Gfan is used to compute Gr\"obner complexes. In terms of graphical interface, th
 \subsection{Joel, Gfan }
 
 
-We get  a ma from the torus $T^2$ to $\PP_\KK^3$ via $(s:u) \mapsto (1::u:tsu)$. We get the conic $x_0x_3=tx_1x_2$. For $t\neq 0$ we get he smooth quadratic, for $t=1$ we get the itnersection of planes.
+We get a map from the torus $T^2$ to $\PP_\KK^3$ via $(s:u) \mapsto (1::u:tsu)$. We get the conic $x_0x_3=tx_1x_2$. For $t\neq 0$ we get he smooth quadratic, for $t=1$ we get the itnersection of planes.
 The two copies of $\PP^2$ which have the line is also given by the lines of Puiseaux valued points correspodnign to the vfact taht the verticeis of the curve are $(0,0)$ and $(1,1)$. The tropical curve tells us that the central fiber of the family of curves corresponds to $x+y=0$, when $x_0$ and $x_3$ both equal $0$.
 
 
