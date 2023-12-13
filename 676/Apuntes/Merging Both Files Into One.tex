@@ -618,7 +618,7 @@ In a similar fashion, verify that $v_p$ is a valuation over $\bQ$.
 
 \chapter{The Tropical Numbers}
 
-\section{Day 4|20230828}
+\section{Motivation}%\section{Day 4|20230828}
 
 We have now seen where our ideas and intuition come from. Certain kinds of minimization problems give rise to our tropical numbers, and by expressing complex numbers in a logarithmic scale without phase, inducing a sum actually gives us a hypersum. The was converted into an operation by taking a limit, and the algebraic structure we obtained was once again the tropical numbers. Let us talk more formally about the perspective of valued fields.
 
@@ -840,14 +840,16 @@ Prove or disprove that the greedy algorithm will find an optimal assignment for 
 \end{Ej}
 
 
-\subsection{Tropical Polynomials and Roots}
+\section{Tropical Polynomials and Roots}
+
+\subsection{Tropical Polynomials $\bT[x]$}
 
 A tropical univariate (Laurent) monomial is corresponds to an affine linear function with integer coefficients. Such a monomial is an expression of the form 
 $$a\odot x^{\odot m},\quad a\in\bT,\quad m\in\bZ.$$
 
 \begin{Ex}
     Consider
-    $$5x^2\otto 5+2x\text{ and } 2x^{-3}\otto 2-3x.$$
+    $$5x^2\otto 5+2x\word{and} 2x^{-3}\otto 2-3x.$$
     The second example is a Laurent monomial because of the negative power.\par
     Also consider $\sqrt 5\odot x^{\odot 3}$, which corresponds to $y=\sqrt{5}+3x$. Notice how the slope is always an integer, but the translation can be any number. This is an affine linear transformation because we can shift via $a,$ and it has integer slope $m.$ Furthermore, $$\{-\infty\}\odot x^{\odot m} = -\infty + mx = - \infty,$$ so we maintain that multiplying by the additive identity gives the additive identity.
 \end{Ex}
@@ -885,6 +887,12 @@ A small measure of care should be taken here because there are multiple tropical
     \end{figure}
     Adding something which is smaller than the minimum value of the function does not change it in general. This added element also need not be a constant. In the previous example, the the monomial $(-4)\odot x^{\odot 1}$ is smaller than any of the linear functions, so its addition changes nothing.
 \end{Ex}
+
+\begin{Ej}
+    Study the algebraic properties of $(\bT[x],\oplus,\odot)$, is it a ring? A semiring? Anything at all?
+\end{Ej}
+
+\subsection{Roots of Tropical Polynomials} %PAGE 4/11 TG4
 
 Now that we have defined polynomials, we seek a tropical interpretation of roots of polynomials. It does not make sense to say "values of $x$ for which $p(x)= - \infty$, and solving for $0$ also does not help, as in this context, $0$ is just another number/function. Thus, to talk about the roots, we will start with a purely combinatorial definition. 
 
@@ -1123,19 +1131,11 @@ However, we should be skeptical since this was only an example of a linear polyn
         \label{fig:4.5-CorrespondenceRoots2Example}
     \end{figure}
 \end{Ex}
-
-
-
-
-
-
-
-\section{Interim 2}
-
+%%TG5
 \begin{Def}
     If $q(x)=\sum a_kx^k\in\bC[X]$ or $\bC\set{\set{t}}[x]$, then the \term{tropicalization} of $q$ is 
-    $$\Trop(q)=\sum T_{t\to\infty}(a_k)x^k$$
-    or respectively with the valuation. In this case, we omit the notation for tropical operations but the sum and product are indeed tropical.
+    $$\Trop(q)=\bigoplus T_{t\to\infty}(a_k)\odot x^{\odot k}$$
+    or respectively with the valuation. 
 \end{Def}
 
 \begin{Th}
