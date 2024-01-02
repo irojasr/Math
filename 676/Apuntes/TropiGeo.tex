@@ -472,6 +472,8 @@ This valuation can be used to study the field of $p$-adic numbers which is the c
 In a similar fashion, verify that $v_p$ is a valuation over $\bQ$.
 \end{Ej}
 
+%Look at https://nonlinearalgebra.wordpress.com/2016/05/30/puiseux-series-example/
+
 \section{Day 4|20230828}
 
 We have seen where our ideas come from. Certain kinds of minimization problems give rise to our tropical numbers. Also by expressing complex numbers in a logarithmic scale without phase then when inducing a sum we actually get a hypersum. The way we converted into an operation is by taking a limit. Then the algebraic structure we obtained was once again the tropical numbers. Let us talk about the perspective of valued fields.
@@ -843,18 +845,21 @@ How do we know that the notions of roots are natural or useful?
 
 Suppose a polynomial $p\in\bT[x]$ has roots $a_k$ with multiplicity $m_k$. Then we may factor $p$ as a product of linear polynomials 
 $$p(x)=c_0\bigodot(x\oplus a_k)^{m_k}.$$
-This $p$ is the affine piecewise-linear function, not the formal object. And so, in a sense, $\bT$ is algebraically closed. But instead of proving this, we will sketch the proof to get an idea of how things \emph{work} with a couple of examples.\par 
-The idea of the proof is that we check that product does define a P.L. function with the right slopes and then $c_0$ gives the translation factor.
+This $p$ is the affine piecewise-linear function, not the formal object. And so, in a sense, $\bT$ is algebraically closed. But instead of proving this, we will sketch the proof to get an idea of how things \emph{work} with a couple of examples.\par
+The idea of the proof is that we check that product does define a piecewise linear function with the right slopes and then $c_0$ gives the translation factor.
+
 \begin{Ex}
-First lets deal with the case where $-\infty$ is not a root. Consider the polynomial 
+In the first place, assume $-\infty$ is not a root so, consider the polynomial 
 $$p(x)=(-1)\oplus(-1)\odot x\oplus(-4)\odot x^4=\max(-1,x-1,4x-4).$$
-Remember, as in the case of real polynomials, the square and cube terms are still there. The coefficient that foes along them is just $-\infty$. We can graph the polynomial in order to see the roots:
+The square and cube terms are still there, but the coefficient that goes along them is just $-\infty$:
+$$\dots\oplus A\odot x^{\odot 2}\oplus B\odot x^{\odot 3}\dots,\word{for}A,B\ll 0.$$
+We can graph the polynomial in order to see the roots:
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{figs/fig4-1-InfinityNotRoot.png}
     \caption{Graph of $p(x)$ with roots shown}
     \label{fig:4.1-InfinityNotRoot}
-\end{figure}
+\end{figure}\\
 The points where there is a change in slope are $a_1=0$ and $a_2=1$. Then their multiplicities are $1-0=1$ and $4-1=3$ respectively. We may write $p$ as 
 $$p(x)=c_0\odot(x\oplus 0)\odot(x\oplus 1)^{3}=c_0+\max(x,0)+\max(3x,3).$$
 Whatever function we have, we can write as the sum of three terms. So let us subdivide the tropical line in order to see which terms goes where.
@@ -871,7 +876,7 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
     \end{tabular}
     \legend{Behavior of $p(x)$ across $\bT$}
     \end{table*}
-    The constant can be determined by plugging in $x=-\infty$. We can see that 
+    The constant term can be determined by plugging in $x=-\infty$. We can see that 
     \begin{align*}
         p(-\infty)&=(-1)\oplus(-1)\odot (-\infty)\oplus(-4)\odot (-\infty)^4=-1\\
         &=c_0\odot(-\infty\oplus 0)\odot(-\infty\oplus 1)^3=c_0\odot0\odot 1^{\odot 3}.
@@ -885,6 +890,7 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
     So in this case $c_0=p(-\infty)-\sum m_ka_k\in\bR$.
 \end{Ex}
 
+%%%MAYBE DIVIDE INTO TWO EXAMPLES? 2401021039
 \begin{Ex}
     We now explore the case where $-\infty$ is a root or a pole. The argument will essentially be the same with a small modification.\par 
     Consider the function $\frac{1}{x}\oplus x$.
@@ -895,7 +901,7 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
         \label{fig:4.2-RootAndPoleProof}
     \end{figure}
     We have $-\infty$ as a pole of order $1$ and $0$ is a root of order $1-(-1)=2$. So this can be factored as 
-    $$p(x)=c_0\odot(x^{-1})\odot(x+\oplus 1)^2$$
+    $$p(x)=c_0\odot(x^{-1})\odot(x\oplus 1)^2$$
     and even if $-\infty$ doesn't give us a particular value for the function, we can still find $c_0=0$ from the equation $p(0)=0$.\par 
     If on the other hand we have a negative slope then we have a zero at $-\infty$. Consider the function $p(x)=x+x^2$:
     \begin{figure}[h!]
