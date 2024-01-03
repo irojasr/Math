@@ -890,20 +890,28 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
     So in this case $c_0=p(-\infty)-\sum m_ka_k\in\bR$.
 \end{Ex}
 
+We now explore the case where $-\infty$ is a root or a pole. The argument will essentially be the same with a small modification.
 %%%MAYBE DIVIDE INTO TWO EXAMPLES? 2401021039
 \begin{Ex}
-    We now explore the case where $-\infty$ is a root or a pole. The argument will essentially be the same with a small modification.\par 
-    Consider the function $\frac{1}{x}\oplus x$.
+    Consider the function $p(x)=x^{\odot-1}\oplus x=\max(x,-x)$, this function has a pole at $-\infty$.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{figs/fig4-2RootAndPoleProof.png}
         %\caption{}
         \label{fig:4.2-RootAndPoleProof}
     \end{figure}
-    We have $-\infty$ as a pole of order $1$ and $0$ is a root of order $1-(-1)=2$. So this can be factored as 
-    $$p(x)=c_0\odot(x^{-1})\odot(x\oplus 1)^2$$
-    and even if $-\infty$ doesn't give us a particular value for the function, we can still find $c_0=0$ from the equation $p(0)=0$.\par 
-    If on the other hand we have a negative slope then we have a zero at $-\infty$. Consider the function $p(x)=x+x^2$:
+    In fact, $-\infty$ is a pole of order $1$ and $0$ is a root of order $1-(-1)=2$. So this can be factored as 
+    $$p(x)=c_0\odot(x^{-1})\odot(x\oplus 0)^{\odot 2}$$
+    and even if $-\infty$ doesn't give us a particular value for the function, we can still find $c_0=0$ from the equation $p(0)=0$. Observe that in fact, 
+    \begin{align*}
+        0+(-x)+2\max(x,0)&=(-x)\bool{x<0}+(-x)\bool{x\geq 0}+2x\bool{x\geq 0}\\
+        &=(-x)\bool{x<0}+x\bool{x\geq 0}=|x|.
+    \end{align*}
+\end{Ex}
+
+\begin{Ex}
+    If on the other hand we have a negative slope when $x\ll 0$, then we have a zero at $-\infty$. Let us consider the function 
+    $$p(x)=x\oplus x^{\odot 2}=\max(x,2x).$$
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{figs/fig4-3RootsForProof.png}
@@ -912,10 +920,16 @@ Whatever function we have, we can write as the sum of three terms. So let us sub
     \end{figure}
     This function has two simple roots at $-\infty$ and $0$. We may factor it as 
     $$p(x)=c_0\odot(x\oplus-\infty)\odot(x\oplus 0)$$
-    and even if $p(-\infty)=-\infty$ we can plug in $0$ to get $0$ back in order to get $c_0=1$.
+    and even if $p(-\infty)=-\infty$ we can plug in $0$:
+    $$0=p(0)=c_0\odot(0\oplus-\infty)\odot(0\oplus 0)\To c_0=0.$$
 \end{Ex}
 
-\subsection{Correspondence Theorems}
+\begin{Rmk}
+    The fact that $c_0=0$ makes sense as $0=1_\bT$, even if it may seem counterintuitive.
+\end{Rmk}
+%%%END OF TG4
+
+\subsection{Correspondence Theorems}%Begin TG5
 Recall the maps
 $$
 \left\lbrace 
@@ -931,15 +945,16 @@ then we can produce a tropical polynomial as follows:
 
 \begin{enumerate}[i.]
     \item Apply $T_t$ or $\val$ to the coefficients, and
-    \item Perform tropical operations.
+    \item Switch regular operations to tropical operations.
 \end{enumerate}
 
-We expect that if $r\in\bC$ or $r\in\bC\{\!\{t\}\!\}$ is a root of $p$, then $\lim_{t\to\infty}T_t(r)$ will be a root of the new polynomial.\par
-Or the other way around, given $p\in\bT[x]$, we can lift the coefficients to $\bC$ or the Puiseux series via the above maps. We can find the roots of the corresponding polynomials in $\bC[x]$ or $\bC\{\!\{t\}\!\}[x]$ and then the image of those roots via $T_t$ or $\val$ are the tropical roots of $p(x)$.
+We expect that if $r\in\bC$ or $r\in\bC\{\!\{t\}\!\}$ is a root of $p$, then $\lim_{t\to\infty}T_t(r)$ (or $\val(r)$) will be a root of the new tropical polynomial.\par
+Or the other way around, given a tropical polynomial $p\in\bT[x]$, we can lift the coefficients to $\bC$ or to the Puiseux series via the above maps. When we find the roots of the corresponding polynomials in $\bC[x]$ or $\bC\{\!\{t\}\!\}[x]$, we can send them back via $T_t$ or $\val$ and those should be the tropical roots of $p(x)$.
 
 \begin{Ex}
-    Consider the polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. We wish to construct a polynomial in $\bC[x]$ which tropicalizes to $p$. Take the polynomial 
-    $$q(x)=t^2X+t^3\in\bC[x],\quad t>0$$ 
+    Consider the tropical polynomial $p(x)=2\odot x\oplus3\in\bT[x]$. Recall that this is $\max(2+x,3)$ ordinarily.
+    We wish to construct a polynomial in $\bC\{\!\{t\}\!\}[x]$ which tropicalizes to $p$. Take the polynomial 
+    $$q(x)=t^2X+t^3\in\bC\{\!\{t\}\!\}[x],\quad t>0$$ 
     We could certainly add phase as $e^{i\te}$ to the $t^k$'s, but that won't change anything. Taking the logarithm of the coefficients we get 
     $$t^2\mapsto 2\word{and}t^3\mapsto 3.$$ 
     Then switching the operations to tropical operations we have
@@ -955,7 +970,7 @@ Or the other way around, given $p\in\bT[x]$, we can lift the coefficients to $\b
 \end{Ex}
 
 We should be skeptical because this was only an example of a linear polynomial. Lets increase the degree and see what happens. Eventually this correspondence must be shown to hold in its entirety.
-
+%Aqui vamos 240103
 \begin{Ex}
     Consider the polynomial
     $$q(X)=X^2+t^2X+1\in\bC[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0.$$
