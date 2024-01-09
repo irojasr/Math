@@ -973,7 +973,7 @@ We should be skeptical because this was only an example of a linear polynomial. 
 %Aqui vamos 240103
 \begin{Ex}
     Consider the polynomial
-    $$q(X)=X^2+t^2X+1\in\bC[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0.$$
+    $$q(X)=X^2+t^2X+1\in\bC\{\!\{t\}\!\}[X]\xrightarrow[]{\Trop}p(x)=x^2\oplus 2\odot x\oplus 0\in\bT[x].$$
     We can identity the roots of $p$ as $-2$ and $2$. However, we may find it difficult to interpret the roots of $q$ as roots of $p$. Observe that using the quadratic formula we may derive those to be:
     $$X_{1,2}=\frac{-t^2}{2}\pm\frac{\sqrt{t^4-4}}{2}=\frac{-t^2}{2}\left(1\pm\sqrt{1-\frac{4}{t^4}}\right).$$
     Even if taking the logarithm seems hard, we are not interested in the logarithm itself, just the limit! Observe that 
@@ -1026,46 +1026,62 @@ Let $q\in\bC\{\!\{t\}\!\}[x]$, then $r\in\bC\{\!\{t\}\!\}$ is a root of $q$ if a
 \begin{ptcbp}
 Let us begin by considering a root $r$ of $q$, then $q(r)=0$ which means that 
 $$a_0+a_1r+\dots+a_dr=0.$$
-This is formal sum of monomials which in order to vanish, at least two of the monomials must reach a minimum order of vanishing to cancel. This is equivalent to $\val(r)$ being a root of $\Trop(q)$. \par %%REVIEW
-The other directior is substantially more difficult. This will be an instance of a realizability question. We have two cases, $r$ is a finite root or $r=\infty$. We will assume that $r$ is finite and do a proof by example. 
+This is formal sum of monomials which in order to vanish needs at least two of the monomials to reach a minimum order of vanishing in order to cancel. This is equivalent to $\val(r)$ being a root of $\Trop(q)$. \par %%REVIEW
+The other direction is substantially more difficult. This will be an instance of a realizability question. We have two cases, $r$ is a finite root or $r=\infty$. We will assume that $r$ is finite and do a proof by example. 
 \end{ptcbp}
 
 \begin{Ex}
     Consider the polynomial 
-    $$q(x)=tx^3+x^2+x+t\To\Trop q(x)=1\.x^3+x^2+x+1$$
+    $$q(X)=tX^3+X^2+X+t\To\Trop q(x)=1\.x^3+x^2+x+1$$
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.85\textwidth]{figs/fig5-1RealizabilityExampleProof.png}
         \caption{Tropicalization of $q$ in $\min$ convention}
         \label{fig:5.1-RealizabilityExampleProof}
     \end{figure}
-    The roots of this polynomial are $-1,0$, and $1$. We will now find a root $r_1\in\bC\{\!\{t\}\!\}$ of $q$ with $\val(r_1)=r_1$. For this to happen we requiere 
-    $$r_1=yt^{-1}+z\word{where}y\in\bC\word{and}z\in\bC\{\!\{t\}\!\},\ \val z>r_1.$$
-    We now plug in $r_1$ into $q$ and we obtain
+    The roots of this polynomial are 
+    $$r_1=-1,\quad r_2=0,\word{and}r_3=1.$$
+    We will now find a root $R_1\in\bC\{\!\{t\}\!\}$ of $q$ with $\val(R_1)=r_1$. For this to happen we requiere 
+    $$R_1=yt^{-1}+Z\word{where}y\in\bC\word{and}Z\in\bC\{\!\{t\}\!\},\ \val Z>r_1.$$
+    Plugging $R_1$ into $q$ leaves us with
     \begin{align*}
-        q(r_1)&=t(yt^{-1}+z)^3+(yt^{-1}+z)^2+(yt^{-1}+z)+t\\
-        &=\un{y^3t^{-2}}+3y^2zt^{-1}+3yz^2+z^3t+\un{y^2t^{-2}}+2yzt^{-1}+z^2+yt^{-1}+z+t
+        q(R_1)&=t(yt^{-1}+Z)^3+(yt^{-1}+Z)^2+(yt^{-1}+Z)+t\\
+        &=\un{y^3t^{-2}}+3y^2Zt^{-1}+3yZ^2+Z^3t+\un{y^2t^{-2}}+2yZt^{-1}+Z^2+yt^{-1}+Z+t
     \end{align*}
-    Extracting the coefficients we get $y^3+y^2=0$ which means that $y=-1$. Plugging this back into our expression as $y$ we get 
-    $$3zt^{-1}-3z^2+z^3t-2zt^{-1}+z^2-t^{-1}+z+t=tz^3-2z^2+(t^{-1}+1)z+(-t^{-1}+t).$$
-    Tropicalizing (\red{is it actually or is it the reverse operation?}) we get 
-    $$1\.z^3+z^2+(-1)z+(-1)$$
-    which has as a root $1>-1$ So 
-    $$z=y+z_1\word{with}y\in\bC,\quad z_1\in\bC\{\!\{t\}\!\}.$$  
+    where the underlined terms are the ones smaller than $t^{-1}$. Extracting their coefficients and equating to them zero gives us $y^3+y^2=0$ which means that $y=-1$. Plugging this back into our expression as $y$ we get 
+    \begin{align*}
+        &3Zt^{-1}-3Z^2+Z^3t-2Zt^{-1}+Z^2-t^{-1}+Z+t\\
+        =&tZ^3-2Z^2+(t^{-1}+1)Z+(-t^{-1}+t).
+    \end{align*}
+    Tropicalizing this $R_1$ we get 
+    $$\Trop R_1\mid_{y=-1}=1\odot z^{\odot 3}\oplus z^{\odot 2}\oplus (-1)\odot z\oplus (-1)=\min(3z+1,2z,z-1,-1).$$
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{figs/fig5-2EndOfProofFiniteCase.png}
-        \caption{I don't know what this is}
+        \caption{$\Trop R_1$ at $y=-1$.}
         \label{fig:5.2-EndOfProofFiniteCase}
     \end{figure}
-    \red{ASK MAPLE CODE}
+    This has two roots $r_1=-1$ and $r_2=0$, one of which is larger than $-1$. So we now pick
+    $$Z=y_1+Z_1\word{with}y_1\in\bC,\quad Z_1\in\bC\{\!\{t\}\!\}\word{and}\val(Z_1)\ge 0\footnote{It's actually an strict inequality but keyboard isn't working.}.$$
+    We can plug this back into our expression to get 
+    \begin{align*}
+       &t(y_1+Z_1)^3-2(y_1+Z_1)^2+(t^{-1}+1)(y_1+Z_1)+(-t^{-1}+t)\\
+       =&t\left((y_1+Z_1)^3+1\right)-2(y_1+Z_1)^2+(y_1+Z_1)+t^{-1}(y_1+Z_1+1)
+    \end{align*}
+    \red{ASK MAPLE CODE, how do we solve for $y_1$ here?}
 \end{Ex} 
 
 The question now is: how do we turn this idea into a formal proof?
 \begin{enumerate}[i.]
-    \item We do one root at a time, starting with the rightmost one.
+    \item We work with one root at a time, starting with the rightmost one.
     \item Observe that if $r$ is a tropical root and $\al=yt^r$ with $y$ chosen so cancellation happens, then denoting $\tilde{q}$, $q$ without the $x^0$ term:
     $$\Trop(q(x+\al))>\Trop(\tilde{q})\oplus\Trop(q(\al)).$$
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.1\textwidth]{figs/fig1-1.png}%{figs/figInterim2-CancellationPhenomenon.png}
+        \caption{Cancellation Phenomenon}
+        \label{fig:Interim2-CancellationPhenomenom}
+    \end{figure}    
     \item Finally we iterate and check that the sequence of $r_i$'s goes to $\infty$.
 \end{enumerate}
 
@@ -1083,7 +1099,7 @@ In other words we are looking for the largest slope:
 \end{figure}
 We may repeat this argument for the following roots to get the following algorithm:
 \begin{enumerate}[i.]
-    \item Let $p_k=(k,a_k)\in\bonj{0,d}\x\set{-\infty}\cup\bR$.
+    \item Let $p_k=(k,a_k)\in\bonj{0,d}\x\bT$.
     \item Now $\Sg$ is the convex hull of the points $\set{p_k\:\ k\in[d]}$. We may divide the region into $\Sg^+$ and $\Sg^-$.
     \item Call $q_i=\pi(p_i)$ for $p_i$'s that for the vertices of $\Sg^+$.
 \end{enumerate}
@@ -1091,7 +1107,7 @@ The roots will be in bijection with the connected components of $\bonj{0,d}\less
 
 \begin{Ex}
     Take for example the polynomial 
-    $$p(x)=0+1\.x+1\.x^2+x^3+2\.x^4+1\.x^5.$$
+    $$p(x)=0\oplus1\odot x\oplus 1\odot x^{\odot 2}\oplus x^{\odot 3}\oplus 2\odot x^{\odot 4}\oplus 1\odot x^{\odot 5}.$$
     We now place the points in our diagram and project:
     \begin{figure}[h!]
         \centering
@@ -1099,16 +1115,36 @@ The roots will be in bijection with the connected components of $\bonj{0,d}\less
         \caption{Root finding for $p(x)$}
         \label{fig:6.2-CombinatorializationExample}
     \end{figure}
-    From this we deduce that there are $2$ simple roots and $1$ triple root. This come from the equations
+    Looking at the diagram we see three segments:
+    $$\obonj{0,1},\quad\obonj{1,4},\word{and}\obonj{4,5}$$
+    which means that there are 3 roots. Their multiplicities will be $1,3$ and $1$ respectively as those are the lengths of the intervals.\par
+    To actually find the root we look at the monomials and equate them. The monomial corresponding to the $0$ coefficient is just $0$ and the one with $1$ is $x+1$. From this we get the equation $0=x+1$. In a similar fashion we get the roots as follows:
     $$
     \left\lbrace
     \begin{aligned}
-        &0=x+1&\To x=-1\\
-        &x+1=2+4x&\To x=-1/3\\
-        &2+4x=1+5x&\To x=1
+        &0=x+1\\
+        &x+1=2+4x\\
+        &2+4x=1+5x
+    \end{aligned}
+    \right.
+    \To
+    \left\lbrace
+    \begin{aligned}
+        &x=-1\\
+        &x=-1/3\\
+        &x=1
     \end{aligned}
     \right.
     $$
+    With this, we have that $-1,1$ are simple roots while $-1/3$ is a triple root.
+\end{Ex}
+
+\begin{Ex}
+    Consider now the polynomial 
+    $$p(x)=(-5)\oplus x\oplus  x^{\odot 2}\oplus(-4)\odot x^{\odot 4}\oplus(-10)\odot x^{\odot 6}.$$
+    Ordinarily, we can find its roots to be $-5,0,2$ and $3$ with multiplicities $1,1,2$ and $2$ respectively.\par 
+    Now let us place our $p_k$ points on top of the interval $\bonj{0,6}$ and see what happens.
+    %FINISH THIS EXAMPLE 20240109
 \end{Ex}
 
 \subsection{Gr\"obner Complexes}
