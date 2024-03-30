@@ -1,0 +1,114 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2024}
+\def\nprofesor {Renzo Cavalieri}
+\def\nsigla {DN}
+\def\nsiglahead {Doctoral Notebook}
+\def\nlang {ENG}
+%\def\ntrim{}
+%\def\darktheme{}
+\input{../headerVarillyDiff}
+\author{\nauthor}
+\begin{document}
+%\clearpage
+%\thispagestyle{empty}
+{\small 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This is my doctoral notebook where I will add clean information regarding whatever I'm learning about at the moment. It should serve as a starting point for writing. ¿Writing what? You may ask, I don't know.
+}
+\newpage
+\tableofcontents
+%\begin{multicols}{2}
+\chapter{A Study of \emph{The Green Book} and the Moduli of Curves}
+
+\section{Introduction and Prologue of \emph{The Green Book}}
+
+The main objective of the green book is to prove the formula for the number $N_d$ of rational curves of degree $d$ passing through $3d-1$ points in general position in $\bP_\bC^1$. Let's begin by unwrapping some concepts:
+
+\begin{Def}
+A \term{projective curve} $\cC$ is the zero locus of points in $\bP^2_k$ which satisfy a homogeneous polynomial equation. Formally, for a homogeneous polynomial $f\in k[X,Y,Z]$, the projective curve determined by $f$ is
+$$V(f)=\set{p\in\bP^2_k\:\ f(p)=0}.$$
+If $f$ has degree $d$, then the curve $\cC$ is said to be a \term{curve of degree $d$}.
+\end{Def}
+
+\begin{Ex}
+Consider the polynomial 
+$$f(X,Y,Z)=X-Y-Z.$$
+Inside the affine plane $\set{Z=1}$, this contains all the points of the form $(X:X-1:1)$. This is the line $y=x-1$ in $\bA^2$. But it also contains the point at infinity $(1:1:0)$. The degree 1 curve being described here is a projective line.
+\end{Ex}
+
+\begin{Ex}
+    The degree 2 curve described by the equation $XY-Z^2=0$ is an affine hyperbola containing two points at infinity $(1:0:0)$ and $(0:1:0)$. 
+\end{Ex}
+
+\begin{Def}
+A \term{parametrization} of a curve $\cC$ is a generically injective function $$\phi\:\bP^1_k\to\bP^2_k,\ (S:T)\mapsto(P(S:T),Q(S:T),R(S:T)),\quad P,Q,R\in k[S,T]_h.$$
+A projective plane curve admitting a parametrization is called a \term{rational curve}.
+\end{Def}
+
+\begin{Ex}
+    The line $X-Y-Z=0$ can be parametrized with $\phi(S:T)=(S,T,S-T)$. \red{¿Is the other curve rational?}
+\end{Ex}
+
+\begin{Ex}
+    Degree $d$ curves with a $d-1$-tuple point are rational. As they can be parametrized by a line passing through the singular point. 
+\end{Ex}
+
+\subsection{The dimension of maps from $\bP^1$ to $\bP^2$ of degree $d$}
+
+The number $3d-1$ sounds like an arbitrary number. It certainly did to me at least; this number corresponds to the dimension of the space of maps from $\bP^1$ to $\bP^2$ of degree $d$. There's this very important question, 
+\begin{significant}
+¿which vector space is the space of maps from $\bP^1$ to $\bP^2$  of degree $d$?
+\end{significant}
+
+\begin{Prop}
+The aforementioned space has dimension $3d-1$.
+\end{Prop}
+
+\begin{ptcbp}
+A map $F:\bP^1\to\bP^2$ is defined via homogeneous, degree $d$ polynomials. This means that 
+$$F(s:t)=(X:Y:Z)=(F_1(s:t),F_2(s:t),F_3(s:t)),$$
+where each $F_i$ is a homogeneous degree $d$ polynomial. Explicitly we may write 
+$$F_j(s:t)=\sum_{i=0}^da_is^{d-i}t^{i}=a_0s^d+a_1s^{d-1}t+\dots+a_{d-1}st^{d-1}+a_dt^d$$
+which allows us to see that every $F_j$ has $d+1$ degrees of freedom. But we have to take of changes in the input and output spaces:
+\begin{itemize}
+    \item $3$ dimensions off for $\Aut(\bP^1)=\PGL_2$.
+    \item $1$ dimension off for projective quotients: $(X:Y:Z)=\la(X:Y:Z)$.
+\end{itemize}
+This leaves us with $3d+3-3-1=3d-1$ dimensions. 
+\end{ptcbp}
+
+There's another way to prove this by counting the general number of degree $d$ curves and then making sure they are rational. For this we need the \term{genus-degree formula}.
+
+\begin{Prop}\label{prop-genus-degree-formula}
+    A projective curve of degree $d$ has genus $\binom{d-1}{2}$.
+\end{Prop}
+
+The proof of the genus-degree formula will be written down at a later point when we have to talk about Bézout's theorem. For now, the second proof of the dimension question:
+
+\begin{ptcbp}
+    Consider a general degree $d$ curve defined by a homogeneous polynomial $F$. Such a polynomial can be written as a combination of monomials $X^{a}Y^{b}Z^{c}$ where $a+b+c=d$. So to count the number of monomials, we must find the number of triples $(a,b,c)$ of non-negative integers whose sum is $d$. This is precisely 
+    $$\multinom{3}{d}=\binom{3+d-1}{d}=\binom{d+2}{d}=\binom{d+2}{2},$$
+    and we have to take off $1$ dimension due to projective quotients.\par 
+    \red{Hold on, how did we reduce dimension by removing arithmethic genus?} But in essence what happens is that 
+    $$\binom{d+2}{2}-1-\binom{d-1}{2}=(d+1)+d+(d-1)-1=3d-1.$$
+\end{ptcbp}
+
+\begin{Rmk}
+    Recall $\multinom{n}{k}$ is the number of ways that I can distribute $k$ cookies amongst $n$ friends.
+\end{Rmk}
+
+The whole idea is to use the moduli space of maps from $\bP^1$ to $\bP^r$, $\ov\cM_{0,3d-1}(\bP^r,d)$, to show the formula. Isomorphism classes inside this set look like classes of bundles. And the formula is derived from intersection theory of this space. 
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiDoctoralNotebook.bib}
+\end{document} 
+
