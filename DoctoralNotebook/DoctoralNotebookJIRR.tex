@@ -10,6 +10,8 @@
 %\def\ntrim{}
 %\def\darktheme{}
 \input{../headerVarillyDiff}
+\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
+\newcommand{\Submickey}{\pre{\scalebox{0.75}{\ensuremath\bullet}}\hspace{-0.9mm}{\raisebox{-0.35mm}{\scalebox{1.1}{\ensuremath\bullet}}}^{\hspace{-1.1mm}\raisebox{-0.1mm}{\scalebox{0.75}{\ensuremath\bullet}}}}
 \author{\nauthor}
 \begin{document}
 %\clearpage
@@ -94,7 +96,7 @@ The proof of the genus-degree formula will be written down at a later point when
     Consider a general degree $d$ curve defined by a homogeneous polynomial $F$. Such a polynomial can be written as a combination of monomials $X^{a}Y^{b}Z^{c}$ where $a+b+c=d$. So to count the number of monomials, we must find the number of triples $(a,b,c)$ of non-negative integers whose sum is $d$. This is precisely 
     $$\multinom{3}{d}=\binom{3+d-1}{d}=\binom{d+2}{d}=\binom{d+2}{2},$$
     and we have to take off $1$ dimension due to projective quotients.\par 
-    \red{Hold on, how did we reduce dimension by removing arithmethic genus?} But in essence what happens is that 
+    \red{Hold on, how did we reduce dimension by removing arithmethic genus? I recall it had to do with collapsing a hole into a singularity by doing a process similarly inverse to resolving a singularity} But in essence what happens is that 
     $$\binom{d+2}{2}-1-\binom{d-1}{2}=(d+1)+d+(d-1)-1=3d-1.$$
 \end{ptcbp}
 
@@ -102,7 +104,94 @@ The proof of the genus-degree formula will be written down at a later point when
     Recall $\multinom{n}{k}$ is the number of ways that I can distribute $k$ cookies amongst $n$ friends.
 \end{Rmk}
 
-The whole idea is to use the moduli space of maps from $\bP^1$ to $\bP^r$, $\ov\cM_{0,3d-1}(\bP^r,d)$, to show the formula. Isomorphism classes inside this set look like classes of bundles. And the formula is derived from intersection theory of this space. 
+\begin{Ej}
+Learn why removing arithmethic genus reduces the dimension of the space of curves.
+\end{Ej}
+
+The whole idea is to use the moduli space of maps from $\bP^1$ to $\bP^r$, $\ov M_{0,3d-1}(\bP^r,d)$, to show the formula. Isomorphism classes inside this set look like classes of bundles. And the formula is derived from intersection theory of this space. 
+
+\subsection{Quadruplets of points}
+
+I consider myself lucky to already know what $M_{0,4}$ is (it's the set of genus 0 Riemann surfaces with 4 distinct marked points). The notion of 
+$$Q=\set{\text{quadruplets of distinct points in }\bP^1}$$
+is introduced to alleviate the posterior definition of the moduli space. The set of quadruplets of points can actually be viewed as 
+$$Q=(\bP^1)^4\less\Dl,$$
+where $\Dl$ is the set of diagonals. This means that if we have $\vec x=(x_1,\dots,x_4)$, then $\Dl=\set{x_i=x_j}$ for some $i,j$. So indeed $Q$ is the set of distinct quadruplets. 
+
+\begin{Rmk}
+    When I find it convenient, points in $(\bP^1)^n$ will be denoted $\vec x$, but I'll mostly forget and I'll just call them $x$ without acknowledging that they are arrays.
+\end{Rmk}
+
+\begin{Ej}
+Show that $Q$ is an algebraic variety. \hint{It's a similar argument to proving that $\bA^1\less\set{0}$ is an algebraic variety by considering $\bC[x,y]/\gen(xy-1)$.}
+\end{Ej}
+
+\begin{ptcb}
+The set $\Dl$ is a \emph{divisor}, we can see that it is 
+$$\Dl=V(x_1-x_2)\cup V(x_1-x_3)\cupycup V(x_3-x_4)=V\left(\prod_{\substack{i,j\in\bonj{4}\\ i<j}}(x_i-x_j)\right).$$
+Call this polynomial $f$, then $Q=\bA^4\less V(f)$ which can be seen as $V(tf-1)\subseteq \bA^{n+1}$.
+\end{ptcb}
+The set $Q$ is \emph{tautologically} a moduli space for quadruplets. In the easiest of terms, every element in $Q$ corresponds to a quadruplet of distinct points.\par
+In the same way you go up to $M_{0,4}\isom\bP^1\less\set{0,1,\infty}$, look at a point $[\la:\mu]$ and find a $\bP^1$ with 4 marked points $(0,1,\infty,\la/\mu)$, you can go up to $Q$ and look at a point $\vec{p}=(p_1,\dots,p_4)$ and see that it \emph{tautologically} corresponds to the point $\vec p=(p_1,\dots,p_4)$. ¡The parameter is the quadruplet itself!\par 
+It is claimed that $Q$ is a \emph{fine} moduli space \emph{because} it carries a universal family. In my mind, this notion of \emph{fineness}\footnote{\textbf{What is the difference between finesse and fineness?}
+Finesse refers to the skill and cleverness someone shows in the way they deal with a situation or problem. Fineness refers to a thing's quality of being fine—for example, the fineness of print (that is, how small the letters are) or the fineness of one wire in comparison to another (that is, how thin they are).} is the same as representability of the moduli space as a functor. 
+
+\begin{Ej}
+    ¿Is the fineness the same as representability as a functor? Also, ¿does having a universal family guarantee that a moduli space as a functor be representable?
+\end{Ej}
+
+\subsubsection{The family business}
+
+Intuitively, a family of pointed Mickies $\Mickey$ is a diagram:
+\begin{figure}[h!]
+    \centering
+\begin{tikzcd}
+    E \arrow[d, "\pi"']                     \\
+    B \arrow[u, "\sigma_i"', bend right=49]
+    \end{tikzcd}
+    %\caption{}
+    \label{fig-example-family-diagram}
+\end{figure}
+where $B$ is called the \term{base variety}, $E$ is more usually than not $\set{\Mickey}\x B$ and $\sg_i$ are sections which single out the important points in each Mickey. For each $b\in B$, the fiber over $b$, $\pi^{-1}(b)$ is isomorphic to a particular Mickey.\par 
+For a family to be \emph{universal}, it is my understanding that the base variety should be the moduli space of Mickies itself. So the universal family should be 
+
+\begin{figure}[h!]
+    \centering
+\begin{tikzcd}
+    E \arrow[d, "\pi"']                     \\
+    M_{\Submickey} \arrow[u, "s_i"', bend right=49]
+    \end{tikzcd}
+    %\caption{}
+    \label{fig-example-universal-family-diagram}
+\end{figure}
+
+such that every fiber $\pi^{-1}(x)$ is the corresponding Mickey and $s_i(x)$ is the $i^{\text{th}}$ characteristic of the corresponding Mickey but seen in the upstairs Mickey.
+
+\begin{Def}
+    A \term{family of quadruplets} in $\bP^1$ over a base variety $B$ is a family of pointed $\bP^1$'s with 4 sections $\sg_i$ singling out the points in each $\bP^1$. Diagramatically: 
+    \begin{center}
+    \begin{tikzcd}
+        B\x\bP^1 \arrow[d, "\pi"']                     \\
+        B \arrow[u, "\sigma_i(\x 4)"', bend right=49]
+        \end{tikzcd}
+    \end{center}
+    so a fiber over a point $b\in B$ is a copy of $\bP^1$ with four points marked via the map $\ssg=(\sg_1,\dots,\sg_4)$.
+\end{Def}
+
+From this, the universal family over $Q$ is the family of quadruplets over $Q$. The section $\sg_i$ is given by the $i^{\text{th}}$ projection mapping $\pi_i\: Q\to\bP^1$ which singles out the $i^{\text{th}}$ point of the quadruple.
+
+\begin{Ej}
+    The \emph{universal} family enjoys the \emph{universal} property that any other family of quadruples is induced from it via pullback. Explain how this happens and prove that the universal family indeed has this universal property.
+\end{Ej}
+
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRACEAdTgD24CMACgD0AjCAC+pdJlz5CKUaVFVajFmy68A+gEUAFLu59OQsQEpJ0kBmx4CRAEzLV9Zq0QgjvASPFSZO3knUkdXdQ8vK0C5B0VQ8PdNSVUYKABzeCJQADMAJwgAWyQlEBwIJAAWajcNT240LBBqBjp+GAZBWXsFEDysdIALHGiQfKKq6nKkAGYaiLZuAGs0ZpBW9s7u4M9+oZGAsYLixGcyisQ5tST6zkbR8ZPS6dPDx6Qyc5KWrDBIqDocEGaTWtUi3BgPCwcBwcAA-A1Bk03scPlMLtUQO0wFAkABaGafDYdLpBOJ9AbDUELW73FETRCfF5nbG4y7ECQUCRAA
+\begin{tikzcd}
+    B\x\bP^1 \arrow[rd, "\exists?\phi", dashed] \arrow[rdd, "\pi"', bend right] \arrow[rrd, bend left] &                                             &                           \\
+                                                                                                       & B\x_Q(Q\x\bP^1) \arrow[d, "\pi"'] \arrow[r] & Q\x\bP^1 \arrow[d, "\pi"] \\
+                                                                                                       & B \arrow[r, "\kp"']                         & Q                        
+    \end{tikzcd}
+\end{center}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
