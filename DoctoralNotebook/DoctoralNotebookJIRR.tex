@@ -96,8 +96,18 @@ The proof of the genus-degree formula will be written down at a later point when
 \begin{ptcbp}
     Consider a general degree $d$ curve defined by a homogeneous polynomial $F$. Such a polynomial can be written as a combination of monomials $X^{a}Y^{b}Z^{c}$ where $a+b+c=d$. So to count the number of monomials, we must find the number of triples $(a,b,c)$ of non-negative integers whose sum is $d$. This is precisely 
     $$\multinom{3}{d}=\binom{3+d-1}{d}=\binom{d+2}{d}=\binom{d+2}{2},$$
-    and we have to take off $1$ dimension due to projective quotients.\par 
-    \red{Hold on, how did we reduce dimension by removing arithmethic genus? I recall it had to do with collapsing a hole into a singularity by doing a process similarly inverse to resolving a singularity} But in essence what happens is that 
+    and we have to take off $1$ dimension due to projective quotients. Thus the dimension of the space of degree $d$ curves is precisely $N\:=\binom{d+2}{2}-1$.\par 
+    Consider now the universal curve over $\bP^N$
+    $$\cU=\set{F=\sum_{i+j+k=d}a_Ix^iy^jz^k=0}\subseteq\bP^N\x\bP^2.$$
+    such that the curve $\set{F=0}$ is the fiber above the point $a_I\in\bP^N$. The family's dimension is precisely $N+1$, there's two ways to see this:
+    \begin{itemize}
+        \item We have all the dimensions of $\bP^N$ plus the dimension of the curve so that's $N+1$.
+        \item The universal curve lives inside a $(N+2)$-dimensional space and it's a hypersurface, as it is defined via one equation. So we add one codimension to get $N+1$.
+    \end{itemize}
+    Inside $\cU$ we have the singular locus
+    $$\text{Sing}=\cU\cap\set{\del_xF=0}\cap\set{\del_yF=0},$$
+    where each of this conditions impose a dimension 1 restriction so this whole singular locus has dimension $N+1-2=N-1$. Projecting down to $\bP^N$ we get the set of points in $\bP^N$ whose fibers correspond to curves with \emph{at least} one singularity $\pi(\text{Sing})$. This set still has dimension $N-1$ inside of $\bP^N$ which means that adding a singularity adds one codimension.\par 
+    Continuing this process we find smaller subsets corresponding to curves with more nodes and adding each node means adding one codimension. For the curve to be rational, we must add $g=\binom{d-1}{2}$ nodes in total, so that we add $g$ codimensions. The set of curves with $g$ singularities forms an open set inside of the rational curves which means that the dimension of the set of rational curves is
     $$\binom{d+2}{2}-1-\binom{d-1}{2}=(d+1)+d+(d-1)-1=3d-1.$$
 \end{ptcbp}
 
@@ -110,17 +120,7 @@ Learn why removing geometric genus reduces the dimension of the space of curves.
 \end{Ej}
 
 \begin{ptcb}
-    There's a couple of things that we need to talk about:
-    \begin{itemize}
-        \item We can make genus decrease by collapsing a hole into a singularity. 
-        \item A singularity is a codimension one condition in the ``grand scheme of things''. Where by this I (intend to) mean the universal curve over the space of curves of degree $d$.
-    \end{itemize}
-    Lets go slowly: first consider the space of curves of degree $d$. In the proof of ``dimension of maps from $\bP^1$ to $\bP^2$'' (\ref{prop-dimension-maps-P1-to-P2}), we have shown that the dimension of the space of curves of degree $d$ is $N\:=\binom{d+2}{2}-1$. So now consider the universal curve $\cU$ (\red{is this the same as the universal family?}) over $\bP^N$ (it just so happens that this is $\cO_{\bP^2}(-1)$ which according to \textbf{Jae} has dimension $N+1$). It holds that 
-    $$\cU=\set{F=\sum_{i+j+k=d}a_Ix^iy^jz^k=0}\subseteq\bP^N\x\bP^2.$$
-    (\red{I don't understand why $\cU$ is that set}) But I do understand \emph{intuitively} that $\cU$ has dimension $N+1$ thanks to \textbf{Mark}. This is because $\cU$ has the whole dimension of the base, and for each fiber, we can vary in one more dimension which is the curve's parameter.\par 
-    Inside the universal curve, we have the singular variety which corresponds to 
-    $$\text{Sing}=\cU\cap\set{\del_xF=0}\cap\set{\del_yF=0},$$
-    each of this conditions impose a dimension 1 restriction so this whole singular locus has dimension $N+1-2=N-1$. Projecting down to $\bP^N$ we get the set of points in $\bP^n$ whose fibers correspond to singular curves $\pi(\text{Sing})$. This set still has dimension $N-1$ so when removing it, we are left with a one dimensional space, curves of degree $d$ without singularities. (\red{hold on, no, this can't be. Rational curves don't have dimension 1. What is going on?}) This means that removing singularities is a codimension 1 condition. (\red{but how did that help us?})
+    \red{It has to do with resolution or normalization of singularities. Clarify and add the picture}
 \end{ptcb}
 
 The whole idea is to use the moduli space of maps from $\bP^1$ to $\bP^r$, $\ov M_{0,3d-1}(\bP^r,d)$, to show the formula. Isomorphism classes inside this set look like classes of bundles. And the formula is derived from intersection theory of this space. 
@@ -178,7 +178,7 @@ Intuitively, a family of pointed Mickies $\Mickey$ is a diagram:
     %\caption{}
     \label{fig-example-family-diagram}
 \end{figure}
-where $B$ is called the \term{base variety}, $E$ is more usually than not $\set{\Mickey}\x B$ and $\sg_i$ are sections which single out the important points in each Mickey. For each $b\in B$, the fiber over $b$, $\pi^{-1}(b)$ is isomorphic to a particular Mickey.\par 
+where $B$ is called the \term{base variety}, $E$ is more usually than not $\set{\Mickey}\x B$ in genus 0 (But in higher genus and some genus 0 cases like the Hirzebruch surface, it's not) and $\sg_i$ are sections which single out the important points in each Mickey. For each $b\in B$, the fiber over $b$, $\pi^{-1}(b)$ is isomorphic to a particular Mickey.\par 
 For a family to be \emph{universal}, it is my understanding that the base variety should be the moduli space of Mickies itself. So the universal family should be 
 
 \begin{figure}[h!]
@@ -204,7 +204,7 @@ such that every fiber $\pi^{-1}(x)$ is the corresponding Mickey and $s_i(x)$ is 
     so a fiber over a point $b\in B$ is a copy of $\bP^1$ with four points marked via the map $\ssg=(\sg_1,\dots,\sg_4)$.
 \end{Def}
 
-From this, the universal family over $Q$ is the family of quadruplets over $Q$. The section $\sg_i$ is given by the $i^{\text{th}}$ projection mapping $\pi_i\: Q\to\bP^1$ which singles out the $i^{\text{th}}$ point of the quadruple.
+From this, the universal family over $Q$ is the family of quadruplets over $Q$ as a base. The section $\sg_i$ is given by the $i^{\text{th}}$ projection mapping $\pi_i\: Q\to\bP^1$ which singles out the $i^{\text{th}}$ point of the quadruple.
 
 \begin{Ej}
     The \emph{universal} family enjoys the \emph{universal} property that any other family of quadruples is induced from it via pullback. Explain how this happens and prove that the universal family indeed has this universal property.
@@ -235,6 +235,21 @@ In terms of the diagram for fibered products what we have is the following:
 $B\x\bP^1$ play the role of the new object which has morphisms to the already existing ones, and the pullback or fibered product is the universal object with this property.
 \end{ptcb}
 
+We have mentioned the idea of base morphisms, but formally\dots
+
+\begin{Def}
+    A \term{base morphism} between two families $E\xrightarrow[]{\pi}B$, $F\xrightarrow[]{\la}B$ is a map $\phi\:E\to F$ which makes the following diagram commute.
+    \begin{center}
+\begin{tikzcd}
+E \arrow[rd, "\pi"'] \arrow[rr, "\phi"] &   & F \arrow[ld, "\la"] \\
+                                        & B &                    
+\end{tikzcd}
+    \end{center}
+\end{Def}
+
+This does not add intuition to our understanding, but let us unravel the definition. The diagram commutes when 
+$$\pi=\la\phi,$$
+and recall that the families are 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
