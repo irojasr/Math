@@ -9,7 +9,7 @@
 \def\nlang {ENG}
 %\def\ntrim{}
 %\def\darktheme{}
-\let\footruleskip\relax %%FADIR
+%\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
 \newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
 \newcommand{\Submickey}{\pre{\scalebox{0.75}{\ensuremath\bullet}}\hspace{-0.9mm}{\raisebox{-0.35mm}{\scalebox{1.1}{\ensuremath\bullet}}}^{\hspace{-1.1mm}\raisebox{-0.1mm}{\scalebox{0.75}{\ensuremath\bullet}}}}
@@ -26,9 +26,9 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \newpage
 \tableofcontents
 %\begin{multicols}{2}
-\chapter{A Study of \emph{The Green Book} and the Moduli of Curves}
+\chapter{A Study of the Introduction and Prologue of \emph{The Green Book}}
 
-\section{Introduction and Prologue of \emph{The Green Book}}
+\section{Really quickly: The Introduction}
 
 The main objective of the green book is to prove the formula for the number $N_d$ of rational curves of degree $d$ passing through $3d-1$ points in general position in $\bP_\bC^1$. Let's begin by unwrapping some concepts:
 
@@ -125,7 +125,7 @@ Learn why removing geometric genus reduces the dimension of the space of curves.
 
 The whole idea is to use the moduli space of maps from $\bP^1$ to $\bP^r$, $\ov M_{0,3d-1}(\bP^r,d)$, to show the formula. Isomorphism classes inside this set look like classes of bundles. And the formula is derived from intersection theory of this space. 
 
-\subsection{Quadruplets of points}
+\section{Quadruplets of Points}
 
 I consider myself lucky to already know what $M_{0,4}$ is (it's the set of genus 0 Riemann surfaces with 4 distinct marked points). The notion of 
 $$Q=\set{\text{quadruplets of distinct points in }\bP^1}$$
@@ -166,7 +166,7 @@ Finesse refers to the skill and cleverness someone shows in the way they deal wi
     ¿Is the fineness the same as representability as a functor? Also, ¿does having a universal family guarantee that a moduli space as a functor be representable?
 \end{Ej}
 
-\subsubsection{The family business}
+\subsection{The Family Business}
 
 Intuitively, a family of pointed Mickies $\Mickey$ is a diagram:
 \begin{figure}[h!]
@@ -184,7 +184,7 @@ For a family to be \emph{universal}, it is my understanding that the base variet
 \begin{figure}[h!]
     \centering
 \begin{tikzcd}
-    E \arrow[d, "\pi"']                     \\
+    U \arrow[d, "\pi"']                     \\
     M_{\Submickey} \arrow[u, "s_i"', bend right=49]
     \end{tikzcd}
     %\caption{}
@@ -192,6 +192,10 @@ For a family to be \emph{universal}, it is my understanding that the base variet
 \end{figure}
 
 such that every fiber $\pi^{-1}(x)$ is the corresponding Mickey and $s_i(x)$ is the $i^{\text{th}}$ characteristic of the corresponding Mickey but seen in the upstairs Mickey.
+
+\begin{Rmk}\label{rmk-intuition-universal-family}
+    The idea behind universality is that this family $U\to M_{\Submickey}$ contains \emph{every possible Mickey}. All the possible Mickeys are coded as equivalence classes into points of $M_{Submickey}$, so when looking at fibers upstairs in $U$ there's not a Mickey we're missing.
+\end{Rmk}
 
 \begin{Def}
     A \term{family of quadruplets} in $\bP^1$ over a base variety $B$ is a family of pointed $\bP^1$'s with 4 sections $\sg_i$ singling out the points in each $\bP^1$. Diagramatically: 
@@ -206,20 +210,20 @@ such that every fiber $\pi^{-1}(x)$ is the corresponding Mickey and $s_i(x)$ is 
 
 From this, the universal family over $Q$ is the family of quadruplets over $Q$ as a base. The section $\sg_i$ is given by the $i^{\text{th}}$ projection mapping $\pi_i\: Q\to\bP^1$ which singles out the $i^{\text{th}}$ point of the quadruple.
 
-\begin{Ej}
+\begin{Ej}\label{ejer-universality-of-quadruplets-no-projective-equivalence}
     The \emph{universal} family enjoys the \emph{universal} property that any other family of quadruples is induced from it via pullback. Explain how this happens and prove that the universal family indeed has this universal property.
 \end{Ej}
 
 \begin{ptcb}
-    Let us begin by considering a family of quadruplets $\pi\: B\x\bP^1\to B$ along with its four sections $\sg_i$. We can build a map $\ssg$ which is the $\kp$ map we are looking for in this case from $B$ to $Q$ by considering all the sections:
+    Let us begin by considering a family of quadruplets $\pi\: B\x\bP^1\to B$ along with its four sections $\sg_i$. We can build a map $\ssg$ which is the $\kp\: B\to Q$ map we are looking for in this case from $B$ to $Q$ by considering all the sections:
     $$\ssg\:B\to Q,\ b\mapsto(\sg_1(b),\sg_2(b),\sg_3(b),\sg_4(b)).$$
     In order to create the pullback family, we look at the fiber of $\ssg(b)$ on the universal family of $Q$: $Q\x\bP^1$. To construct the pullback, we build it fiber by fiber.\par 
     For every $b\in B$, the fiber will be a copy of the fiber of $\ssg(b)$ but pasted on top of $B$ and the sections will be the pullback of the sections of $Q$ via $\ssg$:
     \begin{center}
 \begin{tikzcd}
     B\x\bP^1 \arrow[rdd, "\pi"'] \arrow[rr, "\exists?\phi", dashed] &                                                                                               & B\x_Q(Q\x\bP^1) \arrow[ldd, "\pi"] \\
-                                                                    &                                                                                               &                                    \\
-                                                                    & B \arrow[luu, "\sg_i(\x 4)", bend left=49] \arrow[ruu, "\ssg^\ast(s_i)(\x4)"', bend right=49] &                                   
+                                                                    && \\
+& B \arrow[luu, "\sg_i(\x 4)", bend left=49] \arrow[ruu, "\ssg^\ast(s_i)(\x4)"', bend right=49] &                                   
     \end{tikzcd}
     \end{center}
 Finally, we are in need of the base morphism $\phi$. Observe that this $\phi$ we are looking for is the identity map on the fibers. It takes fibers to fibers, the points of the quadruple to the corresponding \emph{same} points but in the other fiber, and it's invertible. It follows that $\phi$ is an isomorphism of families over $B$ which means that the original family and the one induced via pullback are equivalent.\par
@@ -234,6 +238,10 @@ In terms of the diagram for fibered products what we have is the following:
 \end{center}
 $B\x\bP^1$ play the role of the new object which has morphisms to the already existing ones, and the pullback or fibered product is the universal object with this property.
 \end{ptcb}
+
+\begin{Rmk}
+    Now, returning to our previous observation \ref{rmk-intuition-universal-family}, the universal family enjoys the universal property \emph{because it contains all of the possible fibers}. The $\kp$ map literally looks at a point $b$ in the base, asks which is the fiber above it and then points to that fiber's equivalence class in the moduli space. ¡Such a map's existence is guaranteed because the moduli space has (the equivalence class of) all the fibers!
+\end{Rmk}
 
 We have mentioned the idea of base morphisms, but formally\dots
 
@@ -261,9 +269,78 @@ Now in the case of sections:
                                                                 & B \arrow[lu, "\sg", bend left] \arrow[ru, "s"', bend right] &                     
     \end{tikzcd}
 \end{center}
-This diagram commutes when $s=\phi\sg$. So for a point $\sg(x)\in\pi^{-1}(x)$ 
+This diagram commutes when $s=\phi\sg$. So, ¿does a point $\sg(x)\in\pi^{-1}(x)$ get sent to another \emph{special point} on a fiber of $x$, or does it go to another fiber? Observe that if we map $\sg(x)$ through $\phi$ we get 
+$$\phi(\sg(x))=s(x)$$
+but also $\la(s(x))=x$, so it happens that $s(x)\in\la^{-1}(x)$ and not in another fiber.
 
+Intuitively, isomorphisms of families are morphisms of families which also happen to be bijective. This helps us now because the next step is looking at\dots
+
+\section{Quadruplets along with $\bP^1$}
+
+The Green Book goes along with the notion of quadruplets but now up to equivalence. Two quadruplets are equivalent when they differ by a $\bP^1$ automorphism term-by-term. Families of quadruplets will be projectively equivalent when there is a base-isomorphism between them.
+
+\begin{Ex}
+    The following quadruplets are equivalent:
+    \begin{itemize}
+        \item $(0,1,\infty,8)$ and $(0,2,\infty,16)$ via the M\"obius transformation $z\mapsto 2z$. 
+        \item $(-7/8,0,\infty,1/8)$ and $(0,7/8,\infty,1)$ via $z\mapsto z+7/8$.
+        \item $(\infty,1,0,1/9)$ and $(0,3,\infty,27)$ via $z\mapsto 3/z$.
+    \end{itemize}
+    Observe that their cross-ratio 
+    $$(a,b,c,d)\mapsto\frac{(a-b)(c-d)}{(a-d)(c-b)}$$
+    is presevered by the transformation. These respectively are: $1/8,7/8$ and $1/9$.
+\end{Ex}
+
+The book's definition of $M_{0,4}$ is then 
+$$M_{0,4}\defeq\set{\text{quadruplets of }\bP^1}/\text{projective equivalence}.$$
+In a similar fashion to $Q$, we can construct a universal family for $M_{0,4}$. The fibers are once again copies of $\bP^1$ imbued with the corresponding quadruplet, it's \emph{tautological}. The family is thus 
+\begin{center}
+    \begin{tikzcd}
+        M_{0,4}\x\bP^1 \arrow[d, "\pi"']                     \\
+        M_{0,4} \arrow[u, "\tau_i(\x 4)"', bend right=49]
+        \end{tikzcd}
+    \end{center}
+where $\tau_1,\tau_2$ and $\tau_3$ single out $0,1$ and $\infty$ in each fiber. The last section is \emph{like} a diagonal section. It is given by the inclusion map of $M_{0,4}$ seen as the diagonal $(z,z)$ of $M_{0,4}\x\bP^1$.
+
+\begin{Th}
+The universal family over $M_{0,4}$ also induces every other family of quadruplets up to projective equivalence via pullback. 
+\end{Th}
+
+\begin{ptcbp}
+    Indeed as in the case of the exercise \ref{ejer-universality-of-quadruplets-no-projective-equivalence}, we start with a family of quadruplets 
+    \begin{center}
+        \begin{tikzcd}
+            B\x\bP^1 \arrow[d, "\pi"']                     \\
+            B \arrow[u, "\sigma_i(\x 4)"', bend right=49]
+            \end{tikzcd}
+        \end{center}
+    and show that there exists a base isomorphism between this family and the pullback of the universal family via a certain map.\par 
+    Step 1 is to construct the map $\kp$:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRACEAdTgD24CMACgD0AjCAC+pdJlz5CKMqKq1GLNu0nSQGbHgJFRpZdXrNWiEAFkA+sDIAWCZJUwoAc3hFQAMwBOEAC2SGQgOBBIRqrmbNxoWCDUDHT8MAyCsvoKIH5Y7gAWOFq+AcGIUeFIAEymahYg3DA8WHA4cAD83ADWaC4SQA
+\begin{tikzcd}
+    B\x\bP^1 \arrow[d, "\pi"'] &           \\
+    B \arrow[r, "\exists?\kp"] & {M_{0,4}}
+    \end{tikzcd}
+\end{center}
+
+    Intuitively, the map looks at a point $b\in B$, asks the family for its corresponding quadruplet and then normalizes it via a M\"obius transformation.\par 
+    Formally, for $b\in B$ we map 
+    $$b\mapsto \ssg(b)\defeq (\sg_1(b),\sg_2(b),\sg_3(b),\sg_4(b))$$
+    which gives us the associated quadruplet. To normalize it we take the M\"obius transformation 
+    $$\la(z)=\frac{(z-\sg_2(b))(\sg_3(b)-\sg_4(b))}{(z-\sg_4(b))(\sg_3(b)-\sg_2(b))}$$
+    and apply it repeatedly to our quadruplet as 
+    $$\lla(p,q,r,s)=(\la(p),\la(q),\la(r),\la(s)).$$
+    Call $t\defeq\la(\sg_1(b))$ the cross-ratio of our quadruplet. The map $\kp$ is thus 
+    $$\kp(b)\defeq (\lla\circ\ssg)(b)=(t,0,1,\infty).$$
+    Actually, this is still a quadruplet, we are missing the quotient map which sends that quadruplet to its equivalence class inside $M_{0,4}$. But for all the effects, that is our desired map.\par 
+    As this is a quadruplet inside $M_{0,4}$, we now have the \emph{canonical} map from $B$ to $M_{0,4}$. With it, we will pullback the universal family and show it's isomorphic to the original family over $B$.\par 
+    To construct a fiber of the pullbacked family we take the fiber over $\kp(b)$ and attach it to our original point $b$. In this case the fiber is 
+    $$\pi^{-1}(\kp(b))=\set{[t,0,1,\infty]}\x\bP^1$$
+    so that'll be the same fiber over $b\in B$.\red{In the same way that I can define a bundle via fibers and transition functions, is it possible to define a family via fibers and\dots and\dots and what?}. 
+\end{ptcbp}
 \chapter{A Project on Sheaf Cohomology of Line Bundles over $\bP^1$}
+
 
 \section{Is Bundle like a Family?}
 
