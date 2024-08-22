@@ -1,0 +1,137 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2024}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH601}
+\def\nsiglahead {Advanced Combinatorics}
+\def\nlang {ENG}
+%\def\darktheme{}
+\input{../../headerVarillyDiff}
+\usepackage[enableskew]{youngtab}
+
+\begin{document}
+%\clearpage
+\maketitle
+%\thispagestyle{empty}
+{\small 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This course will focus on the combinatorics of Young tableaux, crystal bases, root systems, Dynkin diagrams, and symmetric functions arising in representation theory of matrix groups and Lie algebras.
+
+\subsubsection*{Requirements}
+Familiarity with the basics of group theory and symmetric functions is helpful.
+}
+\newpage
+\tableofcontents
+%\begin{multicols}{2}
+\chapter{}
+
+\section{Day 1|20240819}
+
+We will start by reviewing the representation theory of finite groups and the Lie group and Lie algebra representations. The objective is to classify semi-simple Lie algebras and groups. This classification is quite combinatorial. 
+
+\subsection{Review of representation theory of finite groups}
+
+Recall groups are sets $G$ endowed with a binary operation $\circ$ such that 
+\begin{enumerate}
+    \item There is an identity element $e$: $g\circ e=e\circ g=g$.
+    \item Every element possesses an inverse. For each $g$, there is an $h$ such that $g\circ h=e=h\circ g$.
+    \item The operation $\circ$ is associative.
+\end{enumerate}
+
+\begin{Ex}
+    The \term{symmetric group} is the set of permutations of $\bonj{n}$. We denote it $(S_n,\circ)$ where our operation is composition. We will use this group quite a lot.
+\end{Ex}
+
+\begin{Ex}
+We will be working with $\rGL_n(\bC)$ where $\bC$ will come in as more useful than $\bR$. The \term{general linear group} is characterized by the property that $\det(A)\neq 0$ for $A\in\rGL_n(\bC)$.
+\end{Ex}
+
+\begin{Ex}
+    Given two groups we can construct $G\x H$ by doing operations pointwise. We can also take subgroups and quotient groups. 
+\end{Ex}
+
+\begin{Ex}
+    Take the \term{special linear group} $\rSL_n(\bC)$ which is the set of matrices $A$ with $\det(A)=1$. This is a subgroup of $\rGL_n(\bC)$.
+\end{Ex}
+
+There's a lot more of matrix groups such as $\rSO_n(\bC)$, $\rSp_{2n}(\bC)$ and unitary groups $\rSU_n(\bC)$. 
+
+\subsubsection{Groups which are representations of themselves}
+
+Symmetry groups are groups of linear transformations of $\bC^n$ (some Euclidean space) that fix some shape. Any such group is a subgroup of $\rGL_n(\bC)$. Matrices here don't collapse points nor anything.
+
+\begin{Ex}
+    The symmetry group of a diamond in the plane can be found by analyzing the symmetries of the figure.\red{HMMM}
+    The group in question is the Klein-4 group which can be seen as 
+    $$\set{\id,r_x,r_y,r_xr_y}.$$
+    Similarly we can see it as 
+    $$\set{\id,(24),(13),(13)(24)}$$
+\end{Ex}
+
+\red{Fell asleep}
+
+\section{Day 2|20240821}
+
+We were looking at direct sums of representations. Recall representations are maps which take group elements to matrices. 
+
+$$\rho\oplus\sg\:G\to\rGL_{n+m}(\bC)$$
+
+and this map will send $g$ to a block matrix. A central question in representation theory is to classify the irreducible representations of some object. This is a central question because for finite groups, irreducible is the same as indecomposable.
+
+\begin{Def}
+A representation is \term{indecomposable} when it can't be written as a direct sum of smaller representations.
+\end{Def}
+
+Irreducible means that it has no non-trivial proper representations. This is analogous to the idea of prime and irreducible numbers. In the most general case where groups may be infinite, irreducible implies indecomposable. 
+
+\subsection{Alternative definitions for representations}
+
+We may define it as a vector space $V$ with an action $G\x V\to V$ so that
+$$g(hv)=(gh)v$$
+and it should be a linear action in the sense that $v\mapsto gv$ is a linear transformation.\par 
+
+This is equivalent to the previous definition because $V$ can be seen as $\bC^n$. So the definition gives rise to a map 
+$$G\to\Aut(V),\ g\mapsto g\.$$
+Even more \emph{objecty} is the next definition. We can see a representation as a module over a group ring $\bC G$. This set is made up of formal linear combinations of elements of $G$.\par 
+We endow it with a module structure, for any element $g\in G$ in particular in $\bC G$ we can make it a coefficient $gv\in V$ as a $\bC G$-module.
+
+\subsection{Subrepresentations}
+
+Now that we have all the algebraic structure we can use it to define subrepresentations. Because a subrepresentation will be a subspace which inherits the action for example. 
+
+\begin{Def}
+    $W\subseteq V$ is a \term{subrepresentation} of $G$ (when $V$ represents $G$) if 
+    \begin{itemize}
+        \item $W$ is a subspace of $V$, and
+        \item $W$ is $G$-invariant in the sense that the image of $G\x W\to V$ is contained in $W$.
+    \end{itemize}
+    We will also say that $V$ is \term{irreducible} if there's no proper nonzero subrepresentation $W\subseteq V$.
+\end{Def}
+
+Sometimes it is possible to decompose a representation into a direct sum of subrepresentations.
+
+\red{fell asleep}
+
+\begin{Def}
+    A \term{character} of a representation is the trace map $g\mapsto\tr(\rho(g))$.
+\end{Def}
+
+\textbf{Properties}
+\begin{enumerate}
+    \item $\chi_{V\oplus W}=\chi_V+\chi_W$. 
+    \item $\chi_{V\ox W}=\chi_V\chi_W$.
+    \item $\chi_V$ uniquely determines the representation.
+\end{enumerate}
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibiCombiAvanzada.bib}
+\end{document} 
+

@@ -1,0 +1,55 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2024}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH601}
+\def\nsiglahead {Advanced Combinatorics}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\usepackage{youngtab}
+
+\begin{document}
+
+\begin{Ej}[Exercise 1]
+    Prove that all three definitions of representations of finite groups given in the lecture notes are equivalent. Then, for the examples of the groups $G$ and $H$ from Examples 2.1 and 2.2 in the lecture notes, express these representations as a vector space with an action, and as a module.
+\end{Ej}
+
+The definitions in question are:
+
+\begin{Def}
+A representation of a group $G$ over a field $\bF$ is a homomorphism 
+$$\rho\: G\to\rGL_n(\bF)$$
+where $\rGL_n(\bF)$ is the group of invertible $n\x n$ matrices over $\bF$.
+\end{Def}
+
+\begin{Def}
+A representation of a group $G$ over a field $\bF$ is an $\bF$-vector space $V$ along with an action $G\lt V$ by linear transformations, i.e. a homomorphism $\rho\: G\to\rGL(V)$.
+\end{Def}
+
+\begin{Def}
+A representation of a group $G$ over a field $\bF$ is an $\bF G$-module $V$. (Here $\bF G$ is the group ring consisting of formal linear combinations of elements of $G$ over $\bF$. A module is essentially a ``vector space over a ring''.)
+\end{Def}
+
+\begin{ptcbr}
+We begin by showing that the first definition implies the second. Let $\rho\: G\to\rGL_n(\bF)$ be a representation and take the vector space $V=\bF^n$. As $\rGL_n(\bF)=\rGL(\bF^n)$, we define the action via 
+$$G\x V\to V,\ (g,v)\mapsto \rho(g)v.$$
+This map is an action by linear transformations because:
+\begin{itemize}
+    \item Every $\rho(g)$ is a linear transformation. 
+    \item $(\id,v)\mapsto \rho(\id)v=I_{n\x n}v$. Because $\rho$ is a group homomorphism and it sends the identity to the identity.
+    \item $(g,(h,v))=(g,\rho(h)v)=\rho(g)\rho(h)v=\rho(gh)v=(gh,v)$ by virtue of $\rho$ being a homomorphism.
+\end{itemize}
+
+%%https://math.stackexchange.com/questions/45735/newbie-group-representation-leftrightarrow-left-module-over-the-group-ring?rq=1
+%%
+Now assume we would like to create a module over the group ring $\bF G$. Recall every element of $\bF G$ is of the form 
+$$\sum_{g\in G}a_g g$$
+as a formal linear combination. Given an action $G\lt V$, we may extend it to a $\bF G$ action via
+$$\rho\left(\sum_{g\in G}a_g g\right)=\sum_{g\in G}a_g \rho(g)$$
+\end{ptcbr}
+
+
+\end{document} 
