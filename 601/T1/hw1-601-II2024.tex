@@ -34,21 +34,16 @@ A representation of a group $G$ over a field $\bF$ is an $\bF G$-module $V$. (He
 \end{Def}
 
 \begin{ptcbr}
-We begin by showing that the first definition implies the second. Let $\rho\: G\to\rGL_n(\bF)$ be a representation and take the vector space $V=\bF^n$. As $\rGL_n(\bF)=\rGL(\bF^n)$, we define the action via 
-$$G\x V\to V,\ (g,v)\mapsto \rho(g)v.$$
-This map is an action by linear transformations because:
+Observe that the first definition gives rise to a map 
+$$G\to\Aut(V),g\mapsto\rho(g)$$
+where $V=\bF^n$ and $\rho(g)$ acts as a linear transformation on $v\in V$. This is an action because $\rho$ is a homomorphism, namely:
 \begin{itemize}
-    \item Every $\rho(g)$ is a linear transformation. 
-    \item $(\id,v)\mapsto \rho(\id)v=I_{n\x n}v$. Because $\rho$ is a group homomorphism and it sends the identity to the identity.
-    \item $(g,(h,v))=(g,\rho(h)v)=\rho(g)\rho(h)v=\rho(gh)v=(gh,v)$ by virtue of $\rho$ being a homomorphism.
+    \item $\rho(e)=I_{n\x n}$.
+    \item And $\rho(gh)=\rho(g)\rho(h)$ once again because $\rho$ is a homomorphism.
 \end{itemize}
-
-%%https://math.stackexchange.com/questions/45735/newbie-group-representation-leftrightarrow-left-module-over-the-group-ring?rq=1
-%%
-Now assume we would like to create a module over the group ring $\bF G$. Recall every element of $\bF G$ is of the form 
-$$\sum_{g\in G}a_g g$$
-as a formal linear combination. Given an action $G\lt V$, we may extend it to a $\bF G$ action via
-$$\rho\left(\sum_{g\in G}a_g g\right)=\sum_{g\in G}a_g \rho(g)$$
+So naturally we get the definition of representation as a vector space.\par 
+On the flipside any representation map can extend its domain to the group ring via linearity:
+$$\wh{\rho}\left(\sum_{g\in G}c_gg\right)\defeq \sum_{g\in G}c_g\rho(g)$$
 \end{ptcbr}
 
 
