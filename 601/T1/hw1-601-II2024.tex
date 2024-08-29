@@ -32,19 +32,91 @@ A representation of a group $G$ over a field $\bF$ is an $\bF$-vector space $V$ 
 \begin{Def}
 A representation of a group $G$ over a field $\bF$ is an $\bF G$-module $V$. (Here $\bF G$ is the group ring consisting of formal linear combinations of elements of $G$ over $\bF$. A module is essentially a ``vector space over a ring''.)
 \end{Def}
+%https://math.stackexchange.com/questions/1961082/modules-over-group-algebra-representations-example
+\begin{ptcbr}
+    The first definition introduces a map 
+    $$G \to \Aut(V), \quad g \mapsto \rho(g),$$
+    where $V = \bF^n$, and $\rho(g)$ acts as a linear transformation on $v \in V$. This map defines an action since $\rho$ is a homomorphism, specifically:
+    \begin{itemize}
+        \item $\rho(e) = I_{n \times n}$.
+        \item $\rho(gh) = \rho(g)\rho(h)$, by virtue that $\rho$ is a homomorphism.
+    \end{itemize}
+    This leads to the definition of a representation of $G$ on the vector space $V$.\par 
+    Conversely, any $\bF G$-module is, by definition, also a vector space over $\bF$, given that $\bF \subseteq \bF G$. To equip this vector space with the structure of a $\bF G$-module, we define the action of elements of $\bF G$ using the representation. Specifically, for any $v \in V$ and $\sum_{g \in G} c_g g \in \bF G$, we define:
+    $$\left(\sum_{g \in G} c_g g\right) \. v \defeq \sum_{g \in G} c_g [\rho(g)v].$$
+    This shows how the representation can be viewed as an $\bF G$-module.
+    \tcblower %https://tex.stackexchange.com/questions/291617/how-can-i-create-a-tcolorbox-with-line-numbering
+    Now the groups in question are 
+    \begin{gather*}
+        G=\set{e,a,b,c\: ab=c,\ a^2=b^2=e}\isom(\bZ/2\bZ)^2\\
+        H=\genr{a\:\ a^4=e}\isom\bZ/4\bZ
+    \end{gather*}
+  To realize the group representations as vector spaces with particular transformations let us follow the example in the notes. First, both groups can be represented by the space $\bF^2$.For the first group we have the transformations
+  $$e\mapsto\id,\quad a\mapsto \twobytwo{-1}{0}{0}{1},\quad b\mapsto \twobytwo{1}{0}{0}{-1},\quad c\mapsto \twobytwo{-1}{0}{0}{-1}$$ 
+  while for the cyclic group we have 
+  $$e\mapsto \id,\word{and}a\mapsto \twobytwo{0}{-1}{1}{0}.$$
+  In order to see the group rings, we will use the following facts:
+  $$\bF(\bZ/n\bZ)\isom \quot{\bF[x]}{\genr{x^n-1}},\word{and}\bF(G\x H)\isom \bF G\ox_\bF\bF H.$$
+    The group rings are thus 
+    $$\quot{\bF[x]}{\genr{x^4-1}},\word{and}\left(\quot{\bF[x]}{\genr{x^2-1}}\right)^{\ox 2}$$
+    and observe that in the case that $\bF$ is algebraically closed both group rings are just $\bF$.\par 
+    In both cases, these are $\bF$-vector spaces to which we extend the matrix action.
+    \end{ptcbr}
+
+\begin{Ej}
+    Consider the representation of $S_3$ in which each permutation $\pi\in S_3$ is sent to its corresponding permutation matrix $P$ , in which $P_{i,\pi(i)}=1$ for all $i$, and all other entries are $0$.
+    \begin{enumerate}
+        \item Find a common eigenvector of all of the permutation matrices.
+        \item Write the representation as a direct sum of irreducible representations.
+    \end{enumerate}
+\end{Ej}
+\begin{Ej}
+    Let $N$ be any open neighborhood of the identity element $e$ in a connected Lie group $G$.
+Show that $N$ generates $G$ as a group.
+\end{Ej}
+
+
+%https://math.stackexchange.com/questions/1339399/a-bijective-continuous-map-is-a-homeomorphism-iff-it-is-open-or-equivalently-i
+%https://math.stackexchange.com/questions/3161917/left-multiplication-is-homeomorphism-of-topological-groups
+%https://math.stackexchange.com/questions/359693/overview-of-basic-results-about-images-and-preimages
+%https://math.stackexchange.com/questions/4281287/a-set-u-is-neighborhood-of-g-iff-g-1u-is-neighborhood-of-identity-eleme?rq=1
+%https://proofwiki.org/wiki/Definition:Neighborhood_(Topology)/Set
+%https://proofwiki.org/wiki/Intersection_with_Complement_is_Empty_iff_Subset
+
+Before proceeding with the proof, let's briefly review the multiplication map in a topological group and recall some essential properties of images and inverse images.
+
+\begin{Rmk}
+In any topological group, the multiplication map is a homeomorphism. Specifically, the maps 
+$$x \mapsto gx \word{and} x \mapsto g^{-1}x$$
+are inverses of each other and are continuous by definition. Additionally, if $f$ is a bijective function, then 
+$$f^{-1}[f[A]] = f[f^{-1}[A]] = A.$$
+With these concepts in mind, we can now state and prove the following lemma.
+\end{Rmk}
+
+\begin{Lem}
+For a topological group $G$, a subset $U \subseteq G$ is a neighborhood of an element $g \in G$ if and only if $g^{-1}U$ is a neighborhood of the identity element $e$.
+\end{Lem}
+
+\begin{ptcbp}
+Define the map $m_g$ by $x\mapsto gx$. Notice that 
+$$g^{-1}U = m_{g^{-1}}[U].$$ 
+Since $m_g$ is a homeomorphism, $U$ is open if and only if $g^{-1}U$ is open.
+\end{ptcbp}
 
 \begin{ptcbr}
-Observe that the first definition gives rise to a map 
-$$G\to\Aut(V),g\mapsto\rho(g)$$
-where $V=\bF^n$ and $\rho(g)$ acts as a linear transformation on $v\in V$. This is an action because $\rho$ is a homomorphism, namely:
-\begin{itemize}
-    \item $\rho(e)=I_{n\x n}$.
-    \item And $\rho(gh)=\rho(g)\rho(h)$ once again because $\rho$ is a homomorphism.
-\end{itemize}
-So naturally we get the definition of representation as a vector space.\par 
-On the flipside any representation map can extend its domain to the group ring via linearity:
-$$\wh{\rho}\left(\sum_{g\in G}c_gg\right)\defeq \sum_{g\in G}c_g\rho(g)$$
-\end{ptcbr}
+Now, consider the subgroup $\genr{N}$ generated by $N$. This subgroup is non-empty, as it contains at least the identity element $e$.
 
+\begin{itemize}
+    \item First, we show that $\genr{N}$ is open by proving that it's a neighborhood of each of its elements. Let $x \in \genr{N}$. Since $N$ is a neighborhood of $e$, the set $xN$ is a neighborhood of $x$. Observe that $xN \subseteq \genr{N}$, as products of elements of $N$ with $x$ definitely are products of elements of $N$ to begin with. This means that $\genr{N}$ is open.
+    
+    \item Next, we prove that $\genr{N}$ is closed by showing that its complement is open. Suppose $x \notin \genr{N}$. The set $xN$ is a neighborhood of $x$, and we aim to demonstrate that it's entirely contained outside of $\genr{N}$. Assume, for the sake of contradiction, that 
+    $$\genr{N} \cap xN \neq \emptyset.$$
+    Then there exists an element 
+    $$z \in \genr{N} \cap xN.$$
+    Being in $xN$ means that $z = xy$ for some $y \in N$. Consequently, $x = zy^{-1}$, and since both $z$ and $y^{-1}$ belong to $\genr{N}$, it follows that $x \in \genr{N}$. This contradicts the assumption that $x$ was outside $\genr{N}$. Therefore, $xN$ does not intersect $\genr{N}$, meaning the complement of $\genr{N}$ is open, so $\genr{N}$ is closed.
+\end{itemize}
+
+In conclusion, the subgroup $\genr{N}$ is both open and closed, and it's non-empty. In a connected topological space, the only set with these properties is the entire space. Hence, we conclude that $\genr{N} = G$, as required.
+\end{ptcbr}
 
 \end{document} 
