@@ -277,6 +277,72 @@ $$\binom{n}{\mu_1}\binom{n}{\mu_2}\dots\binom{n}{\mu_k}=S^\la V.$$
     $$\set{e_T\:\ T \text{semistandard} \sh(T)\vdash n}$$
     is a basis for the Schur module.
 \end{Th}
+
+\section{Day 6|20240830}
+
+Last time we defined the Schur modules. These are 
+
+$$S^\la V=\La^{\mu_1}V\oxyox \La^{\mu_r}$$
+
+where $\mu=\la^\ast$ is the conjugate or transpose. Now $V^\la$ is $S^\la$ modded out by column exchanges. We will show that 
+$$\set{e_T\: T\in SSYT(\la), \text{largest entry}\leq n}$$
+is a basis for $V^\la$.
+
+\begin{Ex}
+    Consider the tableau
+    $$\young(6,53,214)$$
+    the second and third row are wrongfully ordered
+\end{Ex}
+
+\red{Sleepy sleepy}
+
+We wil show that they are independent in the quotient. 
+
+\begin{Ex}
+    The idea for why $D_T$'s are independent. We can find lex orderings and make $D_T$ have nice leading term and then an ordering on the leading terms. E.g. $1,1+x,1+x+x^2,1+x+x^2+x^3$ are independent because the leading terms are all distinct.\par 
+    In $V^{\young(a,bc)}$ we have 
+    $$D_{\young(2,11)}=\det\twobytwo{z_{11}}{z_{12}}{z_{21}}{z_{22}}z_{11}=\dots$$
+    And 
+    $$D_{\young(2,12)}=z_{12}\det$$
+    In the monomials $z_{11}^2z_{22}$ is larger than $z_{11}z_{12}z_{22}$ and that's how we show that they're independent of each other. This shows the elementary symmetric functions are independent. 
+\end{Ex}
+
+One exciting conclusion to look at it's characters. For a Lie group the right notion is to consider $H$ a maximal torus in a Lie group $G$. This is the maximal connecated, abelian Lie sub group.
+
+\begin{Ex}
+    $T_n\subseteq\rGL_n$ in this case $\chi_V\: H\to \bC$ where $h\mapsto\tr(h\text{ acts on } V)$. This $\chi_V$ determines $V$ and has nice properties with direct sum and tensor products.
+    $$\chi_V\diag(x_1,\dots,x_n)$$
+    is the trace of that matrix acting on $V^\la$. It suffices to look at a basis. For a given $e_T$ where $T$ is a SSYT, $X$ acts on each $e_i$ by doing $x_ie_i$. see
+    $$\young(3,234,112)=x_1x_1x_2x_2x_3x_3x_4\.\young(3,234,112)$$
+    now the trace is the sum of the eigenvalues and this is $x^T$. So 
+    $$\sum_{T SSYT}x^T=s_\la(\un x).$$
+\end{Ex}
+
+\section{Day 7|20240904}
+
+\begin{Th}
+A representation of $\rGL_n$ is irreducible if and only if it has a unique highest weight vector.
+\end{Th}
+
+\begin{Def}
+    A \term{weight vector} of $V$ is $v\in V$ such that for $x\in T_n$ (the torus), 
+    $$x\.v=x_1^{\al_1}\dots x_n^{\al_n}v$$
+    where $\al=(\al_1,\dots,\al_n)\in\bZ^n$ is weight.
+\end{Def}
+
+Recall that being in the torus meant $x=\threebythree{x_1}{\dots}{0}{\vdots}{\ddots}{\vdots}{0}{\dots}{x_n}$.
+
+\begin{Def}
+    A \term{highest weight vector} is a weight vector such that 
+    $$B_n\.v=\bC^\ast\. v$$
+    where $B_n$ is the Borel matrices compromised of upper triangular matrices.
+\end{Def}
+
+A representation is a sum of its weights: $V=\bigoplus_{\al}V_\al$ where $V_\al=\set{v\:\ x\.dot v=x^\al v}$.
+
+\begin{Lem}
+The only highest weight vector in $V^\la$ is $e_{T_0}$ where $T_E$
+\end{Lem}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
