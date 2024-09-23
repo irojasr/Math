@@ -22,6 +22,19 @@
 \setlength{\parskip}{1em}
 
 This is my doctoral notebook where I will add clean information regarding whatever I'm learning about at the moment. It should serve as a starting point for writing. ¿Writing what? You may ask, I don't know.
+
+\red{TO DO 1}
+\begin{itemize}
+    \item Finish reading stratification of $M_{0,n}$
+    \item Write ex 6.2
+    \item Re-read Zvonkine paper now with new knowledge
+    \item Summarize Borcherds Chow Ring and Chern Classes DONE 20240921
+\end{itemize}
+\red{TO DO 2}
+\begin{itemize}
+    \item Read Theorem 3.1 in MattAndRenzo plus examples afterwards. Understand and write summary.
+    \item Add new bibliographies, Chow's paper, Borcherds lectures.
+\end{itemize}
 }
 \newpage
 \tableofcontents
@@ -448,12 +461,12 @@ but when restricting to $S^3$, we get the condition that $\la$ can only vary an 
 $$\pi_2^{-1}(\l)=\set{\la z_0\:\ z_0\in\l\cap S^3,\ |\la|=1}\isom S^1.$$
 This means that fibers of our map are homeomorphic to $S^1$ and thus we have the desired fibration structure.
 \end{ptcbr}
-
+\newpage
 \section{The projective line as a complex manifold}
 
-\begin{Ej}[Hopf Fibration]
+\begin{Ej}
     Compute 
-    $$\phi_{21}\defeq \vf_2\circ\vf_1^{-1}\mid_{\vf_1(U_1\cap U_2)}\: (\vf_)1(U_1\cap U_2,x)\to(\bC,y)$$
+    $$\phi_{21}\defeq \vf_2\circ\vf_1^{-1}\mid_{\vf_1(U_1\cap U_2)}\: (\vf_1(U_1\cap U_2),x)\to(\bC,y)$$
     and show that it is a holomorphic function on its domain of definition. Show that its inverse is also holomorphic on its domain of definition.
     
     These exercises show that $\bCP^1$
@@ -465,7 +478,7 @@ This means that fibers of our map are homeomorphic to $S^1$ and thus we have the
      are called local (or affine) coordinates.
 \end{Ej}
 \begin{ptcbr}
-
+Recall that the open set $U_1\cap U_2$ is the collection of lines in $\bCP^1$ which are not $x$ or $y$ axes. The image then is all the non-zero $x$ coordinates of the intersection of those lines with $x=1$. Taking those lines through $\vf_2\circ\vf_1^{-1}$ gives us the $y$-coordinates of the intersections of those lines with the $y=1$ line. We get all except the $y$-axis. Computing this for a particular line, if $x_0$ is the intersection with $x=1$, then $\frac{1}{x_0}$ will be the intersection with $y=1$. Therefore, the map $\vf_2\circ\vf_1^{-1}$ is $x_0\mapsto\frac{1}{x_0}$ of non-zero $x_0$. This function and its inverse are holomorphic as the vertical and horizontal lines are excluded from this.
 \end{ptcbr}
 \section{Functions on the projective line}
 
@@ -482,8 +495,274 @@ This means that fibers of our map are homeomorphic to $S^1$ and thus we have the
 \end{Ej}
 
 \begin{ptcbr}
-
+We begin with the second item by claiming that if $f$ is meromorphic has a zero of degree $m$ at $z=z_0$ then we may write $f=(z-z_0)^mg$ where $g$ is meromorphic but has no zeroes at $z_0$. Similarly for poles. This means that we may write $f$ as a product of possibly repeated linear factors over another product of linear factors. These products are the desired polynomials.\par
+We may homogenize to obtain the first characterization.\par   
+\red{I don't recall how to construct the function in the homogeneous way :(}
 \end{ptcbr}
+\newpage
+\section{Automorphisms of the projective line}
+
+\begin{Ej}
+    Prove that, given any two ordered triple of points $P_1,P_2,P_3$
+ and $Q_1,Q_2,Q_3$
+of the projective line, there exists a unique automorphism $\Phi$
+ of the projective line such that $\Phi(P_i)=Q_i$.
+Show that it follows that the only automorphism that fixes three points is the identity.
+Describe the subgroups of $\Aut(\bCP^1)$
+ consisting of automorphisms that fix one, or two points in the projective line.
+\end{Ej}
+
+\begin{ptcbr}
+    In affine coordinates, we can map any triple to $0,1,\infty$ by considering the function 
+    $$z\mapsto\frac{z-p_1}{z-p_3}\left(\frac{p_2-p_3}{p_2-p_1}\right).$$
+    This maps $p_1,p_2,p_3$ to $0,1,\infty$ respectively. This is a Möbius transformation, so it is an automorphism of $\bCP^1$. Call it $\vf_P$ and then create $\vf_Q$, the desired function $\Phi$ is $\vf_Q^{-1}\vf_P$.\par
+    From this we immediately see that is $P$ is fixed then the function is 
+    $$\Phi=\vf_P^{-1}\vf_P=\id.$$
+    If $\Phi$ fixed two points we get rotations about the axis passing through those two points. Be it, for example, $0,\infty$ with scalings $z\mapsto \al z$ or $1,-1$ with $z\mapsto 1/z$.\par
+    If only one point is fixed, then it is a translation of the line leaving that point fixed. Say for example maps of the form $z\mapsto \frac{az+b}{d}$ leave infinity fixed.
+\end{ptcbr}
+\section{Maps to projective spaces}
+
+\begin{Ej}
+    We define the degree of $F(\bCP^1)$ to be the number of intersections with a general hyperplane in $\bCP^r$.  Prove that if the degree of the polynomials $P_i(X,Y)$ is equal to $d$, then the degree of $F(\bCP^1)$ is less than or equal to $d$. When does the strict inequality hold?
+\end{Ej}
+
+\begin{ptcbr}
+    
+\end{ptcbr}
+\newpage
+\section{Line bundles on the projective line}
+
+\begin{Ej}
+    For $x_0\neq 0$, let $i_1\:\set{x=x_0}\into\cO_{\bCP^1}(d)$ and $i_2\:\set{y=\frac{1}{x_0}}\into\cO_{\bCP^1}(d)$ be the two inclusions of vertical lines. Show that $i_2^{-1}\circ i_1\:\bC\to\bC$ is a linear isomorphism. Observe that the collection of these linear isomorphisms defines a holomorphic function $c_{12}\:\bCP^1\less\set{0,\infty}\to\bC\less 0$.
+\end{Ej}
+
+\begin{ptcbr}
+    Let's concretely analyze the $i_2^{-1}\circ i_1$ map. This comes out of the line $\set{x=x_0}$ and gives us 
+    $$\Im i_1=\set{(x_0,u)\: u\in\bC}\subseteq (\bC^2,(x,u)).$$
+    In order to see what $i_2^{-1}$ does, we translate $\Im i_1$ into $(\bC^2,(y,v))$ via
+    $$x\mapsto \frac{1}{y},\quad u\mapsto\frac{v}{y^d}\To v=y^du.$$
+    So $\Im i_1$ on the other chart is 
+    $$\Im i_1=\Set{\left(\frac{1}{x_0},\frac{u}{x_0^d}\right)\: u\in\bC}$$
+    and $i_2^{-1}$ returns us $\frac{u}{x_0^d}$. This means that the composition in question is that map $u\mapsto \frac{u}{x_0^d}$ which means that the map is multiplication by $x_0^{-d}$. For a fixed non-zero $x_0$, this is a linear isomorphism of $\bC$.\par
+    The collection of such isomorphisms is obtained when we let $x_0$ vary and the function $c_{12}$ given by $x_0\in\bCP^{1}\less\set{0,\infty}\mapsto x_0^{-d}\in\bC\less\set{0}$ is indeed holomorphic.
+\end{ptcbr}
+\section{Sections of line bundles}
+
+\begin{Ej}
+    Show that if $s_0,s_1$ are two sections of the same line bundle, then their ratio is a (meromorphic) function on $\bCP^1$. Show that if $s_0,s_1,\dots,s_r$
+ are $(r+1)$ sections of the same line bundle, then they define a map $\bCP^1\to\bCP^r$.
+\end{Ej}
+
+\begin{ptcbr}
+    Observe that if $z\in\bCP^1$, then $s_0(z),s_1(z)$ lie on the fiber $\pi^{-1}(z)$ which is isomorphic to $\bC$. So taking their ratio on this fiber does produce a complex number. However, we must verify that the ratio is well-defined. Assume we picked another element of the base, $w\in\bCP^1$ and asked about the ratio of $s_0(w)$ with $s_1(w)$. In this case, observe that there's a linear isomorphism between $\pi^{-1}(z)$ and $\pi^{-1}(w)$ which scales all vectors by the same length. This means that $s_i(w)=\al s_i(z)$ for some $\al\in\bC$ and therefore their ratios are the same.\par
+    So $s_0/s_1$ does define a meromorphic function on $\bCP^1$ thanks to the linear isomorphisms.\par
+    In the same fashion, if we instead have $r+1$ sections, via a same argument we can see that when changing fibers, the sections only change by a scaling which is the same on all entries. So this means that we may write $\bonj{s_0:\dots:s_r}$ as a function to $\bCP^r$.
+\end{ptcbr}
+
+\section{Divisors}
+
+\begin{Ej}
+    When you multiply two meromorphic functions, what happens to their divisors? If two meromorphic functions produce the same divisor, what can you say about them?
+\end{Ej}
+
+\begin{Ej}
+    Let $s$ be a meromorphic section of a line bundle $\pi\: L\to\bCP^1$, we call the support of $\div(s)$ the set of points that appear with non-zero coefficients in $\div(s)$. Show that there is a natural bijection 
+    $$T_s\:\pi^{-1}\bonj{\bCP^1\less\supp(\div(s))}\to\bCP^1\less\supp(\div(s))\x\bC.$$
+Meditate on the following fact: the function $T_s$ 
+ is an isomorphism of complex manifolds, and in fact an isomorphism of line bundles on the punctured $\bCP^1$
+ (we of course did not precisely define these notions, so try and make a guess of what these things should mean). It is called a \emph{trivialization}  of the line bundle $\pi\: L\to\bCP^1$
+ on the complement of the support of $\div(s)$.
+\end{Ej}
+
+\chapter{Incursion into Pseudo-Stable Land}
+
+\section{The Chow ring}
+
+This summary is based on Richard E. Borcherds' introduction to the Chow ring in Youtube.
+
+For a non-singular variety \( V \), we define the \emph{Chow ring} \( A^\ast(V) \), whose elements \emph{correspond} to subvarieties of \( V \), and the product reflects the intersection of these subvarieties. The ring is graded by codimension:
+\[
+A^\ast(V) = \bigoplus_i A^i(V)
+\]
+where \( A^i(V) \) consists of classes of subvarieties with codimension \( i \). Ideally, the intersection of a codimension \( m \) subvariety \( X \) and a codimension \( n \) subvariety \( Y \) would yield a subvariety of codimension \( m+n \). However, this does not always hold. Imagine a hyperplane $H$ intersected with itself. So there's a complication in defining this product.
+
+\subsection{Cycles and Intersection Numbers}
+
+An initial attempt to resolve starts by defining \emph{cycles}, which are formal sums of subvarieties. Specifically, we define the group of codimension \( i \) cycles as:
+\[
+A^i(V) = \left\langle X \mid X \subseteq V, \ \text{closed subvariety}, \ \codim(X) = i \right\rangle
+\]
+For two cycles \( X \in A^i(V) \) and \( Y \in A^j(V) \), we aim to define their product as:
+\[
+X \cap Y = \sum_{Z} i(X, Y; Z) Z
+\]
+where the sum runs over the irreducible components \( Z\) of \( X \cap Y \), and \( i(X, Y; Z) \) is an \emph{intersection number}, representing the multiplicity of the intersection at \( Z \). However, defining this intersection number precisely poses significant challenges.
+
+\subsection{Rational Equivalence and the Chow Group}
+
+To address the ambiguities in defining intersections, particularly when subvarieties do not intersect transversally, we use the notion of \emph{rational equivalence}. Cycles are considered equivalent if their difference is the divisor of a rational function on a subvariety of dimension \( j+1 \). This leads to the following definition:
+
+\begin{Def}
+The \( i \)-th \emph{Chow group} \( A^i(V) \) of a non-singular variety \( V \) consists of equivalence classes of codimension \( i \) cycles, where two cycles are equivalent if their difference is a principal divisor, i.e., the zero set of a rational function.
+\end{Def}
+
+The \emph{Chow ring} is the direct sum over all Chow groups:
+\[
+A^\ast(V) = \bigoplus_i A^i(V)
+\]
+The intersection product on the Chow ring is well-defined:
+\[
+[X] \cap [Y] = \sum_{[Z]} i(X, Y; Z) [Z]
+\]
+where \( [X] \), \( [Y] \), and \( [Z] \) denote rational equivalence classes of cycles.
+
+\subsection{Example and Further Considerations}
+
+\begin{Lem}[Chow's moving lemma (1956)]
+Given two algebraic cycles $X,Y$ in $V$ a non-singular variety, there is another cycle $Y'$ rationally equivalent to $Y$ on $V$ such that $X$ and $Y'$ intersect \emph{properly}. \red{Look for better reference than wikipedia}.
+\end{Lem}
+
+Let's illustrate this by considering the next example.
+
+\begin{Ex}
+    Consider the surface $S=\Bl_{\text{pt}}\bP^2$. We have a copy of $\bP^1$ as the exceptional divisor $E$. If we ask what is $E\cap E$, then we have to move $E$ slightly.\par
+    This is impossible as $E$ can't be deformed. This is not a counterexample to Chow's lemma but to see this we have be a bit subtle. Consider a line $A$ which we deform to pass about the exceptional divisor, call it $B$. This means that 
+    $$A\sim B\cup E\To E\sim A-B.$$
+    $A-B$ has a well-defined intersection with $E$ because $A$ doesn't meet $B$ and $B$ has a transversal intersection with $E$. Thus $(A-B)\cap E$ is well defined as we've deformed $E$ into a cycle with negative coefficients.\par
+    Observe that if we deform $E$ to something which has transversal intersection with itself, we will acquire negative coefficients because 
+    $$E\cap E=(-1)[\text{pt}].$$
+    So we will acquire negative coefficients when turning $E$ into a well-behaved cycle.
+\end{Ex}
+
+In essence, Chow's lemma doesn't say we can deform subvarieties, it says we can deform cycles and even if we start with one with positive coefficients, we may end up with one with negative coefficients.\par 
+
+Now if $V$ is a singular variety, we may end up with extra complications.
+
+\begin{Ex}
+    Suppose we take $V$ to be a cone and two subvarieties $X,Y$ being a hyperbola and a line through the singularity.
+\red{Add figure}
+    If we intersect $X\cap Y$ we get just one point without troubles, but let us slide $X$ so that $X$ becomes a \emph{double line} through the singularity. So it might the case that $X\sim 2Z$ where $Z$ is the corresponding line. It must happen as well that 
+    $$2Z\cap Y=[\text{pt}]\To Z\cap Y =\half[\text{pt}].$$
+    We can still get intersections on varieties with singularities but with rational coefficients.
+\end{Ex}
+
+This means that it certainly does make sense to consider the Chow ring of $\ov{M}_{g,n}$.
+
+\begin{Qn}
+¿Is this why there appears a $\frac{1}{24}$ in some places when doing calculations with $\la$-classes?
+\end{Qn}
+
+Fianlly, lets consider examples of Chow groups and Chow rings. In general finding the Chow ring is very hard, but we have
+\begin{itemize}
+    \item The $0^{\text{th}}$ Chow group, $A^0(V)\isom\bZ$, is generated by $[V]$. This is the class of the whole variety or \emph{the fundamental class}. This is the multiplicative identity in the Chow ring as $X\cap V=X$. 
+    \item $A^1(V)$ contains hypersurfaces modulo linear equivalence. This are basically divisors up to linear equivalence which amounts to the Picard group of $V$, $\Pic(V)$. Already for an elliptic curve, $\Pic(V)$ is uncountable.
+\end{itemize}
+
+\begin{Ex}
+    If $V=\bP^2$, then $A^{i}(V)\isom\bZ$ for $0\leq i\leq 2$. This is because we can decompose $\bP^2$ as 
+    $$\bP^2=\text{pt.}\cup\text{line}\cup\text{plane}$$
+    In general $A^\ast(\bP^n)\isom\bZ[H]/\genr{H}^{n+1}$ where $H$ represents the class of a hyperplane in $A^1(\bP^n)$.\par
+    ¡This is the same case for the Grassmannian! Its Chow ring is also easy to describe as we may decompose the Grassmannian into affine spaces.
+\end{Ex}
+
+\begin{Qn}
+    ¿What is the Chow ring of the Grassmannian?
+\end{Qn}
+
+\begin{Rmk}
+    Some of this intersection numbers can also be calculated with Schubert calculus, and they happen to coincide with Littlewood-Richardson coefficients.    
+\end{Rmk}
+
+\section{Chern classes}
+
+\subsection{A quick cheat sheet}
+
+Let us begin with the Chern class cheat sheet${}^{\text{TM}}$. This based off of my meeting with Renzo on 20240917. First assume $E\xrightarrow{\pi}B$ is a rank $r$ vector bundle. We have the following:
+
+\begin{itemize}
+    \item $c_i(E)\neq 0$ whenever $0\leq i\leq r$.
+    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(E)$. (¿or $A^i(B)$?)
+    \item $c_0(E)=1$, or in words, it's the fundamental class. It's usually the case that we rescale in order for this to be exactly $1$.
+    \item If we define 
+    $$c_{\text{tot}}=c_0+c_1+\dots+c_r$$
+    and we have a short exact sequence of vector bundles 
+    $$0\to F\to E\to Q\to 0,$$
+    then $c_{\text{tot}}(E)=c_{\text{tot}}(F)\.c_{\text{tot}}(Q)$. In particular we have 
+    $$c_1(E)=c_1(F)+c_1(Q).$$
+    \item If $E$ is a line bundle $L$, i.e. rank 1, then 
+    $$c_1(L)=[\div(s)],$$
+    this is the class of the divisor of a meromorphic section.
+    \item $c_1$ commutes with pullbacks.
+\end{itemize}
+
+For more, check out \href{https://math.stackexchange.com/questions/989147/quick-question-chern-classes-of-sym-wedge-hom-and-tensor}{this math.se post}\footnote{\href{math.stackexchange.com/q/989147/}{\ttt{math.stackexchange.com/q/989147/}}} or \href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{here}\footnote{\href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{\ttt{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}}}.
+
+\subsection{A Historical Note}
+
+Continuing with Richard Borcherds' lecture, we focus on how to obtain Chern classes from a vector bundle $E\xrightarrow{\pi}V$ over a non-singular variety $V$. These are certain elements of $A^i(V)$
+
+    On the side of historical notes, in differential geometry, Chern classes take values in the cohomology ring of $V$ when seen as a complex manifold. The Chow ring is related to the cohomology ring via a homeomorphism 
+    $$A^i(V)\to H_{2n-2i}(V)\to H^{2i}(V)$$
+    where the first map is taking a cycle to a cycle, and then applying Poincaré duality.
+    
+    \begin{Rmk}
+        Personally, I believe it would be more accurate to say that the Chow ring is more closely related to homology groups than to cohomology. This is because cohomology deals with functions mapping cycles to $\bR$ while homology is primarily concerned with formal groups of cycles. 
+    \end{Rmk}
+
+    This map is not injective in general as $A^i(V)$ is hopelessly huge in general. For an elliptic curve $E$, it happens that 
+    $$A^{1}(E)\word{is uncountable, but}H^{2}(E)=\bZ.$$
+    It is also not onto as nothing in the Chow ring maps to $H^{2i+1}(V)$ for any $i$. We may refine our question to 
+    $$\text{¿is}\quad A^i(V)\to H^{2i}(V)\quad\text{onto?}$$ 
+    And the answer remains negative. The image of this map is subtle, and Hodge established that
+    $$H^{2i}(V,\bR)\isom\bigoplus H^{p,q}(X)\word{and}\Im(A^i)\subseteq H^{i,i}(V).$$
+    So the previous question can be further refined to, 
+    $$\text{¿is}\quad \Im(A^i)=H^{i,i}(V)\cap H^\ast(X,\bZ)?$$
+    Once again not positive. Atiyah and Hirzebruch found a torsion element in the cohomology that is not in the image of $A^i(V)$. This leads us to the Hodge conjecture which remains unsolved. 
+
+\subsection{Characteristic Classes}
+
+\begin{Ex}
+    For a line bundle $L\xrightarrow[]{\pi}B$, take a section $f$. So at each point $b\in B$, $f$ picks out a point in the fiber $\pi^{-1}(b)$. Usually the set of zeroes of $f$ is a codimension $1$ cycle of $B$.
+    \begin{center}
+        \red{add drawing}
+    \end{center}
+    This cycle lives in $H_{n-1}(B)$ where $\dim B=n$. Via Poincaré duality, this gives us an element in $H^1(B)$. This is the first Stiefel-Whitney class of $L$.\par
+    If we take $B=S^1$, we have two obvious line bundles, $S^1\x\bR$ and the Möbius bundle. 
+    \begin{center}
+        \red{add drawing}
+    \end{center}
+    In the case of the trivial bundle, the zeroes of a non-zero section will always be even, while in the case of the Möbius bundle, it'll always be odd. This means that at the level of $H^{1}(S^1,\bZ/2\bZ)$ we always get the $0$ and $1$ elements respectively. So we can distinguish this line bundles by counting the zeroes of a generic section.
+\end{Ex}
+
+The idea of characteristic classes is a generalization of this ideas. If we have a vector bundle, we can look at a section's zeroes and they will give us homology (or cohomology) classes.
+
+\subsection{A First Step into Complex Land}
+
+Chern classes on a complex vector bundle will take values in $A^*(V)$ (or $H^\ast(V)$ if we are doing differential geometry).\par
+Consider a complex line bundle $L\xrightarrow[]{\pi}V$ over a non-singular variety or complex manifold $V$. We take the set of zeroes of a section $f$. This has complex codimension $1$ in $V$ and means that we have an element of $A^1(V)$, or in the real case, codimension $2$ with it being an element of $H_{2n-2}(V)\isom H^2(V)$.\par 
+So the first Chern class is given by the cycle of zeroes of a section. We denote it $c_1(V)$.
+
+\begin{Ex}
+    ¿What is $c_1$ of $\cO(-1)$, the tautological bundle of $\bP^1$? We know that $\cO(-1)$ possesses no non-zero sections. But this is not a problem, as we may use the fact that 
+    $$c_1(L\ox L')=c_1(L)+c_1(L')$$
+    so we can tensor $\cO(-1)\ox\cO(d)$ for a sufficiently large $d$. This will be a line bundle with enough sections (\emph{hopefully}) so that $c_1$ makes sense here. In this case we define 
+    $$c_1(\cO(-1))=c_1(\cO(-1)\ox\cO(d))-c_1(\cO(d)).$$
+\end{Ex}
+
+\subsubsection{More analytically, but not algebraically}
+Another way to get $c_1$, we have the sequence of sheaves 
+$$0\to\un{\bZ}\to\cO\xrightarrow{\exp}\cO^\ast\to 1$$
+which only works in complex analytic geometry. So in terms of the long exact sequence of cohomology we have 
+$$\dots\to H^1(V,\cO^\ast)\xrightarrow{c_1}H^2(X,\bZ)\to\dots$$
+where the first term \emph{classifies} line bundles and the connecting morphism is more or less the first Chern class. 
+
+\subsection{Higher Chern classes}
+
+Returning to our vector bundle $E\xrightarrow{\pi}V$ of rank $r>1$, we follow Grothendieck's approach. We can associate $E$ with the projective bundle $P(E)$ where the typical fiber is isomorphic to $\bP^{r-1}$. Now $P(E)$ has itself a line bundle $\cO(1)$ leading us to a Chern class $c_1(\cO(1))\in A^1(P(E))$ which is not in $A^1(V)$. Thus, we must relate $A^\ast(P(E))$ with $A^\ast(V)$.\par
+Call $\xi=c_1(\cO(1))$ to simplify notation. The Chow ring $A^\ast(P(E))$ forms a free, rank $r$ $A^\ast(V)$-module with basis $\set{1,\xi,\dots,\xi^{r-1}}$. This modularity arises from a similar reasoning to the construction of the Chow ring of $\bP^n$, which corresponds to the case when $V$ is a point. Now the element $\xi^r$ can be expressed as a linear combination of the basic elements: 
+$$\xi^r=c_1\xi^{r-1}-c_2\xi^{r-2}+\dots\pm c_r,\word{for some}c_i\in A^i(V).$$
+¡These coefficients are the Chern classes in $A^\ast(V)$! The class $c_r$ can be described easily. It is represented by a cycle of the zeroes of a section of $E$. The zeroes of that section will generally have codimension $r$ and we will be able to represent it by $c_r$.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
