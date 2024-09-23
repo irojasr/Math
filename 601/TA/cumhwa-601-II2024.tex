@@ -1,0 +1,109 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2024}
+\def\nprofesor {Maria Gillespie}
+\def\nsigla {MATH601}
+\def\nsiglahead {Advanced Combinatorics}
+\def\nextra {CHWA}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\usepackage{youngtab}
+
+\begin{document}
+
+\begin{Ej}
+    Consider the dihedral group $D_4$ (the symmetry group of a square, including reﬂections and
+rotations) acting on the plane by the corresponding reﬂection and rotation matrices. Show that this
+representation of $D_4$ is an irreducible 2-dimensional representation over both $\bR$ and $\bC$.
+\end{Ej}
+
+\begin{ptcbr}
+    Observe that we may present the dihedral group as 
+$$\quot{\text{Free}(r,s)}{\gen(r^4,s^2,(sr)^2)}.$$
+The desired representation is given by the action on the generators:
+$$r\mapsto\twobytwo{0}{-1}{1}{0},\word{and}s\mapsto\twobytwo{1}{0}{0}{-1}.$$
+Both matrices have $\vec{v}=\twobyone{1}{-1}$ as an eigenvector. This can be seen either by checking both eigenspaces or by looking at the row sums. Correspondingly, $r$ has eigenvalue $-1$ and $s$, a $1$.\par 
+For both $\bR$ and $\bC$, the vector $\vec u=\twobyone{1}{1}$ lies in $\vec v^\perp$. To decompose our representation, we consider the basis $\cB=\set{\vec u,\vec v}$ along with the change of basis matrix 
+$$M=\bonj{\id}_\cB^\cC=\twobytwo{1}{1}{1}{-1}\To M^{-1}=\bonj{\id}_\cC^\cB=\frac{1}{-2}\twobytwo{-1}{-1}{-1}{1}=\half M.$$
+Conjugating our generators we obtain
+\begin{align*}
+\wt{r}=M^{-1}rM
+&=\half\twobytwo{1}{1}{1}{-1}\twobytwo{0}{-1}{1}{0}\twobytwo{1}{1}{1}{-1}\\
+&=\half\twobytwo{1}{1}{1}{-1}\twobytwo{-1}{1}{1}{1}\\
+&=\half\twobytwo{0}{2}{-2}{0}\\
+&=\half\twobytwo{0}{1}{-1}{0}
+\end{align*}
+and for the case of $s$:
+\begin{align*}
+    \wt{s}=M^{-1}sM
+    &=\half\twobytwo{1}{1}{1}{-1}\twobytwo{1}{0}{0}{-1}\twobytwo{1}{1}{1}{-1}\\
+    &=\half\twobytwo{1}{1}{1}{-1}\twobytwo{1}{1}{-1}{1}\\
+    &=\half\twobytwo{0}{2}{2}{0}\\
+    &=\half\twobytwo{0}{1}{1}{0}.
+    \end{align*}
+
+    So after conjugating, we can see that we cannot decompose the representation further. As indecomposability is equivalent to irreducibility in this case, we have that this representation is an irreducible 2-dimensional representation.
+\end{ptcbr}
+
+\begin{Ej}
+    Prove that if $G$ is a ﬁnite abelian group, then all of its irreducible representations are 1-
+dimensional. [Hint: you may want to look up some resources showing that commuting matrices are
+simultaneously diagonalizable.]
+\end{Ej}
+
+\begin{ptcbr}
+If $|G|=n$, then $g^n=\id_G$. If $\rho\:G\to\rGL(V)$ is our representation, then 
+$$g^n=\id_G\To\rho(g)^n=I\To\rho(g)^n-I=0.$$
+This means $\rho(g)$ satisfies the polynomial equation $z^n-1=0$. At first, this doesn't directly imply that $\rho(g)$ is diagonalizable, but with a careful eye we can remember about the minimal polynomial. The minimal polynomial of $\rho(g)$ divides any polynomial which annihilates $\rho(g)$ as it is the generator of the ideal of such polynomials:
+$$\min_{\rho(g)}\mid z^n-1$$
+and as $z^n-1$ splits into distinct linear factors, the minimal polynomial must be a product of such factors. Being the roots of $\min_{\rho(g)}$ all distinct, we have that $\rho(g)$ is diagonalizable.\par 
+Now, as $G$ is abelian, we also have that the matrices $\set{\rho(g)\:\ g\in G}$ commute. Therefore they are all simultaneously diagonalizable.
+\end{ptcbr}
+
+\begin{Ej}
+    Suppose $A$ is an $m\x m$ matrix and $B$ is an $n\x n$ matrix. Recall that the tensor product of the matrices $A$ and $B$ is the matrix having block form
+    $$\nbyn{a_{11}B}{a_{12}B}{a_{1m}B}{a_{21}B}{a_{22}B}{a_{2m}B}{a_{m1}B}{a_{m2}B}{a_{mm}B}.$$
+    Show that, if $\rho\: G\to\rGL(\bC^m)$ and $\sg\: G\to\rGL(\bC^n)$ are two representations of a group $G$ (thought of
+as collections of matrices $\rho(g)$ and $\sg(g)$), then the tensor product of these two representations, deﬁned
+as the action of $G$ on $\bC^m\ox\bC^n$ by $g(v\ox w)=(gv)\ox(gw)$, is the map
+$$\rho\ox\sg\: G\to\rGL(\bC^{mn})$$
+given by 
+$$(\rho\ox\sg)(g)=\rho(g)\ox\sg(g).$$
+\end{Ej}
+
+\begin{Ej}
+    Recall the RSK bijection from Math 502, and use an appropriate version of it to give a combinatorial proof that the dimensions of the spaces on both sides of the Schur-Weyl duality formula
+    $$\bC^n\oxyox\bC^n=\bigoplus_\la V_\la\ox V^\la$$
+    are equal. (Recall that the left hand side is a tensor product of k copies of $\bC^n$, and the right hand side
+    is summing over all $\la$ of size $k$ with at most $n$ rows.)
+    [Hint: You do not need to know the actual RSK algorithm to do this problem, only what objects it
+    forms bijections between. This can be found in Stanley chapter 7, for instance.]
+\end{Ej}
+
+\begin{Ej}
+    Use the $\eps$ method to ﬁnd the Lie algebra associated to the Lie group $B_n\subseteq\rSL_n(\bC)$ of upper
+triangular matrices in $\rSL_n(\bC)$.
+\end{Ej}
+
+\begin{Ej}
+    Let $V_i$ be the irreducible representation of $\gsl_2(\bC)$ with highest weight $i$. Compute the
+decomposition of $V_3\ox V_5$ into irreducibles.
+\end{Ej}
+
+\begin{Ej}
+    Do the following:
+    \begin{enumerate}
+        \item Show that the total number of ballot sequences of 1's and 2's of length $2n$ is $\binom{2n}{n}$, and
+        that the number of ballot sequences of 1's and 2's of length $2n + 1$ is $\binom{2n+1}{n+1}$.
+        \item If $V_1$ is the irreducible representation of $\gsl_2(\bC)$ having highest weight 1, what does this
+        imply about the decompositions of $V_1^{\ox 2n}$ and $V_1^{\ox 2n+1}$ into irreducibles?
+    \end{enumerate}
+\end{Ej}
+
+\begin{Ej}
+    Starting with the ballot word 12211122121111, draw the corresponding $\gsl_2$ chain by applying the lowering operator $F$ until it is no longer possible.
+\end{Ej}
+
+\end{document} 
