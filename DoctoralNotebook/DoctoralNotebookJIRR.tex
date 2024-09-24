@@ -151,7 +151,7 @@ where $\Dl$ is the set of diagonals. This means that if we have $\vec x=(x_1,\do
 \end{Rmk}
 
 \begin{Ej}
-Show that $Q$ is an affine algebraic variety. \hint{It's a similar argument to proving that $\bA^1\less\set{0}$ is an algebraic variety by considering $\bC[x,y]/\gen(xy-1)$.}
+Show that $Q$ is an affine algebraic variety. [Hint: It's a similar argument to proving that $\bA^1\less\set{0}$ is an algebraic variety by considering $\bC[x,y]/\gen(xy-1)$.]
 \end{Ej}
 
 \begin{ptcb}
@@ -763,6 +763,69 @@ Returning to our vector bundle $E\xrightarrow{\pi}V$ of rank $r>1$, we follow Gr
 Call $\xi=c_1(\cO(1))$ to simplify notation. The Chow ring $A^\ast(P(E))$ forms a free, rank $r$ $A^\ast(V)$-module with basis $\set{1,\xi,\dots,\xi^{r-1}}$. This modularity arises from a similar reasoning to the construction of the Chow ring of $\bP^n$, which corresponds to the case when $V$ is a point. Now the element $\xi^r$ can be expressed as a linear combination of the basic elements: 
 $$\xi^r=c_1\xi^{r-1}-c_2\xi^{r-2}+\dots\pm c_r,\word{for some}c_i\in A^i(V).$$
 ¡These coefficients are the Chern classes in $A^\ast(V)$! The class $c_r$ can be described easily. It is represented by a cycle of the zeroes of a section of $E$. The zeroes of that section will generally have codimension $r$ and we will be able to represent it by $c_r$.
+
+\section{Examples and Theorem 3.1}
+
+Theorem 3.1 in MattAndRenzo deals with the Mumford formula. This is the product of the total Chern class of the Hodge bundle over $\ov{M}_{g,n}$ with the one of the dual. The formula itself is 
+$$(1+\hat{\la}_1+\dots+\hat\la_g)(1-\hat{\la}_1+\dots+(-1)^g\hat\la_g)=\sum_{i=0}^g\frac{1}{i!}\cG_\ast^i\left(\prod_{j=1}^i(\psi_{\star j}-\psi_{\8 j})\right).$$
+
+To prove the formula we will do examples first. The first case that we deal with is in $\ov M_{1,n}$ for a fixed $n\geq 1$.
+
+\begin{Ex}
+    The pseudo stable Mumford formula in this case states:
+$$(1+\hat{\la}_1)(1-\hat{\la}_1)=\frac{1}{0!}\cG_\ast^0\left(\id\right)+\frac{1}{1!}\cG_\ast(\psi_{\star 1}-\psi_{\8 1}).$$
+    Let us analyze the left side. By definition, the pseudo-stable lambda class is 
+    $$\hat\la_j=\cT^\ast(\la_j)=\sum_{i=0}^j\frac{1}{i!}\cG_\ast^i(p_0^\ast(\la_{j-i}))$$
+    so in the case of $\hat\la_1$ we have 
+    $$\hat\la_1=\sum_{i=0}^1(\dots)=\cG_\ast^0(p_0^\ast(\la_{1-0}))+\cG_\ast^1(p_0^\ast(\la_{1-1}))$$
+    where $\cG^0$ is the identity map and $\la_0$ is the fundamental class of $A^\ast(\ov M_{g,n})$. So using this we have 
+    \begin{align*}
+        \hat\la_1&=\cG_\ast^0(p_0^\ast(\la_{1}))+\cG_\ast^1(p_0^\ast(\la_{0}))\\
+        &=\la_1+\cG_\ast^1(\id)
+    \end{align*}
+    and expanding the product we get 
+    \begin{align*}
+        (1+\hat{\la}_1)(1-\hat{\la}_1)&=(1+\la_1+\cG_\ast^1(\id))(1-\la_1-\cG_\ast^1(\id))\\
+        &=(\La_1(1)+\cG_\ast^1(\id))(\La_1(-1)-\cG_\ast^1(\id))\\
+        &=\La_1(1)\La_1(-1)-\La_1(1)\cG_\ast^1(\id)+\cG_\ast^1(\id)\La_1(-1)-\left(\cG_\ast^1(\id)\right)^2.
+    \end{align*}
+    Here, $\La_1$ represents the total Chern class. We may analyze term by term this expression:
+    \begin{itemize}
+        \item The product $\La_1(1)\La_1(-1)=1$ is the usual Mumford formula. 
+        \item For the case $\La_1(1)\cG_\ast^1(\id)$ what we have is $(1+\la_1)\cG_\ast^1(\id)$.
+    \end{itemize}
+    We now arrive to the question of what is $\cG_\ast^1(\id)$ so let's take a step back and remember how $\cG^1$ works as a map:
+    $$\cG^1\: \ov M_{(1-1),n+1}\x\ov M_{1,1}\to \ov M_{1,n},$$
+    and recall that the $\id$ in the argument is $p_0^\ast(\la_0)$ where the $\la_0$ comes from the Chow ring of $\ov M_{0,n+1}$. In particular, it is the fundamental class of the space. Pulling it back just makes it part of an ordered pair and then pushing it forwards attaches it to a copy of an elliptic curve. Graphically:
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth, clip]{figs/GluingMapActionEx}
+    \end{figure}
+    This means that the pushforward of the fundamental class through $\cG^1$ is the class of curves described by the dual graph on the right of the diagram.\footnote{This sentence sounds a bit fishy. I just remember what you said about ``I can't pick a concrete representative''.}\par
+    From this, we have 
+    \begin{align*}
+        (1+\la_1)\cG_\ast^1(\id)&=\cG_\ast^1(\id)+\la_1\cG_\ast^1(\id)\\
+        &=\cG_\ast^1(\id)+\cG_\ast^1(p_1^\ast(\la_1))+\cG_\ast^1(p_0^\ast(\la_1))\\
+        &=\cG_\ast^1(\id)+\cG_\ast^1(p_1^\ast(\la_1))+0.
+    \end{align*}
+    This quantity should be equal to $\cG^1_\ast(p_1^\ast(\La_1(1)))$, and expanding this we have
+    \begin{align*}
+        \cG^1_\ast(p_1^\ast(\La_1(1)))&=\cG^1_\ast(p_1^\ast(1+\la_1))\\
+        &=\cG^1_\ast(p_1^\ast(1))+\cG^1_\ast(p_1^\ast(\la_1))\\
+        &=\cG^1_\ast(1)+\cG^1_\ast(p_1^\ast(\la_1)),
+    \end{align*}
+    so both quantities are equal.\newpage
+    Diagramatically we have 
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth, clip]{figs/DiagramGenus1TotChernG1PB}
+    \end{figure}\\
+    The calculation for $\cG^1_\ast(\id)\La_1(-1)$ is similar but different signs. Finally calculating $\cG_\ast^1(\id)^2$ amounts to finding a self intersection number.  
+\end{Ex}
+
+\begin{Qn}
+    I remember how to find $E\cap E$ in $\Bl_{\text{pt}}\bP^2$ by deforming a cycle that goes through $E$. ¿Is the technique to find $\cG_\ast^1(\id)\cap \cG_\ast^1(\id)$ similar?
+\end{Qn}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
