@@ -581,6 +581,60 @@ Meditate on the following fact: the function $T_s$
  on the complement of the support of $\div(s)$.
 \end{Ej}
 
+\section{Serre Duality}
+
+We have observed that 
+
+$$\dim(H^0(\bP^1,\cO(d)))=\dim(H^1(\bP^1,\cO(-d-2))).$$
+
+This follows from the fact that $H^0(\bP^1,\cO(d))$ is always isomorphic to the dual of $H^1(\bP^1,\cO(-d)\ox T^\ast_{\bP^1})$. This is also sometimes denoted the canonical divisor of $\bP^1$: 
+And a modification if we have $X$ of dimension greater than 1, then we want to write this as
+$$H^i(X,\cL)\isom H^{n-i}(X,\cL'\ox K_X)$$
+where $K_X\isom\bigwedge^nT^\ast X$ is the canonical sheaf. This amounts to having a perfect pairing (non-degenerate bilinear form), a bilinear map 
+$$H^0(\bP^1,\cO(d))\x H^1(\bP^1,\cO(-d)\ox T^\ast_{\bP^1})\to\bC$$
+which means that if we represent this map by a basis and a matrix, the matrix is invertible. There is no vector on the left which maps to zero with a vector on the right unless it's zero. It's precisely like a dot product.\par
+We have two ingredients to show this:
+\begin{enumerate}
+    \item We can identity $\bC$ with $H^1(\bP^1,T^\ast_{\bP^1})$. The particular cohomology group is one-dimensional.
+    \item We have a natural map from the cartesian product to that $H^1$.
+\end{enumerate}
+Spelling this out carefully will give us our natural map. Even if we have $T^\ast_{\bP^1}\isom\cO(-2)$ here, we will see it with differential forms in order to apply it to other spaces.\par
+In the more general case what we have is a map 
+$$H^i(X,\cL_1)\x H^j(X,\cL_2)\to H^{i+j}(X,\cL_1\ox\cL_2).$$
+Let's rewrite the \v{C}ech complex for the cotangent bundle:
+$$T^\ast_{\bP^1}(U_0)\oplus T^\ast_{\bP^1}(U_\infty)\to T^\ast_{\bP^1}(U_0\cap U_\infty)$$
+This is 
+$$\bC[x]\dd x\oplus \bC[y]\dd y\to\bC[x,1/x]\dd x$$
+and the map acts on monomials as 
+$$
+\left\lbrace
+\begin{aligned}
+    &(x^k\dd x,0)\mapsto x^k\dd x\\
+    &(0,y^\l\dd y)\mapsto -(-x^{-\l}\dd x/x^2)=x^{-2-\l}\dd x.
+\end{aligned}
+\right.
+$$
+At the end of the day $H^1(\bP^1,T^\ast_{\bP^1})$ is represented by the cocycle $\dd x/x$. So $H^1(\bP^1,T^\ast_{\bP^1})=\genr{\dd x/x}_{U_0\cap U_\infty}$. The only monomial we are not catching is $1/x$, every other we've caught.\par
+If we did this whole process tensoring with $\cO(-d)\ox-$, then on left we still have functions times $\dd x$ and functions times $\dd y$. The $y$ now transtitions as 
+$$(0,y^\l\dd y)\mapsto -(-x^{-\l-d}\dd x/x^2)=x^{-2-\l-d}\dd x.$$
+So in this case, for example in $d=5$, we will not catch things between $-1$ and $-5-1$:
+$$H^1(\bP^1,\cO(-5)\ox T^{\ast}_{\bP^1})\isom\genr{\frac{\dd x}{x},\frac{\dd x}{x^2},\dots,\frac{\dd x}{x^6}}.$$
+We don't get $\dd x/x^7$ because it's in the image of the map!\par
+Now we would like to show that we have a map 
+$$H^0(\bP^1,\cL_1)\x H^1(\bP^1,\cL_2)\to H^1(\bP^1,\cL_1\ox\cL_2)$$
+at the level of the \v{C}ech complex:
+$$C^0(\bP^1,\cL_1)\x C^1(\bP^1,\cL_2)\to C^1(\bP^1,\cL_1\ox\cL_2).$$
+Elements of the first group are $\set{s_0,s_\infty}$ where $s_0\in L_1(U_0)$ and $s_\infty\in L_1(U_\infty)$ and on the other we have $u_{0\infty}\in L_2(U_0\cap U_\infty)$. Given this we want to produce a section $v_{0\infty}$ of $\cL_1\ox\cL_2(U_0\cap U_\infty)$.\par
+We can take $s_0$ and restrict it: $s_0\mid_{U_0\cap U_\infty}\.u_{0\infty}$. This gives us a $v_{0\infty}$.\par
+Our choice was biased! ¿Why didn't we choose $s_\infty$? The fact that $$\set{s_0,s_\infty}\in\ker d$$
+means that $s_0\mid_{U_0\cap U_\infty}-s_\infty\mid_{U_0\cap U_\infty}=0$ which means that on the intersection they're the same.\par
+So basically we have 
+\begin{gather*}
+H^0(\cO(d))\x H^1(\cO(-d)\ox T^\ast)\to H^1(T^\ast)\\
+\To \genr{1,x,\dots,x^{d}}_{U_0}\ox\genr{\frac{\dd x}{x},\frac{\dd x}{x^2},\dots,\frac{\dd x}{x^{d+1}}}\to\genr{\frac{\dd x}{x}}.
+\end{gather*}
+The matrix of this pairing is the identity matrix and then it's obviously the \emph{dot product}. All the other $x^k\dd x=0$.
+
 \chapter{Incursion into Pseudo-Stable Land}
 
 \section{The Chow ring}
