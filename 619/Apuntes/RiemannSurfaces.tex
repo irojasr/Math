@@ -8,6 +8,7 @@
 \def\nsiglahead {Complex Geometry}
 \def\nlang {ENG}
 %\def\darktheme{}
+\def\nhtml{}
 \let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 
@@ -237,6 +238,46 @@ Meditate on the following fact: the function $T_s$
     \end{enumerate}
 \end{ptcbr}
 
+\section{Tautological Bundle}
+
+The graph of the function 
+$$F\: \bC^2\less\set{0}\to\bP^1,\ (X,Y)\mapsto[X:Y]$$
+is exactly $(X,Y),[S:T]$ such that 
+$$F(X,Y)=[S:T]\To\exists\la\neq 0(X=\la S,\ Y=\la T).$$
+If we assume that $T\neq 0$, we can divide by $T$ and then get $Y/T=X/S$. This also assumes $S\neq 0$, but ok, the points in the closure of this set is obtaineed by clearing denominators. This leads us to $SY=TX$. Spending some time carefully doing this, if one coordinate is zero and the other one isn't, the equation is still satisfied. Even points $(0,0)$, whatever $S$ and whatever $T$, are also in the closure. This means that $(X,Y)$ belongs to the line $[S:T]$, even if $(X,Y)=(0,0)$, it belongs to every line.
+
+
+\section{A quick recap}
+
+Originally, we saw $\bCP^1$ as a complex manifold of dimension 1, we studied things by restricting them to charts and reducing problems to complex analysis. Locally around every point we had complex numbers.\par
+We like to study functions on the space because this translate geometric data to algebraic data. For example we understand $\bR^2$ by considering the \emph{coordinate functions}! Take a point $P$ where the $x$ function takes value $33$ and the $y$ function $-37$.\par
+Bummer, $\bCP^1$ has few functions. Only the constants in fact. This gives us directions of study, meromorphic functions for example give us the whole collection $\bC(x)$. This field of rational functions is a birational invariant of $\bCP^1$, in a sense it's a very rich invariant but it's insensitive to small changes in the space.\par
+Otherwise we can consider the local functions. For every open set, consider holomorphic functions on that open set. We have a lot of them, and they are not completely unrelated. There's actually a whole series of connections between these open sets. This is the notion of a sheaf. 
+$$\text{regular}\leftrightarrow\text{holomorphic}\word{and}\text{rational}\leftrightarrow\text{meromorphic}.$$
+So now, $(\bCP^1,\cO)$ is a locally ringed space which is the datum of a scheme.\par
+The third perspective is to consider sections of a line bundle instead of functions! This comes from replacing a function with its graph.
+$$F\:X\to Y\leftrightarrow i_{\Ga_F}\: X\to\Ga_F\subseteq X\x Y,$$
+we have the same information of a function as $x\mapsto(x,F(x))$. The idea is that we will allow the graph to not live in the product $\bCP^1\x\bC$ but instead on a space which \emph{locally} looks like that. We allow the graph of our \emph{kinda} function to live in spaces that are not necessarilly products $\bCP^1\x\bC$ but locally are products with $\bC$.\par
+Sections of a line bundle give us maps to projective space. $r+1$ sections give us a map to $\bP^r$. This gets us to another invariant, the Picard group $\Pic(\bCP^1)$. This is the group of isomorphism classes of line bundles. For a line bundle, we can compute the \v{C}ech cohomology which give us another powerful invariant. Most of our work is to construct such invariants. We don't have a complete set of invariants for algebraic varieties.
+
+\subsection{¿Why do divisors determine the line bundle?}
+
+Given a divisor $D$ we can construct a line bundle $L$ with a section $s$ such that $\div(s)=D$. 
+
+\begin{Ex}
+Consider the base $\bCP^1$ and the divisor $D=d[\infty]$. Over $\bCP^1$ we have $\supp(D)=\set{\infty}$ so we build two open sets
+$$U_\infty=\text{neighborhood of }\supp(D),\word{and} U_0=\bCP^1\less U_0.$$
+In the chart $U_0$ we have the zero section and if there was a non-zero section $s$, then we might as well rescale all the fibers so that the section becomes $s(x)=1$. This is done by rescaling the fiber by $\frac{1}{s(x)}$. About $U_\infty$, we have that our section is $\set{v=y^d}$. So a good transformation would be 
+$$y=\frac{1}{x},\ v=uf(x)=u/x^d.$$
+\end{Ex}
+
+In general for an arbitrary base of dimension $1$, we have a divisor 
+$$D=\sum_{i=1}^n a_iP_i.$$
+To construct $L$, we need an open cover of $X$ plus transition functions for any pair of intersecting sets. Let us take then 
+$$U_0=\set{p_i}_{i\in\bonj{n}}^c,\ U_i=\text{open disk about }p_i.$$
+
+\red{Ask Simeon for video}
+
 \section{Serre Duality}
 
 We have observed that 
@@ -292,6 +333,27 @@ H^0(\cO(d))\x H^1(\cO(-d)\ox T^\ast)\to H^1(T^\ast)\\
 The matrix of this pairing is the identity matrix and then it's obviously the \emph{dot product}. All the other $x^k\dd x=0$.
 
 \chapter{Higher Genus}
+
+\section{Riemann surfaces}
+
+\begin{Def}
+A \term{Riemann surface} is a complex analytic manifold of dimension $1$. 
+\end{Def}
+
+For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$.
+
+\begin{Ex}
+    The following classes define Riemann surfaces.
+    \begin{enumerate}
+    \item $\bC$ itself is a Riemann surface with one chart.
+    \item Any open set of $\bC$ is a Riemann surface.
+    \item A holomorphic function $f\: U\subseteq\bC\to\bC$ defines a Riemann surface by considering $\Ga_f\subseteq\bC^2$. There's only one chart determined by the projection and the inclusion $i_{\Ga_f}$ is its inverse.
+    \item Take another holomorphic function $f$, then $\set{f(x,y)=0}$ is a Riemann surface such that 
+    $$\text{Sing}(f)=\set{\del_xf=\del_yf=f=0}=\emptyset.$$
+    This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. To show that this is a complex manifold, we will use the inverse function theorem. 
+    \item The first compact example is $\bCP^1$.
+    \end{enumerate}
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
