@@ -676,6 +676,57 @@ $(1,0,\dots,0)=L_1$
 \end{Th}
 
 The proof is done using crystals and RSK, every connected component corresponds to a unique recording tableau.
+
+\section{Day n+4| 20241009}
+
+\subsection{$\gsl_n$ crystals and Stembridge axioms}
+
+Consider the word 
+$$21132342132$$
+we claim that the operations $F_1$ and $F_3$ commute in $\gsl_n$. Observe that $F_1$ brackets $(1,2)$ and $F_3$ brackets $(3,4)$. 
+We thus get:
+\begin{align*}
+    &F_1(21132342132)=21232342132\\
+    &F_3(21132342132)=21132442132\\
+\end{align*} 
+and then applying $F_3,F_1$ respectively we get the same word 
+$$21232442132.$$
+Sometimes $F_1F_3$ is not defined so we actually mean that 
+$$F_1F_3(x)=y\To F_3F_1(x)=y$$
+even when $y=0$. We have a lot of commuting squares then! We may generalize to 
+
+\begin{Th}
+    $F_i,F_j$ commute when $|i-j|>1$. 
+\end{Th}
+
+This characterizes the crystal graphs but not completely, that's where the Stembridge axioms come into play. 
+
+\begin{Th}
+    In an $\gsl_n$ crystal, for $F_1(w),F_2(w)$ either:
+    \begin{enumerate}
+        \item $\exists z (z=F_1F_2(w)=F_2F_1(w))$, or
+        \item $\exists u,v,s,t,z$ such that the crystal is just like the adjoint representation. This means that 
+        $$F_2F_1F_1F_2=F_1F_2F_2F_1.$$
+    \end{enumerate}
+\end{Th}
+
+¿Why can't we have more complicated words than that? The proof for this will be very combinatorial and we will analyze a lot of words.
+
+\begin{ptcbp}
+    Let $a$ be the rightmost unpaired $1$ in $w$ for $(1,2)$. Then call $b$ the rightmost unpaired $2$ in $w$ for $(2,3)$.
+    \begin{itemize}
+        \item In the first case, we assume that removing $b$ does not unbracket a $1$. Take for example\red{sleep}
+        \item In the next case $F_1F_1F_2$
+        \item The third case is basically removing $b=2$ unpairs $c=1$, where $b$ is left of $a$ and there exists and unpaired $3$ to the left of $a$. This is 
+        $$-2-1-(3)-1-$$
+        so applying $F_1$ gets us $-2132-$ and $F_2$ leaves us with $-3131-$. This both meet up after applying $F_2$ and $F_1$ respectively.
+        \item Finally it could be like before but there's no unpaired $3$ left of $a$. Here we get another figure 8 diagram. For this case we get 
+    \end{itemize}
+    
+
+\end{ptcbp}
+
+This all comes from Stembridge's 2004 paper. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
