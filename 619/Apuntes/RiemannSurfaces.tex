@@ -8,7 +8,7 @@
 \def\nsiglahead {Complex Geometry}
 \def\nlang {ENG}
 %\def\darktheme{}
-\def\nhtml{}
+%\def\nhtml{}
 \let\footruleskip\relax %%FADIR
 \input{../../headerVarillyDiff}
 
@@ -354,6 +354,61 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
     \item The first compact example is $\bCP^1$.
     \end{enumerate}
 \end{Ex}
+
+\section{20241009}
+
+Our first examples of non-compact Riemann surfaces are images of holomorphic functions $\bC^2\to\bC$ such that $\text{Sing}(f)=\emptyset$. These implies that 
+$$V(f)=\set{(x,y)\in\bC^2\: f(x,y)=0}$$
+is a Riemann surface via the implicit function theorem.
+
+\subsection{Compact Riemann surfaces}
+
+Our first example is $\bCP^1$. But the next one is complex tori $\bC/\La$. Here $\La$ is a non-degenerate lattice:
+$$\La= z_1\bZ\oplus z_2\bZ,\quad z_1,z_2\in\bC$$
+where these numbers are linearly independent over $\bR$. This quotient is given by the equivalence relation 
+$$x\sim y\iff x-y\in\La.$$
+Another way to see this is to choose a fundamental domain which is the paralellogram $0,z_1,z_2,z_1+z_2$. Any point in $\bC$ is equivalent to a point inside, the pairs of parallel edges are equivalent and all the vertices are equivalent as well. Essentially what we are doing is building a torus (a real 2-torus) with this paralellogram.\par
+This is a Riemann surface because $\bC$ induces a natural atlas via the quotient. For a point $x\in\bC/\La$ we get a chart by:
+\begin{enumerate}
+    \item Picking a point $z_x\in\bC$ a representative of the equivalence class of $x$.
+    \item Then take a neighborhood about $z_x$, and call $U_x$ its image in $\bC/\La$
+    \item Consider the inverse of the projection function $U_x\to\bC$ as our chart.
+\end{enumerate}
+Now pick a $y$ and a representative $z_y$. For elements in the intersection of the neighborhood, transition functions are given by translations.
+
+\begin{Ex}
+    Projective plane curves will be our next example. If we let $F\in\pre{h}\bC_d[X,Y,Z]$ be a homogeneous, degree $d$ polynomial such that $\text{Crit}(F)=\emptyset$ in $\bP^2$, then 
+    $$V(F)=\set{[X:Y:Z]:\ F(X,Y,Z)=0}$$
+    is a Riemann surface. To prove this, we rely on the implicit function theorem. We dehomogenize $F$ and then chart it via 
+    $$V(F)\cap U_z=\set{(x,y)\:\ F(x,y,1)=0}.$$
+\end{Ex}
+
+\begin{Rmk}
+Recall that homogeneous $\text{Crit}(F)$ contains $V(F)$ because $F$ is in the image of the Euler operator $x_i\del_i=d\id$. 
+\end{Rmk}
+
+\begin{Ex}
+    Complete intersections of $(n-1)$ hypersurfaces in $\bP^n$ are the generalize the previous example. Take $F_i\in\pre{h}\bC_{d_i}[\un x]$ and 
+    $$V(F_1,\dots,F_{n-1})=\set{[\un{X}]\in\bP^n\: F_1(\un X)=\dots=F_{n-1}(\un X)=0}$$
+    then this is a Riemann surface. There is however a condition on the $F_i$'s, the gradient of $F_i$ at $P$ must give us different directions. This means that the matrix whose columns are $\nb_p F_i$, $i\in\bonj{n-1}$, has full rank. 
+\end{Ex}
+
+\begin{Ej}
+    Find an expression in terms of determinants for that condition.
+\end{Ej}
+
+\begin{Ex}
+    As a last example, we have local complete intersections. Consider
+    $$C=V(X_0X_3-X_1X_2,X_0X_2-X_1^2,X_1X_3-X_2^2)\subseteq\bP^3,$$
+    this is the image of the rational normal curve 
+    $$\vf\:\bP^1\to\bP^3,\ [s:t]\mapsto[s^3:s^2t:st^2:t^3].$$
+    Choosing only two of the equations, for example the first two, if we set $X_0=X_1=0$ we get a whole line's worth of points because $X_2,X_3$ are free to vary. So this gives us the curve plus a line. As it is the image of a map, then it's a Riemann surface.\par
+    If we take any point on the curve besides the intersection point, we do get a complete intersection.
+\end{Ex}
+
+\begin{Ej}
+    Verify that the image satisfied the polynomial equations.
+\end{Ej}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
