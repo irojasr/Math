@@ -23,10 +23,37 @@
 \end{ptcbr}
 
 \begin{Ej}
+    Write the element $E_{12}$ in $\gsl_3$ as an $8\x 8$ matrix in the adjoint representation, by computing
+how $E_{12}$ acts on the basis $\set{E_{ij}\:\ i\neq j} \cup\set{H_{12}, H_{23}}$ defined in class, via the adjoint operator $\bonj{E_{12},-}$.
+\end{Ej}
+
+\begin{ptcbr}
+    Recall $E_{ij}$ is the matrix of entries $\dl_{ik}\dl_{\l j}$ and $H_{ij}=E_{ii}-E_{jj}$.
+\end{ptcbr}
+
+\begin{Ej}
+    Show that the embedding $\gsl_2\hookto\gsl_3$ that sends 
+    $$\twobytwo{a}{b}{c}{d}\mapsto\threebythree{a}{b}{0}{c}{d}{0}{0}{0}{0}$$
+    is indeed an injective homomorphism of Lie algebras.
+\end{Ej}
+\begin{Ej}
     Recall that the complete homogeneous symmetric function $h_\mu(x_1,\dots,x_n)$, for a partition $\mu=(\mu_1,\dots,\mu_k)$,
 can be deﬁned as the product $h_{\mu_1}\dots h_{\mu_k}$ where $h_d$ is the sum of all monomials in $x_1,\dots,x_n$ of degree $d$.
 \begin{enumerate}
     \item Which Schur function in $n$ variables is $h_d(x_1,\dots,x_n) $ equal to?
+    \item Show that $h_\mu(x_1, x_2, x_3)$ is the character of the tensor product of the $k$ irreducible $\gsl_3$ representations
+    $$V^{(\mu_1,0)}\oxyox V^{(\mu_k,0)}$$
+    where $V^{(a,b)}$ denotes the irreducible representation with highest weight $(a, b)$.
 \end{enumerate}
 \end{Ej}
+
+\begin{ptcbr}
+    \begin{enumerate}
+        \item We have $h_d=s_d$! This is because $s_d$'s monomials correspond to rows of length $d$ which can be filled as a SSYT. This is the same as all the possible monomials in $n$ variables in $h_d$.
+        \item Recall that $\chi(V^{d,0})=s_d$ so in this case we have 
+        $$\chi\left(V^{(\mu_1,0)}\oxyox V^{(\mu_k,0)}\right)=\prod_{j=1}^{k}\chi\left(V^{(\mu_j,0)}\right)=\prod_{j=1}^{k}s_{\mu_j}=\prod_{j=1}^{k}h_{\mu_j}=h_\mu$$
+        where we use the fact that $s_d=h_d$ for row tableaux.
+        \item Kostka numbers count SSYT of shape $\la$ with content $\mu$. When restricting to 3 variables we are only considering fillings of tableaux with $1,2$ and $3$. In this fashion, each term in the decomposition into irreducibles of the tensor product is counted $K_{\la\mu}$ times.
+    \end{enumerate}
+\end{ptcbr}
 \end{document} 
