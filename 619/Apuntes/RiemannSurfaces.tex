@@ -409,6 +409,75 @@ Recall that homogeneous $\text{Crit}(F)$ contains $V(F)$ because $F$ is in the i
 \begin{Ej}
     Verify that the image satisfied the polynomial equations.
 \end{Ej}
+
+\section{20241011}
+
+Every space is locally approximated by tangent spaces. So giving orientation of manifolds is giving an orientation to all tangent in way that is coherent. And of course, in a chart, the tangent bundle trivializes so then we spread the orientation via fibers. On each individual chart we choose an orientation. But between charts we need to look at transition functions.\par
+If for every transtition function, the determinant of the Jacobian of the transition is positive implies that all are orientation preserving.
+
+\begin{Lem}
+Any Riemann surface is orientable.
+\end{Lem}
+
+\begin{ptcbp}
+A surface is orientable if and only if for any transition function $\phi_{ij}$ between $U_i,U_j$ we have 
+$$\det d\phi_{ij}>0.$$
+For a Riemann surface, $\phi_{ij}$ are holomorphic and in particular satisfy Cauchy-Riemann equations. Recall we identity $1=(1,0)$ and $i=(0,1)$ so that $\phi=u+iv$ where $u,v\:\bR^2\to\bR$. \blu{Finish writing derivation for CR eqns via drawing}
+$$u_x=v_y\word{and}-u_y=v_x.$$
+So for our transition function the Jacobian is 
+$$\twobytwo{u_x}{u_y}{v_x}{v_y}=\twobytwo{u_x}{u_y}{-u_y}{u_x}=u_x^2+u_y^2>0.$$
+So holomorphicity implies this and therefore any Riemann surface is orientable. 
+\end{ptcbp}
+
+Restricting our attention to compact Riemann surfaces we obtain a classification theorem. Non orientable are connected sums of projective planes while orientable ones are connected sums of tori.
+
+\begin{Cor}
+Any compact Riemann surface is homeomorphic to a genus $g$ surface.
+\end{Cor}
+
+We must interpret connected sum of zero tori as a sphere. Connected sum is surgery from topology. We remove a small open disk from both surfaces and then identifying both boundaries gives us the result.\par
+The number of holes we obtain is an important invariant called the \term{genus}. This is a topological invariant.
+
+\begin{Rmk}
+    If two R.S. walk about to you with different genera, then they are most certainly non-isomorphic. In genus $1$ there's infinitely many non-isomorphic R.S.
+\end{Rmk}
+
+Some questions arise which will be able to answer:
+
+\begin{Qn}
+¿Are there Riemann surfaces of any genus?
+\end{Qn}
+
+\begin{Qn}
+¿Are there general genus Riemann surfaces which are plane projective planes? This is, as the zero locus of polynomials in $\bP^2$.
+\end{Qn}
+
+The answer to the first question is yes, and the simplest way to construct one is to construct a hyperelliptic curve of genus $g$. This are built out of equations of the form 
+$$y^2=f(x),\quad (x,y)\in\bC^2.$$
+Generically this curves admit a degree $2$ map to $\bC$.\par
+The second question has a negative answer. This should weird us out as we are defining hyperelliptic curves via a polynomial (this only works if the degree of $f$ is $3$ or $4$). In particular if $C=V(f)$ where $f$ is homogeneous of degree $d$ then 
+$$g_C=\binom{d-1}{2}$$
+so as not all integers are of the form $\binom{d-1}{2}$, then there's no genus $5$ hyperelliptic curve in $\bP^2$ for example.
+
+\subsection{Families, singular curves and genus}
+
+\begin{Def}
+A \term{family of Riemann surfaces} is a space $\gX\xrightarrow{\pi}B$ such that
+\begin{enumerate}
+    \item For every $b\in B$, $\pi^{-1}(b)$ is a Riemann surface.
+\end{enumerate}
+\end{Def}
+
+\begin{Ex}
+    Consider $F,G\in\pre{h}\bC[X,Y,Z]_d$ then $\la F+\mu G$ is also homogeneous of degree $d$. $V(\la F+\mu G)$ defines a subvariety or a bihomogenous equation (degree $1$ in $\la,\mu$ and degree $d$ in $X,Y,Z$). This is our space $\gX$ in $\bP^1\x\bP^2$ and projecting $\pi_1$ gives us the family.
+\end{Ex}
+
+\begin{Ex}
+    In a more specficic example we have 
+    $$\la\bonj{(Y^2-X^2)Z+X^3}+\mu XZ^2=0.$$
+    It is well defined to say whether a point $(\la_0:\mu_0),(X_0:Y_0:Z_0)$ is a solution to the equation above. So it makes sense to ask for points $((\la_0:\mu_0),(X_0:Y_0:Z_0))\in\bP^1\x\bP^2$ solutions of this equation. As the parameters vary we get Riemann surfaces.\par
+    However dehomogenizing $(Y^2-X^2)Z+X^3$ gives us $y^2-x^2+x^3$, the nodal curve. The singular locus of this curve contains $(0,0)$, so it's singular at $(0,0)$. About the origin this looks like $\dd y^2=\dd x^2-\dd x^3=\dd x^2$ which is the union of the diagonals. This is a \term{nodal singularity}. It turns out that if we want, we can care only about nodal singularity. If we get a family where curves vary and at some point it degenerates into worse than nodal singularities, then we can replace it with a nodal curve.
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
