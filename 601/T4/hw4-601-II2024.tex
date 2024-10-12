@@ -26,9 +26,56 @@
     Write the element $E_{12}$ in $\gsl_3$ as an $8\x 8$ matrix in the adjoint representation, by computing
 how $E_{12}$ acts on the basis $\set{E_{ij}\:\ i\neq j} \cup\set{H_{12}, H_{23}}$ defined in class, via the adjoint operator $\bonj{E_{12},-}$.
 \end{Ej}
-
+For this exercise we shall employ \ttt{bra-ket} notation. Here, $\braket{u}{v}$ is the inner product of vectors $u,v$ and $\ketbra{u}{v}$ is the rank one matrix whose entries are $u_iv_j$. The following property holds:
+$$\ketbra{u}{v}\ketbra{x}{y}=\braket{v}{x}\ketbra{u}{y}.$$
+Observe that our $E_{ij}$ matrices are in fact $\ketbra{e_i}{e_j}$ where $e_i$ is the standard basis vector. We will also take the liberty of invoking $E_{ii}$ as $H_{ij}=E_{ii}-E_{jj}$. This will be handy as 
+$$\bonj{E_{ij},H_{rs}}=\bonj{E_{ij},E_{rr}-E_{ss}}=\bonj{E_{ij},E_{rr}}-\bonj{E_{ij},E_{ss}}.$$
+With this, we may proceed:
 \begin{ptcbr}
-    Recall $E_{ij}$ is the matrix of entries $\dl_{ik}\dl_{\l j}$ and $H_{ij}=E_{ii}-E_{jj}$.
+    If we take the Lie bracket of $E_{ij}$ with $E_{rs}$ we get
+    \begin{align*}
+        \bonj{E_{ij},E_{rs}}&=E_{ij}E_{rs}-E_{rs}E_{ij}\\
+        &=\ketbra{e_i}{e_j}\ketbra{e_r}{e_s}-\ketbra{e_r}{e_s}\ketbra{e_i}{e_j}\\
+        &=\dl_{jr}\ketbra{e_i}{e_s}-\dl_{is}\ketbra{e_r}{e_j}
+    \end{align*}
+    In our case this formula specializes to 
+    $$\dl_{2r}\ketbra{e_1}{e_s}-\dl_{1s}\ketbra{e_r}{e_2}$$
+    and for this matrix to not be zero we need either $r=2$ or $s=1$. This allows us to see 
+        \begin{itemize}
+            \item $[E_{12},E_{11}]=-\dl_{11}\ketbra{e_1}{e_2}=-E_{12}$.
+            \item $[E_{12},E_{12}]=0$.
+            \item $[E_{12},E_{13}]=0$.
+            \item $[E_{12},E_{21}]=\dl_{22}\ketbra{e_1}{e_1}-\dl_{11}\ketbra{e_2}{e_2}=E_{11}-E_{22}=H_{12}$.
+            \item $[E_{12},E_{22}]=\dl_{22}\ketbra{e_1}{e_2}=E_{12}$.
+            \item $[E_{12},E_{23}]=\dl_{22}\ketbra{e_1}{e_3}=E_{13}$.
+            \item $[E_{12},E_{31}]=-\dl_{13}\ketbra{e_3}{e_2}=-E_{32}$.
+            \item $[E_{12},E_{32}]=0$.
+            \item $[E_{12},E_{33}]=0$.
+        \end{itemize}
+        From this we have
+        $$[E_{12},H_{12}]=-E_{12}-E_{12}=-2E_{12},\quad[E_{12},H_{23}]=E_{12}-0=E_{12},$$
+        and ordering our basis as 
+        $$\set{E_{12},E_{13},E_{21},E_{23},E_{31},E_{32},H_{12},H_{23}}$$
+        our matrix will be 
+        $$\begin{pmatrix}
+            0&0&0&0&0&0&0&0\\
+            0&0&0&0&0&0&0&0\\
+            0&0&0&0&0&0&1&0\\
+            0&1&0&0&0&0&0&0\\
+            0&0&0&0&0&-1&0&0\\
+            0&0&0&0&0&0&0&0\\
+            -2&0&0&0&0&0&0&0\\
+            1&0&0&0&0&0&0&0
+        \end{pmatrix}^\sT=\begin{pmatrix}
+            0&0&0&0&0&0&-2&1\\
+            0&0&0&1&0&0&0&0\\
+            0&0&0&0&0&0&0&0\\
+            0&0&0&0&0&0&0&0\\
+            0&0&0&0&0&0&0&0\\
+            0&0&0&0&-1&0&0&0\\
+            0&0&1&0&0&0&0&0\\
+            0&0&0&0&0&0&0&0
+        \end{pmatrix}$$
 \end{ptcbr}
 
 \begin{Ej}
@@ -39,11 +86,22 @@ how $E_{12}$ acts on the basis $\set{E_{ij}\:\ i\neq j} \cup\set{H_{12}, H_{23}}
 
 \begin{ptcbr}
     To show that this is Lie algebra homomorphism we must show that it respects the Lie bracket. Suppose $A,B\in\gsl_2$, where 
-    $$A=\twobytwo{a}{b}{c}{d},\quad B=\twobytwo{p}{}{}{}$$
+    $$A=\twobytwo{a}{b}{c}{d},\quad B=\twobytwo{e}{f}{g}{h}$$
+    so that 
+    $$\bonj{A,B}=AB-BA=\twobytwo{bg-cf}{af+bh-be-df}{ce+dg-ag-ch}{cf-bg}.$$
+    When embedding these matrices into $\gsl_3$ we get 
+    $$\iota A=\threebythree{a}{b}{0}{c}{d}{0}{0}{0}{0},\quad \iota B=\threebythree{e}{f}{0}{g}{h}{0}{0}{0}{0}.$$
+    Taking their Lie bracket gives us precisely
+    $$\bonj{\iota A,\iota B}=\threebythree{bg-cf}{af+bh-be-df}{0}{ce+dg-ag-ch}{cf-bg}{0}{0}{0}{0}=\iota\bonj{A,B}$$
+    showing us that the mapping is indeed a morphism of Lie algebras.\par
+    This map is certainly injective for if 
+    $$\threebythree{a}{b}{0}{c}{d}{0}{0}{0}{0}=\threebythree{0}{0}{0}{0}{0}{0}{0}{0}{0}\To a=b=c=d=0\To A=0.$$
+    
 \end{ptcbr}
+
 \begin{Ej}
     Recall that the complete homogeneous symmetric function $h_\mu(x_1,\dots,x_n)$, for a partition $\mu=(\mu_1,\dots,\mu_k)$,
-can be deﬁned as the product $h_{\mu_1}\dots h_{\mu_k}$ where $h_d$ is the sum of all monomials in $x_1,\dots,x_n$ of degree $d$.
+can be defined as the product $h_{\mu_1}\dots h_{\mu_k}$ where $h_d$ is the sum of all monomials in $x_1,\dots,x_n$ of degree $d$.
 \begin{enumerate}
     \item Which Schur function in $n$ variables is $h_d(x_1,\dots,x_n) $ equal to?
     \item Show that $h_\mu(x_1, x_2, x_3)$ is the character of the tensor product of the $k$ irreducible $\gsl_3$ representations
