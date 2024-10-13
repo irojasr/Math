@@ -7,7 +7,7 @@
 \def\nsigla {DN}
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
-%\def\ntrim{}
+\def\ntrim{}
 %\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
@@ -25,7 +25,7 @@ This is my doctoral notebook where I will add clean information regarding whatev
 
 \red{TO DO 1}
 \begin{itemize}
-    \item Finish reading stratification of $M_{0,n}$
+    \item Finish reading stratification of $M_{0,n}$ (ALMOST) $\downto$
     \item Write ex 6.2
     \item Re-read Zvonkine paper now with new knowledge
     \item Summarize Borcherds Chow Ring and Chern Classes DONE 20240921
@@ -37,9 +37,15 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \end{itemize}
 \red{TO DO 3}
 \begin{itemize}
-    \item Understand $\cG^1$ self intersection and read new examples.
+    \item Understand $\cG^1$ self intersection (ALMOST) and read new examples. $\downto$
     \item Write down Hodge bundle info on distributivity.
     \item Do exercises Zvonkine.
+\end{itemize}
+\red{TO DO 4}
+\begin{itemize}
+    \item Read chap 2 green book on stable maps
+    \item Read intros on stable map/kontsevich spaces papers.
+    \item Finish Mumford formula understanding.
 \end{itemize}
 }
 \newpage
@@ -367,7 +373,7 @@ The notion of a family of lines over a base variety $B$ is a map $\pi\: B\x\bC\t
 
 \begin{Def}
     A \term{line bundle} over a base $B$ is a map $\pi\: L\to B$ with the following properties:
-    \begin{enumerate}[i)]
+    \begin{enumerate}
         \item There's an open cover $(U_i)_{i\in I}$ of $B$ such that 
         $$\pi^{-1}(U_i)\isom U_i\x\bC$$
         where we call $\phi_i\:\pi^{-1}(U)\to U\x\bC$ the isomorphism. This means that the fiber is isomorphic to $\bC$.
@@ -457,7 +463,7 @@ where the sum runs over the irreducible components \( Z\) of \( X \cap Y \), and
 
 \subsection{Rational Equivalence and the Chow Group}
 
-To address the ambiguities in defining intersections, particularly when subvarieties do not intersect transversally, we use the notion of \emph{rational equivalence}. Cycles are considered equivalent if their difference is the divisor of a rational function on a subvariety of dimension \( j+1 \). This leads to the following definition:
+To address the ambiguities in defining intersections, particularly when subvarieties do not intersect transversely, we use the notion of \emph{rational equivalence}. Cycles are considered equivalent if their difference is the divisor of a rational function on a subvariety of dimension \( j+1 \). This leads to the following definition:
 
 \begin{Def}
 The \( i \)-th \emph{Chow group} \( A^i(V) \) of a non-singular variety \( V \) consists of equivalence classes of codimension \( i \) cycles, where two cycles are equivalent if their difference is a principal divisor, i.e., the zero set of a rational function.
@@ -618,7 +624,80 @@ where the first term \emph{classifies} line bundles and the connecting morphism 
 Returning to our vector bundle $E\xrightarrow{\pi}V$ of rank $r>1$, we follow Grothendieck's approach. We can associate $E$ with the projective bundle $P(E)$ where the typical fiber is isomorphic to $\bP^{r-1}$. Now $P(E)$ has itself a line bundle $\cO(1)$ leading us to a Chern class $c_1(\cO(1))\in A^1(P(E))$ which is not in $A^1(V)$. Thus, we must relate $A^\ast(P(E))$ with $A^\ast(V)$.\par
 Call $\xi=c_1(\cO(1))$ to simplify notation. The Chow ring $A^\ast(P(E))$ forms a free, rank $r$ $A^\ast(V)$-module with basis $\set{1,\xi,\dots,\xi^{r-1}}$. This modularity arises from a similar reasoning to the construction of the Chow ring of $\bP^n$, which corresponds to the case when $V$ is a point. Now the element $\xi^r$ can be expressed as a linear combination of the basic elements: 
 $$\xi^r=c_1\xi^{r-1}-c_2\xi^{r-2}+\dots\pm c_r,\word{for some}c_i\in A^i(V).$$
-¡These coefficients are the Chern classes in $A^\ast(V)$! The class $c_r$ can be described easily. It is represented by a cycle of the zeroes of a section of $E$. The zeroes of that section will generally have codimension $r$ and we will be able to represent it by $c_r$.
+¡These coefficients are the Chern classes in $A^\ast(V)$! The class $c_r$ can be described easily. It is represented by a cycle of the zeroes of a section of $E$. The zeroes of that section will generally have codimension $r$ and we will be able to represent it by $c_r$.\par
+
+Anticlimatically, we will call it the Euler class of our vector bundle. The reason we name it is because it's the only other Chern class that we can naturally give a description of.
+
+\begin{Def}
+    For a vector bundle $E\xrightarrow{\pi}V$ of rank $r>1$, the \term{Euler class} is 
+    $$e(E)\defeq c_r(E)=\bonj{\div(s)},$$
+    the class of a divisor of a section.
+\end{Def}
+
+\begin{Rmk}
+    ¡This is familiar! It generalizes the case of line bundles when $r=1$ as $e=c_1$. Recall that $c_1(\cO(-1))$ is $-\bonj{\text{pt}.}$ but we could pick a section and the cycle will change. If we pick a section with $20$ poles and $19$ zeroes then the divisor of that section is also $c_1$.
+\end{Rmk}
+
+\section{Intersections and the role of the Euler class}
+
+This will summarize my meeting with Renzo from two weeks ago, on 20241001.
+
+\subsection{Transverse Intersections}
+
+\begin{Def}
+    Let $X, Y \subseteq Z$. We say that $X$ and $Y$ intersect transversely at a point $p \in X \cap Y$ if 
+    \[
+    T_p Z = T_p X + T_p Y.
+    \]
+\end{Def}
+
+\begin{Ex}
+    Consider $X$ as a line and $Y$ as a plane in $\mathbb{R}^3$ such that $X$ is not contained in $Y$ (but not parallel to it). In this case, $X$ and $Y$ intersect transversely since their tangent spaces, $\mathbb{R}$ and $\mathbb{R}^2$ respectively, sum to $\mathbb{R}^3$ at the intersection point.
+\end{Ex}
+
+Note that the sum of the tangent spaces need not be a direct sum, as illustrated in the following example:
+
+\begin{Ex}
+    Let $\pi_1$ and $\pi_2$ be two planes in $\mathbb{R}^3$. Their intersection is a line. Each plane contributes two independent directions to their tangent spaces. Together, these directions span all of $\mathbb{R}^3$, meaning that the intersection is transverse.
+\end{Ex}
+
+We also have the following result:
+
+\begin{Prop}
+    If $X$ and $Y$ intersect transversely, then
+    \[
+    \bonj{X \cap Y} = \bonj{X} \. \bonj{Y} \quad \text{and} \quad \codim(X \cap Y) = \codim(X) + \codim(Y).
+    \]
+\end{Prop}
+
+\subsection{Non-transverse intersection}
+
+Let's begin with an example which lies in our minds to introduce non-transverse intersections. 
+
+\begin{Ex}
+    Consider the plane and line defined by 
+    $$
+    \left\lbrace
+    \begin{aligned}
+    &\pi=\set{3x+4y+6z=12}=\set{s(4,0,-2)+t(0,3,-2)+(0,0,2)}.\\
+    &\l=\set{t(4,0,-2)+(0,0,2)}.
+    \end{aligned}
+    \right.
+    $$
+    We have that $\l\subseteq\pi$. So to follow the previous idea in transverse intersections we have two choices:
+    \begin{itemize}
+        \item Think like a topologist and wiggle $\l$ until becomes transverse with $X$, but watch out, we wouldn't like to wiggle it completely inside of $X$.
+        \item Think like an algebraic geometer and replace $\l$ with an equivalent transverse cycle. This idea uses Chow's moving lemma!
+    \end{itemize}
+    The smart topologist wishes to wiggle $\l$ outside of $\pi$, this is done through the normal bundle of $\pi$ inside of $\bR^3$. Observe quickly that this bundle is the collection of normal spaces of points of the plane. For $P\in\pi$ we have
+    $$N_P(\pi)=\set{x\in T_P(\bR^3)\:\ \braket{x}{y}=0,\quad y\in T_P(\pi)}$$
+    where $T_P(\bR^3)$ is the whole of $\bR^3$ and $T_P(\pi)$ is $\pi$ but parametrized as 
+    $$T_P(\pi)=\set{u(4,0,-2)+v(0,3,-2)+P}.$$
+    In any case the normal space is spanned by the vector $(3,4,6)$ so that at point $P$, the normal space is $\set{t(3,4,6)+P}$. Restricting it to $\l$ we obtain the wiggle room, the normal bundle 
+    $$N_{\pi\subseteq\bR^3}\mid_{\l}=\set{N_P(\pi)\:\ P\in\l}.$$
+    Wiggling $\l$ across the normal bundle gives us a \emph{section} of the normal bundle. First of all, \red{finish}
+\end{Ex}
+
 
 \section{Examples and Theorem 3.1}
 
