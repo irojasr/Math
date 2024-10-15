@@ -767,6 +767,91 @@ Analyze how tableaux crystals fit into this picture.
     where the $f$ arrow 
 \end{Ex}
 
+\section{Day n+6|20241014}
+
+Recall the Stembridge axioms, $(B,e_i,f_i,\eps_i,\vf_i,\wt)$. 
+
+\begin{enumerate}
+    \item seminormality
+    \item length axioms
+    \item diamond shape
+    \item figure 8
+\end{enumerate}
+
+So let us finish the proof 
+
+\begin{Th}
+    Connecteed Stembridge crystals are crystals whose graph is connected. They have a unique highest weight element (unique maximal, all $e_i$'s send it to zero).
+\end{Th}
+
+\begin{ptcbp}
+    Let $x$ be a highest weight element, assume for contradiction it's not unique. Let us define 
+    $$S=\set{z_i\:\ \exists f_{i_1},\dots,f_{i_k},\ f_{i_1}\circ\dots\circ f_{i_k}x=z}=\set{\text{pts. below }x}.$$
+    There could be some other stuff not below $x$, outside $S$. Let us take $z\in S$ be maximal (in the crystal) such that $z$ is covered by some $y$ not in $S$. This is the highest $z$ which has something from the outside pointing to it.\par
+    We have that $z\neq x$ as $x$ is maximal (highest weight) by assumption (otherwise $y\to x$, contradiction). Let $z'\in S$, $f_i(z')=z$ for some $i$.\par
+    If $S2'$ applies, then there's a $w$ 
+    $$w\xrightarrow{f_j}z',\quad w\xrightarrow{f_i}y,$$
+    because $z$ was maximal, $w\in S$.\par
+    \begin{enumerate}
+        \item $S1$ implies that if $f_i(x)=y$
+        \item \red{sleep}
+    \end{enumerate}
+\end{ptcbp}
+
+\begin{Th}
+    If two connected Stembridge crystals $C,C'$ have highest weight elements $x,x'$ and weight $\wt(x)=\wt(x')$ then $C\isom C'$. This means that we get the same graph, weight, $\vf_i,\eps_i$ values.
+\end{Th}
+
+This theorem is proved in Shilling and Bald's book. The idea starts with the weight function, axiom $K2$ relates weight with $\eps_i,\vf_i$. Then by induction each successive row starting from the top is determined. (Row means how many $f$'s you have to apply to get there. Can't have non-graded posets) This is uniquely determined via $S1,S2$ and $S3$.\par
+We can now connect this with Lie algebras.
+
+\begin{Cor}
+    Every Stembridge crystal is isomorphic to a crystal of tableaux.
+\end{Cor}
+
+\begin{ptcbp}
+    Tableaux crystals satisfy $K_1,K_2$ and $S0$ through $S3'$. And every highest weight appears as the highest weight of some tableau crystal. So by the previous theorem, we are done.
+\end{ptcbp}
+
+\begin{Rmk}
+    It is hard to find local axioms to globally determine the structure of the crystal. Recall that we know that the character of a Stembridge crystal $\chi(V^\la)=s_\la$ (irreducible representation of $\gsl_n$), then 
+    $$\chi(C)=\sum_{b\in C} x^{\wt(b)}$$
+    sum is over dots of the crystal. So 
+    $$\chi(\text{tableau crystal }C^\la)=s_\la.$$
+\end{Rmk}
+
+\begin{Cor}
+    Say we have a symmetric function $f=\sum c_\la s_\la$. If we want to show $c_\la\in\bZ_{\geq 0}$, then if the symmetric function is of the form $f=\sum x^P$, then the method is to try to define raising and lowering operators such that Stembridge's axioms are satisfied. 
+\end{Cor}
+
+This method has been done a few times now. Stanley symmetric functions and ordered symmetric functions are some of the examples where this can be used.
+
+\subsection{Beyond type $A$: General Lie algebras and Root systems}
+
+Recall $\lie g$ is a $\bC$-vector space with a Lie bracket. Any Lie algebra has a system of roots. 
+
+\begin{Def}
+The roots of $\lie g$ are weights of the adjoint representation acting on itself via the Lie bracket.\par
+The Cartan subalgebra $\lie h$ is the maximal Abelian Lie subalgebra.
+\end{Def}
+
+\begin{Def}
+We say $\lie g$ is semisimple if its roots span $\lie h^\ast$.
+\end{Def}
+
+\begin{Ex}
+    Recall $\ggl_n$ is the whole set of $n\x n$ matrices. The roots of $\ggl_n$ are $L_i\diag(\un x)=x_i$, $L_i-L_j$ for $i\neq j$. This is the same as $\gsl_n$, but the weight space is $\genr{L_1,\dots,L_n}$ which is not $\genr{L_1,\dots,L_n}/\sum L_i=0$ which is $\gsl_n$'s weight space.
+\end{Ex}
+
+The goal is to classify semisimple Lie algebras by classifying sets of roots. We will use certain facts about Lie algebras:
+
+\begin{Prop}
+    For a semisimple Lie algebra $\lie g$ the following hold:
+    \begin{enumerate}
+        \item $\lie g=\lie h\oplus\bigoplus_{\al\in R}\lie g_\al$ where $\lie g_\al$ is 1 dimensional. Say for example $\lie g_{L_1-L_2}=\genr{E_{12}}$.
+        \item Little $\gsl_2$'s for each root. $\lie g_\al\oplus\lie g_{-\al}\oplus\bonj{\lie g_\al,\lie g_{-\al}}\hookto\lie g$. In our case this correspond to $E,F$ and $H$.
+    \end{enumerate}
+\end{Prop}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

@@ -478,6 +478,74 @@ A \term{family of Riemann surfaces} is a space $\gX\xrightarrow{\pi}B$ such that
     It is well defined to say whether a point $(\la_0:\mu_0),(X_0:Y_0:Z_0)$ is a solution to the equation above. So it makes sense to ask for points $((\la_0:\mu_0),(X_0:Y_0:Z_0))\in\bP^1\x\bP^2$ solutions of this equation. As the parameters vary we get Riemann surfaces.\par
     However dehomogenizing $(Y^2-X^2)Z+X^3$ gives us $y^2-x^2+x^3$, the nodal curve. The singular locus of this curve contains $(0,0)$, so it's singular at $(0,0)$. About the origin this looks like $\dd y^2=\dd x^2-\dd x^3=\dd x^2$ which is the union of the diagonals. This is a \term{nodal singularity}. It turns out that if we want, we can care only about nodal singularity. If we get a family where curves vary and at some point it degenerates into worse than nodal singularities, then we can replace it with a nodal curve.
 \end{Ex}
+
+\section{20241014}
+
+Lat time we were talking about families. We want the thing that \emph{controls} the variation of the Riemann surface to also be a Riemannian manifold. As they vary we would like to form a global object. We shoud think of the variety $B$ to be a parameter space.\par
+Our example served to show us that over compact spaces we may have singularities. From a topological point of view, we don't quite know it yet but\dots
+
+\begin{Ex}
+A smooth cubic curve in $\bP^2$ has genus 1. As we get closer to zero in the base, one of the loops starts to contract we obtain a node.\par
+This pinched torus should have genus $1$. But it's also really close to being a sphere because I've taken two points and pinched them together. For nodal curves the notion of genus becomes two: arithmethic and geoemtric. Arithmethic has to do with algebra and it remains invariant in families. In particular for families resolving the singularity: One of the fibers is our nodal curve and nearby fibers are tori. So this pinched torus has arithmethic genus 1.\par
+On the other hand geometric genus stays invariant under birational transformations. In this particular example, there's no birational transformation between the pinched torus and the torus. However there's a birational transformation called normalization which takes the open set of the sphere minus two points to the pinched torus minus the singularity.
+\end{Ex}
+
+\subsection{Maps to and from Riemann Surfaces}
+
+We have seen that Riemann surfaces are orientable complex manifolds. 
+
+\begin{Def}
+We say that a function $f\: C\to\bC$ is holomorphic at $x$ if at a chart $(U_x,\vf_x)$ we have $(\vf_x^{-1})^\ast(f)$ is holomorphic at $\vf_x(x)$.
+\end{Def}
+
+We have a plethora of theorems imported from complex analysis. 
+
+\begin{Prop}
+    The following properties hold for holomorphic functions on Riemann surfaces.
+\begin{itemize}
+    \item Zeroes of holomorphic functions are discrete sets.
+    \item If $f$ is non-constant and holomorphic, then it's an open mapping. 
+    \item If $C$ is a compact Riemann surface, then $f\: C\to\bC$ being holomorphic implies it's constant. 
+\end{itemize}
+\end{Prop}
+
+The set of holomorphic functions cannot tell apart two Riemann surfaces.
+
+\begin{ptcbp}
+    We will only prove the last item. If $f$ was not constant, $f(C)\subseteq\bC$ would be open. Also, $f(C)$ is compact in $C$. This contradicts the fact that $f$ is non-constant.
+\end{ptcbp}
+
+So now we turn our attention to meromorphic functions as holomorphic ones are disappointing. 
+
+\begin{Ex}
+    Let us see meromorphic functions on compact Riemann surfaces:
+    \begin{enumerate}
+        \item Rational functions on $\bCP^1$.
+        \item In complex tori: $f\:\bC/\La\to\bC$, we have quotient function. This is function should be a meromorphic function on $\bC$ which is invariant under the torus action. These are called \emph{doubly-periodic}:
+        $$f(z+\la)=f(z),\quad\la\in\La.$$
+        One such example is \emph{Weierstrass}'s $\wp$ function:
+        $$\wp(z)=\frac{1}{z^2}+\sum_{\la\in\La\less\set{0}}\left(\frac{1}{(z-\la)^2}-\frac{1}{\la^2}\right)$$
+        which holomorphic outside every lattice point and has poles of order $2$ at any $\la\in\La$. Observe that if $\tilde{\la}\in\La$ then 
+        $$\wp(z+\tilde{\la})=\frac{1}{(z+\tilde{\la})^2}+\sum_{\la\in\La\less\set{0}}\left(\frac{1}{(z+\tilde{\la}-\la)^2}-\frac{1}{\la^2}\right)$$
+        which is just a reindexing of the previous summation. The $1/z^2$ term appears when we go over the $\la=\tilde{\la}$ term in the sum.\par
+        It also occurs that $\wp$ is even. This fact tells us that we get a pole of order $2$ at every point in the lattice, but getting the Laurent expansion tells us that $a_{-1}$, the residue is zero. In other words the expansion looks like
+        $$\dots+\frac{a_{-2}}{z^2}+a_0+a_2z^2+\dots.$$
+        \item Another meromorphic function is 
+        $$\wp'(z)=-2\left(\frac{1}{z^3}+\sum_{\la\in\La\less\set{0}}\frac{1}{(z-\la)^3}\right)$$
+        which is now odd, has a pole of order $3$ at every lattice point with expansion 
+        $$\frac{a_{-3}}{z^3}+a_1z+\dots$$
+        we don't get a $z^{-1}$ term as taking the derivative term by term produces no such term!
+        \item Observe that now $(\wp'(z))^2$ has poles of order six while $\wp^3(z)$ does as well! We may choose a constant so that the poles of order $6$ of $(\wp')^2-A\wp^3$ cancel! Our Laurent series look like 
+        $$\left(\frac{a_{-6}}{z^6}+\frac{a_{-2}}{z^2}+a_0\right)+A\left(\frac{b_{-6}}{z^6}+\dots\right).$$
+        We can also cancel the pole of order 2 with the original Weierstrass function: $(\wp')^2-A\wp^3-B\wp$. With this we have cancelled all of the poles which means that this is holomorphic and therefore constant. This is a functional equation between the Weierstrass function and its derivative. Therefore
+        $$(\wp')^2-A\wp^3-B\wp=C$$
+        and $(\wp,\wp')\:\bC/\La\less\set{\bonj{\la}}\to\bC^2$ where we map $z\mapsto(x,y)=(\wp(z),\wp'(z))$. What this equation tells us is that the image of this map is contained the locus 
+        $$y^2+Ax^3+Bx=C.$$
+        We would have to do a bit more work to see that that curve is exactly all of the image.
+        \item Our library of examples of Riemann surfaces reduces to projective curves. If $C\subseteq\bP^n$ is a projective curve, then we can obtain any meromorphic function on $C$ by getting a meromorphic function on $\bP^n$ and restricting to $C$, so long as $C$ is not entirely contained in $V(Q)$ where the original function is $P/Q$. Otherwise it becomes the constant function infinity.\par
+        In particular take the conic $V(X^2+Y^2+Z^2)=C\subseteq\bP^2$. Take the map $\bP^2\to\bC$ (dotted), $(X:Y:Z)\mapsto X/Z$. Then this function is not defined when $Z=0$, but everywhere else it is. This function is precisely the linear projection onto the first coordinate from $(0:1:0)$. This is really a map from $\bP^2\less\set{(0:1:0)}$ to $\bC$ with exactly two tangents. If we claim that the image of $Z=0$ to the $X$ axis is the point at infinity, this becomes a map $\bP^2\to\bP^1$, becoming our first example of maps \emph{between} Riemann surfaces.
+    \end{enumerate}
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
