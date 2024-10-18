@@ -546,6 +546,172 @@ So now we turn our attention to meromorphic functions as holomorphic ones are di
         In particular take the conic $V(X^2+Y^2+Z^2)=C\subseteq\bP^2$. Take the map $\bP^2\to\bC$ (dotted), $(X:Y:Z)\mapsto X/Z$. Then this function is not defined when $Z=0$, but everywhere else it is. This function is precisely the linear projection onto the first coordinate from $(0:1:0)$. This is really a map from $\bP^2\less\set{(0:1:0)}$ to $\bC$ with exactly two tangents. If we claim that the image of $Z=0$ to the $X$ axis is the point at infinity, this becomes a map $\bP^2\to\bP^1$, becoming our first example of maps \emph{between} Riemann surfaces.
     \end{enumerate}
 \end{Ex}
+
+%Surface((1/3 cos(s)(t+t^2+t^3)-sin(s)(t^3-t^2)-1/3 (-2t+t^2+t^3),1/3 (cos(s)-sin(s))(t+t^2+t^3)-(cos(s)+sin(s))(t^3-t^2)+1/6 (-2t+t^2+t^3),1/3 (cos(s)+sin(s))(t+t^2+t^3)-(-cos(s)+sin(s))(t^3-t^2)+1/6 (-2t+t^2+t^3)),t,-1,1,s,0,2pi)
+
+\section{20241016}
+
+Last time we mentioned that compact Riemann surfaces admit no non-constant holomorphic functions. Whereas $\wp$ embeds complex tori into $\bA^2_\bC$. Also projections were meromorphic functions.\par
+Today we will start studying functions between Riemann surfaces.
+
+\subsection{Maps between Riemann surfaces}
+
+The notion of holomorphic maps between two Riemann surfaces relies on the charts.
+
+\begin{Def}
+    A function $f:C\to D$ is holomorphic at $x$ if 
+    $$\psi_xF\vf_x^{-1}\: U_{x}\to U_{f(x)}$$
+    is holomorphic at $\vf_x(x)$.\par
+    $C\isom D$ when there is a $f^{-1}$ which is also holomorphic.
+\end{Def}
+
+This next result in particular tells us hat the degree is not an invariant for isomorphism of Riemann surfaces. If two curves walk up to you and tell you their degrees, you can't differentiate between them just because of that.
+\begin{Ex}
+    A smooth conic in $\bP^2$ is isomorphic to a line in $\bP^2$. To prove this, we need some facts:
+    \begin{itemize}
+        \item Any line in $\bP^2$ intersects a conic in 2 points counting multiplicities. This is the fundamental theorem of algebra, but also a case of Bézout's theorem.\par
+        To prove this we parametrize the line. Finding the points of intersection amounts to solving a degree two equation in one variable (or homogeneous in 2 variables). Then fundamental theorem of algebra gives us the two local coordinates of the points in the line.
+        \item Any two lines in $\bP^2$ intersect at one point. 
+    \end{itemize}
+    We define our function similar to the stereographic projection. From the conic, we choose a point and project points from the conic into our line. The inverse function takes a point from the line, form another line between the point and our chosen point on the conic and looks at the \emph{other} intersection.
+\end{Ex}
+
+\begin{Ej}
+    Verify that indeed the aforementioned functions are holomorphic.
+\end{Ej}
+
+Isomorphisms occur when two different curves are born and are related by a biholomorphic function. Automorphisms on the other hand occur when we have biholomorphic functions from a curve to itself.
+
+\begin{Def}
+    An automorphism of a Riemann surface $C$ is a biholomorphic function $f\: C\to C$.
+\end{Def}
+
+\begin{Ex}
+    Taking a point outside a conic $C$ and looking at intersections of lines through that point and the conic defines an automorphism.
+\end{Ex}
+
+\begin{Ej}
+    ¡Verify this!
+\end{Ej}
+
+\begin{Ex}
+    Consider the elliptic curve
+    $$V(Y^2Z-X^3-XZ^2-Z^3),$$
+    then the map $\al\:\bP^2\to\bP^2,(X:Y:Z)\mapsto(X:-Y:Z)$ restricts to a map $\al\mid_C\: C\to C$ which is an automorphism.\par
+    When dehomogenizing we get an affine chart and a curve symmetric about the $x$-axis. This is the same case as the last map but we've chosen $P=(0:1:0)$. 
+\end{Ex}
+
+The idea is to exploit symmetries that define algebraic varieties. If we have even coefficients we probably have this kind of involutions. If $X$ appeared with exponents which are multiples of 3, then we could switch $X$ with $\om X$.
+
+\begin{Qn}
+    How do you tell \emph{stuff} (\blu{equality from isom? I didn't hear, ask Ross.})
+\end{Qn}
+
+Equality is different from isomorphism, an object is only equal to itself, but is isomorphic to any other object with arrows.\par
+Similarly Riemann surfaces are only equal to themselves. If we get a line in $\bP^2$, and we flip it somehow but they are still two different things we want to consider.\par
+Two things which are isomorphic are \emph{equal} on the quotient set.\par
+Earlier we mentioned that holomorphic functions occur when their local expressions are holomorphic. So the technical lemma that allows us to study functions of Riemann surfaces is:
+
+\begin{Lem}
+    If $f\: C\to D$ is holomorphic at $x$, then there exist choices of charts $(U_x,\vf_x)$, $(V_{f(x)},\psi_{f(x)})$ such that the local expression becomes $w=z^k$ where $z$ is the $U$ coordinate and $w$ the $V$ coordinate. Further, $k\in\bN$ is independent of the choice of chart.
+\end{Lem}
+
+\begin{Rmk}
+    In particular, if $f$ is an isomorphism, $k=1$. That's saying it's the identity on the charts.\par
+    If we have two maps then, the local expression of the composition is $\widetilde{w}=z^{k\l}$.
+\end{Rmk}
+
+The starting point is that we have a function $f$ which is already holomorphic. We can start with some charts such that the local expression is holomorphic.\par
+To make our lives easier assume $\vf_x(x)=\psi_{f(x)}(f(x))=0$ so both points are sent to the origin and $F(0)=0$. In a neighborhood of the origin we have a Taylor expansion which $F$ converges to. Say $k$ is the first term which appears in this expansion. We may write 
+$$F(z)=\sum_{i\geq k}a_iz^i=z^k\sum_{i\geq k}a_iz^{i-k}=z^k\sum_{\l\geq 0}\tilde{a}_\l z^\l=z^k\ga(z)$$
+and observe that $\tilde{a}_0\neq 0$. This factor is a holomorphic function which is non-zero at the origin. Then there exists a branch of the $k$-th root, let $\widehat{\ga}$ be a choice of a branch of the $k^{\text{th}}$ root of $\ga$ near $z=0$.
+
+\begin{Rmk}
+    Recall branches: DRAWING
+\end{Rmk}
+
+So let $\tilde{z}=z\widehat{\ga}$, this is a holomorphic change of coordinates. We may choose the composition $(z\widehat{\ga})\vf_x$ as our chart. Then the local expression of our function is $w=\tilde{z}^k$ simply because we picked $F(z)=z^k\ga(z)$ so 
+$$\tilde{z}^k=z^k\ga=F=w.$$
+\begin{Rmk}
+    This proof doesn't work when $k=0$, but proving that entails switch the other chart to the center the constant value.
+\end{Rmk}
+
+\section{20241018}
+
+Last time we talked about the technical lemma, its two ingredients were
+\begin{enumerate}
+    \item Any holomorphic function has a well defined order of vanishing at zero. This is the first non-zero coefficient of the Taylor expansion. This is $k$ such that $a_j=0$ for $j<k$ and $a_k\neq 0$.
+    \item If $\ga(z)$ is a holomorphic function such that $\ga(0)\neq 0$ then we can make a choice of a $k^{\text{th}}$ root of $\ga$, $\ga^{1/k}(z)$. There are $k$ holomorphic functions about zero such that we get $\ga$ as their $k^{\text{th}}$ power.
+\end{enumerate}
+
+The fact that $k$ is unique comes from the fact that the order of vanishing is unique.
+
+\begin{Def}
+    Such $k$ is called the \term{ramification order} of $f\: C\to D$. When $k=1$ we say the map is unramified while for $k>1$, it ramifies.
+\end{Def}
+
+\begin{Ej}
+    Show that if $k=0$, then our function is constant.
+\end{Ej}
+
+\begin{Def}
+    For a map of Riemann surfaces $f\: C\to D$ we have:
+    \begin{enumerate}
+        \item The \term{ramification locus} is $R=\set{x\in C\: k_x>1}\subseteq C$.
+        \item The \term{branch locus} is $B=\set{y=f(x)\: x\in R}$.
+    \end{enumerate}
+\end{Def}
+
+We have that $f(R)=B$ but $f^{-1}(B)\supseteq R$. 
+
+\begin{Th}
+The ramification locus is a discrete set.
+\end{Th}
+
+\begin{ptcbp}
+    Suppose $x\in R$, then there exists an open neighborhood of $C$, $U_x$ where the local expression of $f$ is $w=z^k$. For all points of this neighborhood $y$, we have $k_y=1$. This means that we cannot have accumulation. As we are in a compact set, then our set should be finite.
+\end{ptcbp}
+
+\begin{Rmk}
+    The function $w=z^k$ has the property that every non-zero point has exactly $k$ preimages. Only zero has one preimage.
+\end{Rmk}
+
+\subsection{The degree of a map}
+
+As $C$ is compact, the degree better be finite. This degree should have to do with the covering map property.
+
+\begin{Def}
+    The degree of $f\: C\to D$ is 
+    $$\deg(f)=|f^{-1}(y)|,\quad y\in D\less B.$$
+\end{Def}
+
+This notion is well defined as the number of inverse images of a covering is constant. Take a point not in $B$, count its inverse image suppose 37. Then the set of points with 37 images is a whole open set. The set of points \emph{without} 37 inverse images is also an open set. Every point of $D\less B$ has either or not 37 inverse images. As $D$ is connected, we are done.\par
+Pick 
+$$y_0\in D\less B,\quad d_0=|f^{-1}(y_0)|$$
+Consider 
+$$U_0=\set{y\in D\less B\:\ |f^{-1}(y)|=d_0},\quad U_1=\set{(\dots)|f^{-1}(y)|\neq d_0}$$
+Observe that $U_0\cup U_1= D\less B$ and $U_0\cap U_1=\emptyset$. $U_0,U_1$ are both open and closed so as $D\less B$ is connected, $U_0\neq \emptyset$ we conclude $U_1=\emptyset$ and $U_0=D\less B$.\par
+We would like to think of the ramification order as a multiplicity.
+
+\begin{Lem}
+    If $f\:\ C\to D$ is holomorphic of degree $d$ and $y\in D$, then
+$$\sum_{x\in f^{-1}(y)}k_x=d.$$
+\end{Lem}
+
+The fact that the degree is well defined partitucularly implies that if $f\: C\to \bC$ then it has as many zeroes as poles. Recall this is the same as having a holomorphic function to $\bP^1$. So this now becomes an honest map between Riemann surfaces to which we apply the lemma to:
+$$\sum_{x\in f^{-1}(0)}k_x=\sum_{x\in f^{-1}(\infty)}k_x=d.$$
+
+\subsection{A preview on hyperelliptic curves}
+
+We would like to construct Riemann surfaces of any genus. 
+
+\begin{enumerate}
+    \item We consider an affine plane curve
+    $$\set{y^2=p(x)}$$
+    where $p(x)$ has distinct roots and degree $2g+1$. This is not compact, but if we could add infinity points then we fail as compacting in $\bP^2 we get a lot of singularities$.
+    \item We may compactify in $\cO(g+1)$ by adding \emph{only one point}.
+    \item By a topological argument, this is a 2-to-1 covering of a sphere.
+\end{enumerate}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
