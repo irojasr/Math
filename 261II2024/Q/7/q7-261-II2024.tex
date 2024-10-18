@@ -16,7 +16,7 @@
 \usepackage[customcolors]{hf-tikz}
 \usepackage[shortlabels]{enumitem}
 \usepackage{tikz}
-
+\usetikzlibrary{patterns}
 %\def\darktheme
 %%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
 
@@ -205,11 +205,114 @@ enhanced
 %\begin{multicols}{2}
 
 \begin{Ej}
-  
+  In this exercise, we will review the use of polar coordinates.
+  \begin{enumerate}
+    \item Consider the following figure:
+
+    \begin{center}
+
+
+      \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+      \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+      %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+      
+      %Straight Lines [id:da9322038356101576] 
+      \draw    (140,91) -- (140,191) ;
+      %Straight Lines [id:da6751605298801924] 
+      \draw    (90,141) -- (190,141) ;
+      %Shape: Circle [id:dp2603483709032255] 
+      \draw   (100,141) .. controls (100,118.91) and (117.91,101) .. (140,101) .. controls (162.09,101) and (180,118.91) .. (180,141) .. controls (180,163.09) and (162.09,181) .. (140,181) .. controls (117.91,181) and (100,163.09) .. (100,141) -- cycle ;
+      %Straight Lines [id:da4876726638778297] 
+      \draw    (90,191) -- (190,91) ;
+      %Straight Lines [id:da013830272144174538] 
+      \draw    (180,141) -- (190,130) ;
+      %Straight Lines [id:da7786097088612032] 
+      \draw    (140,141) -- (112,112) ;
+      %Straight Lines [id:da879664606023387] 
+      \draw    (135.4,146.2) -- (107,118) ;
+      %Straight Lines [id:da6341813039022857] 
+      \draw    (144.6,135.8) -- (117,108) ;
+      %Straight Lines [id:da9855909775138032] 
+      \draw    (150.2,130.6) -- (124.2,103.6) ;
+      %Straight Lines [id:da4101753279794036] 
+      \draw    (129.8,151) -- (104.2,124.4) ;
+      %Straight Lines [id:da8030563437269853] 
+      \draw    (154.6,125.4) -- (132.6,102) ;
+      %Straight Lines [id:da6151907959632548] 
+      \draw    (124.6,155.8) -- (106.31,136.87) -- (101.8,132) ;
+      %Straight Lines [id:da9897479460199292] 
+      \draw    (160.2,120.2) -- (142.2,101.2) ;
+      %Straight Lines [id:da17658855094836046] 
+      \draw    (120.6,161.8) -- (100,141) ;
+      %Straight Lines [id:da1287264303313751] 
+      \draw    (115,165.4) -- (101.6,151) ;
+      %Straight Lines [id:da2670928208408272] 
+      \draw    (165,116.6) -- (151.6,102.2) ;
+      
+      % Text Node
+      \draw (192,141) node [anchor=west] [inner sep=0.75pt]    {$x$};
+      % Text Node
+      \draw (140,87.6) node [anchor=south] [inner sep=0.75pt]    {$y$};
+      % Text Node
+      \draw (192,87.6) node [anchor=south west] [inner sep=0.75pt]    {$y=x$};
+      % Text Node
+      \draw (192,126.6) node [anchor=south west] [inner sep=0.75pt]    {$x=2$};
+      
+      
+      \end{tikzpicture}
+
+  \end{center}
+  Using the information provided in the figure, describe the \textbf{shaded} region in terms of polar coordinates.
+
+  \item Consider the following integral:
+  \[
+  \int_{-\sqrt{2}}^{0}\int_{-\sqrt{4-x^2}}^x\dd y\dd x + \int_{0}^{\sqrt{2}}\int_{-\sqrt{4-x^2}}^{-x}\dd y\dd x.
+  \]
+  Sketch the region represented by this integral and express its bounds in polar coordinates.
+\end{enumerate}
 \end{Ej}
 
 \begin{ptcb}
-\vspace{17cm}
+\vspace{15cm}
 \end{ptcb}
+\newpage
+\begin{Ej}
+  Consider the vector field $\mathbf{F}(x,y,z) = (z, 0, -x)$ and the curves $\mathcal{C}_1$ and $\mathcal{C}_2$ parametrized as follows:
+  \[
+  \left\lbrace
+  \begin{aligned}
+    &r_1(t) = (1-2t, 1, 1-2t),\quad 0 \leq t \leq 1, \\
+    &r_2(s) = (s^3, 1, s^3),\quad -1 \leq s \leq 1.
+  \end{aligned}
+  \right.
+  \]
+  Perform the following tasks:
+  \begin{enumerate}
+    \item Compute the Jacobian matrix of $\mathbf{F}$, denoted $J\mathbf{F}$, and demonstrate that $\mathbf{F}$ is \textbf{not} conservative.
+    \item Evaluate the line integrals
+    \[
+    \int_{\mathcal{C}_1} \mathbf{F} \cdot d\vec{x} \quad \text{and} \quad \int_{\mathcal{C}_2} \mathbf{F} \cdot d\vec{x}.
+    \]
+    \item Use the substitution $t = ({s^3 + 1})/{2}$ in the parametrization $r_1(t)$, and explain why the results of the integrals are identical, despite the fact that $\mathbf{F}$ is not conservative.
+  \end{enumerate}
+\end{Ej}
+
+\begin{ptcb}
+  \vspace{17cm}
+\end{ptcb}
+\iffalse
+  x_{vals}=Sequence(x_L, x_R, density_{mesh})
+  y_{vals}=Sequence(y_L, y_R, density_{mesh})
+  z_{vals}=Sequence(z_L, z_R, density_{mesh})
+  P(x,y,z)=-x^2+y^2+z^2
+  Q(x,y,z)=x^2-y^2+z^2
+  R(x,y,z)=x^2+y^2-z^2
+  Curl_1(x,y,z)=Derivative(R,y)-Derivative(Q,z)
+  Curl_2(x,y,z)=Derivative(P,z)-Derivative(R,x)
+  Curl_3(x,y,z)=Derivative(Q,x)-Derivative(P,y)
+  Zip(Zip(Zip(Vector((p, q, r), (p, q, r) + size_{arrows} (P(p, q, r), Q(p, q, r), R(p, q, r)) / sqrt((P(p, q, r))² + (Q(p, q, r))² + (R(p, q, r))²)), p, x_{vals}), q, y_{vals}), r, z_{vals})
+  Zip(Zip(Zip(Vector((p, q, r), (p, q, r) + size_{arrows} (Curl_1(p, q, r), Curl_2(p, q, r), Curl_3(p, q, r)) / sqrt((Curl_1(p, q, r))² + (Curl_2(p, q, r))² + (Curl_3(p, q, r))²)), p, x_{vals}), q, y_{vals}), r, z_{vals})
+\fi
 %\end{multicols}
 \end{document}
