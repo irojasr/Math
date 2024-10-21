@@ -312,7 +312,7 @@ $$
 \right.
 $$
 At the end of the day $H^1(\bP^1,T^\ast_{\bP^1})$ is represented by the cocycle $\dd x/x$. So $H^1(\bP^1,T^\ast_{\bP^1})=\genr{\dd x/x}_{U_0\cap U_\infty}$. The only monomial we are not catching is $1/x$, every other we've caught.\par
-If we did this whole process tensoring with $\cO(-d)\ox-$, then on left we still have functions times $\dd x$ and functions times $\dd y$. The $y$ now transtitions as 
+If we did this whole process tensoring with $\cO(-d)\ox-$, then on left we still have functions times $\dd x$ and functions times $\dd y$. The $y$ now transitions as 
 $$(0,y^\l\dd y)\mapsto -(-x^{-\l-d}\dd x/x^2)=x^{-2-\l-d}\dd x.$$
 So in this case, for example in $d=5$, we will not catch things between $-1$ and $-5-1$:
 $$H^1(\bP^1,\cO(-5)\ox T^{\ast}_{\bP^1})\isom\genr{\frac{\dd x}{x},\frac{\dd x}{x^2},\dots,\frac{\dd x}{x^6}}.$$
@@ -413,7 +413,7 @@ Recall that homogeneous $\text{Crit}(F)$ contains $V(F)$ because $F$ is in the i
 \section{20241011}
 
 Every space is locally approximated by tangent spaces. So giving orientation of manifolds is giving an orientation to all tangent in way that is coherent. And of course, in a chart, the tangent bundle trivializes so then we spread the orientation via fibers. On each individual chart we choose an orientation. But between charts we need to look at transition functions.\par
-If for every transtition function, the determinant of the Jacobian of the transition is positive implies that all are orientation preserving.
+If for every transition function, the determinant of the Jacobian of the transition is positive implies that all are orientation preserving.
 
 \begin{Lem}
 Any Riemann surface is orientable.
@@ -712,6 +712,87 @@ We would like to construct Riemann surfaces of any genus.
     \item We may compactify in $\cO(g+1)$ by adding \emph{only one point}.
     \item By a topological argument, this is a 2-to-1 covering of a sphere.
 \end{enumerate}
+
+\section{20241021}
+
+A hyperelliptic curve 
+$$C=\Set{y^2=\prod_{i=1}^{2g-1}(x-a_i)}\subseteq\bA^2_\bC$$
+admits a map $\pi$ to $\bA^1_\bC$ which is the projection of the first coordinate of degree 2. For most $x=x_0$, 
+$$\pi^{-1}(x_0)=\set{(x_0,y_0)\:\ y_0\text{ solves }y^2=\prod(x_0-a_i)}$$
+and when the product is non-zero we have two choices for $y_0$. Branch points are $(a_i)_{i\in[2g+1]}$ while the ramification locus is the set of points $(a_i,0)$.\par
+This is not a compact Riemann surface, if we would compactify this in projective space then we get 
+$$Y^2=\prod_{i=1}^{2g-1}(X-a_iZ)$$
+which doesn't work as we will get a singularity at $(0:1:0)$. Let's try to stick it into $\cO(d)$ for some $d$.
+
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQBhEAX1PU1z5CKMsWp0mrdgB1pEWjABOjLGBjAO3HnxAZseAkXKkATOIYs2iELIBGABQB6xbf31CjpMTQtTrdgEFnV10BA2FkEy9zSSsbaQBjAHkACigAShC9QUMUKKofWJlpWyCTAH1gO00ecRgoAHN4IlAAM0UIAFskYxAcCCQAVhoceixGdgALCAgAaxD2rqGRgcQAFhGxietpuYWO7sQyPtWNvq2pmfneNoOelaRj0fHLvZuQRcPe-qQAZk2XtZIGoQDRGPRbDBGPYwh5rIosA1JjhQRJLOwTEd9ksjg9EFEQODIdDYbkQAikSjCujrJiXADtuACGx3p8-niCc9GbtrpRuEA
+\begin{tikzcd}
+    & C \arrow[r, hook] \arrow[d, hook] \arrow[ld, "2:1"'] & \bA^2_{\bC} \arrow[d, hook] \\
+\bA^1 \arrow[d, hook] & \overline{C} \arrow[r, hook] \arrow[ld, "2:1"']      & \cO(d)                      \\
+\bP^1                 &                                                      &                            
+\end{tikzcd}
+
+\end{center}
+
+
+If we pullback the equation via transition functions we get 
+$$\tilde{y}^2=\left(\prod_{i=1}^{2g-1}(1-a_i\tilde{x})\right)\tilde{x}^{2d-2g-1}.$$
+
+At $\tilde{x}=0$, ¿what do we see? It depends on $d$:
+\begin{itemize}
+    \item If $d\leq g$, then for $\tilde{x}=0$ we get $\tilde{y}=\infty$. This not a problem as long as
+    \item $d\geq g+1$, but let's point out that when $d\geq g+2$ we get a polynomial which vanishes at zero. The partial derivatives also vanish so we get a singular point.
+    \item So when $d=g+1$ our equation has the form 
+    $$\tilde{y}^2=\left(\prod_{i=1}^{2g-1}(1-a_i\tilde{x})\right)\tilde{x}.$$
+    When doing the partial derivatives on $\tilde{y}$ is at zero, at $(0,0)$ we don't get singularities.
+\end{itemize}
+
+The projection map extends and only one point lies over $(0,0)$ which is the ramification point.\par
+In conclusion 
+$$C\subseteq\ov C\subseteq\cO(g+1)$$ 
+sits as a smooth Riemann surface and 
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BjAeQAoA5gGoAjAEoQAX1LpMufIRQjyVWoxZtOAIwAKAPREB9bQGEpMkBmx4CRMiNX1mrRCDOTVMKAPhFQAMwAnCABbJAAmahwIJDIQHDosBjYACwgIAGtzAOCwxDjopGU1Z012NCxskCDQiKiYxGKnDVdOCsNgThCsKEMTaU4AAnDGkGoGOi0YBh05G0UQQKwBFJwpCkkgA
+\begin{tikzcd}
+    \cO(g+1) \arrow[r, "\pi"]                             & \bP^1_\bC \\
+    C \arrow[u, hook] \arrow[ru, "{\pi_{\mid_C},\ 2:1}"'] &          
+    \end{tikzcd}
+\end{center}
+where the map has $(2g+2)$ ramification and branch points.
+
+\subsection{Topological details}
+
+We have $2g+2$ points and $\bP^1$ and we have a mysterious curve $C$ and what we know is that we have a $2:1$ map that ramifies precisely over those points and for every other point we have two preimages.\red{AdD FIGURE}\par
+Locally, about ramification points the local expression of our map is $w=z^2$. Observe that when going about a ramification point we go from an ordinary point to another (one preimage to the other). By joining pairs of branch points we disconnect the cover. And now that cover, we'd like to put back the segments we took to actually obtain $C$. We will add more segments than needed and identify them.\par
+We don't have to worry about orientability or anything because we started with a Riemann surface. 
+
+\subsection{Riemann's Existence Theorem}
+
+The moment that we had a $2:1$ map from an affine curve to $\bC$, we could've said that there was a way to complete a map to $\bP^1$. Then via Riemann-Hurwitz we could've said that there was even-ness.\par
+Suppose we have a compact Riemann surface $Y$ and a non-compact topological surface $X_0$ (hasn't met the complex numbers yet, charts are $(\bR^2,\vf)$ where those are continuous functions).\par
+Somehow we have a covering map $X_0\to Y_0\defeq Y\less\set{y_1,\dots,y_b}$.
+
+\begin{significant}
+    If a topological surface walks up to you and it almost covers a Riemann surface, ¿what can you say about me?
+\end{significant}
+
+\begin{Th}[$R\exists T$]
+    If $X_0$ is a non-compact topological surface and $Y$ is a compact Riemann surface with $Y_0=Y\less\set{y_1,\dots,y_b}$ with a covering map
+    $$f\: X_0\to Y_0$$
+    then there exists a unique way to add a finite number of points to $X_0$ and to give a Riemann surface structure to the resulting space so that $f$ extends to a map of compact Riemann surfaces.
+\end{Th}
+
+In books, the theorem states that a diagram exists:
+
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0B9YkAX1PSZc+QigCM5KrUYs27PgJAZseAkTJip9Zq0QgAmtwWCVIohM3Vtsvfr5SYUAObwioAGYAnCAFskZEBwIJAAmfg9vP0QJQODEAGZwkC9ff2ogpBicOiwGNgALCAgAa2NkyND0uPj0nLy9QpL7XiA
+\begin{tikzcd}
+    X_0 \arrow[d] \arrow[r, hook] & X \arrow[d] \\
+    Y_0 \arrow[r, hook]           & Y          
+    \end{tikzcd}
+\end{center}
+
+On $Y_0$ we already have complex structure. The inverse image of a disk gives us a homeomorphism. That's how we get charts for all points of $X_0$. This gives a Riemann surface structure to $X_0$ in kind of a dumb way. The fun part is extending this to $X$.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
