@@ -16,11 +16,57 @@
 \begin{Ej}[7(a)]
     Show that if two words $w$ and $v$ are Knuth equivalent, then removing the smallest $k$
     letters from each of $w$ and $v$ (with ties broken in order from left to right) results in two Knuth
-    equivalent words $w'$ and $v'$. (Hint: It suﬃces to show it for just one letter removed, and it also
-    suﬃces to assume that $w$ and $v$ diﬀer by an elementary Knuth move.)
+    equivalent words $w'$ and $v'$. (Hint: It suffices to show it for just one letter removed, and it also
+    suffices to assume that $w$ and $v$ differ by an elementary Knuth move.)
+\end{Ej}
+
+Let us recall the Knuth move definition from a year ago:
+
+\begin{Def}
+    A \term{Knuth move} on a permutation swaps two letters $a,c$ if $a<b<c$ (reading order) and one of consecutive subsequences $acb,cab,bac,bca$ appears in the word.\par 
+    Two words are \term{Knuth-equivalent} if they differ by a sequence of Knuth-moves.
+\end{Def}
+
+\begin{ptcbr}
+   We\footnote{\bfseries{Ross}, \bfseries{Joel} and myself discussed this exercise together.} follow the hint as indicated. This is possible because after doing a sequence of Knuth moves for a particular letter and then doing it for all the letters, we get to the complete result.\par
+   So for our case let us take a word $w$ whose smallest letter is $x_0$. We have two cases:
+   \begin{itemize}
+    \item If $x_0$ is not in the affix $acb$ we are Knuth moving then 
+    $$w=\dots x_0\dots acb\dots.$$
+    It is equivalent if $x_0$ is after the affix. Let us Knuth move and remove $x_0$ and vice versa.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12oIc4ACAB4B9Yp268+dAMYAjMTwQBfUuky58hFAEZyVWoxZt5E4aK4K+UunPO8Qy1djwEiZLXvrNWiDrf7SbcSUVEAwnDSIdd2pPQx9jfitAhXs9GCgAc3giUAAzACcIAFskMhAcCCQAJhiDb18cGAEcYAAlGCLFIWBTRRBqBmsYBgAFNWdNEHysDIALHHsQguKkHXLKxABmWq8jdkbmto6unpE+hxBlksQa9aRtkEGZYbHwlx9puYWduIamloA0mAmDhZucloVrmUKqsfvVOAdAcDQX0BkNRuMIj4GDBcgtFBRFEA
+\begin{tikzcd}
+    \dots x_0\dots acb\dots \arrow[d, "\text{Rem}_{x_0}"'] \arrow[r, "\text{Knuth}"] & \dots x_0\dots cab\dots \arrow[d, "\text{Rem}_{x_0}"] \\
+    \dots acb\dots \arrow[r, "\text{Knuth}"']                                        & \dots cab\dots                                       
+    \end{tikzcd}
+    \end{center}
+    The case where our affix is $bac$ is analogous.
+    \item However if $x_0$ was in the affix we have that $x_0$ takes the place of $a$ as the smallest letter. Then we have $w=\dots x_0cb\dots$ and so
+    \begin{center}
+      % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12oIc4ACAB4B9YgGMARp268QAX1LpMufIRQBGUmqq1GLNlJ78JBmfMXY8BIgCZy2+s1aIOXQ31HDik16e0woAObwRKAAZgBOEAC2SGQgOBBItjqO+uw4MAI4wADSYEw4ABaycgogEdGx1AlIGil6zpwZWcAASjBRskLAniXUDHTiMAwACkqWqiDhWAGFOKVhkTGIyTWIdQ4NLs3Z7Z3dvXIUskA
+\begin{tikzcd}
+    \dots x_0cb\dots \arrow[rr, "\text{Knuth}"] \arrow[rd, "\text{Rem}_{x_0}"'] &               & \dots cx_0b\dots \arrow[ld, "\text{Rem}_{x_0}"] \\
+                                                                                & \dots cb\dots &                                                
+    \end{tikzcd}
+    \end{center}
+    which leaves us with the same word in both cases. In a similar fashion to the previous part, working with the affix $bx_0c$ is analogous.
+   \end{itemize}
+   In both cases we can see that removing the smallest letter and Knuth moving commutes on words. So this tells us that originally Knuth equivalent words will still be Knuth equivalent after removing the smallest letter.
+\end{ptcbr}
+
+\begin{Ej}[7(b)]
+    Given a pair $(S, T )$ in $P^\nu_{\la\mu}$, show that $T$ must be the unique highest weight tableau of shape $\mu$. Conclude that the pair $(T, T )$ corresponds under RSK to a two line array
+    $$
+    \begin{pmatrix}
+        a_1&a_2&\dots&a_{|\mu|}\\
+        b_1&b_2&\dots&b_{|\mu|}
+    \end{pmatrix}
+    $$
+where $a_1,a_2,\dots,a_{|\mu|}$ is the unique weakly increasing word of content $\mu$ and $b_1,b_2,\dots,b_{|\mu|}$ is a ballot word.
 \end{Ej}
 
 \begin{ptcbr}
-   
+    As $(S,T)$ is in $P^{\nu}_{\la\mu}$, then $\rw(S)\rw(T)$ is a ballot word. We have that every suffix of a ballot word is itself ballot. So in particular $\rw(T)$ is ballot and therefore $T$ is of highest weight. 
 \end{ptcbr}
 \end{document} 
