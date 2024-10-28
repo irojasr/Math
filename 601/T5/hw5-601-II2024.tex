@@ -13,6 +13,22 @@
 
 \begin{document}
 
+\iffalse
+\begin{Ej}[1]
+    Consider a word of 1's and 2's. Show that if we remove a 2 from this word, then at most
+one 1 that was bracketed becomes unbracketed, and all other 1's retain their status (of being bracketed
+with some 2 or not). This was shown with mountain graphs on the board; write out a proof carefully.
+\end{Ej}
+
+\begin{ptcbr}
+    We analyze the following cases:
+    \begin{itemize}
+        \item If there's no $1$'s after our removed $2$, then no $1$ becomes unbracketed.
+        \item If there was at least one $1$ after our $2$
+    \end{itemize}
+\end{ptcbr}
+\fi
+
 \begin{Ej}[7(a)]
     Show that if two words $w$ and $v$ are Knuth equivalent, then removing the smallest $k$
     letters from each of $w$ and $v$ (with ties broken in order from left to right) results in two Knuth
@@ -67,6 +83,42 @@ where $a_1,a_2,\dots,a_{|\mu|}$ is the unique weakly increasing word of content 
 \end{Ej}
 
 \begin{ptcbr}
-    As $(S,T)$ is in $P^{\nu}_{\la\mu}$, then $\rw(S)\rw(T)$ is a ballot word. We have that every suffix of a ballot word is itself ballot. So in particular $\rw(T)$ is ballot and therefore $T$ is of highest weight. 
+    As $(S,T)$ is in $P^{\nu}_{\la\mu}$, then $\rw(S)\rw(T)$ is a ballot word. We\footnote{\bfseries Ross, Joel and myself worked on this, but then Parker helped me out with the final details.} have that every suffix of a ballot word is itself ballot. So in particular $\rw(T)$ is ballot.\par
+    On every row, $T$ has the same entries and so its structure is determined. This means that it is of highest weight. Having shape $\mu$ uniquely determines it.\par
+    Now, instead of applying reverse RSK to $(T,T)$, we consider the two-line array comprised of the reverse column reading word of $T$, $b$ and the reverse reading word of $T$, $a=\rev\rw(T)$.\par
+    The reverse column reading word is obtained by reading left-to-right, and down-up through $T$, so when verifying it's ballot we must read right-to-left and down-up. This produces a ballot word $b$ because of the structure of $T$, always before adding a higher number, there will come a smaller number. And the reverse reading word of $T$ is weakly increasng due to its structure.
+\end{ptcbr}
+
+\begin{Ej}[7(c)(i)]
+    Insert $b_1,\dots,b_n$ into $S$ and write $a_1,\dots,a_{|\mu|}$ into the boxes that appear in order. Let $R$ be the
+resulting skew tableau with letters $a_1,\dots,a_\mu$.\par
+Show that $R$ has shape $\nu/\la$ with content $\mu$.
+\end{Ej}
+
+\begin{ptcbr}
+    Observe the $|\la|+|\mu|=|\nu|$ by the fact that $(S,T)\in P^\nu_{\la\mu}$. So $|\nu|-|\la|=|\mu|$. Now, our assumption of $\rw(T)\rw(S)$ being ballot guarantees that when inserting $a$, we will get shape $\nu$, thus when skewing $S$ we get shape $\nu/\la$. The content of $b$ is precisely $\mu$.
+\end{ptcbr}
+
+\begin{Ej}[7(c)(ii)]
+    To show it (the reading word of $R$) is ballot, consider the tableau $\tilde R$ formed by filling the shape $\la$ underneath
+$R$ with a highest weight word of negative entries $0,-1,-2,\dots$, in other words, fill the top
+row of $\la$ with $0$'s, the next with $-1$, the next with $-2$, and so on. Let $V$ be the highest
+weight tableau of shape $\nu$. Apply RSK to the pair $( \tilde R, V )$, and use part $(a)$ of this problem
+to show that the letters corresponding to the entries of $\tilde R$ in the resulting two-line array form
+a highest weight word. Conclude that the reading word of $R$ is ballot
+\end{Ej}
+
+\begin{ptcbr}
+As $V$ is of highest weight, its rows are all the same elements and it has content $\nu$. In order to apply RSK we once again do it in reverse, following the same strategy as before.\par
+We look at the reverse column reading word of $\tilde R$ which we've seen, inserts into the tableau. Following the previous algorithm we will get that $\tilde{b}$ is a ballot word and using the first part of this problem we have that when removing the negative letters we still obtain a ballot word. This is because Knuth moves commute with crystal operators and thus preserve weight. In particular, our word is of highest weight and therefore is ballot.
+\end{ptcbr}
+
+\begin{Ej}[7(c)(iii)]
+    Conclude that the map $(S,T)\mapsto R$ using the above construction is a well-deﬁned function from $P^\nu_{\la\mu}$ to $Q^\nu_{\la\mu}$.
+\end{Ej}
+
+\begin{ptcbr}
+    The previous two problems show that $(S,T)$ indeed land in $Q^\nu_{\la\mu}$ when applying this map as $\sh(R)=\nu/\la$ with content $\mu$ and its reading word is ballot.\par
+    Showing that the map is well defined amounts to showing that if we have $(S_1,T_1)=(S_2,T_2)\in P^\nu_{\la\mu}$ then their image coincides in $Q^\nu_{\la\mu}$. As we have specified the process above, applying it to the same pair of tableau should give us the same result guaranteeing that their image is the same.
 \end{ptcbr}
 \end{document} 

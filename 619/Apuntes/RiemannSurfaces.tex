@@ -793,6 +793,192 @@ In books, the theorem states that a diagram exists:
 \end{center}
 
 On $Y_0$ we already have complex structure. The inverse image of a disk gives us a homeomorphism. That's how we get charts for all points of $X_0$. This gives a Riemann surface structure to $X_0$ in kind of a dumb way. The fun part is extending this to $X$.
+
+\section{20241023}
+
+\subsection{Some topology}
+
+The fundamental group is a functor from pointed topological spaces to the category of groups:
+$$\pi_1\:\cat{Top}_{\text{ptd}}\to\cat{Grp},\ (X,x_0)\mapsto \pi_1(X,x_0).$$
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAAoANUgDwH1iAShABfUuky58hFGQCMVWoxZt2ATVIBPAcLETseAkTnlF9Zq0QgAOtbRY+crrx2jxIDAenHSC6uZUrW3tHdS1XEUUYKABzeCJQADMAJwgAWyQyEBwIJBMlCzZEtyTUjMR8nKQAZj0QFPTM6irEACY6hvLW5tzEav9lSxs7BydE3QoRIA
+\begin{tikzcd}
+    {(X,x_0)} \arrow[d, "f"] \arrow[r] & {\pi_1(X,x_0)} \arrow[d, "\pi_1(f)"] \\
+    {(Y,y_0)} \arrow[r]                & {\pi_1(Y,y_0)}                      
+    \end{tikzcd}
+\end{center}
+The fundamental group detects holes by making walks. For functions on topological spaces, we get group homomorphisms via pushforwards.\par
+Now if $f\:(X,x_0)\to(Y,y_0)$ is a covering map we get
+\begin{itemize}
+    \item $\pi_1(f)$ is injective. In particular $\Im \pi_1(f)\leq\pi_1(Y,y_0)$. The degree of the covering is 
+    $$\deg(f)=[\pi_1(Y,y_0):\Im \pi_1(f)]$$
+    \item If $(X,x_0)\sim (S^1,x_0)$ then $\pi_1(X,x_0)\isom\bZ$. The fundamental group measures gow many times we go around the circle. There is exactly one isomorphism class of covers of degree $k$ of $S^1$ corresponding to the subgroup $k\bZ\subseteq\bZ$. This is just the map $e^{i\te}\mapsto e^{i k\te}$.
+    \item If we have a covering map $f\: (X,x_0)\to (Y,y_0)$ and a continuous surjective function $g\:(Z,z_0)\to(Y,y_0)$ and we ask when does the map $g$ lift, because $f$ is a local homeomorphism, we choose a particular preimage. The obstruction is loops not returning to $x_0$. It is precisely finding a loop in $Z$ which maps to a loop $Y$ that doesn't return to a loop in $X$. This will not occur when 
+    $$\pi_1(g)(\pi_1(Z,z_0))\leq\pi_1(f)(\pi_1(X,x_0)).$$
+\end{itemize}
+
+\begin{Qn}
+    ¿Why is the morphism injective? It boils down to the homotopy lifting property.
+\end{Qn}
+
+\begin{Qn}
+    ¿If $Z$ is a covering do we get the property for free? No, take the circle, the identity and a line.
+\end{Qn}
+
+\subsection{Riemann's Existence Theorem}
+
+\begin{Th}
+    Suppose $Y$ is a compact Riemann surface, $X_0$ is a topological surface and the map
+    $$f\: X_0\to Y$$
+    is continuous and $f(X_0)=Y\less\set{y_1,\dots,y_b}$. Then there exists a unique compact Riemann surface $X$ such that we have a commutative diagram:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0B9YkAX1PSZc+QigCM5KrUYs27PgJAZseAkQlip9Zq0QgAmnykwoAc3hFQAMwBOEALZIyIHBCQAmattl6rIagx0AEYwDAAKQqqiIDZYpgAWOArWdo6Izq5IEi50WAxs8RAQANb+0jpsADqV+Dh0ySC2DlnUmYie5T4g1XgMsMBWvEa8QA
+\begin{tikzcd}
+    X_0 \arrow[rd, "f"'] \arrow[r, "\iota", hook] & X \arrow[d, "\tilde{f}"] \\
+                                                  & Y                       
+    \end{tikzcd}
+\end{center}
+such that 
+\begin{itemize}
+    \item $\iota(X_0)=X\less\set{x_1,\dots,x_n}$.
+    \item The map $\tilde{f}$ is a map of compact Riemann surfaces.
+\end{itemize}
+\end{Th}
+
+If you have topological information about a function that somehow can be completed to a ramified covering, then it is possible to do this in a unique way.\par
+We will complete $X_0$ and then give an atlas. For a point not in the image, the idea is that we will build a chart via covering. 
+
+\begin{ptcbp}
+    (sketch)
+    \begin{enumerate}
+        \item For every $x\in X_0$, we can get a chart by finding a small neighborhood $V_x$ upstairs such that $f_{\mid_{V_x}}$ is a homeomorphism and then compose with a chart of $f(x)$.
+        \item If $U_{i}$ is a neighborhood of one of our points $y_i$, which is homotopic to $S_1$ then 
+        $$f^{-1}(U_i)=\bigcup_j V_j$$
+        where $V_j$ form a connected covering of $U_i$ then $V_j\sim S^1$ and 
+        $$\pi_1(f_{\mid_{V_j}})=1\mapsto k_i\:\ \bZ\to\bZ.$$
+        \item Compose with the chart about $y_b$
+        $$\vf_{y_i}\circ f_{\mid_{V_j}}$$
+        which lifts to a 1-to-1 map $\psi$ via the cover $w=z^{k_j}\:\bC\less 0\to\bC\less0$.
+        \item We can add a point to each $V_j$, declare $\psi(P)=0$, and give a topology such that $\psi$ extends to a homeomorphism to its image.
+     \end{enumerate}
+     With this we've simultaneously completed $X_0$ and given an atlas. In this atlas, the local expression of $f$ is already given in normal form.
+\end{ptcbp}
+
+\begin{Qn}
+    ¿Is there a way to say why $X$ is unique with respect to this property?
+\end{Qn}
+
+Completion is unique, but the complex structure could be different. By getting another complex structure we can see that the new atlas is compatible with the one that we built. 
+
+\section{20241025}
+
+\subsection{Monodromy representations}
+
+A holomorphic map of compact Riemann surfaces $f:X\to Y$ together with $y_0\in Y\less B$ and a labeling of $f^{-1}(y)$ by the set $[d]$ is equivalent information to:
+$$\vf_f\: \pi_1(Y\less B,y_0)\to S_d$$
+A group homeomorphism.\par
+
+\subsubsection{From the compact Riemann surfaces map}
+
+We can lift the loop $\ga$, there's $d$ distinct choices to lift the loop.
+
+Only the loops that lift to loops are the ones that live in the fundamental group of $X$. We want to construct a map, so $\ga$ gives us $d$ lifts. We associate the permutation 
+$$i\mapsto (\text{endpoint of }\ga_i).$$
+This corresponds to a permutation of $[d]$. This is a bijective function because we can walk the paths backwards. We can reverse the parametrization of $\ga$ thus switching the starting and endpoints of the lift.
+
+\subsubsection{From a permutation to map}
+
+Our goal now is to construct a topological ramified cover which we apply $R\exists T$ to. If the map ramifying at $b_1,b_2,b_3$ exists, then $f$
+
+\begin{Ej}
+    Take a map $f:S\to\bP^1$ which ramifies at $b_1,b_2,b_3$
+\end{Ej}
+
+\begin{Rmk}
+    If we change the labeling of the points of $f^{-1}(y)$, the effect on the monodromy is that it gets post-composed by an inner automorphism of $S_d$, a conjugation. In order to make a more canonical statement, we mod out by inner automorphisms.\par
+    If $b$ is a branch point such that $f^{-1}(b)$ consists of points $x_1,\dots,x_n$ with ramification orders $k_1,\dots,k_n$ and $\rho_b$ is a loop winding once about $b$. Then 
+    $\vf_f(\rho_b)$ has cycle type $(k_1,\dots,k_n)$. There's a correspondence between algebraic information and the monodromy representation.
+\end{Rmk}
+
+\section{20241028}
+
+Last time we talked about the monodromy representation which works via loop lifting. The class of a loop $[\ga]$ is $i\mapsto$ endpoint of $\ga_i$.\par
+¿What can we say about this group homomorphism?
+\begin{itemize}
+    \item If $b$ is a branch point such that $f^{-1}(b)=\set{x_1,\dots,x_n}$ with ramification profile $k_1,\dots,k_n$ and $\rho_b$ is a small loop winding once around $b$, then $\vf_f(\rho_b)$ is a permutation of cycle type $\set{k_1,\dots,k_n}$. 
+\end{itemize}
+
+\begin{Ex}
+    Suppose $b$ has two inverse images, $x_1,x_2$ with $k_1=3$ and $k_2=1$. $x_1$ is a ramification point and $x_2$ is unramified. About $b$ we have a local chart such that the local expression of the covering map above the local chart, the map is $w=z_1^3$ on one component and $w=z_2$ in the other.\par
+    The way that these power functions work is by seeing that the inverse image of a segment is 3 segments or just another segment.\par
+    If we take a loop winding around $b$, the loop comes in through the $(z_2,w)$ chart so as we go about we get a fixed point.\par
+    On the other hand in the $(z_1,w)$ chart, we come in one direction and exit in another. This is corresponds thus to a $3$-cycle.
+ \end{Ex}
+
+ \begin{Ex}
+    Consider a map $S\to\bP^1$ whose branch locus is $\set{b}$ and giving rise to a (bogus) monodromy representation such that 
+    $$\vf_f(\rho_b)=(12)\in S_2.$$
+    The fundamental group of $\bP^1\less\set{\text{pt}}$ is $\set{\id}$ so there's no group homeomorphism in heaven or earth which would send $\id\mapsto (12)$.\par
+    Visually, if we take a segment $b$ to $Q$ and then removing the segment we get a 2-gon. The cover restricted to this shape is two copies of the shape. Above $b$ we only have one point, and above $Q$ we have $P_1\neq P_2$ as it's not a branch point.\par
+    ¿What happens if we lift a loop winding about $b$? We need to switch the charts. This gives us a certain edge identification, in particular $P_1$ should be glued to $P_2$. In one case, we make $Q$ another branch point while on the other we make $P_1,P_2$ infinitely close.
+ \end{Ex}
+
+ This in particular shows that we can't have a map to $\bP^1$ with one branch point. 
+
+ \subsection{Discrete data}
+
+ \begin{significant}
+    ¿What is the discrete data associated to a map of Riemann surfaces?
+ \end{significant}
+
+ There's data that varires continuously as the complex manifold structure. In the case of complex tori, that could be visualized via the lattice structure. The discrete data is, for example, the genus.\par
+ For a map, the discrete data we've seen is 
+ \begin{enumerate}
+    \item Degree.
+    \item Genera of $X$ and $Y$.
+    \item Branch points and ramification profile.
+ \end{enumerate}
+
+ If we fix all of this discrete data, if we want a map of certain degree from surface of genus $g_1$ to $g_2$ and declare points with ramification profile, then we have a finite number of such maps.
+
+ \begin{Rmk}
+    Fixing all the data before plus the complex manifold structure on $Y$, then there are finitely many maps $f:X\to Y$ satisfying those conditions.
+ \end{Rmk}
+
+ This is because each of these maps give rise to a monodromy representation. Those morphisms are finite as there's a finite number of generators. The monodromy representation allows us to convert an analytic problem to \red{something I didn't understand}. This is the beginning of Hurwitz theory.
+
+ \begin{significant}
+    Now assume we choose all the invariants at random. ¿Will there be a map which satisfies them? ¿Are there constraints to choose them?
+ \end{significant}
+
+ The answer is no, there is one elementary constraint, the Riemann-Hurwitz formula. The more complicated constraints are open problems.
+
+ \begin{Th}[Riemann and Hurwitz's formula]
+    For a map $f\: X\to Y$ of compact Riemann surfaces, then the discrete invariants satisfy 
+    $$2g_X-2=\deg(f)(2g_Y-2)+\sum_{x\in X}(k_x-1).$$
+    We may also call $\nu_x=k_x-1$, the ramification index of $f$ at $x$.
+ \end{Th}
+
+ Observe that $2g_X-2=-\chi_X$, the Euler characteristic which suggests how we will prove it.
+
+ \begin{Qn}[Open]
+    Characterize when discrete data satisfying the Riemann-Hurwitz formula still does not admit the existence of any mapping. 
+ \end{Qn}
+
+ \begin{Ex}
+    The simplest example of discrete data satisfying Riemann-Hurwitz but no the existence of a mapping is $g_Y=0$, the degree of the map is $4$ and we have $3$ branch points $b_1,b_2,b_3$ with ramificatioen type $(2,2),(2,2)$ and $(3,1)$ and $g_X$ is zero.\par
+    In the case of the formula we have 
+    $$-2=4(-2)+((1+1)+(1+1)+(2+0))$$
+    so that the formula works.\par
+    If such a map existed, there would a monodromy representation. The fundamental group of $\bP^1$ without three points is $\gen(p_1,p_2,p_3\: p_3p_2p_1=e)$. We want $p_1\mapsto$ a $(2,2)$ cycle, $p_2$ as well but $p_3$ goes to a $3$-cycle.\par
+    $p_1,p_2$ should map in the Klein 4-subgroup of $S_4$. However $p_3$ should be the inverse of their product but it can't be in the Klein $4$ group as it's a 3 cycle.
+ \end{Ex}
+
+ \begin{Rmk}
+    There are 3 cows, you lasso them, but you pull the lasso about the world and get it back to you.
+ \end{Rmk}
+
+ 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
