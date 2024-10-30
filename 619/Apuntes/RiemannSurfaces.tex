@@ -978,7 +978,58 @@ Last time we talked about the monodromy representation which works via loop lift
     There are 3 cows, you lasso them, but you pull the lasso about the world and get it back to you.
  \end{Rmk}
 
- 
+\section{20241030}
+
+\subsection{The Riemann-Hurwitz formula}
+
+For a map $f\: X\to Y$ of compact Riemann surfaces:
+
+$$2g_X-2=\deg(f)(2g_Y-2)+\sum_{x\in X}(k_x-1).$$
+This is a necessary but not sufficient condition for a map $f$ to exist. The first counterexample comes from $S_4$. Before we prove the Riemann-Hurwitz formula let's observe the following. Call $S$ the sum, $S$ is the total amount of ramification of the cover.
+\begin{itemize}
+    \item Observe that $S$ is always even. 
+    \item Dig back from the mist of your memory and consider the hyperelliptic curve $y^2=\prod_{i\in I}(x-a_i)\subseteq\bA^2$ which gives us a $2:1$ map to $\bA^1$. $\bA^2$ is $\bP^1$ minus a point and $f$ is a map of degree $2$.\par
+    By the $R\exists T$, there's a curve $\ov C$ which is our hyperelliptic curve adding one or two points and a map to $\bP^1$. The total amount of ramification that we see on our affine part is $2g-1$ so that the point at $\infty$ is one ramification point. 
+    \item There are no maps from surfaces of lower genus to surfaces of higher genus. In other words, it always holds that $g_X\geq g_Y$.
+    \item We can check, as a sanity check, that Riemann-Hurwitz holds for hyperelliptic curves. If $C\to\bP^1$ is a hyperelliptic map, then 
+    $$2g_C-2=2(-2)+S\To S=2g+2.$$
+    \item The last thing to observe is that the only maps of degree $\deg(f)\geq 2$ from curves of genus $g$ to curves of same genus happen when $g=0$ or $1$. If $g=1$ then they are unramified. These maps are isogenies. 
+\end{itemize}
+
+Let us prove the Riemann-Hurwitz formula topologically with the Euler characteristic.
+
+\begin{ptcbp}
+    The Euler chracteristic of $X$ will be computed in $2$ different ways to obtain the Riemann-Hurwitz formula. The first way is the identification polygon: $2-2g_X$.\par
+    Now we find a cell decomposition of $X$ and do $V-E+F$. The way we are going to obtain such a cell decomposition of $X$ is to start at $Y$ and then look at $X$. Pick a graph on $Y$ such that its complement is a finite union of topological disks being a little bit careful. We want to make sure the graph doesn't ignore branch points. So our branch points will be vertices. Choose $V$ then, so that $B\subseteq V$.\par
+    What we care about is that all the red points are vertices. And then we consider $f^{-1}$ of the graph. This is some kind of graph in $X$ which we claim is a good graph in the previous sense. Observe that $f^{-1}(G^\sC)=f^{-1}(G)^\sC$ because $(Y\less G)\cap B=\emptyset$ then $f_{\mid f^{-1}(Y\less G)}$ then $Y\less G=\coprod (\text{disks})$. So $X\less f^{-1}(G)=\coprod (\text{disks})$. So we can compute the Euler characteristic of $X$ using this graph.\par
+    Call $\tilde{G}$ the upper graph. The number of faces of $\tilde{G}$ is $\deg(f)F_Y$. For edges it's the same story, it doesn't contian a branch point so the map is a degree $d$ covering. The number of edges is $\deg(f)E_Y$.\par
+    The interesting case happens with vertices. For a non-branch point, we have $d$ distinct vertices. Above a branch point we get a ramification point with order $k_r$. So we should see $k_r$ points! But we only see one. So we've lost $k_r-1$ points from the $d$ that we should have. So for vertices 
+    $$V_{\tilde{G}}=\deg(f)V_G-\sum_{x\in X}\nu_x.$$
+    Taking the alternating sum we get 
+    $$V_{\tilde{G}}-E_{\tilde{G}}+F_{\tilde{G}}=\deg(f)V_G-\sum_{x\in X}\nu_x-\deg(f)E_G+\deg(f)F_G.$$ 
+\end{ptcbp}
+
+The quantity $2g-2$ is the degree of the divisor of any meromorphic 1-form on our curve so that's why the formula is written like that. Eventually we will use the Riemann-Hurwitz formula to prove that same fact. 
+
+\subsection{Applications of Riemann-Hurwitz}
+
+We will see the genus-degree formula and the Riemann automorphism bound.
+
+\begin{Prop}
+    If $C\subseteq\bP^2$ is a smooth projective curve of degree $d$ ($C$ is the zero set of a homogeneous polynomial of degree $d$), then $g_C=\binom{d-1}{2}$.
+\end{Prop}
+
+Let's sanity check this:
+\begin{itemize}
+    \item If $\deg F=1$ then $C$ is a line which is isomorphic to $\bCP^1$. Then it has genus 0 which coincides with $\binom{1-1}{2}=0$.
+    \item For $\deg F=2$, we have conics which are all isomorphic $\bCP^1$. 
+    \item If $\deg F=3$, then we have cubics. We've seen some cubics arising coming from embedding the Weierstrass function. Any cubic is equivalent to a Weierstrass form which comes from a torus.
+\end{itemize}
+In the first two cases we get $\binom{0}{2}=\binom{1}{2}=0$ whereas for degree $3$ we have $\binom{2}{2}=1$.\par
+Besides the Riemann-Hurwitz formula, the other ingredient to prove the genus degree formula is Bézout's theorem. Curves of degree $c,d$ intersect in $cd$ points counting multiplicities. Recall that Bézout generalizes the fundamental theoem of algebra.\par
+This intersection multiplicity should persist across continuous deformations of our curve. If we let 
+$$D_t=V\left(t\prod_{i=1}^{d}(a_iX+b_iY+c_iZ)+(1-t)D\right)$$
+and assume that $C\cap D_t$ is independent of $t$ then $t=0$ we get $C\cap D$ and at $t=1$ we get $C\cap d$ lines.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
