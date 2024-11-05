@@ -1149,6 +1149,206 @@ The longer relation holds in this following example:
 $$1234\mapsto -1234\mapsto 2-134\mapsto -2-134\mapsto -1-234$$
 where this is $s_0s_1s_0s_1$ and the relation also holds. It's also possible to see in cycle notation that we get a 4-cycle.
 
+\section{Day n+13|20241030}
+
+Recall that the Weyl group is the symmetry group of a root system.\par
+The type $D_n$ looks like a $Y$, recall that if $s_i,s_j$:
+\begin{itemize}
+    \item share no edge, we have the relation $s_is_j=s_js_i$, and
+    \item if they share an edge we have $s_is_js_i=s_js_is_j$.
+\end{itemize}
+These are the only relations that we need for $D_n$'s Weyl group. We have that $W_{D_n}\subseteq W_{B_n}$ which was the octahedral group, the group of signed permutations.
+\begin{itemize}
+    \item $s_i$ will correspond to switching $i$ with $i+1$, and
+    \item $s_0$ negates and swaps \emph{the first two entries}. 
+\end{itemize}
+Observe that
+$$1234\xrightarrow{s_0}6534\xrightarrow{s_2}5634\xrightarrow{s_0}2134$$
+where as on the other direction 
+$$1234\xrightarrow{s_2}1324\xrightarrow{s_0}7524\xrightarrow{s_2}7254$$
+\begin{Ej}
+    Check
+\end{Ej}
+
+\begin{Lem}
+    The size of $W_{D_n}$ is $n!2^{n-1}$.
+\end{Lem}
+
+This amount is calculated via $n!\sum_{i=1}^{\floor{n/2}}\binom{n}{2i}$.
+
+\begin{Lem}
+    $|W_{B_n}|=n!2^n$.
+\end{Lem}
+Now instead we choose a sign without restrictions, there's 2 ways per entry and there's $n$ entries. This means that $W_{D_n}\rt W_{B_n}$ so it's a normal subgroup and there's possibilities of taking semidirect products and other stuff.
+
+\begin{Def}
+    The Weyl group can be defined abstractly as 
+    $$\quot{N_G(T)}{T}$$
+    where $G$ is a Lie group and $T$ is the torus, the maximal abelian subgroup.
+\end{Def}
+
+\begin{Ex}
+    For $\rSL_n$, $T$ is the set of diagonal matrices of determinant 1. Then the normalizer, $N_G(T)$ is the permutation matrices times a diagonal matrix. Finall $N_G(T)/T$ is the set of permutation matrices.
+\end{Ex}
+
+\begin{Lem}
+    The action of $W$ fixes the set of weights of any representation of $\g$.
+\end{Lem}
+
+\begin{ptcbp}
+    $s_i$ reflects about the hyperplane orthogonal to $\al_i$. The $\gsl_2$ string in $\al_i$ direction is symmetric. That means $s_i(\bt)$ is a weight of $V$ if $\bt$ is a weight.
+\end{ptcbp}
+
+Therefore the action of $S_n$ on $A_{n-1}$ is:
+
+\begin{itemize}
+    \item Pair $i+1$'s and $i$'s.
+    \item The remaining unpaired $i^a(i+1)^b$ are replaced by $i^b(i+1)^a$.
+\end{itemize}
+
+The word 
+$$iii+1ii+1iii+1\to iii()()ii+1$$
+
+On Friday we will talk about evacuation and on Monday we will talk about Springer theory.\par
+
+There's a vertical symmetry exhibited by type $A$ crystals. Is there a natural involution that gives vertical symmetry of the type $A$ crystals where we swap $F_i$ with $E_{n-i}$? It turns out that taking the action almost does what we want.\par
+If $w_0$ is the word $n(n-1)(n-2)\dots321$ so one minimal way of writing it is 
+$$\dots(s_1s_2s_3)(s_1s_2)(s_1)$$
+This is not the answer, the actual answer is the Schützenberger involution.
+
+\section{Day n+14|20241101}
+
+\subsection{Evacuation}
+
+To evacuate a tableau $T$ we:
+\begin{itemize}
+    \item Rotate it 180 degrees.
+    \item Change all $i$ to $n+1-i$.
+    \item Finally JDT rectify.
+\end{itemize}
+
+\begin{Ex}
+    Evacuate 
+    $$\young(3,234,1123)\to\young(4,233,1224)$$
+\end{Ex}
+
+Alternatively
+\begin{itemize}
+    \item Remove bottom left corner $i$,
+    \item Rectify,
+    \item Fill evacuated outer square with $n+1-i$ and curly decorate it.
+    \item Repeated on non-curly until all are curly.
+\end{itemize}
+
+Call $\eta$ our first evacuation. Then
+
+\begin{Prop}
+\end{Prop}
+$\eta$ gives a vertical symmetry of type $A_{n-1}$ crystals under $F_i\leftrightarrow E_{n+1-i}$.
+
+\chapter{Springer Theory}
+\section{Day n+15|20241104}
+\subsection{Even less details}
+
+There's going to be EVEN LESS DETAIL, look at Maria.com at the end of the webpage for more references to this.\par
+The \term{Springer correspondence} is between 
+$$\set{\text{irr. reps. of }W_R}\leftrightarrow\set{\text{Nilp. conj. classes in }\gg}.$$
+Where nilpotent conjugacy classes come with a representation of the associateed group $A_G$. In type $A$ isn't needed. Depending on opinions, the Springer correspondence is incomplete. However in type $A$ is a bijection. So to obtain information on the Weyl group, we look at the Lie algebra.\par
+Not only it's a bijection, it's an \emph{explicit} bijection. This is constructed via the Springer resolution, coming from the geometry of the flag variety.
+
+\begin{Def}
+    A \term{flag} is a chain 
+    $$V_\8\: 0\subseteq V_1\subseteq V_2\subseteq\dots\subseteq V_n=\bC^n$$ 
+    where $\dim V_i=i$.
+\end{Def}
+
+\begin{Ex}
+    If $e_i$ is the standard basis vector of $\bC^n$, then 
+    $$0\subseteq\gen{e_1}\subseteq\gen(e_1,e_2)\subseteq\dots\subseteq\bC^n$$
+    is the standard flag.
+\end{Ex}
+
+Out of flags we would like to construct manifolds or algebraic varieties. In particular consider $\rGL_n$ acting on flags, $\Fl_n$. The action is 
+$$\g\. V_\8\: 0\subseteq gV_1\subseteq gV_2\subseteq\dots\subseteq gV_n.$$
+
+\begin{Ex}
+    For $n=2$, consider the standard flag and $g=\twobytwo{0}{1}{1}{0}$. The the standard flag becomes 
+    $$0\subseteq\gen(e_2)\subseteq\bC^2.$$
+\end{Ex}
+
+\begin{Lem}
+    The action of $\rGL_n$ on $\Fl_n$ is transitive.
+\end{Lem}
+
+\begin{ptcbp}
+    It suffices to show this with the standard flag $E_\8$. Choose the right $g$, given $W_\8$, we can take $g$ as the matrix whose columns are the $(w_i)$'s.
+\end{ptcbp}
+
+\begin{Ex}
+    The stabilizer of $E_\8$ counts the amount of overcounting. This is 
+    $$\Stab(E_\8)=\set{g\:\ g\.E_\8=E_\8}.$$
+    Inductively we can show that this stabilizer is the set of upper triangular matrices which are invertible. In conclusion 
+    $$\Stab E_\8=B_n.$$
+\end{Ex}
+
+\begin{Th}
+    $\Fl_n=\rGL_n/B_n.$
+\end{Th}
+
+\begin{ptcbp}
+    Flags represent cosets 
+    $$\set{gB_n\:\ gE_\8=V_\8}.$$
+\end{ptcbp}
+
+From this correspondence we inherit the manifold structure of $\rGL_n$. Recall that $\rGL_n$ is a Lie group so the quotient inherits the manifold structure.\par
+From this we will now call the flag as the flag variety or manifold. We can embed the flag into projective space via Plücker relations. 
+
+\begin{Ex}
+    In different types we have:
+    \begin{enumerate}
+\item In type $A$, the flag is equivalent to $\rSL_n/B^{\rSL}_n$. 
+\item For type $B$, the flag is $\rSO_{2n+1}$ modded by its corresponding Borel subgroup.
+    \end{enumerate}
+\end{Ex}
+
+Recall that the Borel subgroup is the maximal, closed, connected, solvable subgroup. 
+
+\begin{Rmk}
+    Recall that solvable groups are those whose successive commutator subgroups eventually trivialize: $B,B_1=\bonj{B,B}$, $B_2=\bonj{B_1,B_1}$ and so on. 
+\end{Rmk}
+
+Let's check it in dimensoin $2$:
+
+\begin{Ex}
+    Observe that 
+    $$\twobytwo{a}{b}{0}{c}\twobytwo{x}{y}{0}{z}\twobytwo{a^{-1}}{-b/ac}{0}{c^{-1}}\twobytwo{x^{-1}}{-y/xz}{0}{z^{-1}}.$$
+    Multiplying this out we get a matrix of the form 
+    $$\twobytwo{1}{\ast}{0}{1}.$$
+\end{Ex}
+
+In third dimension we get 
+$$\bonj{\threebythree{1}{\ast}{\ast}{0}{1}{\ast}{0}{0}{1},\threebythree{1}{\ast}{\ast}{0}{1}{\ast}{0}{0}{1}}=\threebythree{1}{0}{\ast}{0}{1}{0}{0}{0}{1}.$$
+
+\begin{Ex}
+    For types $C$ and $D$ the flags are $\rSp_{2n}$ and $\rSO_{2n}$ modded by their corresponding Borel subgroups.
+\end{Ex}
+
+In general it's possible to do this even for the exceptional types. 
+
+\subsection{Only Type $A$}
+
+We would like to investigate the cohomology of $\Fl_n$. Recall the cohomology ring is graded via codimension. In this case 
+$$H^\ast(\Fl_n)=H^0(\Fl_n)\oplus H^2(\Fl_n)\opyop H^{2d}(\Fl_n)$$
+and the product respects codimension. Elements of this cohomology are closed subvarieties modded out by cohomology. 
+
+\begin{Th}
+    $H^\ast(\Fl_n)\isom\bC[\un x]/\genr{\un e}$ where $e_d$ is the sum of squarefree monomials of degree $d$.
+\end{Th}
+
+\begin{Ex}
+    For $n=1$ we get $\bC[x]/\genr{x}=\bC$. So the flag variety of one dimension is a point. In $n=2$ we get
+    $$\bC[x,y]/\genr{x+y,xy}=\bC[x]/\genr{-x^2}=\set{a+bx\:\ a,b\in\bC}.$$
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
