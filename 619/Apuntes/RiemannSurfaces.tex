@@ -966,7 +966,7 @@ Last time we talked about the monodromy representation which works via loop lift
  \end{Qn}
 
  \begin{Ex}
-    The simplest example of discrete data satisfying Riemann-Hurwitz but no the existence of a mapping is $g_Y=0$, the degree of the map is $4$ and we have $3$ branch points $b_1,b_2,b_3$ with ramificatioen type $(2,2),(2,2)$ and $(3,1)$ and $g_X$ is zero.\par
+    The simplest example of discrete data satisfying Riemann-Hurwitz but no the existence of a mapping is $g_Y=0$, the degree of the map is $4$ and we have $3$ branch points $b_1,b_2,b_3$ with ramification type $(2,2),(2,2)$ and $(3,1)$ and $g_X$ is zero.\par
     In the case of the formula we have 
     $$-2=4(-2)+((1+1)+(1+1)+(2+0))$$
     so that the formula works.\par
@@ -1030,6 +1030,84 @@ Besides the Riemann-Hurwitz formula, the other ingredient to prove the genus deg
 This intersection multiplicity should persist across continuous deformations of our curve. If we let 
 $$D_t=V\left(t\prod_{i=1}^{d}(a_iX+b_iY+c_iZ)+(1-t)D\right)$$
 and assume that $C\cap D_t$ is independent of $t$ then $t=0$ we get $C\cap D$ and at $t=1$ we get $C\cap d$ lines.
+
+\section{20241106}
+
+\subsection{Genus-degree formula}
+
+Using Bézout's theorem and the Riemann-Hurwitz formula we will prove the genus-degree formula.
+
+\begin{ptcbp}
+    One way to get a map is to project. Without loss of generality let us project from $P=[0:1:0]$ so that we will project our curve $C=V(f)$ into $\bP^1\isom\set{Y=0}$. This defines a map 
+    $$\pi_P\:C\to\bP^1$$
+    where the intersecting lines generically intersect $C$ at $d$ points.
+    \begin{center}
+        ¿How do we detect intersections of not multiplicity one?
+    \end{center}
+    This is with the tangents, such can be detected when $\del_Yf=0$. So we may characterize the set of ramification points for $\pi_P$ as $V(f)\cap V\left(\pdv{F}{Y}\right)$. The degree of $f_Y$ is $d-1$, so by Bézout's thereom 
+    $$|R|=d(d-1).$$
+    Now applying Riemann-Hurwitz:
+    $$2g(C)-2=d(0-2)+|R|\To g(C)=\binom{d-1}{2}.$$
+\end{ptcbp}
+
+Another way to see this, without using the Riemann-Hurwitz formula is by
+\begin{enumerate}
+    \item Knowing that arithmethic genus is invariant under deformations,
+    \item and knowing that smooth curves obey $a.g.=g.g.$
+\end{enumerate}
+From this, it is also possible to deduce that genus-degree formula.
+
+\begin{Rmk}
+    Here $g_A=h^1(\cO_C)$ and $h^0(\cO_C)=1$ because of the global sections of $C$. And we know that $\chi(\cO_C)$ is invariant, therefore $h^1$ here is invariant.\par
+    From this consider the family
+    $$\la F+\mu\left(\prod_1^dL_i\right)$$
+    we can think of this as a family of curves parametrized over $\bP^1$ by $[\la:\mu]$. For $\mu=0$ we get $F$ and $\la=0$ returns the union of $d$ lines.\par
+    The genus of this union of lines is the number of holes we create. From one to two lines we get no holes, but intersecting three gives us a hole. The fourth intersects each line in one point so it adds more genus. The pattern is $0,0,1,1+2,1+2+3,\dots$ which is precisely the binomial coefficient.
+\end{Rmk}
+
+\subsection{Hurwitz' Theorem}
+
+\textbf{On the automorphisms of compact Riemann surfaces of genus higher than 2.}\par
+
+\begin{Th}
+    For a compact Riemann surface $C$ with genus $g\geq 2$ and $G\leq \Aut(C)$ then 
+    $$|G|\leq 84(g-1).$$
+\end{Th}
+
+If we consider a group acting on $C$, then we can consider the projection to the orbit space $C/G$. This is a map of compact Riemann surfaces.\par
+The degree of this map is $|G|$ and the key point is that if we have a point $r_1\in R(\pi)$ (a ramification point) of order $k_1$ and $r_2$ is such that $\pi(r_1)=\pi(r_2)$, then $k_1=k_2$ and $r_2$ is also a ramification point.\par
+In other words, for a map obtained as quotient of a group action, all the other inverse image will have the same ramification index. This follows from the orbit-stabilizer theorem for finite group actions. This is because $k_1=|\Stab(r_1)|$. If we have a point fixed by $g,h$, then near that point we have $2$ points exchanged by those $g,h$ and that's the same picture as \red{something}.\par
+As a consequence, for every $b\in B$ (branch point on the image), we have $\frac{|G|}{k_b}$ ramification points, each of order $k_b$.
+
+\begin{Rmk}
+    If $|G|$ has order $6$ then, we can have $3$ points of order $2$ or $2$ of order $3$.
+\end{Rmk}
+
+Now by Riemann-Hurwitz:
+\begin{align*}
+2g(C)-2&=|G|(2g(C/G)-2)+\sum_{b\in B}\frac{|G|}{k_b}(k_b-1)\\
+&=|G|\left((2g(C/G)-2)+\sum_{b\in B}\left(1-\frac{1}{k_b}\right)\right)
+\end{align*}
+
+\begin{center}
+    ¿How small can the sum be?
+\end{center}
+
+Every $k_b\geq 2$ so $1-\frac{1}{k_b}\geq\half$. So the sum is bounded between $\half$ and $1$. If we have exactly $1$ branch point.\blu{correct this}\par
+If the sum is $1$ then $|B|=2$ with $k_1=k_2=2$. For $S\leq 2$ then either $|B|=2$ or $|B|=3$ and we have $\vec{k}=(2,2,k)$ or $(2,3,k\leq 6)$ or $(3,3,3)$. Or when $|B|=4$, $\vec{k}=(2,2,2,2)$.\par
+Finally if $S>2$ then $S\geq 2+\frac{1}{42}$, there's a finite number of things to check $|B|=3$ and $\vec{k}=(2,3,7)$.\par
+Returning to Riemann-Hurwitz:
+$$|G|=\frac{2g(C)-2}{2g(C/G)-2+S}$$
+The cases are 
+\begin{itemize}
+    \item When $g(C/G)$, the denominator is $S-2$, so $S>2$ because $|G|>0$ and $g(C)\geq 2$. In this case $S\geq 2+\frac{1}{42}$.
+    In particular $S-2\geq \frac{1}{42}$. Then $|G|\leq (2g-2)/(1/42)=84(g-1)$. Every other case gives us something worse.
+    \item If $g(C/G)=1$ then the denominator is $S$ and $S$ is always bigger than $\half$ so 
+    $$|G|\leq (2g-2)/(1/2)=4(g-1).$$
+    \item Finally if $g(C/G)\geq 2$ then denominator is always at least $2$ so that $|G|\leq g-1$.
+\end{itemize}
+This just elementary maths and Riemann-Hurwitz and it's quite interesting how this allows us to talk about automorphisms.\par
+Next time we will talk about degrees of divisors and differential forms.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
