@@ -1108,6 +1108,90 @@ The cases are
 \end{itemize}
 This just elementary maths and Riemann-Hurwitz and it's quite interesting how this allows us to talk about automorphisms.\par
 Next time we will talk about degrees of divisors and differential forms.
+
+\section{20241108}
+
+\subsection{Canonical Divisors}
+
+Today we will compute the degree of the canonical divisor of $C$ of genus $g$ and then compute global holomorphic 1 forms on hyperelliptic curves.\par
+
+\begin{Rmk}
+    Observe that the Riemann Hurwitz formula is very topological and the consequences we are getting are quite a bit deep.
+\end{Rmk}
+
+\begin{Def}
+    A holomorphic differential 1-form on a compact Riemann surface $C$ is a holomorphic section of $T^\ast C$, the cotangent bundle. 
+\end{Def}
+
+In practice we look at local expressions.
+
+\begin{enumerate}
+    \item If $(U,\vf)$ is a chart on $C$ with some local coordinate $z$, the local coordinate expression of any $1$-form on $U$ is $\om= f(z)\dd z$ with $f$ holomorphic.\par
+    $\dd z$ is a basis vector on any cotangent space. The way to relate this concrete picture to the abstract picture is that if we have an open set over which the cotangent line bundle being trivialized. 
+    \item If we have a change of coordinates to $(\tilde{U},\tilde{\vf})$ with local coordiante $\tilde{z}$ and $z=\Phi(\tilde{z})$, then the differential form transitions via the chain rule 
+    $$\dd z=\Phi'(\tilde{z})\dd\tilde{z}.$$
+\end{enumerate}
+
+If we want to go from local to global, we need an atlas for the Riemann surface and find things which are compatible everywhere. In practice we want global results without having to use the definition. 
+
+\begin{Def}
+    If $\om$ is a holomorphic $1$-form on a curve $C$ of genus $g$, then 
+    $$\div(\om)=\sum_{x\in C}\ord_X(\om)x.$$
+\end{Def}
+
+\begin{Rmk}
+    All of this can be done with meromorphic instead of holomorphic sections. 
+\end{Rmk}
+
+If $\om_1,\om_2$ are two 1-forms on $C$ then $\om_1/\om_2$ is a function on $C$. The ratio is a complex number, which doesn't change by isomorphism. As meromorphic functions have as many zeroes and poles, so in particular $\deg(\om_1/\om_2)$ is constant. Since $\deg(\div(f))=0$, then 
+$$\deg\div(\om_1)=\deg\div(\om_2).$$
+The canonical divisors are the equivalence class of divisors of meromorphic $1$-forms of $C$.
+
+\begin{Th}
+    The degree of the canonical divisor is $2g_C-2$.
+\end{Th}
+
+\begin{Ex}
+    Observe that in $\bCP^1$ we have $T^\ast \bCP^1=\cO(-2)$ then $\deg(K_{\bCP^1})=-2=2\.0-2$.
+\end{Ex}
+
+The degree doesn't depend on the complex manifold structure but only on the genus. This has to do more with the topology, it's the Euler class of the cotangent formula.\par
+In fact proving this in another way implies that we can rewrite the Riemann-Hurwitz formula via canonical divisors.\par
+We will also use a lemma which will be proven later:
+
+\begin{Lem}
+    For any Riemann surface $C$, there exists a function $C\to\bCP^1$.
+\end{Lem}
+
+This is because we have proven facts about the degree of the canonical bundle over $\bP^1$.
+
+\begin{ptcbp}
+    Suppose we have a map of Riemann surfaces $\pi\:X\to Y$ and a meromorphic $1$-form $\om_Y$ on $Y$. We can pullback $\pi^\ast(\om_Y)$ to $X$.\par
+    We can use the computation of degree in $Y$ and the pullback to compute the degree of any meromorphic $1$-form in $X$.
+    \begin{center}
+        ¿How can we relate zeroes and poles of $\om_Y$ to those of $\pi^\ast\om_Y$?
+    \end{center}
+    Locally if we have $(U_x,x)$ and $\pi_{\mid U_x}\: (U_x,x)\to(U_y,y)$ and our local expression of $\om_Y$ is $f(y)\dd y$. We want to pull it back and not choose random coordinates. We want coordinates such that the local expression of $\pi$ is $y=x^k$. Now lets focus on the point $y=0$, and its inverse image $x=0$.\par
+    The zeroes and poles of $\om_Y$ are given by the order of vanishing of $f$ at $y=0$. Recall 
+    $$f(y)=a_ny^n+a_{n+1}y^{n+1}+\dots\To\ord\om_{Y\mid y=0}=n.$$
+    Pulling back makes us substitute 
+    $$\pi^\ast\om_Y=kf(x^k)x^{k-1}\dd x$$
+    so that the zeroes and poles at $0$ is $kn+(k-1)$. We now compute the degree of the divisor of $\pi^\ast\om_Y$, this is 
+    \begin{align*}
+    &\sum_{x\in X}\ord_x(\pi^\ast\om_Y)\\
+    =&\sum_{y\in Y}\sum_{x\in \pi^{-1}(y)}\ord_x(\pi^\ast\om_Y)\\
+=&\sum_{y\in Y}\sum_{x\in\pi^{-1}(y)}k_x\ord_y(\om_Y)+(k_x-1)\\
+=&\sum_{y\in Y}\left(\sum_{x\in\pi^{-1}(y)}k_x\right)\ord_y(\om_Y)+\sum_{y\in Y}\sum_{x\in\pi^{-1}(y)}(k_x-1)\\
+=&d\deg\div\om_Y+\sum_{x\in X}\nu_x
+    \end{align*}
+    Via our lemma, 
+    $$\deg K_C=-2d+\sum\nu_x$$
+    and Riemann-Hurwitz tells us 
+    $$2g_C-2=d(-2)+\sum\nu_x.$$
+\end{ptcbp}
+
+Every meromorphic 1 form gives us a divisor of the same degree, so we only need one. We might as well get a pullback.\par
+Next time we will compute differential forms on hyperelliptic curves, but we will do it next time.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
