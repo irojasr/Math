@@ -1192,6 +1192,136 @@ This is because we have proven facts about the degree of the canonical bundle ov
 
 Every meromorphic 1 form gives us a divisor of the same degree, so we only need one. We might as well get a pullback.\par
 Next time we will compute differential forms on hyperelliptic curves, but we will do it next time.
+
+\section{20241111}
+
+Last time we defined the canonical divisor $K_C$ as the equivalence class of any meromorphic $1$-form on $C$. We proved 
+$$\deg(K_C)=2g-2$$
+where $C$ was a compact Riemann surface of genus $g$. We deduced this using the Riemann-Hurwitz formula noticing how zeroes and poles of the pullback of $\om$ relate to zeroes and poles of the actual $\om$.\par
+We will use this degree fact to find a $g$ dimensional space of holomorphic $1$-forms on a hyperelliptic curve of genus $g$. After we prove the Riemann-Roch formula, we will see that these are \emph{all} of the holomorphic $1$-forms of $C$.\par
+Reviewing the setup is that we start with a hyperelliptic curve of genus $g$. This means that our curve is 
+$$C=V\left(y^2=\prod_{i=1}^{2g+1}(x-a_i)\right),\quad a_i\neq 0\quad\text{all distinct}.$$
+We can compactify this curve to add the point at infinity. So now, we would like to describe some differential forms on our curve $C$. There's a very large open set where we can describe a lot of holomorphic differential forms. Then we have to check what conditions are imposed when transitioning to open sets where we have the missing points. In particular consider the open set
+$$C\less R$$
+this is $C$ without the $2g+1$ \red{red} points. Observe that for any point in $C\less R$ we can find a neighborhood where $x$ is a local coordinate. We can write a differential from as $f(x)\dd x$. Not only that but if $f$ is holomorphic, we get a holomorphic $1$-form. Instead of $f$, let's check monomial by monomial and check $x^n\dd x$. Let's also chug in a $\frac1y$ because it doesn't vanish. We want to know, which of these will survive into neighborhoods of \red{red} points and the point at infinity.
+\begin{itemize}
+    \item In a neighborhood of any red point, $(a_i,0)$ we can use $y$ as a local coordinate. To transition $\dd x$ to $\dd y$ we use the equation 
+    $$y^2=p(x)\To 2y\dd y=p'(x)\dd x\To 2\frac{\dd y}{p'(x)}=\frac{\dd x}{y}.$$
+    From this the transition of our differential form is 
+    $$\om=\frac{2x^n}{p'(x)}\dd y.$$
+    This gives us infinitely many $1$-forms holomorphic everywhere except possibly at infinity.
+    \item Checking infinity amounts to asking what is the divisor of $\om$. The zeroes are when $x=0$, we get two points $Q_+,Q_-$. $x$ vanishes with order $1$ at each of these two points so $x^n$ does it with order $n$. Then the divisor is 
+    $$\div(\om)=n(\bonj{Q_+}+\bonj{Q_-})+\text{¿?}$$
+    but there's no poles anywhere. The last point is $\bonj{\infty}$ and in order to get degree $2g-2$ we have
+    $$\div(\om)=n(\bonj{Q_+}+\bonj{Q_-})+(2g-2-2n)\bonj{\infty}.$$
+    Thus $\om$ will be holomorphic if 
+    $$2g-2-2n\geq 0\iff n\leq g-1$$
+    and our $g$ differential forms will be 
+    $$\gen\left(\frac{\dd x}{y},x\frac{\dd x}{y},x^2\frac{\dd x}{y},\dots,x^{g-1}\frac{\dd x}{y}\right)$$
+    which gives us a $g$ dimensional vector space of holomorphic $1$-forms.
+\end{itemize}
+
+With this, we have the all of our applications of Riemann-Hurwitz. For the remainder of the week, we will talk about sheaves of sections. 
+
+\subsection{Line bundles and more}
+
+This is very important in algebraic geometry. There's three equivalent objects, one in algebra, one in geometry and one in combinatorics. Let's discuss what they are and their relationship. Assume our base variety $B$ is a compact Riemann surface. 
+\begin{enumerate}
+    \item In geometry we have line bundles, $\pi\:L\to B$ such that $\pi^{-1}(b)\isom\bC$ and it's locally trivial. Transition functions are holomorphic. Recall that locally trivial means that the bundle restricted to neighborhoods returns a trivial bundle.
+    \item In algebra there is the notion of invertible sheaves. These are locally free sheaves of rank $1$ on our space $B$. If $\cL$ is our sheaf, then:
+    \begin{itemize}
+        \item For every open set $\cL(U)$ is an $\cO_B$-module.
+        \item For every $b\in B$, $\cL_b\isom\cO_{B,b}$.
+    \end{itemize}
+    \item Finally in combinatorics these are what we call linear series $|D|$. These are equivalence classes of divisors on $B$. 
+\end{enumerate}
+
+The first connection makes algebra come to life. If we have a line bundle we look at sections of line bundles. If $L\xrightarrow{\pi}B$ is our line bundle, then $\cL$ is defined as the sheaf of sections of $L$. In other words, for every open set $U$ we have
+$$\cL(U)\defeq \set{s\:U\to L\mid s\text{ holomorphic, }\pi s=1_U}.$$
+The stalk condition says that for a small enough open set, the sheaf of sections is the sheaf of regular function. 
+
+\section{20241113}
+
+Last time we saw that if we start from line bundles, we can naturally get a sheaf out of it. This is simply the sheaf of local sections of the line bundle.\par
+Today we will go the other way, if we have an invertible sheaf, we will get a line bundle.
+
+\begin{Def}
+    $\cL$ is a \term{invertible sheaf} if it's locally free of rank one. This is, $\cL$ is an $\cO_C$-module and for every $x$ there's a neighborhood $U_x$ such that $\cL_{\mid U_x}\isom \cO_{C\mid U_x}$. 
+\end{Def}
+
+Let's now construct the way from invertible sheaves to line bundles.
+
+\begin{ptcb}
+Pick a cover $\cU=(U_\al)_{\al\in A}$ of $C$ such that
+\begin{itemize}
+    \item $\cL_{\mid U_\al}\isom\cO_{C\mid U_\al}$ for all $\al$.
+    \item There are no non-trivial quadruple intersections. (see the exercise \ref{ej-triangulable-rs})
+    \item If $U_\al\cap U_\bt\cap U_\ga\neq\emptyset$ then their intersection is inside a chart.
+\end{itemize}
+Our goal is to define $L$, the line bundle, as 
+$$L\defeq \coprod_{\al\in A}quot{U_\al\x\bC}{\sim}.$$
+Pick $U_\al\cap U_\bt\neq\emptyset$, then 
+$$\cL(U_\al)\xrightarrow[\isom]{\phi_\al}U_\al\x\bC$$
+and the same for $\bt$. Then we have restrictions $r_\al,r_\bt$ to $\cL(U_\al\cap U_\bt)$. If we have sections $s_\al,s_\bt$ then we have 
+$$r_\al s_\al=r_\bt s_\bt,$$
+because of the third condition. We can think of $s_\al$, via the isomorphism, as a function $\phi_\al s_\al$. So now if we look at $U_\al\cap U_\bt$, the fact that $r_\al s_\al=r_\bt s_\bt$ implies that $\phi_\al s_\al$ matches with $\phi_\bt s_\bt$ over the intersection $U_\al\cap U_\bt$. We thus define an equivalence $(x_\al,P_\al)\sim(x_\bt,P_\bt)$ when 
+\begin{enumerate}
+    \item $x_\al=x_\bt$ in $C$.
+    \item $P_\al=\frac{\phi(s_\al)(x_\al)}{\phi(s_\bt)(x_\bt)}P_\bt.$
+\end{enumerate}
+Even if we pick a point where the section is zero, the order of zero is going to cancel out so it is well defined. There's still things to worry about. 
+\begin{itemize}
+    \item ¿Have we defined a line bundle?
+    \item If yes, ¿does our definition depend on our choices?
+\end{itemize}
+Assume we have a line bundle, we won't talk about choosing a different cover, that's for a qualifying exam. If we pick different sections, then they must differ by multiplication by another function so that when dividing they go away. In principle, it's just some abstract section.\par
+But if it wasn't a line bundle, pick a $P\in U_\al\cap U_\bt\cap U_\ga$. Then there's three fibers; with our construction we've defined isomorphisms $F_{\bt\al},F_{\ga\bt}$ and $F_{\al\ga}$. In the quotient, we are only going to see one copy of $C$, but ¿what if by doing the three maps we get a non-trivial automorphism? We wouldn't like to quotient out by it.\par
+By our construction 
+$$F_{\bt\al}\circ F_{\ga\bt}\circ F_{\al\ga}=\id_\bC$$
+which is the cocycle condition. This holds because we will have three quotients 
+$$P_\al=\frac{\phi(s_\al)(x_\al)}{\phi(s_\bt)(x_\bt)}P_\bt=\frac{\phi(s_\al)(x_\al)}{\phi(s_\bt)(x_\bt)}\frac{\phi(s_\bt)(x_\bt)}{\phi(s_\ga)(x_\ga)}P_\ga=\dots\To P_\al=P_\al.$$
+    Note that 
+    $$F_{\bt\al}\defeq\frac{\phi(s_\al)(x_\al)}{\phi(s_\bt)(x_\bt)}$$
+    for $x_\al=x_\bt\in U_\al\cap U_\bt$ is an element of $\cO_C^\ast(U_\al\cap U_\bt)$. The collection $\set{F_{\bt\al}}$ gives a \v{C}ech cochain for the degree $1$ \v{C}ech complex for $\cO^\ast$. The cocycle condition means that $d(\dots)=0$.\par
+    From this we have that the data of invertible sheaves is equivalent to the data of an element in $H^1(C,\cO^\ast_C)$. 
+\end{ptcb}
+
+\begin{Ej}\label{ej-triangulable-rs}
+    Any Riemann surface can be covered by a open cover such that there's no non-trivial quadruple intersections. In particular this holds for topological surfaces which can be triangulated.
+\end{Ej}
+
+\subsection{From geometry to combinatorics}
+
+We would like to construct a divisor, or a set of divisors from a line bundle. Naturally we would look at divisors of sections. Recall:
+\begin{significant}
+    From any meromorphic section $s$ of a line bundle $L\xrightarrow{\pi}C$, we get a divisor
+    $$\div(s)\defeq\sum_{x\in C}\ord_x(s)\bonj{x}.$$
+\end{significant}
+One way to rephrase this is:
+\begin{itemize}
+    \item There is a set of divisors $\set{D\in\div(C)\: D\text{ lin. equiv. to }\div(s)}$ which means that $D-\div(s)=\div(f)$ is the divisor of a rational function $f$ on $C$.
+\end{itemize}
+
+\begin{Rmk}
+    If we embed the curve $C$ on the plane $\bP^2$, then the natural way to make linearly equivalent divisors is to take two lines $L_1,L_2$ and then points of intersection of one line with $C$ with one color and the other with another. So $\blu{D}\sim\red{D}$ because $\blu{D}-\red{D}$ is the divisor of the function $f_2/f_1$ where $f_2$ is a function for line $2$ and $f_1$ with line $L_1$. And there's a sense in whihc this is not just an example, but really the prototypical thing.\par
+    If we start with a line bundle and we have three sections\dots
+\end{Rmk}
+
+\subsection{From combinatorics to geometry}
+
+\begin{Prop}
+    Given a divisor $D\in\div(C)$, we can construct a line bundle $\cO_C(D)$ with a section whose divisor is $D$.
+\end{Prop}
+
+This gives a bit more information than just a line bundle, it gives us also the information of a \emph{distinguished} section (a class of equivalence of sections such that\dots).
+
+\begin{Ex}
+    Let's illustrate this with one point. Let's construct $\cO_C(\bonj{p})$. In this case take $p\in C$ with the open sets
+    $$U_p,\word{a neighborhood, and}C\less\set{p}.$$
+    Their intersection is just a punctured disk $U_p\less\set{p}$. As there's no $p$ in $C\less\set{p}$, then we may have a transition function $w=\frac{1}{z}$. What we want in essence is to glue the section $\set{v=1}$ to the section $\set{u=z}$, so if we want that to happen we need $v=\frac{1}{z}u$.\par
+    This is truly a local construction because we could've taken $U_p\less\set{p}$ instead of $C\less\set{p}$ and then extended the trivial bundle. It's also possible to do so for $\cO_C(n\bonj{p})$ by taking $v=\frac{1}{z^n}u$.
+\end{Ex}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined

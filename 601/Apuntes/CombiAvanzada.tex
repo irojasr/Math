@@ -1365,6 +1365,165 @@ Invariance under variable permutation (i.e. the action of $S_n$ on $\bC[\un x]$)
     If we say $x=-y-z$ then substitute we get
     $$\quot{\bC[y,z]}{\genr{y^2+yz+y^2}}$$
 \end{Ex}
+
+\section{Day n+18|20241111}
+
+Recall 
+$$\cB_\mu=\set{V_\8\in\Fl_{|\mu|}\:\ X_{\mu_i}V_i\subseteq V_i}$$
+where $X_\mu$ is a nilpotent matrix of Jordan type $\mu$, in the sense that its block sizes are $\mu_i$.
+
+\begin{Ex}
+    For example $\cB_{0_3}$ is the full flag variety as it is $\cB_{(1,1,1)}$.
+\end{Ex}
+
+\begin{Ex}
+    $$\Frob(R_{(2,1)})=\sum_{T\in SSYT\ content\ (2,1)}q^{\cc(T)}s_{\sh(T)}=qs_{(2,1)}+s_{(3)}.$$
+\end{Ex}
+
+We will use this as motivation to do chromatic symmetric functions. 
+
+\begin{Def}
+    The \term{chromatic symmetric function} is 
+    $$X_G(\un x)=\sum_{c\ \text{coloring}}\un x_{c(1,\dots,n)}.$$
+    Recall proper coloring is a coloring where adjacent vertices are differently colored.
+\end{Def}
+
+\begin{Ex}
+    For the graph $P_1$, we can color each vertex $i$ and $j$ and backwards. So we get the monomial $2x_ix_j$ for each coloring and its reverse. This means that $X_{P_1}=2e_2$.
+\end{Ex}
+
+\begin{Ex}
+    Instead if we get $P_2$, we have the following
+    \begin{itemize}
+        \item 3 different colors on each vertex which amount to $3! e_3$.
+        \item Then we can color the center vertex different from the leaves to get $x_i^2x_j$ or $x_ix_j^2$. This is the monomial function $m_{(2,1)}$ which we may write as
+        $$m_{(2,1)}=e_{1}e_2-3e_3$$
+        so that $X_G(\un x)=3e_3+e_{(2,1)}.$
+    \end{itemize}
+\end{Ex}
+
+\chapter{Stanley and Stembridge's conjecture}
+
+\section{Day n+19|20241113}
+
+The conjecture basically states that $K_{1,3}$-free graphs have an $e$ positive $X_G$.
+
+\begin{Ex}
+    The claw graph $K_{1,3}$'s chromatic symmetric function is 
+    $$X_G=24e_4+6m_{(2,1,1)}+m_{(3,1)}=4e_4+e_{(2,1,1)}-2e_{(2,2)}+5e_{(3,1)}.$$
+\end{Ex}
+
+\begin{Lem}
+    If $G=H\coprod K$ then $X_G=X_HX_K$.
+\end{Lem}
+
+\begin{ptcbp}
+    The monomial for a proper coloring of $H,K$ is the product of monomials obtained by restricting the coloring to $H,K$.
+\end{ptcbp}
+
+\begin{Ex}
+    For a complete graph, its chromatic symmetric function is $n!e_n$.
+\end{Ex}
+
+\begin{Rmk}
+    Recall $e$-positivity implies $s$-positivity. This is because $e_\la$ is Schur positive via the Pieri rule:
+    $$s_\la e_d=\sum_{\mu=\la+\text{h.s.}(d)}s_\mu.$$
+    In terms of representation theory, it's stronger.
+\end{Rmk}
+
+It was known that $X_G$ was already Schur-positive for $K_{1,3}$-free graphs. Claw graphs are still not Schur-positive so it doesn't improve the conjecture. 
+
+\begin{Rmk}
+    Actually it's still a conjecture that claw-free graphs are Schur-positive.
+\end{Rmk}
+
+\begin{Def}
+    A \term{unit interval graph} is a graph whose vertices are intervals of length $1$ in $\bR$ and edges occur when the intervals overlap.
+\end{Def}
+
+\begin{Lem}
+    Unit interval graphs are claw free.
+\end{Lem}
+
+\begin{Th}[Guay-Paquet]
+    It suffices to show SSC for unit interval graphs instead of for all graphs.
+\end{Th}
+
+\subsection{Chromatic quasisymmetric functions}
+
+This is like a $q$-analogue of certain cohomology of $X$ where that space is similar to Springer fibers. 
+
+\begin{Def}
+    An \term{ascent} of a proper coloring is an edge labeled $i\to j$ with $c(i)<c(j)$.
+\end{Def}
+
+\begin{Ex}
+    Consider the graph 
+    $$\set{(1,2),(1,3),(2,3),(2,4)}$$
+    and the coloring 
+    $$\begin{pmatrix}
+        1&2&3&4\\
+        2&1&4&3
+    \end{pmatrix}$$
+    there's two ascents in the edges $(1,3)$ and $(2,3)$. So that $\asc(c)=2$.
+\end{Ex}
+
+\begin{Def}
+    The \term{chromatic quasisymmetric function} of a graph $G$ is the $q$-analogue of $\asc$:
+    $$X_G(\un x;q)=\sum_{c}q^{\asc(c)}\un x_{c}.$$
+\end{Def}
+
+\begin{Ex}
+    For a path graph $\set{(1,2),(2,3)}$ colored
+    $$\begin{pmatrix}
+        1&2&3\\
+        1&3&2
+    \end{pmatrix}$$
+    we get the $q$-analogue
+    $$2(1+q+q^2)e_3$$
+    however on two colors we get 
+    $$q^2x_1^2x_2+x_2^2x_1,\quad q^2x_2^2x_5+x_5^2x_2.$$
+\end{Ex}
+
+\begin{Def}
+    A \term{quasisymmetric function} in $\un x$ is a bounded degree sum of monomials such that the coefficient of $\un x^{\un \al}$ matches the coefficient of 
+    $$x_{i_1}^{\al_1}\dots x_{i_n}^{\al_n},\quad i_1<i_2<\dots<i_n.$$
+\end{Def}
+
+Quasisymmetric functions captures tuples of $\un\al$ which form compositions. 
+
+\begin{Def}
+    For a composition $\al$, define the \term{monomial quasisymmetric function} as 
+    $$M_{\al}=\sum_{i_1<\dots<i_n}x_{i_1}^{\al_1}\dots x_{i_n}^{\al_n}.$$
+\end{Def}
+
+This is the minimal quasisymmetric function which contains a particular monomial. 
+
+\begin{Prop}
+    The set $\set{M_\al}_\al$ is a basis of the ring of quasisymmetric functions over any ring.
+\end{Prop}
+
+As in the case of monomials in symmetric functions this basis is so nice and nothing can go wrong. There's a little theorem hiding in this previous result:
+
+\begin{Th}
+    The sum and product of quasisymmetric functions is quasisymmetric.
+\end{Th}
+
+In terms of quasisymmetric functions, our previous graph's function can be written as 
+
+$$X_G(x;q)=2([2]_q!)e_3+M_{1,2}+q^2M_{2,1}=2([2]_q!)M_{1,1,1}+M_{1,2}+q^2M_{2,1}.$$
+
+\begin{Ex}
+    Imagine that now we color our graph 
+    $$\begin{pmatrix}
+        1&2&3\\
+        1&2&3
+    \end{pmatrix}$$
+    then there's two ascents and we get 
+    $$q(M_{1,2}+M_{2,1})=qm_{2,1}$$
+    so that 
+    $$X_G=[2]_q!e_3+qe_{(2,1)}.$$
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
