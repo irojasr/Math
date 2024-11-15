@@ -13,7 +13,48 @@
 
 \begin{document}
 
-\begin{Ej}
+\begin{Ej}[Exercise 1.a]
+Compute $s_2(T)$ where $T$ is the tableau below:
+$$\young(34,22233,1111222233).$$    
+\end{Ej}
+
+\begin{ptcbr}
+    We have 
+    $$\rw(T)=34222331111222233.$$
+    With this, we can pair $3$ and $2$'s as follows:
+    $$\un{342}22\ov{3\un{311112}2}2233$$
+    and we can see we have $4$ unpaired $2$'s and $2$ unpaired $3$'s. By applying $s_2$ we wish to reflect this about the corresponding $\gsl_2$ chain to get $2$ unpaired $2$'s and $4$ $3$'s. We have 
+    $$34222331111222233\xrightarrow{F_2}34222331111222\red{3}33\xrightarrow{F_2}3422233111122\red{33}33$$
+    and this is the desired word. The corresponding tableau is 
+    $$\young(34,22233,1111223333)$$
+\end{ptcbr}
+
+\begin{Ej}[Exercise 1.b]
+    Explain why it suffices to show that $s_is_{i+1}s_i=s_{i+1}s_is_{i+1}$ when acting on tableaux, for all $i$.
+\end{Ej}
+
+\begin{ptcbr}
+Checking a braid relation of the form $s_is_js_i$ where $|j-i|\neq 1$ is unnecessary because in those cases $s_i$ commutes with $s_j$.    
+\end{ptcbr}
+
+\begin{Ej}[Exercise 1.c]
+    Show that, using the compatibility of JDT slides with crystal operators (which you may use as a fact), it suﬃces to show part 1 for $i = 1$, and therefore it suﬃces to work with $\gsl_3$ crystals, that is, tableaux whose letters are all $1, 2, 3$.
+\end{Ej}
+
+\begin{ptcbr}
+Consider the following diagram:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRABUQBfU9TXfIRQBGclVqMWbADrScMAB45gcANYwA7lwAU7AJTdeIDNjwEio4ePrNWiELPlKV6rdoDKBnn1OCiZK2obKXt3Qx8BcxQAJlJAiVs2dwBycON+MyFkWMogyTsOVK5xGCgAc3giUAAzACcIAFskMhAcCCQAZmoGOgAjGAYABQy-e1qsMoALHBA8xPtZCDQYWro22rA6BphgXtWsKC40usbO6jakWISQh2kllbWIDa2d2pgGiBoYI+6+geHfFEQOMpjNvCATk1EFcLogACxzG6yN4AYxmv36QxGQJB02O9Shola7UQAFZEQVkTA0fjTogWrCicFKXdlqt1pttsA3h8vkdwZCkOTiUgEdcWfd2U9OTs9nQDj8QD1MQDIkIlTBqmCKFwgA
+\begin{tikzcd}
+    T \arrow[d, "\operatorname{braid}"'] \arrow[r, "\operatorname{rem}"] & \text{skew}(T) \arrow[r, "\rect"]  & T' \arrow[d, "\operatorname{braid}"] \\
+    S \arrow[r, "\operatorname{rem}"']                                   & \text{skew}(S) \arrow[r, "\rect"'] & S'                                  
+    \end{tikzcd}
+\end{center}
+where $\operatorname{rem}$ is the operation which removes all letters but $i,i+1,i+2$. This diagram commutes because the braid operation is a combination of raising and lowering operators and the removal plus rectification is a JDT.\par
+So from this, we may relabel $i,i+1,i+2$ to $1,2,3$ and then we can work on the tableau because the diagram commutes.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 2]
     Compute the chromatic symmetric function of the triangle graph, that is, the complete graph $K_3$, and express it in terms of elementary symmetric functions and in terms of Schur functions.
 \end{Ej}
 
