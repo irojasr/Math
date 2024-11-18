@@ -238,6 +238,45 @@ Meditate on the following fact: the function $T_s$
     \end{enumerate}
 \end{ptcbr}
 
+\section{The Picard group of the projective line}
+
+\begin{Ej}
+    Show that the set of isomorphism classes of line bundles on $\bCP^1$ forms a group under the operation of tensoring. This group is called the \term{Picard group}, denoted $\Pic(\bCP^1)$. Show $\Pic(\bCP^1)\isom\bZ$.
+\end{Ej}
+
+\begin{ptcbr}
+    In order to show $\Pic(\bCP^1)$ is a group we must show that there's a closed associative binary operation with an identity and inverses.\par
+    It is the case that the tensor product of line bundles over $\bCP^1$ is another line bundle. Associativity of the tensor product gives us our desired property for free. And now for an element $\cO_{\bCP^1}(d)$, we would like to find an identity element $L$ such that $\cO_{\bCP^1}(d)\ox L\isom \cO_{\bCP^1}(d)$. As
+    $$\cO_{\bCP^1}(d_1)\ox\cO_{\bCP^1}(d_2)\isom\cO_{\bCP^1}(d_1+d_2)$$
+    it must occur that the line bundle we must tensor $\cO_{\bCP^1}(d)$ with is $\cO_{\bCP^1}(0)$, the trivial bundle. Following the same reasoning the inverse element of $\cO_{\bCP^1}(d)$ is $\cO_{\bCP^1}(-d)$.\par
+    The map $\vf:d\mapsto\cO_{\bCP^1}(d)$ is a group homomorphism as $d_1-d_2$ gets sent to
+    $$\cO_{\bCP^1}(d_1-d_2)=\cO_{\bCP^1}(d_1+(-d_2))\isom\cO_{\bCP^1}(d_1)\ox\cO_{\bCP^1}(-d_2)=\vf(d_1)\ox\vf(d_2)^{-1}.$$
+    This map is surjective as every line bundle is $\cO_{\bCP^1}(d)$ for some $d$. And if two line bundles are isomorphic, their spaces of sections must be isomorphic and therefore $d_1=d_2$.
+\end{ptcbr}
+
+\section{Sheaf cohomology of the projective line}
+
+\begin{Ej}
+    Show that $H^0(\bCP^1,\cO_{\bCP^1}(d))$ is equal to the space of holomorphic (global) sections of $\pi\:\cO_{\bCP^1}(d)\to\bCP^1$.
+\end{Ej}
+
+\begin{ptcbr}
+    When building the \v{C}ech complex for $\cO_{\bCP^1}(d)$ we can see that $H^0(\bCP^1,\cO_{\bCP^1}(d))\isom\ker\dl$ where
+    $$\dl\:\cO_{\bCP^1}(d)(U_0)\oplus\cO_{\bCP^1}(d)(U_1)\to\cO_{\bCP^1}(d)(U_0\cap U_1),\ (s_0,s_1)\mapsto s_{0\mid U_0\cap U_1}-s_{1\mid U_0\cap U_1}.$$
+    For our purpose, let us show that global sections correspond to $\ker\dl$. Take a global holomorphic section $s\in\Ga(\bCP^1,\cO_{\bCP^1}(d))$ then we may decompose $s$ by restricting into $U_0,U_1$ to get $(s_{\mid U_0},s_{\mid U_1})$. Mapping this pair through $\dl$ gives us 
+    $$\dl(s_{\mid U_0},s_{\mid U_1})=s_{\mid U_0\cap U_1}-s_{\mid U_0\cap U_1}=0.$$
+    Which means that any global section is in $\ker(\dl)$. On the other hand, pick $(s_0,s_1)$ local sections such that 
+    $$s_{0\mid U_0\cap U_1}=s_{1\mid U_0\cap U_1}.$$
+    We may now define a global section as 
+    $$s(x)=\left\lbrace
+    \begin{aligned}
+        &s_0(x),\word{if}x\in U_0,\\
+        &s_1(x),\word{if}x\in U_1.
+    \end{aligned}
+    \right.$$
+    The fact that $(s_0,s_1)\in\ker(\dl)$ implies that $s$ is well defined everywhere. Therefore $s$ is our desired global section constructed from $(s_0,s_1)$. This shows that global sections are in correspondence with $H^0$.
+\end{ptcbr}
+
 \section{Tautological Bundle}
 
 The graph of the function 
@@ -1322,6 +1361,46 @@ This gives a bit more information than just a line bundle, it gives us also the 
     This is truly a local construction because we could've taken $U_p\less\set{p}$ instead of $C\less\set{p}$ and then extended the trivial bundle. It's also possible to do so for $\cO_C(n\bonj{p})$ by taking $v=\frac{1}{z^n}u$.
 \end{Ex}
 
+\section{20241115}
+
+Our objective for today is to obtain a subsheaf $\cL_B$ of the constant sheaf of meromorphic sections(\dots)\par
+In particular we also get a map 
+$$\cL\to\cM(C)$$
+which for every open set $W$(\dots)and the fact that this is an injective function(\dots)meromorphic functions are defined up to closed subsets, if we throw away a closed subset of points the meromorphic function (\dots)
+\begin{significant}
+    ¿How do we characterize meromorphic functions in $\cO_C(D)(W)$?
+\end{significant}
+
+A key point is that such meromorphic functions must have (\dots) If $p\in C$ If it's nonzero, when we divide by $s$ we get a zero of order $n$. These are all meromorphic functions such that when we add $\div(s)$, we get what's called an \emph{effective divisor} (all coefficients are positive).\par
+The quick way to say this is that $\cO_C(D)(W)$ is 
+$$\set{f\in\cO_C(D)\:\ \div(f)\mid_{W}+\div(s)\mid_W\geq 0}.$$
+Let's connect with our comfort zone $\bP^1$:
+
+\begin{Ex}
+    Consider the point $p=[0:1]\in\bP^1$. (\dots) together with the choice (\dots)  
+    $$(\cO_{\bP^1}(1),x)\xrightarrow{??}\cO_D(?)?$$
+    $\cO_{\bP^1}(1)(\bP^1)=\gen(X,Y)$ and $\gen(1,\frac{1}{X})$ 
+\end{Ex}
+
+Her the messy thing is that the section that vanishes at zero corresponds to a constant section. It's a major confusing point that when we write $\cO_C(D)$ we mean the line bundle and in other cases it means the linear series. 
+
+\begin{Rmk}
+    Simeon almost cried because of something and Renzo argues that's always a good moment to cry.
+\end{Rmk}
+
+If $L\xrightarrow{\pi}C$ has a $(n+1)$-dimensional space of sections \red{unreadable}.
+
+\begin{enumerate}
+    \item Pick a basis $s_0,\dots,s_n$ for $\cL(C)$ (or if we'd rather for $\cO_C(D)$ where $D=\div(s_0)$.) Then 
+    $$\vf_k(x)=(s_0(x),s_1(x),\dots,s_n(x))$$
+    The map is well-defined when at least one of the sections is non-zero. (For curves this is not a problem but it can become one when the dimension is greater than 2.) So a line bundle is \emph{base-point free} if \red{something} doesn't vanish. If all sections vanish at one point, then it's a base point.\par
+    Notice that it's important that this is considered a point in $\bP^n$ for the map to be well-defined. Once again this is because of the choice of section and the isomorphisms with charts. 
+    \item A coordinate free description of the map starts by not choosing a basis. Then we can think of $\bP^n$ as the projectivization of functions from $\cL(C)$ to $\bC$ in the sense that
+    $$\vf_k\: C\to\bP(\Hom(\cL(C),\bC)),\ x\mapsto \eps_x$$
+    where $\eps_x$ is the evaluation $s\mapsto s(x)$. To get a complex number here, take any isomorphism you want between the fiber $\cL_x$ and $\bC$. Depending on our choice the map will be different, but the projectivization won't change!
+\end{enumerate}
+
+If we take $s_i$ to be the restriction \red{my bag almost fell down off of the bus}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
