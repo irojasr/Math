@@ -25,7 +25,7 @@ This is my doctoral notebook where I will add clean information regarding whatev
 
 \red{TO DO 1}
 \begin{itemize}
-    \item Finish reading stratification of $M_{0,n}$ (ALMOST) $\downto$
+    \item Finish reading stratification of $M_{0,n}$ (DONE b4 20241120) 
     \item Write ex 6.2
     \item Re-read Zvonkine paper now with new knowledge
     \item Summarize Borcherds Chow Ring and Chern Classes DONE 20240921
@@ -37,15 +37,25 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \end{itemize}
 \red{TO DO 3}
 \begin{itemize}
-    \item Understand $\cG^1$ self intersection (ALMOST) and read new examples. $\downto$
+    \item Understand $\cG^1$ self intersection (ALMOST) and read new examples. (DONE b4 20241120)
     \item Write down Hodge bundle info on distributivity.
-    \item Do exercises Zvonkine.
+    \item Do exercises Zvonkine. (DONE b4 20241120)
 \end{itemize}
 \red{TO DO 4}
 \begin{itemize}
     \item Read chap 2 green book on stable maps
     \item Read intros on stable map/kontsevich spaces papers.
-    \item Finish Mumford formula understanding.
+    \item Finish Mumford formula understanding.(DONE b4 20241120)
+\end{itemize}
+\red{TO DO 5}
+\begin{itemize}
+    \item Read equivariant cohomology of $\bP^1$.
+    \item Write down examples of E.C. for a point by torus and point by integers. 
+    \item Polish chapter 4 on strata, products, psi and lambda classes.
+    \item Write down understanding of T3.1 MattAndRenzo.
+    \item Write down info on forgetful, pullback, pushforward
+    \item Write down statements of string and dilaton equation.
+    \item Write down integrals as constant map pushforward.
 \end{itemize}
 }
 \newpage
@@ -364,6 +374,7 @@ The universal family over $M_{0,4}$ also induces every other family of quadruple
     $$\pi^{-1}(\kp(b))=\set{[t,0,1,\infty]}\x\bP^1$$
     so that'll be the same fiber over $b\in B$.\red{In the same way that I can define a bundle via fibers and transition functions, is it possible to define a family via fibers and\dots and\dots and what?}. 
 \end{ptcbp}
+
 \chapter{A Project on Sheaf Cohomology of Line Bundles over $\bP^1$}
 
 
@@ -437,7 +448,7 @@ $$(x,u)\mapsto x$$
 This allows us to see $\cO_{\bP^1}(d)$ as a line bundle, because every fiber $\pi^{-1}(x)$ is isomorphic to $\bC$. When $x$ is non-zero we get a copy of $\bC$ on both charts, but when $x=0$ or $\infty$, the line is only on one of the charts.\par 
 Spoiling ourselves of the fun\footnote{Because it'd be so much fun to prove this are all the line bundles.}, we claim that all line bundles over $\bP^1$ are of the form $\cO_{\bP^1}(d)$ for an integer $d$. 
 
-\chapter{Incursion into Pseudo-Stable Land}
+\chapter{Premier on the Chow Ring by \emph{Richard E. Borcherds}}
 
 \section{The Chow ring}
 
@@ -544,7 +555,7 @@ Let us begin with the Chern class cheat sheet${}^{\text{TM}}$. This based off of
 
 \begin{itemize}
     \item $c_i(E)\neq 0$ whenever $0\leq i\leq r$.
-    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(E)$. (¿or $A^i(B)$?)
+    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(B)$.%A^i(E)$. (¿or $A^i(B)$?) It was the base all along. 
     \item $c_0(E)=1$, or in words, it's the fundamental class. It's usually the case that we rescale in order for this to be exactly $1$.
     \item If we define 
     $$c_{\text{tot}}=c_0+c_1+\dots+c_r$$
@@ -698,8 +709,64 @@ Let's begin with an example which lies in our minds to introduce non-transverse 
     Wiggling $\l$ across the normal bundle gives us a \emph{section} of the normal bundle. First of all, \red{finish}
 \end{Ex}
 
+\chapter{Graphs and Chapter 1 of \emph{The Green Book}}
 
-\section{Examples and Theorem 3.1}
+\section{Dual graphs}
+
+Let us recall an important definition:
+
+\begin{Def}
+    A \term{stratum} in $M_{g,n}$ is the closure of the set of all curves with the same topological type. Strata are classified by dual trees. 
+\end{Def}
+
+\begin{Ex}
+    In $\ov M_{0,6}$, the fundamental class $1\in A^0(M_{0,6})$ is the class of all curves homeomorphic to a 6-pointed $\bP^1$. It can be represented by the dual graph:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
+        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
+        \label{fig:3.1-fundamental class}
+    \end{figure} 
+    The top stratum in $\ov M_{0,6}$ contains only one topological type of curve as all other $6$-pointed $\bP^1$'s will be homeomorphic to this one.
+\end{Ex}
+
+\begin{Ex}
+    Going into the boundary of $\ov M_{0,6}$ we can find two different types of strata, for example
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth, trim= 5.12cm 20.75cm 8.93cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
+        \caption{Examples of boundary strata of $\ov{M}_{0,6}$}
+        \label{fig:3.2-boundary-strata-M06c1}
+    \end{figure} 
+    From the stratum on the left, we can find $9$ other strata with the same graph design but different labelings. This is because there are 
+    $$\half\binom{6}{3,3}=\frac{6!}{2\.3!\.3!}=10$$
+    ways to label the tree. The factor of $\half$ accounts for the symmetry in the tree.\par
+    For the one on the right we can find $\binom{6}{4,2}=15$ labelings.
+\end{Ex}
+
+\begin{Def}
+    Boundary cycles of codimension one in $\ov M_{g,n}$ are called \term{boundary divisors}. These can be denoted $D(I\mid J)$ where $I,J$ is a partition of $\bonj{n}$ and $|I|,|J|\geq 2$.
+\end{Def}
+
+\begin{Ex}
+    For simplicity, the previous boundary divisors can be named $D(235\mid 146)$ and $D(2356\mid 14)$.
+\end{Ex}
+
+\begin{Prop}
+    There are 
+    $$\half\sum_{k=2}^{n-2}\binom{n}{k}=2^{n-1}-n-1$$
+    irreducible boundary divisors in $\ov M_{0,n}$.
+\end{Prop}
+
+\begin{ptcbp}
+    A partition into two sets of $\bonj{n}$ of size $k$ and $n-k$ can be done in $\binom{n}{k,n-k}$ ways. Observe that this coefficient is precisely $\binom{n}{k}$. We need to divide by 2 because $\binom{n}{k}=\binom{n}{n-k}$. And as we need $2\leq k\leq n-2$ for the curve to be stable, we must sum over all of those possibilities. 
+\end{ptcbp}
+
+\subsection{Products of cycles as graphs}
+
+\red{Write algorithm}
+
+\section{Incursion into Pseudo-Stable Land}
 
 Theorem 3.1 in MattAndRenzo deals with the Mumford formula. This is the product of the total Chern class of the Hodge bundle over $\ov{M}_{g,n}$ with the one of the dual. The formula itself is 
 $$(1+\hat{\la}_1+\dots+\hat\la_g)(1-\hat{\la}_1+\dots+(-1)^g\hat\la_g)=\sum_{i=0}^g\frac{1}{i!}\cG_\ast^i\left(\prod_{j=1}^i(\psi_{\star j}-\psi_{\8 j})\right).$$
@@ -761,6 +828,8 @@ $$(1+\hat{\la}_1)(1-\hat{\la}_1)=\frac{1}{0!}\cG_\ast^0\left(\id\right)+\frac{1}
 \begin{Qn}
     I remember how to find $E\cap E$ in $\Bl_{\text{pt}}\bP^2$ by deforming a cycle that goes through $E$. ¿Is the technique to find $\cG_\ast^1(\id)\cap \cG_\ast^1(\id)$ similar?
 \end{Qn}
+
+\section{A reconsideration on the Mumford formula}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

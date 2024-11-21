@@ -1448,7 +1448,7 @@ and $(s_i)$ also form a basis of $H^0$.
 
 \begin{Rmk}
     
-One of the reasons this is called lienar system is because divisors obtained from effective divisor are obtained from hyperplanes. The coordinate sections $X,Y,Z$ give us $2[0],2[\infty]$ and $[0]+[\infty]$. Linear combinations of $X,Y,Z$ give us hyperplanes. 
+One of the reasons this is called linear system is because divisors obtained from effective divisor are obtained from hyperplanes. The coordinate sections $X,Y,Z$ give us $2[0],2[\infty]$ and $[0]+[\infty]$. Linear combinations of $X,Y,Z$ give us hyperplanes. 
 \end{Rmk}
 
 \begin{Ex}
@@ -1494,6 +1494,143 @@ Instead of proving them, ¡let's use them! Some consequences of these results ar
     and this map is of degree $1$ so it's one-to-one. All maps of compact Riemann surfaces are onto. In normal form the local expression of every point is $w=z$ which is invertible. Thus we have a biholomorphism.
     \item If the genus is strictly greater than $0$, $D=[p]$ is such that $h^0([p])=1$. ¿Why? Well it's at least one because of constant functions. But if it were bigger than one we would get two linearly independent sections and we could construct a map to $\bP^1$. The existence of this map would mean that a sphere is homeomorphic to a $g$-holed surface.
 \end{enumerate}
+
+\section{20241120}
+
+We have talked about the consequences of Riemann-Roch and Serre Duality. Let's recall that these formulas say: 
+$$h^0(D)-h^1(D)=\deg(D)+1-g,\quad h^0(K_C-D)=h^1(D).$$
+Recall that genus $g$ hyperelliptic curves carry a $g$-dimensional vector space of holomorphic $1$-forms. This now can follow from Riemann-Roch.\par
+Today we would like to prove that we can find a map $C\to\bP^1$. To that effect, it suffices to find a divisor with at least two sections.
+
+\begin{Prop}
+    For any $C$ (\red{conditions}?), we have a map $f\: C\to\bP^1$.
+\end{Prop}
+
+\begin{ptcbp}
+    By Riemann-Roch, for any divisor in $C$ we have
+    $$h^0(D)\geq \deg(D)+1-g.$$
+    So it suffices to pick a divisor with $\deg(D)\geq g+1$. This means that $h^0\geq 2$.
+\end{ptcbp}
+
+Another consequence of Riemann-Roch is\dots
+\begin{Prop}
+    If $C$ is a curve of genus $2$, then $C$ is hyperelliptic.
+\end{Prop}
+
+We would like to find a divisor of degree two, $h^0(D)\geq 2$. And we would ask that the divisor is \emph{basepoint-free}.
+
+\begin{Ex}
+    Last time we took the example of the linear system of a conic by taking all the lines through a point outside or inside the conic. In the first case, there's no point which belongs to \emph{all} divisors whereas is the second there \emph{is}.
+\end{Ex}
+
+\begin{ptcbp}
+    Recall that $C$ being hyperelliptic meant that there is 
+    $$\vf\: C\xrightarrow{2:1}\bP^1.$$
+    To build such a map we will find a 
+\end{ptcbp}
+
+Long ago we asked whether all genus $1$ Riemann surfaces were complex tori. The way to resolve this question is via Riemann-Roch.
+
+\begin{Prop}
+    Suppose $E$ is a genus $1$ Riemann surface. Then $E$ embeds into $\bP^2$ as a curve of degree $3$.
+\end{Prop}
+
+\begin{ptcbp}
+    In genus $1$, Riemann-Roch says
+    $$h^0(D)-h^1(D)=\deg(D).$$
+    Also if $D$ was effective, then $h^1(D)=0$ via Serre duality. Assume $D$ is an effective divisor and now pick any point $p\in E$. Consider $H^0(E,\cO_E(2p))$, as $2p$ has degree $2$, $H^0$ has dimension $2$. There's two meromorphic generators here $1$, for constants and $x$ for the other dimension.\par
+    For $3p$ we get $h^0=3$ and we have $H^0=gen(1,x,y)$. At this point we have three sections so that we can consider a map
+    $$\vf_{3p}\: E\to\bP^2,\quad e\mapsto[1:x(e):y(e)].$$
+    which is $1-1$ and an immersion. Continuing this game 
+    $$H^0(E,\cO_E(4p))=\gen(1,x,y,x^2),\quad H^0(E,\cO_E(5p))=\gen(1,x,y,x^2,xy),$$
+    but at $6p$ we get \emph{two} new generators and dimension should be $6$:
+    $$H^0(E,\cO_E(6p))=\gen(1,x,y,x^2,xy,x^3,y^2).$$
+    Thus there must be a linear relationship between the generators! If these sections satisfy $\sum a_is_i=0$ where not all $a_i=0$, then, remembering that these sections correspond to coordinates on $\bP^2$, a point on $E$ satisfies a polynomial equation of degree $3$. And so $\vf_{3p}(E)$ is a cubic curve because we are embedding $E$ into $\bP^2$.
+\end{ptcbp}
+
+\subsection{The proof of Riemann and Roch's formula}
+
+\begin{Lem}
+    For every divisor $D$ on $C$, the quantity
+    $$h^0(D)-h^1(D)-\deg(D)$$
+    is constant.
+\end{Lem}
+
+\begin{Lem}
+    The constant in question is $1-g$.
+\end{Lem}
+
+We will prove first the second lemma.
+
+\begin{ptcbp}
+    Taking $D$ as the empty divisor and as $K_C$ gives us the system of equations
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &h^0(\emptyset)-h^1(\emptyset)-0=c,\\
+        &h^0(K_C)-h^1(K_C)-(2g-2)=c.
+    \end{aligned}
+    \right.
+    $$
+    By Serre duality, 
+    $$h^0(K_C)=h^1(\emptyset),\quad h^1(K_C)=h^0(\emptyset),$$
+    so summing both equations now returns
+    $$2-2g=2c.$$
+\end{ptcbp}
+
+A short exact sequence of sheaves is not defined as exact at the level of open sets. 
+
+\begin{significant}
+    ¿Is it defined as exact at the level of stalks?
+\end{significant}
+
+We only care about \emph{small} open sets. Not the very large ones. We need a tool from homological algebra.
+
+\begin{Lem}
+    Short exact sequences in abelian categories give rise to long exact sequneces in cohomology.
+\end{Lem}
+
+\begin{ptcbp}
+    Consider the sequence 
+    $$0\to\cO_C(D-p)\into\cO_C(D)\onto\bC_p\to 0$$
+    where $\bC_p=\cO_p$ is the skyscraper sheaf defined as 
+    $$\bC_p(U)=\bC,\quad\text{if }p\in U.$$
+    This sequence is exact. From this we get 
+    \begin{align*}
+        0\to&H^0(C,\cO_C(D-p))\to H^0(C,\cO_C(D))\to H^0(C,\bC_p)\dots\\
+        \to&H^1(C,\cO_C(D-p))\to H^1(C,\cO_C(D))\to H^1(C,\bC_p)
+    \end{align*}
+    But simplfiying some of these we get
+    \begin{align*}
+        0\to&H^0(C,\cO_C(D-p))\to H^0(C,\cO_C(D))\to\bC\dots\\
+        \to&H^1(C,\cO_C(D-p))\to H^1(C,\cO_C(D))\to 0
+    \end{align*}
+    and now via \emph{rank-nullity} (sum of alternating dimensions in long exact sequences of vector spaces adds up to zero) we have that 
+    $$h^0(D-p)-h^0(D)+1-h^1(D-p)+h^1(D)=0.$$
+    Rearranging we get 
+    \begin{align*}
+        &h^0(D-p)-h^1(D-p)=h^0(D)-h^1(D)-1\\
+        \To&h^0(D-p)-h^1(D-p)-\deg(D-p)=h^0(D)-h^1(D)-(1+\deg(D-p))\\
+        \To&h^0(D-p)-h^1(D-p)-\deg(D-p)=h^0(D)-h^1(D)-\deg(D)
+    \end{align*}
+    and this means that the function $h^0(D)-h^1(D)-\deg(D)$ is constant up to switching by a point. But we can get from any divisor to another by adding and removing points. We conclude that this function is constant.
+\end{ptcbp}
+
+\begin{Rmk}
+    We have seen that $H^0(D-p)\leq H^0(D)$. Perhaps it's a codimension $5$ subspace. But this proof is telling us that this is not possible. It can only be a difference of one dimension. 
+    $$
+    h^0(D-p)
+    \left\lbrace
+    \begin{aligned}
+        &h^0(D)\To h^1(D-p)=h^1(D)+1\\
+        &h^0(D)-1\To h^1(D-p)=h^1(D)
+    \end{aligned}
+    \right.
+    $$
+    on the first case we lose a function or if all the functions in $D$ were vanishing at $p$, then $h^1$ jumps up.
+\end{Rmk}
+
+Next time, we will discuss basepoint-freeness. We won't prove Serre duality, but we will show why every Riemann surface can be embedded in some projective space.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
