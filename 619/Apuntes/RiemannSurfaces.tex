@@ -29,8 +29,6 @@ Knowledge on stuff\par
 \textbf{TO DO:}
 \begin{itemize}
     \item Write 10.1
-    \item Write 11.3
-    \item Write 12.4
 \end{itemize}
 }
 \newpage
@@ -1401,6 +1399,238 @@ If $L\xrightarrow{\pi}C$ has a $(n+1)$-dimensional space of sections \red{unread
 \end{enumerate}
 
 If we take $s_i$ to be the restriction \red{my bag almost fell down off of the bus}
+
+\section{20241118}
+
+Last time we saw that given a divisor $D$, $\cO_C(D)\subseteq\cM(C)$ (meromorphic sections of $C$) as a subsheaf is isomorphic to the sheaf of sections of the line bundle associated to $D$. Then the fact that 
+$$H^0(C,\cO_C(D))=\set{\vf\in\cM(C)\:\ \div\vf+D\geq 0}$$
+implies that we can build a map 
+$$\vf_D\: C\to\bP^{h^0-1},\quad x\mapsto(s_0(x):\dots:s_n(x))$$
+and $(s_i)$ also form a basis of $H^0$.
+
+\begin{Rmk}
+    We have that:
+    \begin{enumerate}
+        \item If $\deg(D)<0$, then $H^0(C,\cO_C(D))=\set{0}$.
+        Saying that the degree of the divisor is negative is imposing more zeroes than poles that we are allowing. But no meromorphic section has a different number of zeroes than poles. 
+        \item The degree of $\vf(C)$ in $\vf_D:C\to\bP^{N}$, where $N\defeq h^0-1$, is equal to $\deg(D)$. This is because
+        $$\deg(\vf_D(C))=\deg(\vf_D^\ast(H))=\deg(\div(s))=\deg(D)$$
+        where $s$ is a section of $\cO_C(D)$.
+        \item In order to get a map $C\to\bP^1$ it suffices to find a divisor such that $h^0\geq 2$. If $V\leq H^0(C,\cO_C(D))$ then we have the diagram:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEQBfU9TXfIRQBGclVqMWbADrSARgAUAesAAWS4gAoAIgEoAtMK7deIDNjwEio4ePrNWiELMUrZULAFtNANQNHucRgoAHN4IlAAMwAnCE8kMhAcCCQAJmp7KSdZGkiAfR8QagY6ORgGBX5LIRBorBDVHBMo2PjEUSSUxHSJBxlpHBgADxxgNFiAK2MeFriE6mSkDszHZ2lcvO1AriA
+\begin{tikzcd}
+    C \arrow[rd, "\vf_V"'] \arrow[r, "\vf_D"] & \bP^{h^0(D)-1} \arrow[d, "\text{proj}"] \\
+                                              & \bP^{\dim(V)-1}                        
+    \end{tikzcd}
+        \end{center}
+    \end{enumerate}
+\end{Rmk}
+
+\begin{Ex}
+    Let's construct this map for our favorite Riemann surface $\bP^1$. Take the divisor $D=0+\infty$. We want meromorphic functions with a single pole at $0$ or $\infty$. This means that 
+    $$H^0(C,\cO_C(D))=\Set{\frac{at^2+bt+c}{t}}=\gen(t,1,1/t)$$
+    where $t$ is an affine coordinate about $0$. Then the map $\vf_D\:\bP^1\to\bP^2$ such that $t\mapsto [t:1:1/t]=[t^2:t:1]$. The image of the map $\vf_D(\bP^1)$ is equal to the conic $V(XZ-Y^2)$. In particular observe that the image of the point $t=0$ is $[0:0:1]$ and $t=\infty$ maps to $[1:0:0]$. Also interesting is $t=1$ maps to $[1:1:1]$.\par
+    To exemplify the phenomenom, let's pick a divisor:
+    $$D'=[0]+[\infty]-[1]$$
+    Certainly a function with a zero of order $1$ and poles at $0,\infty$ still is in $H^0(C,\cO_C(D))$. This means that 
+    $$H^0(C,\cO_C(D'))\Set{\frac{(t-1)(at+b)}{t}}=gen\left((t-1),\frac{(t-1)}{t}\right)$$
+    and in terms of coordinates of $\bP^2$ we have $X-Y,Y-Z$. In terms of our diagram, this is
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjABQD0AjCAC+pdJlz5CKAeSq1GLNp159gAJmEixIDNjwEisgfPrNWiDt37ABW4fJhQA5vCKgAZgCcIAWyRkIDgQSOrUZkqWnDQeAPrAACIA5FrUDHRcMAw8EgbSIF5YzgAWONqePv6IskEhiGEK5mzIABoAtACaiO0AWhQgaRlZOfpSbAwwHmWiFX4B1MFINREWVjGxCSIUwkA
+\begin{tikzcd}
+    \bP^1 \arrow[rd, "\vf_{D'}"'] \arrow[r, "\vf_D"] & \bP^{2} \arrow[d, "{[X-Y:X-Z]}"] \\
+                                                     & \bP^{1}                         
+    \end{tikzcd}
+    \end{center}
+    And we obtain a map of degree one because the degree of the divisor is $1$. It can also be seen because every line, when projecting the conic from $\vf_D(1)$, intersects at one other point!
+\end{Ex}
+
+\begin{Rmk}
+    
+One of the reasons this is called linear system is because divisors obtained from effective divisor are obtained from hyperplanes. The coordinate sections $X,Y,Z$ give us $2[0],2[\infty]$ and $[0]+[\infty]$. Linear combinations of $X,Y,Z$ give us hyperplanes. 
+\end{Rmk}
+
+\begin{Ex}
+    ¿What if instead we chose $V=\gen(t,1/t)$? This coordinates are nothing but $X$ and $Z$ so our map is $[X:Y:Z]\mapsto [X:Z]$. Since this point is no longer on the curve, ¡this map has degree $2$ now! This is becuase $t\mapsto [t:1/t]=[t^2:1]$.
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjABQD0AjCAC+pdJlz5CKAeSq1GLNp159gAJmEixIDNjwEisgfPrNWiDt37ABW4fJhQA5vCKgAZgCcIAWyRkIDgQSOrUZkqWnDQeAPrAACIA5FrUDHRcMAw8EgbSIF5YzgAWONqePv6IskEhiGEK5mzIABoAtACaiO0AWhQgaRlZOfpSbAwwHmWiFX4B1MFINREWVjGxCeUg3nOIgYv11JlgUEhtACwAnOGKq9FxAGoDIOmZ2bljloUl0zo7VTUDpo-pUlgs6sDZgDwaEjjATkgAOwADhuTUsrUQfREFGEQA
+\begin{tikzcd}
+    \bP^1 \arrow[rd, "\vf_{D'}"'] \arrow[r, "\vf_D"] \arrow[rd, "\vf_V"', bend right=49] & \bP^{2} \arrow[d, "{\ast}"] \arrow[d] \arrow[d] \arrow[d, "{[X:Z]}", bend left=69] \\
+                                                                                         & \bP^{1}                                                                                
+    \end{tikzcd}
+    \end{center}
+\end{Ex}
+
+\subsection{Riemann-Roch and Serre Duality}
+
+\begin{Th}[Riemann-Roch]
+    Assume $C$ is a compact Riemann surface of genus $g$, with $D$ a divisor on $C$. Then 
+    $$h^0(D)-h^1(D)=\deg D+1-g.$$
+\end{Th}
+
+¡This is how many holomorphic sections and holomorphic 1-cocycles controlled by topological and arithmethic information! If we correct holomorphic sections in the sense of Euler characteristic, then we can control the number.
+
+\begin{Th}[Serre's Duality]
+    Under the conditions of the previous theorem
+    $$H^0(C,\cO_C(D))\isom (H^1(C,\cO_C(K_C-D)))'$$
+    so in particular $h^0(D)=h^1(K_C-D)$.
+\end{Th}
+
+Instead of proving them, ¡let's use them! Some consequences of these results are:
+
+\begin{enumerate}
+    \item The dimension of the space of global section of the canonical bundle is $g$: $h^0(K_C)=g$. We should think of this as an analogous of Gauss-Bonnet. Local to global is controlled by the topology of the space. Plugging in $K_C$ into Riemann-Roch:
+    $$h^0(K_C)-h^1(K_C)=2g-2+1-g$$
+    and then apply Serre's duality.
+    \item Right now we know 1 curve of genus zero. ¿How do we know it's the only one? ¿What if there's another exotic complex structure? The next result is 
+    \begin{significant}
+        Every curve of genus 0 is isomorphic to $\bP^1$.
+    \end{significant}
+    Pick a divisor of degree $1$, $D=[p]$. ¿What does RR tell us?
+    $$h^0([p])-h^1([p])=2.$$
+    We also know $h^1$ is zero, because by Serre duality that is $h^0(K_C-[p])$ so that $K_C-[p]$ is a divisor of degree $-1$ as in genus zero $\deg(K_C)=-2$. We started today by observing that negative degree implies not having global sections. So we found $h^0([p])=2$. This gives us a function 
+    $$\vf_pC\to\bP^1,\quad x\mapsto(s_0(x),s_1(x))$$
+    and this map is of degree $1$ so it's one-to-one. All maps of compact Riemann surfaces are onto. In normal form the local expression of every point is $w=z$ which is invertible. Thus we have a biholomorphism.
+    \item If the genus is strictly greater than $0$, $D=[p]$ is such that $h^0([p])=1$. ¿Why? Well it's at least one because of constant functions. But if it were bigger than one we would get two linearly independent sections and we could construct a map to $\bP^1$. The existence of this map would mean that a sphere is homeomorphic to a $g$-holed surface.
+\end{enumerate}
+
+\section{20241120}
+
+We have talked about the consequences of Riemann-Roch and Serre Duality. Let's recall that these formulas say: 
+$$h^0(D)-h^1(D)=\deg(D)+1-g,\quad h^0(K_C-D)=h^1(D).$$
+Recall that genus $g$ hyperelliptic curves carry a $g$-dimensional vector space of holomorphic $1$-forms. This now can follow from Riemann-Roch.\par
+Today we would like to prove that we can find a map $C\to\bP^1$. To that effect, it suffices to find a divisor with at least two sections.
+
+\begin{Prop}
+    For any $C$ (\red{conditions}?), we have a map $f\: C\to\bP^1$.
+\end{Prop}
+
+\begin{ptcbp}
+    By Riemann-Roch, for any divisor in $C$ we have
+    $$h^0(D)\geq \deg(D)+1-g.$$
+    So it suffices to pick a divisor with $\deg(D)\geq g+1$. This means that $h^0\geq 2$.
+\end{ptcbp}
+
+Another consequence of Riemann-Roch is\dots
+\begin{Prop}
+    If $C$ is a curve of genus $2$, then $C$ is hyperelliptic.
+\end{Prop}
+
+We would like to find a divisor of degree two, $h^0(D)\geq 2$. And we would ask that the divisor is \emph{basepoint-free}.
+
+\begin{Ex}
+    Last time we took the example of the linear system of a conic by taking all the lines through a point outside or inside the conic. In the first case, there's no point which belongs to \emph{all} divisors whereas is the second there \emph{is}.
+\end{Ex}
+
+\begin{ptcbp}
+    Recall that $C$ being hyperelliptic meant that there is 
+    $$\vf\: C\xrightarrow{2:1}\bP^1.$$
+    To build such a map we will find a 
+\end{ptcbp}
+
+Long ago we asked whether all genus $1$ Riemann surfaces were complex tori. The way to resolve this question is via Riemann-Roch.
+
+\begin{Prop}
+    Suppose $E$ is a genus $1$ Riemann surface. Then $E$ embeds into $\bP^2$ as a curve of degree $3$.
+\end{Prop}
+
+\begin{ptcbp}
+    In genus $1$, Riemann-Roch says
+    $$h^0(D)-h^1(D)=\deg(D).$$
+    Also if $D$ was effective, then $h^1(D)=0$ via Serre duality. Assume $D$ is an effective divisor and now pick any point $p\in E$. Consider $H^0(E,\cO_E(2p))$, as $2p$ has degree $2$, $H^0$ has dimension $2$. There's two meromorphic generators here $1$, for constants and $x$ for the other dimension.\par
+    For $3p$ we get $h^0=3$ and we have $H^0=gen(1,x,y)$. At this point we have three sections so that we can consider a map
+    $$\vf_{3p}\: E\to\bP^2,\quad e\mapsto[1:x(e):y(e)].$$
+    which is $1-1$ and an immersion. Continuing this game 
+    $$H^0(E,\cO_E(4p))=\gen(1,x,y,x^2),\quad H^0(E,\cO_E(5p))=\gen(1,x,y,x^2,xy),$$
+    but at $6p$ we get \emph{two} new generators and dimension should be $6$:
+    $$H^0(E,\cO_E(6p))=\gen(1,x,y,x^2,xy,x^3,y^2).$$
+    Thus there must be a linear relationship between the generators! If these sections satisfy $\sum a_is_i=0$ where not all $a_i=0$, then, remembering that these sections correspond to coordinates on $\bP^2$, a point on $E$ satisfies a polynomial equation of degree $3$. And so $\vf_{3p}(E)$ is a cubic curve because we are embedding $E$ into $\bP^2$.
+\end{ptcbp}
+
+\subsection{The proof of Riemann and Roch's formula}
+
+\begin{Lem}
+    For every divisor $D$ on $C$, the quantity
+    $$h^0(D)-h^1(D)-\deg(D)$$
+    is constant.
+\end{Lem}
+
+\begin{Lem}
+    The constant in question is $1-g$.
+\end{Lem}
+
+We will prove first the second lemma.
+
+\begin{ptcbp}
+    Taking $D$ as the empty divisor and as $K_C$ gives us the system of equations
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &h^0(\emptyset)-h^1(\emptyset)-0=c,\\
+        &h^0(K_C)-h^1(K_C)-(2g-2)=c.
+    \end{aligned}
+    \right.
+    $$
+    By Serre duality, 
+    $$h^0(K_C)=h^1(\emptyset),\quad h^1(K_C)=h^0(\emptyset),$$
+    so summing both equations now returns
+    $$2-2g=2c.$$
+\end{ptcbp}
+
+A short exact sequence of sheaves is not defined as exact at the level of open sets. 
+
+\begin{significant}
+    ¿Is it defined as exact at the level of stalks?
+\end{significant}
+
+We only care about \emph{small} open sets. Not the very large ones. We need a tool from homological algebra.
+
+\begin{Lem}
+    Short exact sequences in abelian categories give rise to long exact sequneces in cohomology.
+\end{Lem}
+
+\begin{ptcbp}
+    Consider the sequence 
+    $$0\to\cO_C(D-p)\into\cO_C(D)\onto\bC_p\to 0$$
+    where $\bC_p=\cO_p$ is the skyscraper sheaf defined as 
+    $$\bC_p(U)=\bC,\quad\text{if }p\in U.$$
+    This sequence is exact. From this we get 
+    \begin{align*}
+        0\to&H^0(C,\cO_C(D-p))\to H^0(C,\cO_C(D))\to H^0(C,\bC_p)\dots\\
+        \to&H^1(C,\cO_C(D-p))\to H^1(C,\cO_C(D))\to H^1(C,\bC_p)
+    \end{align*}
+    But simplfiying some of these we get
+    \begin{align*}
+        0\to&H^0(C,\cO_C(D-p))\to H^0(C,\cO_C(D))\to\bC\dots\\
+        \to&H^1(C,\cO_C(D-p))\to H^1(C,\cO_C(D))\to 0
+    \end{align*}
+    and now via \emph{rank-nullity} (sum of alternating dimensions in long exact sequences of vector spaces adds up to zero) we have that 
+    $$h^0(D-p)-h^0(D)+1-h^1(D-p)+h^1(D)=0.$$
+    Rearranging we get 
+    \begin{align*}
+        &h^0(D-p)-h^1(D-p)=h^0(D)-h^1(D)-1\\
+        \To&h^0(D-p)-h^1(D-p)-\deg(D-p)=h^0(D)-h^1(D)-(1+\deg(D-p))\\
+        \To&h^0(D-p)-h^1(D-p)-\deg(D-p)=h^0(D)-h^1(D)-\deg(D)
+    \end{align*}
+    and this means that the function $h^0(D)-h^1(D)-\deg(D)$ is constant up to switching by a point. But we can get from any divisor to another by adding and removing points. We conclude that this function is constant.
+\end{ptcbp}
+
+\begin{Rmk}
+    We have seen that $H^0(D-p)\leq H^0(D)$. Perhaps it's a codimension $5$ subspace. But this proof is telling us that this is not possible. It can only be a difference of one dimension. 
+    $$
+    h^0(D-p)
+    \left\lbrace
+    \begin{aligned}
+        &h^0(D)\To h^1(D-p)=h^1(D)+1\\
+        &h^0(D)-1\To h^1(D-p)=h^1(D)
+    \end{aligned}
+    \right.
+    $$
+    on the first case we lose a function or if all the functions in $D$ were vanishing at $p$, then $h^1$ jumps up.
+\end{Rmk}
+
+Next time, we will discuss basepoint-freeness. We won't prove Serre duality, but we will show why every Riemann surface can be embedded in some projective space.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
