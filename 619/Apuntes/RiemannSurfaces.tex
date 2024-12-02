@@ -1340,7 +1340,7 @@ One way to rephrase this is:
 \end{itemize}
 
 \begin{Rmk}
-    If we embed the curve $C$ on the plane $\bP^2$, then the natural way to make linearly equivalent divisors is to take two lines $L_1,L_2$ and then points of intersection of one line with $C$ with one color and the other with another. So $\blu{D}\sim\red{D}$ because $\blu{D}-\red{D}$ is the divisor of the function $f_2/f_1$ where $f_2$ is a function for line $2$ and $f_1$ with line $L_1$. And there's a sense in whihc this is not just an example, but really the prototypical thing.\par
+    If we embed the curve $C$ on the plane $\bP^2$, then the natural way to make linearly equivalent divisors is to take two lines $L_1,L_2$ and then points of intersection of one line with $C$ with one color and the other with another. So $\blu{D}\sim\red{D}$ because $\blu{D}-\red{D}$ is the divisor of the function $f_2/f_1$ where $f_2$ is a function for line $2$ and $f_1$ with line $L_1$. And there's a sense in which this is not just an example, but really the prototypical thing.\par
     If we start with a line bundle and we have three sections\dots
 \end{Rmk}
 
@@ -1452,7 +1452,7 @@ One of the reasons this is called linear system is because divisors obtained fro
 \end{Rmk}
 
 \begin{Ex}
-    ¿What if instead we chose $V=\gen(t,1/t)$? This coordinates are nothing but $X$ and $Z$ so our map is $[X:Y:Z]\mapsto [X:Z]$. Since this point is no longer on the curve, ¡this map has degree $2$ now! This is becuase $t\mapsto [t:1/t]=[t^2:1]$.
+    ¿What if instead we chose $V=\gen(t,1/t)$? This coordinates are nothing but $X$ and $Z$ so our map is $[X:Y:Z]\mapsto [X:Z]$. Since this point is no longer on the curve, ¡this map has degree $2$ now! This is because $t\mapsto [t:1/t]=[t^2:1]$.
     \begin{center}
         % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjABQD0AjCAC+pdJlz5CKAeSq1GLNp159gAJmEixIDNjwEisgfPrNWiDt37ABW4fJhQA5vCKgAZgCcIAWyRkIDgQSOrUZkqWnDQeAPrAACIA5FrUDHRcMAw8EgbSIF5YzgAWONqePv6IskEhiGEK5mzIABoAtACaiO0AWhQgaRlZOfpSbAwwHmWiFX4B1MFINREWVjGxCeUg3nOIgYv11JlgUEhtACwAnOGKq9FxAGoDIOmZ2bljloUl0zo7VTUDpo-pUlgs6sDZgDwaEjjATkgAOwADhuTUsrUQfREFGEQA
 \begin{tikzcd}
@@ -1503,7 +1503,7 @@ Recall that genus $g$ hyperelliptic curves carry a $g$-dimensional vector space 
 Today we would like to prove that we can find a map $C\to\bP^1$. To that effect, it suffices to find a divisor with at least two sections.
 
 \begin{Prop}
-    For any $C$ (\red{conditions}?), we have a map $f\: C\to\bP^1$.
+    For any Riemann surface $C$, we have a map $f\: C\to\bP^1$.
 \end{Prop}
 
 \begin{ptcbp}
@@ -1631,6 +1631,235 @@ We only care about \emph{small} open sets. Not the very large ones. We need a to
 \end{Rmk}
 
 Next time, we will discuss basepoint-freeness. We won't prove Serre duality, but we will show why every Riemann surface can be embedded in some projective space.
+
+\section{20241122}
+
+We will spend half the time writing things if we write $H^0(C,\cO_C(D))$ so instead we will abbreviate $H^0(D)$.
+
+\begin{Def}
+    We say $H^0(D)$ is \term{basepoint-free} if for every $p\in C$, there is $\vf\in  H^0(D)$ such that $\vf(p)\neq 0$.
+\end{Def}
+
+This condition guarantees that the image of the map $\vf_D\: C\to\bP^{h^0(D)-1}$ has degree $\deg(D)$. Because we check the degree by intersecting with a hyperplane. We might as well check with $x_0=0$. But the pullback is the \red{section? Check video}.
+
+\begin{Ex}
+    $H^0(D-p)$ is an example of a non-basepoint-free. \red{what?}
+\end{Ex}
+
+The condition of being basepoint-free has an equivalence.
+
+\begin{Prop}
+    If for any point $p\in C$, $h^0(D-p)=h^0(D)-1$, then $H^0(D)$ is basepoint-free.
+\end{Prop}
+
+Recall that from the proof of Riemann-Roch, subtracting a point should \red{something.}
+
+\subsection{Towards embeddings}
+
+\begin{Prop}
+    For $\vf_D$ to be one-to-one, it must hold that:
+    \begin{enumerate}
+        \item $H^0(D)$ is basepoint-free, or equivalently $h^0(D-p)=h^0(D)-1$.
+        \item For all $p,q\in C$, then 
+        $$h^0(D-p-q)=h^0(D-p)-1=h^0(D)-2.$$
+    \end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+    By the first condition, we have a section $s_0$ such that $s_0(p)\neq 0$. The second condition gives us a section in $H^0(D-p)$ not in $H^0(D)$ for which $s_1(p)=0$ but $s_1(q)\neq 0$. Recall we have the strict inclusions 
+    $$H^0(D-p-q)<H^0(D-p)<H^0(D)$$
+    and that's how we can find sections. Completing these with $s_2$ to $s_r$ we get 
+    $$\vf_D\: C\to\bP^r,\quad x\mapsto[s_0(x):s_1(x):\dots:s_r(x)]$$
+    where $p$ maps to $[1:0:\dots]$ and $q$ to $[\ast:1:\dots]$ so these two points are different.
+\end{ptcbp}
+
+In our process to embed, we now look for an immersion criterion.
+
+\begin{Prop}
+    For $\vf_D$ to be an immersion, it is required that
+    \begin{enumerate}
+        \item $H^0(D)$ is basepoint-free, or equivalently $h^0(D-p)=h^0(D)-1$.
+        \item For all $p\in C$, then 
+        $$h^0(D-2p)=h^0(D-p)-1=h^0(D)-1.$$
+    \end{enumerate}
+\end{Prop}
+
+\begin{ptcbp}
+    Once again we find $s_0$ with $s_0(p)\neq 0$. Afterwards we get an $s_1$ which vanishes at $p$ with order exactly one. We may now write
+    $$\vf_D\: C\to\bP^r,\quad X\mapsto[s_0(X):s_1(X):\dots:s_r(X)]$$
+    and we must check the derivative to be non-zero.\par
+    Pick $z$, a local coordinate centered at $p$ for $C$ and $x_i=X_i/X_0$, these are affine coordinates for $U_0\subseteq\bP^r$. Then 
+    $$\Phi_D(z)=(a_1z+b+\text{h.o.t.},\dots)\To\Phi_D'(p)=(a_1,\dots).$$
+\end{ptcbp}
+
+Putting these two together we get the theorem:
+
+\begin{Th}
+    Every compact Riemann surface $C$ can be embedded in some $\bP^r$.
+\end{Th}
+
+\begin{ptcbp}
+    It suffices to take any effective divisor $D$ of degree greater than $2g+1$. Then 
+    $$\deg(D-p)\geq 2g,\quad \deg(D-2p),\deg(D-p-q)\geq 2g-1$$
+    and from this 
+    $$\deg(K_C-(D-p)),\deg(K_C-(D-2p)),\deg(K_C-(D-p-q))<0.$$
+    At this point we can use Riemann-Roch with $h^1(D)$ being zero because of Serre duality.\par
+    Recall this is because $h^0(\tilde{D})=0$ if $\deg\tilde{D}<0$. So if $\deg(D)\geq 2g-1$, via Serre duality we have 
+    $$h^1(D)=h^0(K_C-D)=0$$
+    because the degree of $K_C-D$ is 
+    $$(2g-2)-(2g-1)=-1.$$
+\end{ptcbp}
+
+Let's recall from last time that when $g>0$, then $h^0(p)=1$. This immediately guarantees that $H^0(K_C)$ is basepoint-free. 
+
+\begin{ptcb}
+    We must show that for $p$, 
+    $$h^0(K_C-p)=h^0(K_C)-1$$
+    which is equivalent to $h^1(K_C-P)=h^1(K_C)$. By Serre duality both sides of this equation are 
+    $$h^0(p)=h^0(\emptyset)=1.$$
+    Going back via the equivalence, we have the desired result.
+\end{ptcb}
+
+Specializing this for a particular class of Riemann surfaces we get 
+
+\begin{Prop}
+    The map 
+    $$\vf_{K_C}\: C\to\bP^{g-1}$$
+    of degree $2g-2$ is an embedding if and only if $C$ is \emph{not} hyperelliptic.
+\end{Prop}
+
+\begin{ptcbp}
+    Observe that $\vf_{K_C}$ is and embedding if and only if
+    \begin{itemize}
+        \item $h^0(K_C-p)=h^0(K_C)-1$.
+        \item $h^0(K_C-p-q)=h^0(K_C-p)-1$.
+        \item $h^0(K_C-2p)=h^0(K_C-p)-1$.
+    \end{itemize}
+    If $C$ is hyperelliptic, we have a function of degree $2$ so that we can pick $p,q$ to be two points mapping to the same point so that $h^0(P+Q)\geq 2$\red{Finish}.\par
+    On the other hand 
+    \begin{align*}
+        C\text{not H.E.}\iff&\text{No map }C\to\bP^1\text{ of deg. 2}\\
+        \iff&\text{For every div.}D=p+q,\ 2p,\quad h^0(D)=1\\
+        \iff&h^1(K_C-D)=1\\
+        \iff&h^1(K_C-D)=h^1(K_C)\\
+        \iff&h^0(K_C-D)=h^0(K_C)-2.
+    \end{align*}
+\end{ptcbp}
+
+Even if the curve is hyperelliptic, ¿how bad is the map even if it's not an embedding? ¿What is $\vf_{K_C}$ for a hyperelliptic curve?\par
+$H^0(D)$ is still basepoint-free so in a sense \red{what?}
+$$\vf_{K_C}\: C\to\bP^{g-1}$$
+and for hyperelliptic curves we have the basis of 1-forms for $K_C$ as
+$$H^0(C,K_C)=\gen\left(\frac{\dd x}{y},x\frac{\dd x}{y},x^2\frac{\dd x}{y},\dots,x^{g-1}\frac{\dd x}{y}\right).$$
+As a representative, we can take $K_C=\div\frac{\dd x}{y}$ so that our $H^0$ is isomorphic to $\gen(1,x,\dots,x^{g-1})$.\par
+Given a point $p\in C$, this point has an $x$ and $y$ coordinate, but $K_C$ doesn't know it's $y$ coordinate so that 
+$$\vf_{K_C}(p)=[1:x(p):\dots:x^{g-1}(p)]$$
+and thus we may factor $\vf_{K_C}$ through the projection to $\bP^1$ and the Veronese map.\par
+Next time we will talk about the dimension of the moduli space of curves. 
+
+\section{20241202}
+
+Recall that by Riemann-Roch and Serre duality, if $D$ is a divisor of high enough degree then 
+$$\vf_D\: C\to\bP^{h^0(D)-1}$$
+is an embedding. This is particular shows:
+
+\begin{Cor}
+    Every smooth Riemann surface is a projective algebraic curve.
+\end{Cor}
+
+\begin{Def}
+    We say that a divisor is \term{very ample} whenever the associated $\vf_D$ is an embedding. It is \term{ample} when it has a very ample positive multiple.
+\end{Def}
+
+The punchline of Riemann-Roch and Serre is that any divisor of positive degree is ample. 
+
+\subsection{Moduli Spaces of Curves}
+
+Moduli spaces are spaces whose points are \emph{naturally} in bijection with curves (Riemann surfaces) and the geometric structure reflects the way that curves holomorphically deform.\par
+We would like to create a dictionary between the geometry of curves and the geoemtry of moduli spaces. 
+\begin{enumerate}
+    \item One way to do this is by Riemann's argument to compute the dimension of $M_g$.
+    \item The newer way is the cohomological approach to calculate the dimension.
+\end{enumerate}
+
+\begin{significant}
+    ¿What is the space of all curves of genus $0$?
+\end{significant}
+
+We only have one genus zero surface, $\bP^1$. The next step is complex tori, we choose a lattice and mod out by equivalence. This determines a complex number $\tau$ such that $(1,\tau)$ generates a lattice. We still have to mod out by an $\rSL_2(\bZ)$ worth of choices of generators for the same lattice. This means that 
+$$M_{1,1}\isom\quot{\bH}{\rSL_2(\bZ)}.$$
+For higher genus surfaces, we get quotients of hyperbolic spaces by hyperbolic groups so we should learn Hodge theory\footnote{In 20 years, Renzo wasn't able to do it, here's to hoping he'll do it in the coming 20 years. RemindMe! Ask Renzo in 2044 if he learned Hodge theory.}.
+
+\subsection{Riemann's approach to higher genus}
+
+For $g\geq 2$ Riemann showed that the surfaces varied $3g-3$ moduli, or continuous parameters. In other words $\dim M_g=3g-3$.\par
+Our first sidestep is to talk about the Picard group.
+
+\begin{Def}
+    $\Pic^d(C)$ is the space of degree $d$ line bundles of $C$.
+\end{Def}
+
+For genus $g$ Riemann surfaces, 
+$$\Pic^d(C)\isom\quot{\bC^g}{\bZ^{2g}}.$$
+
+\begin{ptcbp}
+    We have identified 
+    $$\Pic(C)\isom H^1(C,\cO_C^\ast)$$
+    and we build the exact sequence
+    $$0\to\un\bZ\into\cO_C\xrightarrow{\exp(2\pi i-)}\cO_C^\ast\to 0.$$
+    The last map is not a surjection globally, but for sheaves it suffices to be a surjection at local level. And at local level it's possible to take logarithms. This gives us a long exact sequence in cohomology:
+    \begin{align*}
+        0\to&H^0(C,\un\bZ)\to H^0(C,\cO_C)\to H^0(C,\cO_C^\ast)\dots\\
+        \to&H^1(C,\un\bZ)\to H^1(C,\cO_C)\to H^1(C,\cO_C^\ast)\dots\\
+        \to&H^2(C,\un\bZ)\to 0
+    \end{align*}
+    and filling in everything we get 
+    \begin{align*}
+        0\to&\bZ\to \bC\to \bC^\ast\dots\\
+        \to&\bZ^{2g}\to \bC^{2g}\to \Pic(C)\dots\\
+        \xrightarrow{\deg}&\bZ\to 0.
+    \end{align*}
+Splitting this we get 
+$$\Pic^0(C)\defeq\ker(\deg)\isom\quot{\bC^g}{\bZ^{2g}}.$$
+We are almost done, but to get home we claim that all $\Pic^d$ are isomorphic. The map 
+$$-\ox\cO_C(d[p])$$
+where $p$ is a chosen point in $C$ and the map $-\ox\cO_C(-d[p])$ is its inverse.
+\end{ptcbp}
+
+This doesn't appear to have connections to $M_g$, but we will realize it as the base of a fibration. 
+\begin{enumerate}
+    \item We will construct a surjective map $\operatorname{Hurw}\onto M_g$ which is a fibration $F\to\operatorname{Hurw}$.
+    \item When we have fibrations 
+    $$\dim\operatorname{Hurw}=\dim M_g+\dim F.$$
+    \item We will find the dimension of the Hurwitz space via the Riemann-Hurwitz formula.
+    \item If we can find the dimension of $F$ then we can find the dimension of $M_g$. To do this we realize $F$ as a fibration over $\Pic^d(C)$ and the corresponding $G$ we wil be find the dimension. 
+\end{enumerate}
+
+\begin{Def}
+    The space $\operatorname{Hurw}^d$ is the space of \term{Hurwitz covers} of degree $d$ of $\bP^1$,
+    $$\operatorname{Hurw}^d\defeq\set{f\: C\to\bP^1\text{ of degree }d}.$$
+\end{Def}
+
+By the Riemann-Hurwitz formula, for any such $f$,
+$$\sum_{x\in C}\nu_x=2g-2+2d.$$
+With probability $1$, all ramification points are simple, $f$ has $2g-2+2d$ branch points. By the Riemann existence theorem and monodromy representation, there's a finite number of maps whose branch points are those.\par
+So it appears that we have so many maps, but we have to count isomorphisms.
+
+\begin{Def}
+    Two Hurwitz cover maps $f_1,f_2$ are isomorphic whenever there exist $\vf,\Phi$ such that the following diagram commutes:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEB9ARhAF9S6TLnyEU3clVqMWbLgCZ+gkBmx4CRMtyn1mrRCAA6hgEYAFAHq8BQtaKITt1XbIPHzV-lJhQA5vCJQADMAJwgAWyR5ahwIJABmZxl9I0MaIJBqBjoTGAYzYXUxEBCsXwALHCVgsMjEMhBYqKS9NiCeTJBs3PzC+wNSiqqbEFCIpAlGuMRE6VaDdsURsbqGpsRJlxTjM3KsLz4gA
+\begin{tikzcd}
+    C_1 \arrow[d, "f_1"'] \arrow[r, "\Phi"] & C_2 \arrow[d, "f_2"] \\
+    \bP^1 \arrow[r, "\vf"']                 & \bP^1               
+    \end{tikzcd}
+    \end{center}
+\end{Def}
+
+At the end of the day this means that 
+$$\operatorname{Hurw}^d\defeq\set{f\: C\to\bP^1\text{ of degree }d}/\sim\xrightarrow{\dim}2g+2d-5.$$
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
