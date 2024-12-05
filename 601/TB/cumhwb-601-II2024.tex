@@ -34,6 +34,10 @@ Draw the $\gsl_3$ crystal for weight $(3,3,0)$.
     Explain why the set of $5^{\text{th}}$ roots of unity in the plane don't form a root system. Which axioms of root systems does it satisfy?
 \end{Ej}
 
+\begin{ptcbr}
+    Via the isomorphism $X\mapsto\bonj{X,-}$ we have that the dimension of the adjoint representation is the same as $\dim\gso_7$ which is $\binom{7}{2}=21$.
+\end{ptcbr}
+
 \begin{Ej}
     Compute the evacuation of the Young tableau below, and then evacuate again, and show you have returned to the starting tableau.
     $$\young(5,278,1346)$$
@@ -44,10 +48,19 @@ Draw the $\gsl_3$ crystal for weight $(3,3,0)$.
 \end{Ej}
 
 \begin{Ej}
-    Let $w=w_1\dots w_n$ be a word of partition content, and suppose $w_1\neq 1$. Let $w'=w_2\dots w_nw_1$ be formed by cycling $w_1$ around to the end of the word. Show that $\cc(w')=\cc(w)=1$ where $\cc$ is cocharge. This operation is called \emph{cyclage}.
+    Let $w=w_1\dots w_n$ be a word of partition content, and suppose $w_1\neq 1$. Let $w'=w_2\dots w_nw_1$ be formed by cycling $w_1$ around to the end of the word. Show that $\cc(w')=\cc(w)-1$ where $\cc$ is cocharge. This operation is called \emph{cyclage}.
 \end{Ej}
+
+\begin{ptcbr}
+Observe that it suffices to view this on standard words. This is because we may separate a word into standard subwords and calculate cocharge\footnote{Ah! Inadvertently \textbf{you} helped me with this problem as the decomposition idea was written on your thesis!}. Consider the subword $\tilde{w}$ of $w$ which contains $w_1$ in the previous decomposition sense, as $w$ has partition content so does $\tilde{w}$.\par
+When cycling $w_1$ to the end of $\tilde{w}$, cocharge is reduced by $1$ as there is a element in $\tilde{w}$ smaller than $w_1$ which was to the right of $w_1$. After cycling, it's to the \emph{left} and so the cocharge labeling drops by one. 
+\end{ptcbr}
 
 \begin{Ej}
     Give a counterexample showing that the formula in the above problem does not hold in general when $w_1=1$.
 \end{Ej}
+
+\begin{ptcbr}
+The word $121$ has cocharge labeling $000$ giving it a cocharge of $0$ whereas $211$ has cocharge labeling $100$ with cocharge $1$.
+\end{ptcbr}
 \end{document} 
