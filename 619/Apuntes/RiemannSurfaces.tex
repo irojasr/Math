@@ -1859,7 +1859,74 @@ So it appears that we have so many maps, but we have to count isomorphisms.
 At the end of the day this means that 
 $$\operatorname{Hurw}^d\defeq\set{f\: C\to\bP^1\text{ of degree }d}/\sim\xrightarrow{\dim}2g+2d-5.$$
 
+\section{20241204}
 
+Recall we are finding the dimension of $M_g$. The sets are all moduli spaces of \emph{spaces} which have natural interpretation as sets.
+\begin{itemize}
+    \item The points of $\operatorname{Hurw}^d$ correspond to maps $f\:C\to\bP^1$ where $C$ is a curve of genus $g$ and $f$ is holomorphic of degree $d$. We have a forgetful morphism from $\operatorname{Hurw}^d$ to $M_g$.
+\end{itemize}
+\begin{Prop}
+    The dimension of $\Hurw^d$ is $2g-2+2d-3$.
+\end{Prop}
+This was via Riemann-Hurwitz and the dimesion of $\PGL_2$. The open subset of $\Hurw^d$ corresponds to maps with simple ramification. Via Riemann-Hurwitz we get the amount. But we are imposing the equivalence relation, consider the maps equivalent if they differ by $\bP^1$-isomorphism.
+\begin{itemize}
+    \item Now the fiber $F=\pi^{-1}(\bonj{C})$ is the set of maps $\set{f\: C\to\bP^1}$ which are holomorphic.
+\end{itemize}
+Over our favorite line bundle, the hyperplane bundle $\cO(1)$ we can pullback to get 
+$$f^\ast\cO_{\bP^1}(1)\to C$$
+which now determines elements of $\Pic^d(C)$. Finally 
+$$p^{-1}(L)=\set{f\: C\to\bP^1,\quad f^\ast\cO_{\bP^1}(1)\isom L}.$$
+This fiber correspond to the choice of $V\subseteq H^0(C,L)$ of dimension $2$. The set of all these planes is a Grassmannian inside $H^0(C,L)$. We have the following dimension counts:
+\begin{itemize}
+    \item $\dim\Pic^d(C)=\dim(\bC^g/\bZ^{2g})=g$.
+    \item For the Grassmannian $\dim\Gr(2,H^0(C,L))$, we use Riemman-Roch:
+    $$h^0(C,L)-h^1(C,L)=d+1-g\To h^0(C,L)=d+1-g.$$
+\end{itemize}
+From this we have 
+\begin{align*}
+    &\dim(M_g)+\dim(\Pic^d(C))+\dim\Gr(2,H^0(C,L))=\dim\Hurw^d\\
+    \To&\dim(M_g)+g+(2d-2g-2)=2g+2d-5\\
+    \To&\dim(M_g)=3g-3.
+\end{align*}
+
+\subsection{Tangent spaces}
+
+\begin{significant}
+If a space walks up to you and says, all my tangent spaces have dimension 3 and asks you what's its dimension, then you can answer 3.
+\end{significant}
+
+Intuitively $T_pX$ will be the space of linear functionals on germs of smooth functions locally defined near $p$ such that 
+\begin{enumerate}
+    \item they vanish on constants, and
+    \item they satisfy the Leibniz rule: $D(fg)=f(Dg)+(Df)g$.
+\end{enumerate}
+This could also be the space of derivations of germs of $f$ near $p$. We can adapt to the tangent bundle as $TX(U)$ as derivations on sections of $\cO_X(U)$.\par
+In algebraic geometry, infinitesimals are elements of $\Spec(\bC[\eps]/\eps^2)$ with a prime ideal $\genr{\eps}$ and a non-maximal one $\genr{0}$. Mapping this to $X$, we map $\genr{\eps}$ to $p$ and the fluffy point to wherever, that's our tangent vector. So that 
+$$T_p(X)=\set{f\:\Spec(\bC[\eps]/\eps^2)\to X\:\ f(\genr{\eps})=p}$$
+and with this, our objective is to compute the dimension of $T_{[C]}M_g$.
+
+\subsection{The modern dimension of $M_g$}
+
+We need to describe a bit of the geometric structure of $M_g$. The idea is to use the set-theoretic description of $M_g$ and the geoemtry of the objects parametrized. For a nice family of Riemann surfaces, $E\to B$ we can map to the moduli space as $b\mapsto\bonj{\pi^{-1}(b)}$.\par
+Now $M_g$ should have structure such that if all of the family data is holomorphic, then the map $\vf_\pi\: B\to M_g$ is holomorphic. This should work for \emph{any} family of Riemann surfaces. This is the content of Yoneda's Lemma:
+
+\begin{Lem}
+    The functor of points of $X$ uniquely determines $X$ as a complex manifold/scheme/etc\dots
+\end{Lem}
+
+\begin{significant}
+    ¿So what the heck is the functor of points?
+\end{significant}
+
+This is denoted $\Hom(-,X)\:\cat{Sch}\to\cat{Set}$ that assigns to every scheme $B$, the set of holomorphic functions $B\to X$. This is a covariant functor. This functor contains enough information to identify $X$. If you think about it, we say that we know a manifold once we know an atlas. This is a vast generalization of an atlas.
+
+\begin{significant}
+    Algebraic geoemters have a fear of commitment so they throw everything in, they don't like making choices.
+\end{significant}
+
+So $M_g$ is the unique complex manifold whose functor of points is 
+$$\Hom(B,M_g)=\set{X\xrightarrow{\pi}B\text{ is a family of genus }g\text{ curves}}.$$
+This would be incredible, \emph{if it were true}. This is a \emph{stack} and it's important to know what a stack is if you're a stack mechanic. But you're not a stack mechanic, you're a stack driver.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
