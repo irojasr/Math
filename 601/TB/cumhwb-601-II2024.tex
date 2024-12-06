@@ -26,6 +26,10 @@ Draw the $\gsl_3$ crystal for weight $(3,3,0)$.
     and $I_n$ is the $n\x n$ identity matrix and $1$ is in the upper left corner. Write down what an arbitrary element $X$ looks like, and using the fact that with respect to this setup the torus is simply the set of diagonal matrices $X$ satisfying these conditions, explain how one obtains the type $B$ root system.
 \end{Ej}
 
+\begin{ptcbr}
+    First observe that the matrix $S$ is a permutation matrix which acts by row permutation when applied as left multiplication. The permutation it applies is a product of disjoint transpositions of the form $\onebytwo{i}{n+i}$ for $i\in[n+1]\less\set{1}$.
+\end{ptcbr}
+
 \begin{Ej}
     What is the dimension of the adjoint representation of $\gso_7$?
 \end{Ej}
@@ -39,6 +43,17 @@ Draw the $\gsl_3$ crystal for weight $(3,3,0)$.
     Explain why the set of $5^{\text{th}}$ roots of unity in the plane don't form a root system. Which axioms of root systems does it satisfy?
 \end{Ej}
 
+\begin{ptcbr}
+    The axioms we should check are:
+    \begin{enumerate}
+        \item The roots span our vector space.
+        \item The reflections across hyperplanes are still roots.
+        \item Projections onto the span of a single root are an integer multiple or a half-integer multiple of the root.
+        \item If $\al,\bt$ are roots such that $\bt=\la\al$ then $\la=\pm1$. 
+    \end{enumerate}
+    The first axiom is satisfied as any non-zero complex number spans $\bC$. The last axiom is satisfied vacuously.\par
+    The second axiom isn't satisfied as reflections across hyperplanes send the $5^{\text{th}}$ roots to $10^{\text{th}}$ (primitive) roots of unity. Projections are also not integer multiples nor half-integer multiples of other roots.
+\end{ptcbr}
 \begin{Ej}
     Compute the evacuation of the Young tableau below, and then evacuate again, and show you have returned to the starting tableau.
     $$\young(5,278,1346)$$
@@ -58,7 +73,10 @@ Here we have already marked the first inner corner we will move. This leads us t
 \newcommand{\gei}{\green{8}}
 $$\young(35\gei,\gon\gtw\gsi7,::\cross4)\longto\young(358,126,:\cross\gfo\gse)\longto\young(3\gei,1\gfiv6,\cross\gtw47)\longto\young(\gei,\gth56,\gon247)$$
 where every \green{green} character moved when clearing out the inner corner in the previous step. Redoing the process we obtain the skew tableau
-$$\young(8,356,1247)\longto\young(1,643,8752)\longto$$
+$$\young(8,356,1247)\longto\young(\gon,\gsi\gfo\gth,\gei\gse\gfiv\gtw)\longto\young(\gtw\gfiv\gse\gei,\cross\gth\gfo\gsi,:::\gon).$$
+With the first inner corner marked, we move it out and continue the process:
+$$\young(\gfiv\gse\gei,\gtw346,::\cross1)\longto\young(578,234,:\cross\gon\gsi)\longto\young(57,23\gei,\cross\gon\gfo6)\longto\young(5,2\gse8,\gon\gth46).$$
+As we have returned to our original tableau we conclude that the process is correct.
 \end{ptcbr}
 
 \begin{Ej}
