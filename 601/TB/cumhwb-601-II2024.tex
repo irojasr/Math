@@ -9,7 +9,7 @@
 \def\nextra {CHWB}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-\usepackage{youngtab}
+\usepackage[vcentermath,enableskew]{youngtab}
 
 \begin{document}
 \begin{Ej}
@@ -30,18 +30,36 @@ Draw the $\gsl_3$ crystal for weight $(3,3,0)$.
     What is the dimension of the adjoint representation of $\gso_7$?
 \end{Ej}
 
-\begin{Ej}
-    Explain why the set of $5^{\text{th}}$ roots of unity in the plane don't form a root system. Which axioms of root systems does it satisfy?
-\end{Ej}
 
 \begin{ptcbr}
     Via the isomorphism $X\mapsto\bonj{X,-}$ we have that the dimension of the adjoint representation is the same as $\dim\gso_7$ which is $\binom{7}{2}=21$.
 \end{ptcbr}
 
 \begin{Ej}
+    Explain why the set of $5^{\text{th}}$ roots of unity in the plane don't form a root system. Which axioms of root systems does it satisfy?
+\end{Ej}
+
+\begin{Ej}
     Compute the evacuation of the Young tableau below, and then evacuate again, and show you have returned to the starting tableau.
     $$\young(5,278,1346)$$
 \end{Ej}
+
+\begin{ptcbr}
+We switch entries following the rule $k\mapsto n+1-k$ and then rotating $180^\circ$:
+    $$\young(5,278,1346)\longto\young(4,721,8653)\longto\young(3568,\cross127,:::4).$$
+Here we have already marked the first inner corner we will move. This leads us to
+\newcommand{\gon}{\green{1}}
+\newcommand{\gtw}{\green{2}}
+\newcommand{\gth}{\green{3}}
+\newcommand{\gfo}{\green{4}}
+\newcommand{\gfiv}{\green{5}}
+\newcommand{\gsi}{\green{6}}
+\newcommand{\gse}{\green{7}}
+\newcommand{\gei}{\green{8}}
+$$\young(35\gei,\gon\gtw\gsi7,::\cross4)\longto\young(358,126,:\cross\gfo\gse)\longto\young(3\gei,1\gfiv6,\cross\gtw47)\longto\young(\gei,\gth56,\gon247)$$
+where every \green{green} character moved when clearing out the inner corner in the previous step. Redoing the process we obtain the skew tableau
+$$\young(8,356,1247)\longto\young(1,643,8752)\longto$$
+\end{ptcbr}
 
 \begin{Ej}
     Compute the Hall-Littlewood polynomial $\tilde{H}_{(2,1,1)}(x;q)$.
