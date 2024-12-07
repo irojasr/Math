@@ -9,7 +9,7 @@
 \def\nextra {HW7}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-\usepackage{youngtab}
+\usepackage[enableskew]{youngtab}
 
 \begin{document}
 
@@ -63,6 +63,37 @@ So from this, we may relabel $i,i+1,i+2$ to $1,2,3$ and then we can work on the 
     As $s_1,s_2$ act by raising/lowering, there's no way that elements on columns with more than two rows could get affected by the $s_i$'s. So it suffices to work on tableau with only two rows as it will be the only part affected by $s_i$'s.
 \end{ptcbr}
 
+\begin{Ej}[Exercise 1.e]
+    Show that, using the symmetry in the relation $(s_1s_2)^3=1$, it suﬃces to consider the
+case when the tableau has partition weight, that is, its content is $(a, b, c)$ for some $a\geq b\geq c$.
+\end{Ej}
+
+\begin{ptcbr}
+    Observe that the possible contents for our words are the $6$ permutations of the word $abc$ arranged into a content vector, given the condition that $a\geq b\geq c$. Applying $s_1$ will switch the number of 1's and 2's whereas $s_2$ does that 2's and 3's.\par
+    From this we have 
+    \begin{align*}
+    \to(a,b,c)\xrightarrow{s_1}(b,a,c)\xrightarrow{s_2}(b,c,a)\xrightarrow{s_1}(c,b,a)\xrightarrow{s_2}(c,a,b)\xrightarrow{s_1}(a,c,b)\xrightarrow{s_2}(a,b,c)\to
+    \end{align*}
+    which means that all possible contents are obtained after applying $s_i$'s. Since starting from any point gets us any content, it suffices to only consider those tableau with content $(a,b,c)$.
+\end{ptcbr}
+
+\begin{Ej}[Exercise 1.f]
+    Show that the reading word of such tableau must be of the form $2^d3^e1^a2^f3^g$ where $d + f = b$ and $e + g = c$.
+\end{Ej}
+
+\begin{ptcbr}
+   Given that our tableau has two rows and content $(a,b,c)$ it must occur that it looks like
+   $$\young(?,11\dots1?)$$
+   where there are $a$ ones in a row. Twos can be placed on top of our row of ones or to the side:
+   $$\young(2\dots2?,11\dots12\dots2?).$$
+   There can be no third row on top with threes which means that the reading word doesn't start with $3$. Our three's can only be placed in following the twos as
+   $$\young(2\dots23\dots3,11\dots12\dots23\dots 3)$$
+   which means that the reading word should be a string of twos, one of threes, the a string of one and a couple more of twos and threes.\par
+   The given conditions, $d + f = b$ and $e + g = c$ guarantee that there's no overlap between the rows or that the tableau looks like 
+   $$\young(3333,1122)$$
+   as that will not have content $(a,b,c)$ with $a\geq b\geq c$.
+
+\end{ptcbr}
 \begin{Ej}[Exercise 2]
     Compute the chromatic symmetric function of the triangle graph, that is, the complete graph $K_3$, and express it in terms of elementary symmetric functions and in terms of Schur functions.
 \end{Ej}

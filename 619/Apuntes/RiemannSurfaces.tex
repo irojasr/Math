@@ -1927,6 +1927,40 @@ This is denoted $\Hom(-,X)\:\cat{Sch}\to\cat{Set}$ that assigns to every scheme 
 So $M_g$ is the unique complex manifold whose functor of points is 
 $$\Hom(B,M_g)=\set{X\xrightarrow{\pi}B\text{ is a family of genus }g\text{ curves}}.$$
 This would be incredible, \emph{if it were true}. This is a \emph{stack} and it's important to know what a stack is if you're a stack mechanic. But you're not a stack mechanic, you're a stack driver.
+
+\section{20241206}
+
+Recall $T_pX$ can be thought of as:
+\begin{enumerate}
+    \item The space of derivations of functions near $p$.
+    \item The space of functions 
+    $$\set{f\:\Spec(\bC[\eps]/\eps^2)\to X\:\ f(\genr{\eps})=p}.$$
+\end{enumerate}
+The geoemtric structure of $M_g$ is given by declaring a correspondence between 
+$$\set{\vf\: B\to M_g}\word{and}\set{X\xrightarrow{\pi_\vf}B\:\ \text{family of genus }g\text{ curves}}.$$
+The big idea is that the left set describes the geoemtry of $M_g$ whereas the right one describes some of the fibers.\par
+Our goal is to understand the tangent space to $M_g$ at a curve $[C]$. We start via the second perspective:
+$$T_{[C]}M_g=\set{f\:\Spec(\bC[\eps]/\eps^2)\to M_g\:\ f(\genr{\eps})=[C]}$$
+and the moment we want to understand the tangent vectors as map, the correspondence kicks in. Any such $f$ corresponds to a family of curves over $\Spec(\bC[\eps]/\genr{\eps}^2)$ whose central fiber is $C$.
+\begin{Rmk}
+    This is also called a first order deformation of $C$. 
+\end{Rmk}
+For every double intersection of a trivializing open cover of our fluffy curve we get a derivation on functions of $C$ which is a section of the tangent sheaf $TC(U_{\al,\bt})$. If this collection of sections satisfies the \emph{cocycle condition}, then this element will characterize elements of the first \v{C}ech cohomology of $X$.\par
+It certainly is the case that
+$$\vf_{\al\ga}=\vf_{\bt\ga}\circ\vf_{\al\bt}\To\vf^\ast_{\al\ga}=\circ\vf_{\al\bt}^\ast\vf_{\bt\ga}^\ast$$
+and let's see what this says:
+$$
+\left\lbrace
+\begin{aligned}
+    &\vf_{\al\ga}^\ast(f)=f+\eps D_{\al\ga}(f)\\
+    &\vf_{\al\bt}^\ast(\vf^\ast_{\bt\ga}(f))=f+\eps(D_{\bt\ga}(f)+D_{\al\bt}(f)).
+\end{aligned}
+\right.
+$$ 
+So that the space of first order deformations is $TC$. As a vector space, we have the identification
+$$T_{\bonj{C}}M_g\isom H^1(C,TC).$$
+Recall that $TC=-K_C$ so in particular $\deg TC=2-2g$. So long as $g\geq 2$, this quantity is negative and that's ok because we already know how curves vary for genus 0 and 1. Therefore $h^0(C,TC)=0$, as
+$$h^0(C,TC)-h^1(C,TC)=(2-2g)+1-g\To h^1(C,TC)=3g-3.$$
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 
 \ifx\nextra\undefined
