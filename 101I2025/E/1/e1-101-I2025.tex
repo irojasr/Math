@@ -67,7 +67,21 @@ Be sure to read each question fully and carefully. Multiple choice answer bubble
 
 The CSU Math Club is holding an election for President. Adam, Brenda, and Carlos are the candidates. The members vote, and the following preference schedule shows the results:
 
-ADD TABLEUX
+\setlength{\tabcolsep}{6pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1}
+\setlength\extrarowheight{0pt}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccccc}
+        \toprule
+    Number of votes & 9      & 6      & 3      & 1      & 1      \\
+    \midrule
+    $1^{\text{st}}$              & Brenda & Adam   & Carlos & Brenda & Adam   \\
+    $2^{\text{nd}}$ & Carlos & Carlos & Adam   & Adam   & Brenda \\
+    $3^{\text{rd}}$              & Adam   & Brenda & Brenda & Carlos & Carlos\\
+    \bottomrule
+    \end{tabular}
+    \end{table}
     
 
 \begin{enumerate}
@@ -91,17 +105,28 @@ ADD TABLEUX
     \vfill
     \item How many points does Adam score using the Borda count method? (2 points)
     \begin{checkboxes}
-        \choice aaa
+        \choice 6
+        \choice 16
+        \choice 38
+        \choice 42
     \end{checkboxes}
     \vfill
-    \item What happens in a pairwise comparison between Brenda and Carlos? (2 points)
+    \newpage
+    \item What happens in a pairwise comparison between Brenda and Carlos? (4 points)
     \begin{checkboxes}
-        \choice aaa
+        \choice Brenda wins against Carlos, 11 votes to 9
+        \choice Brenda ties with Carlos, 10 votes each
+        \choice Brenda wins against Carlos, 9 votes to 11
+        \choice Carlos wins against Brenda, 11 votes to 9
     \end{checkboxes}
     \vfill
     \item How many first-place votes are needed for a majority? (2 points)
     \begin{checkboxes}
-        \choice aaa
+        \choice 9
+        \choice 10
+        \choice 11
+        \choice 15
+        \choice 20
     \end{checkboxes}
     \vfill
     \item \label{lastQnSec1} What is the complete ranking of the candidates using the plurality with elimination method? (6 points)
@@ -115,92 +140,123 @@ ADD TABLEUX
     \end{checkboxes}
     \vfill
 \end{enumerate}
-\item Consider the Weighted Voting Scheme $[q:9,7,1]$ formed by players $P_1, P_2$ and $P_3$.
+\item For questions \ref{firstQnSec2} through \ref{lastQnSec2} consider the following information:\par
 
+Consider the group of friends Markus, Natalie, Oscar and Pauline who have invested money into a fund. They will take their decisions via a Weighted Voting Scheme based on how much money they each inverted into the fund. The following is the information on the deposited money:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule
+    Person & Markus      & Natalie      & Oscar      & Pauline            \\
+    \midrule
+    Invested Money & ?? & \$12000   & \$7000 &\$4000   \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+
+The amount of money Markus deposited is unknown and will be the subject of our questions. Assume the quota for this setting is $q=24$.
 \begin{enumerate}
-\item What are the minimum and maximum possible values of $q$? Pick 2 options. (4 points) [Hint: Recall that the quota lies between half the total votes and the total votes.]
+\item \label{firstQnSec2} If each person gets a vote per each \$1000 they put into the fund, write down the weighted voting scheme for this setting assuming Markus gets $M$ votes: (3 points)\vspace{1em}
+$$[24:M:\hspace{1cm},\hspace{1cm},\hspace{1cm}]$$
+\vfill
+\newpage
+\item Find the minimum and maximum values for Markus' share of votes $M$, \underline{pick 2 options}: (4 points)
 \begin{checkboxes}
-    \choice 3
-    \choice 5
-    \choice 11
-    \choice 17
+   \choice 4
+   \choice 7
+   \choice 12
+   \choice 21
+   \choice 23
+   \choice 24
+\end{checkboxes}
+\vfill
+\item Which value of $M$ results in someone being a dictator? (2 points)
+\begin{checkboxes}
+    \choice 4
+    \choice 7
+    \choice 12
+    \choice 13
+    \choice 21
     \choice 23
+    \choice 24
 \end{checkboxes}
 \vfill
-\item Which value of $q$ results in a dictator for this scheme? (2 points)
+\item Using the value of $M$ you chose in the previous item, who is a dictator, why? (2 points)
 \begin{checkboxes}
-    \foreach \s in {7,...,11}{
-        \choice \s
-   }%;
+    \choice Markus is a dictator because they have enough votes to pass a motion single-handedly.
+    \choice Markus and Natalie are dictators because any motion can pass without their votes.
+    \choice Natalie is a dictator because the other people can pass motions without them.
+    \choice Both Markus and Natalie are dictators because no motion can pass without both of their votes.
 \end{checkboxes}
 \vfill
-\item Using the value of $q$ you chose in the previous item, who is a dictator, why? (2 points)
+\item Recall a player in a Weighted Voting Scheme has \emph{no power} when they have no say in the outcome of the voting. For there to be exactly one player with no power, the value of $M$ must be between... \underline{Pick 2 options}: (4 points)
 \begin{checkboxes}
-    \choice $P_1$ is a dictator because $P_1$ has enough votes to pass a motion single-handedly.
-    \choice $P_1$ is a dictator because any motion can pass without their votes.
-    \choice Both $P_1$ and $P_2$ are dictators because they have enough votes to pass motions together.
-    \choice Both $P_1$ and $P_2$ are dictators because no motion can pass without both of their votes.
-\end{checkboxes}
-\vfill
-\item For the previous value, who has no power, why? (2 points)
-\begin{checkboxes}
-    \choice Both $P_2$ and $P_3$ have no power because they can pass a motion together.
-    \choice Both $P_2$ and $P_3$ have no power because $P_1$ is a dictator.
-    \choice All players have no power because $P_1$ is a dictator.
-    \choice All players have no power because no one can pass a motion single-handedly.
-\end{checkboxes}
-\vfill\newpage
-\item For which value of $q$ is there exactly one player with veto power? (2 points)
-\begin{checkboxes}
-    \foreach \s in {8,...,12}{
-        \choice \s
-   }%;
-\end{checkboxes}
-\vfill
-\item For the previous value, which player has veto power, why? (2 points)
-\begin{checkboxes}
-    \choice $P_1$ has veto power because $P_1$ has enough votes to pass a motion single-handedly.
-    \choice $P_1$ has veto power because $P_2$ and $P_3$ together have only $8$ votes.
-    \choice $P_2$ has veto power because $P_2$ has enough votes to pass a motion single-handedly.
-    \choice $P_2$ has veto power because $P_1$ and $P_3$ together have only $10$ votes.
-\end{checkboxes}
-\vfill
-\item Which values $q$ guarantee that \emph{two players} will have veto power? Pick 2 options.(4 points)
-\begin{checkboxes}
+    \choice 4
     \choice 7
-    \choice 9
-    \choice 11
-    \choice 15
-    \choice 17
+    \choice 12
+    \choice 13
+    \choice 21
+    \choice 23
+    \choice 24
 \end{checkboxes}
 \vfill
-\item For the previous values, which players have veto power, why? (2 points)
+\newpage
+\item For the previous values of $M$ who is the player with no power? (2 points)
 \begin{checkboxes}
-    \choice Both $P_1$ and $P_3$ have veto power because no motion can pass without at least one of their votes. 
-    \choice Both $P_1$ and $P_2$ have veto power because no motion can pass without at least one of their votes. 
-    \choice Both $P_1$ and $P_2$ have veto power because no motion can pass without both of their votes. 
-    \choice Both $P_1$ and $P_3$ have veto power because no motion can pass without both of their votes. 
+    \choice Oscar has no power because no motion can pass without their votes.
+    \choice Oscar has no power because both Markus and Natalie or Markus and Pauline can pass resolutions on their own meaning Oscar's vote doesn't influence the decision.
+    \choice Pauline has no power because they can pass motions single-handedly.
+    \choice Pauline has no power because both Markus and Natalie or Markus and Oscar can pass resolutions on their own meaning Pauline's vote doesn't influence the decision.
 \end{checkboxes}
 \vfill
-\item Which value of $q$ guarantees that all players have veto power? (2 points)
+\item Which values of $M$ result in players (can be one, or more than one) with veto power? \underline{Pick 2 options}: (4 points)
 \begin{checkboxes}
+    \choice 4
     \choice 7
-    \choice 9
-    \choice 11
-    \choice 15
-    \choice 17
+    \choice 12
+    \choice 13
+    \choice 21
+    \choice 23
+    \choice 24
 \end{checkboxes}
+\vfill
+\item Which values of $M$ result in \emph{exactly two} players with veto power? (2 points)
+\begin{checkboxes}
+    \choice 4
+    \choice 7
+    \choice 12
+    \choice 13
+    \choice 21
+    \choice 23
+    \choice 24
+\end{checkboxes}
+\vfill
+\item \label{lastQnSec2} For the previous value, which players have veto power, why? (2 points)
+\begin{checkboxes}
+    \choice Both Natalie and Oscar have veto power because all motions can pass without their consideration.
+    \choice Both Markus and Natalie have veto power because no motion can pass without both of their votes.
+    \choice Both Oscar and Pauline have veto power because no coalition can pass any motion at all.
+    \choice Both Natalie and Pauline have veto power because they need the support of all the players to pass a motion.
+\end{checkboxes}
+\vfill
 \end{enumerate}
-\vfill
-
 \newpage
 
-\item Assume you're on a family trip with your two uncles ($U$) and two cousins ($C$)—you are also represented by the letter $C$. Family trip decisions are made by a majority vote (at least three people must vote "Yes"), but at least one uncle must vote "Yes" for the decision to pass (i.e., the three cousins alone cannot carry the motion).  
-
-Each uncle has the same number of votes, and each cousin has the same number of votes.  
-
-Using a voting scheme $[q: U, U, C, C, C]$, find the smallest possible values for $q$, $U$, and $C$ that satisfy these conditions.
-
+\item Assume your family consists of your grandparents $G$, your parents $P$, your siblings $S$ (you're part of this group), and your nephews $N$. When taking decisions as a family each group gets together and emits a vote.\par
+The weight distribution is as follows: 
+\begin{itemize}
+    \item Your grandparents hold four times as many votes as your parents.
+    \item Your parents hold twice as many votes as your siblings.
+    \item Your siblings hold eight times as many votes as your nephews.
+    \item And your nephews have only 3 votes.
+\end{itemize}
+The quota is the simple majority of the votes. We will show that your grandparents are dictators in this scheme by doing the following:
+\begin{enumerate}
+    \item Calculate the number of votes each party has and then find the quota by simple majority. (Hint: Remember you might need to round up). (8 points).
+    \item Write down the Weighted Voting Scheme for this situation. (6 points).
+    \item Verify that, indeed, your grandparents are dictators by comparing their number of votes with the quota. (4 points).
+\end{enumerate}
 
 
 
