@@ -1,0 +1,183 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2023}
+\def\nprofesor {Mark Shoemaker}
+\def\nsigla {MATH673}
+\def\nsiglahead {Algebraic Geometry}
+\def\nextra {HW2}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+
+\begin{document}
+%\begin{multicols}{2}
+
+\begin{Ej}
+    Let us introduce two notions:
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item  Let $(\bR,\leq)$ denote the category whose objects are real numbers and there exists a
+        morphism $f\: x\to y$ if and only if $x\leq y$.
+        \item The category $(\bZ,\leq)$ is the same but for $\bZ$.
+    \end{itemize}
+    The inclusion $\iota\:\bZ\hookto\bR$ induces a fully faithful functor between these categories.\par 
+    Show that $(\iota,\floor{\ast})$ and $(\roof{\ast},\iota)$ are pairs of adjoint functors.
+\end{Ej}
+
+\begin{ptcbr}
+    Let us observe first that the $\Hom$-sets in these categories are either empty or singletons. This is because $x\leq y$ or not. In the positive case $\Hom(x,y)$ is a singleton, on the other one, it's empty.\par 
+    In order to organize, $x,y$ will be elements of $\bZ$, and $\al,\bt\in\bR$.\par 
+    To show that $(\iota,\floor{\ast})$ are a pair of adjoint functors, we must show that
+    $$\Hom(\iota(x),\al)\to\Hom(x,\floor{\al}),\ x\in\bZ,\ \al\in\bR$$
+    is a bijection and for $x\leq y$ (in other words $f\: x\to y$), the following diagram commutes
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AJCAWwApO+HHX4BPAJSlOjCSAC+pdJlz5CKAIzkqtRizaceAoRBH8AHlJkM5i5djwEiZDTvrNWiDtz7jp7ADMGCAgAJ2BreVslEAwHNSItV2p3fS9DX3N-IJDwyNsdGCgAc3giUADQviQyEBwIJA07EErqxC06hsQAZmbW3hrqeqQAJj6qgcQRoa7einkgA
+\begin{tikzcd}
+    {\Hom(\iota(y),\al)} \arrow[r] \arrow[d] & {\Hom(\iota(x),\al)} \arrow[d] \\
+    {\Hom(y,\floor{\al})} \arrow[r]          & {\Hom(x,\floor{\al})}         
+    \end{tikzcd}
+    \end{center}
+    We prove that $\Hom(\iota(x),\al)\to\Hom(x,\floor{\al})$ is a bijection by considering two cases:
+    \begin{itemize}
+        \item Either $x\leq \al$, and this means that $x\leq\floor{\al}$ which means that both sets are singletons and therefore there exists a bijection between them.
+        \item Or $x>\al\geq\floor{\al}$ and both sets are empty and the empty function satisfies what we ask.
+    \end{itemize}
+    The following diagrams exhibit the possibilities of what the previous diagram converts to:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAFgBoAGAXVJADcBDAGwFcYkQAdD+uHEAX1LpMufIRQBWCtTpNW7Ljz6Dh2PASJkAjDIYs2iTt14ChIDGrFEpOmnvmHFJleZHrxyctLtyDRmAC2aDgAnnAwymYWohooWt6y+gocgcFhEaaqMR7xtokO-kGh4ZFZ7kReefZ+XKnFGS7R5SgATAnVyXXppa6WschtVb6dRd2ZvdlEAMztw47GPU1WKDNDSfNKAjIwUADm8ESgAGYAThABSF4gOBBILS6n53c0N0hTD2cXiFeviFofTz+L1uiHeZkeXwAHMCkFpyACvmRriCJAikAB2GGIABsaMQAE4sVp-uDPkhocikPi8XCiSTjmTEFJKTi8Ujfuj+JR+EA
+\begin{tikzcd}
+    \emptyset \arrow[r] \arrow[d] & \emptyset \arrow[d] & \emptyset \arrow[r] \arrow[d] & \ast \arrow[d] & \ast \arrow[d] \arrow[r] & \ast \arrow[d] \\
+    \emptyset \arrow[r]           & \emptyset           & \emptyset \arrow[r]           & \ast           & \ast \arrow[r]           & \ast          
+    \end{tikzcd}
+    \end{center}
+\begin{itemize}%https://math.stackexchange.com/questions/2962432/what-are-f-circ-emptyset-and-emptyset-circ-f-if-circ-is-function-composi
+    \itemsep=-0.4em
+    \item The first case exhibits the case $\al\leq x\leq y$, then $\floor{\al}\leq x\leq y$ which means that all of the sets are empty and therefore the empty function commutes all the way around.
+    \item In the second case we have $x\leq\al\leq y$. Still $\floor{\al}\leq y$ but the least the $\floor{\al}$ can be is $x$ so the $\Hom$-sets on the right are non-empty. Composition with the empty function results in the empty function results in the empty function so our diagram commutes.
+    \item In the last case $x\leq y\leq \al$ and so $x\leq y\leq \floor{\al}$. All sets are non-empty and since they are singletons, the diagram commutes.
+\end{itemize}
+This lets us conclude that there is a natural bijection between our $\Hom$-sets  and therefore $(\iota,\floor{\ast})$ forms an adjoint pair.\par
+With a similar argument we can show that 
+$$\Hom(\roof{\al},x)\to\Hom(\al,\iota(x))$$
+is a bijection and for $\al\leq\bt$, the following diagram commutes:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AJCAWwApOAJwgQAZsE4AjHAF9SADwCUIeeky58hFAEZyVWoxZtOPAcNETOjectWl12PASJkdB+s1aIO3PoPYZUk58HDp+ZRU1EAwnLSI9d2pPYx9Tf2sGYPZQ8MjVAxgoAHN4IlAxEV4kMhAcCCQAJmjKvibqeqQAZhaqmo6GxB1etqGB7tkKWSA
+\begin{tikzcd}
+    {\Hom(\roof{\bt},x)} \arrow[d] \arrow[r] & {\Hom(\roof{\al},x)} \arrow[d] \\
+    {\Hom(\bt,\iota(x))} \arrow[r]           & {\Hom(\al,\iota(x))}          
+    \end{tikzcd}
+\end{center}
+\end{ptcbr}
+    \begin{Ej}[1.6.D Vakil]
+        Show that a map of complexes induces a map of homology $H^{i}(A^\8)\to H^i(B^\8)$ and furthermore, $H^i$ is a covariant functor from $\cat{Com}_\cat{C}\to\cat{C}$. \aside{Feel free to deal with the special case $\cat{Mod}_A$.}
+    \end{Ej}
+    %https://math.stackexchange.com/questions/2113542/the-formula-of-the-induced-homomorphism-of-chain-maps
+    \begin{ptcbr}
+    We will work inside the category of modules in this case. Consider two complexes $A^\8,B^\8$ with a map of complexes $\vf\:A^\8\to B^\8$ where $\vf^i\: A^i\to B^i$. To define a map between homology, we will first show that the chain map preserves cycles and boundaries.
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Suppose $z\in A^i$ is a cycle, then $f^i(z)=0$. Composing with $\vf^{i+1}$ we still get $0$. However, by commutativity we have 
+        $$0=\vf^{i+1}(f^i(z))=g(\vf^i(z))\To g(\vf^i(z))=0$$
+        which means that $\vf^{i}(z)$ is a cycle in $B^{i}$. The following diagram represents the previous situation:
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAC8AdTrMAAgCCAPWBYAviDGl0mXPkIoAjOSq1GLNsW69BIrAGpFEqTOx4CRMotX1mrRCG40AZnrEAKdgEpt-AEJuktIgGGbyRMrW1LYaDlo8-nqGxqowUADm8ESgzgBOEAC2SGQgOBBIAEzR6vaOnC6B1Ax0AEYwDAAKsuYKILlY6QAWOEE5+UWIVaXliADM1XZs6Y0gzW2d3eEO-UMjJiB5hcXUZUjKaosOrqLGwYcT56dzC7F1DaLJkhRiQA
+\begin{tikzcd}
+    z\in A^{i} \arrow[d, "\vf^{i}"'] \arrow[r, "f^{i}"] & 0\in A^{i+1} \arrow[d, "\vf^{i+1}"] \\
+    \vf^{i}(z)\in B^{i} \arrow[r, "g^{i}"']             & 0\in B^{i+1}                       
+    \end{tikzcd}
+        \end{center}
+        \item On the other hand suppose $y\in A^{i}$ is a boundary. Then 
+        $$\exists x(x\in A^{i-1}\land f^{i-1}(x)=y).$$
+        We wish to find an $\widetilde{x}\in B^{i-1}$ such that $g^{i-1}(\tilde{x})=\vf^i(y)$, so we claim that such $\widetilde{x}$ is $\vf^{i-1}(x)$. By diagram commutativity we have that 
+        $$g^{i-1}(\vf^{i-1}(x))=\vf^{i}(f(x))=\vf^i(y)$$
+        which means that $\vf^i(y)$ is a boundary. Diagrammatically we have 
+        \begin{center}
+            % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12YAPLOHOAAJunLGEEBBAHrAsAWgCMAXxBLS6TLnyEUC8lVqMWbAJ6jx02SrUbseAkTIKD9Zq0QcuvfnAD8gzjwGWGBuJXNBACEZeWVVdRAMO20iPWdqV2MPThoAMyksAAoTAEoI6KtVAxgoAHN4IlBcgCcIAFskMhAcCCQAJgyjd088mMUVagY6ACMYBgAFTXsdEGasWoALHHim1o7EAe7exABmQbc2WrG4yZm5xeSHDzXN7ZsQFvbO6h6kPUMLh58rJxjsPns-j9jmcAVkRsCsNYKEogA
+\begin{tikzcd}
+    \exists x\in A^{i-1} \arrow[d, "\vf^{i-1}"'] \arrow[r, "f^{i-1}"] & y\in A^{i} \arrow[d, "\vf^{i}"] \\
+    \exists? \tilde{x}\in B^{i-1} \arrow[r, "g^{i-1}"']               & \vf^i(y)\in B^{i}              
+    \end{tikzcd}
+        \end{center}
+    \end{itemize}
+Now recall that the homology groups are defined as $\quot{\ker(f^i)}{\Im(f^{i-1})}$ which means that there is a projection map $\pi^i_{A}\: \ker(f^i)\to H^i(A^\8)$.\par 
+Composing this with our chain map\footnote{Restricted to the kernel since cycles get sent to cycles.} we get 
+$$\pi^i_{B}\circ\vf^i\:\ker(f^i)\to H^i(B^\8).$$
+As $\vf^i$ preserves boundaries, it holds that elements in $\Im(f^{i+1})\subseteq\ker(f^i)$ are sent to $\Im(g^{i+1})$ which is the identity element in $H^i(B^\8)$. So by universality $H^i(A^\8)$ as a quotient, there exists a unique morphism $H^i(A^\8)\to H^i(B^\8)$. This is interpreted as a diagram as follows:
+\begin{center}
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BrGAJwAoAZgD0sAShABfUuky58hFAEZyVWoxZsAEqP4AhYZwAcE6bOx4CRMkrX1mrRB3YBHJhBzBOPASPGSvdgBJAFshYWAsAFolSTFJAF4dLH4AQUN2Eyk1GCgAc3giUEFeCBCkACZqHAgkFXUHNk4YAA8sOBw4AEJOGhFAoyxJEGoGOgAjGAYABTlLRRBeLDyACxwRkAYsMEcQKDo4FdypGRASsqQyEBq66ntNJ040LFEAfT1OAGMsXk-evxOxVK5UQVxuiCqDQezmeb1SGzGkxmcwUbCWq3WkgokiAA
+\begin{tikzcd}
+    \ker(f^i) \arrow[r, "\pi^i_B\circ\vf^i"] \arrow[d, "\pi^i_A"']                    & H^i(B^\8) \\
+    \quot{\ker(f^i)}{\Im(f^{i-1})}=H^i(A^\8) \arrow[ru, "\exists!\vf^{\8i}"', dashed] &          
+    \end{tikzcd}
+\end{center}
+    From the relation $\pi^i_B\circ\vf^i=\vf^{\8i}\circ\pi^i_A$ we can define $\vf^{\8i}$ concretely as 
+    $$\vf^{\8i}([z])=[\vf^i(z)].$$ 
+    This also shows that $H^i$ acts as a covariant functor because we began with a map of complexes $\vf\:A^{\8}\to B^{\8}$ and obtained $\vf^{\8i}\: H^i(A^\8)\to H^i(B^\8)$ which follows the direction of our original map. 
+    \end{ptcbr}
+
+\begin{Ej}
+    Let $\cat{C}$ be an abelian category and let $C\in\text{Obj}(\cat{C})$. Show that $\Hom_{\cat{C}}(C,\ast)\:\cat{C}\to\cat{Ab}$ is a left-exact covariant functor.
+\end{Ej}
+%https://math.stackexchange.com/questions/47401/hom-is-a-left-exact-functor
+\begin{ptcbr}
+    Let us begin by considering the following diagram of $\cat{C}$-objects:
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQBhEAX1PU1z5CKMsWp0mrdgA0efEBmx4CRAEykxNBizaIQATTn8lQouQ3jtUveSMKBy4cgDMFrZN0gAWj3EwoAObwRKAAZgBOEAC2SOYgOBBIZBI67AA6aUwgNIz0AEYwjAAKDqZ64VgBABY4dhHRSTQJSOoguQXFpSrllTXZKdYgoXWRMYiu8YmIxLxhoy1NUwAs7ql6Af3thSUm3SAV1bWzQ-OIcc3jx-Vj51OtVp4ZebU5+dtdwvu9R-LXsYtIJbcSjcIA
+\begin{tikzcd}
+    & C \arrow[d, "\al"'] \arrow[ld] \arrow[rd, "\bt"'] \arrow[rrd] &                   &   \\
+0 \arrow[r] & X \arrow[r, "f"']                                             & Y \arrow[r, "g"'] & Z
+\end{tikzcd}
+    \end{center}
+    where $X\to Y\to Z$ is exact, meaning that $\ker(g)=\Im(f)$ and $f$ is injective. After functorising the sequence we obtain the sequence 
+    \begin{center}
+        % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQAdDgCQgFsAFAGFSADQCUIAL6l0mXPkIoATBWp0mrdl16CRATUky52PASLk1NBizaIQ5abJAZTiogGYrG29p79hUgAtI3UYKABzeCJQADMAJ34kSxAcCCQyEEZ6ACMYRgAFeTMlEHisCIALHBBrTTsQWIB9Lno4GuNGxL4kVVT0xHJOhKTETLSkLx8tewiWjjaammy8wuL3e3KqjsopIA
+\begin{tikzcd}
+    0 \arrow[r] & {\Hom(C,X)} \arrow[r, "f_\ast"'] & {\Hom(C,Y)} \arrow[r, "g_\ast"'] & {\Hom(C,Z)}
+    \end{tikzcd}
+    \end{center}
+    where $f_\ast(\vf)=f\circ\vf$. First, we show that $f_\ast$ is injective and for that purpose suppose $f_\ast(\al)=0$. This means that $f\circ\al$ is the zero morphism. So 
+    $$f(\al(z))=0\To\al(z)=0\To \al=0,\quad z\in C,$$
+    which lets us conclude that $f_\ast$ is injective.\par 
+    To show exactness we need to see that 
+    $$\ker(g_\ast)=\Im(f_\ast).$$
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item[($\subseteq$)] Suppose for that effect that $\bt\in\ker(g_\ast)$, then $g_\ast(\bt)=g\circ\bt$ is the zero map. As $f$ is injective, by universality of the kernel, there exists $\al\in\Hom(C,X)$ such that $f_\ast(\al)=\bt$ and therefore $\bt\in\Im(f_\ast)$.
+        \item[($\supseteq$)] On the other hand suppose $\bt\in\Im(f_\ast)$, this means that for some $\al\:C\to X$, $\bt=f_\ast(\al)$. Now, 
+        $$g_\ast(\bt)=g_\ast(f_\ast(\al))=(g\circ f)\circ\al=0\circ\al=0\To\bt\in\ker(g_\ast).$$
+    \end{itemize}
+\end{ptcbr}
+
+\begin{Ej}[2.2.F. Vakil]
+    Suppose $Y$ is a topological space. Show that “continuous maps to Y” form a sheaf of sets on $X$.\par
+    More precisely, to each open set $U$ of $X$, we associate the set of continuous maps of $U$ to $Y$. Show that this forms a sheaf.
+\end{Ej}
+
+\begin{ptcbr}
+    The presheaf $\cF$ of continuous functions on $X$ consists of taking every open set $U$ and assigning to it the set 
+    $$\cF(U)=\cC(U,Y)=\set{(f\: U\to Y)\:\ f\ \text{is continuous}}.$$
+    The restriction mapping in this case is 
+    $$\res_{V,U}\:\ \cC(V,Y)\to\cC(U,Y),\ f\mapsto \left.f\right\rvert_U.$$
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item The map $\res_{U,U}$ is the identity mapping because restricting to the whole set gives us the same function.
+        \item Suppose $U\subseteq V\subseteq W$ are open sets, then we must show that 
+        $$\res_{V,U}\circ\res_{W,V}=\res_{W,U}.$$
+        Taking $f\in\cC(W,Y)$ and applying $\res_{W,V}$ gives us $\left.f\right\rvert_V$. And when restricting again we obtain $\left.\left(\left.f\right\rvert_V\right)\right\rvert_U$. Since we have the containment of the sets, this second restriction amounts to restricting to $U$ directly from the original set. Therefore the composition condition holds.
+    \end{itemize}
+    This shows that $\cF$ is a presheaf. To show that this is a sheaf, we must prove that functions are determined by restrictions and that there exist \emph{global functions}. The fact that our functions are continuous will let us demonstrate this facts. 
+    \begin{itemize}
+        \itemsep=-0.4em
+        \item Suppose $f,g\in\cC(U,Y)$ for some $U\subseteq X$ open, and that $(U_i)$ is an open cover of $U$ where $f$ and $g$ agree locally. Let $x\in U$, then as $(U_i)$ covers $U$, $x\in U_i$ for some $i$. Thus 
+        $$f(x)=\left.f\right\rvert_{U_i}(x)=\left.g\right\rvert_{U_i}=g(x).$$
+        As $x$ is arbitrary, we have the desired result.
+        \item Now suppose $(U_i)$ covers $U$ and a collection of functions $(f_i)$ with $f_i\in\cC(U_i,Y)$ satisfy 
+        $$\forall i\forall j\left(\left.f_i\right\rvert_{U_i\cap U_j}=\left.f_j\right\rvert_{U_i\cap U_j}\right).$$
+        We define a global function $f\:\ U\to Y$ by checking first where the input is. This means that
+        $$f(x)=f_i(x),\word{when}x\in U_i$$
+        and as $f_i$'s coincide on intersections, this is a good definition. Finally as continuous functions are characterized by their local behavior, we have that $f$ is a continuous function and therefore we have shown that the gluing axiom holds.
+    \end{itemize}
+    We conclude that $\cF$ does indeed form a sheaf.
+\end{ptcbr}
+\end{document} 

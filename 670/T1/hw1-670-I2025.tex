@@ -1,0 +1,140 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2025}
+\def\nprofesor {Clayton Shonkwiler}
+\def\nsigla {MATH670}
+\def\nsiglahead {Differential Geometry}
+\def\nextra {HW1}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\def\co{\colon}
+\newcommand{\from}{\co\!\!}
+
+\begin{document}
+%\begin{multicols}{2}
+   \begin{Ej}
+    A smooth manifold $M$ is called \emph{orientable} if there exists a collection of coordinate charts $\{(U_\alpha, \phi_\alpha)\}$ so that, for every $\alpha, \beta$ such that $\phi_\alpha(U_\alpha) \cap \phi_\beta(U_\beta) = W \neq \emptyset$, the differential of the change of coordinates $\phi_\beta^{-1} \circ \phi_\alpha$ has positive determinant.
+	
+	\begin{enumerate}
+		\item Show that for any $n$, the sphere $S^n$ is orientable.
+		
+		\item Prove that, if $M$ and $N$ are smooth manifolds and $f: M \to N$ is a local diffeomorphism at all points of $M$, then $N$ being orientable implies that $M$ is orientable. Is the converse true?
+	\end{enumerate}
+   \end{Ej}
+
+   \begin{ptcbr}
+   \begin{enumerate}
+	\item Consider the sphere without its north and south pole:
+	$$U=S^n\less\set{\vec e_{n+1}},\word{and}V=S^n\less\set{-\vec e_{n+1}}.$$
+	These two sets form an atlas of $S^n$ along with the stereographic projections
+	\begin{gather*}
+		\phi\from U\to\bR^n,\ \vec u\mapsto \frac{1}{1-u_{n+1}}(u_1,\dots,u_{n}),\\
+		\psi\from V\to\bR^n,\ \vec u\mapsto \frac{1}{1+u_{n+1}}(u_1,\dots,u_{n}).
+	\end{gather*}
+	For $\vec u\in S^n$, call $\vec x=\phi(\vec u)$ and $\vec y=\psi(\vec u)$. In order to find the transition function $\psi\phi^{-1}$, we first make the observation that 
+	$$\norm{\vec x}^2=\norm{\phi(\vec{u})}^2=\frac{1}{(1-u_{n+1})^2}(u_1^2+\dots+u_{n}^2)=\frac{1-u_{n+1}^2}{(1-u_{n+1})^2}=\frac{1+u_{n+1}}{1-u_{n+1}},$$
+	and from this we can see that 
+	$$\phi^{-1}(\vec x)=\frac{1}{1+\norm{\vec x}^2}(2x_1,\dots,2x_n,\norm{\vec x}^2-1).$$
+	Applying $\psi$ we get the transition function to be
+	\begin{align*}
+		\vec y=\psi\phi^{-1}(\vec x)&=\frac{1}{1+\left(\frac{\norm{\vec{x}}^2-1}{1+\norm{\vec{x}^2}}\right)}\left(\frac{2x_1}{1+\norm{\vec{x}}^2},\dots,\frac{2x_n}{1+\norm{\vec{x}}^2}\right)\\
+		&=\frac{1}{\frac{1+\norm{\vec x}^2+\norm{\vec x}^2-1}{\norm{\vec x}^2+1}}\frac{2}{1+\norm{\vec{x}}^2}\vec x\\
+		&=\frac{1+\norm{\vec x}^2}{2\norm{\vec x}^2}\frac{2}{1+\norm{\vec{x}}^2}\vec x=\frac{\vec{x}}{\norm{\vec x}^2}\\
+	\end{align*}
+	
+	The differential of this map can be calculated using the product rule. Call $f=\frac{1}{\norm{\vec x}^2}, G=\id$, then 
+	$$J(fG)=\nb f\ox G+fJG=\left(\frac{-1}{\left(\norm{\vec{x}}^2\right)^2}2\vec x\right)\ox\vec x+\frac{1}{\norm{\vec x}^2}\Id.$$
+	Using the matrix determinant lemma we may see that 
+	\begin{align*}
+		\det(JfG)&=\left(1+\frac{-2}{\norm{\vec{x}}^4}\vec{x}^\sT\left(\norm{\vec x}^2\Id\right)\vec{x}\right)\det\left(\frac{1}{\norm{\vec{x}}^2}\Id\right)\\
+		&=(1-\frac{2}{\norm{\vec x}^2}\vec{x}^\sT\vec{x})\frac{1}{\norm{\vec{x}}^{2n}}\\
+		&=(1-2)\frac{1}{\norm{\vec{x}}^{2n}}=\frac{-1}{\norm{\vec{x}}^{2n}}
+	\end{align*}
+	This doesn't mean that the sphere is non-orientable, but that my choice of atlas was a poor choice. I will revisit this problem in a bit. %check https://math.stackexchange.com/questions/66228/orientability-of-the-sphere
+	\item We will build an atlas on $M$ whose transitions functions' differential have positive determinant. To that effect, let $\{(V_\alpha, \psi_\alpha)\}$ be an atlas of $N$ which makes $N$ orientable, this means that we have $\det J(\psi_\bt \psi_\al^{-1})>0$ for $\al,\bt$.\par
+	Now for $x\in M$, there are neighborhoods $U_x,\widetilde V_{f(x)}$ in $M,N$ respectively such that $f$ is a diffeomorphism between these sets. Pick a chart $(V_{f(x)},\psi_{f(x)})$ from our original atlas such that $f(x)\in V_{f(x)}$. Consider then the new open sets 
+	$$W_{f(x)}=V_{f(x)}\cap \widetilde V_{f(x)}$$
+	and restrict $\psi_{f(x)}$ into $W_{f(x)}$ by calling it $\vf_{f(x)}$.\par
+	This defines a new atlas
+	$$\set{(W_{f(x)},\vf_{f(x)})}$$ 
+	for $N$, by virtue of $f$ being bijective, which still preserves the property that its transition functions' differential has positive determinant.\par
+	We may pullback this atlas via $f$ into an atlas 
+	$$\set{(f^{-1}(W_{f(x)}),f^\ast\vf_{f(x)})}$$ of $M$. For $x,y\in M$, we have the expression for the transition function
+	$$(f^\ast\vf_{f(x)})(f^\ast\vf_{f(y)})^{-1}=(\vf_{f(x)}\circ f)(\vf_{f(y)}\circ f)^{-1}=vf_{f(x)}\vf_{f(y)}^{-1}.$$
+	As these are restrictions of our $\psi$ functions, then their differential still has positive determinant. Thus, we have found an atlas of $M$ which makes it orientable.
+   \end{enumerate}
+   \end{ptcbr}
+
+   Quick question for the second item, the fact that $M,N$ are locally diffeomorphic implies that pairs of neighborhoods have the same homology. In particular the relative homology groups, which are used to define local orientation, are isomorphic.
+
+   \begin{significant}
+    Would this be sufficient to conclude that if $N$ is orientable then $M$ is orientable? Why would this argument fail in the other direction? Say, why if $M$ is orientable, could $N$ be non-orientable?
+   \end{significant}
+
+   \begin{Ej}
+    Supply the details for the proof that, if $F \from \operatorname{Mat}_{d \times d}(\bC) \to \cH(d)$ is given by $F(U) = UU^*$ (where $U^*$ is the conjugate transpose [a.k.a., Hermitian adjoint] of $U$), then the unitary group
+	\[
+		U(d) = F^{-1}(I_{d \times d})
+	\]
+	is a submanifold of $\operatorname{Mat}_{d \times d}(\bC)$ of dimension $d^2$. (Hint: it may be helpful to remember that a Hermitian matrix $M$ can always be written as $M = \frac{1}{2}(M + M^*)$.)
+   \end{Ej}
+
+   \begin{Ej}
+    Let $M$ be a compact manifold of dimension $n$ and let $f:M \to \bR^n$ be a smooth map. Prove that $f$ must have at least one critical point.
+   \end{Ej}
+
+   \begin{Ej}
+    Prove that, if $X, Y$, and $Z$ are smooth vector fields on a smooth manifold $M$ and $a,b \in \bR$, $f,g \in C^\infty (M)$, then
+	\begin{enumerate}
+		\item $[X,Y] = -[Y,X]$ (anticommutivity)
+		\item $[aX+bY,Z] = a[X,Z]+b[Y,Z]$ (linearity)
+		\item $[[X,Y],Z] + [[Y,Z],X] + [[Z,X],Y] = 0$ (Jacobi identity)
+		\item $[fX,gY] = fg[X,Y] + f(Xg)Y - g(Yf)X$.
+	\end{enumerate}
+   \end{Ej}
+   
+   \begin{ptcbr}
+	We have defined the Lie bracket as the commutator of vector fields
+	$$[X,Y]f\defeq X(Yf)-Y(Xf)$$
+	and so we have:
+	\begin{enumerate}
+		\item $[Y,X]f=Y(Xf)-X(Yf)=-(X(Yf)-Y(Xf))=-[X,Y]f$.
+		\item To show linearity we have
+		\begin{align*}
+			&[aX+bY,Z]f\\
+			=&(aX+bY)(Zf)-Z((aX+bY)f)\\
+			=&aX(Zf)+bY(Z(f))-Z(aXf+bYf)
+		\end{align*}
+		where the first equality comes by definition and the second one is the definition of the sum of linear operators. Now applygin the fact that $Z$ is linear we get: 
+		$$aX(Zf)+bY(Z(f))-aZ(Xf)-bZ(Yf)$$
+		which we rearrenge as a sum of smooth functions now:
+		$$a(X(Zf)-Z(Xf))+b(Y(Z(f))-Z(Yf))=(a[X,Z]+b[Y,Z])f.$$
+		\item Let us take the first two terms in the sum and see that 
+		\begin{align*}
+			&([[X,Y],Z] + [[Y,Z],X])f\\
+			=&[X,Y](Zf)-Z([X,Y]f)+[Y,Z](Xf)-X([Y,Z]f)\\
+			=&X(YZf)-Y(XZf)-Z(XYf)+Z(YXf)\\
+			&+Y(ZXf)-Z(YXf)-X(YZf)+X(ZYf)
+		\end{align*}
+		Observe now that the $1^{\text{st}}$ and $7^{\text{th}}$, and $4^{\text{th}}$ and $6^{\text{th}}$ terms cancel out. We are left with a term which we rearrange into\dots
+		\begin{align*}
+		&-Y(XZf)-Z(XYf)+Y(ZXf)+X(ZYf)\\
+		=&Y(ZXf)-Y(XZf)-(ZX(Yf)-XZ(Yf))\\
+		=&Y([Z,X]f)-[Z,X](Yf)\\
+		=&[Y,[Z,X]]f=-[[Z,X],Y]f
+		\end{align*}
+		as desired.
+		\item Finally if $h$ is another smooth function on $M$:
+		\begin{align*}
+			&[fX,gY]h\\
+			=&fX(gYh)-gY(fXh)\\
+			=&fXgYh+fgXYh-gYfXh-gfYXh\\
+			=&fXgYh+fg(XYh-YXh)-gYfXh\\
+			=&(f(Xg)Y+fg[X,Y]-g(Yf)X)h
+		\end{align*}
+		where in the second equality we have applied the product rule for vector fields. 
+	\end{enumerate}
+   \end{ptcbr}
+\end{document} 
