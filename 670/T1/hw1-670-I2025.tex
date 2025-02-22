@@ -52,7 +52,12 @@
 		&=(1-\frac{2}{\norm{\vec x}^2}\vec{x}^\sT\vec{x})\frac{1}{\norm{\vec{x}}^{2n}}\\
 		&=(1-2)\frac{1}{\norm{\vec{x}}^{2n}}=\frac{-1}{\norm{\vec{x}}^{2n}}
 	\end{align*}
-	This doesn't mean that the sphere is non-orientable, but that my choice of atlas was a poor choice. I will revisit this problem in a bit. %check https://math.stackexchange.com/questions/66228/orientability-of-the-sphere
+	This doesn't mean that the sphere is non-orientable, but that my choice of atlas was a poor choice. For our effect then, it suffices to make a small change in our chart. Pick 
+	$$\widetilde{\psi}\from V\to\bR^n,\ \vec u\mapsto \frac{1}{1+u_{n+1}}(u_1,\dots,-u_{n})$$
+	and observe that this small change in \emph{orientation} will help us recover our desired result. In this case the transition function becomes 
+	$$\vec y=\widetilde{\psi}\phi^{-1}(\vec x)=\frac{1}{\norm{\vec x}^2}(x_1,\dots,x_{n-1},-x_n).$$
+	In this case, following a product rule calculation our $G$ function changes to a diagonal matrix $\diag(1,1,\dots,1,-1)$ which means that when taking its determinant we get $-1$. In the end the whole determinant of the transition function's differential becomes positive, leaving us with the desired result.
+	%check https://math.stackexchange.com/questions/66228/orientability-of-the-sphere
 	\item We will build an atlas on $M$ whose transitions functions' differential have positive determinant. To that effect, let $\{(V_\alpha, \psi_\alpha)\}$ be an atlas of $N$ which makes $N$ orientable, this means that we have $\det J(\psi_\bt \psi_\al^{-1})>0$ for $\al,\bt$.\par
 	Now for $x\in M$, there are neighborhoods $U_x,\widetilde V_{f(x)}$ in $M,N$ respectively such that $f$ is a diffeomorphism between these sets. Pick a chart $(V_{f(x)},\psi_{f(x)})$ from our original atlas such that $f(x)\in V_{f(x)}$. Consider then the new open sets 
 	$$W_{f(x)}=V_{f(x)}\cap \widetilde V_{f(x)}$$
@@ -62,9 +67,11 @@
 	for $N$, by virtue of $f$ being bijective, which still preserves the property that its transition functions' differential has positive determinant.\par
 	We may pullback this atlas via $f$ into an atlas 
 	$$\set{(f^{-1}(W_{f(x)}),f^\ast\vf_{f(x)})}$$ of $M$. For $x,y\in M$, we have the expression for the transition function
-	$$(f^\ast\vf_{f(x)})(f^\ast\vf_{f(y)})^{-1}=(\vf_{f(x)}\circ f)(\vf_{f(y)}\circ f)^{-1}=vf_{f(x)}\vf_{f(y)}^{-1}.$$
+	$$(f^\ast\vf_{f(x)})(f^\ast\vf_{f(y)})^{-1}=(\vf_{f(x)}\circ f)(\vf_{f(y)}\circ f)^{-1}=\vf_{f(x)}\vf_{f(y)}^{-1}.$$
 	As these are restrictions of our $\psi$ functions, then their differential still has positive determinant. Thus, we have found an atlas of $M$ which makes it orientable.
+	\item Consider the quotient map $S^2\to\bP^2$ given by $(x,y,z)\mapsto[x:y:z]$. Locally if we look at the upper and lower hemisphere, this map is the identity which means that its differential is bijective. So the quotient map is a local diffeomorphism from an orientable surface to a non-orientable one.
    \end{enumerate}
+
    \end{ptcbr}
 
    Quick question for the second item, the fact that $M,N$ are locally diffeomorphic implies that pairs of neighborhoods have the same homology. In particular the relative homology groups, which are used to define local orientation, are isomorphic.
@@ -76,15 +83,37 @@
    \begin{Ej}
     Supply the details for the proof that, if $F \from \operatorname{Mat}_{d \times d}(\bC) \to \cH(d)$ is given by $F(U) = UU^*$ (where $U^*$ is the conjugate transpose [a.k.a., Hermitian adjoint] of $U$), then the unitary group
 	\[
-		U(d) = F^{-1}(I_{d \times d})
+		\cU(d) = F^{-1}(I_{d \times d})
 	\]
 	is a submanifold of $\operatorname{Mat}_{d \times d}(\bC)$ of dimension $d^2$. (Hint: it may be helpful to remember that a Hermitian matrix $M$ can always be written as $M = \frac{1}{2}(M + M^*)$.)
    \end{Ej}
+
+   \begin{ptcbr}
+	First, let us remind ourselves that a Hermitian matrix is a matrix $A$ such that $A^\ast=A$. In consequence, for a general $U$ we have
+	$$F(U)^\ast=(UU^\ast)^\ast=U^{\ast\ast}U^\ast=UU^\ast,$$
+	meaning that indeed, $F$ maps matrices into the Hermitian matrix space. To verify the unitary group is a submanifold, we must check that $I$ is a regular value of our map. The differential of our map is 
+	$$\pdv{U}(UU^\ast)=\pdv{U}{U}U^\ast+\pdv{U^\ast}{U}U=IU^\ast+\left(\pdv{U}{U}\right)^\ast U=U^\ast+U.$$
+	This map is always surjective for any Hermitian matrix $M$ can be written as $\half(M+M^\ast)$ which means that if we map $\half M$ through $F$ we will recover our matrix $M$. In particular, this means that $I$ is a regular value of $F$ and therefore, $\cU$ is a submanifold of the matrix space.\par
+	To count the dimensions, it's important to recall that as a real-vector space, the dimension of the space of matrices is $2d^2$ because of complex coefficients. For the Hermitian matrices, we have $1$ real degree of freedom across the diagonal and on the upper triangle we have $\binom{d}{2}$ complex degrees of freedom. This means that the dimension of the unitary group is 
+	$$\dim\cU=2d^2-(d+2\binom{d}{2})=2d^2-d-d(d-1)=d^2$$
+	as desired.
+   \end{ptcbr}
 
    \begin{Ej}
     Let $M$ be a compact manifold of dimension $n$ and let $f:M \to \bR^n$ be a smooth map. Prove that $f$ must have at least one critical point.
    \end{Ej}
 
+   \begin{ptcbr}
+	We will first observe that the result is true in one dimension. If $f\from M\to\bR$ is smooth, then its image is compact and therefore $f$ must attain an extreme value. Let $p\in M$ be the point where $f$ reaches an extreme, for a smooth curve $\al$ about $p$ such that 
+	$$\al(0)=p,\quad \al'(0)=v.$$
+	As a real function then, $f\circ\al$ has an extreme value at $t=0$ which means that $t=0$ is a critical point of $f\circ\al$. Thus, we have $(f\circ\al)'(0)=0$.\par
+	On the other hand, this is the differential of $f$ at $p$:
+	$$df_pv\defeq(f\circ\al)'(0)$$
+	which means that the differential is zero and therefore non-surjective. Thus $p$ is a critical value of $f$.\par
+	In general, consider a coordinate projection map $\pi_i=\bra{\vec{e}_i}$\footnote{The linear map, take the dot product of input with $\vec e_i$.} for some $i$. The function $\pi_i\circ f$ then becomes a smooth function to $\bR$ with a critical point $p$. This means that 
+	$$d(\pi_i\circ f)_p$$
+	is not surjective. By the chain rule this is $(d\pi_i)_{f(p)}df_p$ and as this are linear maps, product is a composition. Observe that the differential of our projection is itself as it's a linear map and so the failure of surjectivity must come from $df_p$. We conclude that $p$ is a critical point of $f$.
+   \end{ptcbr}
    \begin{Ej}
     Prove that, if $X, Y$, and $Z$ are smooth vector fields on a smooth manifold $M$ and $a,b \in \bR$, $f,g \in C^\infty (M)$, then
 	\begin{enumerate}
