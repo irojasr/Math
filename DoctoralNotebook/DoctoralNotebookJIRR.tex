@@ -7,7 +7,7 @@
 \def\nsigla {DN}
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
-\def\ntrim{}
+%\def\ntrim{}
 %\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
@@ -96,12 +96,24 @@ Inside the affine plane $\set{Z=1}$, this contains all the points of the form $(
 \end{Ex}
 
 \begin{Def}
-A \term{parametrization} of a curve $\cC$ is a generically injective function $$\phi\:\bP^1_k\to\bP^2_k,\ (S:T)\mapsto(P(S:T),Q(S:T),R(S:T)),\quad P,Q,R\in k[S,T]_h.$$
+A \term{parametrization} of a curve $\cC$ is a generically injective function $$\phi\:\bP^1_k\to\bP^2_k,\ (S:T)\mapsto(P(S:T):Q(S:T):R(S:T)),\quad P,Q,R\in k[S,T]_h.$$
 A projective plane curve admitting a parametrization is called a \term{rational curve}.
 \end{Def}
 
 \begin{Ex}
-    The line $X-Y-Z=0$ can be parametrized with $\phi(S:T)=(S,T,S-T)$. \red{¿Is the other curve rational?}
+    The line $X-Y-Z=0$ can be parametrized with $\phi(S:T)=(S:T:S-T)$. \red{¿Is the other curve rational?}
+\end{Ex}
+
+\begin{Ex}
+    The family of curves $XY-aZ^2=0$ for $a\in\bA^1\less\set{0}$ can be parametrized by 
+    $$\phi_1[S:T]=[aS^2:T^2:ST],\word{or}\phi_2[S:T]=[S^2:aT^2:ST].$$
+    Observe that indeed: $(aS^2)(T^2)-a(ST)^2=0$. \red{¿Is there any difference between both parametrizations?}
+\end{Ex}
+
+\begin{Ex}
+    A family of cubics $bF+G$ where $F$ is the nodal cubic and $G$ is the union of $3$ lines:
+    $$F=Y^2Z-X^2(X-Z),\word{and} G=X(X+Y)(X-Y)$$
+    can be parametrized by intersecting with pencil of lines $SX+TY$. \red{¿How do Kock and Vainsencher find this parametrization nicely?}
 \end{Ex}
 
 \begin{Ex}
@@ -753,7 +765,7 @@ Let us recall an important definition:
 \end{Def}
 
 \begin{Ex}
-    In $\ov M_{0,6}$, the fundamental class $1\in A^0(M_{0,6})$ is the class of all curves homeomorphic to a 6-pointed $\bP^1$. It can be represented by the dual graph:
+    In $\ov M_{0,6}$, the fundamental class $1\in A^0(M_{0,6})$ is the class of all curves homeomorphic to a 6-pointed $\bP^1$. It can be represented by the dual graph:\par
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
@@ -804,17 +816,27 @@ In order to find the intersection product of two cycles we do the following:
     \item Paint the edges of both graphs with \emph{oriented} colorings $c_1,c_2$. 
     \item Compute the codimension of the product, recall codimension is the number of edges.
     \item The resulting graphs, should have no more edges than the expected codimension.
-    \item Consider all graphs who minor\footnote{The current lingo in geometry is specialize.} into the factors' dual graphs at the same time.
-    \item Color the edges of the resulting graphs such that when collapsing edges, the original colorings are respected (\red{clarify respected}.) No edge of a resulting graph may be left \textbf{uncolored}.
+    \item Consider all graphs which contain the factors' dual graphs as minors\footnote{The current lingo in geometry is specialize.} at the same time.
+    \item Color the edges of the resulting graphs such that when collapsing edges, the original coloring of a factor is obtained. No edge of a resulting graph may be left \textbf{uncolored}.
     \item If an edge is bicolored multiply the corresponding $\psi$-classes. 
-    \item Count number of automorphisms of the graph and divide the graph by that number. 
-    \item Count the number of possible colorings which respect the conditions and multiply the graph by that number.
+    \item Count number of automorphisms of the graph and divide the class by that number. 
+    \item Count the number of possible colorings which respect the conditions and multiply the class by that number.
 \end{enumerate}
 
 \begin{Rmk}
     When we think we have a graph but it doesn't match the conditions in the end, we say that it is a \term{non-generic intersection}. That might occur because it leaves in a lower codimensional strata.
 \end{Rmk}
 
+In summary, the formula for the intersection product is as follows:
+
+\begin{Prop}\label{prop-intersection-prod-formula-for-dual-graphs}
+    For two curves $C_1,C_2$ whose dual graphs are $\Ga_1,\Ga_2$ we have that the class of their intersection product has dual graph:
+    $$\Ga_1\.\Ga_2=\sum_{\Ga\supseteq\Ga_1,\Ga_2}\frac{(\#\text{ colorings})}{|\Aut(\Ga)|}\.\Ga\.\prod_{i}(-\psi_{\8 i}-\psi_{\star i}),$$
+    where the sum runs through graphs $\Ga$ containing $\Ga_1,\Ga_2$ as minors, the number of colorings is the amount of colorings which respect the edge-contraction process, and the product of $\psi$-classes runs through the amount of bicolored edges.
+\end{Prop}
+
+
+\subsection{Computations of Intersection Products}
 This becomes clearer when doing examples:
 
 \begin{significant}
@@ -825,8 +847,17 @@ This becomes clearer when doing examples:
 \end{significant}
 
 \begin{Ex}
-    Let's begin with a sanity check. Consider the product in $\ov M_{0,4}$ of the fundamental class with $D(ac\mid bd)$.\red{Add drawing}.\par
-    The only graph which minors into both is exactly the one corresponding to $D(ac\mid bd)$ and it can only be colored in one way, and has no non-trivial automorphisms. Therefore 
+    Let's begin with a sanity check. Consider the product in $\ov M_{0,4}$ of the fundamental class with $D(ac\mid bd)$. The classes in graph form are the following:\red{Add drawing}.\par
+    Let's proceed by following the algorithm:
+    \begin{itemize}
+        \item We have found the graphs and now we color. The fundamental class has no edges, we do not color. Whereas $D(ac\mid bd)$ has one edge which we choose to color as we showed.
+        \item The codimension of this product should be 1. There's only one edge in total and the result shouldn't have more than one edge.
+        \item Many graphs contain our factors as minors:\red{Add drawing}.\par
+        But, as in the case of this one, they might not be stable. And even if they were, observe that a graph like this one has 3 edges, 2 of which we can't color. Recall, the cases when the graph is \emph{actually stable} but it can't be colored it's a non-generic intersection.\par
+        The only graph which contains then, both of our factors is the dual graph of $D(ac\mid bd)$. It can only be colored in the way that respects the coloring of the factor.
+        \item No edges are multicolored and in this case there's no automorphisms nor different colorings.
+    \end{itemize}
+    Therefore it happens that:
     $$1\.D(ac\mid bd)=D(ac\mid bd)$$
     as expected.
 \end{Ex}
@@ -834,26 +865,39 @@ This becomes clearer when doing examples:
 \begin{Ex}
     Consider now the product $D(ac\mid bd)^2$ in $\ov{M}_{0,4}$. As this boundary divisor has codimension $1$, its square should have codimension $2$.\par
     ¡But $\ov{M}_{0,4}$ has only one dimension! It must follow that the product is empty.\par
-    To see this via the algorithm, we consider all graphs which minor into our tree. There's no graphs with two edges as that violates the stability condition (all vertices should have at least 3 special points), and so the only possible graph is a copy of $D(ac\mid bd)$ with its only edge bicolored.\par
-    Label the marks $\ast$ and $\.$ on the edge of $D(ac\mid bd)$ so that we may see it as the image of the gluing morphism 
+    To see this via the algorithm, we consider all graphs containing $D(ac\mid bd)$ as a minor. There's no graphs with two edges as that violates the stability condition (all vertices should have at least 3 special points), and so the only possible graph is a copy of $D(ac\mid bd)$ with its only edge bicolored.\red{Add drawing}.\par
+    Label the marks $\ast$ and $\.$ on the edge of $D(ac\mid bd)$ so that we may see this class as the image of the gluing morphism 
     $$gl\: M_{0,\set{a,c,\ast}}\x M_{0,\set{b,d,\.}}\to M_{0,4}.$$
-    Then the $\psi$-classes we muliply are $(-\psi_{\.}-\psi_{\ast})$ so that the result is $D(ac\mid bd)\.(-\psi_{\.}-\psi_{\ast})$.
-    \red{Add drawings}
+    Then the $\psi$-classes we muliply are $(-\psi_{\.}-\psi_{\ast})$ so that the result is $D(ac\mid bd)\.(-\psi_{\.}-\psi_{\ast})$.\red{Add drawings}\par
 \end{Ex}
+
+\begin{ptcb}
+    \begin{Qn}
+        How was the process of saying that this intersection was zero by distributing the psi class into the $M_{0,3}$'s or something?
+    \end{Qn}    
+\end{ptcb}
 
 Let's go up some dimensions
 
 \begin{Ex}
-    Consider the intersection product 
-    $$D(ab\mid cdef)^2 D(abc\mid def)$$
-    which lives in $\ov{M}_{0,6}$. The expected codimension of the result is $3$ as every factor contributes $1$ codimension.\par
-    We first multiply a copy of $D(ab\mid cdef)$ with $D(abc\mid def)$:\red{add drawing}.\par
-    Graphs which have these two as minors are scarce. In fact, ¡there's only one: $D(ab\mid c\mid def)$!\par 
-    Coloring the edges of our original factors \blu{blue} and \green{green} we get only one copy of our resulting graph with the coloring determined.\red{ADD DRAWING}\par
-    This graph has no non-trivial automorphisms and so we only get $D(ab\mid c\mid def)$ which we now have to multiply by another copy of $D(ab\mid cdef)$.\par
-    We could expect the resulting graphs to have three edges as that would have codimension $3$. But take for example $D(ab\mid c\mid d\mid ef)$. Such graph has three edges but \textbf{they can't be colored}. When collapsing edges, the colors disappear so that we would have to leave the edge between $d$ and $ef$ uncolored to respect the coloring.\red{Add drawing}\par
-    This cannot happen. So $D(ab\mid c\mid def)$ is the only possible factor. The edge between $ab$ and $c$ will be bicolored in a way that we have to multiply $\psi$-classes. Labeling the vertices attached to the edge as $\.$ and $\star$ we get 
+    Consider the intersection product in $\ov{M}_{0,6}$:
+    $$D(abc\mid def) D(ab\mid cdef)^2 $$
+    The corresponding dual graphs are \red{Add drawings}\par
+    The expected codimension of the result is $3$ as every factor contributes $1$ codimension.\par
+
+    We first multiply a copy of $D(ab\mid cdef)$ with $D(abc\mid def)$:\red{add drawing with edges colored}.\par
+
+    Graphs which contain these two as minors are scarce. In fact, ¡there's only one: $D(ab\mid c\mid def)$!\red{add drawing}\par 
+
+    We get only one copy of our resulting graph with the coloring already determined.
+    This graph has no non-trivial automorphisms and so we only get $D(ab\mid c\mid def)$ which we now have to multiply by another copy of $D(ab\mid cdef)$.\red{add drawing with edges colored}.\par
+
+    We expect the resulting graphs to have three edges as that would have codimension $3$. But take for example $D(ab\mid c\mid d\mid ef)$. \red{add drawing with edges colored}.\par
+    
+    Such graph has three edges but \textbf{they can't be colored}. When collapsing edges, the colors disappear so that we would have to leave the edge between $d$ and $ef$ uncolored to respect the coloring.\red{Add drawing}\par
+    This cannot happen as is the case for any other possibilities, they will be non-generic intersections. So $D(ab\mid c\mid def)$ is the only possible factor. The edge between $ab$ component and the $c$ component will be bicolored in a way that we have to multiply $\psi$-classes. Labeling the vertices attached to the edge as $\.$ and $\star$ we get 
     $$D(ab\mid cdef)^2 D(abc\mid def)=D(ab\mid c\mid def)(-\psi_\.-\psi_\star).$$
+    This class has the correct codimension as the graph has two edges and the $\psi$ class adds another codimension.
 \end{Ex}
 
 \begin{Qn}
@@ -861,13 +905,27 @@ Let's go up some dimensions
 \end{Qn}
 
 \begin{Ex}[$(4,0)$ instead of $(0,4)$]
-    Consider the curves represented by the dual graphs:\red{add drawing}\par
-    Finding the graphs whose minors are these ones we get three possibilities:
+    Consider the curves represented by the following dual graphs:\red{add drawing}\par
+    We have already colored them and now, very carefully, look at graphs which contain these ones as minors. 
     \begin{enumerate}
-        \item The first graph itself. \red{FINISH}
+        \item The first graph itself has the second factor as a minor. We can color it in the following way:\red{add drawing with edges colored}.
+        \item The following is a path graph which might appear to have many symmetries, but when imposing the coloring, we are left with only one copy of its class: \red{add drawing}\par
+        This is because the two possible colorings and the reflection symmetry across the vertical axis cancel each other out. So in total we get a coefficient of $\half\.2=1$ accompanying it.
+        \item Finally we get a star graph with a reflection across the axis which has the higher genus vertex.\red{add drawing}\par
+        In the same fashion as before, that symmetry cancels the two possible colorings leaving us with only one copy of its class.
     \end{enumerate}
+    There are no more graphs satisfying the required conditions\footnote{And if you claim to find one, try checking if you actually left edges uncolored or if it has the correct codimension.}. As the first term had a bicolored edge, we multiply by the corresponding $\psi$ class and write down the answer as follows: \red{add drawing}.
 \end{Ex}
 
+\begin{Ex}[Unexpectedly zero...]
+    The following graph represents a curve in $\ov{M}_{1,2}$:\red{add drawing}\par
+    Let us take its second power and color each factor's edge \green{green} and \blu{blue} respectively:\red{add drawing w edges colored}\par
+    Following the process we now look for graphs which have this graph as a minor.
+    \begin{itemize}
+        \item The same graph certainly contains itself. But we must multiply by a $\psi$ class to get the correct codimension\red{add drawing w edges colored}\par
+        Counting 
+    \end{itemize}
+\end{Ex}
 \section{Incursion into Pseudo-Stable Land}
 
 Theorem 3.1 in MattAndRenzo deals with the Mumford formula. This is the product of the total Chern class of the Hodge bundle over $\ov{M}_{g,n}$ with the one of the dual. The formula itself is 
