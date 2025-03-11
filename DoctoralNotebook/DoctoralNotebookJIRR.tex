@@ -7,7 +7,7 @@
 \def\nsigla {DN}
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
-%\def\ntrim{}
+\def\ntrim{}
 %\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
@@ -60,14 +60,23 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \end{itemize}
 \red{TO DO 6 20241215}
 \begin{itemize}
-    \item Finish writing examples on intersection products. Add examples on psi and lambda classes.
+    \item Finish writing examples on intersection products. (DONE)
+    \item Add examples on psi and lambda classes.
     \item Polish and pass to DN E.C. of point by T and Z. 
     \item Write and polish E.C. of proj line. 
     \item Apply Atiyah Bott to E.C. of proj line to get the same result. 
     \item Read somewhere about E.C. of proj plane and write it down.
-    \item Apply A.B. to proj plane and find the intersection of two lines.
+    \item Apply A.B. to proj plane and find the intersection of two lines. (DONE)
     \item Write down info on different linearizations of line bundles.
     \item Understand what is the hyperplane class $H$ in equivariant cohomology.
+\end{itemize}
+\red{TO DO 7 20250311}
+Phew it's been a long time
+\begin{itemize}
+    \item Understand and write what is a linearization of line bundles. (see Mumford original paper)
+    \item Understand the space of maps' stratification.
+    \item Compute integrals of cohomology classes in the space of stable maps via localization.
+    \item Write thesis.
 \end{itemize}
 }
 \newpage
@@ -761,7 +770,7 @@ Let's begin with an example which lies in our minds to introduce non-transverse 
 Let us recall an important definition:
 
 \begin{Def}
-    A \term{stratum} in $M_{g,n}$ is the closure of the set of all curves with the same topological type. Strata are classified by dual trees. 
+    A \term{stratum} in $\ov{M}_{g,n}$ is the closure of the set of all curves with the same topological type. Strata are classified by dual trees. 
 \end{Def}
 
 \begin{Ex}
@@ -917,18 +926,46 @@ Let's go up some dimensions
     There are no more graphs satisfying the required conditions\footnote{And if you claim to find one, try checking if you actually left edges uncolored or if it has the correct codimension.}. As the first term had a bicolored edge, we multiply by the corresponding $\psi$ class and write down the answer as follows: \red{add drawing}.
 \end{Ex}
 
-\begin{Ex}[Unexpectedly zero...]
+\begin{Ex}[Unexpectedly zero...]\label{ex-unexpectedly-zero-square}
     The following graph represents a curve in $\ov{M}_{1,2}$:\red{add drawing}\par
     Let us take its second power and color each factor's edge \green{green} and \blu{blue} respectively:\red{add drawing w edges colored}\par
     Following the process we now look for graphs which have this graph as a minor.
     \begin{itemize}
         \item The same graph certainly contains itself. But we must multiply by a $\psi$ class to get the correct codimension\red{add drawing w edges colored}\par
-        Counting 
+        Counting possible colorings we get 4 (\red{ask}) colorings and 2 automorphisms for this graph.
+        \item The other curve consists of a torus twice-pinched with a mark on each of the isomorphic $\bP^1$ components. The dual graph looks like this:\red{add drawing w edges colored}\par
+        It has quite a bunch of colorings, 8 and only two automorphisms.
     \end{itemize}
+    So in total, the square of this curve can be represented by the sum of classes:\red{add drawings}
+\end{Ex}
+
+¿Why did I say that the previous class in example \ref{ex-unexpectedly-zero-square} is unexpectedly zero? It all has to do with\dots
+
+\red{¿Do I move the lambda class example from MattAndRenzo here? Do I add a "other cohomology classes" section and then the MattAndRenzo example?}
+
+\section{Integration}
+
+My reference for this definition is Fulton and Pandharipande\cite{FPNotes}.
+
+\begin{Def}[\cite{FPNotes} pg. 2]
+    For a complete \red{In which sense? Cauchy sequences? Is it a Cauchy space\footnote{\href{https://en.wikipedia.org/wiki/Cauchy_space}{insane (clicky clicky)}}} variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
+    $$\int_\bt c=\deg(c_k,\bt)$$
+    where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional \red{can a class $\bt$ not be closed or pure-dimensional?} subvariety of $X$, then we write 
+    $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
+\end{Def}
+
+Let us at once clear the idea of the squares-to-zero example \ref{ex-unexpectedly-zero-square}:
+
+\begin{Ex}
+    Let $\al$ by the curve in question for example \ref{ex-unexpectedly-zero-square}. We are interested in computing 
+    $$\int_{\ov{M}_{1,2}}\al^2.$$
+    We have that 
+    $$\al^2=2\al(-\psi_{\81}-\psi_{\star1})+4\bt.$$
+    Recall that the dimension of $\ov{M}_{1,2}$ is 
 \end{Ex}
 \section{Incursion into Pseudo-Stable Land}
 
-Theorem 3.1 in MattAndRenzo deals with the Mumford formula. This is the product of the total Chern class of the Hodge bundle over $\ov{M}_{g,n}$ with the one of the dual. The formula itself is 
+Theorem 3.1 in MattAndRenzo \cite{MattAndRenzo} deals with the Mumford formula. This is the product of the total Chern class of the Hodge bundle over $\ov{M}_{g,n}$ with the one of the dual. The formula itself is 
 $$(1+\hat{\la}_1+\dots+\hat\la_g)(1-\hat{\la}_1+\dots+(-1)^g\hat\la_g)=\sum_{i=0}^g\frac{1}{i!}\cG_\ast^i\left(\prod_{j=1}^i(\psi_{\star j}-\psi_{\8 j})\right).$$
 
 To prove the formula we will do examples first. The first case that we deal with is in $\ov M_{1,n}$ for a fixed $n\geq 1$.
