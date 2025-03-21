@@ -379,13 +379,13 @@ $$1^{\text{st}}\text{edge}=\underline{\phantom{ans}}.$$
 \end{enumerate}
 
 
-\item In the following space draw the requested graphs and answer briefly if requested:
+\item In the following space draw the requested graphs. Answer briefly if requested.
 \begin{enumerate}
     \item A complete graph on 3 vertices. Does this graph have an Euler circuit? (4 points)
     \vspace{3.5cm}
     \item A complete graph on 4 vertices. Does this graph have an Euler circuit?. (4 points)
     \vspace{3.5cm}
-    \item A graph with an Euler circuit and a Hamilton walk, but not a Hamilton circuit. (4 points)
+    \item Draw a graph with an Euler circuit and a Hamilton walk, but not a Hamilton circuit. (4 points)
     \vfill
 \end{enumerate}
 
@@ -402,21 +402,32 @@ Sol:
 \end{enumerate}
 \fi
 \newpage
-\item (25 points) When modeling a walk through a graph it is usual to forget the edges which are not being traveled. An example of this would be a trip from your house to pick up your friends and then go to a concert. You would only consider the streets you're traveling, not the whole load of streets in the city.\par
-But consider the scenario at the planning moment, before you begin your trip and you're deciding where to go. Realistically, you can grab a map of your city (or your phone) and see every place there is to go up to a certain distance. At this planning stage, you can decide which route is best to take and you can optimize it globally. 
+\item (25 points) In class, we've explored graph navigation algorithms to find Eulerian and Hamiltonian circuits. In real-world transportation networks, cities can often be approximated as \textbf{complete weighted graphs}, where locations are vertices and edges represent \textbf{travel times} between them.\par
+Suppose you are the \textbf{planning director} of a delivery company. Your fleet of trucks starts at a central warehouse and must deliver packages to various customer locations before returning. Consider the following:  
 \begin{itemize}
-    \item In this situation, do think you should model this using a walk or a circuit? Are you trying to go for Hamiltonian or Eulerian? Is there another way that you could approach this problem?
-    \item In such complete graphs, is it always possible to find a Hamilton circuit? How about an Euler circuit? Can you explain why and reinforce your reasoning by using the previous part's questions as examples?
+    \item Travel times change dynamically due to traffic (e.g., an edge weight may be \textbf{10 minutes in the morning but 35 minutes in the evening}).  
+    \item Your goal is to \textbf{minimize total travel time} while ensuring every customer location is visited exactly once.  
+    \item Deliveries may also have \textbf{time windows}, requiring some packages to be delivered by a specific time.  
 \end{itemize}
-
-Sol:
+In the following space and the next page thoroughly address and discuss the following points:
 \begin{itemize}
-    \item 8 pts clearly explains whether the situation is more Hamilton or Euler and adds evidence to support reasonings.
-    \item 6 pts discusses how friends locations affects choice of approach
-    \item 6 pts thoroughly considers whether a hybrid strategy would be beneficial.
-    \item 5 pts similarly discusses how a time constraint could affect the choice.
+    \item Should this delivery route be modeled as an \textbf{Eulerian or Hamiltonian circuit}? Justify your answer.  
+    \item Compare the \textbf{nearest-neighbor algorithm} and \textbf{cheapest-link algorithm} for optimizing the route. Which would be better for \textbf{static planning} (i.e., setting routes in advance)?  
+    \item How would your strategy change if deliveries had \textbf{time constraints}?
+    \item Given \textbf{real-time traffic updates}, is it beneficial to \textbf{dynamically switch between nearest-neighbor and cheapest-link}? Propose a hybrid approach.
+    \item Cities are only \textbf{approximated} as complete graphs. What are some \textbf{limitations} of this model? In what cases would a complete graph \textbf{not} be appropriate to make a model? 
 \end{itemize}
-
+\vfill
+\newpage
+Sol
+\begin{itemize}
+    \item Correctly identifies the route as Hamiltonian, with a strong justification related to visiting all locations exactly once. 
+    \item Compares both algorithms, discussing strengths/weaknesses, and selects the best for static planning.
+    \item Discusses the impact of time windows and suggests adjustments (e.g., prioritizing urgent deliveries). 
+    \item Explains the benefits of switching strategies dynamically and proposes a hybrid method.
+    \item Identifies scenarios where complete graphs fail (e.g., one-way streets, road closures, or physical barriers).
+\end{itemize}
 \end{enumerate}
+\vfill
 \end{document}
 
