@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amsthm, amssymb, amsfonts, amscd}
+\usepackage[mathscr]{eucal}
+\usepackage{graphicx}
+\usepackage{psfrag}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{subfigure}
+
+%       Theorem environments
+
+%% \theoremstyle{plain} %% This is the default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{ax}{Axiom}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+
+\newcommand{\ext}[1]{%
+    {\def\tmp{#1}
+    \ifx\tmp\empty
+        {\textstyle\bigwedge}
+    \else
+        {\textstyle\bigwedge\!\!^{#1}}
+    \fi}}
+%Math Definitions
+
+
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\N}{{\mathbb N}}
+
+\newcommand{\RP}{{\mathbb{RP}}}
+\newcommand{\CP}{{\mathbb{CP}}}
+
+
+
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\dx}{\,\mathrm{d}x}
+\newcommand{\dy}{\mathrm{d}y}
+\newcommand{\dz}{\mathrm{d}z}
+\newcommand{\inv}{\operatorname{inv}}
+\newcommand{\I}{\mathbf{i}}
+\newcommand{\J}{\mathbf{j}}
+\newcommand{\K}{\mathbf{k}}
+\newcommand{\SO}{\operatorname{SO}}
+\newcommand{\dt}{\operatorname{dt}}
+\newcommand{\tw}{\operatorname{tw}}
+\newcommand{\ds}{\operatorname{ds}}
+\newcommand{\st}{\operatorname{st}}
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\nul}{\operatorname{null}}
+\newcommand{\spa}{\operatorname{span}}
+\newcommand{\quat}{\mathbb{H}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\from}{\co\!\!}
+
+
+\newcommand{\Field}{\mathbb{F}}
+
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{003d73}
+\definecolor{linkgreen}{HTML}{006161}
+\definecolor{linkred}{HTML}{a11950}
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={Math 670 HW \#2},
+	pdfauthor={Clayton Shonkwiler},
+	pdfsubject={differential geometry},
+	pdfkeywords={differential geometry, homework, Math 670},
+	colorlinks=true,
+	linkcolor=linkblue,
+	citecolor=linkgreen,
+	urlcolor=linkred
+}
+% \pagestyle{empty}
+\def\co{\colon}
+
+\begin{document}
+\begin{center}
+{\Large\textbf{Math 670 HW \#2}}\\
+Due 11:59 PM Friday, March 28
+\end{center}
+
+
+
+
+\begin{enumerate}	
+	
+	\item Let $A: V \to W$ be a linear map between vector spaces.
+	\begin{enumerate}
+		\item Show that the induced map $\ext{k}(V) \to \ext{k}(W)$ is well-defined by
+		\[
+			v_1 \wedge \ldots \wedge v_k \mapsto Av_1 \wedge \ldots \wedge Av_k
+		\]
+		(extending linearly to sums).
+		
+		\item Show that the map $A^*: W^* \to V^*$ defined by $(A^\ast(\eta))(v) := \eta(A(v))$ determines a map $\ext{k}(W^*) \to \ext{k}(V^*)$.
+		
+		\item Show that, if $V$ is an $n$-dimensional vector space, then the map $\ext{n}(V) \to \ext{n}(V)$ is multiplication by $\det A$.
+	\end{enumerate}
+	
+	
+	\item Show that the vectors $v_1, \ldots , v_k \in V$ are linearly independent if and only if $v_1 \wedge \ldots \wedge v_k \neq 0$ as an element of $\ext{k}(V)$.
+	
+	\item We say that an element of $\ext{k}(V)$ is \emph{decomposable} if it can be written as $v_1 \wedge \ldots \wedge v_k$.
+	\begin{enumerate}
+		\item Suppose $v,w,x,y \in V$. Find necessary and sufficient conditions for $v \wedge w + x \wedge y \in \ext{2}(V)$ to be decomposable.
+		
+		\item Show that $\omega \in \ext{2}(\R^4)$ is decomposable if and only if $\omega \wedge \omega = 0$.
+	\end{enumerate}
+
+	\item Let $V$ be an $n$-dimensional inner product space. We can extend the inner product from $V$ to all of $\ext{}(V)$ by setting the inner product of homogeneous elements of different degrees equal to zero and by letting
+	\[
+		\langle w_1 \wedge \ldots \wedge w_k, v_1 \wedge \ldots \wedge v_k \rangle = \det \left(\langle w_i, v_j \rangle \right)_{i,j}
+	\]
+	and extending bilinearly. 
+	
+	Since $\ext{n}(V)$ is a one-dimensional real vector space, $\ext{n}(V) - \{0\}$ has two components. An \emph{orientation} on $V$ is a choice of component of $\ext{n}(V) - \{0\}$. If $V$ is an oriented inner product space, then there is a linear map $\star: \ext{}(V) \to \ext{}(V)$ called the star map, which is defined by requiring that for any orthonormal basis $e_1, \ldots , e_n$ for $V$,
+	\begin{align*}
+		\star(1) = \pm e_1 \wedge \ldots \wedge e_n,  & \qquad \star(e_1 \wedge \ldots \wedge e_n) = \pm 1, \\
+		\star(e_1 \wedge \ldots \wedge e_k) & = \pm e_{k+1} \wedge \ldots \wedge e_n,
+	\end{align*}
+	where in each case we take ``$+$'' if $e_1 \wedge \ldots \wedge e_n$ is in the preferred component of $\ext{n}(V)$ and we take ``$-$'' otherwise. Notice that $\star: \ext{k}(V) \to \ext{n-k}(V)$.
+	
+	\begin{enumerate}
+		\item Prove that if $e_1, \ldots , e_n$ is an orthonormal basis for $V$, then the $e_{i_1} \wedge \ldots \wedge e_{i_k}$ with $1 \leq i_1 < \ldots < i_k \leq n$ and $1 \leq k \leq n$ give an orthonormal basis for $\ext{}(V)$.
+		\item Prove that, as a map $\ext{k}(V) \to \ext{k}(V)$, $\star \star = (-1)^{k(n-k)}$.
+		\item Prove that, for $\omega, \eta \in \ext{k}(V)$, their inner product is given by
+		\[
+			\langle \omega, \eta \rangle = \star (\omega \wedge \star \eta) = \star(\eta \wedge \star \omega).
+		\]
+	\end{enumerate}
+	
+	\item Let $M^n$ be a closed manifold (i.e., a compact manifold without boundary) and let $\omega \in \Omega^1(M)$ so that $\omega_p \neq 0$ for all $p \in M$ (i.e., for all $p$, there exists $v \in T_pM$ so that $\omega_p(v) \neq 0$). Show that $\omega$ is not exact.
+	
+		 
+\end{enumerate}
+
+
+	
+	
+
+
+\end{document}
