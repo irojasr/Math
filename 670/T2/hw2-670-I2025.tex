@@ -9,7 +9,7 @@
 \def\nextra {HW2}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-
+\DeclareMathOperator{\inv}{inv}
 \begin{document}
 %\begin{multicols}{2}
 
@@ -49,9 +49,11 @@
         A(-v_2)\w Av_1\wyw Av_k&=-(Av_2\w Av_1\wyw Av_k)\\
         &=Av_1\w Av_2\wyw Av_k
         \end{align*}
-        and this is the desired representation of the image. \red{FINISH MULTILINEAR} This allows to see that $\exterior^k(A)$ is well-defined.
-        \item The map $A^\ast$ does indeed define a map from the exterior powers, namely $\exterior^k(A^\ast)$. \red{FINISH}
-        \item \red{NO IDEA}
+        and this is the desired representation of the image. Via linearity of $A$, we have that the induced map is multilinear. This allows to see that $\exterior^k(A)$ is well-defined.
+        \item The map $A^\ast$ does indeed define a map from the exterior powers, namely $\exterior^k(A^\ast)$. \red{However I must admit I didn't do this one.}
+        \item Observe that the dimension of $\exterior^n(V)$ is $1$ so that the induced linear map becomes
+        $$\exterior^n(A)(v)=\la v,\quad v\in\exterior^n(V).$$
+        Now the map $\exterior^n(A)$ is alternanting, multilinear and we may see that $I$ induces the identity map. By uniqueness of the determinant, this map must be the $\det(A)\.$.
     \end{enumerate}
 \end{ptcbr}
 
@@ -67,7 +69,8 @@
         &=v_1\wyw \sum_{i=1}^kc_iv_i\wyw v_k\\
         &=\sum_{i=1}^kc_i(v_1\wyw v_i\wyw v_k)
     \end{align*}
-    and all the summands will be zero as we will find repeated $v_i's$ in each term.
+    and all the summands will be zero as we will find repeated $v_i's$ in each term.\par
+    \red{I couldn't quite piece it together with the other direction.}
 \end{ptcbr}
 
 \begin{Ej}
@@ -95,7 +98,14 @@
         \end{align*}
         so it must occur that 
         $$v\w w\w x\w y=0$$
-        or in other words, the vectors are linearly dependent.
+        or in other words, the vectors are linearly dependent. \red{I couldn't give myself time to finish this one.}
+        \item Suppose $\om$ is a 2-wedge in $\bR^4$ and assume first that $\om$ was decomposable. Then there are $x,y\in\bR^4$ such that 
+        $$\om^{\w 2}=(x\w y)^{\w 2}=(x\w y\w x\w y)=0.$$
+        On the other hand, we may expand $\om$ in terms of the basis of $\exterior^2(\bR^4)$ 
+        $$\om=\sum_{I\in\binom{\bonj{n}}{2}}c_{I}e_I.$$
+        Observe that if $\om$ is \emph{not} decomposable, then there must exist $I,J$ partitioning $\bonj{4}$ and $c_I,c_J\neq 0$. When expanding $\om^{\w 2}$, this gives us a term in the sum 
+        $$c_Ic_J e_{I\cup J}=c_Ic_J e_1\wyw e_4.$$
+        which is non-zero. 
     \end{enumerate}
 \end{ptcbr}
 
@@ -128,17 +138,44 @@
     \item Indeed, if $\set{e_i}_{i\in\bonj{n}}$ forms an orthonormal basis of $V$, then each collection 
     $$\set{e_{I}\:\ |I|=k,\ I\subseteq\bonj{n}},\quad e_{ I}=\exterior_{i\in I}e_i,$$
     spans the $k^{\text{th}}$ exterior power of $V$. In consequence the whole exterior algebra is spanned by the same collection letting $|I|$ range up to $n$.\par
-    To see linear independence it suffices to see orthogonality. Between different index sizes it is clear via hypothesis. So let $I,J\in\binom{\bonj{n}}{k}$ and consider $\braket{e_I}{e_J}$. The obtained quantity is the determinant of the Gram matrix formed by the bases $\set{e_i}_{i\in I}$ and $\set{e_j}_{j\in J}$.\red{What if we get a permutation matrix? Is it even possible? like e1e3e4 and e4e1e3}.
-    \item Proving this fact for a basic element suffices, so take $e_I$
+    To see linear independence it suffices to see orthogonality. Between different index sizes it is clear via hypothesis. So let $I,J\in\binom{\bonj{n}}{k}$ and consider $\braket{e_I}{e_J}$. The obtained quantity is the determinant of the Gram matrix formed by the bases $\set{e_i}_{i\in I}$ and $\set{e_j}_{j\in J}$. The only possibility for the determinant in question to be non-zero is if $J$ is a permutation of $I$. But up to sign, this is the same basic element. Therefore, we get an orthonormal basis as desired.
+    \item Proving this fact for a basic element suffices, so take $e_I$. $\star e_I$ is the element such that 
+    $$e_I\w\star e_I=e_{I\cup I^c}=e_1\wyw e_n$$
+    so that we must multiply by $(-1)^{\inv(\ttt{ToList}(I\cup I^c))}$. Such inversions can only happen between $I$ and $I^c$ because $I$ and $I^c$ themselves are already ordered. Thus 
+    $$\star e_I=(-1)^{\inv(II^c)}e_{I^c}.$$
+    Taking the star again we get 
+    $$\star\star e_I=(-1)^{\inv(II^c)+\inv(I^cI)}e_I.$$
+    \red{I couldn't finish the combinatorial argument which shows that the number of inversions in question is indeed $k(n-k)$.}
+    \item Observe that if we prove this for basic elements, we are done by multilinearity. Consider the wedge:
+    \begin{align*}
+        \star(e_I\w \star e_J)&=\star(e_I\w e_{J^c})\\
+        &=\star(e_{I\cup J^c})\\
+        &=e_{I^c\cap J}
+    \end{align*}
+    On the other hand we obtain $e_{I\cap J^C}$. This calculation aligns with what it's supposed to be as the element $e_{I\cup J^c}$ lives in the top exterior power of $V$ as it has $k$ indices from $I$ and $n-k$ from $J^c$. Now we must interpret the set $I^c\cap J$ to see that the non-zero conditions of the inner product match up.\par
+    Observe that if $I=J$ then $I^c\cap J$ and $I\cap J^c$ are the empty set. This leaves us with no wedges and so the result of the operation is $1$. In the other case, we get 0.
 \end{enumerate}
 \end{ptcbr}
 
 \begin{Ej}
     Let $M^n$ be a closed manifold (i.e., a compact manifold without boundary) and let $\omega \in \Omega^1(M)$ so that $\omega_p \neq 0$ for all $p \in M$ (i.e., for all $p$, there exists $v \in T_pM$ so that $\omega_p(v) \neq 0$). Show that $\omega$ is not exact.
 \end{Ej}
-
+%https://math.stackexchange.com/questions/2998285/no-where-vanishing-exact-1-form-on-compact-manifold
+%https://math.stackexchange.com/questions/2658091/the-global-minimum-is-necessarily-the-image-of-a-zero-of-the-derivative
 \begin{ptcbr}
  It is equivalent to show that if $\om$ is exact, then there exists $p\in M$ so that $\om_p=0$.\par
-So to our effect, assume $\om$ is exact. Then there is an $f\: M\to\bR$ such that $\dd f=\om$. As $M$ is compact, then there exists a point $p\in M$ at which $f$ attains a minimum (otherwise, we'll just have to switch signs). \red{FINISH}
+So to our effect, assume $\om$ is exact. Then there is an $f\: M\to\bR$ such that $\dd f=\om$. As $M$ is compact, then there exists a point $p\in M$ at which $f$ attains a minimum (otherwise, we'll just have to switch signs). Our claim is that 
+$$\dd f_p=0,$$
+and to show this we take $v\in T_pM$ and a curve $\al\:\obonj{-\eps,\eps}\to M$ such that 
+$$\al(0)=p,\quad\al'(0)=v.$$
+We have that 
+\begin{align*}
+    \dd f_pv&=\dv{t}\eval_{t=0}f(\al(t))\\
+    &=\lim_{h\to 0}\frac{f(\al(h))-f(\al(0))}{h}\\
+    &=\lim_{h\to 0}\frac{f(\al(h))-f(p)}{h}
+\end{align*}
+And as $f(p)$ is a minimum of $f$ at $h=0$, it occurs that $f(\al(h))\geq f(p)$ for all $h$. For $h>0$ it happens that the quotient 
+$$\frac{f(\al(h))-f(p)}{h}\word{is positive}$$
+whereas for $h<0$ the quotient is negative, as the numerator is always positive. Then, as our limit exists, it should happen that it's zero. In conclusion $p$ is the point which makes $\om$ vanish.
 \end{ptcbr}
 \end{document} 
