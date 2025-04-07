@@ -1,0 +1,89 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2025}
+\def\nprofesor {Clayton Shonkwiler}
+\def\nsigla {MATH670}
+\def\nsiglahead {Differential Geometry}
+\def\nextra {HW2}
+\def\nlang {ENG}
+\input{../../headerVarillyDiff}
+\DeclareMathOperator{\inv}{inv}
+\begin{document}
+%\begin{multicols}{2}
+
+\begin{Ej}
+    Let $G$ be a Lie group. 
+	\begin{enumerate}
+		\item Show that the set of right-invariant vector fields on $G$ forms a Lie algebra with bracket given by the Lie bracket of vector fields. Note that the right-invariant vector fields form a vector space which is isomorphic to $T_eG$.
+		
+		\item Let $\inv: G \to G$ be given by $\inv(g) = g^{-1}$. Prove that if $X$ is a left-invariant vector field on $G$, then $d\inv(X)$ is a right-invariant vector field whose value at $e$ is $-X_e$.
+		
+		\item Prove that the map $-d\inv$ from left-invariant vector fields to right-invariant vector fields is a Lie algebra isomorphism. (The point is that we could just have well chosen to interpret the Lie algebra of $G$ as the right-invariant vector fields rather than the left-invariant ones.)
+	\end{enumerate}
+\end{Ej}
+
+
+%%%general
+%https://math.uchicago.edu/~may/REU2016/REUPapers/Mandel.pdf
+
+%%% a
+%MASO https://math.stackexchange.com/questions/2686570/prove-that-the-identification-of-t-e-g-with-the-space-of-right-invariant-vecto
+%https://math.stackexchange.com/questions/4803039/question-about-lie-bracket-and-right-invariant-vector-fields
+%https://math.stackexchange.com/questions/295758/showing-that-left-invariant-vector-fields-commute-with-right-invariant-vector-fi
+%https://math.stackexchange.com/questions/4573185/proving-vector-space-isomorphism-of-left-invariant-vector-fields-and-tangent-spa?rq=1
+
+%%%b
+%https://www.reddit.com/r/learnmath/comments/1435v54/about_rightleft_invariant_vector_fields_and_lie/
+%https://bohr.physics.berkeley.edu/classes/250/f15/notes/liegroup.pdf
+
+\begin{ptcbr}
+
+\end{ptcbr}
+\begin{Ej}
+    Consider the special orthogonal group $\SO(3)$ of all $3 \times 3$ matrices $B$ such that 
+	\[
+		B B^T = I \qquad \text{and} \qquad \det B = 1.
+	\]
+	We saw in section 3.4 that
+	\[
+		A_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, A_2 = \begin{bmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{bmatrix}, A_1 = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+	\]
+	gives a basis for $T_I\SO(3)$ so that $[A_1, A_2]=A_3$, $[A_2,A_3]=A_1$, and $[A_3,A_1]=A_2$. Notice also that $A_3 = \gamma_3'(0)$, where
+	\[
+		\gamma_3(t) = \begin{bmatrix} \cos t & -\sin t & 0 \\ \sin t & \cos t & 0 \\ 0 & 0 & 1 \end{bmatrix},
+	\]
+	and there are similar curves whose tangents at the identity give $A_1$ and $A_2$.
+	
+	Let $V_1$, $V_2$, and $V_3$ be the corresponding left-invariant vector fields on $\SO(3)$; i.e., $V_i(I)=A_i$.
+	
+	Let $\alpha_i$ be the dual basis of left-invariant 1-forms and compute their exterior derivatives. 
+\end{Ej}
+%%%%general
+%https://mathoverflow.net/questions/81247/what-is-the-structure-of-so3-and-its-lie-algebra
+%https://web.williams.edu/Mathematics/it3/texts/so3.pdf
+%https://pvangoor.github.io/mathematics/2025/02/15/special_orthogonal_so3.html
+\begin{ptcbr}
+
+\end{ptcbr}
+\begin{Ej}
+    Let $G$ be a compact Lie group and assume $\langle \cdot , \cdot \rangle$ is an $\operatorname{Ad}$-invariant inner product on $\mathfrak{g}$ (an $\operatorname{Ad}$-invariant inner product on $\mathfrak{g}$ is one that satisfies $\langle X,Y \rangle = \langle \operatorname{Ad}_g X, \operatorname{Ad}_g Y \rangle$ for all $g \in G$ and for any $X,Y \in \mathfrak{g}$). 
+	
+	Define $\tau_e: \mathfrak{g} \times \mathfrak{g} \times \mathfrak{g} \to \bR$ by
+	\[
+		\tau(X,Y,Z) = \langle [X,Y], Z\rangle.
+	\]
+	\begin{enumerate}
+		\item Show that $\tau_e$ is alternating. Since $\tau_e$ is clearly multilinear, this means $\tau_e$ can be identified with an element of $\bigwedge^3(\mathfrak{g}^*)$.
+		\item Extend $\tau_e$ to a left-invariant 3-form on $G$ in the usual way: for each $g \in G$, define $\tau_g := L_{g^{-1}}^* \tau_e$. Prove that $\tau \in \Omega^3(G)$ is bi-invariant (Hint: feel free to use the fact that a left-invariant form is bi-invariant if and only if it is conjugation-invariant). The bi-invariant 3-form $\tau$ is called the \emph{fundamental 3-form} of the Lie group $G$.
+		\item Explicitly compute the fundamental 3-form of $\SO(3)$ in terms of the $\alpha_i$ from the previous problem. 
+	\end{enumerate}
+\end{Ej}
+
+%%%c
+%https://math.stackexchange.com/questions/17856/visualizing-the-fundamental-group-of-so3
+\begin{ptcbr}
+
+\end{ptcbr}
+\end{document} 
