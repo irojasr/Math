@@ -1,0 +1,146 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2025}
+\def\nprofesor {Renzo Cavalieri}
+\def\nsigla {TM}
+\def\nsiglahead {Master's Thesis}
+\def\nlang {ENG}
+\def\ntrim{}
+%\def\darktheme{}
+
+\input{../../headerVarillyDiff}
+
+\author{\nauthor}
+\begin{document}
+
+\chapter{Introduction}
+
+It is my interest to study Riemmanian manifolds and their classification, furthermore, understanding maps between moduli spaces of this manifolds and projective space. The classification entails quite the journey, and we need to start somewhere. We begin our study with the most basic compact Riemmanian manifold, the\dots
+
+\section{The Projective Line}
+
+Everything begins as a set\footnote{Unless it's a stack, stacks are not sets!} and in particular the projective line has an underlying set.
+
+\begin{Def}
+    As a set, the projective line is the set of lines through the origin in $\bC^2$:
+    $$\bCP^1\defeq \set{\l\subseteq \bC^2,\ 0\in \l},$$
+    where $\l$ is a line. 
+\end{Def}
+
+\begin{Rmk}
+    At some point we will begin to abbreaviate $\bCP^1$ to $\bP^1_{\bC}$ and further to $\bP^1$ given that in the context it's sufficiently clear that we're working over the complex numbers.
+\end{Rmk}
+
+We may identify this set with various other representations which may come in handy depending on the context we're talking about.
+
+\begin{Th}\label{thm-projective-line-as-set}
+    There is a bijection between $\bCP^1$ and the following sets:
+    \begin{enumerate}
+        \item The quotient 
+        $$\quot{\bC^2\less\set{(0,0)}}{x\sim\la x},\quad\la\neq 0$$
+        where equivalence classes are in bijection with $\bC^\ast$. This bijection is non-canonical.
+        \item The quotient of the real $S^3$ by antipodality:
+        $$\quot{S^3}{x\sim-x}.$$
+        \item A quotient of two disjoint copies of $\bC$:
+        $$\quot{(\bC,x)\amalg(\bC,y)}{y\sim\frac{1}{x}}$$
+        \item The disjoint union of $\bC$ and a point which we baptize ``$\infty$'':
+        $$\bC\amalg\set{\infty}.$$
+    \end{enumerate}
+\end{Th}
+
+\begin{ptcbp}
+\red{Prove this}
+\end{ptcbp}
+
+Observe that there are surjective maps from each of the premilinary sets onto our projective line: 
+$$
+\left\lbrace
+\begin{aligned}
+    &\pi_1\:\bC^2\less\set{(0,0)}\to\bCP^1,\quad \vec{z}\mapsto \la\vec{z}.\\
+    &\pi_2\:S^3\to\bCP^1,\quad \vec{z}\mapsto\la\vec{z}.\\
+    &\pi_3\:(\bC,x)\amalg(\bC,y)\to\bCP^1.
+\end{aligned}
+\right.
+$$
+
+Morally, the first two maps are taking a two dimensional complex vector and assigning to it the line through the origin which passes through that vector.\par
+However for the last map, we may imagine the copies of $\bC$ as other lines (not through the origin) in $\bC^2$. For example the lines $V(y-1)$ and $V(x-1)$ may represent our copies of $(\bC,x)$ and $(\bC,y)$ respectively. Then the map takes a point in $(\bC,x)$ and asks for the line through it. There's only one line not intersecting $V(y-1)$ which is the $x$ axis in $\bC^2$, but there's no qualms as $V(x-1)$ does intersect that line and thus we have the desired map $\pi_3$.\par
+It is clear that if we take any line through the origin in $\bC^2$ then we may find a preimage via any of this maps. This means that they descend as maps from the quotients to $\bCP^1$. 
+
+\begin{Th}
+    The quotient topologies $\tau_i$ induced by the maps $\pi_i$ on $\bCP^1$ are equivalent and make $\bCP^1$ a compact topological space.
+\end{Th}
+
+\begin{ptcbp}
+    Prove this
+\end{ptcbp}
+
+More than just a topological space, $\bCP^1$ is a complex analytic manifold
+
+\begin{itemize}
+    \item Write about chaps 4,5,6 Renzo
+\end{itemize}
+
+\section{Line bundles over $\bCP^1$}
+
+\begin{enumerate}
+    \item chapters 7,8,9,10 Renzo
+\end{enumerate}
+
+\section{The Picard group and the Chow ring}
+
+\section{Higher genus Riemann surfaces}
+
+\subsection{Maps between Riemann surfaces}
+
+\begin{enumerate}
+    \item Branch and Ramification points
+    \item Riemman-Hurwitz,
+    \item Riemman-Roch,
+    \item Serre Duality
+\end{enumerate}
+
+\chapter{Moduli Spaces}
+
+\section{Toy example: quadruplets of points}
+
+\section{Quadruplets along $\bP^1$}
+
+\section{The moduli space of curves with $n$ marked points}
+
+\begin{enumerate}
+    \item Stable curves
+    \item Examples $\ov{M}_{0,4}, \ov{M}_{0,5}$ 
+\end{enumerate}
+
+\section{The tautological ring inside $A^\ast(\ov{M})$}
+
+\begin{enumerate}
+    \item $\psi$, $\la$ classes
+    \item Intersection product Examples
+    \item Projection formula
+    \item String and Dilaton relations
+    \item Integral examples
+\end{enumerate}
+
+\section{Moduli space of maps}
+
+\chapter{Equivariant Cohomology and Localization}
+
+\section{Basics of equivariant cohomology}
+\begin{enumerate}
+    \item Borel Construction of Equivariant Cohomology
+    \item Examples of point equivariant Cohomology
+    \item Equivariant Cohomology of projective space
+\end{enumerate}
+
+\section{Atiyah-Bott Localization}
+
+\begin{enumerate}
+    \item Example of $H^\ast_T(\bP^r)$ through Localization
+    \item Toric varieties Euler characteristic via Atiyah-Bott
+    \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
+\end{enumerate}
+\end{document}
