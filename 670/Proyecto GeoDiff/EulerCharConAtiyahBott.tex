@@ -56,10 +56,52 @@ $$\chi(M)=\sum_{i=0}^\infty(-1)^ib_i.$$
 
 Observe that this definition generalizes the usual definition of Euler characteristic for graphs:
 
+\begin{Ex}
+    Consider a planar graph $G$. We may construct a 2-dimensional CW complex by taking:
+    \begin{itemize}
+        \item 0-cells as vertices,
+        \item 1-cells as edges, and
+        \item 2-cells as faces. We must also consider the \emph{exterior face to the graph}.
+    \end{itemize} 
+    In this case we have that 
+    $$b_0=|V|,\quad b_1=|E|,\quad b_2=|F|,\word{and} b_i=0,\ i\geq 3.$$
+    Adding up the Betti numbers as in the characteristic computation we obtain 
+    $$\chi(G)=|V|-|E|+|F|$$
+    which corresponds to Euler's polyhedron formula. This quantity is $2$ and aligns with $\chi(S^2)=2$ as homology is homotopy-invariant.
+\end{Ex}
+
+%% https://web.archive.org/web/20100524152105/http://www.math.upenn.edu/~alina/GaussBonnetFormula.pdf
+% https://mathoverflow.net/questions/84521/on-the-generalized-gauss-bonnet-theorem
+% https://mathoverflow.net/questions/73450/top-chern-class-euler-characteristic EXXPPPLLL
+% https://www.maths.ed.ac.uk/~v1ranick/papers/li4.pdf T4.1.9
+
+Another way to compute the Euler characteristic is via Chern's generalization of the Gauss-Bonnet theorem which is the main tool we intend to use in this exploration.
+
+\begin{Th}
+Suppose $M$ is a compact and oriented manifold without boundary of real dimension $2n$. Then 
+$$\int_Me(TM)=\chi(M),$$
+where $TM$ is the tangent bundle of $M$ and $e(TM)\in H^{2n}(M)$ is its Euler class.
+\end{Th}
+
+Chern's original proof goes along the following lines:
+\begin{itemize}
+    \item First show that $\pi^\ast(e(TM))$ is an exact form. The map $\pi$ is the projection $\pi\: TM\to M$. Then there is a form $\vf\in H^{2n-1}(TM)$ such that 
+    $$d\vf=\pi^\ast(e(TM)).$$
+    %%% https://math.stackexchange.com/questions/4845049/vector-fields-as-a-section-of-the-tangent-bundle
+    \item Then is $X$ is a vector field (a section of the tangent bundle) on $M$, it has only isolated zeroes and singularities. If $S\subseteq M$ is its set of singularities we may further realize as a section
+    $$X\:M\less S\to TM.$$
+    Chern proved that $\del X(M\less S)\in H_{2n-1}(TM)$.
+    \item Then the integral of the Euler class can be manipulated into
+    $$\int_Me(TM)=\int_{M\less S}X^\ast(d\vf)=\int_{X(M\less S)}\dd\vf=\int_{\del X(M\less S)}\vf$$
+    where Stokes is applied in the last step.
+    \item Finally, this last integral can be realized as the sum of indices of $X$, which by Poincaré-Hopf is precisely the Euler characteristic.
+\end{itemize}
+
+\subsection{Really quickly: Chern classes}
+
 \begin{enumerate}
-    \item Graphs as CW complex
-    \item Chern Gauss Bonnet for euler char of tangent bundle, talk a bit about tangent bundle.
-    \item Prove CGB
+    \item Comment that Chern classes exist as cohomology elements of $B$ in $E\to B$. 
+    \item Define euelr class as top chern class.
 \end{enumerate}
 
 
