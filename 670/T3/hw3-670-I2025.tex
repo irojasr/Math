@@ -18,7 +18,7 @@
 	\begin{enumerate}
 		\item Show that the set of right-invariant vector fields on $G$ forms a Lie algebra with bracket given by the Lie bracket of vector fields. Note that the right-invariant vector fields form a vector space which is isomorphic to $T_eG$.
 		
-		\item Let $\inv: G \to G$ be given by $\inv(g) = g^{-1}$. Prove that if $X$ is a left-invariant vector field on $G$, then $d\inv(X)$ is a right-invariant vector field whose value at $e$ is $-X_e$.
+		\item Let $\inv: G \to G$ be given by $\inv(g) = g^{-1}$. Prove that if $X$ is a left-invariant vector field on $G$, then $\dd \inv(X)$ is a right-invariant vector field whose value at $e$ is $-X_e$.
 		
 		\item Prove that the map $-d\inv$ from left-invariant vector fields to right-invariant vector fields is a Lie algebra isomorphism. (The point is that we could just have well chosen to interpret the Lie algebra of $G$ as the right-invariant vector fields rather than the left-invariant ones.)
 	\end{enumerate}
@@ -37,9 +37,44 @@
 %%%b
 %https://www.reddit.com/r/learnmath/comments/1435v54/about_rightleft_invariant_vector_fields_and_lie/
 %https://bohr.physics.berkeley.edu/classes/250/f15/notes/liegroup.pdf
+%https://mathoverflow.net/questions/55679/lie-bracket-of-invariant-vector-fields
 
+\iffalse
+First let us recall that a left-invariant vector field is an $X\in\cX(G)$ such that 
+		$$\dd L_gX=X,\word{i.e.}\left(\dd L_g\right)_h (X(h)) = X(gh).$$ 
+		So in a similar fashion a right-invariant vector field should be an $X\in\cX(G)$ such that $\dd R_gX=X$. This is, for $h\in G$
+		$$\left(\dd R_g\right)_h (X(h)) = X(hg)$$
+		where the action of $R_g$ is 
+		$$R_g(h)=hg,\word{for}h\in G.$$
+		Call $\g^R$ the set of right-invariant vector fields, it suffices to show that the Lie bracket of two right-invariant vector fields is also right-invariant. To that effect we employ Lemma 3.3.8, we have that 
+		$$\dd R_g([X,Y](h))=[X,Y](R_g(h))=[X,Y](hg).$$
+\fi
+
+I will allow myself just a quick refresher. If we have a diffeomorphism $F\: M\to N$, then there is a pushforward onto tangent spaces:
+$$F_\ast\mid_x\:T_x M\to T_{y}N,\quad y=F(x).$$
+This in turn can map vector fields into vector fields via the rule
+$$(F_\ast\mid_x)(X\mid_x)=(F_\ast X)\mid_{y}.$$
+Recall a left-invariant vector field is $X\in\g$ defined by 
+$$\dd L_gX=X,\word{equivalently}\left(\dd L_g\right)_h (X(h)) = X(gh),\quad h\in G.$$ 
+In regards to the previous terms this means that
+$$(L_g)_\ast X=X,\word{or}((L_g)_\ast\mid_h)(X(h))=((L_g)_\ast X)\mid_{L_g(h)}=X(gh),$$
+for $h\in G$. So this means that a right-invariant vector field arises from the right action of $G$ on itself given by $R_g(h)=hg$. The right-invariant vector fields form a set $\g^R$ determined by the rule
+$$(R_g)_\ast X=X\iff ((R_g)_\ast\mid_h)(X(h))=X(hg).$$
+Restating finally lemma 3.3.8 for $M=N=G$ and $f=R_g$ we have the key ingredient for the first part: 
+$$(\dd R_g)_h([X,Y](h))=[X,Y](R_g(h))=[X,Y](hg).$$
 \begin{ptcbr}
-
+	\begin{enumerate}
+		\item To prove that $\g^R$ is a Lie algebra, it suffices to see that the Lie bracket of vector fields obeys that same right-invariance. Let $g,h\in G$ and take $X,Y\in\g^R$, we wish to see that 
+		$$((R_g)_\ast\mid_h)([X,Y](h))=[X,Y](hg).$$
+		Immediately from lemma 3.3.8 we have the desired result.
+		\item The map $\dd\inv$ is the pushforward of the map $g\mapsto g^{-1}$ in $G$. Assume then that $X\in\g$, applying $\dd\inv$ to our left-invariance relation we have
+		\begin{align*}
+			&(L_g)_\ast X=X\\
+			\To&\inv_ast(L_g)_\ast X=\inv_\ast X\\
+			\To&(R_{g^{-1}})_\ast\inv_\ast X=\inv_\ast X
+		\end{align*}
+		so that $\inv_\ast X$ is a right-invariant vector field. Evaluating at the identity we get 
+	\end{enumerate}
 \end{ptcbr}
 \begin{Ej}
     Consider the special orthogonal group $\SO(3)$ of all $3 \times 3$ matrices $B$ such that 
@@ -48,7 +83,7 @@
 	\]
 	We saw in section 3.4 that
 	\[
-		A_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, A_2 = \begin{bmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{bmatrix}, A_1 = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
+		A_1 = \begin{bmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{bmatrix}, A_2 = \begin{bmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{bmatrix}, A_3 = \begin{bmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}
 	\]
 	gives a basis for $T_I\SO(3)$ so that $[A_1, A_2]=A_3$, $[A_2,A_3]=A_1$, and $[A_3,A_1]=A_2$. Notice also that $A_3 = \gamma_3'(0)$, where
 	\[
