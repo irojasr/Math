@@ -97,7 +97,7 @@ Chern's original proof goes along the following lines:
     \item Finally, this last integral can be realized as the sum of indices of $X$, which by Poincaré-Hopf is precisely the Euler characteristic.
 \end{itemize}
 
-\subsection{Really quickly: The Euler class}
+\subsection{Really quickly: Undefined to defined}
 
 Vector bundles $E\xrightarrow[]{\pi}B$ carry certain information through their Chern classes. These are elements in $A^i(B)$, the $i^{\text{th}}$ Chow group of $B$, which we may interpret via
 $$A^i(B)\to H_{2n-2i}(B)\to H^{2i}(B)$$
@@ -113,13 +113,52 @@ where the first map takes cycles to cycles and then we're applying Poincaré dua
 In other words, we may think of the Euler class as the top Chern class of a vector bundle.
 \end{Rmk}
 
+\begin{Ex}
+    The tangent bundle to a manifold carries an Euler class which is the class of a divisor of a section. In the case of the tangent bundle, a section is a vector field! So in essence, finding the value of $\int_Me(TM)$ becomes a matter of counting the zeroes and poles of a vector field over $M$.
+\end{Ex}
 
+\begin{Ex}
+    Consider the vector field $F$ over the sphere $S^2$ given by 
+    $$F(x,y,z)=(zx,zy,1-z^2).$$
+    This is a section of $TS^2$ and 
+    $$\bonj{\div(F)}=\bonj{\kk}+\bonj{-\kk}$$
+    corresponds to the zeroes of this vector field. This means that 
+    $$e(TS^2)=2\bonj{\text{pt.}}$$
+    and so 
+    $$\chi(S^2)=\int_{S^2}2\bonj{\text{pt.}}=2$$
+    which coincides with our established notion.
+\end{Ex}
+
+\begin{Rmk}
+    For more examples on vector field ideas, say for the torus, check out \href{https://mathoverflow.net/questions/153961/constructing-a-vector-field-with-given-zeros-on-a-torus}{this math.of post} or \href{https://math.stackexchange.com/questions/213901/vector-fields-on-torus}{this math.se post} or \href{https://math.stackexchange.com/questions/3604214/non-vanishing-vector-fields-on-the-2-torus}{this other one math.se}. Also check \href{https://mathoverflow.net/questions/97449/computing-the-euler-characteristic-of-the-complex-projective-plane-using-differe}{this math.ov for projective plane}.
+\end{Rmk}
+
+My reference for the definition of the integral comes form Fulton and Pandharipande \cite{FPNotes}.
+
+\begin{Def}[\cite{FPNotes} pg. 2]
+    For a complete variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
+    $$\int_\bt c=\deg(c_k,\bt)$$
+    where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional \begin{Def}[\cite{FPNotes} pg. 2]
+        For a complete \red{In which sense? Cauchy sequences? Is it a Cauchy space\footnote{\href{https://en.wikipedia.org/wiki/Cauchy_space}{insane (clicky clicky)}}} variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
+        $$\int_\bt c=\deg(c_k,\bt)$$
+        where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional \red{can a class $\bt$ not be closed or pure-dimensional?} subvariety of $X$, then we write 
+        $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
+    \end{Def}subvariety of $X$, then we write 
+    $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
+\end{Def}
+
+It is part of my goal to concile this definition and the algebraic definition of the Euler class with our differential-geometric points of view.
+
+\subsection{More differential-geometric}
+
+%%https://www.hiroleetanaka.com/pdfs/2014-fall-230a-lecture-26-gauss-bonnet-chern.pdf
+%%Ver refs en https://ncatlab.org/nlab/show/Euler+class
+
+TODO
 \begin{enumerate}
-    \item Comment that Chern classes exist as cohomology elements of $B$ in $E\to B$. 
-    \item Define euelr class as top chern class.
+    \item Escribir EqCohom y TmaAtiyahBott
+    \item Ver ejemplos de variedades toricas con AB
 \end{enumerate}
-
-
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
