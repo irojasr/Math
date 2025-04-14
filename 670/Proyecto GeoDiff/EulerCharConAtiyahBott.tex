@@ -138,25 +138,206 @@ My reference for the definition of the integral comes form Fulton and Pandharipa
 \begin{Def}[\cite{FPNotes} pg. 2]
     For a complete variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
     $$\int_\bt c=\deg(c_k,\bt)$$
-    where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional \begin{Def}[\cite{FPNotes} pg. 2]
-        For a complete \red{In which sense? Cauchy sequences? Is it a Cauchy space\footnote{\href{https://en.wikipedia.org/wiki/Cauchy_space}{insane (clicky clicky)}}} variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
-        $$\int_\bt c=\deg(c_k,\bt)$$
-        where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional \red{can a class $\bt$ not be closed or pure-dimensional?} subvariety of $X$, then we write 
-        $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
-    \end{Def}subvariety of $X$, then we write 
+    where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional subvariety of $X$, then we write 
     $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
 \end{Def}
 
 It is part of my goal to concile this definition and the algebraic definition of the Euler class with our differential-geometric points of view.
 
 \subsection{More differential-geometric}
-
 %%https://www.hiroleetanaka.com/pdfs/2014-fall-230a-lecture-26-gauss-bonnet-chern.pdf
 %%Ver refs en https://ncatlab.org/nlab/show/Euler+class
+We must take a small detour into concepts which we haven't defined yet in class.
 
-TODO
+\subsubsection{Definitions, definitions, definitions\dots}
+
+The concept of an affine connection arises from the necessity of defining a derivative of a vector field $X$ in the \emph{direction of another vector field} $Y$.
+
+\begin{Def}
+    An \term{affine connection} over a manifold $M$ is bilinear map 
+    $$\nbf\:\cX(M)^2\to\cX(M),\quad (X,Y)\mapsto \nbf_XY$$
+    which is $\Coo(M)$-linear in $X$ and satisfies a Leibniz rule in $Y$:
+    \begin{gather*}
+        \nbf_{fX}Y=f\nbf_XY\\
+        \nbf_{X}(fY)=(Xf)Y+f\nb_XY\\
+    \end{gather*}
+    for any $f\in\Coo(M)$.
+\end{Def}
+
+Now on the other hand, topologists have the notion of distance and metric too intertwined. For our purposes, these are subtly different.
+
+\begin{Def}
+    A \term{Riemmannian manifold} is a pair $(M,g)$ formed by a manifold $M$ and a \term{Riemmannian metric} $g$ over it. This is symmetric and positive-definite map:
+    $$g\:\cX(M)^2\to\Coo(M).$$
+\end{Def}
+
+\begin{Rmk}
+    In essence, $g_p$ is a real inner product over $T_pM$ depending smoothly on the point $p$.    
+\end{Rmk}
+
+These two concepts come hand-in-hand, we say that\dots
+
+\begin{Def}
+    An affine connection $\nbf$ is \un{compatible with the metric $g$} if its parallel transport is \emph{isometric}. This means that if $\ga$ is a smooth curve and $X,Y$ are \emph{parallel} over $\ga$, then 
+    $$g(X,Y)(\ga(t))=g_{\ga(t)}(X_{\ga(t)},Y_{\ga(t)})$$
+    is a constant function of $t$.
+\end{Def}
+
+Finally, before defining an important tool we will just say that\dots
+
+\begin{Def}
+    An affine connection $\nbf$ is \term{torsion-free} if 
+    $$\nbf_XY-\nbf_YX=[X,Y].$$
+    We call $T_\nbf=\nbf_XY-\nbf_YX-[X,Y]$ the torsion of the connection $\nbf$.
+\end{Def}
+
+\begin{Th}
+    Over a Riemmannian manifold $(M,g)$ there exists a unique affine connection which is 
+    \begin{itemize}
+        \item compatible with the metric $g$, and
+        \item torsion-free.
+    \end{itemize}
+    Such a connection is called the \term{Levi-Civita connection} of $M$ associated to the metric $g$.
+\end{Th}
+
+We're almost there, and we might think first about defining a kind of second derivative for vector fields, something like
+$$\nbf_X\nbf_YZ.$$
+Its local expression does include second derivatives, however it is \emph{not tensorial}! It's possible to modify this idea in order to have a tensor.
+
+\begin{Def}
+    For an affine connection $\nbf$ over $M$, we define the \term{curvature operator} as 
+    $$R(X,Y)\defeq \nbf_X\nbf_Y-\nbf_Y\nbf_X-\nbf_{[X,Y]}.$$
+\end{Def}
+
+So close now, just one last concept:
+
+\begin{Def}
+    For a skew-symmetric matrix $A$ of size $2n$, we can define its \term{Pfaffian} as 
+    $$\frac{1}{2^nn!}\sum_{\sg\in S_{2n}}\sgn(\sg)\prod_{k=1}^{n}a_{\sg(2i-1)\sg(2i)}.$$
+\end{Def}
+
+\subsection{What we came for\dots}
+%Ojo Hiroleetanaka ss 4
+The Euler class can be defined alternatively in terms of differential forms. 
+
+\begin{Def}
+    For a Riemmannian manifold $(M,g)$, we define the \term{Euler form} as 
+    $$e(R)=\frac{1}{(2\pi)^n}\Pf(R)$$
+    where $R$ is the associated curvature form of the Levi-Civita connection of $M$. The cohomology class of $e(R)$ is the Euler class.
+\end{Def}
+
+\begin{Rmk}
+    Let us observe two things:
+    \begin{enumerate}
+        \item First, by virtue of the Pfaffian and the fact that the curvature form is a $2$-form, the Euler class is a $2n$-form. Which means its a top form.
+        \item The cohomology class of $e(R)$ is independent of $\nbf$ or $g$ and its a closed form.
+    \end{enumerate}
+\end{Rmk}
+
+\begin{Qn}
+How is it that my Euler class and this Euler class are related?
+\end{Qn}
+
+\section{Equivariant cohomology and localization}
+
+Manifolds usually don't come by themselves, like in the case of homogenous spaces, some manifolds have a lot of symmetries. These can be expressed by a group action on the manifold. We would like a cohomology theory which retains information on the group action!
+
+\begin{Ex}[A na\"ive approach]
+    Consider the $S^1$ action $\bCP^1$ given by $u\. z=uz$. This action has two fixed points, $0$ and $\infty$. Observe also that 
+    $$u\.z=z\iff u=1.$$
+    If we were to define the a cohomology which retains information on the group action (equivariant cohomology), we could say 
+    $$H_{S^1}^\ast(\bCP^1)\defeq H^\ast(\quot{\bCP^1}{S^1}).$$
+    However the orbit space $\quot{\bCP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
+\end{Ex}
+
+Instead of considering the cohomology of the orbit space $M/G$, which doesn't retain information on the group action, we should look for an alternive which does.
+
+\subsection{The Borel construction}
+
+The main idea for this concept is that homotopy equivalent spaces have the same cohomology. Suppose $G$ acts on $M$, let us create a space $EG$, a \emph{classifying space}, with the following properties:
+
 \begin{enumerate}
-    \item Escribir EqCohom y TmaAtiyahBott
+    \item The right action $EG\. G$ is free. ($\forall x(\Stab(x)=0)$)
+    \item $EG$ is contractible. 
+    \item There exists a unique $EG$ up to homotopy. ($EG$ satisfies a universal property in a category of $G$-spaces)
+\end{enumerate}
+
+This sounds a bit risky to ask, because questions may arise. But let's avoid them for now, instead observe that 
+$$M\x EG\isom M$$
+as $EG$ is contractible! 
+
+\begin{Def}
+    We call the \term{orbit space}\footnote{This is now overloading the previous definition of orbit space $M/G$.} of $M$ the quotient
+    $$M_G\defeq\quot{M\x EG}{(g\.x,y)\sim(x,y\.g)}.$$
+    From this we define the \term{equivariant cohomology} of $M$ as 
+    $$H_G^\ast(M)\defeq H^\ast(M_G).$$
+\end{Def}
+
+\begin{Ex}[Cohomology of a point]
+We know that the usual cohomology of a point is trivial, but let's check two examples to see what changes.
+\begin{enumerate}
+    \item First consider the (trivial) action of $\bZ$ on a point. In this case we have
+    $$E\bZ=\bR\word{with}x\.n=x+n.$$
+    This is a free action and $\bR$ is contractible\footnote{You'll have to trust me on the fact that $\bR$ is unique up to homotopy on this one.}. Find the classifying space isn't very bad:
+    $$\pt_\bZ=\quot{\bR}{x\sim x+n}\isom S^1$$
+    so that 
+    $$H_\bZ^\ast(\pt)=H^\ast(S^1)=\quot{\bZ[t]}{t^2}.$$
+    \item Now let's take a bigger group, say $U(1)$, but for our purposes let's call it $T$ as in torus. The classifying space here is 
+    $$ET=\bC^\infty\less\set{0},\word{with}\al\.\un{z}=(\al z_i)_i.$$
+    The action takes a sequence of complex numbers and scalar-multiplies it by $\al\in T$. 
+    %%https://mathoverflow.net/questions/198/how-do-you-show-that-s-infty-is-contractible
+    This action is free, and we may see that $\bC^\infty\less\set{0}\isom S^\infty$. The infinite sphere is contractible by arguments out of my scope. And certainly, this classifying space is unique. But now, the quotient in question is 
+    $$\pt_T=\quot{\bC^\infty\less\set{0}}{\un{z}\sim \al\un{z}}\isom\bP^\infty.$$
+    The cohomology now is 
+    $$H^\ast_{T}\pt=H^\ast\bP^\infty=\bC[t].$$
+    From this example we can extend the calculation to see that for an $n$-dimensional torus $T^n$ we have 
+    $$H^\ast_{T^n}\pt=H^\ast(\bP^\infty)^n=\bC[t_1,\dots,t_n]$$
+    by the K\"unneth formula.
+\end{enumerate}
+\end{Ex}
+
+Questions remain for me such as\dots
+
+\begin{Qn}
+    What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{At the time of writing, Ignacio hasn't read Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
+\end{Qn}
+
+\begin{Rmk}
+    One can see that the idea of constructing the cohomology of the orbit space goes haywire as soon as our space is not a point. For $\bP^1$ one has to find
+    $$H^\ast\left(\quot{T^2\x\bP^2}{\sim}\right)$$
+    which becomes unsurmountably hard.
+\end{Rmk}
+
+To solve this issue we ask for help with the\dots
+
+\subsection{Atiyah-Bott localization theorem}
+
+\begin{Th}[Atiyah and Bott, 1984]
+    If $G\.M$ is an action and $F_k\subseteq M$ are the fixed loci of the action $G\.F_k=F_k$, then there exists an isomorphism of cohomologies
+    $$H^\ast_G(M)\isom \bigoplus_kH^\ast_G(F_k)$$
+    where the inclusion maps $i_k\: F_k\into M$ induce the morphisms:
+    \begin{itemize}
+        \item $\un{i}^\ast\:\to$, and
+        \item $\frac{i_\ast}{e(N_{\.\mid M})}\:\leftarrow$, where $N_{Y\mid X}$ is the normal bundle $Y\subseteq X$.
+    \end{itemize}
+\end{Th}
+
+To say that we're using a localization technique to find cohomology is to apply the Atiyah-Bott theorem.
+
+\begin{Ex}[Projective line cohomology via localization]
+First, let's clearly define the action of $T^2=(\bC\less\set{0})^2$ on $\bP^1$. For $\un{\al}\in T^2$ and $[X,Y]\in\bP^1$ we have
+$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}\footnote{I know this is an unorthodox choice, but it's so that the weights of a certain representation are aligned properly. I'm already too traumatized to do it the \emph{correct} way.}.$$
+Then, the only fixed points of this action are $0=[0:1]$ and $\infty=[1:0]$:
+$$\un{\al}\.[0:1]=\bonj{0:\frac{1}{\al_2}}=[0:1],\word{and}\un{\al}\.[1:0]=\bonj{\frac{1}{\al_1}:0}=[1:0].$$
+Proving that there's no more fixed points amounts to a linear algebra exercise. Applying Atiyah-Bott we now have that 
+\begin{gather*}
+    H_{T^2}^\ast(\bP^1)\isom H_{T^2}^\ast([0:1])\oplus H_{T^2}^\ast([1:0])\\
+    \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\footnote{Believe me on this one. This is the actual cohomology.}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
+\end{gather*}
+But the question is, how does this isomorphism work? It suffices to see where the generators go. \red{FINISH}
+\end{Ex}
+\begin{enumerate}
+    \item Terminar AB de P1
     \item Ver ejemplos de variedades toricas con AB
 \end{enumerate}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
