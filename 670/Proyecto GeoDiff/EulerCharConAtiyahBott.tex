@@ -155,7 +155,7 @@ The concept of an affine connection arises from the necessity of defining a deri
 
 \begin{Def}
     An \term{affine connection} over a manifold $M$ is bilinear map 
-    $$\nbf\:\cX(M)^2\to\cX(M),\quad (X,Y)\mapsto \nbf_XY$$
+    $$\nbf\:\gX(M)^2\to\gX(M),\quad (X,Y)\mapsto \nbf_XY$$
     which is $\Coo(M)$-linear in $X$ and satisfies a Leibniz rule in $Y$:
     \begin{gather*}
         \nbf_{fX}Y=f\nbf_XY\\
@@ -168,7 +168,7 @@ Now on the other hand, topologists have the notion of distance and metric too in
 
 \begin{Def}
     A \term{Riemmannian manifold} is a pair $(M,g)$ formed by a manifold $M$ and a \term{Riemmannian metric} $g$ over it. This is symmetric and positive-definite map:
-    $$g\:\cX(M)^2\to\Coo(M).$$
+    $$g\:\gX(M)^2\to\Coo(M).$$
 \end{Def}
 
 \begin{Rmk}
@@ -316,10 +316,10 @@ To solve this issue we ask for help with the\dots
     If $G\.M$ is an action and $F_k\subseteq M$ are the fixed loci of the action $G\.F_k=F_k$, then there exists an isomorphism of cohomologies
     $$H^\ast_G(M)\isom \bigoplus_kH^\ast_G(F_k)$$
     where the inclusion maps $i_k\: F_k\into M$ induce the morphisms:
-    \begin{itemize}
-        \item $\un{i}^\ast\:\to$, and
-        \item $\frac{i_\ast}{e(N_{\.\mid M})}\:\leftarrow$, where $N_{Y\mid X}$ is the normal bundle $Y\subseteq X$.
-    \end{itemize}
+    $$\un{i}^\ast\:H^\ast_G(M)\to\bigoplus_kH^\ast_G(F_k),$$
+    component-wise this is the pullback of each $i_k$. And on the other direction it's
+ $$\frac{i_\ast}{e(N_{\.\mid M})}\:\oplus H^\ast_G(F_k)\to H^\ast_G(M),$$ 
+ where $N_{Y\mid X}$ is the normal bundle $Y\subseteq X$.
 \end{Th}
 
 To say that we're using a localization technique to find cohomology is to apply the Atiyah-Bott theorem.
@@ -334,7 +334,15 @@ Proving that there's no more fixed points amounts to a linear algebra exercise. 
     H_{T^2}^\ast(\bP^1)\isom H_{T^2}^\ast([0:1])\oplus H_{T^2}^\ast([1:0])\\
     \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\footnote{Believe me on this one. This is the actual cohomology.}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
 \end{gather*}
-But the question is, how does this isomorphism work? It suffices to see where the generators go. \red{FINISH}
+But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
+$$\un i^\ast\left\lbrace
+\begin{aligned}
+    &t_1\mapsto (t_1,t_1),\\
+    &t_2\mapsto (t_2,t_2),\\
+    &H\mapsto (t_1,t_2).
+\end{aligned}
+\right.$$
+Whereas the generators on the right are the classes of the points $[0]=(1,0)$ and $[\infty]=(0,1)$.
 \end{Ex}
 \begin{enumerate}
     \item Terminar AB de P1
