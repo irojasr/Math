@@ -6,10 +6,10 @@
 \def\nprofesor {Clayton Shonkwiler}
 \def\nsigla {MATH670}
 \def\nsiglahead {Differential Geometry}
-\def\nextra {HW2}
+\def\nextra {HW3}
 \def\nlang {ENG}
 \input{../../headerVarillyDiff}
-\DeclareMathOperator{\inv}{inv}
+
 \begin{document}
 %\begin{multicols}{2}
 
@@ -64,16 +64,45 @@ Restating finally lemma 3.3.8 for $M=N=G$ and $f=R_g$ we have the key ingredient
 $$(\dd R_g)_h([X,Y](h))=[X,Y](R_g(h))=[X,Y](hg).$$
 \begin{ptcbr}
 	\begin{enumerate}
-		\item To prove that $\g^R$ is a Lie algebra, it suffices to see that the Lie bracket of vector fields obeys that same right-invariance. Let $g,h\in G$ and take $X,Y\in\g^R$, we wish to see that 
-		$$((R_g)_\ast\mid_h)([X,Y](h))=[X,Y](hg).$$
-		Immediately from lemma 3.3.8 we have the desired result.
+		\item To prove that $\g^R$ is a Lie algebra, it suffices to see that the Lie bracket of vector fields obeys that same right-invariance. Let $g,h\in G$ and take $X^R,Y^R\in\g^R$, we wish to see that 
+		$$((R_g)_\ast\mid_h)([X^R,Y^R](h))=[X^R,Y^R](hg).$$
+		Lemma 3.3.8 from the notes asserts that this is the case and thus, we have the desired result.
 		\item The map $\dd\inv$ is the pushforward of the map $g\mapsto g^{-1}$ in $G$. Assume then that $X\in\g$, applying $\dd\inv$ to our left-invariance relation we have
 		\begin{align*}
 			&(L_g)_\ast X=X\\
-			\To&\inv_ast(L_g)_\ast X=\inv_\ast X\\
+			\To&\inv_\ast(L_g)_\ast X=\inv_\ast X\\
 			\To&(R_{g^{-1}})_\ast\inv_\ast X=\inv_\ast X
 		\end{align*}
-		so that $\inv_\ast X$ is a right-invariant vector field. Evaluating at the identity we get 
+		so that $\inv_\ast X$ is a right-invariant vector field. The implication from second to third line comes from the fact that 
+		$$\inv\circ L_g=R_{g^{-1}}\circ\inv$$
+		and then pushforwarding from $G$ to $\g$.\par
+		I couldn't quite piece the value at the identity. But we have the following:
+		\begin{itemize}
+			\item Every right-invariant vector field $X^R$'s values at any point $g\in G$ is determined via the formula 
+			$$X^R(g)=(\dd R_g)_e(X^R(e)),$$
+			i.e. by $X^R$'s value at the identity.
+			\item Same business happens for LIVF's: 
+			$$X(g)=(\dd L_g)_e(X(e)).$$
+		\end{itemize}
+		As $\dd \inv X$ is a RIVF, we have 
+		$$(\inv_\ast X)(g)=((R_g)_\ast)_e((\inv_\ast X)(e)).$$
+		Via our previous relation this is 
+		$$((R_g)_\ast)_e((\inv_\ast X)(e))= \inv_\ast ( (L_{g^{-1}})_\ast)_e X(e)=\inv_\ast X(g^{-1}).$$
+		Now, consider the diagram
+		\begin{center}
+			% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAHEQBfU9TXfIRQBGclVqMWbTjz7Y8BImWHj6zVohAAdLQHNuvEBnmCioldTVTNO-V3Ewou+EVAAzAE4QAtkjIgcCCQAJktJDW0tABksVmoGOgAjGAYABX4FIRAPLF0ACxwDdy9fRH9ApFEJdTYdLDAaEHiklPSTRU0GGDdC2RBPHxDqCsQAZjCamy16mgB9HTo4QubktIzTTRz83sMB0qqR0fsuIA
+\begin{tikzcd}
+	G \arrow[d, "X"'] \arrow[r, "\inv"] & G \arrow[d] \\
+	\g \arrow[r, "\inv_\ast"']             & \g         
+	\end{tikzcd}
+		\end{center}
+		Assuming the diagram commutes, then 
+		$$\inv_\ast(X(g))=X(\inv(g))=X(g^{-1}).$$
+		This is the only relation I can find between $\inv_\ast X$ and $X$ itself. As others only have either $X$'s or $\inv_\ast X$. Returning this to the relation we get
+		$$((R_g)_\ast)_e((\inv_\ast X)(e))=X(g)$$
+		as $\inv$ is involutive. Setting $g=e$ doesn't lead me anywhere reasonable, as I can't exactly see where to go from here. \red{Where does the minus sign come from?}
+		\item Finally, let us assume the second item. It suffices to see that the Lie bracket is preserved. To that effect, take two vector fields $X,Y$ and observe that 
+		$$-\inv_\ast[X,Y]=[X,Y]^R=[X^R,Y^R]=[-\inv_\ast X,-\inv_\ast Y].$$
 	\end{enumerate}
 \end{ptcbr}
 \begin{Ej}
@@ -100,7 +129,10 @@ $$(\dd R_g)_h([X,Y](h))=[X,Y](R_g(h))=[X,Y](hg).$$
 %https://web.williams.edu/Mathematics/it3/texts/so3.pdf
 %https://pvangoor.github.io/mathematics/2025/02/15/special_orthogonal_so3.html
 \begin{ptcbr}
-
+In my attempt to answer this question I've been reminded of the fact that $\gso(3)'=\gso(3)$. I must admit I don't know exactly how to apply this fact.\par
+On the other hand, I would like to follow example 2.7.6 but I'm completely lost on how to do it. Say I have the 1-form $\al_1$ and I want to find
+$$\dd\al_1(V_2,V_3)=\dots=\cL_{V_2}\al_1(V_3).$$
+But the calculation doesn't go exactly like that example. I need to discuss it.
 \end{ptcbr}
 \begin{Ej}
     Let $G$ be a compact Lie group and assume $\langle \cdot , \cdot \rangle$ is an $\operatorname{Ad}$-invariant inner product on $\mathfrak{g}$ (an $\operatorname{Ad}$-invariant inner product on $\mathfrak{g}$ is one that satisfies $\langle X,Y \rangle = \langle \operatorname{Ad}_g X, \operatorname{Ad}_g Y \rangle$ for all $g \in G$ and for any $X,Y \in \mathfrak{g}$). 
@@ -119,6 +151,13 @@ $$(\dd R_g)_h([X,Y](h))=[X,Y](R_g(h))=[X,Y](hg).$$
 %%%c
 %https://math.stackexchange.com/questions/17856/visualizing-the-fundamental-group-of-so3
 \begin{ptcbr}
-
+\begin{enumerate}
+	\item It's clear that if $X=Y$ then $\tau$ is zero, but when $Z=X$ we have 
+	$$\langle[X,Y],X\rangle=\langle\Ad_g[X,Y],\Ad_gX\rangle.$$
+	Expanding the adjoint map and using bilinearity we get
+	$$\langle gXYg^{-1},gXg^{-1}\rangle-\langle gYXg^{-1},gXg^{-1}\rangle.$$
+	Applying the $\Ad$ invariance again doesn't lead anywhere. \red{I can't quite figure out where to proceed.}
+\end{enumerate}
+I didn't give myself the opportunity to try the other parts and didn't understand how to apply the hint :(
 \end{ptcbr}
 \end{document} 
