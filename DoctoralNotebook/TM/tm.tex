@@ -15,10 +15,70 @@
 \author{\nauthor}
 \begin{document}
 
-\chapter{Introduction}
 
-It is my interest to study Riemmanian manifolds and their classification, furthermore, understanding maps between moduli spaces of this manifolds and projective space. The classification entails quite the journey, and we need to start somewhere. We begin our study with the most basic compact Riemmanian manifold, the\dots
+\chapter{Introduction and background}
 
+Our goal is to understand the calculation of Gromov-Witten invariants of the space $\ov M_{g,n}(\bP^r,d)$, the moduli space of degree $d$ maps to $\bP^r$ using techiniques of Atiyah-Bott localization. To begin this endeavor, we must explore $\ov\cM_{g,n}$ first and its intersection theory. This is the space of genus $g$ Riemann surfaces with $n$ marked points which was studied by Deligne and Mumford originally. Afterwards, we will introduce the concept of equivariant cohomology and the Atiyah-Bott theorem. The theorem's usefulness will be presented by showing several examples and finally we will apply it to calculate more examples in the setting of the moduli space of maps.
+
+\section{Moduli of curves}
+
+\begin{Def}
+    A \term{Riemann surface} is a complex analytic manifold of dimension $1$. 
+\end{Def}
+    
+For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$.
+    
+\begin{Ex}
+        The following classes define Riemann surfaces.
+        \begin{enumerate}
+        \item $\bC$ itself is a Riemann surface with one chart.
+        \item Any open set of $\bC$ is a Riemann surface.
+        \item A holomorphic function $f\: U\subseteq\bC\to\bC$ defines a Riemann surface by considering $\Ga_f\subseteq\bC^2$. There's only one chart determined by the projection and the inclusion $i_{\Ga_f}$ is its inverse.
+        \item Take another holomorphic function $f$, then $\set{f(x,y)=0}$ is a Riemann surface such that 
+        $$\text{Sing}(f)=\set{\del_xf=\del_yf=f=0}=\emptyset.$$
+        This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. To show that this is a complex manifold, we will use the inverse function theorem. 
+        \item The first compact example is $\bCP^1$.
+        \end{enumerate}
+\end{Ex}
+
+\begin{Def}
+    A genus $g$, $n$-pointed \term{stable curve} is a projective curve $(C,p_1,\dots,p_n)$ satisfying the following properties:
+    \begin{enumerate}
+        \item Marked points $p_i$ are all distinct and lie in the smooth locus of the curve.
+        \item Singularities of $C$ are, at worst, nodal.
+        \item Each connected component of the curve with genus $g_i$ and $n_i$ nodes or marks satisfies 
+        $$2g_i-2+n_i>0.$$
+    \end{enumerate}
+\end{Def}
+
+The moduli space of curves, $\ov\cM_{g,n}$, parametrizes stable curves with arithmetic genus $g$ and $n$ marked points. This means that any point of the moduli space is an equivalence class of curves up to homeomorphism type. 
+
+\begin{Ex}
+The moduli space $\ov{\cM}_{0,4}$ parametrizes stable rational curves with $4$ marks.\par 
+Inside this moduli space lies the dense open subset $\cM_{0,4}$ of smooth rational curves with $4$ marks. We have that 
+$$(\bP^1,p_1,\dots,p_4)\sim(\bP^1,q_1,\dots,q_4)$$
+whenever there is exists a Möbius transformation $T\in\PGL_2$ such that 
+$$(q_1,\dots,q_4)=(Tp_1,\dots,Tp_4).$$
+Any such Möbius transformation is determined by where it maps the points $0,1$ and $\infty$. With this fact in hand we may map the first $3$ points of our curve to $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
+$$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
+At the level of equivalence classes this means:
+$$[(\bP^1,(p_1,\dots,p_4))]=[(\bP^1,(0,1,\infty,t))]$$
+and so every equivalence class is determined by a unique $t\in\bP^1$. We call this value the \term{cross-ratio} of $(p_1,\dots,p_4)$. The Möbius transformation in question is
+$$T(z)=\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
+and the image of $p_4$, $t=T(p_4)$ is the aformentioned cross-ratio. This leads us to see that 
+$$\cM_{0,4}\isom\bP^1\less\set{0,1,\infty}.$$
+When we let $t\to 0,1$ or $\infty$, this appears to break the condition that marks must be distinct. But what happens is that we blow up the curve at that point of collision and attach our marks the exceptional divisor at different places. The point of contact then becomes a node and we do, indeed, get a stable curve. \red{need to explain better. I think I should talk about Riemann surfaces instead and then say R.S. is like a stable curve... How?}
+\end{Ex}
+
+\begin{Ex}
+    The space $\ov{\cM}_{1,1}$ is the space of genus 1, 1-pointed stable curves.\par
+    Any such genus $1$ curve is called an \emph{elliptic curve} and is isomorphic to 
+    $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
+    which means $L$ is a lattice inside $\bC$. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
+    $$\exists \al\in\bC^\x(L_2=\al L_1).$$
+    So that we may 
+\end{Ex}
+\iffalse
 \section{The Projective Line}
 
 Everything begins as a set\footnote{Unless it's a stack, stacks are not sets!} and in particular the projective line has an underlying set.
@@ -101,7 +161,7 @@ More than just a topological space, $\bCP^1$ is a complex analytic manifold
     \item Riemman-Roch,
     \item Serre Duality
 \end{enumerate}
-
+\fi
 \chapter{Moduli Spaces}
 
 \section{Toy example: quadruplets of points}
