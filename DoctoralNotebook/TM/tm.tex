@@ -25,8 +25,7 @@ Our goal is to understand the calculation of Gromov-Witten invariants of the spa
 \begin{Def}
     A \term{Riemann surface} is a complex analytic manifold of dimension $1$. 
 \end{Def}
-    
-For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$.
+For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$. We will interchangeably say Riemann surface or \emph{smooth compact complex curve}.
     
 \begin{Ex}
         The following classes define Riemann surfaces.
@@ -36,11 +35,58 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
         \item A holomorphic function $f\: U\subseteq\bC\to\bC$ defines a Riemann surface by considering $\Ga_f\subseteq\bC^2$. There's only one chart determined by the projection and the inclusion $i_{\Ga_f}$ is its inverse.
         \item Take another holomorphic function $f$, then $\set{f(x,y)=0}$ is a Riemann surface such that 
         $$\text{Sing}(f)=\set{\del_xf=\del_yf=f=0}=\emptyset.$$
-        This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. To show that this is a complex manifold, we will use the inverse function theorem. 
-        \item The first compact example is $\bCP^1$.
+        This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. The inverse function theorem guarantees that this is a complex manifold. 
+        \item Our first compact example is $\bCP^1$.
         \end{enumerate}
 \end{Ex}
 
+As a set, the moduli space $\cM_{g,n}$'s points are isomorphism classes of genus $g$, $n$-pointed Riemann surfaces. 
+
+\begin{Ex}
+    The space $\cM_{0,4}$ parametrizes smooth rational curves $(\bP^1,p_1,\dots,p_4)$. We have that 
+    $$(\bP^1,p_1,\dots,p_4)\sim(\bP^1,q_1,\dots,q_4)$$
+    whenever there is exists a Möbius transformation $T\in\PGL_2$ such that 
+    $$(q_1,\dots,q_4)=(Tp_1,\dots,Tp_4).$$
+    Any such Möbius transformation is determined by where it maps the points $0,1$ and $\infty$. With this fact in hand we may map the first $3$ points of our curve to $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
+    $$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
+    At the level of equivalence classes this means:
+    $$[(\bP^1,p_1,\dots,p_4)]=[(\bP^1,0,1,\infty,t)]$$
+    and so every equivalence class is determined by a unique $t\in\bP^1$. We call this value the \term{cross-ratio} of $(p_1,\dots,p_4)$. The Möbius transformation in question is
+    $$T(z)=\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
+    and the image of $p_4$, $t=T(p_4)$ is the aformentioned cross-ratio of $p_1,\dots,p_4$. This leads us to see that 
+    $$\cM_{0,4}\isom\bP^1\less\set{0,1,\infty}.$$
+\end{Ex}
+
+\begin{Ex}
+    The space $\cM_{1,1}$ parametrizes \emph{elliptic curves}.\par
+    Any such curve is isomorphic to 
+    $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
+    and the image of the origin under the quotient map is the natural choice for the marked point. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
+    $$\exists \al\in\bC^\x(L_2=\al L_1).$$
+    So that 
+    $$\cM_{1,1}=\quot{\set{\text{lattices}}}{\bC^\x}$$
+    but we can be more precise!\par
+    Explicitly, if 
+    $$L=\gen_\bZ(u,v)\To \tilde{L}=\frac{1}{u}L=\gen_\bZ(1,\tau).$$
+    This quantity $\tau$ always lies in the upper half plane when 
+    $$\arg(v)>\arg(u)\bmod[-\pi,\pi]$$
+    which means that $\tau\in\bH$ determines $\bonj{\quot{\bC}{L}}$. 
+    Let us apply two $\rSL_2(\bZ)=\gen(S,T)$ actions on $\tau$ which will leave the quotient unchanged:
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &T\:\tau\mapsto\tau+1=\twobytwo{1}{1}{0}{1}\circ\tau=\frac{\tau+1}{0+1},\\
+        &S\:\tau\mapsto-\frac1\tau=\twobytwo{0}{-1}{1}{0}\circ\tau=\frac{0-1}{\tau+0}.
+    \end{aligned}
+    \right.
+    $$
+    Then observe that the lattices
+    $$\gen_\bZ(1,T\circ\tau)\word{and}\gen_\bZ(1,S\circ\tau)$$
+    give us the same quotient. From this we can be more specific and say 
+    $$\cM_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
+\end{Ex}
+
+\subsection{Stable curves}
 \begin{Def}
     A genus $g$, $n$-pointed \term{stable curve} is a projective curve $(C,p_1,\dots,p_n)$ satisfying the following properties:
     \begin{enumerate}
@@ -55,127 +101,11 @@ The moduli space of curves, $\ov\cM_{g,n}$, parametrizes stable curves with arit
 
 \begin{Ex}
 The moduli space $\ov{\cM}_{0,4}$ parametrizes stable rational curves with $4$ marks.\par 
-Inside this moduli space lies the dense open subset $\cM_{0,4}$ of smooth rational curves with $4$ marks. We have that 
-$$(\bP^1,p_1,\dots,p_4)\sim(\bP^1,q_1,\dots,q_4)$$
-whenever there is exists a Möbius transformation $T\in\PGL_2$ such that 
-$$(q_1,\dots,q_4)=(Tp_1,\dots,Tp_4).$$
-Any such Möbius transformation is determined by where it maps the points $0,1$ and $\infty$. With this fact in hand we may map the first $3$ points of our curve to $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
-$$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
-At the level of equivalence classes this means:
-$$[(\bP^1,(p_1,\dots,p_4))]=[(\bP^1,(0,1,\infty,t))]$$
-and so every equivalence class is determined by a unique $t\in\bP^1$. We call this value the \term{cross-ratio} of $(p_1,\dots,p_4)$. The Möbius transformation in question is
-$$T(z)=\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
-and the image of $p_4$, $t=T(p_4)$ is the aformentioned cross-ratio. This leads us to see that 
-$$\cM_{0,4}\isom\bP^1\less\set{0,1,\infty}.$$
+Inside this moduli space lies the dense open subset $\cM_{0,4}$ of smooth rational curves with $4$ marks. 
 When we let $t\to 0,1$ or $\infty$, this appears to break the condition that marks must be distinct. But what happens is that we blow up the curve at that point of collision and attach our marks the exceptional divisor at different places. The point of contact then becomes a node and we do, indeed, get a stable curve. \red{need to explain better. I think I should talk about Riemann surfaces instead and then say R.S. is like a stable curve... How?}
 \end{Ex}
 
-\begin{Ex}
-    The space $\ov{\cM}_{1,1}$ is the space of genus 1, 1-pointed stable curves.\par
-    Any such genus $1$ curve is called an \emph{elliptic curve} and is isomorphic to 
-    $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
-    which means $L$ is a lattice inside $\bC$. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
-    $$\exists \al\in\bC^\x(L_2=\al L_1).$$
-    So that we may 
-\end{Ex}
-\iffalse
-\section{The Projective Line}
-
-Everything begins as a set\footnote{Unless it's a stack, stacks are not sets!} and in particular the projective line has an underlying set.
-
-\begin{Def}
-    As a set, the projective line is the set of lines through the origin in $\bC^2$:
-    $$\bCP^1\defeq \set{\l\subseteq \bC^2,\ 0\in \l},$$
-    where $\l$ is a line. 
-\end{Def}
-
-\begin{Rmk}
-    At some point we will begin to abbreaviate $\bCP^1$ to $\bP^1_{\bC}$ and further to $\bP^1$ given that in the context it's sufficiently clear that we're working over the complex numbers.
-\end{Rmk}
-
-We may identify this set with various other representations which may come in handy depending on the context we're talking about.
-
-\begin{Th}\label{thm-projective-line-as-set}
-    There is a bijection between $\bCP^1$ and the following sets:
-    \begin{enumerate}
-        \item The quotient 
-        $$\quot{\bC^2\less\set{(0,0)}}{x\sim\la x},\quad\la\neq 0$$
-        where equivalence classes are in bijection with $\bC^\ast$. This bijection is non-canonical.
-        \item The quotient of the real $S^3$ by antipodality:
-        $$\quot{S^3}{x\sim-x}.$$
-        \item A quotient of two disjoint copies of $\bC$:
-        $$\quot{(\bC,x)\amalg(\bC,y)}{y\sim\frac{1}{x}}$$
-        \item The disjoint union of $\bC$ and a point which we baptize ``$\infty$'':
-        $$\bC\amalg\set{\infty}.$$
-    \end{enumerate}
-\end{Th}
-
-\begin{ptcbp}
-\red{Prove this}
-\end{ptcbp}
-
-Observe that there are surjective maps from each of the premilinary sets onto our projective line: 
-$$
-\left\lbrace
-\begin{aligned}
-    &\pi_1\:\bC^2\less\set{(0,0)}\to\bCP^1,\quad \vec{z}\mapsto \la\vec{z}.\\
-    &\pi_2\:S^3\to\bCP^1,\quad \vec{z}\mapsto\la\vec{z}.\\
-    &\pi_3\:(\bC,x)\amalg(\bC,y)\to\bCP^1.
-\end{aligned}
-\right.
-$$
-
-Morally, the first two maps are taking a two dimensional complex vector and assigning to it the line through the origin which passes through that vector.\par
-However for the last map, we may imagine the copies of $\bC$ as other lines (not through the origin) in $\bC^2$. For example the lines $V(y-1)$ and $V(x-1)$ may represent our copies of $(\bC,x)$ and $(\bC,y)$ respectively. Then the map takes a point in $(\bC,x)$ and asks for the line through it. There's only one line not intersecting $V(y-1)$ which is the $x$ axis in $\bC^2$, but there's no qualms as $V(x-1)$ does intersect that line and thus we have the desired map $\pi_3$.\par
-It is clear that if we take any line through the origin in $\bC^2$ then we may find a preimage via any of this maps. This means that they descend as maps from the quotients to $\bCP^1$. 
-
-\begin{Th}
-    The quotient topologies $\tau_i$ induced by the maps $\pi_i$ on $\bCP^1$ are equivalent and make $\bCP^1$ a compact topological space.
-\end{Th}
-
-\begin{ptcbp}
-    Prove this
-\end{ptcbp}
-
-More than just a topological space, $\bCP^1$ is a complex analytic manifold
-
-\begin{itemize}
-    \item Write about chaps 4,5,6 Renzo
-\end{itemize}
-
-\section{Line bundles over $\bCP^1$}
-
-\begin{enumerate}
-    \item chapters 7,8,9,10 Renzo
-\end{enumerate}
-
-\section{The Picard group and the Chow ring}
-
-\section{Higher genus Riemann surfaces}
-
-\subsection{Maps between Riemann surfaces}
-
-\begin{enumerate}
-    \item Branch and Ramification points
-    \item Riemman-Hurwitz,
-    \item Riemman-Roch,
-    \item Serre Duality
-\end{enumerate}
-\fi
-\chapter{Moduli Spaces}
-
-\section{Toy example: quadruplets of points}
-
-\section{Quadruplets along $\bP^1$}
-
-\section{The moduli space of curves with $n$ marked points}
-
-\begin{enumerate}
-    \item Stable curves
-    \item Examples $\ov{M}_{0,4}, \ov{M}_{0,5}$ 
-\end{enumerate}
-
-\section{The tautological ring inside $A^\ast(\ov{M})$}
+\section{The tautological ring}
 
 \begin{enumerate}
     \item $\psi$, $\la$ classes
