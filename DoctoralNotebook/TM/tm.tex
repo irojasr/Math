@@ -38,14 +38,20 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
         This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. The inverse function theorem guarantees that this is a complex manifold. 
         \item Our first compact example is $\bCP^1$.
         \end{enumerate}
-\end{Ex}
+\end{Ex} 
 
-As a set, the moduli space $\cM_{g,n}$'s points are isomorphism classes of genus $g$, $n$-pointed Riemann surfaces. 
+\begin{Def}
+    The moduli space $\cM_{g,n}$ is the set of isomorphism classes of genus $g$, $n$-pointed Riemann surfaces.
+\end{Def}
+
+\begin{Rmk}
+This immediately implies that the parametrized curves are smooth complex algebraic curves.
+\end{Rmk}
 
 \begin{Ex}
-    The space $\cM_{0,4}$ parametrizes smooth rational curves $(\bP^1,p_1,\dots,p_4)$. We have that 
+    The space $\cM_{0,4}$ parametrizes genus $0$, $4$-pointed Riemann surfaces. These are $(\bP^1,p_1,\dots,p_4)$. We have that 
     $$(\bP^1,p_1,\dots,p_4)\sim(\bP^1,q_1,\dots,q_4)$$
-    whenever there is exists a Möbius transformation $T\in\PGL_2$ such that 
+    whenever there is exists a Möbius transformation, $T\in\PGL_2$, such that 
     $$(q_1,\dots,q_4)=(Tp_1,\dots,Tp_4).$$
     Any such Möbius transformation is determined by where it maps the points $0,1$ and $\infty$. With this fact in hand we may map the first $3$ points of our curve to $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
     $$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
@@ -58,7 +64,7 @@ As a set, the moduli space $\cM_{g,n}$'s points are isomorphism classes of genus
 \end{Ex}
 
 \begin{Ex}
-    The space $\cM_{1,1}$ parametrizes \emph{elliptic curves}.\par
+    The space $\cM_{1,1}$ parametrizes $1$-pointed \emph{elliptic curves}.\par
     Any such curve is isomorphic to 
     $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
     and the image of the origin under the quotient map is the natural choice for the marked point. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
@@ -81,24 +87,40 @@ As a set, the moduli space $\cM_{g,n}$'s points are isomorphism classes of genus
     \right.
     $$
     Then observe that the lattices
-    $$\gen_\bZ(1,T\circ\tau)\word{and}\gen_\bZ(1,S\circ\tau)$$
+    $$\gen_\bZ(1,T\.\tau)\word{and}\gen_\bZ(1,S\.\tau)$$
     give us the same quotient. From this we can be more specific and say 
     $$\cM_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
 \end{Ex}
 
 \subsection{Stable curves}
-\begin{Def}
-    A genus $g$, $n$-pointed \term{stable curve} is a projective curve $(C,p_1,\dots,p_n)$ satisfying the following properties:
+
+\begin{Def}[\cite{ZvonkineIntro}, pg. 16]
+    A genus $g$, $n$-pointed \term{stable curve} $(C,p_1,\dots,p_n)$ is a compact complex algebraic curve (\red{a complex manifold of dimension 1}) satisfying:
     \begin{enumerate}
-        \item Marked points $p_i$ are all distinct and lie in the smooth locus of the curve.
-        \item Singularities of $C$ are, at worst, nodal.
-        \item Each connected component of the curve with genus $g_i$ and $n_i$ nodes or marks satisfies 
-        $$2g_i-2+n_i>0.$$
+        \item The only singularities of $C$ are simple nodes.
+        \item Marked points and nodes are all distinct. Marked points and nodes do not coincide.
+        \item\label{fin-number-auts} $(C,p_1,\dots,p_n)$ has a finite number of automorphisms, or equivalently:
+        $$2-2g-n<0.$$
     \end{enumerate}
+    We assume these curves are connected. The \emph{genus} of $C$ is the arithmetic genus, or equivalently, the genus of the curve obtained when \emph{smoothening the nodes}.
 \end{Def}
 
-The moduli space of curves, $\ov\cM_{g,n}$, parametrizes stable curves with arithmetic genus $g$ and $n$ marked points. This means that any point of the moduli space is an equivalence class of curves up to homeomorphism type. 
+\begin{Qn}
+Was the smoothening regularization? Or whichever the $R$ map was?
+\end{Qn}
 
+\begin{Qn}
+    How to explain normalization? smoothening and separating the nodes?
+\end{Qn}
+
+\begin{Th}
+A stable curve admits a finite number of automorphisms (as in condition \ref{fin-number-auts}) if and only if every connected component $C_i$ of its normalization with genus $g_i$ and $n_i$ \emph{special} points satisfies 
+$$2-2g_i-n_i<0.$$
+\end{Th}
+
+\red{how to prove this?}
+
+\red{Should I write about families or just mention which are the compactifications of the previous moduli spaces?}
 \begin{Ex}
 The moduli space $\ov{\cM}_{0,4}$ parametrizes stable rational curves with $4$ marks.\par 
 Inside this moduli space lies the dense open subset $\cM_{0,4}$ of smooth rational curves with $4$ marks. 
@@ -133,4 +155,12 @@ When we let $t\to 0,1$ or $\infty$, this appears to break the condition that mar
     \item Toric varieties Euler characteristic via Atiyah-Bott
     \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
 \end{enumerate}
+
+%%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
+\ifx\nextra\undefined
+\printindex
+\else\fi
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{../bibiDoctoralNotebook.bib}
 \end{document}

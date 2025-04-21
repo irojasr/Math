@@ -147,49 +147,7 @@ It is part of my goal to concile this definition and the algebraic definition of
 \subsection{More differential-geometric}
 %%https://www.hiroleetanaka.com/pdfs/2014-fall-230a-lecture-26-gauss-bonnet-chern.pdf
 %%Ver refs en https://ncatlab.org/nlab/show/Euler+class
-We must take a small detour into concepts which we haven't defined yet in class.
-
-\subsubsection{Definitions, definitions, definitions\dots}
-
-The concept of an affine connection arises from the necessity of defining a derivative of a vector field $X$ in the \emph{direction of another vector field} $Y$.
-
-\begin{Def}
-    An \term{affine connection} over a manifold $M$ is bilinear map 
-    $$\nbf\:\gX(M)^2\to\gX(M),\quad (X,Y)\mapsto \nbf_XY$$
-    which is $\Coo(M)$-linear in $X$ and satisfies a Leibniz rule in $Y$:
-    \begin{gather*}
-        \nbf_{fX}Y=f\nbf_XY\\
-        \nbf_{X}(fY)=(Xf)Y+f\nb_XY\\
-    \end{gather*}
-    for any $f\in\Coo(M)$.
-\end{Def}
-
-Now on the other hand, topologists have the notion of distance and metric too intertwined. For our purposes, these are subtly different.
-
-\begin{Def}
-    A \term{Riemmannian manifold} is a pair $(M,g)$ formed by a manifold $M$ and a \term{Riemmannian metric} $g$ over it. This is symmetric and positive-definite map:
-    $$g\:\gX(M)^2\to\Coo(M).$$
-\end{Def}
-
-\begin{Rmk}
-    In essence, $g_p$ is a real inner product over $T_pM$ depending smoothly on the point $p$.    
-\end{Rmk}
-
-These two concepts come hand-in-hand, we say that\dots
-
-\begin{Def}
-    An affine connection $\nbf$ is \un{compatible with the metric $g$} if its parallel transport is \emph{isometric}. This means that if $\ga$ is a smooth curve and $X,Y$ are \emph{parallel} over $\ga$, then 
-    $$g(X,Y)(\ga(t))=g_{\ga(t)}(X_{\ga(t)},Y_{\ga(t)})$$
-    is a constant function of $t$.
-\end{Def}
-
-Finally, before defining an important tool we will just say that\dots
-
-\begin{Def}
-    An affine connection $\nbf$ is \term{torsion-free} if 
-    $$\nbf_XY-\nbf_YX=[X,Y].$$
-    We call $T_\nbf=\nbf_XY-\nbf_YX-[X,Y]$ the torsion of the connection $\nbf$.
-\end{Def}
+We now delve into the more differential geometric side, recall we have defined the Levi-Civita connection via the following theorem:
 
 \begin{Th}
     Over a Riemmannian manifold $(M,g)$ there exists a unique affine connection which is 
@@ -200,30 +158,29 @@ Finally, before defining an important tool we will just say that\dots
     Such a connection is called the \term{Levi-Civita connection} of $M$ associated to the metric $g$.
 \end{Th}
 
-We're almost there, and we might think first about defining a kind of second derivative for vector fields, something like
+And recall that the notion of connection gives rise to the idea of the covariant derivative. Now, our desired \emph{Euler form} will require a bit more, something like curvature. And for that, we first need to define a kind of second derivative for vector fields, something like
 $$\nbf_X\nbf_YZ.$$
-Its local expression does include second derivatives, however it is \emph{not tensorial}! It's possible to modify this idea in order to have a tensor.
+We're close, because its local expression does include second derivatives! However it is \emph{not tensorial}! It's possible to modify this idea in order to have a tensor.
 
 \begin{Def}
     For an affine connection $\nbf$ over $M$, we define the \term{curvature operator} as 
     $$R(X,Y)\defeq \nbf_X\nbf_Y-\nbf_Y\nbf_X-\nbf_{[X,Y]}.$$
 \end{Def}
 
-So close now, just one last concept:
-
-\begin{Def}
-    For a skew-symmetric matrix $A$ of size $2n$, we can define its \term{Pfaffian} as 
-    $$\frac{1}{2^nn!}\sum_{\sg\in S_{2n}}\sgn(\sg)\prod_{k=1}^{n}a_{\sg(2i-1)\sg(2i)}.$$
-\end{Def}
-
-\subsection{What we came for\dots}
 %Ojo Hiroleetanaka ss 4
-The Euler class can be defined alternatively in terms of differential forms. 
+From this, we can take information to define an Euler class alternatively in terms of differential forms. 
 
 \begin{Def}
     For a Riemmannian manifold $(M,g)$, we define the \term{Euler form} as 
     $$e(R)=\frac{1}{(2\pi)^n}\Pf(R)$$
     where $R$ is the associated curvature form of the Levi-Civita connection of $M$. The cohomology class of $e(R)$ is the Euler class.
+\end{Def}
+
+Here, $\Pf$ is an operator on linear maps, which is defined in general as follows.
+
+\begin{Def}
+    For a skew-symmetric matrix $A$ of size $2n$, we can define its \term{Pfaffian} as 
+    $$\frac{1}{2^nn!}\sum_{\sg\in S_{2n}}\sgn(\sg)\prod_{k=1}^{n}a_{\sg(2i-1)\sg(2i)}.$$
 \end{Def}
 
 \begin{Rmk}
@@ -235,7 +192,7 @@ The Euler class can be defined alternatively in terms of differential forms.
 \end{Rmk}
 
 \begin{Qn}
-How is it that my Euler class and this Euler class are related?
+How is it that my Euler class and this Euler class are related? How can I compute the euler characteristic of the sphere with this differential form, for example?
 \end{Qn}
 
 \section{Equivariant cohomology and localization}
@@ -342,8 +299,17 @@ $$\un i^\ast\left\lbrace
     &H\mapsto (t_1,t_2).
 \end{aligned}
 \right.$$
-Whereas the generators on the right are the classes of the points $[0]=(1,0)$ and $[\infty]=(0,1)$.
+Whereas the generators on the right are the classes of the points $[0]=(1,0)$ and $[\infty]=(0,1)$. These points are mapped to the following classes:
+$$i_\ast\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto h-t_2,\\
+    &[1:0]\mapsto h-t_1.
+\end{aligned}
+\right.$$
+\red{how was this idea? I remember we did this for $\bP^2$ as the intersection of two lines. But not exactly in $\bP^1$.} And now, we are left with finding the normal bundles $N_{\pt\mid\bP^1}$. Observe that we may use the tangent-normal sequence for subspaces as follows:
+$$0\to T\pt\hookto i^\ast T\bP^1\onto N_{\pt\mid\bP^1}\defeq \quot{T\bP^1}{T\pt}\to0$$
 \end{Ex}
+
 \begin{enumerate}
     \item Terminar AB de P1
     \item Ver ejemplos de variedades toricas con AB
