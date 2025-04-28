@@ -228,12 +228,68 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
     $$2-2(1)-1=-1<0.$$
 \end{Ex}
 
-\section{The tautological ring}
+\section{Cohomological classes of the moduli space}
 
+\subsection{The Chow ring}
+%Thanks to Richard E. Borcherds here
+Intuitively, for a non-singular variety $V$, we define the \emph{Chow ring} $A^\ast(V)$, whose elements \emph{correspond} to subvarieties of $V$, and the product reflects the intersection of these subvarieties. The ring is graded by codimension:
+$$A^\ast(V) = \bigoplus_i A^i(V)$$
+where $A^i(V)$ consists of classes of subvarieties with codimension $i$. Ideally, the intersection of a codimension $m$ subvariety $X$ and a codimension $n$ subvariety $Y$ would yield a subvariety of codimension $m+n$.\par
+However, this does not always hold. Imagine a hyperplane $H$ intersected with itself. So there's a complication in defining this product.
+
+\begin{Def}
+    The $i$-th \term{Chow group} $A^i(V)$ of a non-singular variety $V$ consists of equivalence classes of codimension $i$ cycles, where two cycles are equivalent if their difference is a principal divisor, i.e., the zero set of a rational function.
+\end{Def}
+
+The \term{Chow ring} is the direct sum over all Chow groups:
+$$A^\ast(V) = \bigoplus_i A^i(V)$$
+The intersection product on the Chow ring is well-defined:
+$$[X] \cap [Y] = \sum_{[Z]} i(X, Y; Z) [Z]$$
+where $[X]$, $[Y]$, $[Z]$ denote rational equivalence classes of cycles, and $i(X, Y; Z)$ is an \emph{intersection number}, representing the multiplicity of the intersection at $Z$.
+
+\begin{Rmk}
+In the cases when we do have a transversal intersection between $X$ and $Y$, it holds that 
+
+$$
+\left\lbrace
+\begin{aligned}
+&[X]\cap[Y]=[X\cap Y],\\
+&\codim(X\cap Y)=\codim(X)+\codim(Y).
+\end{aligned}
+\right.
+$$
+
+\end{Rmk}
+
+\begin{Rmk}
+    The Chow ring is related to the cohomology ring via a homeomorphism 
+    $$A^i(V)\to H_{2n-2i}(V)\to H^{2i}(V)$$
+    where the first map is taking a cycle to a cycle, and then applying Poincaré duality. Further exploration of the question as to where lies exactly the Chow group inside the cohomology leads to the Hodge conjecture.
+\end{Rmk}
+
+Given the previous, we will indistinguishably call subvarieties \emph{cohomology classes of their respective codimension}.
+
+\subsection{The tautological ring}
+
+We will not only not distinguish classes as mentioned, but also restrict ourselves further inside the Chow ring of $\ov M_{g,n}$. 
+
+\begin{Def}[\cite{ZvonkineIntro}, Def. 2.6]
+The minimal family of subrings $R^\ast(\ov M_{g,n})\subseteq A^\ast(\ov M_{g,n})$ stable under pushforwards by forgetful and gluing maps is called the family of \term{tautological rings} of the moduli space of stable curves.
+\end{Def}
+
+\begin{Qn}
+What is the meaning of a family of subrings? I thought that the tautological ring was only one. What does it mean for a family, or even just one ring, to be stable under pushforwards?
+\end{Qn}
+
+Intuitively, the forgetting and gluing morphisms do what we expect them to do, they either ``forget'' a marked point or ``glue'' a couple of points together.  
+
+\begin{Def}
+    The forgetful map $\eps\:\ov M_{g,n+1}\to\ov M_{g,n}$
+\end{Def}
 \begin{enumerate}
-    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees.
+    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees. Para dual graphs, tesis Matt
     \item $\psi$, $\la$ classes
-    \item Intersection product Examples
+    \item Intersection product Examples ver seccion 2.3 Matt tesis
     \item Projection formula
     \item String and Dilaton relations
     \item Integral examples
