@@ -13,18 +13,110 @@
 \input{../../headerVarillyDiff}
 
 \author{\nauthor}
-\begin{document}
 
+\begin{document}
+\iffalse
+%\clearpage
+\maketitle
+%\thispagestyle{empty}
+{\small 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+This is the second semester of an introductory graduate-level course on combinatorics. We will be covering symmetric function theory, Young tableaux, counting with group actions, designs, matroids, finite geometries, and not-so-finite geometries.\par 
+The goal of this class is to give an overview of the wide variety of topics and techniques in both classical and modern combinatorial theory.
+
+\subsubsection*{Requirements}
+Knowledge on theory of enumeration, generating functions, combinatorial species, the basics of graph theory, posets, partitions and tableaux, and basic symmetric function theory is required.
+}
+\newpage
+\fi
+\tableofcontents
 
 \chapter{Introduction and background}
 
-Our goal is to understand the calculation of Gromov-Witten invariants of the space $\ov M_{g,n}(\bP^r,d)$, the moduli space of degree $d$ maps to $\bP^r$ using techiniques of Atiyah-Bott localization. To begin this endeavor, we must explore $\ov\cM_{g,n}$ first and its intersection theory. This is the space of genus $g$ Riemann surfaces with $n$ marked points which was studied by Deligne and Mumford originally. Afterwards, we will introduce the concept of equivariant cohomology and the Atiyah-Bott theorem. The theorem's usefulness will be presented by showing several examples and finally we will apply it to calculate more examples in the setting of the moduli space of maps.
+Our goal is to understand the calculation of Gromov-Witten invariants of the space $\ov{M}_{g,n}(\mathbb{P}^r,d)$, the moduli space of degree $d$ maps to $\mathbb{P}^r$, using techniques from Atiyah-Bott localization. To begin this endeavor, we must first study the moduli space $\ov{M}_{g,n}$ and its intersection theory. This space, which parametrizes genus $g$ Riemann surfaces with $n$ marked points, was originally introduced and studied by Deligne and Mumford.
+
+Subsequently, we will introduce the concept of equivariant cohomology and the Atiyah-Bott localization theorem. We will demonstrate the theorem's usefulness through several illustrative examples, culminating in its application to the calculation of Gromov-Witten invariants via localization on the moduli space of maps.
+
+\section{A motivating example}
+
+The question that initially motivated my study of this topic appears deceptively simple:
+
+\begin{significant} Which quadratic curves pass through four points in general position inside $\mathbb{R}^2$? \end{significant}
+
+A natural first step is to fix specific points. Consider, for example, the points $(1,1)$, $(1,-1)$, $(-1,-1)$, and $(-1,1)$. A circle passes through these four points, given explicitly by the equation
+$$x^2+y^2=2.$$
+To obtain more quadratics passing through these points, we introduce parameters into the equation. We modify it to the form
+$$Ax^2+By^2=2$$
+and by substituting the coordinates of one of the points, we find the relation $A + B = 2$. Thus, we obtain a \emph{family} of conics parametrized by $A \in \mathbb{R}$:
+$$Ax^2+(2-A)y^2=2.$$
+We can naturally extend this family to include $A = \infty$, corresponding to the curve
+$$x^2=y^2,$$
+which is a singular conic, specifically, a pair of lines intersecting at the origin. Similarly, at $A=0$ and $A=2$, we obtain other singular quadratics. Aside from these special cases, the curves in the family are smooth.\par
+This example suggests a general strategy for solving the original problem:
+\begin{ptcb}
+Given four distinct points $A$, $B$, $C$, and $D$ in general position, define $F$ to be the reducible conic formed by the union of the lines through $A$ and $B$, and $C$ and $D$. Similarly, let $G$ be the conic formed by the lines through $A$ and $C$, and $B$ and $D$. Then the family of conics
+$$\la F+\mu G=0,\quad [\la,\mu]\in\bP^1$$
+describes all conics passing through the four given points.
+\end{ptcb}
+
+In other words, the space of conics passing through four points in general position is naturally parametrized by $\mathbb{P}^1$. This is an example of a moduli space: a geometric space whose points parametrize certain types of objects. Furthermore, we can arrange all these conics into a \emph{family} over $\mathbb{P}^1$, with each point of $\mathbb{P}^1$ corresponding to a specific conic in the family.
+
+\section{The family business}
+\red{Recheck the information about families in the Doctoral notebook to compare.}
+Having mentioned that conics form a family over $\bP^1$, we must now define precisely what is meant by a family.
+
+\begin{Def}[J. Kóllar]
+%https://web.math.princeton.edu/~kollar/FromMyHomePage/modbook-final.pdf
+Let $B$ be a regular, one-dimensional scheme. A \term{family of varieties} over $B$ is a flat morphism of finite type
+$$\pi\: E\to B$$
+whose fibers are pure-dimensional and geometrically reduced. Such a family is also called a \emph{one-parameter family}. For each $b \in B$, the fiber $E_b = \pi^{-1}(b)$ denotes the fiber of $\pi$ over $b$.
+\end{Def}
+
+Similarly, when we speak of families of \emph{pointed} varieties, we refer to families equipped with sections
+$$\sg_i\: B\to E.$$
+If we require marked points to remain distinct, we are asking for disjoint sections.
+
+\begin{Rmk} 
+    Observe that the notion of a family of varieties is similar to that of a vector bundle: in both cases, we have a morphism from a total space to a base, with fibers that are comparable.\par
+    However, families of varieties lack \emph{local trivializations}, which vector bundles do have. 
+\end{Rmk}
+
+\begin{Ex}
+    Let us verify that the motivating example indeed forms a family.\par
+First, observe that any smooth conic passing through four points in general position is isomorphic to a four-pointed projective line $(\bP^1, p_1, \dotsc, p_4)$.
+\begin{ptcb}
+    To see this, choose a point (not necessarily one of the marked points) on the conic and draw lines from this point to every other point on the conic. This construction associates to each point on the conic the \emph{slope} of the line through it, yielding a bijection between the points of the conic and the points of $\bP^1$.
+\end{ptcb}
+Within this copy of $\bP^1$, we consider the map
+    $$z\mapsto\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
+    which sends
+    $$(p_1,p_2,p_3)\mapsto(0,1,\infty)$$ 
+    and $p_4$ to the \term{cross-ratio} of the four points. This is the unique map with these properties. Thus, the variation of the cross-ratio is equivalent to the variation of the conic through the four points. Each smooth conic then corresponds to a point in $(\bP^1, 0, 1, \infty, t)$ where $t$ varies in $\bP^1 \less \set{0,1,\infty} = M_{0,4}$.\par
+    Hence, we obtain a family of pointed projective lines:
+    \begin{center}
+        \begin{tikzcd}
+            {M_{0,4}\x\bP^1} \arrow[d, "\pi"']              \\
+            {M_{0,4}} \arrow[u, "(\sg_i)_{i=1}^4"', bend right=60]
+            \end{tikzcd}
+    \end{center}
+    where the maps are defined by
+    $$\pi([(\bP^1,(0,1,\infty,t))],t)\mapsto [(\bP^1,(0,1,\infty,t))]$$
+    and each $\sg_i$ singles out each of the marks on the corresponding fiber.\par
+    To account for the three nodal conics, we blow up $\bP^1 \times \bP^1$ at the three points
+    $$(0,0),(1,1)\word{and}(\infty,\infty).$$
+    This procedure yields a new family over the whole of $\bP^1$ whose fibers over $t \in \bP^1 \less \set{0,1,\infty}$ remain smooth, while the special fibers become \emph{stable} nodal curves composed of two spheres joined at a node, with two marked points on each component.
+\end{Ex}
+
+Thus, the problem of classifying conics with marked points transforms into the problem of classifying four-pointed copies of $\bP^1$, that is, genus-zero Riemann surfaces with marked points. This equivalence between pointed varieties and marked Riemann surfaces was explored by Kapranov \cite{KapranovPaper}. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. With this perspective in mind, we now turn to the construction and compactification of moduli spaces of curves.
 
 \section{Moduli of curves}
 
 \begin{Def}
     A \term{Riemann surface} is a complex analytic manifold of dimension $1$. 
 \end{Def}
+
 For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$. We will interchangeably say Riemann surface or \emph{smooth compact complex curve}.
     
 \begin{Ex}
@@ -36,47 +128,34 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
         \item Take another holomorphic function $f$, then $\set{f(x,y)=0}$ is a Riemann surface such that 
         $$\text{Sing}(f)=\set{\del_xf=\del_yf=f=0}=\emptyset.$$
         This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. The inverse function theorem guarantees that this is a complex manifold. 
-        \item Our first compact example is $\bCP^1$.
+        \item The first compact example is $\bCP^1$.
         \end{enumerate}
 \end{Ex} 
 
 \begin{Def}
-    The moduli space $\cM_{g,n}$ is the set of isomorphism classes of genus $g$, $n$-pointed Riemann surfaces.
+    The moduli space $M_{g,n}$ is the set of isomorphism classes of genus $g$, $n$-pointed Riemann surfaces.
 \end{Def}
 
 \begin{Rmk}
 This immediately implies that the parametrized curves are smooth complex algebraic curves.
 \end{Rmk}
 
-\begin{Ex}
-    The space $\cM_{0,4}$ parametrizes genus $0$, $4$-pointed Riemann surfaces. These are $(\bP^1,p_1,\dots,p_4)$. We have that 
-    $$(\bP^1,p_1,\dots,p_4)\sim(\bP^1,q_1,\dots,q_4)$$
-    whenever there is exists a Möbius transformation, $T\in\PGL_2$, such that 
-    $$(q_1,\dots,q_4)=(Tp_1,\dots,Tp_4).$$
-    Any such Möbius transformation is determined by where it maps the points $0,1$ and $\infty$. With this fact in hand we may map the first $3$ points of our curve to $0,1,\infty$, and let the last one map to an arbitrary but fixed $t$:
-    $$(Tp_1,\dots,Tp_4)=(0,1,\infty,t),\quad t\in\bP^1.$$
-    At the level of equivalence classes this means:
-    $$[(\bP^1,p_1,\dots,p_4)]=[(\bP^1,0,1,\infty,t)]$$
-    and so every equivalence class is determined by a unique $t\in\bP^1$. We call this value the \term{cross-ratio} of $(p_1,\dots,p_4)$. The Möbius transformation in question is
-    $$T(z)=\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
-    and the image of $p_4$, $t=T(p_4)$ is the aformentioned cross-ratio of $p_1,\dots,p_4$. This leads us to see that 
-    $$\cM_{0,4}\isom\bP^1\less\set{0,1,\infty}.$$
-\end{Ex}
+Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$ is determined by the cross-ratio of the four points. Observe that at this point we haven't determined what happens to the nodal curves, but we will return to that in a bit when talking about stability. For now, our next example is\dots
 
 \begin{Ex}
-    The space $\cM_{1,1}$ parametrizes $1$-pointed \emph{elliptic curves}.\par
+    The space $M_{1,1}$ parametrizes $1$-pointed \emph{elliptic curves}.\par
     Any such curve is isomorphic to 
     $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
     and the image of the origin under the quotient map is the natural choice for the marked point. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
     $$\exists \al\in\bC^\x(L_2=\al L_1).$$
     So that 
-    $$\cM_{1,1}=\quot{\set{\text{lattices}}}{\bC^\x}$$
+    $$M_{1,1}=\quot{\set{\text{lattices}}}{\bC^\x}$$
     but we can be more precise!\par
-    Explicitly, if 
-    $$L=\gen_\bZ(u,v)\To \tilde{L}=\frac{1}{u}L=\gen_\bZ(1,\tau).$$
+    Explicitly, a lattice $L=\gen_\bZ(u,v)$ can be rescaled to
+    $$\tilde{L}=\frac{1}{u}L=\gen_\bZ(1,\tau).$$
     This quantity $\tau$ always lies in the upper half plane when 
     $$\arg(v)>\arg(u)\bmod[-\pi,\pi]$$
-    which means that $\tau\in\bH$ determines $\bonj{\quot{\bC}{L}}$. 
+    which means that $\tau\in\bH$ parametrizes $\bonj{\quot{\bC}{L}}$. 
     Let us apply two $\rSL_2(\bZ)=\gen(S,T)$ actions on $\tau$ which will leave the quotient unchanged:
     $$
     \left\lbrace
@@ -89,8 +168,10 @@ This immediately implies that the parametrized curves are smooth complex algebra
     Then observe that the lattices
     $$\gen_\bZ(1,T\.\tau)\word{and}\gen_\bZ(1,S\.\tau)$$
     give us the same quotient. From this we can be more specific and say 
-    $$\cM_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
+    $$M_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
 \end{Ex}
+
+In the same fashion as before, we may describe a family of elliptic curves over $M_{1,1}$ such that the fiber over a particular $\tau\in M_{1,1}$ corresponds to the torus with the corresponding manifold structure determined by $\tau$. Our goal is to describe maps between moduli spaces. Before doing so, however, we must address what happens to nodal curves.
 
 \subsection{Stable curves}
 
@@ -102,30 +183,55 @@ This immediately implies that the parametrized curves are smooth complex algebra
         \item\label{fin-number-auts} $(C,p_1,\dots,p_n)$ has a finite number of automorphisms, or equivalently:
         $$2-2g-n<0.$$
     \end{enumerate}
-    We assume these curves are connected. The \emph{genus} of $C$ is the arithmetic genus, or equivalently, the genus of the curve obtained when \emph{smoothing the nodes}.
+    Throughout, we assume that stable curves are connected. The \emph{genus} of $C$ is the arithmetic genus, or equivalently, the genus of the curve obtained when \emph{smoothing the nodes}.
 \end{Def}
 
-\begin{Qn}
-    How to explain normalization? smoothing and separating the nodes?
-\end{Qn}
-
-Look at Mumford's red book and \href{https://mathoverflow.net/questions/109395/is-there-a-geometric-intuition-underlying-the-notion-of-normal-varieties}{math.of/109395} and \href{https://mathoverflow.net/questions/60097/checking-whether-a-variety-is-normal}{math.of/60097}.
-
-\begin{Th}
+\begin{Th}[\cite{ZvonkineIntro}, pg. 17]
 A stable curve admits a finite number of automorphisms (as in condition \ref{fin-number-auts}) if and only if every connected component $C_i$ of its normalization with genus $g_i$ and $n_i$ \emph{special} points satisfies 
 $$2-2g_i-n_i<0.$$
 \end{Th}
 
-TODO
-\begin{enumerate}
-    \item Write proof of sufficient condition of top theorem
-    \item Write about compactifications of previous moduli spaces. Can use families or not, our choice.
-    \item Write about tautological ring of Mgn and start describing graphs.
-\end{enumerate}
+\begin{Rmk} 
+    %https://en.wikipedia.org/wiki/Zariski%27s_main_theorem
+    %https://mathoverflow.net/questions/109395/is-there-a-geometric-intuition-underlying-the-notion-of-normal-varieties
+    %https://en.wikipedia.org/wiki/Normal_scheme
+Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
+Formally, the normalization of a variety $X$ is a non-singular (possibly disconnected) variety $\widetilde X$ equipped with a finite birational morphism 
+$$\nu:\widetilde X\to X.$$
+This map is an isomorphism over the smooth locus of $X$ but may identify several points in $\widetilde X$ over a singular point of $X$. Thus, we may think of $\widetilde X$ as a version of $X$ in which the undue gluings of subvarieties or tangent spaces have been resolved. In the case of curves, normalization replaces each node with two distinct smooth points, resulting in a smooth curve (or collection of curves) marked by the preimages of the nodes. 
+\end{Rmk}
+
+\begin{center}
+    \red{Write a proof for sufficient condition of the theorem}.
+\end{center}
+
+\begin{ptcb}
+    Idea should go like: if $C$ has $k$ irreducible components, then we may add up the contributions as follows:
+    \begin{align*}
+    \forall i(2-2g_i-n_i<0)&\To\sum_{i=1}^k(2-2g_i-2n_i)<0\\
+    &\To2k-2\sum_{i=1}^k g_i-2\sum_{i=1}^k n_i<0.
+    \end{align*}
+    Observe that $g$ can be larger than $\sum_{i=1}^k g_i$ as we can add arithmetic genus when joining two different points on a component. Observe that the sum $\sum_{i=1}^k n_i$ accounts for the marks and nodes-to-be in the component $C_i$. All marks in the normalization arise from a mark in the original curve and every node in the original curve is counted \emph{twice} in the sum by the handshaking lemma. This means that 
+    $$\sum_{i=1}^k n_i=n+2(\#\text{nodes in }C).$$
+    Thus our quantity becomes 
+    $$2k-2\sum_{i=1}^kg_i-2n-4(\#\text{nodes in }C).$$
+    \red{¿How do we get to the final quantity?}
+\end{ptcb}
+\begin{Ex}
+    Observe that following our motivational example, we get to the three stable curves in $\ov M_{0,4}$. Each one of these is a nodal curve where the marks and the node differ. And applying the theorem, we see that each component of the normalization satisfies
+    $$2-0-3=-1<0$$
+    so that we do have the stability condition. 
+\end{Ex}
+
+\begin{Ex}
+    For the case of $M_{1,1}$, we compactify by adding a singular stable curve. This is a one-point $\bP^1$ where we attach two points together. The resulting curve has arithmetic genus one. It can be also imagined as ``pinching a loop around the torus which doesn't go around the hole''. This is once again a stable curve as we have the stability condition:
+    $$2-2(1)-1=-1<0.$$
+\end{Ex}
 
 \section{The tautological ring}
 
 \begin{enumerate}
+    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees.
     \item $\psi$, $\la$ classes
     \item Intersection product Examples
     \item Projection formula
