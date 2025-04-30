@@ -43,4 +43,37 @@
 	\]
 	In other words, for compatible connections we can use the usual product rule to differentiate the inner product.
 \end{Ej}
+
+\begin{ptcbr}
+Let us suppose first that $\nb$ is compatible with $g$. If $\al$ is a curve, we may take an orthonormal basis of $T_{\al(t_0)}M$:
+$$\set{u_1(t_0),\dots,u_n(t_0)}.$$
+As $\nb$ is compatible with $g$, we may parallel-transport this basis throughout all the curve $\al$. This means that for any $t\in I$, 
+$$\genr{u_1(t),\dots,u_n(t)}=T_{\al(t)}M.$$
+Now, our vector fields $V,W$ may be expressed as linear combinations of these basic elements in the following way:
+$$
+\left\lbrace
+\begin{aligned}
+	&V(t)=\sum_{k=1}^n\al_ku_k(t)\\
+	&W(t)=\sum_{k=1}^n\bt_ku_k(t)
+\end{aligned}
+\right.\To
+\left\lbrace
+\begin{aligned}
+	&\frac{DV}{dt}=\sum_{k=1}^n\al_k'u_k(t)\\
+	&\frac{DW}{dt}=\sum_{k=1}^n\bt_k'u_k(t)
+\end{aligned}
+\right.
+$$
+where $\al_k,\bt_k$ are smooth functions. Now if we compute the quantity of the left, we have that 
+\begin{align*}
+	&\left.\frac{d}{dt}\right|_{t=t_0} g_{\alpha(t)}(V(t),W(t))\\
+	=&\sum_{k=1}^{n}\sum_{\l=1}^{n}\left.\frac{d}{dt}\right|_{t=t_0}\al_k\bt_\l g_{\alpha(t)}(u_k(t),u_\l(t))\\
+	=&\sum_{k=1}^{n}\left.\frac{d}{dt}\right|_{t=t_0}\al_k\bt_k\\
+	=&\sum_{k=1}^{n}\left.\dv{\al_k}{t}\right|_{t=t_0}\bt_k+\sum_{k=1}^{n}\al_k\left.\dv{\bt_k}{t}\right|_{t=t_0}\\
+\end{align*}
+and then readding indices by multiplying $\dl_{k\l}$ and a sum through $\l$ we recover the final expression:
+$$\sum_{\l=1}^n\sum_{k=1}^{n}\left.\dv{\al_k}{t}\right|_{t=t_0}\bt_kg_{\al(t_0)}(u_k(t),u_\l(t))+\sum_{\l=1}^n\sum_{k=1}^{n}\al_k\left.\dv{\bt_k}{t}\right|_{t=t_0}g_{\al(t_0)}(u_k(t),u_\l(t)).$$
+Condensing everything by linearity we recover
+$$g_{\alpha(t_0)} \left(\frac{DV}{dt},W\right) + g_{\alpha(t_0)} \left(V,\frac{DW}{dt}\right).$$
+\end{ptcbr}
 \end{document} 
