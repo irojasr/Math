@@ -106,23 +106,25 @@ where the first map takes cycles to cycles and then we're applying Poincaré dua
 \begin{Def}
     For a vector bundle $E\xrightarrow[]{\pi}B$ of rank $r\geq 1$, its \term{Euler class} is
     $$e(E)\defeq c_r(E)=[Z(s)]-[P(s)].$$%=\bonj{\div(s)},$$
-  %%s=(s_1,...,s_r)
+    Here $s$ is a section which in local coordinates may be expressed as 
+    $$s=(s_1,...,s_r)$$
+    and so $Z$ represents the class of zeroes, while $P$ is the class of poles of the section.
 \end{Def}
-%%For LB its divisor of section
+
 \begin{Rmk}
-In other words, we may think of the Euler class as the top Chern class of a vector bundle.
+The condition of $e$ being the top Chern class allows us to see that it is a codimension $r$ class. Observe that for a line bundle, the Euler class corresponds to the class of the divisor of a section of such a bundle.
 \end{Rmk}
-\red{Make sure codim is good}
+
 \begin{Ex}
-    The tangent bundle to a manifold carries an Euler class which is the class of a divisor of a section!!!!!. In the case of the tangent bundle, a section is a vector field! So in essence, finding the value of $\int_Me(TM)$ becomes a matter of counting the zeroes and poles of a vector field over $M$.
+    The tangent bundle to a manifold carries an Euler class, sections here are vector fields! So in essence, finding the value of $\int_Me(TM)$ becomes a matter of counting the zeroes and poles of a vector field over $M$.
 \end{Ex}
 
 \begin{Ex}
     Consider the vector field $F$ over the sphere $S^2$ given by 
     $$F(x,y,z)=(zx,zy,1-z^2).$$
-    This is a section of $TS^2$ and !!!! $Z(f)-P(F)$
-    $$\bonj{\div(F)}=\bonj{\kk}+\bonj{-\kk}$$
-    corresponds to the zeroes of this vector field. This means that 
+    This is a section of $TS^2$ and
+    $$\bonj{Z(F)}-\bonj{P(F)}=\bonj{\kk}+\bonj{-\kk}-0$$
+    corresponds to the zeroes and no poles of this vector field. This means that 
     $$e(TS^2)=2\bonj{\text{pt.}}$$
     and so 
     $$\chi(S^2)=\int_{S^2}2\bonj{\text{pt.}}=2$$
@@ -283,15 +285,15 @@ To say that we're using a localization technique to find cohomology is to apply 
 
 \begin{Ex}[Projective line cohomology via localization]
 First, let's clearly define the action of $T^2=(\bC\less\set{0})^2$ on $\bP^1$. For $\un{\al}\in T^2$ and $[X,Y]\in\bP^1$ we have
-$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}\footnote{I know this is an unorthodox choice, but it's so that the weights of a certain representation are aligned properly. I'm already too traumatized to do it the \emph{correct} way.}.$$
+$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}\footnote{I know this is an unorthodox choice, but it's so that the weights of a certain representation are aligned properly. I'm already traumatized enough to do it the other way around.}.$$
 Then, the only fixed points of this action are $0=[0:1]$ and $\infty=[1:0]$:
 $$\un{\al}\.[0:1]=\bonj{0:\frac{1}{\al_2}}=[0:1],\word{and}\un{\al}\.[1:0]=\bonj{\frac{1}{\al_1}:0}=[1:0].$$
 Proving that there's no more fixed points amounts to a linear algebra exercise. Applying Atiyah-Bott we now have that 
 \begin{gather*}
     H_{T^2}^\ast(\bP^1)\isom H_{T^2}^\ast([0:1])\oplus H_{T^2}^\ast([1:0])\\
-    \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\footnote{Believe me on this one. This is the actual cohomology.}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
+    \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
 \end{gather*}
-But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
+Here, we have used a calculation-not-shown which shows what the equivariant cohomology of $\bP^2$ is. But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
 $$\un i^\ast\left\lbrace
 \begin{aligned}
     &t_1\mapsto (t_1,t_1),\\
@@ -302,22 +304,86 @@ $$\un i^\ast\left\lbrace
 Whereas the generators on the right are the classes of the points $[0]=(1,0)$ and $[\infty]=(0,1)$. These points are mapped to the following classes:
 $$i_\ast\left\lbrace
 \begin{aligned}
-    &[0:1]\mapsto h-t_2,\\
-    &[1:0]\mapsto h-t_1.
+    &[0:1]\mapsto H-t_2,\\
+    &[1:0]\mapsto H-t_1.
 \end{aligned}
 \right.$$
-\red{how was this idea? I remember we did this for $\bP^2$ as the intersection of two lines. But not exactly in $\bP^1$.} And now, we are left with finding the normal bundles $N_{\pt\mid\bP^1}$. Observe that we may use the tangent-normal sequence for subspaces as follows:
+And now, we are left with finding the normal bundles $N_{\pt\mid\bP^1}$. Observe that we may use the tangent-normal sequence for subspaces as follows:
 $$0\to T\pt\hookto i^\ast T\bP^1\onto N_{\pt\mid\bP^1}\defeq \quot{T\bP^1}{T\pt}\to0$$
+and we have that the tangent bundle to the point is actually zero. This means that we have the isomorphism
+$$i^\ast T\bP^1=T_{\pt}\bP^1\isom N_{\pt\mid\bP^1}.$$
+Thus the Euler classes we are looking for are for the tangent spaces above $0$ and $\infty$. These can be found using the equivariant Euler sequence for $T\bP^1$, and so we get:
+$$e(N_{\.\mid\bP^1})\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto t_1-t_2,\\
+    &[1:0]\mapsto t_2-t_1.
+\end{aligned}
+\right.$$
+Putting this together we may see that indeed the isomorphism works as follows:
+$$\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto \frac{H-t_2}{t_1-t_2}\mapsto\left(\frac{t_1-t_2}{t_1-t_2},\frac{t_2-t_2}{t_1-t_2}\right)=(1,0),\\
+    &[1:0]\mapsto \frac{H-t_1}{t_2-t_1}\mapsto \left(\frac{t_1-t_1}{t_2-t_1},\frac{t_2-t_1}{t_2-t_1}\right)=(0,1).
+\end{aligned}
+\right.$$
+Recall lastly that the vector $(1,0)$ represents 
+$$1\.[0:1]+0\.[1:0]$$
+so it's indeed the correct cohomology class.
 \end{Ex}
 
-\begin{enumerate}
-    \item Terminar AB de P1
-    \item Ver ejemplos de variedades toricas con AB
-\end{enumerate}
+With this example, we verified that the localization theorem indeed provides an isomorphism between different cohomology rings. Now, we use localization to compute the Euler characteristic of a different variety.
+
+\begin{Ex}
+    Consider $\bP^1\x\bP^1$ and an action of $T^4$ via rescaling all entries as before. The fixed points under this action are 
+    $$(0,0),\quad(\infty,0),\quad(0,\infty),\word{and}(\infty,\infty).$$
+    Let us denote by $F_k,\ k=1,\dots,4$ the cohomology classes of the fixed points, and $i_k\:F_k\hookto\bP^1\x\bP^1$ the inclusion map.
+    Via the Atiyah-Bott theorem, we have that 
+    \begin{align*}
+    \int_{\bP^1\x\bP^1}e(T\bP^1\x\bP^1)&=\int_{\bP^1\x\bP^1}\sum_{k=1}^{4}\frac{i_{k\ast} i^\ast_k(e(T\bP^1\x\bP^1))}{e(N_{F_k\mid\bP^1\x\bP^1})}\\
+    &=\sum_{k=1}^{4}\int_{F_k}\frac{ i^\ast_k(e(T\bP^1\x\bP^1))}{e(N_{F_k\mid\bP^1\x\bP^1})}\\
+    &=\sum_{k=1}^{4}\int_{F_k}\frac{ e(i^\ast_kT\bP^1\x\bP^1)}{e(N_{F_k\mid\bP^1\x\bP^1})}
+    \end{align*}
+    and from here we invoke the tangent-normal sequence for $F_k\subseteq\bP^1\x\bP^1$. We have that 
+    $$0\to TF_k\hookto i_k^\ast T\bP^1\x\bP^1\onto N_{F_k\mid\bP^1\x\bP^1}\to0.$$
+    And simplifying by recalling that the tangent bundle over a point is zero, we have 
+    $$0\to0\to i_k^\ast T\bP^1\x\bP^1\xrightarrow[]{\isom} N_{F_k\mid\bP^1\x\bP^1}\to0.$$
+    This means that both Euler classes cancel out and we are left with just the fundamental class. The integral of the fundamental class over its own space gives us the value of $1$ so that the whole sum is equal to $4$.\par
+    This lets us conclude that $\chi(\bP^1\x\bP^1)=4$.
+\end{Ex}
+
+\begin{Rmk}
+    This computation did not rely on specific coordinates of $\bP^1 \times \bP^1$, only on the existence of four torus-fixed points.\par
+    We also implicitly used several properties not mentioned before:
+    \begin{enumerate}
+        \item Chern classes commute with pullbacks, so:
+        $$i_k^\ast(e(T\bP^1\x\bP^1))=e(i_k^\ast T\bP^1\x\bP^1).$$
+        \item Integration against a pushforward restricts to the domain of the map:
+        $$\int_{\bP^1\x\bP^1}i_{k\ast}(\.)=\int_{F_k}$$
+    \end{enumerate}
+\end{Rmk}
+
+The variety $\bP^1 \times \bP^1$ is an example of a \emph{toric variety}. One property of toric varieties is that their Euler characteristic is equal to the number of torus-fixed points.
+
+\begin{Def}
+    A \term{toric variety} is an irreducible variety $X$ containing a torus $T^k\defeq(C\less\set{0})^k$ as a Zariski open subset such that the action of $T^k$ on itself extends to a morphism $T^k\x X\to X$.
+\end{Def}
+
+In general, for toric varieties, the number of torus-fixed points equals the number of top-dimensional cones in the associated fan which is combinatorial information that can be computed easily.
+
+\begin{Th}
+For a toric variety, the Euler characteristic equals the number of torus-fixed points under the torus action.
+\end{Th}
+
+
+\section{Conclusion}
+
+Although we have only touched briefly on toric varieties, the result we obtained is very powerful. In the world of toric geometry many invariants, like the Euler characteristic, can be computed through combinatorial data.\par
+The geometry of toric varieties is determined by their torus action, and many of their properties are encoded in combinatorial objects like fans and polytopes. Examples include projective spaces, products of projective spaces, and even certain line bundles over them.\par
+This project has inspired me to continue exploring the geometry of varieties, especially how global invariants like the Euler characteristic connect to local data. One question that I hope to study further is the precise relationship between the Euler form and the Euler class. I'm aware that some papers address this connection, and I look forward to studying them in more depth.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
-\ifx\nextra\undefined
-\printindex
-\else\fi
+%\ifx\nextra\undefined
+%\printindex
+%\else\fi
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{bibiProyGeoDiff.bib}
