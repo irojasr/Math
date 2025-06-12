@@ -32,7 +32,14 @@ Knowledge on theory of enumeration, generating functions, combinatorial species,
 \newpage
 \fi
 \tableofcontents
-
+\newpage
+\textbf{TODO}
+\begin{enumerate}
+    \item Look at TODO in morphisms section
+    \item Import part of DiffyGeo Project to here
+    \item Reread ch1 to get a sense of where we are and compare old TODO with a possible new TODO
+\end{enumerate}
+\newpage
 \chapter{Introduction and background}
 
 Our goal is to understand the calculation of Gromov-Witten invariants of the space $\ov{M}_{g,n}(\mathbb{P}^r,d)$, the moduli space of degree $d$ maps to $\mathbb{P}^r$, using techniques from Atiyah-Bott localization. To begin this endeavor, we must first study the moduli space $\ov{M}_{g,n}$ and its intersection theory. This space, which parametrizes genus $g$ Riemann surfaces with $n$ marked points, was originally introduced and studied by Deligne and Mumford.
@@ -61,22 +68,27 @@ $$\la F+\mu G=0,\quad [\la,\mu]\in\bP^1$$
 describes all conics passing through the four given points.
 \end{ptcb}
 
-In other words, the space of conics passing through four points in general position is naturally parametrized by $\mathbb{P}^1$. This is an example of a moduli space: a geometric space whose points parametrize certain types of objects. Furthermore, we can arrange all these conics into a \emph{family} over $\mathbb{P}^1$, with each point of $\mathbb{P}^1$ corresponding to a specific conic in the family.
+In other words, the space of conics passing through four points in general position is naturally parametrized by $\mathbb{P}^1$. This is an example of a moduli space: a geometric space whose points parametrize certain types of objects. 
 
 \section{The family business}
-\red{Recheck the information about families in the Doctoral notebook to compare.}
-Having mentioned that conics form a family over $\bP^1$, we must now define precisely what is meant by a family.
+
+Having mentioned that conics form a family over $\bP^1$, what we are saying is that there is a set
+$$\Set{(V_A,A)\: V_A=V(Ax^2+(2-A)y^2-2),\ A\in\bP^1}$$
+and a map from this set to $\bP^1$ which is a projection to $\bP^1$. Similarly with the set 
+$$\Set{(V,[\la:\mu])\: V=V(\la F+\mu G),\ \bonj{\la:\mu}\in\bP^1}$$
+we also have such a map. Formally what is meant by a family is the following.
 
 \begin{Def}[J. Kóllar]
 %https://web.math.princeton.edu/~kollar/FromMyHomePage/modbook-final.pdf
-Let $B$ be a regular, one-dimensional scheme. A \term{family of varieties} over $B$ is a flat morphism of finite type
+Let $B$ be a regular, one-dimensional scheme. A \term{family of varieties} over the base $B$ is a flat morphism of finite type
 $$\pi\: E\to B$$
-whose fibers are pure-dimensional and geometrically reduced. Such a family is also called a \emph{one-parameter family}. For each $b \in B$, the fiber $E_b = \pi^{-1}(b)$ denotes the fiber of $\pi$ over $b$.
+whose fibers are pure-dimensional and geometrically reduced\footnote{Look at \href{https://math.stackexchange.com/questions/716452/geometrically-reduced-variety}{mse/716452}}. Such a family is also called a \emph{one-parameter family}. For each $b \in B$, the fiber $E_b = \pi^{-1}(b)$ denotes the fiber of $\pi$ over $b$.
 \end{Def}
 
 Similarly, when we speak of families of \emph{pointed} varieties, we refer to families equipped with sections
 $$\sg_i\: B\to E.$$
-If we require marked points to remain distinct, we are asking for disjoint sections.
+If we require marked points to remain distinct, we are asking for disjoint sections, which literally means
+$$\Im(\sg_i)\cap\Im(\sg_j)=\emptyset.$$
 
 \begin{Rmk} 
     Observe that the notion of a family of varieties is similar to that of a vector bundle: in both cases, we have a morphism from a total space to a base, with fibers that are comparable.\par
@@ -84,16 +96,17 @@ If we require marked points to remain distinct, we are asking for disjoint secti
 \end{Rmk}
 
 \begin{Ex}
-    Let us verify that the motivating example indeed forms a family.\par
-First, observe that any smooth conic passing through four points in general position is isomorphic to a four-pointed projective line $(\bP^1, p_1, \dotsc, p_4)$.
+    Let us formalize the motivating example in order to see that it is indeed a family.\par
+First, observe that any smooth conic passing through four points in general position is isomorphic to a four-pointed projective line $(\bP^1, p_1, \dotsc, p_4)$. 
 \begin{ptcb}
     To see this, choose a point (not necessarily one of the marked points) on the conic and draw lines from this point to every other point on the conic. This construction associates to each point on the conic the \emph{slope} of the line through it, yielding a bijection between the points of the conic and the points of $\bP^1$.
 \end{ptcb}
+We must also check that such $\bP^1$'s are pure-dimensional and geometrically reduced. It is indeed the case that all $\bP^1$'s are of the same dimension (1). It remains to check that $\bP^1$ is geometrically reduced\red{CHECK THIS}.\par
 Within this copy of $\bP^1$, we consider the map
     $$z\mapsto\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
     which sends
     $$(p_1,p_2,p_3)\mapsto(0,1,\infty)$$ 
-    and $p_4$ to the \term{cross-ratio} of the four points. This is the unique map with these properties. Thus, the variation of the cross-ratio is equivalent to the variation of the conic through the four points. Each smooth conic then corresponds to a point in $(\bP^1, 0, 1, \infty, t)$ where $t$ varies in $\bP^1 \less \set{0,1,\infty} = M_{0,4}$.\par
+    and $p_4$ to the \term{cross-ratio} of the four points. This is the unique map with these properties. Thus, the variation of the cross-ratio is equivalent to the variation of the conic through the four points. Each smooth conic then corresponds to a point in $(\bP^1, 0, 1, \infty, t)$ where $t$ (the modulus) varies in $\bP^1 \less \set{0,1,\infty} = M_{0,4}$, the moduli space of $4$-pointed rational curves.\par
     Hence, we obtain a family of pointed projective lines:
     \begin{center}
         \begin{tikzcd}
@@ -103,13 +116,14 @@ Within this copy of $\bP^1$, we consider the map
     \end{center}
     where the maps are defined by
     $$\pi([(\bP^1,(0,1,\infty,t))],t)\mapsto [(\bP^1,(0,1,\infty,t))]$$
-    and each $\sg_i$ singles out each of the marks on the corresponding fiber.\par
-    To account for the three nodal conics, we blow up $\bP^1 \times \bP^1$ at the three points
+    and each $\sg_i$ singles out each of the marks on the corresponding fiber. This projection mapping is flat and proper \red{WHAT was flat and proper}.\par
+    We also need to take into account for the three nodal conics, we blow up $\bP^1 \times \bP^1$ at the three points
     $$(0,0),(1,1)\word{and}(\infty,\infty).$$
-    This procedure yields a new family over the whole of $\bP^1$ whose fibers over $t \in \bP^1 \less \set{0,1,\infty}$ remain smooth, while the special fibers become \emph{stable} nodal curves composed of two spheres joined at a node, with two marked points on each component.
+    This procedure yields a \emph{new family} over the whole of $\bP^1$ whose fibers over $t \in \bP^1 \less \set{0,1,\infty}$ remain smooth, while the special fibers become \emph{stable} nodal curves composed of two spheres joined at a node, with two marked points on each component.
 \end{Ex}
 
-Thus, the problem of classifying conics with marked points transforms into the problem of classifying four-pointed copies of $\bP^1$, that is, genus-zero Riemann surfaces with marked points. This equivalence between pointed varieties and marked Riemann surfaces was explored by Kapranov \cite{KapranovPaper}. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. With this perspective in mind, we now turn to the construction and compactification of moduli spaces of curves.
+Observe that in this family we are \emph{not} missing any sort of 4-pointed $\bP^1$. In this sense, the family has all the possible versions of $\bP^1$, we say it's a \term{universal family}. For a family to be universal, its base variety should be the moduli space itself so that over every point we can see every possible parametrized object. We will formally define this notion in the next section.\par
+As we saw, the problem of classifying conics with marked points transforms into the problem of classifying four-pointed copies of $\bP^1$, that is, genus-zero Riemann surfaces with marked points. This equivalence between pointed varieties and marked Riemann surfaces was explored by Kapranov \cite{KapranovPaper}. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. With this perspective in mind, we now turn to the construction and compactification of moduli spaces of curves.
 
 \section{Moduli of curves}
 
@@ -140,7 +154,7 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
 This immediately implies that the parametrized curves are smooth complex algebraic curves.
 \end{Rmk}
 
-Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$ is determined by the cross-ratio of the four points. Observe that at this point we haven't determined what happens to the nodal curves, but we will return to that in a bit when talking about stability. For now, our next example is\dots
+Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$ is determined by the cross-ratio of the four points. In other words, it is $M_{0,4}$.
 
 \begin{Ex}
     The space $M_{1,1}$ parametrizes $1$-pointed \emph{elliptic curves}.\par
@@ -171,7 +185,20 @@ Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$
     $$M_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
 \end{Ex}
 
-In the same fashion as before, we may describe a family of elliptic curves over $M_{1,1}$ such that the fiber over a particular $\tau\in M_{1,1}$ corresponds to the torus with the corresponding manifold structure determined by $\tau$. Our goal is to describe maps between moduli spaces. Before doing so, however, we must address what happens to nodal curves.
+In the same fashion as before, we may describe a family of elliptic curves over $M_{1,1}$ such that the fiber over a particular $\tau\in M_{1,1}$ corresponds to the torus with the corresponding manifold structure determined by $\tau$.\par
+As was the case for the moduli space of 4 pointed rational curves, the family over this moduli space contains all possible genus 1 curves with 1 mark. Once again, it is universal! This is a property of the moduli space itself actually.
+
+\begin{Def}
+    We say that a moduli space is \term{fine} whenever it carries a universal family and every other family of parametrized objects is induced from it via pullback. 
+\end{Def}
+
+\begin{Ex}
+    If $E\xrightarrow[]{\pi}B$ is another family of genus $1$, 1-pointed curves then we may create a map $B\to M_{1,1}$ given by 
+    $$b\mapsto[\pi^{-1}(b)].$$
+    Looking at the fiber over the isomorphism class of that point in the moduli space we may encounter the same torus. The fibers are isomorphic regardless, and the remainder left to check is that the diagram that forms commutes. \red{DO A BIT FURTHER}.
+\end{Ex}
+
+Our goal is to describe maps between moduli spaces. Before doing so, however, we must address what happens to nodal curves.
 
 \subsection{Stable curves}
 
@@ -197,7 +224,7 @@ $$2-2g_i-n_i<0.$$
 Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
 Formally, the normalization of a variety $X$ is a non-singular (possibly disconnected) variety $\widetilde X$ equipped with a finite birational morphism 
 $$\nu:\widetilde X\to X.$$
-This map is an isomorphism over the smooth locus of $X$ but may identify several points in $\widetilde X$ over a singular point of $X$. Thus, we may think of $\widetilde X$ as a version of $X$ in which the undue gluings of subvarieties or tangent spaces have been resolved. In the case of curves, normalization replaces each node with two distinct smooth points, resulting in a smooth curve (or collection of curves) marked by the preimages of the nodes. 
+This map is an isomorphism over the smooth locus of $X$ but may identify several points in $\widetilde X$ over a singular point of $X$. Thus, we may think of $\widetilde X$ as a version of $X$ in which the undue gluings of subvarieties. In the case of curves, normalization replaces each node with two distinct smooth points, resulting in a smooth curve (or collection of curves) marked by the preimages of the nodes. 
 \end{Rmk}
 
 \begin{center}
@@ -220,12 +247,11 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
 \fi
 
 \begin{ptcb}
-    The actual proof consists in showing the finite automorphisms by considering three conditions:
-    \begin{itemize}
-        \item $g=0$ implies we must always have $3$ marks,
-        \item $g=1$ implies we must have 1 mark 
-        \item and onwards from $g=2$ we're good. Look at \href{https://math.stackexchange.com/questions/1680144/automorphism-group-of-genus-2-curve}{mse/1680144}
-    \end{itemize}
+    We will show that whenever the inequality holds, we have the components of the curve have finitely many automorphisms.\par
+    Starting by considering the $g=0$ case, we may see that whenever $n\geq 3$ we have $\bP^1$'s with at least 3 marks. Thus there's no automorphisms besides the identity as any such map should fix three points.\par
+    For the case of $g=1$, the inequality holds when $n$ is at least 1 as well. \red{DISCUSS Elliptic involution?}\par
+    And finally for $g>2$, look at \href{https://math.stackexchange.com/questions/1680144/automorphism-group-of-genus-2-curve}{mse/1680144}
+    \red{Consider hyperelliptic involution}.
     These three conditions are summarized in the inequality $2-2g_i-n_i<0$.
 \end{ptcb}
 \begin{Ex}
@@ -235,7 +261,7 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
 \end{Ex}
 
 \begin{Ex}
-    For the case of $M_{1,1}$, we compactify by adding a singular stable curve. This is a one-point $\bP^1$ where we attach two points together. The resulting curve has arithmetic genus one. It can be also imagined as ``pinching a loop around the torus which doesn't go around the hole''. This is once again a stable curve as we have the stability condition:
+    For the case of $M_{1,1}$, we compactify by adding a point representing singular stable curve. This is a one-point $\bP^1$ where we attach two points together. The resulting curve has arithmetic genus one. It can be also imagined as ``pinching a loop around the torus which doesn't go around the hole''. This is once again a stable curve as we have the stability condition:
     $$2-2(1)-1=-1<0.$$
 \end{Ex}
 
@@ -288,17 +314,41 @@ We will not only not distinguish classes as mentioned, but also restrict ourselv
 The minimal family of subrings $R^\ast(\ov M_{g,n})\subseteq A^\ast(\ov M_{g,n})$ stable under pushforwards by forgetful and gluing maps is called the family of \term{tautological rings} of the moduli space of stable curves.
 \end{Def}
 
-\begin{Qn}
+\red{
 What is the meaning of a family of subrings? I thought that the tautological ring was only one. What does it mean for a family, or even just one ring, to be stable under pushforwards?
-\end{Qn}
+}
 
 Intuitively, the forgetting and gluing morphisms do what we expect them to do, they either ``forget'' a marked point or ``glue'' a couple of points together.  
 
 \begin{Def}
-    The forgetful map $\eps\:\ov M_{g,n+1}\to\ov M_{g,n}$
+    The \term{forgetful map} is 
+    $$\pi\:\ov M_{g,n+1}\to\ov M_{g,n}$$ 
+    and it assigns to a curve $(C,p_1,\dots,p_{n+1})$ the \emph{stabilization} of the curve $(C,p_1,\dots,p_n)$. Whereas the \term{gluing map} comes in two flavors. A self-gluing 
+    $$\xi\:\ov M_{g-1,n+2}\to\ov M_{g,n}$$
+    which takes the $(C,p_1,\dots,p_{n+1},p_{n+2})$ into $(C,p_1,\dots,p_n)$ that has a node in the place where it identified $p_{n+1},p_{n+2}$. This adds to the curve one arithmetic genus.\par
+    On the other hand, the map 
+    $$\eta\:\ov M_{g_1,n_1+1}\x\ov M_{g_2,n_2+1}\x\to\ov M_{g_1+g_2,n_1+n_2}$$
+    glues two curves $(C_k,p_1,\dots,p_{n_k+1})$ at the points $p_{n_1+1},p_{n_2+1}$ creating a nodal curve.
+\end{Def}
+
+Intuitively, the stabilization occurs when we have a $\bP^1$ component of our curve with less than 3 special points.
+
+\begin{Ex}
+    In the setting when we have an attached $\bP^1$ with 2 marks and we forget one of them, the $\bP^1$ contracts into the larger component and the mark becomes the node which just disappeared.
+\end{Ex}
+
+\red{ADD GRAPHIC Examples}
+\begin{Rmk}
+    One could think that elliptic tails should get contracted as they have no marks, but they do have a special point, the node! It is in the case of pseudo-stable curves that we cannot have elliptic tails. \red{or something like that check Matt thesis}.
+\end{Rmk}
+
+Further information on stabilization can be found in \cite{GreenBookKockVainsencher} section 1.3 p. 23. But as long as we have the intuitive idea that components get contracted, we're good to go.
+
+\begin{Def}
+    
 \end{Def}
 \begin{enumerate}
-    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees. Para dual graphs, tesis Matt
+    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees. Para dual graphs, tesis Matt usar Arbarello Cornalba para hablar de delta a A y delta irr.
     \item $\psi$, $\la$ classes
     \item Intersection product Examples ver seccion 2.3 Matt tesis
     \item Projection formula
@@ -310,20 +360,199 @@ Intuitively, the forgetting and gluing morphisms do what we expect them to do, t
 
 \chapter{Equivariant Cohomology and Localization}
 
-\section{Basics of equivariant cohomology}
+\textbf{TODO}
 \begin{enumerate}
+    \item Basics of equivariant cohomology
+ \begin{enumerate}
     \item Borel Construction of Equivariant Cohomology
     \item Examples of point equivariant Cohomology
     \item Equivariant Cohomology of projective space
 \end{enumerate}
-
-\section{Atiyah-Bott Localization}
-
+\item Localization
 \begin{enumerate}
     \item Example of $H^\ast_T(\bP^r)$ through Localization
     \item Toric varieties Euler characteristic via Atiyah-Bott
     \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
 \end{enumerate}
+\end{enumerate}
+
+
+\section{Introduction to equivariant cohomology}
+
+Manifolds usually don't come by themselves, like in the case of homogenous spaces, some manifolds have a lot of symmetries. These can be expressed by a group action on the manifold. We would like a cohomology theory which retains information on the group action!
+
+\begin{Ex}[A na\"ive approach]
+    Consider the $S^1$ action $\bCP^1$ given by $u\. z=uz$. This action has two fixed points, $0$ and $\infty$. Observe also that 
+    $$u\.z=z\iff u=1.$$
+    If we were to define the a cohomology which retains information on the group action (equivariant cohomology), we could say 
+    $$H_{S^1}^\ast(\bCP^1)\defeq H^\ast(\quot{\bCP^1}{S^1}).$$
+    However the orbit space $\quot{\bCP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
+\end{Ex}
+
+Instead of considering the cohomology of the orbit space $M/G$, which doesn't retain information on the group action, we should look for an alternive which does.
+
+\subsection{The Borel construction}
+
+The main idea for this concept is that homotopy equivalent spaces have the same cohomology. Suppose $G$ acts on $M$, let us create a space $EG$, a \emph{classifying space}, with the following properties:
+
+\begin{enumerate}
+    \item The right action $EG\. G$ is free. ($\forall x(\Stab(x)=0)$)
+    \item $EG$ is contractible. 
+    \item There exists a unique $EG$ up to homotopy. ($EG$ satisfies a universal property in a category of $G$-spaces)
+\end{enumerate}
+
+This sounds a bit risky to ask, because questions may arise. But let's avoid them for now, instead observe that 
+$$M\x EG\isom M$$
+as $EG$ is contractible! 
+
+\begin{Def}
+    We call the \term{orbit space}\footnote{This is now overloading the previous definition of orbit space $M/G$.} of $M$ the quotient
+    $$M_G\defeq\quot{M\x EG}{(g\.x,y)\sim(x,y\.g)}.$$
+    From this we define the \term{equivariant cohomology} of $M$ as 
+    $$H_G^\ast(M)\defeq H^\ast(M_G).$$
+\end{Def}
+
+\begin{Ex}[Cohomology of a point]
+We know that the usual cohomology of a point is trivial, but let's check two examples to see what changes.
+\begin{enumerate}
+    \item First consider the (trivial) action of $\bZ$ on a point. In this case we have
+    $$E\bZ=\bR\word{with}x\.n=x+n.$$
+    This is a free action and $\bR$ is contractible\footnote{You'll have to trust me on the fact that $\bR$ is unique up to homotopy on this one.}. Find the classifying space isn't very bad:
+    $$\pt_\bZ=\quot{\bR}{x\sim x+n}\isom S^1$$
+    so that 
+    $$H_\bZ^\ast(\pt)=H^\ast(S^1)=\quot{\bZ[t]}{t^2}.$$
+    \item Now let's take a bigger group, say $U(1)$, but for our purposes let's call it $T$ as in torus. The classifying space here is 
+    $$ET=\bC^\infty\less\set{0},\word{with}\al\.\un{z}=(\al z_i)_i.$$
+    The action takes a sequence of complex numbers and scalar-multiplies it by $\al\in T$. 
+    %%https://mathoverflow.net/questions/198/how-do-you-show-that-s-infty-is-contractible
+    This action is free, and we may see that $\bC^\infty\less\set{0}\isom S^\infty$. The infinite sphere is contractible by arguments out of my scope. And certainly, this classifying space is unique. But now, the quotient in question is 
+    $$\pt_T=\quot{\bC^\infty\less\set{0}}{\un{z}\sim \al\un{z}}\isom\bP^\infty.$$
+    The cohomology now is 
+    $$H^\ast_{T}\pt=H^\ast\bP^\infty=\bC[t].$$
+    From this example we can extend the calculation to see that for an $n$-dimensional torus $T^n$ we have 
+    $$H^\ast_{T^n}\pt=H^\ast(\bP^\infty)^n=\bC[t_1,\dots,t_n]$$
+    by the K\"unneth formula.
+\end{enumerate}
+\end{Ex}
+
+Questions remain for me such as\dots
+
+\begin{Qn}
+    What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{At the time of writing, Ignacio hasn't read Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
+\end{Qn}
+
+\begin{Rmk}
+    One can see that the idea of constructing the cohomology of the orbit space goes haywire as soon as our space is not a point. For $\bP^1$ one has to find
+    $$H^\ast\left(\quot{T^2\x\bP^2}{\sim}\right)$$
+    which becomes unsurmountably hard.
+\end{Rmk}
+
+To solve this issue we ask for help with the\dots
+
+\section{Atiyah-Bott localization theorem}
+
+\begin{Th}[Atiyah and Bott, 1984]
+    If $G\.M$ is an action and $F_k\subseteq M$ are the fixed loci of the action $G\.F_k=F_k$, then there exists an isomorphism of cohomologies
+    $$H^\ast_G(M)\isom \bigoplus_kH^\ast_G(F_k)$$
+    where the inclusion maps $i_k\: F_k\into M$ induce the morphisms:
+    $$\un{i}^\ast\:H^\ast_G(M)\to\bigoplus_kH^\ast_G(F_k),$$
+    component-wise this is the pullback of each $i_k$. And on the other direction it's
+ $$\frac{i_\ast}{e(N_{\.\mid M})}\:\oplus H^\ast_G(F_k)\to H^\ast_G(M),$$ 
+ where $N_{Y\mid X}$ is the normal bundle $Y\subseteq X$.
+\end{Th}
+
+To say that we're using a localization technique to find cohomology is to apply the Atiyah-Bott theorem.
+
+\begin{Ex}[Projective line cohomology via localization]
+First, let's clearly define the action of $T^2=(\bC\less\set{0})^2$ on $\bP^1$. For $\un{\al}\in T^2$ and $[X,Y]\in\bP^1$ we have
+$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}\footnote{I know this is an unorthodox choice, but it's so that the weights of a certain representation are aligned properly. I'm already traumatized enough to do it the other way around.}.$$
+Then, the only fixed points of this action are $0=[0:1]$ and $\infty=[1:0]$:
+$$\un{\al}\.[0:1]=\bonj{0:\frac{1}{\al_2}}=[0:1],\word{and}\un{\al}\.[1:0]=\bonj{\frac{1}{\al_1}:0}=[1:0].$$
+Proving that there's no more fixed points amounts to a linear algebra exercise. Applying Atiyah-Bott we now have that 
+\begin{gather*}
+    H_{T^2}^\ast(\bP^1)\isom H_{T^2}^\ast([0:1])\oplus H_{T^2}^\ast([1:0])\\
+    \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
+\end{gather*}
+Here, we have used a calculation-not-shown which shows what the equivariant cohomology of $\bP^2$ is. But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
+$$\un i^\ast\left\lbrace
+\begin{aligned}
+    &t_1\mapsto (t_1,t_1),\\
+    &t_2\mapsto (t_2,t_2),\\
+    &H\mapsto (t_1,t_2).
+\end{aligned}
+\right.$$
+Whereas the generators on the right are the classes of the points $[0]=(1,0)$ and $[\infty]=(0,1)$. These points are mapped to the following classes:
+$$i_\ast\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto H-t_2,\\
+    &[1:0]\mapsto H-t_1.
+\end{aligned}
+\right.$$
+And now, we are left with finding the normal bundles $N_{\pt\mid\bP^1}$. Observe that we may use the tangent-normal sequence for subspaces as follows:
+$$0\to T\pt\hookto i^\ast T\bP^1\onto N_{\pt\mid\bP^1}\defeq \quot{T\bP^1}{T\pt}\to0$$
+and we have that the tangent bundle to the point is actually zero. This means that we have the isomorphism
+$$i^\ast T\bP^1=T_{\pt}\bP^1\isom N_{\pt\mid\bP^1}.$$
+Thus the Euler classes we are looking for are for the tangent spaces above $0$ and $\infty$. These can be found using the equivariant Euler sequence for $T\bP^1$, and so we get:
+$$e(N_{\.\mid\bP^1})\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto t_1-t_2,\\
+    &[1:0]\mapsto t_2-t_1.
+\end{aligned}
+\right.$$
+Putting this together we may see that indeed the isomorphism works as follows:
+$$\left\lbrace
+\begin{aligned}
+    &[0:1]\mapsto \frac{H-t_2}{t_1-t_2}\mapsto\left(\frac{t_1-t_2}{t_1-t_2},\frac{t_2-t_2}{t_1-t_2}\right)=(1,0),\\
+    &[1:0]\mapsto \frac{H-t_1}{t_2-t_1}\mapsto \left(\frac{t_1-t_1}{t_2-t_1},\frac{t_2-t_1}{t_2-t_1}\right)=(0,1).
+\end{aligned}
+\right.$$
+Recall lastly that the vector $(1,0)$ represents 
+$$1\.[0:1]+0\.[1:0]$$
+so it's indeed the correct cohomology class.
+\end{Ex}
+
+With this example, we verified that the localization theorem indeed provides an isomorphism between different cohomology rings. Now, we use localization to compute the Euler characteristic of a different variety.
+
+\begin{Ex}
+    Consider $\bP^1\x\bP^1$ and an action of $T^4$ via rescaling all entries as before. The fixed points under this action are 
+    $$(0,0),\quad(\infty,0),\quad(0,\infty),\word{and}(\infty,\infty).$$
+    Let us denote by $F_k,\ k=1,\dots,4$ the cohomology classes of the fixed points, and $i_k\:F_k\hookto\bP^1\x\bP^1$ the inclusion map.
+    Via the Atiyah-Bott theorem, we have that 
+    \begin{align*}
+    \int_{\bP^1\x\bP^1}e(T\bP^1\x\bP^1)&=\int_{\bP^1\x\bP^1}\sum_{k=1}^{4}\frac{i_{k\ast} i^\ast_k(e(T\bP^1\x\bP^1))}{e(N_{F_k\mid\bP^1\x\bP^1})}\\
+    &=\sum_{k=1}^{4}\int_{F_k}\frac{ i^\ast_k(e(T\bP^1\x\bP^1))}{e(N_{F_k\mid\bP^1\x\bP^1})}\\
+    &=\sum_{k=1}^{4}\int_{F_k}\frac{ e(i^\ast_kT\bP^1\x\bP^1)}{e(N_{F_k\mid\bP^1\x\bP^1})}
+    \end{align*}
+    and from here we invoke the tangent-normal sequence for $F_k\subseteq\bP^1\x\bP^1$. We have that 
+    $$0\to TF_k\hookto i_k^\ast T\bP^1\x\bP^1\onto N_{F_k\mid\bP^1\x\bP^1}\to0.$$
+    And simplifying by recalling that the tangent bundle over a point is zero, we have 
+    $$0\to0\to i_k^\ast T\bP^1\x\bP^1\xrightarrow[]{\isom} N_{F_k\mid\bP^1\x\bP^1}\to0.$$
+    This means that both Euler classes cancel out and we are left with just the fundamental class. The integral of the fundamental class over its own space gives us the value of $1$ so that the whole sum is equal to $4$.\par
+    This lets us conclude that $\chi(\bP^1\x\bP^1)=4$.
+\end{Ex}
+
+\begin{Rmk}
+    This computation did not rely on specific coordinates of $\bP^1 \times \bP^1$, only on the existence of four torus-fixed points.\par
+    We also implicitly used several properties not mentioned before:
+    \begin{enumerate}
+        \item Chern classes commute with pullbacks, so:
+        $$i_k^\ast(e(T\bP^1\x\bP^1))=e(i_k^\ast T\bP^1\x\bP^1).$$
+        \item Integration against a pushforward restricts to the domain of the map:
+        $$\int_{\bP^1\x\bP^1}i_{k\ast}(\.)=\int_{F_k}$$
+    \end{enumerate}
+\end{Rmk}
+
+The variety $\bP^1 \times \bP^1$ is an example of a \emph{toric variety}. One property of toric varieties is that their Euler characteristic is equal to the number of torus-fixed points.
+
+\begin{Def}
+    A \term{toric variety} is an irreducible variety $X$ containing a torus $T^k\defeq(C\less\set{0})^k$ as a Zariski open subset such that the action of $T^k$ on itself extends to a morphism $T^k\x X\to X$.
+\end{Def}
+
+In general, for toric varieties, the number of torus-fixed points equals the number of top-dimensional cones in the associated fan which is combinatorial information that can be computed easily.
+
+\begin{Th}
+For a toric variety, the Euler characteristic equals the number of torus-fixed points under the torus action.
+\end{Th}
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
