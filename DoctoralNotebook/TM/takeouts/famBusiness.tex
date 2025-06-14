@@ -1,0 +1,54 @@
+\section{The family business}
+
+Having mentioned that conics form a family over $\bP^1$, what we are saying is that there is a set
+$$\Set{(V_A,A)\: V_A=V(Ax^2+(2-A)y^2-2),\ A\in\bP^1}$$
+and a map from this set to $\bP^1$ which is a projection to $\bP^1$. Similarly with the set 
+$$\Set{(V,[\la:\mu])\: V=V(\la F+\mu G),\ \bonj{\la:\mu}\in\bP^1}$$
+we also have such a map. Formally what is meant by a family is the following.
+
+\begin{Def}[J. Kóllar]
+%https://web.math.princeton.edu/~kollar/FromMyHomePage/modbook-final.pdf
+Let $B$ be a regular, one-dimensional scheme. A \term{family of varieties} over the base $B$ is a flat morphism of finite type
+$$\pi\: E\to B$$
+whose fibers are pure-dimensional and geometrically reduced\footnote{Look at \href{https://math.stackexchange.com/questions/716452/geometrically-reduced-variety}{mse/716452}}. Such a family is also called a \emph{one-parameter family}. For each $b \in B$, the fiber $E_b = \pi^{-1}(b)$ denotes the fiber of $\pi$ over $b$.
+\end{Def}
+
+Similarly, when we speak of families of \emph{pointed} varieties, we refer to families equipped with sections
+$$\sg_i\: B\to E.$$
+If we require marked points to remain distinct, we are asking for disjoint sections, which literally means
+$$\Im(\sg_i)\cap\Im(\sg_j)=\emptyset.$$
+
+\begin{Rmk} 
+    Observe that the notion of a family of varieties is similar to that of a vector bundle: in both cases, we have a morphism from a total space to a base, with fibers that are comparable.\par
+    However, families of varieties lack \emph{local trivializations}, which vector bundles do have. 
+\end{Rmk}
+
+\begin{Ex}
+    Let us formalize the motivating example in order to see that it is indeed a family.\par
+First, observe that any smooth conic passing through four points in general position is isomorphic to a four-pointed projective line $(\bP^1, p_1, \dotsc, p_4)$. 
+\begin{ptcb}
+    To see this, choose a point (not necessarily one of the marked points) on the conic and draw lines from this point to every other point on the conic. This construction associates to each point on the conic the \emph{slope} of the line through it, yielding a bijection between the points of the conic and the points of $\bP^1$.
+\end{ptcb}
+We must also check that such $\bP^1$'s are pure-dimensional and geometrically reduced. It is indeed the case that all $\bP^1$'s are of the same dimension (1). It remains to check that $\bP^1$ is geometrically reduced\red{CHECK THIS}.\par
+Within this copy of $\bP^1$, we consider the map
+    $$z\mapsto\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
+    which sends
+    $$(p_1,p_2,p_3)\mapsto(0,1,\infty)$$ 
+    and $p_4$ to the \term{cross-ratio} of the four points. This is the unique map with these properties. Thus, the variation of the cross-ratio is equivalent to the variation of the conic through the four points. Each smooth conic then corresponds to a point in $(\bP^1, 0, 1, \infty, t)$ where $t$ (the modulus) varies in $\bP^1 \less \set{0,1,\infty} = M_{0,4}$, the moduli space of $4$-pointed rational curves.\par
+    Hence, we obtain a family of pointed projective lines:
+    \begin{center}
+        \begin{tikzcd}
+            {M_{0,4}\x\bP^1} \arrow[d, "\pi"']              \\
+            {M_{0,4}} \arrow[u, "(\sg_i)_{i=1}^4"', bend right=60]
+            \end{tikzcd}
+    \end{center}
+    where the maps are defined by
+    $$\pi([(\bP^1,(0,1,\infty,t))],t)\mapsto [(\bP^1,(0,1,\infty,t))]$$
+    and each $\sg_i$ singles out each of the marks on the corresponding fiber. This projection mapping is flat and proper \red{WHAT was flat and proper}.\par
+    We also need to take into account for the three nodal conics, we blow up $\bP^1 \times \bP^1$ at the three points
+    $$(0,0),(1,1)\word{and}(\infty,\infty).$$
+    This procedure yields a \emph{new family} over the whole of $\bP^1$ whose fibers over $t \in \bP^1 \less \set{0,1,\infty}$ remain smooth, while the special fibers become \emph{stable} nodal curves composed of two spheres joined at a node, with two marked points on each component.
+\end{Ex}
+
+Observe that in this family we are \emph{not} missing any sort of 4-pointed $\bP^1$. In this sense, the family has all the possible versions of $\bP^1$, we say it's a \term{universal family}. For a family to be universal, its base variety should be the moduli space itself so that over every point we can see every possible parametrized object. We will formally define this notion in the next section.\par
+With this perspective in mind, we now turn to the construction and compactification of moduli spaces of curves.

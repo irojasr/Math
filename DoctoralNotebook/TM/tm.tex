@@ -7,7 +7,7 @@
 \def\nsigla {TM}
 \def\nsiglahead {Master's Thesis}
 \def\nlang {ENG}
-\def\ntrim{}
+%\def\ntrim{}
 %\def\darktheme{}
 
 \input{../../headerVarillyDiff}
@@ -50,88 +50,143 @@ Subsequently, we will introduce the concept of equivariant cohomology and the At
 
 The question that initially motivated my study of this topic appears deceptively simple:
 
-\begin{significant} Which quadratic curves pass through four points in general position inside $\mathbb{R}^2$? \end{significant}
+\begin{significant}
+        Which are the quadratic curves which pass through $4$ points in $\bR^2$ and no three of them are collinear?
+\end{significant}
+    This question might be a bit tough to tackle right now, but let us simplify by giving ourselves four particular points.
+    
+\begin{Ex}
+    Let us find all the conics passing through the points 
+    $$(1,1),(1,-1),(-1,-1)\word{and}(-1,1).$$At first \emph{a circle} should be our best guess for a conic passing through this four points. As seen in the following figure, $x^2+y^2=2$ is a circle containing the aforementioned points.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.3\textwidth, trim= 0.8cm 22.9cm 16cm 0.6cm,clip]{Figs/fig1Intro.pdf}
+        \label{fig1Intro}
+        \caption{One of the quadratic curves passing through our points: $x^2+y^2=2$.}
+    \end{figure}\newpage
+    Ideally we would like to stretch and shrink the circle in order to make it an ellipse. We know ellipses have equations of the form 
+    $$\left(\frac xa\right)^2+\left(\frac yb\right)^2=1,$$ 
+    but in order to use our circle equation we will instead add coefficients to the equation in the following fashion
+    $$Ax^2+By^2=2.$$
+    These coefficients are determined by the points on the curve, we may derive the relation by plugging in the coordinates of a point into the equation:
+    $$A(1)^2+B(1)^2=2\To B=2-A\To tx^2+(2-t)y^2=2$$
+    where we take $t=A$ to get the last equation.
+    The following curves are the ones we obtain given different values of $t$:
+    \vspace{-0.5em}
+    \begin{itemize}
+        \begin{multicols}{2}
+            \itemsep=-0.4em
+        \item $(t=1)$: A circle.
+        \item $(1<t<2)$: An ellipse.
+        \item $(t=2)$: The pair of lines $x^2=1$.
+        \item $(t>2)$: A hyperbola.
+        \end{multicols}
+    \end{itemize}
+    However we are left with one curve which passes through the points in question. To find it we will assume $t$ is non-zero. From our parametric equation we obtain 
+    $$tx^2+(2-t)y^2=2\To x^2+o(t)+y^2=\frac{2}{t}\xrightarrow[t\to\infty]{}x^2=y^2$$
+    which is the pair of lines $y=\pm x$. Observe that this behavior is independent of the sign of the infinity we are going to. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 0.25cm 13.1cm 5.25cm 0.5cm,clip]{Figs/fig2Intro.pdf}
+        \label{fig2intro}
+        \caption{The projective line seen as the moduli space $\ov M_{0,4}$.}
+    \end{figure}
+    As such, these are all the conics passing through this four points. We omit the complex case in this example but this can be done in full generality.
+\end{Ex}
+   
+    \iffalse
+    In essence what we have seen is that all the quadratic curves passing through our set of points can be parametrized by $\bR\cup\set{\infty}$. Formally:
+    \begin{Prop}\label{prop:cM04barIsomP1}
+    The moduli space $\ov{\cM}_{0,4}$ can be identified with $\bP^1_\bR$.
+    \end{Prop}
+    Intuitively the moduli space is a set of parameters. When the points vary \emph{continuously}, the objects they parametrize deform \emph{continuously} as well. What we have done here is not a proof of the previous proposition but it may serve as evidence that it is true.\par 
+    To study this space and other spaces which may arise in this fashion, we may ask a question like \emph{how many such curves can we find?} In order to do this, we will address this problem by connecting it with graphs. 
+    \fi
+    \newpage
+This example suggests a strategy for solving the original problem for any choice of four points.
 
-A natural first step is to fix specific points. Consider, for example, the points $(1,1)$, $(1,-1)$, $(-1,-1)$, and $(-1,1)$. A circle passes through these four points, given explicitly by the equation
-$$x^2+y^2=2.$$
-To obtain more quadratics passing through these points, we introduce parameters into the equation. We modify it to the form
-$$Ax^2+By^2=2$$
-and by substituting the coordinates of one of the points, we find the relation $A + B = 2$. Thus, we obtain a \emph{family} of conics parametrized by $A \in \mathbb{R}$:
-$$Ax^2+(2-A)y^2=2.$$
-We can naturally extend this family to include $A = \infty$, corresponding to the curve
-$$x^2=y^2,$$
-which is a singular conic, specifically, a pair of lines intersecting at the origin. Similarly, at $A=0$ and $A=2$, we obtain other singular quadratics. Aside from these special cases, the curves in the family are smooth.\par
-This example suggests a general strategy for solving the original problem:
-\begin{ptcb}
-Given four distinct points $A$, $B$, $C$, and $D$ in general position, define $F$ to be the reducible conic formed by the union of the lines through $A$ and $B$, and $C$ and $D$. Similarly, let $G$ be the conic formed by the lines through $A$ and $C$, and $B$ and $D$. Then the family of conics
-$$\la F+\mu G=0,\quad [\la,\mu]\in\bP^1$$
-describes all conics passing through the four given points.
-\end{ptcb}
+\begin{Ex}
+    Given four distinct points $A$, $B$, $C$, and $D$ in general position, we look for all the possible conics passing through them.\par
+    Define $F$ to be the reducible conic formed by the union of the lines through $A$ and $B$, and $C$ and $D$. Similarly, let $G$ be the conic formed by the lines through $A$ and $C$, and $B$ and $D$. Then the family of conics
+    $$\la F+\mu G=0,\quad [\la,\mu]\in\bP^1$$
+    describes all conics passing through the four given points.
+\end{Ex}
+
+
 
 In other words, the space of conics passing through four points in general position is naturally parametrized by $\mathbb{P}^1$. This is an example of a moduli space: a geometric space whose points parametrize certain types of objects. 
 
-\section{The family business}
+\section{A different viewpoint on the same problem}
 
-Having mentioned that conics form a family over $\bP^1$, what we are saying is that there is a set
-$$\Set{(V_A,A)\: V_A=V(Ax^2+(2-A)y^2-2),\ A\in\bP^1}$$
-and a map from this set to $\bP^1$ which is a projection to $\bP^1$. Similarly with the set 
-$$\Set{(V,[\la:\mu])\: V=V(\la F+\mu G),\ \bonj{\la:\mu}\in\bP^1}$$
-we also have such a map. Formally what is meant by a family is the following.
+Kapranov \cite{KapranovPaper} studied spaces which parametrized curves of certain degree passing through a number of points. The problem of classifying conics with marked points is one of such cases, and this transforms into the problem of classifying four-pointed copies of $\bP^1$. There is an equivalence between pointed curves and marked Riemann surfaces. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. 
 
-\begin{Def}[J. Kóllar]
-%https://web.math.princeton.edu/~kollar/FromMyHomePage/modbook-final.pdf
-Let $B$ be a regular, one-dimensional scheme. A \term{family of varieties} over the base $B$ is a flat morphism of finite type
-$$\pi\: E\to B$$
-whose fibers are pure-dimensional and geometrically reduced\footnote{Look at \href{https://math.stackexchange.com/questions/716452/geometrically-reduced-variety}{mse/716452}}. Such a family is also called a \emph{one-parameter family}. For each $b \in B$, the fiber $E_b = \pi^{-1}(b)$ denotes the fiber of $\pi$ over $b$.
-\end{Def}
+\begin{Prop}%%%ADD FIG HERE
+    \red{Fig?}Any smooth conic in the projective plane is isomorphic to the projective line.
+\end{Prop}
 
-Similarly, when we speak of families of \emph{pointed} varieties, we refer to families equipped with sections
-$$\sg_i\: B\to E.$$
-If we require marked points to remain distinct, we are asking for disjoint sections, which literally means
-$$\Im(\sg_i)\cap\Im(\sg_j)=\emptyset.$$
+For our four pointed conic, we get an isomorphic $(\bP^1,p_1,\dots,p_4)$. 
 
-\begin{Rmk} 
-    Observe that the notion of a family of varieties is similar to that of a vector bundle: in both cases, we have a morphism from a total space to a base, with fibers that are comparable.\par
-    However, families of varieties lack \emph{local trivializations}, which vector bundles do have. 
+\begin{ptcb}
+    The idea of the proof consists in taking a point in the conic from which we project lines and then create a bijection between this lines and $\bP^1$.\par
+    As the conic is smooth, such lines will only have one other point of intersection with the curve meaning that we can find a bijection between points in the conic and points in the projective line.
+\end{ptcb}
+
+\begin{Rmk}
+Observe that for any given four points, we will recover $\bP^1$ along different tuples of points. When we start varying the points through which the conics pass, we will obtain a different tuple. Our question is then, how do we classify this projective lines along with their points?
 \end{Rmk}
 
-\begin{Ex}
-    Let us formalize the motivating example in order to see that it is indeed a family.\par
-First, observe that any smooth conic passing through four points in general position is isomorphic to a four-pointed projective line $(\bP^1, p_1, \dotsc, p_4)$. 
-\begin{ptcb}
-    To see this, choose a point (not necessarily one of the marked points) on the conic and draw lines from this point to every other point on the conic. This construction associates to each point on the conic the \emph{slope} of the line through it, yielding a bijection between the points of the conic and the points of $\bP^1$.
-\end{ptcb}
-We must also check that such $\bP^1$'s are pure-dimensional and geometrically reduced. It is indeed the case that all $\bP^1$'s are of the same dimension (1). It remains to check that $\bP^1$ is geometrically reduced\red{CHECK THIS}.\par
-Within this copy of $\bP^1$, we consider the map
-    $$z\mapsto\frac{(z-p_1)(p_2-p_3)}{(z-p_3)(p_2-p_1)}$$
-    which sends
-    $$(p_1,p_2,p_3)\mapsto(0,1,\infty)$$ 
-    and $p_4$ to the \term{cross-ratio} of the four points. This is the unique map with these properties. Thus, the variation of the cross-ratio is equivalent to the variation of the conic through the four points. Each smooth conic then corresponds to a point in $(\bP^1, 0, 1, \infty, t)$ where $t$ (the modulus) varies in $\bP^1 \less \set{0,1,\infty} = M_{0,4}$, the moduli space of $4$-pointed rational curves.\par
-    Hence, we obtain a family of pointed projective lines:
-    \begin{center}
-        \begin{tikzcd}
-            {M_{0,4}\x\bP^1} \arrow[d, "\pi"']              \\
-            {M_{0,4}} \arrow[u, "(\sg_i)_{i=1}^4"', bend right=60]
-            \end{tikzcd}
-    \end{center}
-    where the maps are defined by
-    $$\pi([(\bP^1,(0,1,\infty,t))],t)\mapsto [(\bP^1,(0,1,\infty,t))]$$
-    and each $\sg_i$ singles out each of the marks on the corresponding fiber. This projection mapping is flat and proper \red{WHAT was flat and proper}.\par
-    We also need to take into account for the three nodal conics, we blow up $\bP^1 \times \bP^1$ at the three points
-    $$(0,0),(1,1)\word{and}(\infty,\infty).$$
-    This procedure yields a \emph{new family} over the whole of $\bP^1$ whose fibers over $t \in \bP^1 \less \set{0,1,\infty}$ remain smooth, while the special fibers become \emph{stable} nodal curves composed of two spheres joined at a node, with two marked points on each component.
-\end{Ex}
+\begin{Th}
+    The automorphism group of $\bP^1$ is the group of Möbius transformations, $\PGL_2$. Given any two ordered triple of points 
+    $$p_1,p_2,p_3\word{and}q_1,q_2,q_3$$
+of the projective line, there exists a unique automorphism $T$
+ of the projective line such that $T(p_i)=q_i$.
+\end{Th}
 
-Observe that in this family we are \emph{not} missing any sort of 4-pointed $\bP^1$. In this sense, the family has all the possible versions of $\bP^1$, we say it's a \term{universal family}. For a family to be universal, its base variety should be the moduli space itself so that over every point we can see every possible parametrized object. We will formally define this notion in the next section.\par
-As we saw, the problem of classifying conics with marked points transforms into the problem of classifying four-pointed copies of $\bP^1$, that is, genus-zero Riemann surfaces with marked points. This equivalence between pointed varieties and marked Riemann surfaces was explored by Kapranov \cite{KapranovPaper}. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. With this perspective in mind, we now turn to the construction and compactification of moduli spaces of curves.
+We will assume the first part of this result and quickly we mention the proof for the second part.
+
+\begin{ptcbp}
+Any such automorphism is of the form 
+$$z\mapsto \frac{az+b}{cz+d}$$
+so let us build a map which takes $p_1,p_2,p_3$ to $0,1,\infty$ (in affine coordinates). Such a map is 
+$$z\mapsto\frac{z-p_1}{z-p_3}\left(\frac{p_2-p_3}{p_2-p_1}\right).$$
+    This maps $p_1,p_2,p_3$ to $0,1,\infty$ respectively. Call this map $T_p$ and then create a similar $T_q$, the desired function $T$ is $T_q^{-1}T_p$.
+\end{ptcbp}
+
+\begin{Def}
+    Call the image of the fourth point $p_4$ under the aforementioned map $T_p$, the \term{cross-ratio} of the tuple $(p_1,\dots,p_4)$. 
+\end{Def}
+
+For our intents and purposes, the problem changed from
+\begin{significant}
+    When are two conics passing through 4 points in general position isomorphic?
+\end{significant}
+to the projective variant 
+\begin{significant}
+    When are two 4-marked projective lines isomorphic?
+\end{significant}
+And with the previous result we can give the answer. 
+
+\begin{Th}
+    The isomorphism class of $(\bP^1,0,1,\infty,t)$ is determined by the value $t\in\bP^1\less\set{0,1,\infty}$. 
+\end{Th}
+
+ Each smooth conic then corresponds to a $(\bP^1, 0, 1, \infty, t)$ where $t$ varies in $\bP^1 \less \set{0,1,\infty}$. Intuitively for now we will call it the moduli space of $4$-pointed $\bP^1$'s, $M_{0,4}$.\par
+
+ But observe we are missing two things, only one of which we have talked about before. The new missing aspect is the lack of compactness of this space. $\bP^1$ as a whole is compact, but removing three points also removes that property.\par
+ The other missing objects are the \emph{singular} conics. Asking where they went is like asking ``what if we let $t$ go to any of the three special points?'' We will defer the interested reader to Kock and Vainsencher's \emph{Green Book} \cite{GreenBookKockVainsencher} to fill out the details of the universal family business. In our treatment it suffices to know that whenever two points collide, we will blowup $\bP^1$ at that point adding an exceptional divisor isomorphic to $\bP^1$ and then adding the two marked points there.\par
+ This treatment guarantees that $\ov M_{0,4}$ is now compact and so we have a nicer moduli space. Let us now delve deeper into this notion and throughly explain how we added the singular conics.
+
+%%%%Aquí iba el family business
 
 \section{Moduli of curves}
+
+As a quick refresher, let us clarify the objects which are parametrized by the moduli spaces of our interest. 
 
 \begin{Def}
     A \term{Riemann surface} is a complex analytic manifold of dimension $1$. 
 \end{Def}
 
-For every point, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$. We will interchangeably say Riemann surface or \emph{smooth compact complex curve}.
+For every point in the surface, there's a neighborhood which is isomorphic to $\bC$ and transition functions are linear isomorphisms of $\bC$. We will interchangeably say Riemann surface or \emph{smooth compact complex curve}.
     
 \begin{Ex}
         The following classes define Riemann surfaces.
@@ -142,22 +197,18 @@ For every point, there's a neighborhood which is isomorphic to $\bC$ and transit
         \item Take another holomorphic function $f$, then $\set{f(x,y)=0}$ is a Riemann surface such that 
         $$\text{Sing}(f)=\set{\del_xf=\del_yf=f=0}=\emptyset.$$
         This means that at every point the gradient identifies a normal direction to the level set $f=0$. In particular, there's a well defined tangent line. The inverse function theorem guarantees that this is a complex manifold. 
-        \item The first compact example is $\bCP^1$.
+        \item The first compact example is $\bP^1$.
         \end{enumerate}
 \end{Ex} 
 
 \begin{Def}
-    The moduli space $M_{g,n}$ is the set of isomorphism classes of genus $g$, $n$-pointed Riemann surfaces.
+    The \term{moduli space} $M_{g,n}$ is the set of isomorphism classes of genus $g$, $n$-pointed Riemann surfaces.
 \end{Def}
 
-\begin{Rmk}
-This immediately implies that the parametrized curves are smooth complex algebraic curves.
-\end{Rmk}
-
-Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$ is determined by the cross-ratio of the four points. In other words, it is $M_{0,4}$.
+Recalling our motivating example, we called the space which classified the conics $M_{0,4}$. According to this definition, we are classifying $4$-pointed genus 0 Riemann surfaces. It is indeed the case that $\bP^1$ is the unique up-to-isomorphism Riemann surface of genus 0. Let us explore what happens in further genus higher up.
 
 \begin{Ex}
-    The space $M_{1,1}$ parametrizes $1$-pointed \emph{elliptic curves}.\par
+    The space $M_{1,1}$ parametrizes $1$-pointed genus $1$ Riemann surfaces, or 1-marked \emph{elliptic curves}.\par
     Any such curve is isomorphic to 
     $$\quot{\bC}{L},\quad L=\bZ u+\bZ v,\word{where}u,v\in\bZ,$$
     and the image of the origin under the quotient map is the natural choice for the marked point. We have that two lattices $L_1,L_2$ determine the same elliptic curve whenever 
@@ -181,29 +232,16 @@ Recalling our motivating example, an isomorphism class of a four-pointed $\bP^1$
     $$
     Then observe that the lattices
     $$\gen_\bZ(1,T\.\tau)\word{and}\gen_\bZ(1,S\.\tau)$$
-    give us the same quotient. From this we can be more specific and say 
+    give us the same quotient. From this we can be more specific and say \red{Fig?}
     $$M_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
 \end{Ex}
 
-In the same fashion as before, we may describe a family of elliptic curves over $M_{1,1}$ such that the fiber over a particular $\tau\in M_{1,1}$ corresponds to the torus with the corresponding manifold structure determined by $\tau$.\par
-As was the case for the moduli space of 4 pointed rational curves, the family over this moduli space contains all possible genus 1 curves with 1 mark. Once again, it is universal! This is a property of the moduli space itself actually.
-
-\begin{Def}
-    We say that a moduli space is \term{fine} whenever it carries a universal family and every other family of parametrized objects is induced from it via pullback. 
-\end{Def}
-
-\begin{Ex}
-    If $E\xrightarrow[]{\pi}B$ is another family of genus $1$, 1-pointed curves then we may create a map $B\to M_{1,1}$ given by 
-    $$b\mapsto[\pi^{-1}(b)].$$
-    Looking at the fiber over the isomorphism class of that point in the moduli space we may encounter the same torus. The fibers are isomorphic regardless, and the remainder left to check is that the diagram that forms commutes. \red{DO A BIT FURTHER}.
-\end{Ex}
-
-Our goal is to describe maps between moduli spaces. Before doing so, however, we must address what happens to nodal curves.
+Once again, we arrive at the same issue that this space is not compact. Last time we found a way to compactify the space by adding some \emph{evidently} missing points. But it is unclear here how to deal with this conundrum. We address the problem by introducing the notion of stability.
 
 \subsection{Stable curves}
 
 \begin{Def}[\cite{ZvonkineIntro}, pg. 16]
-    A genus $g$, $n$-pointed \term{stable curve} $(C,p_1,\dots,p_n)$ is a compact complex algebraic curve\footnote{It's almost a manifold, but it's not because it can lack smoothness} satisfying:
+    A genus $g$, $n$-pointed \term{stable curve} $(C,p_1,\dots,p_n)$ is a compact complex algebraic curve satisfying:
     \begin{enumerate}
         \item The only singularities of $C$ are simple nodes.
         \item Marked points and nodes are all distinct. Marked points and nodes do not coincide.
@@ -212,39 +250,24 @@ Our goal is to describe maps between moduli spaces. Before doing so, however, we
     Throughout, we assume that stable curves are connected. The \emph{genus} of $C$ is the arithmetic genus, or equivalently, the genus of the curve obtained when \emph{smoothing the nodes}.
 \end{Def}
 
+\begin{Rmk}
+Observe that the definition calls the object an \emph{algebraic curve} and not a manifold. It's almost a manifold, but it's not because it can lack smoothness.
+\end{Rmk}
+
 \begin{Th}[\cite{ZvonkineIntro}, pg. 17]
 A stable curve admits a finite number of automorphisms (as in condition \ref{fin-number-auts}) if and only if every connected component $C_i$ of its normalization with genus $g_i$ and $n_i$ \emph{special} points satisfies 
 $$2-2g_i-n_i<0.$$
 \end{Th}
 
-\begin{Rmk} 
+\begin{Rmk} %%%Add figure of normalization
     %https://en.wikipedia.org/wiki/Zariski%27s_main_theorem
     %https://mathoverflow.net/questions/109395/is-there-a-geometric-intuition-underlying-the-notion-of-normal-varieties
     %https://en.wikipedia.org/wiki/Normal_scheme
-Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
+\red{Fig?}Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
 Formally, the normalization of a variety $X$ is a non-singular (possibly disconnected) variety $\widetilde X$ equipped with a finite birational morphism 
 $$\nu:\widetilde X\to X.$$
 This map is an isomorphism over the smooth locus of $X$ but may identify several points in $\widetilde X$ over a singular point of $X$. Thus, we may think of $\widetilde X$ as a version of $X$ in which the undue gluings of subvarieties. In the case of curves, normalization replaces each node with two distinct smooth points, resulting in a smooth curve (or collection of curves) marked by the preimages of the nodes. 
 \end{Rmk}
-
-\begin{center}
-    \red{Write a proof for sufficient condition of the theorem}.
-\end{center}
-
-\iffalse
-\begin{ptcb}
-    Idea should go like: if $C$ has $k$ irreducible components, then we may add up the contributions as follows:
-    \begin{align*}
-    \forall i(2-2g_i-n_i<0)&\To\sum_{i=1}^k(2-2g_i-2n_i)<0\\
-    &\To2k-2\sum_{i=1}^k g_i-2\sum_{i=1}^k n_i<0.
-    \end{align*}
-    Observe that $g$ can be larger than $\sum_{i=1}^k g_i$ as we can add arithmetic genus when joining two different points on a component. Observe that the sum $\sum_{i=1}^k n_i$ accounts for the marks and nodes-to-be in the component $C_i$. All marks in the normalization arise from a mark in the original curve and every node in the original curve is counted \emph{twice} in the sum by the handshaking lemma. This means that 
-    $$\sum_{i=1}^k n_i=n+2(\#\text{nodes in }C).$$
-    Thus our quantity becomes 
-    $$2k-2\sum_{i=1}^kg_i-2n-4(\#\text{nodes in }C).$$
-    \red{¿How do we get to the final quantity?}
-\end{ptcb}
-\fi
 
 \begin{ptcb}
     We will show that whenever the inequality holds, we have the components of the curve have finitely many automorphisms.\par
@@ -264,6 +287,8 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
     For the case of $M_{1,1}$, we compactify by adding a point representing singular stable curve. This is a one-point $\bP^1$ where we attach two points together. The resulting curve has arithmetic genus one. It can be also imagined as ``pinching a loop around the torus which doesn't go around the hole''. This is once again a stable curve as we have the stability condition:
     $$2-2(1)-1=-1<0.$$
 \end{Ex}
+
+Once equipped with the idea of stability we can now calmly talk about $\ov M_{g,n}$ as the set of isomorphism classes of \emph{stable curves}. This space can be treated as an orbifold \cite{ZvonkineIntro}, as a Deligne-Mumford stack, but we will not deal with such intricacies here. Instead, we will now delve into the cohomology of this space and talk about the combinatorial tools that will help us further along the road.
 
 \section{Cohomological classes of the moduli space}
 
@@ -331,10 +356,10 @@ Intuitively, the forgetting and gluing morphisms do what we expect them to do, t
     glues two curves $(C_k,p_1,\dots,p_{n_k+1})$ at the points $p_{n_1+1},p_{n_2+1}$ creating a nodal curve.
 \end{Def}
 
-Intuitively, the stabilization occurs when we have a $\bP^1$ component of our curve with less than 3 special points.
+Intuitively, stabilization occurs when we have a $\bP^1$ component of our curve with less than 3 special points.
 
 \begin{Ex}
-    In the setting when we have an attached $\bP^1$ with 2 marks and we forget one of them, the $\bP^1$ contracts into the larger component and the mark becomes the node which just disappeared.
+    In the setting when we have a $\bP^1$-tail with 2 marks and we forget one of them, the $\bP^1$ contracts into the larger component and the mark becomes the node which just disappeared.
 \end{Ex}
 
 \red{ADD GRAPHIC Examples}
@@ -344,8 +369,10 @@ Intuitively, the stabilization occurs when we have a $\bP^1$ component of our cu
 
 Further information on stabilization can be found in \cite{GreenBookKockVainsencher} section 1.3 p. 23. But as long as we have the intuitive idea that components get contracted, we're good to go.
 
+\subsection{Codimension 1}
+
 \begin{Def}
-    
+    The boundary of the moduli space $\del M_{g,n}$ consists of all 
 \end{Def}
 \begin{enumerate}
     \item Talk about divisors in Mgn, what is a boundary divisor and dual trees. Para dual graphs, tesis Matt usar Arbarello Cornalba para hablar de delta a A y delta irr.
