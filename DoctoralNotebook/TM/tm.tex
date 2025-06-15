@@ -7,7 +7,7 @@
 \def\nsigla {TM}
 \def\nsiglahead {Master's Thesis}
 \def\nlang {ENG}
-%\def\ntrim{}
+\def\ntrim{}
 %\def\darktheme{}
 
 \input{../../headerVarillyDiff}
@@ -32,14 +32,7 @@ Knowledge on theory of enumeration, generating functions, combinatorial species,
 \newpage
 \fi
 \tableofcontents
-\newpage
-\textbf{TODO}
-\begin{enumerate}
-    \item Look at TODO in morphisms section
-    \item Import part of DiffyGeo Project to here
-    \item Reread ch1 to get a sense of where we are and compare old TODO with a possible new TODO
-\end{enumerate}
-\newpage
+
 \chapter{Introduction and background}
 
 Our goal is to understand the calculation of Gromov-Witten invariants of the space $\ov{M}_{g,n}(\mathbb{P}^r,d)$, the moduli space of degree $d$ maps to $\mathbb{P}^r$, using techniques from Atiyah-Bott localization. To begin this endeavor, we must first study the moduli space $\ov{M}_{g,n}$ and its intersection theory. This space, which parametrizes genus $g$ Riemann surfaces with $n$ marked points, was originally introduced and studied by Deligne and Mumford.
@@ -60,7 +53,7 @@ The question that initially motivated my study of this topic appears deceptively
     $$(1,1),(1,-1),(-1,-1)\word{and}(-1,1).$$At first \emph{a circle} should be our best guess for a conic passing through this four points. As seen in the following figure, $x^2+y^2=2$ is a circle containing the aforementioned points.
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.3\textwidth, trim= 0.8cm 22.9cm 16cm 0.6cm,clip]{Figs/fig1Intro.pdf}
+        \includegraphics[width=0.3\textwidth, trim= 0.8cm 22.9cm 16cm 0.6cm,clip]{figs/fig1Intro.pdf}
         \label{fig1Intro}
         \caption{One of the quadratic curves passing through our points: $x^2+y^2=2$.}
     \end{figure}\newpage
@@ -87,7 +80,7 @@ The question that initially motivated my study of this topic appears deceptively
     which is the pair of lines $y=\pm x$. Observe that this behavior is independent of the sign of the infinity we are going to. 
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.8\textwidth, trim= 0.25cm 13.1cm 5.25cm 0.5cm,clip]{Figs/fig2Intro.pdf}
+        \includegraphics[width=0.8\textwidth, trim= 0.25cm 13.1cm 5.25cm 0.5cm,clip]{figs/fig2Intro.pdf}
         \label{fig2intro}
         \caption{The projective line seen as the moduli space $\ov M_{0,4}$.}
     \end{figure}
@@ -254,7 +247,7 @@ Once again, we arrive at the same issue that this space is not compact. Last tim
 Observe that the definition calls the object an \emph{algebraic curve} and not a manifold. It's almost a manifold, but it's not because it can lack smoothness.
 \end{Rmk}
 
-\begin{Th}[\cite{ZvonkineIntro}, pg. 17]
+\begin{Th}[\cite{ZvonkineIntro}, pg. 17]\label{th-stability-condition-22gn}
 A stable curve admits a finite number of automorphisms (as in condition \ref{fin-number-auts}) if and only if every connected component $C_i$ of its normalization with genus $g_i$ and $n_i$ \emph{special} points satisfies 
 $$2-2g_i-n_i<0.$$
 \end{Th}
@@ -283,7 +276,7 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
     so that we do have the stability condition. 
 \end{Ex}
 
-\begin{Ex}
+\begin{Ex}\label{ex-Mg1n1-compactification}
     For the case of $M_{1,1}$, we compactify by adding a point representing singular stable curve. This is a one-point $\bP^1$ where we attach two points together. The resulting curve has arithmetic genus one. It can be also imagined as ``pinching a loop around the torus which doesn't go around the hole''. This is once again a stable curve as we have the stability condition:
     $$2-2(1)-1=-1<0.$$
 \end{Ex}
@@ -331,17 +324,171 @@ $$
 
 Given the previous, we will indistinguishably call subvarieties \emph{cohomology classes of their respective codimension}. Only the basic idea of what the Chow ring as a set of isomorphism classes of subvarieties is and the idea that intersection of subvarieties corresponds to the product inside the Chow ring is essential.
 
-\subsection{The tautological ring}
+\subsection{Chern classes}
+
+Similar to the basics of the Chow ring, we will be reviewing the following properties about Chern classes. These are a particular case of characteristic classes which are elements of the cohomology of the base of a vector bundle $E\xrightarrow[]{\pi}B$. The precise definition of what a Chern class is is not necessary. 
+
+\begin{Th}[Chern classes cheat sheet]
+    Suppose $E\xrightarrow{\pi}B$ is a rank $r$ vector bundle. We have the following:
+\begin{itemize}
+    \item $c_i(E)\neq 0$ whenever $0\leq i\leq r$.
+    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(B)$.%A^i(E)$. (¿or $A^i(B)$?) It was the base all along. 
+    \item $c_0(E)=1$ is the fundamental class. It's usually the case that we rescale in order for this to be exactly $1$.
+    \item If we define 
+    $$c_{\text{tot}}=c_0+c_1+\dots+c_r$$
+    and we have a short exact sequence of vector bundles 
+    $$0\to F\to E\to Q\to 0,$$
+    then $c_{\text{tot}}(E)=c_{\text{tot}}(F)\.c_{\text{tot}}(Q)$. In particular we have 
+    $$c_1(E)=c_1(F)+c_1(Q).$$
+    \item If $E$ is a line bundle $L$, i.e. rank 1, then 
+    $$c_1(L)=[\div(s)],$$
+    this is the class of the divisor of a meromorphic section.
+    \item In general, \term{Euler class} is
+    $$e(E)\defeq c_r(E)=[Z(s)]-[P(s)].$$%=\bonj{\div(s)},$$
+    Here $s$ is a section which in local coordinates may be expressed as 
+    $$s=(s_1,...,s_r)$$
+    and so $Z$ represents the class of zeroes, while $P$ is the class of poles of the section.
+    \item $c_1$ commutes with pullbacks.\red{In general did all Chern classes commute with p.b.?}
+\end{itemize}
+
+For more, check out \href{https://math.stackexchange.com/questions/989147/quick-question-chern-classes-of-sym-wedge-hom-and-tensor}{this math.se post}\footnote{\href{math.stackexchange.com/q/989147/}{\ttt{math.stackexchange.com/q/989147/}}} or \href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{here}\footnote{\href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{\ttt{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}}}.
+
+\end{Th}
+\subsection{Dual graphs}
+
+We will be describing the cohomology classes of $\ov M_{g,n}$ via their combinatorial data. Each curve has a naturally associated dual graph constructed as follows.
+
+\begin{Def}
+    The \term{dual graph} $G$ of the curve $(C,
+p_1,\dots,p_n)$ is built from its normalization $N$. 
+\begin{itemize}
+    \item The vertices of $G$ correspond to each connected component of $N$:
+    $$V(G)=\set{X_i\: X_i\word{is a connected component of}N}.$$
+    Each vertex has an associated genus $g_v$ equal to the genus of the component $X_i$.
+    \item The half-edges of a vertex $v$ correspond to the \emph{special points} of each vertex. Two of the half-edges connect to form an edge whenever the components are joined by a node in $C$.
+\end{itemize}
+\end{Def}
+
+\begin{Ex}\red{figs}
+    Consider the following curve in $\ov M_{4,9}$ along its normalization.
+    \iffalse
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
+        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
+        \label{fig:3.1-fundamental class}
+    \end{figure}
+    \fi
+    We have omitted the labeling on the markings for now but we have distinguished the special points on each component by coloring nodes red and markings blue. We now build the corresponding dual graph following the aforementioned procedure.
+    \iffalse
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
+        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
+        \label{fig:3.1-fundamental class}
+    \end{figure}
+    \fi
+    In the first graph we have color-coded the information by coloring the edges red and the half-edges blue. More usually than not, we will draw the graphs as the one on the right possibly including labels.
+\end{Ex}
+
+The following result will come in handy to categorize where in the Chow ring of $\ov M_{g,n}$ does a particular graph live.
+\begin{Th}
+    The codimension of a marked curve $C$ is the number of nodes it has. This is the number of edges that its dual graph has.
+\end{Th}
+
+After pondering this result and looking at the previous example we may think of the question about what happens when two curves have the same dual graph. For that, we consolidate in the following definition.
+
+\begin{Def}
+    A \term{stratum} in $\ov{M}_{g,n}$ is the closure of the set of all curves with the same topological type. Strata are classified by dual graphs. 
+\end{Def}
+
+These strata are what we will use to organize data inside the Chow ring. For a curve $C$, we will talk about the class $[C]\in A^\ast(\ov M_{g,n})$ as the cohomology element representing it. 
+
+\begin{Ex}\red{figs}
+    So taking into account the previous curve, consider also the next curve. 
+    \iffalse
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
+        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
+        \label{fig:3.1-fundamental class}
+    \end{figure}
+    \fi
+    Observe that this curve also belongs in the same stratum as the one before. 
+\end{Ex}
+
+\subsection{The tautological classes, ring and morphisms}
+
+\begin{Def}
+    The boundary of $\ov M_{g,n}$ is 
+    $$\del M_{g,n}=\ov M_{g,n}\less M_{g,n}$$
+    and it is the set parametrizing \emph{singular} stable curves.\par
+    Cohomology classes in the boundary are called \term{boundary cycles} and those of codimension one are called \term{boundary divisors}.  
+\end{Def}
+
+Let us explore some of the classes inside $A^\ast(\ov M_{g,n})$. 
+\begin{enumerate}
+    \item The fundamental class $1$ is the class representing the smooth locus $M_{g,n}$. The dual graph corresponds to a single vertex with genus $g$ and $n$ half-edges. It is also the multiplicative identity of the Chow ring.
+    \item The class $\dl_{a,A}$ is the codimension 1 class corresponding to graphs with two vertices, one with genus $a$ and marks labeled by $A$ and another vertex with genus $g-a$ and marks $\bonj n\less A$. Observe that 
+    $$\dl_{a,A}=\dl_{g-a,A^c}.$$
+    \item The class $\dl_{\text{irr}}$ is also a codimension 1 class corresponding to graphs with one unique vertex with all the marks and a loop formed by an edge. The vertex has genus $g-1$ and the rest of the arithmetic genus is encoded in the loop.
+\end{enumerate}
+
+Let us view some examples of such classes.
+
+\begin{Ex}
+    In $\ov M_{0,6}$, the fundamental class $1\in A^0(M_{0,6})$ is the class of all curves homeomorphic to a 6-pointed $\bP^1$. It can be represented by the dual graph:\par
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{../figs/FigsDNnotability.pdf}
+        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
+        \label{fig:fundamental-class-M06}
+    \end{figure} 
+    The top stratum in $\ov M_{0,6}$ contains only one topological type of curve as all other $6$-pointed $\bP^1$'s will be homeomorphic to this one.
+\end{Ex}
+
+\begin{Ex}
+    Going into the boundary of $\ov M_{0,6}$ we can find two different types of strata of the form $\dl_{0,A}$, for example
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth, trim= 5.12cm 20.75cm 8.93cm 3.9cm,clip]{../figs/FigsDNnotability.pdf}
+        \caption{Boundary divisors $\dl_{0,\set{1,4,6}}$ and $\dl_{0,\set{1,4}}$ of $\ov{M}_{0,6}$}
+        \label{fig:boundary-strata-M06c1}
+    \end{figure} 
+    From the stratum on the left, we can find $9$ other strata with the same graph design but different labelings. This is because there are 
+    $$\half\binom{6}{3,3}=\frac{6!}{2\.3!\.3!}=10$$
+    ways to label the tree. The factor of $\half$ accounts for the symmetry in the tree.\par
+    For the one on the right we can find $\binom{6}{4,2}=15$ labelings. Observe that there is no class $\dl_{\text{irr}}$ in $\ov M_{0,6}$. 
+\end{Ex}
+
+In fact, there's not an irreducible divisor class until we start climbing up in genus. Before proceeding in this account, let's illustrate a bit of the combinatorics at hand. As we mentioned, the ability of representing a curve via a graph is of great help when enumerating this objects.
+
+\begin{Prop}
+    There are 
+    $$\half\sum_{k=2}^{n-2}\binom{n}{k}=2^{n-1}-n-1$$
+    irreducible boundary divisors in $\ov M_{0,n}$.
+\end{Prop}
+
+\begin{ptcbp}
+    A partition into two sets of $\bonj{n}$ of size $k$ and $n-k$ can be done in $\binom{n}{k,n-k}$ ways. Observe that this coefficient is precisely $\binom{n}{k}$. We need to divide by 2 because $\binom{n}{k}=\binom{n}{n-k}$. And as we need $2\leq k\leq n-2$ for the curve to be stable, we must sum over all of those possibilities. 
+\end{ptcbp}
+
+\begin{Ex}
+    Consider now the space $\ov M_{1,3}$ and let us identify the same kinds of classes here. The fundamental class can be immediately thought of as an elliptic curve with 3 marks. Up-to-topological type, there's two divisors of the form $\dl_{a,A}$. We have 
+    $$\dl_{0,\set{a,b}},\word{and}\dl_{0,\set{a,b,c}}.$$ 
+    These are represented by the graphs:\red{GRAPHS}
+    Whereas the irreducible divisor appears as follows: \red{graph}.
+\end{Ex}
+
+\begin{Rmk}
+    Recall the example \ref{ex-Mg1n1-compactification} when we discussed which curve to add to compactify $M_{1,1}$. It is precisely the corresponding $\dl_{\text{irr}}$ the one which we added.
+\end{Rmk}
 
 We will restrict ourselves further inside the Chow ring of $\ov M_{g,n}$. 
 
 \begin{Def}[\cite{ZvonkineIntro}, Def. 2.6]
 The minimal family of subrings $R^\ast(\ov M_{g,n})\subseteq A^\ast(\ov M_{g,n})$ stable under pushforwards by forgetful and gluing maps is called the family of \term{tautological rings} of the moduli space of stable curves.
 \end{Def}
-
-\red{
-What is the meaning of a family of subrings? I thought that the tautological ring was only one. What does it mean for a family, or even just one ring, to be stable under pushforwards?
-}
 
 Intuitively, the forgetting and gluing morphisms do what we expect them to do, they either ``forget'' a marked point or ``glue'' a couple of points together.  
 
@@ -356,29 +503,71 @@ Intuitively, the forgetting and gluing morphisms do what we expect them to do, t
     glues two curves $(C_k,p_1,\dots,p_{n_k+1})$ at the points $p_{n_1+1},p_{n_2+1}$ creating a nodal curve.
 \end{Def}
 
-Intuitively, stabilization occurs when we have a $\bP^1$ component of our curve with less than 3 special points.
+\begin{Rmk}
+    The forgetful map 
+    $$\pi\:\ov M_{g,n+1}\to\ov M_{g,n}$$ 
+    is also known as the \term{universal curve} over $\ov M_{g,n}$. It has $n$ sections $(\sg_i)_{i\in \bonj{n}}$. The image under the section $\sg_i$ of the curve $(C,p_1,\dots, p_n)$ attaches to $C$ a $\bP^1$ at $p_i$ and at $0\in\bP^1$ and relabels $1$ to $p_i$ and $\infty$ to $p_{n+1}$.
+\end{Rmk}
 
 \begin{Ex}
-    In the setting when we have a $\bP^1$-tail with 2 marks and we forget one of them, the $\bP^1$ contracts into the larger component and the mark becomes the node which just disappeared.
+    The fundamental class of $\ov M_{g,n}$ is mapped via the section $\sg_i$ to the divisor $\dl_{0,\set{i,n+1}}$ for example.  
 \end{Ex}
 
-\red{ADD GRAPHIC Examples}
+\begin{Rmk}
+    Observe that when forgetting a mark in a $\bP^1$-tail with 2 marks we destabilize the curve as per the condition in theorem \ref{th-stability-condition-22gn}. This leads into a process called \term{stabilization}. This only occurs for $\bP^1$ components of our curve with less than three special points. The intuitive idea of what happens is that we collapse the component back into a point.
+\end{Rmk}
+
+\begin{Ex}
+Consider the following curve in $\ov M_{4,3}$ marked with points $a,b$ and $c$. \red{fig} When applying the forgetful map $\pi_a$ we get a destabilized $\bP^1$ component which contracts to a node joining the two components which it was connected to.\red{figmap}
+On the other hand, if we forget the mark $b$, then the $\bP^1$ tail gets contracted into the node and the mark $c$ takes the place of the node. \red{figmap2}
+\end{Ex}
+
 \begin{Rmk}
     One could think that an attached elliptic curve should get contracted as they have no visible marks, but they do have a special point, the node! It is in the case of pseudo-stable curves that we cannot have elliptic tails.
 \end{Rmk}
 
 Further information on stabilization can be found in \cite{GreenBookKockVainsencher} section 1.3 p. 23. But as long as we have the intuitive idea that components get contracted, we're good to go.
 
-\subsection{Codimension 1 and combinatorial tools}
+\begin{Ex}
+    On the side of the self-gluing map observe that 
+    $$\dl_{\text{irr}}=\half\xi_\ast 1.$$
+    The half coefficient comes in for degree reasons, but intuitively this makes sense! In the following graph, we observe a curve in $M_{0,5}$ being mapped to the nodal one in $\ov M_{1,3}$ via the gluing map. \red{fig} The red point in the image is just to remind us that that is the point where the two original ones mapped to.
+\end{Ex}
 
-Inside the Chow ring we have the first Chow group which consists of codimension one subvarieties. 
+\begin{Ex}
+    Finally consider a pair of curves in $M_{0,4}$ and $M_{1,1}$. When gluing them together we get the following curve in $\ov M_{1,3}$. \red{fig}
+\end{Ex}
+
+Now that we're equipped with this realtively intuitive classes we are ready to proceed into a bit more abstract classes of the moduli space.
+
+\subsection{$\psi$ and $\lambda$ classes}
+
+The quick reference for this part is \cite{cavalieri2022pseudostablehodgeintegrals} section 2.2. 
 
 \begin{Def}
-    The boundary of the moduli space $\del M_{g,n}$ consists of all 
+    The \term{cotangent line bundles} on $\ov M_{g,n}$ are defined by 
+    $$\bL_i=\sg_i^\ast(\om_\pi)$$
+    where $\om_\pi$ is the relative dualizing sheaf of the universal curve and $\sg_i$ is the section corresponding to the mark $p_i$. As the name suggests, the fiber of $\bL_i$ over $[(C,p_1,\dots,p_n)]$ is the cotangent line of $C$ at $p_i$.\par
+    The $i^{\text{th}}$ \term{psi-class} $\psi_i$ is the first Chern class of $\bL_i$
+    $$\psi_i=c_1(\bL_i)\in A^1(\ov M_{g,n})\word{for}i\in\bonj{n}.$$
 \end{Def}
+
+\begin{Def}
+    The \term{Hodge bundle} on $\ov M_{g,n}$ is a rank $g$ vector bundle and is defined as 
+    $$\bE=\pi_\ast(\om_\pi).$$
+    Its fiber over a point $[(C,p_1,\dots,p_n)]$ is $\Ga(C,\om_C)$\red{is this a typo in \cite{cavalieri2022pseudostablehodgeintegrals}}, the $g$-dimensional space of global sections of the dualizing sheaf.\par
+    The $j^{\text{th}}$ \term{lambda-class} $\la_j$ is the $j^{\text{th}}$ Chern class of $\bE$
+    $$\la_j=c_j(\bE)\in A^j(\ov M_{g,n})\word{for}j\in\bonj{g}.$$
+\end{Def}
+
+As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
+
+\section{The intersection product on $\ov M_{g,n}$}
+
+As we have discussed before, the rich combinatorial structure of the cohomology classes allows us to enumerate properties of the curves we're talking about easily. The intersection of cohomology classes corresponds to the product in the Chow ring. So if we wish to enumerate properties of intersections, we must develop a way to multiply classes which respects the combinatorial structure. 
+\textbf{TO DO}
 \begin{enumerate}
-    \item Talk about divisors in Mgn, what is a boundary divisor and dual trees. Para dual graphs, tesis Matt usar Arbarello Cornalba para hablar de delta a A y delta irr.
-    \item $\psi$, $\la$ classes
+   
     \item Intersection product Examples ver seccion 2.3 Matt tesis
     \item Projection formula
     \item String and Dilaton relations
@@ -389,33 +578,16 @@ Inside the Chow ring we have the first Chow group which consists of codimension 
 
 \chapter{Equivariant Cohomology and Localization}
 
-\textbf{TODO}
-\begin{enumerate}
-    \item Basics of equivariant cohomology
- \begin{enumerate}
-    \item Borel Construction of Equivariant Cohomology
-    \item Examples of point equivariant Cohomology
-    \item Equivariant Cohomology of projective space
-\end{enumerate}
-\item Localization
-\begin{enumerate}
-    \item Example of $H^\ast_T(\bP^r)$ through Localization
-    \item Toric varieties Euler characteristic via Atiyah-Bott
-    \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
-\end{enumerate}
-\end{enumerate}
-
-
 \section{Introduction to equivariant cohomology}
 
 Manifolds usually don't come by themselves, like in the case of homogenous spaces, some manifolds have a lot of symmetries. These can be expressed by a group action on the manifold. We would like a cohomology theory which retains information on the group action!
 
 \begin{Ex}[A na\"ive approach]
-    Consider the $S^1$ action $\bCP^1$ given by $u\. z=uz$. This action has two fixed points, $0$ and $\infty$. Observe also that 
+    Consider the $S^1$ action $\bP^1$ given by $u\. z=uz$. This action has two fixed points, $0$ and $\infty$. Observe also that 
     $$u\.z=z\iff u=1.$$
     If we were to define the a cohomology which retains information on the group action (equivariant cohomology), we could say 
-    $$H_{S^1}^\ast(\bCP^1)\defeq H^\ast(\quot{\bCP^1}{S^1}).$$
-    However the orbit space $\quot{\bCP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
+    $$H_{S^1}^\ast(\bP^1)\defeq H^\ast\left(\quot{\bP^1}{S^1}\right).$$
+    However the orbit space $\quot{\bP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
 \end{Ex}
 
 Instead of considering the cohomology of the orbit space $M/G$, which doesn't retain information on the group action, we should look for an alternive which does.
@@ -464,7 +636,7 @@ We know that the usual cohomology of a point is trivial, but let's check two exa
 \end{enumerate}
 \end{Ex}
 
-Questions remain for me such as\dots
+There are questions which arose during the study of classifying spaces which we didn't have time to answer. But they surely have been studied.
 
 \begin{Qn}
     What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{At the time of writing, Ignacio hasn't read Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
@@ -476,7 +648,25 @@ Questions remain for me such as\dots
     which becomes unsurmountably hard.
 \end{Rmk}
 
-To solve this issue we ask for help with the\dots
+We use another theorem to find the cohomology of projective space. This is Grothendieck's approach, the idea is that vector bundles 
+$$E\xrightarrow[]{\pi}B$$
+can be associated to projective bundles $\bP(E)$ whose typical fiber is isomorphic to $\bP^{r-1}$. $\bP(E)$ itself has a line bundle $\cO(1)$ leading us to a Chern class
+$$c_1(\cO(1))\in A^1(\bP(E))$$
+which is not in $A^1(B)$, we thus wish to relate $A^1(\bP(E))$ with $A^1(B)$.\par
+Call $H=c_1(\cO(1))$, the \term{hyperplane class}, to simplify notation. The Chow ring $A^\ast(P(E))$ forms a free, rank $r$ $A^\ast(B)$-module with basis $\set{1,H,\dots,H^{r-1}}$. This modularity arises from a similar reasoning to the construction of the Chow ring of $\bP^n$, which corresponds to the case when $B$ is a point. Now the element $H^r$ can be expressed as a linear combination of the basic elements: 
+$$H^r=c_1H^{r-1}-c_2H^{r-2}+\dots\pm c_r,\word{for some}c_i\in A^i(B).$$
+These coefficients are the Chern classes in $A^\ast(B)$! We find the Euler class $e=c_r$ once again. It is represented by a cycle of the zeroes of a section of $E$. The zeroes of that section will generally have codimension $r$. Via this relation we can describe the cohomology of the projective bundle.
+
+\begin{Th}
+    Suppose $\bP(E)\to B$ is the rank $r-1$ projective bundle associated to $E\xrightarrow[]{\pi}B$, a vector bundle of rank $r$. Then the cohomology of $\bP(E)$ is given by
+    $$H^\ast(\bP(E))\isom\quot{H^\ast(B)[H]}{\sum_{k=0}^{r}c_k(E)H^{r-k}}.$$
+\end{Th}
+More importantly, this result still holds at the level of equivariant cohomology if we're talking about equivariant line bundles.
+
+\begin{Ex}
+    In the case where we have $B=\pt$, then the aforementioned projective bundle becomes $\bP^{r}\to\pt$ and the equivariant cohomology is thus 
+    $$H^\ast_T(\bP^{r})\isom\quot{\bC[t_1,\dots,t_{r+1}][H]}{\prod_{i=1}^{r+1}(H-t_i)}.$$
+\end{Ex}
 
 \section{Atiyah-Bott localization theorem}
 
@@ -494,15 +684,14 @@ To say that we're using a localization technique to find cohomology is to apply 
 
 \begin{Ex}[Projective line cohomology via localization]
 First, let's clearly define the action of $T^2=(\bC\less\set{0})^2$ on $\bP^1$. For $\un{\al}\in T^2$ and $[X,Y]\in\bP^1$ we have
-$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}\footnote{I know this is an unorthodox choice, but it's so that the weights of a certain representation are aligned properly. I'm already traumatized enough to do it the other way around.}.$$
+$$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}.$$
 Then, the only fixed points of this action are $0=[0:1]$ and $\infty=[1:0]$:
 $$\un{\al}\.[0:1]=\bonj{0:\frac{1}{\al_2}}=[0:1],\word{and}\un{\al}\.[1:0]=\bonj{\frac{1}{\al_1}:0}=[1:0].$$
 Proving that there's no more fixed points amounts to a linear algebra exercise. Applying Atiyah-Bott we now have that 
 \begin{gather*}
     H_{T^2}^\ast(\bP^1)\isom H_{T^2}^\ast([0:1])\oplus H_{T^2}^\ast([1:0])\\
     \To\quot{\bC[t_1,t_2,H]}{(H-t_1)(H-t_2)}\isom \bC[t_1,t_2]\oplus\bC[t_1,t_2].
-\end{gather*}
-Here, we have used a calculation-not-shown which shows what the equivariant cohomology of $\bP^2$ is. But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
+\end{gather*} But the question is, how does this isomorphism work? It suffices to see where the generators go. On the left, we have the generators $t_1, t_2$ and $H$ representing two hyperplane classes in each copy of $\bP^\infty$ and $H$ which represents the hyperplane class of $\bP^1$ as a bundle over a point. Mapping these classes we get
 $$\un i^\ast\left\lbrace
 \begin{aligned}
     &t_1\mapsto (t_1,t_1),\\
@@ -542,7 +731,7 @@ so it's indeed the correct cohomology class.
 
 With this example, we verified that the localization theorem indeed provides an isomorphism between different cohomology rings. Now, we use localization to compute the Euler characteristic of a different variety.
 
-\begin{Ex}
+\begin{Ex}[Euler characteristic of $\bP^1\x\bP^1$]
     Consider $\bP^1\x\bP^1$ and an action of $T^4$ via rescaling all entries as before. The fixed points under this action are 
     $$(0,0),\quad(\infty,0),\quad(0,\infty),\word{and}(\infty,\infty).$$
     Let us denote by $F_k,\ k=1,\dots,4$ the cohomology classes of the fixed points, and $i_k\:F_k\hookto\bP^1\x\bP^1$ the inclusion map.
@@ -583,6 +772,27 @@ In general, for toric varieties, the number of torus-fixed points equals the num
 For a toric variety, the Euler characteristic equals the number of torus-fixed points under the torus action.
 \end{Th}
 
+The proof of this theorem follows the same line as before, identifying fixed points and applying the Atiyah-Bott theorem. 
+
+\section{Localization in the space of maps}
+
+We have discussed the space of maps, we know some examples and now we want to calculate integrals over them. For that we need 
+\begin{itemize}
+    \item extend torus action from Pr to space of maps
+    \item Identify fixed loci 
+    \item Compute the actual integrals.
+\end{itemize}
+
+\red{Talk abit about linearization???}
+\textbf{TODO}
+\begin{enumerate}
+\item Localization
+\begin{enumerate}
+    \item Example of $H^\ast_T(\bP^r)$ through Localization
+    \item Toric varieties Euler characteristic via Atiyah-Bott
+    \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
+\end{enumerate}
+\end{enumerate}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
