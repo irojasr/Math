@@ -356,7 +356,52 @@ For more, check out \href{https://math.stackexchange.com/questions/989147/quick-
 \end{Th}
 \subsection{Dual graphs}
 
-We will be describing the cohomology classes of $\ov M_{g,n}$ via their combinatorial data. Each curve has a naturally associated dual graph constructed as follows.
+We will be describing the cohomology classes of $\ov M_{g,n}$ via their combinatorial data. Each curve has a naturally associated dual graph which we will get to following the ideas of Schmitt and van Zelm \cite{SchmittVanZelm}. The idea of stable graph was initially formalized by Graber and Pandhariphande \cite{GraberPandharipande} and then developed further by Yang \cite{YangIntersections}.\par
+
+\begin{Def}
+    A \term{simple graph} $G$ is a pair of sets $(V,E)$ such that  
+    $$G=(V,E),\quad E\subseteq\binom{V}{2}=\set{X\subseteq V\:\lvert X\rvert=2}.$$
+    The set $V$ is called the set of vertices and elements of $E$ are edges.
+\end{Def}
+This is equivalent to the following:
+\begin{itemize}
+    \item $E$ is the graph of a symmetric relation in $V$.
+    \item  Schmitt and van Zelm take this characterization to be a map 
+$$s:E\to\Sym^2 V=\quot{V\ox V}{u\ox v-v\ox u}.$$
+\end{itemize} 
+
+More generally we can look for graphs which have multiple edges between vertices and loops around one vertex.
+
+\begin{Def}
+A \term{multigraph} is a graph $G$ in which $E$ and its elements can be multisets. This allows for multiple edges and loops respectively.    
+\end{Def}
+
+The Schmitt and van Zelm condition allows this automatically.
+
+\begin{Def}
+    A vertex/edge-\term{labeling} by integers is a function from $V$ or $E$ to $\bZ_{\geq 0}$ respectively. 
+\end{Def}
+
+As our curves will be marked, we would like to denote that in a graph. The way to do this is via a set of \emph{half-edges} or \emph{legs}. Graphs can be defined by only specifying a set of half-edges and declaring certain properties, but we won't pursue that avenue\footnote{See more in \href{https://math.stackexchange.com/q/2678435}{\ttt{math.se/2678435}}.}. Following Schmitt and van Zelm we take the idea of half-edges to define stable graphs.
+
+\begin{Def}
+A \term{stable graph} $\Ga$ is a tuple of sets and maps:
+$$\Ga=(V,H,L,g,\iota,a,\ze)$$
+where $V$ is the set of vertices, $H$ the set of half-edges and $L$ is the set of legs. We have the following conditions:
+\begin{enumerate}
+    \item The map $g\: V\to\bZ_{\geq 0}$ is a labeling of the vertices to denote their genus.
+    \item $\iota\: H\to H$ is a fixed-point free involution, intuitively switching ends of a edge.
+    \item The map $a\: H\to V$ assigns half-edges to vertices.
+    \item The map $\ze\: L\to V$ assigns the legs to the vertices.
+    \item The orbits of $\iota$ form the edges via the induced function by $a$ on $E$.
+    \item And each vertex $v$ satisfies the condition
+    $$2-2g(v)-\lvert a^{-1}(v)\rvert-\lvert \ze^{-1}(v)\rvert<0.$$
+\end{enumerate}    
+We may call $n(v)\defeq\lvert a^{-1}(v)\rvert+\lvert \ze^{-1}(v)\rvert$ the valence\footnote{Usually in graph theory this would be called the degree of a vertex, but to lose ambiguity when talking about maps, we will call it valence.} of the vertex $v$. This is number of half-edges and legs incident in $v$. 
+\end{Def}
+
+Observe immediately the similarity between the last condition in the stable graph definition and the stability condition for curves in theorem \ref{th-stability-condition-22gn}. 
+If the definition sounds too technical it's because it is! We should carry in our minds that a stable graph is labeled multigraph which satisfies the stability condition. Let's now associate a graph to a curve.
 
 \begin{Def}
     The \term{dual graph} $G$ of the curve $(C,
@@ -365,7 +410,11 @@ p_1,\dots,p_n)$ is built from its normalization $N$.
     \item The vertices of $G$ correspond to each connected component of $N$:
     $$V(G)=\set{X_i\: X_i\word{is a connected component of}N}.$$
     Each vertex has an associated genus $g_v$ equal to the genus of the component $X_i$.
-    \item The half-edges of a vertex $v$ correspond to the \emph{special points} of each vertex. Two of the half-edges connect to form an edge whenever the components are joined by a node in $C$.
+    \item The half-edges correspond to points in each component mapping to the same node in $C$.
+    \item $L$ corresponds to the marked points.
+    \item The genus function $g$ is the genus of $X_i$.
+    \item $\iota$ transposes points mapping to the same node.
+    \item $a$ and $\zeta$ identify to-be nodes and marks with component they lie on.
 \end{itemize}
 \end{Def}
 
@@ -388,7 +437,7 @@ p_1,\dots,p_n)$ is built from its normalization $N$.
         \label{fig:3.1-fundamental class}
     \end{figure}
     \fi
-    In the first graph we have color-coded the information by coloring the edges red and the half-edges blue. More usually than not, we will draw the graphs as the one on the right possibly including labels.
+    In the first graph we have color-coded the information by coloring the edges red and the half-edges blue. More usually than not, we will draw the graphs as the one on the right possibly including labels for the marks.
 \end{Ex}
 
 The following result will come in handy to categorize where in the Chow ring of $\ov M_{g,n}$ does a particular graph live.
@@ -564,12 +613,49 @@ As before, deep understanding or knowledge of what the relative dualizing sheaf 
 
 \section{The intersection product on $\ov M_{g,n}$}
 
-As we have discussed before, the rich combinatorial structure of the cohomology classes allows us to enumerate properties of the curves we're talking about easily. The intersection of cohomology classes corresponds to the product in the Chow ring. So if we wish to enumerate properties of intersections, we must develop a way to multiply classes which respects the combinatorial structure. 
+As we have discussed before, the rich combinatorial structure of the cohomology classes allows us to enumerate properties of the curves we're talking about easily. The intersection of cohomology classes corresponds to the product in the Chow ring. So if we wish to enumerate properties of intersections, we must develop a way to multiply classes which respects the combinatorial structure.
+ 
+\begin{Def}[\cite{SchmittVanZelm}, pg. 11]
+Let $\Ga_1,\Ga_2$ be two stable graphs with the same set of legs $L$. A \term{$\Ga_2$-structure on $\Ga_1$} is a morphism
+$$f\:\Ga_1\to\Ga_2,\quad f=(\al,\bt,\ga)$$
+such that
+$$\al\: V_1\onto V_2,\quad\bt\: H_2\hookto H_1,\quad\ga\: H_1\less\Im\bt\to V_2$$
+satisfying
+\begin{enumerate}
+    \item the map $\bt$ commutes with involutions, i.e. $\bt\iota_2=\iota_1\bt$,
+    \item the map $\al$ respects leg assignments, i.e. $\al\ze_1=\ze_2$,
+    \item If $h\in H_1\less\Im\bt$ and $a_1(h)=v$ then $\al(v)=\ga(h)$, 
+    \item and if $v\in V_2$, then 
+    $$(\al^{-1}(v),\ga^{-1}(v),\bt(a^{-1}_2(v))\cup\ze_2^{-1}(v),g_1,\iota_1,a_1,\ze)$$
+    is a stable graph of genus $g(v)$ where $g_1,a_1$ and $\iota_1$ are restricte to the appropriate subsets and $\ze$ is defined by $\ze_1$ on $\ze_2^{-1}(v)$ and by $a_1$ on $\bt(a^{-1}_2(v))$.
+\end{enumerate}
+When such a map exists, we can say either
+\begin{itemize}
+    \item $\Ga_1$ is a \term{specialization} of $\Ga_2$, or
+    \item $\Ga_2$ is a \term{contraction} of $\Ga_1$.
+\end{itemize}
+\end{Def}
 
+\begin{Rmk}
+    In other words, when contracting $\Ga_1$ into $\Ga_2$, we are doing a similar process as to finding a minor $\Ga_1$ with extra steps.\par
+    We can also extend the definition to say that $\wt{Ga}$ has a $(\Ga_1,\dots,\Ga_n)$ structure whenever $\Ga$ contracts into any of the $\Ga_i$.
+\end{Rmk}
+
+The definition comes to life with examples.
+
+\begin{Ex}
+    \red{do example 2.7 from SvZ}
+\end{Ex}
+
+In order to multiply two classes via their graphs, we will look for graphs which contract into both factors of the product. 
+
+\begin{Def}
+    We call an $(A,B)$-structure on $\Ga$ a \term{generic structure} if every edge of $\Ga$ corresponds to an edge of $A$ or an edge of $B$. In other words if 
+    $$\bt_A(H_A)\cup\bt_B(H_B)=H_\Ga.$$
+\end{Def}
 \textbf{TO DO}
 \begin{enumerate}
    
-    \item Intersection product Examples ver seccion 2.3 Matt tesis
     \item Escribir algoritmo mult como lo tiene Matt
     \item Explicar alg mult
     \item Ejemplos notas y DN
@@ -578,6 +664,18 @@ As we have discussed before, the rich combinatorial structure of the cohomology 
     \item String and Dilaton relations
     \item Integral examples
 \end{enumerate}
+
+\section{Integration}
+
+
+My reference for the definition of the integral comes form Fulton and Pandharipande \cite{FPNotes}.
+
+\begin{Def}[\cite{FPNotes} pg. 2]
+    For a complete variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
+    $$\int_\bt c=\deg(c_k,\bt)$$
+    where $c_k$ is the component of $c$ in $A^k(X)$ and $(c_k,\bt)$ is the evaluation of $c_k$ on $\bt$ giving us a zero cycle. When $V$ is a closed, pure-dimensional subvariety of $X$, then we write 
+    $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
+\end{Def}
 
 \section{Moduli space of maps}
 
