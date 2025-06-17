@@ -328,7 +328,7 @@ Given the previous, we will indistinguishably call subvarieties \emph{cohomology
 
 Similar to the basics of the Chow ring, we will be reviewing the following properties about Chern classes. These are a particular case of characteristic classes which are elements of the cohomology of the base of a vector bundle $E\xrightarrow[]{\pi}B$. The precise definition of what a Chern class is is not necessary. 
 
-\begin{Th}[Chern classes cheat sheet]
+\begin{Th}[Chern classes cheat sheet]\label{th-chern-class-cheat-sheet}
     Suppose $E\xrightarrow{\pi}B$ is a rank $r$ vector bundle. We have the following:
 \begin{itemize}
     \item $c_i(E)\neq 0$ whenever $0\leq i\leq r$.
@@ -348,7 +348,7 @@ Similar to the basics of the Chow ring, we will be reviewing the following prope
     Here $s$ is a section which in local coordinates may be expressed as 
     $$s=(s_1,...,s_r)$$
     and so $Z$ represents the class of zeroes, while $P$ is the class of poles of the section.
-    \item $c_1$ commutes with pullbacks.\red{In general did all Chern classes commute with p.b.?}
+    \item Chern classes commute with pullbacks.
 \end{itemize}
 
 For more, check out \href{https://math.stackexchange.com/questions/989147/quick-question-chern-classes-of-sym-wedge-hom-and-tensor}{this math.se post}\footnote{\href{math.stackexchange.com/q/989147/}{\ttt{math.stackexchange.com/q/989147/}}} or \href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{here}\footnote{\href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{\ttt{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}}}.
@@ -548,7 +548,7 @@ Intuitively, the forgetting and gluing morphisms do what we expect them to do, t
     $$\xi\:\ov M_{g-1,n+2}\to\ov M_{g,n}$$
     which takes the $(C,p_1,\dots,p_{n+1},p_{n+2})$ into $(C,p_1,\dots,p_n)$ that has a node in the place where it identified $p_{n+1},p_{n+2}$. This adds to the curve one arithmetic genus.\par
     On the other hand, the map 
-    $$\eta\:\ov M_{g_1,n_1+1}\x\ov M_{g_2,n_2+1}\x\to\ov M_{g_1+g_2,n_1+n_2}$$
+    $$\eta\:\ov M_{g_1,n_1+1}\x\ov M_{g_2,n_2+1}\to\ov M_{g_1+g_2,n_1+n_2}$$
     glues two curves $(C_k,p_1,\dots,p_{n_k+1})$ at the points $p_{n_1+1},p_{n_2+1}$ creating a nodal curve.
 \end{Def}
 
@@ -609,7 +609,37 @@ The quick reference for this part is \cite{cavalieri2022pseudostablehodgeintegra
     $$\la_j=c_j(\bE)\in A^j(\ov M_{g,n})\word{for}j\in\bonj{g}.$$
 \end{Def}
 
-As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
+\begin{Rmk}
+    Explaining a bit more on what the fibers of the Hodge bundle are, we have the following:
+    \begin{itemize}
+        \item For a smooth curve, it's holomorphic $1$-forms.
+        \item When the curve is nodal, the fibers are $1$-forms at nodes such that the residues on both sides of the node are opposite. Recall that the residue theorem for complex surfaces states that sums of residues on both sides of a contour are equal.
+    \end{itemize}
+\end{Rmk}
+
+Now returning to graphs, strata of $\ov M_{g,n}$ can support $\psi$ and $\la$ classes. In order to represent them in graphs we will add \emph{decorations}, $\psi$-classes on half-edges and $\la$ classes on vertices. 
+
+\begin{Def}
+    A \term{decorated stable graph} $\Ga$ is a stable graph $\un\Ga$ with the additional data of a monomial 
+    $$\te_v=\prod_{i=1}^{n(v)}\psi^{e_i}_i\prod_{j=1}^{m}\la^{f_j}_j$$
+    chosen for each vertex $v$.
+\end{Def}
+
+\begin{Ex} 
+    In order to exemplify the decorated graphs, let's view a couple of formulae which will become useful the further we delve into this subject. If $\pi\:\ov M_{g,n+1}\to\ov M_{g,n}$ is the map which forgets $p_{n+1}$, then 
+    $$\pi^\ast(\psi_i)=\psi_i-\dl_{0,{i,n+1}}\word{equivalently}\psi_i=\pi^\ast(\psi_i)+\Im\sg_i.$$
+    Here the $\psi_i$ inside the pullback is supported on $\ov M_{g,n}$ whereas the other one in $\ov{M}_{g,n+1}$. Graphically this would be represented by two stable graphs, one decorated and the other one not.\red{Fig}
+\end{Ex}
+
+\begin{Ex}%https://mathoverflow.net/questions/100213/pull-back-of-hodge-bundle-via-glueing-map
+    For lambda-classes, let's consider the Hodge bundle restricted to a divisor $\dl_{a,A}$ on $\ov M_{g,n}$. There exist projections 
+    $$p_1\:\ov{M}_{g,n}\to\ov{M}_{a,|A|},\word{and}p_2\:\ov{M}_{g,n}\to\ov{M}_{g-a,n-|A|}$$
+    through which we can pullback the Hodge bundles of the smaller moduli spaces and thus get 
+    $$\left.\bE\right|_{\dl_{a,A}}=p_1^\ast\left(\bE_{a,|A|}\right)\oplus p_2^\ast\left(\bE_{g-a,n-|A|}\right).$$
+    We can express this graphically for the first lambda-class.\red{fig}
+    We haven't formally described how to compute the product of classes in $\ov M_{g,n}$ but this only requires knowing how to compute first Chern classes. Which we can do by using the cheat sheet theorem \ref{th-chern-class-cheat-sheet}.
+\end{Ex}
+As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes \cite{KockPsiClasses} also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
 
 \section{The intersection product on $\ov M_{g,n}$}
 
@@ -638,7 +668,7 @@ When such a map exists, we can say either
 
 \begin{Rmk}
     In other words, when contracting $\Ga_1$ into $\Ga_2$, we are doing a similar process as to finding a minor $\Ga_1$ with extra steps.\par
-    We can also extend the definition to say that $\wt{Ga}$ has a $(\Ga_1,\dots,\Ga_n)$ structure whenever $\Ga$ contracts into any of the $\Ga_i$.
+    We can also extend the definition to say that $\widetilde{\Ga}$ has a $(\Ga_1,\dots,\Ga_n)$ structure whenever $\widetilde\Ga$ contracts into any of the $\Ga_i$.
 \end{Rmk}
 
 The definition comes to life with examples.
@@ -652,12 +682,103 @@ In order to multiply two classes via their graphs, we will look for graphs which
 \begin{Def}
     We call an $(A,B)$-structure on $\Ga$ a \term{generic structure} if every edge of $\Ga$ corresponds to an edge of $A$ or an edge of $B$. In other words if 
     $$\bt_A(H_A)\cup\bt_B(H_B)=H_\Ga.$$
+    An $(A,B)$-edge will be an edge which is identified with both an edge of $A$ and one of $B$.
 \end{Def}
+
+Now we all the tools ready to define the multiplication of graphs which combinatorially explains multiplication of strata.
+
+\begin{Def}[\cite{YangIntersections}, pg. 5]
+    Let $G,H$ be decorated stable graphs and $\Ga(G,H)$ the set of graphs with generic $(G,H)$ structure.\footnote{i.e. the set of all graphs which contract into $G$ and $H$ generically.} Then the product of $G$ and $H$ is defined as 
+    $$G\. H=\sum_{A\in\Ga(\un G,\un H)}\frac{1}{|\Aut(A)|}F_A(G,H)\.A$$
+    where we have 
+    $$
+    \left\lbrace
+    \begin{aligned}
+        &F_A(G,H)=\left(\sum_{v\in V_G}f_A(G,v)\right)\left(\sum_{v\in V_H}f_A(H,v)\right)\prod_{e=(h_1,h_2)}(-\psi_{h_1}-\psi_{h_2})\\
+        &f_A(G,v)=\prod_{i=1}^{n}\psi_{\bt(i)}^{e_i}\left(\sum_{w\in\al^{-1}(v)}\la_{j_w}\right)^{f_j}
+    \end{aligned}
+    \right.
+    $$
+    and the last product of $F$ is taken through the edges identified with both an edge of $G$ and an edge of $H$.
+\end{Def}
+
+As before, definitions come to life via examples. 
+
+\begin{Ex}
+    Let's begin with a sanity check. Consider the product in $\ov M_{0,4}$ of the fundamental class $1$ with $\dl_{0,{ac}}$. The product is represented graphically as\red{fig}\par
+    Let's proceed by following the formula.
+    \begin{enumerate}
+        \item We have found the graphs representing the classes in question and now we look for graphs which generically contract into both of the factors. Observe that only $\dl_{0,{ac}}$ contracts into both itself and the fundamental class.
+        \item The edge of $\dl_{0,{ac}}$ is colored so that we can look at which edges get identified with it when contracting. As there's no edge in $1$, the last product is empty.
+        \item As there's no psi- nor lambda-classes, $f_A$'s are also trivial.
+        \item Lastly, the graph $\dl_{0,{ac}}$ has no non-trivial automorphisms.
+    \end{enumerate}
+    Therefore it happens that:
+    $$1\.\dl_{0,{ac}}=\left(1\.1\.\dl_{0,{ac}}\right)=\dl_{0,{ac}}$$
+    as expected.
+\end{Ex}
+
+\begin{Rmk}
+    Recall that the intersection product adds the codimensions of the factors. As $1$ has codimension $0$ and $\dl_{0,{ac}}$ has codimension 1, thus the result should have codimension $1$.\par
+    Observe that this means that the resulting graphs can't have more edges than the total number edges in the factors, in this case they would also be non-generic!\par
+    Another observation is that the graphs can indeed have less edges than the expected codimension. This is because we can have multiples of psi- and lambda-classes to even out the codimension.
+\end{Rmk}
+
+\begin{Ex}\red{fig}
+    Consider now the product $\dl_{0,{ac}}^2$ in $\ov{M}_{0,4}$. As this boundary divisor has codimension $1$, its square should have codimension $2$. As $\ov{M}_{0,4}$ has only one dimension, we expect the product to be empty. The representation of this product graphically can be seen in \red{fig}.\par
+    Once again let's follow the formula with care.
+    \begin{enumerate}
+        \item We look for all the graphs contracting into $\dl_{0,{ac}}$ once again. There's only $\dl_{0,{ac}}$ once more. This class has codimension 1, so we must multiply a psi-class to level the codimension.
+        \item The edge in the result is bicolored to indicate that it is identified with the edges in the factors. Here we label the half-edges as $\8$ and $\ast$ so that we must multiply a psi-class $(-\psi_\8-\psi_\ast)$. This is the only difference with the previous calculation.\red{fig}
+        \item The graph has no non-trivial automorphisms and no decorations.
+    \end{enumerate}
+    The result is then 
+    $$\dl_{0,{ac}}\.(-\psi_{\8}-\psi_{\ast})$$
+    which we can see to be zero by a codimension count or as follows. 
+    The stratum in question can be seen as the image of a gluing map:
+    $$\eta\:\ov M_{0,\set{a,c,\8}}\x\ov M_{0,\set{b,d,\ast}}\to\ov M_{0,\set{a,\dots,d}},$$
+    and when pulling back the psi-classes via the gluing map to the corresponding $M_{0,3}$'s we get the same psi-classes. These are $0$ in $M_{0,3}$ so that the result is also 0.\red{fig}
+\end{Ex}
+
+We climb up a couple of dimensions into $\ov M_{0,6}$ in the next example. This next classes will now have psi-classes multiplied and won't be zero!
+
+\begin{Ex}
+    Consider the intersection product in $\ov{M}_{0,6}$:
+    $$\dl_{0,\set{a,b,c}}\dl_{0,\set{ab}}^2,$$
+    We may represent this product as the following graphs.\red{Add drawings}\par
+    The expected codimension of the result is $3$ as every factor contributes $1$ codimension.\par
+
+    We begin by multiplying a copy of $\dl_{0,\set{ab}}$ with $\dl_{0,\set{a,b,c}}$:\red{add drawing with edges colored}.\par
+\red{FINISH WRITING}
+    Graphs which contain these two as minors are scarce. In fact, ¡there's only one: $D(ab\mid c\mid def)$!\red{add drawing}\par 
+
+    We get only one copy of our resulting graph with the coloring already determined.
+    This graph has no non-trivial automorphisms and so we only get $D(ab\mid c\mid def)$ which we now have to multiply by another copy of $D(ab\mid cdef)$.\red{add drawing with edges colored}.\par
+
+    We expect the resulting graphs to have three edges as that would have codimension $3$. But take for example $D(ab\mid c\mid d\mid ef)$. \red{add drawing with edges colored}.\par
+    
+    Such graph has three edges but \textbf{they can't be colored}. When collapsing edges, the colors disappear so that we would have to leave the edge between $d$ and $ef$ uncolored to respect the coloring.\red{Add drawing}\par
+    This cannot happen as is the case for any other possibilities, they will be non-generic intersections. So $D(ab\mid c\mid def)$ is the only possible factor. The edge between $ab$ component and the $c$ component will be bicolored in a way that we have to multiply $\psi$-classes. Labeling the vertices attached to the edge as $\.$ and $\star$ we get 
+    $$D(ab\mid cdef)^2 D(abc\mid def)=D(ab\mid c\mid def)(-\psi_\.-\psi_\star).$$
+    This class has the correct codimension as the graph has two edges and the $\psi$ class adds another codimension.
+\end{Ex}
+
+\begin{Ex}[\cite{ZvonkineIntro}, Exercise 2.4]\label{ex-unexpectedly-zero-square}
+   Recall the irreducible divisor of stable curves with one non-separating node $\dl_{\text{irr}}\in\ov{M}_{1,n}$. We will show that $\dl_{\text{irr}}^2=0$.\red{DO}
+    The following graph represents a curve in $\ov{M}_{1,2}$:\red{add drawing}\par
+    Let us take its second power and color each factor's edge \green{green} and \blu{blue} respectively:\red{add drawing w edges colored}\par
+    Following the process we now look for graphs which have this graph as a minor.
+    \begin{itemize}
+        \item The same graph certainly contains itself. But we must multiply by a $\psi$ class to get the correct codimension\red{add drawing w edges colored}\par
+        Counting possible colorings we get 4 (\red{ask}) colorings and 2 automorphisms for this graph.
+        \item The other curve consists of a torus twice-pinched with a mark on each of the isomorphic $\bP^1$ components. The dual graph looks like this:\red{add drawing w edges colored}\par
+        It has quite a bunch of colorings, 8 and only two automorphisms.
+    \end{itemize}
+    So in total, the square of this curve can be represented by the sum of classes:\red{add drawings}
+\end{Ex}
+
 \textbf{TO DO}
 \begin{enumerate}
-   
-    \item Escribir algoritmo mult como lo tiene Matt
-    \item Explicar alg mult
     \item Ejemplos notas y DN
     \item Escr ref integral como grado de coclase
     \item Projection formula
