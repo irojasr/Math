@@ -7,7 +7,7 @@
 \def\nsigla {TM}
 \def\nsiglahead {Master's Thesis}
 \def\nlang {ENG}
-\def\ntrim{}
+%\def\ntrim{}
 %\def\darktheme{}
 
 \input{../../headerVarillyDiff}
@@ -114,12 +114,19 @@ In other words, the space of conics passing through four points in general posit
 Kapranov \cite{KapranovPaper} studied spaces which parametrized curves of certain degree passing through a number of points. The problem of classifying conics with marked points is one of such cases, and this transforms into the problem of classifying four-pointed copies of $\bP^1$. There is an equivalence between pointed curves and marked Riemann surfaces. Following this, we will emphasize the viewpoint of marked Riemann surfaces, as it better aligns with the study I have realized. 
 
 \begin{Prop}%%%ADD FIG HERE
-    \red{Fig?}Any smooth conic in the projective plane is isomorphic to the projective line.
+    Any smooth conic in the projective plane is isomorphic to the projective line.
 \end{Prop}
 
 For our four pointed conic, we get an isomorphic $(\bP^1,p_1,\dots,p_4)$. 
 
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth, trim= 1.32cm 24.9cm 5.2cm 0.1cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Projection from $0$ turns conic into $\bP^1$}
+        \label{fig:smooth-conic-into-P1}
+    \end{figure}
 \begin{ptcb}
+
     The idea of the proof consists in taking a point in the conic from which we project lines and then create a bijection between this lines and $\bP^1$.\par
     As the conic is smooth, such lines will only have one other point of intersection with the curve meaning that we can find a bijection between points in the conic and points in the projective line.
 \end{ptcb}
@@ -225,7 +232,7 @@ Recalling our motivating example, we called the space which classified the conic
     $$
     Then observe that the lattices
     $$\gen_\bZ(1,T\.\tau)\word{and}\gen_\bZ(1,S\.\tau)$$
-    give us the same quotient. From this we can be more specific and say \red{Fig?}
+    give us the same quotient. From this we can be more specific and say
     $$M_{1,1}=\quot{\bH}{\rSL_2(\bZ)}.$$
 \end{Ex}
 
@@ -256,7 +263,13 @@ $$2-2g_i-n_i<0.$$
     %https://en.wikipedia.org/wiki/Zariski%27s_main_theorem
     %https://mathoverflow.net/questions/109395/is-there-a-geometric-intuition-underlying-the-notion-of-normal-varieties
     %https://en.wikipedia.org/wiki/Normal_scheme
-\red{Fig?}Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth, trim= 1.32cm 9.5cm 12.7cm 15.4cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Nodal curve and its normalization}
+        \label{fig:normalization-example}
+    \end{figure}
+Normalization can be intuitively understood as the process of ``ungluing'' a variety at its singularities.\par
 Formally, the normalization of a variety $X$ is a non-singular (possibly disconnected) variety $\widetilde X$ equipped with a finite birational morphism 
 $$\nu:\widetilde X\to X.$$
 This map is an isomorphism over the smooth locus of $X$ but may identify several points in $\widetilde X$ over a singular point of $X$. Thus, we may think of $\widetilde X$ as a version of $X$ in which the undue gluings of subvarieties. In the case of curves, normalization replaces each node with two distinct smooth points, resulting in a smooth curve (or collection of curves) marked by the preimages of the nodes. 
@@ -418,25 +431,21 @@ p_1,\dots,p_n)$ is built from its normalization $N$.
 \end{itemize}
 \end{Def}
 
-\begin{Ex}\red{figs}
+\begin{Ex}\label{ex-random-curve-ovM49}
     Consider the following curve in $\ov M_{4,9}$ along its normalization.
-    \iffalse
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
-        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
-        \label{fig:3.1-fundamental class}
+        \includegraphics[width=0.6\textwidth, trim= 1.32cm 9.5cm 12.7cm 15.4cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Unlabeled nodal curve in $\ov M_{4,9}$}
+        \label{fig:unlabled-random-curve-ovM49}
     \end{figure}
-    \fi
     We have omitted the labeling on the markings for now but we have distinguished the special points on each component by coloring nodes red and markings blue. We now build the corresponding dual graph following the aforementioned procedure.
-    \iffalse
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
-        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
-        \label{fig:3.1-fundamental class}
+        \includegraphics[width=0.6\textwidth, trim= 9.3cm 9.9cm 5.45cm 15.9cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Dual graph corresponding to the curve in figure \ref{fig:unlabled-random-curve-ovM49}}
+        \label{fig:unlabled-random-curve-ovM49-graphs}
     \end{figure}
-    \fi
     In the first graph we have color-coded the information by coloring the edges red and the half-edges blue. More usually than not, we will draw the graphs as the one on the right possibly including labels for the marks.
 \end{Ex}
 
@@ -453,17 +462,15 @@ After pondering this result and looking at the previous example we may think of 
 
 These strata are what we will use to organize data inside the Chow ring. For a curve $C$, we will talk about the class $[C]\in A^\ast(\ov M_{g,n})$ as the cohomology element representing it. 
 
-\begin{Ex}\red{figs}
-    So taking into account the previous curve, consider also the next curve. 
-    \iffalse
+\begin{Ex}
+    So taking into account the previous curve from example \ref{ex-random-curve-ovM49}, consider also the next curve. 
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{figs/FigsDNnotability.pdf}
-        \caption{Fundamental class representative of $\ov{M}_{0,6}$}
-        \label{fig:3.1-fundamental class}
+        \includegraphics[width=0.3\textwidth, trim= 1.32cm 5.5cm 17cm 19.1cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Differnt nodal curve in $\ov M_{4,9}$}
+        \label{fig:another-unlabled-random-curve-ovM49}
     \end{figure}
-    \fi
-    Observe that this curve also belongs in the same stratum as the one before. 
+    This curve also belongs in the same stratum as the one before. 
 \end{Ex}
 
 \subsection{The tautological classes, ring and morphisms}
@@ -489,7 +496,7 @@ Let us view some examples of such classes.
     In $\ov M_{0,6}$, the fundamental class $1\in A^0(M_{0,6})$ is the class of all curves homeomorphic to a 6-pointed $\bP^1$. It can be represented by the dual graph:\par
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{../figs/FigsDNnotability.pdf}
+        \includegraphics[width=0.2\textwidth, trim= 1.32cm 20.75cm 16.53cm 3.9cm,clip]{../figs/FigsDNnotability1.pdf}
         \caption{Fundamental class representative of $\ov{M}_{0,6}$}
         \label{fig:fundamental-class-M06}
     \end{figure} 
@@ -500,7 +507,7 @@ Let us view some examples of such classes.
     Going into the boundary of $\ov M_{0,6}$ we can find two different types of strata of the form $\dl_{0,A}$, for example
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.4\textwidth, trim= 5.12cm 20.75cm 8.93cm 3.9cm,clip]{../figs/FigsDNnotability.pdf}
+        \includegraphics[width=0.4\textwidth, trim= 5.12cm 20.75cm 8.93cm 3.9cm,clip]{../figs/FigsDNnotability1.pdf}
         \caption{Boundary divisors $\dl_{0,\set{1,4,6}}$ and $\dl_{0,\set{1,4}}$ of $\ov{M}_{0,6}$}
         \label{fig:boundary-strata-M06c1}
     \end{figure} 
@@ -525,8 +532,20 @@ In fact, there's not an irreducible divisor class until we start climbing up in 
 \begin{Ex}
     Consider now the space $\ov M_{1,3}$ and let us identify the same kinds of classes here. The fundamental class can be immediately thought of as an elliptic curve with 3 marks. Up-to-topological type, there's two divisors of the form $\dl_{a,A}$. We have 
     $$\dl_{0,\set{a,b}},\word{and}\dl_{0,\set{a,b,c}}.$$ 
-    These are represented by the graphs:\red{GRAPHS}
-    Whereas the irreducible divisor appears as follows: \red{graph}.
+    These are represented by the graphs:
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 5.12cm 6.5cm 5.7cm 19.8cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Boundary divisors $\dl_{0,\set{a,b}}$ and $\dl_{0,\set{a,b,c}}$ (marks unlabeled)}
+        \label{fig:boundary-divs-M13c1}
+    \end{figure}\par
+    Whereas the irreducible divisor appears as follows: 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.3\textwidth, trim= 16.5cm 6.5cm 1.4cm 19.8cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Irreducible boundary divisor in $\ov{M}_{1,3}$ (marks unlabeled)}
+        \label{fig:boundary-irr-M13c1}
+    \end{figure}
 \end{Ex}
 
 \begin{Rmk}
@@ -567,8 +586,20 @@ Intuitively, the forgetting and gluing morphisms do what we expect them to do, t
 \end{Rmk}
 
 \begin{Ex}
-Consider the following curve in $\ov M_{4,3}$ marked with points $a,b$ and $c$. \red{fig} When applying the forgetful map $\pi_a$ we get a destabilized $\bP^1$ component which contracts to a node joining the two components which it was connected to.\red{figmap}
-On the other hand, if we forget the mark $b$, then the $\bP^1$ tail gets contracted into the node and the mark $c$ takes the place of the node. \red{figmap2}
+    Let's apply the forgetful map to a curve in $\ov M_{4,3}$ with marks $a,b$ and $c$. Applying $\pi_a$ leaves us with a destabilized $\bP^1$ component which contracts to a node joining the two components which it was connected to.
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 1.3cm 1.7cm 9cm 22.9cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Marked curve in $\ov M_{4,3}$ and its stabilization after $\pi_a$}
+        \label{fig:forget-mark-in-node}
+    \end{figure}
+On the other hand, if we forget the mark $b$, then the $\bP^1$ tail gets contracted into the node and the mark $c$ takes the place of the node.
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 1.3cm 24.6cm 9cm 0.1cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Same curve in $\ov M_{4,3}$ but stabilized after $\pi_b$}
+        \label{fig:forget-mark-in-tail}
+    \end{figure}
 \end{Ex}
 
 \begin{Rmk}
@@ -580,14 +611,34 @@ Further information on stabilization can be found in \cite{GreenBookKockVainsenc
 \begin{Ex}
     On the side of the self-gluing map observe that 
     $$\dl_{\text{irr}}=\half\xi_\ast 1.$$
-    The half coefficient comes in for degree reasons, but intuitively this makes sense! In the following graph, we observe a curve in $M_{0,5}$ being mapped to the nodal one in $\ov M_{1,3}$ via the gluing map. \red{fig} The red point in the image is just to remind us that that is the point where the two original ones mapped to.
+    The half coefficient comes in for degree reasons, but intuitively this makes sense! We thus glue the fundamental class of $M_{0,5}$ to get $\dl_{\text{irr}}$ in $\ov M_{1,3}$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth, trim= 12.8cm 2.5cm 1.3cm 23.5cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Gluing two red marks into a node}
+        \label{fig:glue-fund05-irr13}
+    \end{figure}
+    The red point in the image is just to remind us that that is the point where the two original ones mapped to.
 \end{Ex}
 
 \begin{Ex}
-    Finally consider a pair of curves in $M_{0,4}$ and $M_{1,1}$. When gluing them together we get the following curve in $\ov M_{1,3}$. \red{fig}
+    Finally consider gluing two different curves. The fundamental classes of $\ov{M}_{0,4}$ and $\ov{M}_{1,1}$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.3cm 20.8cm 9cm 3.9cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Gluing two curves into one}
+        \label{fig:glue-two-into-divisor}
+    \end{figure}
+    Formally what we're doing here is 
+    $$\eta(1,1)=\dl_{0,\set{a,b,c}}=\dl_{1,\emptyset}\in\ov{M}_{1,3}.$$
+    Notice that both source curves had no codimension whereas the resulting one does have codimension!
 \end{Ex}
 
-Now that we're equipped with this realtively intuitive classes we are ready to proceed into a bit more abstract classes of the moduli space.
+\begin{Rmk}
+    Both versions of the gluing map add one codimension because they're adding one node to a new curve.
+\end{Rmk}
+
+Now that we're equipped with this relatively intuitive classes we are ready to proceed into a bit more abstract classes of the moduli space.
 
 \subsection{$\psi$ and $\lambda$ classes}
 
@@ -625,10 +676,16 @@ Now returning to graphs, strata of $\ov M_{g,n}$ can support $\psi$ and $\la$ cl
     chosen for each vertex $v$.
 \end{Def}
 
-\begin{Ex} 
+\begin{Ex}\label{ex-psi-class-forgetful-identity}
     In order to exemplify the decorated graphs, let's view a couple of formulae which will become useful the further we delve into this subject. If $\pi\:\ov M_{g,n+1}\to\ov M_{g,n}$ is the map which forgets $p_{n+1}$, then 
-    $$\pi^\ast(\psi_i)=\psi_i-\dl_{0,{i,n+1}}\word{equivalently}\psi_i=\pi^\ast(\psi_i)+\Im\sg_i.$$
-    Here the $\psi_i$ inside the pullback is supported on $\ov M_{g,n}$ whereas the other one in $\ov{M}_{g,n+1}$. Graphically this would be represented by two stable graphs, one decorated and the other one not.\red{Fig}
+    $$\pi^\ast(\psi_i)=\psi_i-\dl_{0,\set{i,n+1}}\word{equivalently}\psi_i=\pi^\ast(\psi_i)+\Im\sg_i.$$
+    Here the $\psi_i$ inside the pullback is supported on $\ov M_{g,n}$ whereas the other one in $\ov{M}_{g,n+1}$. Graphically this would be represented by two stable graphs, one decorated and the other one not.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.3cm 17cm 9cm 8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Psi-class forgetful formula}
+        \label{fig:psi-class-forget}
+    \end{figure}
 \end{Ex}
 
 \begin{Ex}%https://mathoverflow.net/questions/100213/pull-back-of-hodge-bundle-via-glueing-map
@@ -636,7 +693,14 @@ Now returning to graphs, strata of $\ov M_{g,n}$ can support $\psi$ and $\la$ cl
     $$p_1\:\ov{M}_{g,n}\to\ov{M}_{a,|A|},\word{and}p_2\:\ov{M}_{g,n}\to\ov{M}_{g-a,n-|A|}$$
     through which we can pullback the Hodge bundles of the smaller moduli spaces and thus get 
     $$\left.\bE\right|_{\dl_{a,A}}=p_1^\ast\left(\bE_{a,|A|}\right)\oplus p_2^\ast\left(\bE_{g-a,n-|A|}\right).$$
-    We can express this graphically for the first lambda-class.\red{fig}
+    We can express this graphically for the first lambda-class.
+     \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 1.3cm 13.5cm 5.1cm 11.8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Lambda-class distribution}
+        \label{fig:lambda-class-distribution}
+    \end{figure}
+
     We haven't formally described how to compute the product of classes in $\ov M_{g,n}$ but this only requires knowing how to compute first Chern classes. Which we can do by using the cheat sheet theorem \ref{th-chern-class-cheat-sheet}.
 \end{Ex}
 As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes \cite{KockPsiClasses} also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
@@ -671,12 +735,6 @@ When such a map exists, we can say either
     We can also extend the definition to say that $\widetilde{\Ga}$ has a $(\Ga_1,\dots,\Ga_n)$ structure whenever $\widetilde\Ga$ contracts into any of the $\Ga_i$.
 \end{Rmk}
 
-The definition comes to life with examples.
-
-\begin{Ex}
-    \red{do example 2.7 from SvZ}
-\end{Ex}
-
 In order to multiply two classes via their graphs, we will look for graphs which contract into both factors of the product. 
 
 \begin{Def}
@@ -705,7 +763,13 @@ Now we all the tools ready to define the multiplication of graphs which combinat
 As before, definitions come to life via examples. 
 
 \begin{Ex}
-    Let's begin with a sanity check. Consider the product in $\ov M_{0,4}$ of the fundamental class $1$ with $\dl_{0,{ac}}$. The product is represented graphically as\red{fig}\par
+    Let's begin with a sanity check. Consider the product in $\ov M_{0,4}$ of the fundamental class $1$ with $\dl_{0,{ac}}$. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 13cm 21.5cm 1.5cm 4.5cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Trivial multiplication in $\ov M_{0,4}$}
+        \label{fig:trivial-multiplication-M04}
+    \end{figure} 
     Let's proceed by following the formula.
     \begin{enumerate}
         \item We have found the graphs representing the classes in question and now we look for graphs which generically contract into both of the factors. Observe that only $\dl_{0,{ac}}$ contracts into both itself and the fundamental class.
@@ -724,20 +788,38 @@ As before, definitions come to life via examples.
     Another observation is that the graphs can indeed have less edges than the expected codimension. This is because we can have multiples of psi- and lambda-classes to even out the codimension.
 \end{Rmk}
 
-\begin{Ex}\red{fig}
-    Consider now the product $\dl_{0,{ac}}^2$ in $\ov{M}_{0,4}$. As this boundary divisor has codimension $1$, its square should have codimension $2$. As $\ov{M}_{0,4}$ has only one dimension, we expect the product to be empty. The representation of this product graphically can be seen in \red{fig}.\par
+\begin{Ex}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 13cm 9.8cm 2cm 15.8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Divisor squared in $\ov M_{0,4}$}
+        \label{fig:divisor-squared-M04}
+    \end{figure} 
+    Consider now the product $\dl_{0,{ac}}^2$ in $\ov{M}_{0,4}$. As this boundary divisor has codimension $1$, its square should have codimension $2$. As $\ov{M}_{0,4}$ has only one dimension, we expect the product to be empty. The edges of the factors are painted to distinguish them.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 12.8cm 17.8cm 1.3cm 8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Factors identified with colors}
+        \label{fig:divisor-squared-2-M04}
+    \end{figure} 
     Once again let's follow the formula with care.
     \begin{enumerate}
         \item We look for all the graphs contracting into $\dl_{0,{ac}}$ once again. There's only $\dl_{0,{ac}}$ once more. This class has codimension 1, so we must multiply a psi-class to level the codimension.
-        \item The edge in the result is bicolored to indicate that it is identified with the edges in the factors. Here we label the half-edges as $\8$ and $\ast$ so that we must multiply a psi-class $(-\psi_\8-\psi_\ast)$. This is the only difference with the previous calculation.\red{fig}
+        \item The edge in the result is bicolored to indicate that it is identified with the edges in the factors. Here we label the half-edges as $\8$ and $\ast$ so that we must multiply a psi-class $(-\psi_\8-\psi_\ast)$. This is the only difference with the previous calculation.
         \item The graph has no non-trivial automorphisms and no decorations.
     \end{enumerate}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.3cm 9.8cm 9cm 15.8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Multiplication result with psi-class}
+        \label{fig:divisor-squared-3-M04}
+    \end{figure} 
     The result is then 
     $$\dl_{0,{ac}}\.(-\psi_{\8}-\psi_{\ast})$$
     which we can see to be zero by a codimension count or as follows. 
     The stratum in question can be seen as the image of a gluing map:
     $$\eta\:\ov M_{0,\set{a,c,\8}}\x\ov M_{0,\set{b,d,\ast}}\to\ov M_{0,\set{a,\dots,d}},$$
-    and when pulling back the psi-classes via the gluing map to the corresponding $M_{0,3}$'s we get the same psi-classes. These are $0$ in $M_{0,3}$ so that the result is also 0.\red{fig}
+    and when pulling back the psi-classes via the gluing map to the corresponding $M_{0,3}$'s we get the same psi-classes. These are $0$ in $M_{0,3}$ so that the result is also 0.
 \end{Ex}
 
 We climb up a couple of dimensions into $\ov M_{0,6}$ in the next example. This next classes will now have psi-classes multiplied and won't be zero!
@@ -745,51 +827,96 @@ We climb up a couple of dimensions into $\ov M_{0,6}$ in the next example. This 
 \begin{Ex}
     Consider the intersection product in $\ov{M}_{0,6}$:
     $$\dl_{0,\set{a,b,c}}\dl_{0,\set{ab}}^2,$$
-    We may represent this product as the following graphs.\red{Add drawings}\par
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 1.3cm 17.2cm 12.8cm 8cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Multiplication of three divisors}
+        \label{fig:three-divisors-1-M06}
+    \end{figure}
     The expected codimension of the result is $3$ as every factor contributes $1$ codimension.\par
+    We begin by multiplying a copy of $\dl_{0,\set{ab}}$ with $\dl_{0,\set{a,b,c}}$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 9cm 17.2cm 5.2cm 8cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{First multiplication}
+        \label{fig:three-divisors-2-M06}
+    \end{figure}
+    We can only find one graph with contracts into these two. It's a codimension two class which has no non-trivial automorphisms nor decorations so we now multiply by the other divisor.
+     \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 1.3cm 13.4cm 12.8cm 11.7cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Second multiplication}
+        \label{fig:three-divisors-3-M06}
+    \end{figure}
 
-    We begin by multiplying a copy of $\dl_{0,\set{ab}}$ with $\dl_{0,\set{a,b,c}}$:\red{add drawing with edges colored}.\par
-\red{FINISH WRITING}
-    Graphs which contain these two as minors are scarce. In fact, ¡there's only one: $D(ab\mid c\mid def)$!\red{add drawing}\par 
+    We expect the resulting graphs to have three edges as that would have codimension $3$. Creating such a graph is impossible, as any possible graph would non-generically contract into the factors.
 
-    We get only one copy of our resulting graph with the coloring already determined.
-    This graph has no non-trivial automorphisms and so we only get $D(ab\mid c\mid def)$ which we now have to multiply by another copy of $D(ab\mid cdef)$.\red{add drawing with edges colored}.\par
-
-    We expect the resulting graphs to have three edges as that would have codimension $3$. But take for example $D(ab\mid c\mid d\mid ef)$. \red{add drawing with edges colored}.\par
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.25\textwidth, trim= 16.6cm 13.4cm 1.3cm 11.7cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Non-generic contracting graph}
+        \label{fig:three-divisors-4-M06}
+    \end{figure}
     
-    Such graph has three edges but \textbf{they can't be colored}. When collapsing edges, the colors disappear so that we would have to leave the edge between $d$ and $ef$ uncolored to respect the coloring.\red{Add drawing}\par
-    This cannot happen as is the case for any other possibilities, they will be non-generic intersections. So $D(ab\mid c\mid def)$ is the only possible factor. The edge between $ab$ component and the $c$ component will be bicolored in a way that we have to multiply $\psi$-classes. Labeling the vertices attached to the edge as $\.$ and $\star$ we get 
-    $$D(ab\mid cdef)^2 D(abc\mid def)=D(ab\mid c\mid def)(-\psi_\.-\psi_\star).$$
-    This class has the correct codimension as the graph has two edges and the $\psi$ class adds another codimension.
+    Such graph has three edges but \emph{they can't be colored} to respect the contraction. When contracting edges, the colors disappear so that we would have to leave an edge uncolored to respect the coloring.\par
+    So the only possibility is the same graph that we just obtained but multiplied by a psi-class. One of the edges is bicolored and labeling the vertices of the corresponding edge as $\8$ and $\ast$ we get 
+    $$\dl_{0,\set{ab}}\dl_{0,\set{a,b,c}}(-\psi_\8-\psi_\ast)$$
+    This class has the correct codimension as the graph has two edges and the psi-class adds another codimension.
+ \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 9cm 13.4cm 5.2cm 11.7cm,clip]{../figs/FigsDNnotability1.pdf}
+        \caption{Final result of product}
+        \label{fig:three-divisors-5-M06}
+    \end{figure}
+
 \end{Ex}
 
 \begin{Ex}[\cite{ZvonkineIntro}, Exercise 2.4]\label{ex-unexpectedly-zero-square}
-   Recall the irreducible divisor of stable curves with one non-separating node $\dl_{\text{irr}}\in\ov{M}_{1,n}$. We will show that $\dl_{\text{irr}}^2=0$.\red{DO}
-    The following graph represents a curve in $\ov{M}_{1,2}$:\red{add drawing}\par
-    Let us take its second power and color each factor's edge \green{green} and \blu{blue} respectively:\red{add drawing w edges colored}\par
-    Following the process we now look for graphs which have this graph as a minor.
-    \begin{itemize}
-        \item The same graph certainly contains itself. But we must multiply by a $\psi$ class to get the correct codimension\red{add drawing w edges colored}\par
-        Counting possible colorings we get 4 (\red{ask}) colorings and 2 automorphisms for this graph.
-        \item The other curve consists of a torus twice-pinched with a mark on each of the isomorphic $\bP^1$ components. The dual graph looks like this:\red{add drawing w edges colored}\par
-        It has quite a bunch of colorings, 8 and only two automorphisms.
-    \end{itemize}
-    So in total, the square of this curve can be represented by the sum of classes:\red{add drawings}
-\end{Ex}
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.35\textwidth, trim= 12.8cm 25.5cm 5.2cm 0.5cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Irreducible divisor squared}
+        \label{fig:irr-squared-1}
+    \end{figure}
 
-\textbf{TO DO}
-\begin{enumerate}
-    \item Ejemplos notas y DN
-    \item Escr ref integral como grado de coclase
-    \item Projection formula
-    \item String and Dilaton relations
-    \item Integral examples
-\end{enumerate}
+   Recall the irreducible divisor of stable curves with one non-separating node $\dl_{\text{irr}}\in\ov{M}_{1,n}$. We will show that $\dl_{\text{irr}}^2=0$. Following the idea from figure \ref{fig:divisor-squared-2-M04} in the divisor squared example for $\ov{M}_{0,4}$, we separate the product into two factors and color.
+
+   \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.4\textwidth, trim= 14.1cm 21.3cm 2.7cm 4.3cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Separated product with edges colored}
+        \label{fig:irr-squared-2}
+    \end{figure}
+
+    There's two kinds of graphs which contract into this one. First itself, with the edge bicolored. Due to this we have to add a psi-class because the edge is identified with both factors.
+
+     \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 2cm 6.5cm 13.5cm 20cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Irreducible divisor with psi-class to correct codimension}
+        \label{fig:irr-squared-3}
+    \end{figure}
+    Besides this one, we have $2^n-2$ other possible graphs representing curves with two components with the marks distributed among them. These are indexed by $A\subseteq\set{n}$ containing at least one element. On one component the curve has $|A|$ marks, and on the other side, $n-|A|$. The components are joined by two nodes so it has the correct codimension.
+     \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.3\textwidth, trim= 9cm 6.2cm 8.92cm 20cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Codimension 2 strata indexed by $A$}
+        \label{fig:irr-squared-4}
+    \end{figure}
+    So in total, the sum of these classes gives us the result of squaring $\dl_{\text{irr}}$. We get a factor of 2 in each of the terms accounting for the automorphisms which we turn to the other side of the equation as a half factor.\red{check!}
+
+     \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.95\textwidth, trim= 1.3cm 2.3cm 4.3cm 23.8cm,clip]{../figs/FigsDNnotability2.pdf}
+        \caption{Final sum with all strata}
+        \label{fig:irr-squared-5}
+    \end{figure}
+    \red{Why is this zero in the end???}
+\end{Ex}
 
 \section{Integration}
 
-
-My reference for the definition of the integral comes form Fulton and Pandharipande \cite{FPNotes}.
+Fulton and Pandharipande \cite{FPNotes} give us the definition of the integral that we will use. 
 
 \begin{Def}[\cite{FPNotes} pg. 2]
     For a complete variety, $c\in A^\ast(X)$ and $\bt\in A_k(X)$ then 
@@ -798,13 +925,131 @@ My reference for the definition of the integral comes form Fulton and Pandharipa
     $$\int_V c\word{instead of}\int_{\bonj{V}}c.$$
 \end{Def}
 
-\section{Moduli space of maps}
+In our case, this can be seen as the pushforward of the constant map from $\ov M_{g,n}$ to a point. 
+$$A^\ast(\ov{M}_{g,n})\xrightarrow[]{c_\ast}A^\ast(\pt)\quad\To\quad \int_{\ov{M}_{g,n}}\defeq c_\ast.$$
+
+\subsection{The string equation}
+
+\begin{Ex}
+Consider the integral 
+$$I=\int_{\ov{M}_{0,4}}\psi_1$$
+we apply the forgetful map identity for the psi-class (as seen in example \ref{ex-psi-class-forgetful-identity}) to get
+$$I=\int_{\ov{M}_{0,4}}\pi_2^\ast(\psi_1)+\Im s_1=\int_{\ov{M}_{0,4}}0+\dl_{0,\set{1,4}}.$$
+Coupling this divisor against the fundamental class gives us a zero-cycle, and as there's no coefficients we get a $1$. Therefore 
+$$I=\int_{\ov{M}_{0,4}}\psi_1=1$$
+\end{Ex}
+
+We can now continue into integrals involving higher powers of psi-classes. For this, let's take into account the following diagram
+
+$$
+\begin{tikzcd}
+ \ov{M}_{g,n+1}\arrow[dr,"c"]\arrow[dd,"\pi"']&\\
+ &\pt\\
+ \ov{M}_{g,n}\arrow[ur,"\widetilde{c}"']&
+\end{tikzcd}
+\To
+\begin{tikzcd}
+ A^\ast(\ov{M}_{g,n+1})\arrow[dr,"c_\ast=\displaystyle\int_{\ov{M}_{g,n+1}}"]\arrow[dd,"\pi_\ast"']&\\
+ &A^\ast(\pt)\\
+ A^\ast(\ov{M}_{g,n})\arrow[ur,"\widetilde{c}_\ast=\displaystyle\int_{\ov{M}_{g,n}}"']&
+\end{tikzcd}
+$$
+
+Observe that via the forgetful map, we may integrate classes from the upper moduli space by pushing them forward and then integrating on the moduli space on the bottom. This means that
+$$\int_{\ov{M}_{g,n+1}}\al=\int_{\ov{M}_{g,n}}\pi_\ast\al,\word{for}\al\in A^\ast(\ov M_{g,n+1}).$$
+To work with pushforwards and psi-classes involving pullbacks, we must use the projection formula for the Chow ring. 
+
+\begin{Prop}
+    %https://mathoverflow.net/questions/67228/where-do-all-these-projection-formulas-come-from
+    Given a proper map $f\: X\to Y$ between nonsingular algebraic varieties and cycle classes $\al\in A^\ast(X),\bt\in A^\ast(Y)$ we have
+    $$f_\ast(\al\.f^\ast(\bt))=f_\ast(\al)\.\bt.$$
+\end{Prop}
+
+The following lemma for reduction in power of the psi-class also comes in handy.
+
+\begin{Lem}
+For a forgetful map $\pi_j$ and a psi-class $\psi_i$, we have 
+$$\psi_i^k=(\pi_j^\ast\psi_i)^{k-1}(\pi_j^\ast\psi_i+\dl_{0,\set{ij}}),\quad k\in\bZ_{\geq 0}.$$
+\end{Lem}
+
+\begin{ptcbp}
+    We may first apply the projection formula \ref{ex-psi-class-forgetful-identity} for the psi-class
+    $$\psi_i^k=\psi_i(\pi_j^\ast\psi_i+\dl_{0,\set{ij}})^{k-1}.$$
+    Now we expand the binomial and distribute the outside psi-class as follows 
+    \begin{align*}
+        =&\psi_i\sum_{\l=0}^{k-1}\binom{k-1}{\l}(\pi_j^\ast\psi_i)^\l(\dl_{0,\set{ij}})^{k-1-\l}\\
+        =&\left(\psi_i\dl_{0,\set{ij}}^{k-1}+(k-1){\psi_i}\dl_{0,\set{ij}}^{k-2}\pi_j^\ast\psi_i+\dots\right.\\
+        &\left.\phantom{\left(\right.}+(k-1)\psi_i\dl_{0,\set{ij}}(\pi_j^\ast\psi_i)^{\l-1}+\psi_i(\pi_j^\ast\psi_i)^{k-1}\right)\\
+        =&\psi_i(\pi_j^\ast\psi_i)^{k-1}\\
+        =&(\pi_j^\ast\psi_i)^{k-1}(\pi_j^\ast\psi_i+\dl_{0,\set{ij}})
+    \end{align*}
+    Observe that all the terms save the last one have a multiplication $\psi_i\dl_{0,\set{ij}}^{\l}$ with $\l$ between $1$ and $k-1$. This multiplication gives a $\psi_i$ on $M_{0,\set{\ast,i,j}}\isom M_{0,3}$ which is zero.  
+\end{ptcbp}
+
+Observe now that the power of the psi-class has given us something of the form $\al\.f^\ast(\bt)$ where 
+$$\al=\pi_j^\ast\psi_i+\dl_{0,\set{ij}},\word{and}\bt=\psi_i^{k-1}$$
+and we may pull the power inside the $\pi_j^\ast$ because its a ring homomorphism, unlike the pushforward which is just a module morphism.\par
+This term begs to be put together with a $\pi_\ast$ to apply the projection formula, and we have a readily accisble $\pi_\ast$ when using the integral diagram!
+
+\begin{Ex}
+    Consider the integral 
+    $$I=\int_{\ov M_{0,6}}\psi_3^5\psi_4^7.$$
+    Forgetting the sixth mark we may change the integral via the diagram to
+    $$I=\int_{\ov M_{0,5}}\pi_{6\ast}(\psi_3^5\psi_4^7).$$
+    Now let's use the previous results to expand that pushforward. 
+    \begin{align*}
+        &\pi_{6\ast}(\psi_3^5\psi_4^7)\\
+        =&\pi_{6\ast}\bonj{(\pi_6^\ast\psi_3)^{4}(\pi_6^\ast\psi_3+\dl_{0,\set{36}})(\pi_6^\ast\psi_4)^{6}(\pi_6^\ast\psi_4+\dl_{0,\set{46}})}\\
+        =&\pi_{6\ast}\bonj{\left((\pi_6^\ast\psi_3)^{5}+(\pi_6^\ast\psi_3)^{4}\dl_{0,\set{36}}\right)\left((\pi_6^\ast\psi_4)^{7}+(\pi_6^\ast\psi_4)^{6}\dl_{0,\set{46}}\right)}\\
+        =&\pi_{6\ast}\left\lbrack\pi_6^\ast\left(\psi_3^5\psi_4^7\right)+\dl_{0,\set{46}}\pi_6^\ast\left(\psi_3^5\psi_4^6\right)\right.\\
+        &\phantom{\pi_{6\ast}\left\lbrack\right.}+\left.\dl_{0,\set{36}}\pi_6^\ast\left(\psi_3^4\psi_4^7\right)+\dl_{0,\set{36}}\dl_{0,\set{46}}\pi_6^\ast\left(\psi_3^4\psi_4^6\right)\right\rbrack
+    \end{align*}
+    We may separate terms using the fact that the pushforward is a module homomorphism and notice that $\dl_{0,\set{36}}\dl_{0,\set{46}}=0$ so that we may apply the projection formula.
+    \begin{align*}
+        &\pi_{6\ast}\left\lbrack1\.\pi_6^\ast\left(\psi_3^5\psi_4^7\right)\right\rbrack+\pi_{6\ast}\bonj{\dl_{0,\set{46}}\pi_6^\ast\left(\psi_3^5\psi_4^6\right)}+\pi_{6\ast}\bonj{\dl_{0,\set{36}}\pi_6^\ast\left(\psi_3^4\psi_4^7\right)}\\
+        =&\pi_{6\ast}\bonj{1}\left(\psi_3^5\psi_4^7\right)+\pi_{6\ast}\bonj{\dl_{0,\set{46}}}\left(\psi_3^5\psi_4^6\right)+\pi_{6\ast}\bonj{\dl_{0,\set{36}}}\left(\psi_3^4\psi_4^7\right)
+    \end{align*}
+    The pushforward of the fundamental class is zero and for the divisors we do get the fundamental classes in $\ov{M}_{0,5}$ after stabilizing. Thus our integral has become two over one dimension less, and the integrand has lost one power. We have
+    $$\int_{\ov M_{0,6}}\psi_3^5\psi_4^7=\int_{\ov{M}_{0,5}}\psi_3^5\psi_4^6+\psi_3^4\psi_4^7$$
+\end{Ex}
+
+Continuing this example leads us to the general result. This serves as a guide for the inductive step in proving the string equation formula.
+
+\begin{Th}
+    Suppose $I$ is a multi-index and $\un\psi$ is an array of psi-classes, then 
+    $$\int_{\ov{M}_{0,n}}\un\psi^I=\binom{n-3}{I}.$$
+\end{Th}
+
+In the discussion of the previous result, we have used a couple of properties about pushforwards and pullbacks which should be enumerated.
+
+\begin{Rmk}
+    If $f\: X\to Y$ is a flat and proper map, then the pullback of $f$ is a map 
+    $$f^\ast\: A^\ast(Y)\to A^\ast(X)$$
+    such that
+    \begin{itemize}
+        \item respects codimension grading,
+        \item is a ring homomorphism, and 
+        \item generically satisfies $f^\ast(Z)=\bonj{f^{-1}(Z)}$. 
+    \end{itemize}
+    This last property may not occur at nodes for example. Meanwhile, the pushforward is a map
+    $$f_\ast\: A_\ast(X)\to A_\ast(Y)$$
+    which
+    \begin{itemize}
+        \item respects dimension grading,
+        \item is a module homomorphism, and
+        \item generically satisfies $f_\ast(Z)=\bonj{f(Z)}$. We can be more explicit here to say when things happen differently. 
+        \begin{enumerate}
+            \item If $\dim f(Z)<\dim Z$, then $f_\ast(Z)=0$.
+            \item If $\left.f\right|_Z\:Z\to f(Z)$ is finite of degree $n$, then $f_\ast(Z)=n\bonj{f(Z)}$.
+        \end{enumerate}
+    \end{itemize}
+\end{Rmk}
 
 \chapter{Equivariant Cohomology and Localization}
 
 \section{Introduction to equivariant cohomology}
 
-Manifolds usually don't come by themselves, like in the case of homogenous spaces, some manifolds have a lot of symmetries. These can be expressed by a group action on the manifold. We would like a cohomology theory which retains information on the group action!
+Manifolds and varieties usually don't come by themselves, some have lots of symmetries. These can be expressed by a group action on the manifold. We would like a cohomology theory which retains information on the group action!
 
 \begin{Ex}[A na\"ive approach]
     Consider the $S^1$ action $\bP^1$ given by $u\. z=uz$. This action has two fixed points, $0$ and $\infty$. Observe also that 
@@ -842,7 +1087,7 @@ We know that the usual cohomology of a point is trivial, but let's check two exa
 \begin{enumerate}
     \item First consider the (trivial) action of $\bZ$ on a point. In this case we have
     $$E\bZ=\bR\word{with}x\.n=x+n.$$
-    This is a free action and $\bR$ is contractible\footnote{You'll have to trust me on the fact that $\bR$ is unique up to homotopy on this one.}. Find the classifying space isn't very bad:
+    This is a free action and $\bR$ is contractible. Find the classifying space isn't very bad:
     $$\pt_\bZ=\quot{\bR}{x\sim x+n}\isom S^1$$
     so that 
     $$H_\bZ^\ast(\pt)=H^\ast(S^1)=\quot{\bZ[t]}{t^2}.$$
@@ -863,15 +1108,12 @@ We know that the usual cohomology of a point is trivial, but let's check two exa
 There are questions which arose during the study of classifying spaces which we didn't have time to answer. But they surely have been studied.
 
 \begin{Qn}
-    What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{At the time of writing, Ignacio hasn't read Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
+    What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{A good reference for this is Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
 \end{Qn}
 
-\begin{Rmk}
     One can see that the idea of constructing the cohomology of the orbit space goes haywire as soon as our space is not a point. For $\bP^1$ one has to find
     $$H^\ast\left(\quot{T^2\x\bP^2}{\sim}\right)$$
-    which becomes unsurmountably hard.
-\end{Rmk}
-
+    which becomes unsurmountably hard.\par
 We use another theorem to find the cohomology of projective space. This is Grothendieck's approach, the idea is that vector bundles 
 $$E\xrightarrow[]{\pi}B$$
 can be associated to projective bundles $\bP(E)$ whose typical fiber is isomorphic to $\bP^{r-1}$. $\bP(E)$ itself has a line bundle $\cO(1)$ leading us to a Chern class
@@ -974,14 +1216,7 @@ With this example, we verified that the localization theorem indeed provides an 
 \end{Ex}
 
 \begin{Rmk}
-    This computation did not rely on specific coordinates of $\bP^1 \times \bP^1$, only on the existence of four torus-fixed points.\par
-    We also implicitly used several properties not mentioned before:
-    \begin{enumerate}
-        \item Chern classes commute with pullbacks, so:
-        $$i_k^\ast(e(T\bP^1\x\bP^1))=e(i_k^\ast T\bP^1\x\bP^1).$$
-        \item Integration against a pushforward restricts to the domain of the map:
-        $$\int_{\bP^1\x\bP^1}i_{k\ast}(\.)=\int_{F_k}$$
-    \end{enumerate}
+    This computation did not rely on specific coordinates of $\bP^1 \times \bP^1$, only on the existence of four torus-fixed points.
 \end{Rmk}
 
 The variety $\bP^1 \times \bP^1$ is an example of a \emph{toric variety}. One property of toric varieties is that their Euler characteristic is equal to the number of torus-fixed points.
@@ -1023,5 +1258,5 @@ We have discussed the space of maps, we know some examples and now we want to ca
 \else\fi
 \nocite{*}
 \bibliographystyle{plain}
-\bibliography{../bibiDoctoralNotebook.bib}
+\bibliography{bibiTM.bib}
 \end{document}
