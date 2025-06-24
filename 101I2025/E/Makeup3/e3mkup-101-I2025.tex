@@ -1,0 +1,126 @@
+\documentclass[12pt]{exam}
+\usepackage{amsthm}
+\usepackage{libertine}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\class}{Math 101-002}
+\newcommand{\examnum}{Exam 3 Makeup}
+\newcommand{\examdate}{Summer 2025}
+
+\begin{document}
+\pagestyle{plain}
+\thispagestyle{empty}
+
+\noindent
+\textbf{\class}\\
+\textbf{\examnum}, \textbf{\examdate} \\
+
+\vspace{10pt}
+
+\textbf{Name/CSU ID:}
+
+\vspace{10pt}
+
+Be sure to read each question fully and carefully. There is space to the right of each multiple choice question to show work. If your work is correct, you can receive credit even with an incorrect choice.
+
+\begin{questions}
+
+\section*{Section 1: Networks and Spanning Trees (Ch. 7)}
+
+\question[12] Consider the following weighted network of six vertices. The weights represent distances in kilometers.
+
+\begin{center}
+\begin{tabular}{c|cccccc}
+ & A & B & C & D & E & F \\
+\hline
+A & - & 7 & 9 & - & - & 14 \\
+B & 7 & - & 10 & 15 & - & - \\
+C & 9 & 10 & - & 11 & - & 2 \\
+D & - & 15 & 11 & - & 6 & - \\
+E & - & - & - & 6 & - & 9 \\
+F & 14 & - & 2 & - & 9 & - \\
+\end{tabular}
+\end{center}
+
+\begin{parts}
+\part[4] Draw the network as a graph, labeling all weights.
+
+\vspace{3cm}
+
+\part[4] Use Kruskal’s Algorithm to find a minimum spanning tree. List the edges in the order selected.
+
+\vspace{3cm}
+
+\part[4] What is the total weight of the minimum spanning tree?
+
+\vspace{1.5cm}
+\end{parts}
+\newpage
+\question[4] What is a tree in graph theory? Why must Kruskal’s algorithm always produce a tree? Explain in your own words.
+
+\vspace{9cm}
+
+\question[4] What is the difference between a spanning tree and a minimum spanning tree? Why do we care about finding the *minimum* one?
+
+\vfill
+
+\newpage
+
+\section*{Section 2: Scheduling (Ch. 8)}
+
+\question[12] A project consists of the following task list and precedence relationships:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\textbf{Task} & \textbf{Time (days)} & \textbf{Must follow} \\
+\hline
+A & 2 & --- \\
+B & 5 & --- \\
+C & 6 & A \\
+D & 3 & A, B \\
+E & 4 & C \\
+F & 2 & D, E \\
+\end{tabular}
+\end{center}
+
+\begin{parts}
+\part[4] Draw the project digraph with the processing times and precedence relations:
+\vspace{4cm}
+
+\part[4] Apply the Backflow Algorithm to find the critical time of each task. Draw the project digraph again if necessary.
+
+\vspace{4cm}
+
+
+\part[4] Use the Decreasing-Time Algorithm to schedule the above project on two processors. Assume alphabetical tie-breaks.
+
+\vfill
+\end{parts}
+\newpage
+\question[4] Compare the Decreasing-Time Algorithm and the Critical-Path Algorithm. In what scenarios might one outperform the other?
+\vspace{9cm}
+\question[4] In your own words, explain what the purpose of a scheduling algorithm is. Why do we allow idle time in processor schedules, and how does that affect the overall completion time?
+
+\vfill\newpage
+
+
+\section*{Discussion (10 points)}
+
+\question[10] You are helping a game development studio plan the final testing and launch of a video game. The project has tasks like coding the multiplayer engine, polishing the graphics, server testing, preparing launch trailers, and packaging for distribution. Some tasks must wait until others are completed. You have a team of testers and designers, and limited time before release day.
+
+Describe how you could model the task dependencies as a directed graph. How would you identify the critical path? Which scheduling algorithm would you use to assign tasks to team members, and how would you deal with delays or last-minute changes?
+
+\vspace{7cm}
+
+\end{questions}
+
+\end{document}
