@@ -254,6 +254,15 @@ Once again, we arrive at the same issue that this space is not compact. Last tim
 Observe that the definition calls the object an \emph{algebraic curve} and not a manifold. It's almost a manifold, but it's not because it can lack smoothness.
 \end{Rmk}
 
+From here on, we can talk about $\ov{M}_{g,n}$, the moduli space of stable, genus $g$, n-pointed curves. The technicalities of whether this space is actually an orbifold or a stack will not concern us in this work. 
+
+\begin{Prop}\label{prop-dim-Mgn}
+    The dimension of $\ov{M}_{g,n}$ is $3g-3+n$.
+\end{Prop}
+
+Originally, Riemann showed that the dimension of the space without marks is $3g-3$. The proof goes along the lines of finding the dimensions of a Picard group, a Hurwitz space and a particular Grassmannian. The moduli space can be located in a diagram involving all of these spaces and thus its dimension can be found. There's modern approaches to this count but this is the core of Riemann's original idea. Adding marks just adds a degree of freedom per mark so that we get the extra $+n$ in dimensions.\par
+Let us condense the criterion of finite number of automorphisms into a single, easy-to-spell-out idea which will be of use.
+
 \begin{Th}[\cite{ZvonkineIntro}, pg. 17]\label{th-stability-condition-22gn}
 A stable curve admits a finite number of automorphisms (as in condition \ref{fin-number-auts}) if and only if every connected component $C_i$ of its normalization with genus $g_i$ and $n_i$ \emph{special} points satisfies 
 $$2-2g_i-n_i<0.$$
@@ -1056,10 +1065,10 @@ Manifolds and varieties usually don't come by themselves, some have lots of symm
     $$u\.z=z\iff u=1.$$
     If we were to define the a cohomology which retains information on the group action (equivariant cohomology), we could say 
     $$H_{S^1}^\ast(\bP^1)\defeq H^\ast\left(\quot{\bP^1}{S^1}\right).$$
-    However the orbit space $\quot{\bP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
+    However the quotient set $\quot{\bP^1}{S^1}$ is the same as a closed interval which means it has trivial cohomology.
 \end{Ex}
 
-Instead of considering the cohomology of the orbit space $M/G$, which doesn't retain information on the group action, we should look for an alternive which does.
+Instead of considering the cohomology of the quotient $M/G$, which doesn't retain information on the group action, we should look for an alternive which does.
 
 \subsection{The Borel construction}
 
@@ -1076,7 +1085,7 @@ $$M\x EG\isom M$$
 as $EG$ is contractible! 
 
 \begin{Def}
-    We call the \term{orbit space}\footnote{This is now overloading the previous definition of orbit space $M/G$.} of $M$ the quotient
+    We call the \term{orbit space} of $M$ the quotient
     $$M_G\defeq\quot{M\x EG}{(g\.x,y)\sim(x,y\.g)}.$$
     From this we define the \term{equivariant cohomology} of $M$ as 
     $$H_G^\ast(M)\defeq H^\ast(M_G).$$
@@ -1195,7 +1204,13 @@ $$1\.[0:1]+0\.[1:0]$$
 so it's indeed the correct cohomology class.
 \end{Ex}
 
-With this example, we verified that the localization theorem indeed provides an isomorphism between different cohomology rings. Now, we use localization to compute the Euler characteristic of a different variety.
+With this example, we verified that the localization theorem indeed provides an isomorphism between different cohomology rings. Now, we use localization to compute the Euler characteristic of a different variety which can be calculated using an integral of the Euler class. This theorem is due to Chern, and is a version of Gauss-Bonnet.
+
+\begin{Th}[Chern-Gauss-Bonnet, 1944]\label{th-CGB-eulerclassint}
+Suppose $M$ is a compact and oriented manifold without boundary of real dimension $2n$. Then 
+$$\int_Me(TM)=\chi(M),$$
+where $TM$ is the tangent bundle of $M$ and $e(TM)\in H^{2n}(M)$ is its Euler class.
+\end{Th}
 
 \begin{Ex}[Euler characteristic of $\bP^1\x\bP^1$]
     Consider $\bP^1\x\bP^1$ and an action of $T^4$ via rescaling all entries as before. The fixed points under this action are 
