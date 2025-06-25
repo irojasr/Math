@@ -121,7 +121,7 @@ For our four pointed conic, we get an isomorphic $(\bP^1,p_1,\dots,p_4)$.
 
 \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.9\textwidth, trim= 1.32cm 24.9cm 5.2cm 0.1cm,clip]{../figs/FigsDNnotability3.pdf}
+        \includegraphics[width=0.9\textwidth, trim= 1.32cm 24.6cm 5.2cm 0.1cm,clip]{../figs/FigsDNnotability3.pdf}
         \caption{Projection from $0$ turns conic into $\bP^1$}
         \label{fig:smooth-conic-into-P1}
     \end{figure}
@@ -1157,7 +1157,7 @@ More importantly, this result still holds at the level of equivariant cohomology
 
 To say that we're using a localization technique to find cohomology is to apply the Atiyah-Bott theorem.
 
-\begin{Ex}[Projective line cohomology via localization]
+\begin{Ex}[Projective line cohomology via localization]\label{ex-projective-line-cohom-local}
 First, let's clearly define the action of $T^2=(\bC\less\set{0})^2$ on $\bP^1$. For $\un{\al}\in T^2$ and $[X,Y]\in\bP^1$ we have
 $$\un{\al}\.[X,Y]\defeq \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}.$$
 Then, the only fixed points of this action are $0=[0:1]$ and $\infty=[1:0]$:
@@ -1250,6 +1250,7 @@ The proof of this theorem follows the same line as before, identifying fixed poi
 
 \section{Localization in the space of maps}
 
+\subsection{A quick overview}
 Even though we have not discussed the space of maps thoroughly, it suffices to know the combinatorial information in order to calculate the desired integrals. The notion for the integral is the same as before, we will have cohomology classes of maps and when comparing them against the fundamental class what we extract is the degree.
 
 \begin{Def}[\cite{GreenBookKockVainsencher}, pg. 52]
@@ -1271,23 +1272,87 @@ The notion of a \emph{stable map} then, is that of map from a tree of projective
     covering $\set{Z=0}$ is a stable map even though $\bP^1$ is not pointed. This is because the component doesn't get contracted. 
 \end{Ex}
 
-\red{isom of maps.}
-\begin{itemize}
-    \item extend torus action from Pr to space of maps
-    \item Identify fixed loci 
-    \item Compute the actual integrals.
-\end{itemize}
+\begin{Def}[\cite{GreenBookKockVainsencher}, pg. 52]
+    We say two maps 
+$$\mu\: C\to\bP^r,\word{and}\mu'\: C'\to\bP^r$$
+are \emph{isomorphic} whenever there is an isomorphism of the source curves which respects all structure.\par
+In other words, we require the existence of an isomorphism
+$$\phi\:C\xrightarrow{\isom}C'$$
+such that the following diagrams commute.
+$$
+\begin{tikzcd}
+ C\arrow[dr,"\pi"']\arrow[rr,"\phi"]&&C'\arrow[dl,"\pi'"]\\
+ &\pt\arrow[lu, bend left=50,"\sg_i"]\arrow[ru, bend right=50,"\sg_i'"']&
+\end{tikzcd}
+\quad
+\begin{tikzcd}
+ C\arrow[dr,"\mu"']\arrow[rr,"\phi"]&&C'\arrow[dl,"\mu'"]\\
+ &\bP^r&
+\end{tikzcd}
+$$
+From this we can now talk about the isomorphism class of a map.
+\end{Def}
 
-\red{Talk abit about linearization???}
-\textbf{TODO}
-\begin{enumerate}
-\item Localization
-\begin{enumerate}
-    \item Example of $H^\ast_T(\bP^r)$ through Localization
-    \item Toric varieties Euler characteristic via Atiyah-Bott
-    \item Hodge integral $\int_{\ov M_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])$ via localization.
-\end{enumerate}
-\end{enumerate}
+\begin{Def}[\cite{BigMirrorSymmetryBook}, Def. 24.0.5, pg. 501]
+    The \term{moduli space of stable maps} from $n$-pointed, genus $g$ nodal curves $C$ to $X$ representing the class $\bt\in H_2(X,\bZ)$ as in $f_\ast[C]=\bt$ is denoted 
+    $$\ov M_{g,n}(X,\bt).$$
+    The space of degree $d$ maps to $\bP^r$ is then obtained by replacing $X=\bP^r$ and $\bt=d[\text{line}]$. Instead of the large notation, we will opt for $\ov M_{0,n}(\bP^r,d)$
+\end{Def}
+
+Let us recall the action of the torus $(\bC\less\set{0})^2$ on $\bP^1$ from example \ref{ex-projective-line-cohom-local}. Such action can be extended to an action on maps. 
+
+\begin{Ex}
+    Take the map 
+    $$\mu\:\bP^1\to\bP^1,\quad [X:Y]\mapsto[X+Y:X-Y]$$
+    and the torus action from example \ref{ex-projective-line-cohom-local}, 
+$$\un{\al}\.[X,Y]= \bonj{\frac{X}{\al_1},\frac{Y}{\al_2}}.$$
+We may define the action $\un\al\.\mu$ as the map
+$$\un\al\.\mu\:\bP^1\to\bP^1,\quad [X:Y]\mapsto\un\al\.[X+Y:X-Y]=\bonj{\frac{X+Y}{\al_1}:\frac{X-Y}{\al_2}}.$$
+\end{Ex}
+
+From this example, we may extend an action 
+$$G\.\bP^r\word{to}G\.\ov M_{0,n}(\bP^r,d)$$
+via $g\.\mu\defeq g\.(\mu(c))$ where $c\in C$ is a point on the source curve. The important part is that $\mu(c)$ is now an element of $\bP^r$ on which we can act.\par
+Given this, we may now give a criterion to describe the fixed loci of this action on the space of maps.
+
+\begin{Prop}\label{prop:who-fixed-maps}
+    A stable map $\mu$ is fixed under an action of $G$ if the following holds:
+    \begin{itemize}
+        \item The image $\Im(\mu)$ is $G$-invariant. In other words 
+        $$G\.\Im(\mu)\subseteq\Im(\mu).$$
+        \item And special points (marks and nodes) are mapped to $G$-fixed points.
+    \end{itemize}
+\end{Prop}
+
+Finally we use the result which counts the number of degree $d$ through $3d-1$ points.
+
+\begin{Prop}[\cite{BigMirrorSymmetryBook}, Exercise 25.1.1]
+    The number of degree $d$ rational plane curves passing through $3d-1$ points in general position in $\bP^2$ is 
+    $$N_d=\int_{\ov{M}_{0,3d-1}}\ev_1^\ast(P)\cup\ev_2^\ast(P)\cupycup\ev_{3d-1}^\ast(P).$$
+\end{Prop}
+
+\subsection{Two counts of $N_d$}
+
+\begin{Ex}
+    Let us begin with the example of $N_1$, this asks for the number of \emph{lines} passing through $2$ points in the plane. Intuitively, we know that this number is one. So let us verify it by computing the integral through localization. We will compute 
+    $$\int_{\ov{M}_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0]).$$
+    Let us begin by identifying the fixed maps in $\ov{M}_{0,2}(\bP^2,1)$ via the action 
+    $$\un\al\.[X:Y:Z]=\bonj{\frac{X}{\al_1}:\frac{Y}{\al_2}:\frac{Z}{\al_3}}.$$
+    By proposition \ref{prop:who-fixed-maps}, such maps are those which send the source curve into one of the invariant lines which are $X=0$, $Y=0$ or $Z=0$. The markings may be distributed either one on each end of the curve or both on one end attached to a twig contracting to one of the fixed points of $\bP^2$.\par
+    Such fixed maps are depicted in figure \ref{fig:fixed-loci-M02P21}. Observe for example that on the first line for loci $F_1$ through $F_6$, we have only the line $\bP^1$ with both marks mapping onto each of the coordinate lines in $\bP^2$. Whereas in the next line for $F_7$ through $F_{12}$, we do have curves whose contracted components are stable as pointed curves.
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth, trim= 1.32cm 21cm 9.1cm 4.1cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Cohomology classes of the fixed loci $F_1$ through $F_{12}$ of $\ov M_{0,2}(\bP^2,1)$}
+        \label{fig:fixed-loci-M02P21}
+    \end{figure}
+    Via the Atiyah-Bott theorem, we can now express our integral as the sum 
+    $$\int_{\ov{M}_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])=\sum_{j=1}^{12}\int_{F_j}\frac{\un i^\ast(\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0]))}{e(N_{F_j\mid \ov M})}.$$
+    \begin{itemize}
+        \item In order to calculate the numerator... diagram
+        \item the normal bundle combes from the tangent-normal and the deformation sequence...
+    \end{itemize}
+\end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
