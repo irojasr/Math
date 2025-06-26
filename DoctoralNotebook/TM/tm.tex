@@ -1091,7 +1091,7 @@ as $EG$ is contractible!
     $$H_G^\ast(M)\defeq H^\ast(M_G).$$
 \end{Def}
 
-\begin{Ex}[Cohomology of a point]
+\begin{Ex}[Cohomology of a point]\label{ex:equiv-cohom-point}
 We know that the usual cohomology of a point is trivial, but let's check two examples to see what changes.
 \begin{enumerate}
     \item First consider the (trivial) action of $\bZ$ on a point. In this case we have
@@ -1138,7 +1138,7 @@ These coefficients are the Chern classes in $A^\ast(B)$! We find the Euler class
 \end{Th}
 More importantly, this result still holds at the level of equivariant cohomology if we're talking about equivariant line bundles.
 
-\begin{Ex}
+\begin{Ex}\label{ex:projective-space-torus-cohomology}
     In the case where we have $B=\pt$, then the aforementioned projective bundle becomes $\bP^{r}\to\pt$ and the equivariant cohomology is thus 
     $$H^\ast_T(\bP^{r})\isom\quot{\bC[t_1,\dots,t_{r+1}][H]}{\prod_{i=1}^{r+1}(H-t_i)}.$$
 \end{Ex}
@@ -1299,6 +1299,13 @@ From this we can now talk about the isomorphism class of a map.
     The space of degree $d$ maps to $\bP^r$ is then obtained by replacing $X=\bP^r$ and $\bt=d[\text{line}]$. Instead of the large notation, we will opt for $\ov M_{0,n}(\bP^r,d)$
 \end{Def}
 
+While possible to talk about what the dimension of the general moduli space of maps should be, we limit ourselves to the particular case of degree $d$ maps. The interested reader may refer to \cite{BigMirrorSymmetryBook}, chapter 24.
+
+\begin{Prop}
+    The dimension of the moduli space $\ov M_{0,n}(\bP^r,d)$ is 
+    $$\dim(\ov M_{0,n}(\bP^r,d))=n+3d-1$$.
+\end{Prop}
+
 Let us recall the action of the torus $(\bC\less\set{0})^2$ on $\bP^1$ from example \ref{ex-projective-line-cohom-local}. Such action can be extended to an action on maps. 
 
 \begin{Ex}
@@ -1328,8 +1335,16 @@ Finally we use the result which counts the number of degree $d$ through $3d-1$ p
 
 \begin{Prop}[\cite{BigMirrorSymmetryBook}, Exercise 25.1.1]
     The number of degree $d$ rational plane curves passing through $3d-1$ points in general position in $\bP^2$ is 
-    $$N_d=\int_{\ov{M}_{0,3d-1}}\ev_1^\ast(P)\cup\ev_2^\ast(P)\cupycup\ev_{3d-1}^\ast(P).$$
+    $$N_d=\int_{\ov{M}_{0,3d-1}(\bP^2,d)}\ev_1^\ast(P)\cup\ev_2^\ast(P)\cupycup\ev_{3d-1}^\ast(P).$$
 \end{Prop}
+
+The maps $\ev_i$ are evaluation maps induced by each mark $p_i$ of the source curve:
+\begin{gather*}
+    \ev_i\: \ov{M}_{g,n}(\bP^r,d)\to\bP^r,\\
+    (C,\un p,\mu)\mapsto \mu(p_i).
+\end{gather*}
+These maps are flat morphisms. The element $P$ is the Poincaré dual of the class of a point.\par
+With this notions in hand we are ready to proceed with the main examples we wish to calculate.
 
 \subsection{Two counts of $N_d$}
 
@@ -1348,9 +1363,258 @@ Finally we use the result which counts the number of degree $d$ through $3d-1$ p
     \end{figure}
     Via the Atiyah-Bott theorem, we can now express our integral as the sum 
     $$\int_{\ov{M}_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0])=\sum_{j=1}^{12}\int_{F_j}\frac{\un i^\ast(\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0]))}{e(N_{F_j\mid \ov M})}.$$
+    express the numerator in easier terms we take advantage of a commutative diagram of inclusions. We will also take the liberty of continuing to abbreviate $\ov{M}_{0,2}(\bP^2,1)$ as $\ov M$ like we did in the normal bundle.
+    $$
+    \begin{tikzcd}
+\bP^2                    & \coprod \pt \arrow[l, "\un i"']                             \\
+\ov M \arrow[u, "\ev_i"] & \coprod F_j \arrow[l, "\un i"] \arrow[u, "\ev_{i\mid j}"']
+\end{tikzcd}\xrightarrow{H_T^\ast(-)}
+\begin{tikzcd}
+H^\ast_T(\bP^2) \arrow[d, "\ev_{i}^\ast"'] \arrow[r, "\un i^\ast"] & \bigoplus_{k=1}^3H_T^\ast(\pt) \arrow[d, "\ev_{i\mid j}^\ast"] \\
+H_T^\ast(\ov M) \arrow[r, "\un i^\ast"]                            & \bigoplus_{j=1}^{12} H_T^\ast(F_j)                            
+\end{tikzcd}
+    $$
+    The fixed loci of the moduli space represent points, and we know explicitly what the cohomology of a point and projective space from examples \ref{ex:equiv-cohom-point} and \ref{ex-projective-line-cohom-local}. Replacing those into the diagram and leaving the cohomology of the moduli space we obtain the following.
+    From this, we can see that taking the route through the point cohomologies into the fixed loci cohomology will provide us with the same result as the one we're taking. Take the point $[1:0:0]$ seen as an equivariant cohomology class in $\bP^2$,
+    $$[1:0:0]=(H-t_3)(H-t_2)\xrightarrow{\un i^\ast}(0,(t_1-t_3)(t_1-t_2),0)$$
+    and then evaluating via $\ev_{i\mid j}^\ast$ we get 
+    $$(p,0,p,0,0,0,p,0,p,0,0,0)\word{where}p=(t_1-t_3)(t_1-t_2).$$
+    In the loci where we get zero, the map $\ev_{i\mid j}^\ast$ actually does not exist! This is an artifact of the \emph{empty map} which at the level of cohomology becomes the zero map as the cohomology of the empty set is zero. Similarly for $[0:1:0]$ we have
+    $$[0:1:0]=(H-t_3)(H-t_1)\xrightarrow{\un i^\ast}(0,0,(t_2-t_3)(t_2-t_1))$$
+    which after mapping through the evaluation gives us 
+    $$(q,0,0,0,0,q,0,q,0,0,q,0)\word{where}q=(t_2-t_3)(t_2-t_1).$$
+    The integral then can be separated into a sum of 12 terms of which only the first one survives:
+    $$I=\int_{F_1}\frac{pq}{e(N_{F_1\mid\ov M})}+\int_{F_2}\frac{0\.q}{e(N_{F_2\mid\ov M})}+\int_{F_3}\frac{p\.0}{e(N_{F_3\mid\ov M})}+\cdots$$
+    What remains to be found is the normal bundle to $F_1$ inside the moduli space. Observe that the dimension of this moduli space is 
+    $$\dim(\ov M_{0,2}(\bP^2,1))=2+3(1)-1=4$$
+    so we expect the normal bundle to a point to have rank 4 and so the Euler class will have degree 4.\par
+    To find this normal bundle, we recall the tangent-normal sequence for a point:
+    \begin{gather*}
+        0\to TF_1\hookto i^\ast T\ov{M}\onto N_{F_1\mid\ov{M}}\to0\\
+    \To i^\ast T\ov{M}\isom N_{F_1\mid\ov{M}}
+    \end{gather*}
+    and the pullback of the tangent bundle becomes the tangent \emph{space} of $\ov M$ at $F_1$. Proceeding from here requires a bit of deformation theory. It happens that the tangent space can be seen as a deformation bundle
+    $$T_{F_1}\ov M\isom\DefB(C_1,\un p,\mu_1)$$
+    where the curve and map come from the information carried by $F_1$.
+    As an element of the moduli space, $F_1$ carries the information of 
+    $$F_1=[(C_1,(p_1,p_2),\mu_1)]$$
+    so that we may use once again the tangent normal sequence in order to obtain 
+    $$0\to TC_1\hookto \mu_1^\ast T\bP^2\onto Q\to 0$$
+    where $Q$ is a quotient bundle. Taking the long sequence in cohomology via $H^\ast(C_1,-)$, we get
+    \iffalse
+    $$
+    \begin{tikzcd}
+{H^0(C_1,TC_1)} \arrow[r] & {H^0(C_1,\mu_1^\ast T\bP^2)} \arrow[r]\arrow[draw=none]{d}[name=X, anchor=center]{} & {H^0(C_1,Q)}\ar[rounded corners, topath={ -- ([xshift=2ex]\tikztostart.east)|-(X.center)\tikztonodes-|([xshift=-2ex]\tikztotarget.west)--(\tikztotarget)}]{dll}[at end]{\dl} \\
+{H^1(C_1,TC_1)} \arrow[r] & {H^1(C_1,\mu_1^\ast T\bP^2)} \arrow[r] & {H^1(C_1,Q)} \\
+{H^2(C_1,TC_1)=0}         &                                        &             
+\end{tikzcd}
+    $$
+    \fi
+    $$
+    \begin{tikzcd}
+  H^0(C_1,TC_1) \rar & H^0(C_1,\mu_1^\ast T\bP^2) \rar
+             \ar[draw=none]{d}[name=X, anchor=center]{}
+    & H^0(C_1,Q) \ar[rounded corners,
+            to path={ -- ([xshift=2ex]\tikztostart.east)
+                      |- (X.center) \tikztonodes
+                      -| ([xshift=-2ex]\tikztotarget.west)
+                      -- (\tikztotarget)}]{dll}[at end]{} \\   
+ H^1(C_1,TC_1) \rar & H^1(C_1,\mu_1^\ast T\bP^2) \rar
+             \ar[draw=none]{d}[name=Y, anchor=center]{}
+    & H^1(C_1,Q) \ar[rounded corners,
+            to path={ -- ([xshift=2ex]\tikztostart.east)
+                      |- (Y.center) \tikztonodes
+                      -| ([xshift=-2ex]\tikztotarget.west)
+                      -- (\tikztotarget)}]{dll}[at end]{} \\      
+  H^2(C_1,TC_1) =0 &\phantom{cuminmyass}&
+\end{tikzcd}
+$$
+In the lens of deformation theory, this sequence becomes
+  $$
+    \begin{tikzcd}
+  \Aut(C_1,\un p)\rar & \DefB(\mu_1) \rar
+             \ar[draw=none]{d}[name=X, anchor=center]{}
+    & \DefB(C_1,\un p,\mu_1)\ar[rounded corners,
+            to path={ -- ([xshift=2ex]\tikztostart.east)
+                      |- (X.center) \tikztonodes
+                      -| ([xshift=-2ex]\tikztotarget.west)
+                      -- (\tikztotarget)}]{dll}[at end]{} \\   
+ \DefB(C_1,\un p)\rar & \Ob(\mu_1) \rar
+    & \Ob(C_1,\un p,\mu_1) 
+\end{tikzcd}
+$$
+For genus 0, we don't have obstructions (which is a consequence of Serre duality, see \cite{BigMirrorSymmetryBook}, Lemma 24.4.3, pg. 508) so that our sequence becomes 
+$$0\to\Aut(C_1,\un p)\to\DefB(\mu_1)\to\DefB(C_1,\un p,\mu_1)\to\DefB(C_1,\un p)\to 0$$
+and via a $K$-theory argument we may find the Euler class of the large deformations bundle to be 
+$$e(\DefB(C_1,\un p,\mu_1))=\frac{e(\DefB(\mu_1))e(\DefB(C_1,\un p))}{e(\Aut(C_1,\un p))}.$$
+It remains on us to find the Euler classes of this particular bundles with respect to $F_1$ in order to express the Euler class of the normal bundle.
+\begin{itemize}
+    \item The bundle $\Aut(C_1,\un p)$ corresponds to the infinitesimal automorphisms of the curve $C_1$. It is the Lie algebra of the automorphism group of $C_1$. The information which provides us its Euler class is the dual graph of the source curve $C_1$. The Euler class will be the product of the weights of $T\bP^2$ in the points where the valence 1 vertices map to.\red{figure} From the graph we may see that there's no valence 1 vertices so that there's no automorphisms. Hence, 
+    $$e(\Aut(C_1))=0$$
+    and even if it appears we are dividing by zero, we are not. This will cancel out further along the way.
+    \item For $\DefB(C_1,\un p)$ we look at the normalization of the curve $C_1$. However since our curve is smooth, the normalization is itself and we cannot find points which map into a node. These points are the ones which contribute to the Euler class. Once again, the result is zero and this cancels out with $e(\Aut(C_1,\un p))$.
+    \item Finally, recall 
+    $$\DefB(\mu_1)\isom  H^0(C_1,\mu_1^\ast T\bP^2).$$
+    This is an equivariant line bundle which decomposes as 
+    $$T\bP^2\isom T\set{Z=0}\oplus N_{\set{Z=0}\mid\bP^2}\isom\cO(2)\oplus\cO(1).$$
+    The Euler class is then a product of the Euler classes of these bundles which are $1^{\text{st}}$ Chern classes, as they're line bundles. Observe that when restricting for example the normal bundle to $p_1$ and $p_2$ we have 
+    $$c_1(N_{\mid p_1})=t_1-t_3,\word{and}c_1(N_{\mid p_2})=t_2-t_3.$$
+    In a similar fashion, the weights of the tangent bundle are $t_1-t_2$ and $t_2-t_1$ respectively. We conclude that 
+    $$e(\DefB(\mu_1))=(t_1-t_3)(t_2-t_3)(t_1-t_2)(t_2-t_1).$$
+\end{itemize}
+Summarizing we have 
+$$e(N_{F_1\mid\ov M})=\frac{0\.(t_1-t_3)(t_2-t_3)(t_1-t_2)(t_2-t_1)}{0}=(t_1-t_3)(t_2-t_3)(t_1-t_2)(t_2-t_1).$$
+Observe that the degree of the Euler class is 4 as expected.
+The integral is finally 
+$$I=\int_{F_1}\frac{pq}{e(N_{F_1\mid\ov M})}=\int_{F_1}\frac{(t_1-t_3)(t_1-t_2)(t_2-t_3)(t_2-t_1)}{(t_1-t_3)(t_2-t_3)(t_1-t_2)(t_2-t_1)}=\int_{F_1}1=1.$$
+This confirms that, indeed, the number of lines passing through 2 points in the plane is precisely 1.
+\end{Ex} 
+
+This example didn't illustrate the full calculation of deformation and automorphism bundles. We can still enjoy the moduli space we're working in to do the same calculation but now instead asking for the integral of 
+$$\ev_1^\ast([1:0:0])\ev_2^\ast([1:0:0])$$
+requiring us to consider loci mapping both marks to the same point $[1:0:0]$. This should produce the same result but only considering a different procudure.
+
+\begin{Ex}
+    Let us find 
+    $$\int_{\ov{M}_{0,2}(\bP^2,1)}\prod_{i=1}^{2}\ev_i^\ast([1:0:0]).$$
+    We know that loci such that $p_1$ is mapped to $[1:0:0]$ are $F_1,F_3,F_7$ and $F_9$. While those such that $p_2$ maps there are $F_2,F_4,F_7$ and $F_9$. Thus the fixed loci which take $p_1$ and $p_2$ both to $[1:0:0]$ are $F_7$ and $F_9$.\red{figure}\par
+    The integral becomes 
+    $$I=\int_{F_7}\frac{p^2}{e(N_{F_7\mid\ov M})}+\int_{F_9}\frac{p^2}{e(N_{F_9\mid\ov M})},\word{where}p=(t_1-t_3)(t_2-t_3)$$
+    and once again we're left with finding the normal bundles. Observe that we only need to find one as the other is obtained by transposing $[0:1:0]$ with $[0:0:1]$. In terms of the Euler class, it'll be sufficient to say 
+    $$e(N_{F_9\mid\ov M})=(23)\.e(N_{F_7\mid\ov M})$$
+    where the permutation acts on the variables.
     \begin{itemize}
-        \item In order to calculate the numerator... diagram
-        \item the normal bundle combes from the tangent-normal and the deformation sequence...
+        \item The dual graph of $C_7$ has one vertex of valence 1. This corresponds to a point mapping to $[0:1:0]$. Thus this acquires a tangent weight in the direction of the line which maps to $Z=0$.\red{figure} We obtain 
+        $$e(\Aut(C_7))=t_2-t_1.$$
+        \item The curve now has a node and can be normalized. Let us call $a$ and $b$ the points mapping to the node.\red{figure}
+        We have 
+        $$e(\DefB(C_7))=(-\psi_a-\psi_b)$$
+        where $-\psi_a$ corresponds to the tangent weight of the point mapping to $[1:0:0]$ and $\psi_b$ is a psi-class on $M_{0,3}$. This turns out to be zero so that 
+        $$e(\DefB(C_7))=((t_1-t_2)+0)=t_1-t_2.$$
+        \item In order to compute the deformations of the map, we look at the normalization sequence of $C_7$. The sequence of sheaves is 
+        $$0\to\cO_{C_7}\to\cO_{C_{7,1}}\oplus\cO_{C_{7,2}}\to\un\bC_{n}\to0,$$
+        where each component of the normalization gets a structure sheaf and each node, a skyscraper. Tensoring the sequence by $-\ox \mu_7^\ast\cO(d)$ $(d=1,2)$, and taking cohomology $H^\ast(C,-)$ we get two sequences:
+        \begin{gather*}
+            0\to H^0(C_7,\mu_7^\ast\cO(1))\to\genr{1,x}\oplus\genr{1}\to\genr{1}\to 0,\\
+            0\to H^0(C_7,\mu_7^\ast\cO(2))\to\genr{1,x,x^2}\oplus\genr{1}\to\genr{1}\to 0.
+        \end{gather*}
+        We must be appreciative of the fact that there's not a second line of first cohomologies due to the fact that we're working on genus zero. This is justified due to Serre duality. But in anyhow, the Euler class of $H^0(C_7,\mu_7^\ast\cO(d))$ is then the product of the terms right next divided by those furthest away from it. We have thus 
+        \begin{gather*}
+        e(H^0(C_7,\mu_7^\ast\cO(1)))=\frac{(t_2-t_3)(t_1-t_3)(t_1-t_3)}{t_1-t_3}=(t_2-t_3)(t_1-t_3)\\
+        e(H^0(C_7,\mu_7^\ast\cO(2)))=\frac{(t_2-t_1)(t_1-t_2)(t_1-t_2)}{t_1-t_2}=(t_2-t_1)(t_1-t_2)
+        \end{gather*}
+        and the $x$ term has no weight as it corresponds to a fixed weight of the action.
+    \end{itemize}
+     From this
+        \begin{align*}
+             e(N_{F_7\mid\ov M})&=\frac{[(t_2-t_3)(t_1-t_3)(t_2-t_1)(t_1-t_2)][t_1-t_2]}{t_2-t_1}\\
+             &=(t_1-t_2)^2(t_1-t_3)(t_2-t_3)
+        \end{align*}
+    and immediately
+    $$e(N_{F_9\mid\ov M})=(t_1-t_3)^2(t_1-t_2)(t_3-t_2).$$
+    We conclude once again that 
+    $$I=\int_{\pt}\left(\frac{((t_1-t_3)(t_1-t_2))^2}{(t_1-t_2)^2(t_1-t_3)(t_2-t_3)}+\frac{((t_1-t_3)(t_1-t_2))^2}{(t_1-t_2)^2(t_1-t_3)(t_2-t_3)}\right)=\int_{\pt}1=1,$$
+    confirming once again that the number of lines through two points in the plane is 1.
+\end{Ex}
+
+Similar to this calculation in the sense that nodal curves appear, we will find such curves when calculating $N_2$, for example. The number of conics passing through $5$ points is famously known to be $1$. This number can be calculated as another integral.
+
+\begin{Ex}
+We will calculate 
+    $$\int_{\ov{M}_{0,5}(\bP^2,2)}\prod_{i=1}^{5}\ev_i^\ast([1:0:0]).$$
+    The torus action on this space of maps has quite a bunch of fixed loci, so instead of indicating all the fixed loci and then looking at which ones map all 5 points to $[1:0:0]$, we will instead enumerate such fixed loci.\red{figure}
+    Observe that we have not labeled the marks on the curve so that we must count the possible different labels on the curve. For example in $F_3$, there's $\binom{5}{1}$ ways to arrange a mark on one side and the other $4$ on the other side.\par
+    Notice also that reflecting by the bisector passing through $[1:0:0]$ we get from loci $F_j$, $F_{j+6}$ for $j\in[6]$. We thus require to only calculate the integrals over $F_1,\dots,F_6$ and $F_{13}$. Let us explain the calculation for $F_1$, $F_3$, $F_6$ and $F_{13}$, the rest are analogous and we summarize in a table after this calculations.\par
+    Consider the fixed loci $F_1$, along its dual graph and the normalization of the curve $C_1$.\red{figure}
+    \begin{itemize}
+        \item For $\Aut(C_1)$, we look at the vertex of valence $1$. This contributes the weight of the point where it maps to. \emph{However} as the map has degree $2$, we must divide the weight by $2$. This means that 
+        $$e(\Aut(C_1))=\half(t_2-t_1).$$
+        \item Observing the normalization of the curve allows us to see that there's two points $a,b$ mapping to a node. From that, 
+        $$e(\DefB(C_1))=(-\psi_a-\psi_b)$$
+        and the value of $-\psi_a$ is $\half(t_1-t_2)$ as it corresponds to the tangent weight of the point where $a$ maps to. This means that 
+        $$e(\DefB(C_1))=\left(\half(t_1-t_2)-\psi_b\right)=\half(t_1-t_2)\left(1-\frac{2\psi_b}{t_1-t_2}\right)$$
+        whereas $\psi_b$ is a psi-class on a copy of $\ov{M}_{0,6}$. This will be integrated in the end to a rational function in terms of $t_i$'s.
+        \item Now looking for $e(\DefB(\mu_1))$, we must use the normalization sequence of $C_1$. Consider the sequence 
+        $$0\to\cO_{C_1}\to\cO_{C_{1,1}}\oplus\cO_{C_{1,2}}\to\un\bC_{n}\to0$$
+        where $C_{1,1}$ is the non-contracted component and $C_{1,2}$ the one which contracts. We tensor the sequence by $-\ox \mu_1^\ast\cO(d)$ $(d=1,2)$ and take cohomology $H^\ast(C,-)$ to get two sequences:
+        \begin{gather*}
+            0\to H^0(C_1,\mu_1^\ast\cO(1))\to\genr{1,x,x^2}\oplus\genr{1}\to\genr{1}\to 0,\\
+            0\to H^0(C_1,\mu_1^\ast\cO(2))\to\genr{1,x,x^2,x^3,x^4}\oplus\genr{1}\to\genr{1}\to 0.
+        \end{gather*}
+        Observe that in this case the $\cO(d)$ pulls-back as an $\cO(2d)$ bundle because of the degree of $\mu_1$. From this, the weights of $\cO(d)$ bundles do pullback as usual but the middle weights change. We have that 
+        \begin{align*}
+        e(H^0(C_1,\mu_1^\ast\cO(1)))&=\frac{(t_1-t_3)(t_1-t_3-\half(t_1-t_2))(t_2-t_3)(t_1-t_3)}{t_1-t_3}\\
+        &=\half(t_1-t_3)\left(t_1+t_2-2t_3\right)(t_2-t_3)\\
+        e(H^0(C_1,\mu_1^\ast\cO(2)))&=\frac{t_1-t_2}{t_1-t_2}\sum_{\substack{k=0\\ k\neq 2}}^{4}\left(t_1-t_2-\frac{k}{2}(t_1-t_2)\right)\\
+        &=\frac{1}{4}(t_1-t_2)^4
+        \end{align*}
+        and the $x^2$ would correspond with the $t_1-t_2-\frac{2}{2}(t_1-t_2)$ term, but as that is fixed by the action, it does not contribute to the final value of the Euler class.
+        Finally we have that 
+        $$e(\DefB(\mu_1))=\frac{1}{8}(t_1-t_2)^4(t_1-t_3)(t_2-t_3)\left(t_1+t_2-2t_3\right).$$
+    \end{itemize}
+    Combining this together into the whole Euler class we find that 
+    \begin{align*}
+    e(N_{F_1\mid\ov M})&=\frac{\bonj{\frac{1}{8}(t_1-t_2)^4(t_1-t_3)(t_2-t_3)\left(t_1+t_2-2t_3\right)}\bonj{\half(t_1-t_2)\left(1-\frac{2\psi_b}{t_1-t_2}\right)}}{\half(t_2-t_1)}\\
+    &=-\frac{1}{8}(t_1-t_2)^4(t_1-t_3)(t_2-t_3)\left(t_1+t_2-2t_3\right)\left(1-\frac{2\psi_b}{t_1-t_2}\right)
+    \end{align*}
+    which has degree $7$. This corresponds with the codimension of $\ov{M}_{0,6}$ with respect to $\ov M_{0,5}(\bP^2,2)$ which is $5+3(2)-1=10$.\par
+    Integrating we see that
+    \begin{align*}
+        I_1&=\int_{F_1}\frac{p^5}{e(N_{F_1\mid\ov M})}\\
+        &=\int_{\ov M_{0,6}}\frac{(t_1-t_3)^5(t_1-t_2)^5}{-\frac{1}{8}(t_1-t_2)^4(t_1-t_3)(t_2-t_3)\left(t_1+t_2-2t_3\right)\left(1-\frac{2\psi_b}{t_1-t_2}\right)}\\
+        &=\frac{-8(t_1-t_3)^4(t_1-t_2)}{(t_2-t_3)\left(t_1+t_2-2t_3\right)}\int_{\ov M_{0,6}}\frac{1}{1-\frac{2\psi_b}{t_1-t_2}}\\
+        &=\frac{-8(t_1-t_3)^4(t_1-t_2)}{(t_2-t_3)\left(t_1+t_2-2t_3\right)}\int_{\ov M_{0,6}}\sum_{k=0}^{\infty}\left(\frac{2\psi_b}{t_1-t_2}\right)^k\\
+        &=\frac{-8(t_1-t_3)^4(t_1-t_2)}{(t_2-t_3)\left(t_1+t_2-2t_3\right)}\left(0+\dots+\int_{\ov M_{0,6}}\left(\frac{2\psi_b}{t_1-t_2}\right)^3+0+\dots\right)\\
+        &=\frac{-64(t_1-t_3)^4}{(t_1-t_2)^2(t_2-t_3)\left(t_1+t_2-2t_3\right)}\int_{\ov M_{0,6}}\psi_b^3\\
+        &=\frac{-64(t_1-t_3)^4}{(t_1-t_2)^2(t_2-t_3)\left(t_1+t_2-2t_3\right)}
+    \end{align*}
+    where we have used the string equation to find the value of the integral in the end. There's one more thing to do which is divide by $2$ the whole integral as this loci is actually a stacky $\half\ov{M}_{0,6}$ so that in the end
+    $$I_1=\frac{-32(t_1-t_3)^4}{(t_1-t_2)^2(t_2-t_3)\left(t_1+t_2-2t_3\right)}.$$
+    Let us proceed with $F_3$, we must look at its dual graph and the normalization of $C_3$. \red{figure}\par
+    \begin{itemize}
+        \item The dual graph of $C_3$ has no vertex of valence $1$ so that $e(\Aut(C_3))=0$.
+        \item We have 4 points $a,b,c$ and $d$ which map to two nodes. Each of these contributes a negative psi-class so that 
+        \begin{align*}
+            e(\DefB(C_3))&=(-\psi_a-\psi_b)(-\psi_c-\psi_d)\\
+            &=(-\psi_a+(t_1-t_2))((t_2-t_1)+(t_2-t_1))\\
+            &=-2(t_1-t_2)^2\left(1-\frac{\psi_a}{t_1-t_2}\right)
+        \end{align*}
+        where the psi-class $\psi_a$ belongs to the corresponding $\ov{M}_{0,5}$ component. The other psi-classes correspond to the tangent weights of the points where their respective point maps to.
+        \item Finally the normalization sequence for $C_3$ is 
+        $$0\to\cO_{C_3}\to\cO_{C_{3,1}}\oplus\cO_{C_{3,2}}\oplus\cO_{C_{3,3}}\to\un\bC_{n_1}\oplus\un\bC_{n_2}\to 0$$
+        which we tensor by $-\ox \mu_1^\ast\cO(d)$ $(d=1,2)$ and then take cohomology $H^\ast(C,-)$ to get two sequences:
+        \begin{gather*}
+            0\to H^0(C_3,\mu_3^\ast\cO(1))\to\genr{1,x}\oplus\genr{1,x}\oplus\genr{1}\to\genr{1}\oplus\genr{1}\to 0,\\
+            0\to H^0(C_3,\mu_3^\ast\cO(2))\to\genr{1,x,x^2}\oplus\genr{1,x,x^2}\oplus\genr{1}\to\genr{1}\oplus\genr{1}\to 0.
+        \end{gather*}
+        We obtain the respective Euler classes which we multiply to get the full Euler class for the deformation bundle:
+        \begin{align*}
+        e(H^0(C_3,\mu_3^\ast\cO(1)))&=\frac{(t_1-t_3)(t_2-t_3)(t_2-t_3)(t_1-t_3)(t_1-t_3)}{(t_2-t_3)(t_1-t_3)}\\
+        &=(t_1-t_3)^2(t_2-t_3)\\
+        e(H^0(C_3,\mu_3^\ast\cO(2)))&=\frac{(t_1-t_2)(t_2-t_1)(t_2-t_1)(t_1-t_2)(t_1-t_2)}{(t_2-t_1)(t_1-t_2)}\\
+        &=-(t_1-t_2)^3\\
+        \To e(\DefB(\mu_3))&=-(t_1-t_2)^3(t_1-t_3)^2(t_2-t_3)
+        \end{align*}
+    \end{itemize}
+    Finally the Euler class for $N_{F_3\mid\ov M}$ is 
+    \begin{align*}
+        e(N_{F_3\mid\ov M})&=\bonj{-(t_1-t_2)^3(t_1-t_3)^2(t_2-t_3)}\bonj{-2(t_1-t_2)^2\left(1-\frac{\psi_a}{t_1-t_2}\right)}\\
+        &=2(t_1-t_2)^5(t_1-t_3)^2(t_2-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)
+    \end{align*}
+    which has degree 8 as the codimension of $\ov M_{0,5}$ in $\ov M_{0,5}(\bP^2,2)$. The whole resulting integral is then 
+    \begin{align*}
+        I_3&=\int_{F_3}\frac{p^5}{e(N_{F_3\mid\ov M})}\\
+        &=\int_{\ov M_{0,5}}\frac{(t_1-t_3)^5(t_1-t_2)^5}{2(t_1-t_2)^5(t_1-t_3)^2(t_2-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)}\\
+        &=\frac{(t_1-t_3)^3}{2(t_2-t_3)}\int_{\ov M_{0,5}}\frac{1}{1-\frac{\psi_a}{t_1-t_2}}\\
+        &=\frac{(t_1-t_3)^3}{2(t_1-t_2)^2(t_2-t_3)}\int_{\ov M_{0,5}}\psi_a^2\\
+        &=\frac{(t_1-t_3)^3}{2(t_1-t_2)^2(t_2-t_3)}.
+    \end{align*}
+    However, observe that the order in which we chose the marks plays no r\^ole into the calculation of this integral. We thus add a factor of $\binom{5}{1}$ accounting for the distribution of the marks in order to get 
+    $$I_3=\frac{5(t_1-t_3)^3}{2(t_1-t_2)^2(t_2-t_3)}.$$
+    Continuing to $F_6$ we observe that this loci corresponds to the singular union of 2 different lines whose image is two projective lines meeting transversely. Building the dual graph and the normalization of the curve is an analogous process.\red{figure}\par
+    We proceed by analyzing the corresponding bundles.
+    \begin{itemize}
+        \item The dual graph contains only one vertex of valence one which maps to $[0:0:1]$.
     \end{itemize}
 \end{Ex}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
