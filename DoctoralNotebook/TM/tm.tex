@@ -285,11 +285,12 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
 \end{Rmk}
 
 \begin{ptcb}
-    We will show that whenever the inequality holds, we have the components of the curve have finitely many automorphisms.\par
+    We will discuss that whenever the inequality holds, we have the components of the curve have finitely many automorphisms.\par
     Starting by considering the $g=0$ case, we may see that whenever $n\geq 3$ we have $\bP^1$'s with at least 3 marks. Thus there's no automorphisms besides the identity as any such map should fix three points.\par
-    For the case of $g=1$, the inequality holds when $n$ is at least 1 as well. \red{DISCUSS Elliptic involution?}\par
-    And finally for $g>2$, look at \href{https://math.stackexchange.com/questions/1680144/automorphism-group-of-genus-2-curve}{mse/1680144}
-    \red{Consider hyperelliptic involution}.
+    For the case of $g=1$, the inequality holds when $n$ is at least 1 as well. In this case, the only automorphism corresponds to the elliptic involution.\par
+    And for $g>2$, we only need consider the hyperelliptic involution.
+    %look at \href{https://math.stackexchange.com/questions/1680144/automorphism-group-of-genus-2-curve}{mse/1680144}
+    %\red{Consider hyperelliptic involution}.
     These three conditions are summarized in the inequality $2-2g_i-n_i<0$.
 \end{ptcb}
 \begin{Ex}
@@ -1348,7 +1349,7 @@ With this notions in hand we are ready to proceed with the main examples we wish
 
 \subsection{Two counts of $N_d$}
 
-\begin{Ex}
+\begin{Ex}\label{ex:N1-different-points}
     Let us begin with the example of $N_1$, this asks for the number of \emph{lines} passing through $2$ points in the plane. Intuitively, we know that this number is one. So let us verify it by computing the integral through localization. We will compute 
     $$\int_{\ov{M}_{0,2}(\bP^2,1)}\ev_1^\ast([1:0:0])\ev_2^\ast([0:1:0]).$$
     Let us begin by identifying the fixed maps in $\ov{M}_{0,2}(\bP^2,1)$ via the action 
@@ -1449,7 +1450,14 @@ and via a $K$-theory argument we may find the Euler class of the large deformati
 $$e(\DefB(C_1,\un p,\mu_1))=\frac{e(\DefB(\mu_1))e(\DefB(C_1,\un p))}{e(\Aut(C_1,\un p))}.$$
 It remains on us to find the Euler classes of this particular bundles with respect to $F_1$ in order to express the Euler class of the normal bundle.
 \begin{itemize}
-    \item The bundle $\Aut(C_1,\un p)$ corresponds to the infinitesimal automorphisms of the curve $C_1$. It is the Lie algebra of the automorphism group of $C_1$. The information which provides us its Euler class is the dual graph of the source curve $C_1$. The Euler class will be the product of the weights of $T\bP^2$ in the points where the valence 1 vertices map to.\red{figure} From the graph we may see that there's no valence 1 vertices so that there's no automorphisms. Hence, 
+    \item The bundle $\Aut(C_1,\un p)$ corresponds to the infinitesimal automorphisms of the curve $C_1$. It is the Lie algebra of the automorphism group of $C_1$. The information which provides us its Euler class is the dual graph of the source curve $C_1$. The Euler class will be the product of the weights of $T\bP^2$ in the points where the valence 1 vertices map to.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth, trim= 12.9cm 21cm 1.5cm 4.1cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Fixed loci $F_1$ along the dual graph of $C_1$}
+        \label{fig:F1-and-C1-dual-graph}
+    \end{figure}
+    From the graph we may see that there's no valence 1 vertices so that there's no automorphisms. Hence, 
     $$e(\Aut(C_1))=0$$
     and even if it appears we are dividing by zero, we are not. This will cancel out further along the way.
     \item For $\DefB(C_1,\un p)$ we look at the normalization of the curve $C_1$. However since our curve is smooth, the normalization is itself and we cannot find points which map into a node. These points are the ones which contribute to the Euler class. Once again, the result is zero and this cancels out with $e(\Aut(C_1,\un p))$.
@@ -1477,16 +1485,35 @@ requiring us to consider loci mapping both marks to the same point $[1:0:0]$. Th
 \begin{Ex}
     Let us find 
     $$\int_{\ov{M}_{0,2}(\bP^2,1)}\prod_{i=1}^{2}\ev_i^\ast([1:0:0]).$$
-    We know that loci such that $p_1$ is mapped to $[1:0:0]$ are $F_1,F_3,F_7$ and $F_9$. While those such that $p_2$ maps there are $F_2,F_4,F_7$ and $F_9$. Thus the fixed loci which take $p_1$ and $p_2$ both to $[1:0:0]$ are $F_7$ and $F_9$.\red{figure}\par
+    We know that loci such that $p_1$ is mapped to $[1:0:0]$ are $F_1,F_3,F_7$ and $F_9$. While those such that $p_2$ maps there are $F_2,F_4,F_7$ and $F_9$. Thus the fixed loci which take $p_1$ and $p_2$ both to $[1:0:0]$ are $F_7$ and $F_9$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.45\textwidth, trim= 1.32cm 17cm 13.1cm 8cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Fixed loci $F_7$ and $F_9$}
+        \label{fig:fixed-loci-M02P21-F7-F9}
+    \end{figure}
     The integral becomes 
     $$I=\int_{F_7}\frac{p^2}{e(N_{F_7\mid\ov M})}+\int_{F_9}\frac{p^2}{e(N_{F_9\mid\ov M})},\word{where}p=(t_1-t_3)(t_2-t_3)$$
     and once again we're left with finding the normal bundles. Observe that we only need to find one as the other is obtained by transposing $[0:1:0]$ with $[0:0:1]$. In terms of the Euler class, it'll be sufficient to say 
     $$e(N_{F_9\mid\ov M})=(23)\.e(N_{F_7\mid\ov M})$$
     where the permutation acts on the variables.
     \begin{itemize}
-        \item The dual graph of $C_7$ has one vertex of valence 1. This corresponds to a point mapping to $[0:1:0]$. Thus this acquires a tangent weight in the direction of the line which maps to $Z=0$.\red{figure} We obtain 
+        \item The dual graph of $C_7$ has one vertex of valence 1. This corresponds to a point mapping to $[0:1:0]$. Thus this acquires a tangent weight in the direction of the line which maps to $Z=0$.
+        \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 17cm 25.3cm 2cm 0.8cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Dual graph of $C_7$}
+        \label{fig:dual-graph-nodal-M02P21}
+    \end{figure}
+        We obtain 
         $$e(\Aut(C_7))=t_2-t_1.$$
-        \item The curve now has a node and can be normalized. Let us call $a$ and $b$ the points mapping to the node.\red{figure}
+        \item The curve now has a node and can be normalized. Let us call $a$ and $b$ the points mapping to the node.
+             \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.2\textwidth, trim= 17cm 14cm 2cm 12.5cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Normalization of $C_7$ with $a,b$ mapping to the node.}
+        \label{fig:normalization-nodal-M02P21}
+    \end{figure}
         We have 
         $$e(\DefB(C_7))=(-\psi_a-\psi_b)$$
         where $-\psi_a$ corresponds to the tangent weight of the point mapping to $[1:0:0]$ and $\psi_b$ is a psi-class on $M_{0,3}$. This turns out to be zero so that 
@@ -1522,10 +1549,22 @@ Similar to this calculation in the sense that nodal curves appear, we will find 
 \begin{Ex}
 We will calculate 
     $$\int_{\ov{M}_{0,5}(\bP^2,2)}\prod_{i=1}^{5}\ev_i^\ast([1:0:0]).$$
-    The torus action on this space of maps has quite a bunch of fixed loci, so instead of indicating all the fixed loci and then looking at which ones map all 5 points to $[1:0:0]$, we will instead enumerate such fixed loci.\red{figure}
+    The torus action on this space of maps has quite a bunch of fixed loci, so instead of indicating all the fixed loci and then looking at which ones map all 5 points to $[1:0:0]$, we will instead enumerate such fixed loci.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth, trim= 1.32cm 9.4cm 5.2cm 12.1cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Fixed loci of $\ov M_{0,5}(\bP^2,2)$ mapping $5$ marks to $[1:0:0]$}
+        \label{fig:fixed-loci-M05P22-100}
+    \end{figure}
     Observe that we have not labeled the marks on the curve so that we must count the possible different labels on the curve. For example in $F_3$, there's $\binom{5}{1}$ ways to arrange a mark on one side and the other $4$ on the other side.\par
     Notice also that reflecting by the bisector passing through $[1:0:0]$ we get from loci $F_j$, $F_{j+6}$ for $j\in[6]$. We thus require to only calculate the integrals over $F_1,\dots,F_6$ and $F_{13}$. Let us explain the calculation for $F_1$, $F_3$, $F_6$ and $F_{13}$, the rest are analogous and we summarize in a table after this calculations.\par
-    Consider the fixed loci $F_1$, along its dual graph and the normalization of the curve $C_1$.\red{figure}
+    Consider the fixed loci $F_1$, along its dual graph and the normalization of the curve $C_1$.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 9cm 17cm 1.3cm 8cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Double cover of $\set{Z=0}$ with dual graph and normalization of source curve}
+        \label{fig:double-cover-F1-5marks}
+    \end{figure}
     \begin{itemize}
         \item For $\Aut(C_1)$, we look at the vertex of valence $1$. This contributes the weight of the point where it maps to. \emph{However} as the map has degree $2$, we must divide the weight by $2$. This means that 
         $$e(\Aut(C_1))=\half(t_2-t_1).$$
@@ -1570,7 +1609,13 @@ We will calculate
     \end{align*}
     where we have used the string equation to find the value of the integral in the end. There's one more thing to do which is divide by $2$ the whole integral as this loci is actually a stacky $\half\ov{M}_{0,6}$ so that in the end
     $$I_1=\frac{-32(t_1-t_3)^4}{(t_1-t_2)^2(t_2-t_3)\left(t_1+t_2-2t_3\right)}.$$
-    Let us proceed with $F_3$, we must look at its dual graph and the normalization of $C_3$. \red{figure}\par
+    Let us proceed with $F_3$, we must look at its dual graph and the normalization of $C_3$. 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.32cm 5.5cm 9cm 19.5cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Loci $F_3$ along dual graph and normalization of source curve}
+        \label{fig:quadratic-F3-5-marks}
+    \end{figure}
     \begin{itemize}
         \item The dual graph of $C_3$ has no vertex of valence $1$ so that $e(\Aut(C_3))=0$.
         \item We have 4 points $a,b,c$ and $d$ which map to two nodes. Each of these contributes a negative psi-class so that 
@@ -1611,12 +1656,114 @@ We will calculate
     \end{align*}
     However, observe that the order in which we chose the marks plays no r\^ole into the calculation of this integral. We thus add a factor of $\binom{5}{1}$ accounting for the distribution of the marks in order to get 
     $$I_3=\frac{5(t_1-t_3)^3}{2(t_1-t_2)^2(t_2-t_3)}.$$
-    Continuing to $F_6$ we observe that this loci corresponds to the singular union of 2 different lines whose image is two projective lines meeting transversely. Building the dual graph and the normalization of the curve is an analogous process.\red{figure}\par
+    Continuing to $F_6$ we observe that this loci corresponds to the singular union of 2 different lines whose image is two projective lines meeting transversely. Building the dual graph and the normalization of the curve is an analogous process.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.32cm 1.7cm 9cm 23cm,clip]{../figs/FigsDNnotability3.pdf}
+        \caption{Loci $F_6$ along dual graph and normalization of source curve}
+        \label{fig:quadratic-F6-5-marks}
+    \end{figure}
     We proceed by analyzing the corresponding bundles.
     \begin{itemize}
-        \item The dual graph contains only one vertex of valence one which maps to $[0:0:1]$.
+        \item The dual graph contains only one vertex of valence one which maps to $[0:0:1]$. From this, we extract the Euler class of the automorphisms bundle to be 
+        $$e(\Aut(C_6))=t_3-t_2.$$
+        \item As in the last case, 4 points map to two nodes from which we obtain 
+        \begin{align*}
+            e(\DefB(C_6))&=(-\psi_a-\psi_b)(-\psi_c-\psi_d)\\
+            &=(-\psi_a+(t_1-t_2))((t_2-t_1)+(t_2-t_3))\\
+            &=(t_1-t_2)(2t_2-t_1-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)
+        \end{align*}
+        Here $\psi_a$ is a psi-class on $\ov M_{0,6}$.
+        \item For $F_6$, we run into the issue that node corresponding to $c$ and $d$ is being mapped onto \emph{both} lines $\set{X=0}$ and $\set{Z=0}$. This means that the process of decomposing the tangent bundle into two can no longer be done as we will arrive at an ambiguity. Still from the normalization sequence we obtain
+        $$0\to\cO_{C_6}\to\cO_{C_{6,1}}\oplus\cO_{C_{6,2}}\oplus\cO_{C_{6,3}}\to\un\bC_{n_1}\oplus\un\bC_{n_2}\to 0$$
+        but now we tensor by $-\ox\mu_6^\ast T\bP^2$ and take the long exact sequence in cohomology. This allows us to take weights in a similar fashion so that 
+        \begin{align*}
+             e(\DefB(\mu_6))&=\scriptstyle\frac{((t_3-t_1)(t_3-t_2))((t_2-t_1)(t_2-t_3))((t_2-t_3)(t_2-t_1))((t_1-t_3)(t_1-t_2))((t_1-t_3)(t_1-t_2))}{((t_2-t_1)(t_2-t_3))((t_1-t_3)(t_1-t_2))}\\
+             &=((t_3-t_1)(t_3-t_2))((t_2-t_3)(t_2-t_1))((t_1-t_3)(t_1-t_2))\\
+             &=-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2
+        \end{align*}
     \end{itemize}
+    Joining everything into the Euler class, we expect it to have degree 7. Observe that 
+    \begin{align*}
+        e(N_{F_6\mid\ov M})&=\frac{-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2\bonj{(t_1-t_2)(2t_2-t_1-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)}}{t_3-t_2}\\
+        &=(t_1-t_2)^3(t_1-t_3)^2(t_2-t_3)(2t_2-t_1-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)
+    \end{align*}
+    does indeed have degree $7$ and so we now integrate to obtain
+    \begin{align*}
+        I_6&=\int_{F_6}\frac{p^5}{e(N_{F_6\mid\ov M})}\\
+        &=\int_{\ov M_{0,6}}\frac{(t_1-t_3)^5(t_1-t_2)^5}{(t_1-t_2)^3(t_1-t_3)^2(t_2-t_3)(2t_2-t_1-t_3)\left(1-\frac{\psi_a}{t_1-t_2}\right)}\\
+        &=\frac{(t_1-t_3)^3(t_1-t_2)^2}{(t_2-t_3)(2t_2-t_1-t_3)}\int_{\ov M_{0,6}}\frac{1}{1-\frac{\psi_a}{t_1-t_2}}\\
+        &=\frac{(t_1-t_3)^3}{(t_1-t_2)(t_2-t_3)(2t_2-t_1-t_3)}\int_{\ov M_{0,6}}\psi_a^3\\
+        &=\frac{(t_1-t_3)^3}{(t_1-t_2)(t_2-t_3)(2t_2-t_1-t_3)}.
+    \end{align*}
+    Finally $F_{13}$ has an entire component collapsing into a point. This will be treated similar as $F_6$'s node mapping to a point. We must construct the dual graph and normalization in order to proceed.\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth, trim= 1.32cm 24.6cm 9cm 0.1cm,clip]{../figs/FigsDNnotability4.pdf}
+        \caption{Loci $F_{13}$ along dual graph and normalization of source curve}
+        \label{fig:quadratic-F13-5-marks}
+    \end{figure}
+    \begin{itemize}
+        \item The dual graph has two valence one vertices from which we obtain two weights so that 
+        $$e(\Aut(C_{13}))=(t_2-t_1)(t_3-t_1).$$
+        \item As before, we have 4 points mapping to two nodes so that  \begin{align*}
+            e(\DefB(C_{13}))&=(-\psi_a-\psi_b)(-\psi_c-\psi_d)\\
+            &=((t_1-t_2)-\psi_b)(-\psi_c+(t_1-t_3))\\
+            &=(t_1-t_2)(t_1-t_3)\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)
+        \end{align*}
+        where $\psi_b$ and $\psi_c$ are psi-classes on the same $\ov M_{0,7}$. 
+        \item Expanding out the normalization sequence  
+        $$0\to\cO_{C_{13}}\to\cO_{C_{13,1}}\oplus\cO_{C_{13,2}}\oplus\cO_{C_{13,3}}\to\un\bC_{n_1}\oplus\un\bC_{n_2}\to 0,$$
+        tensoring by $-\ox\mu_{13}^\ast T\bP^2$ and taking the long exact sequence in cohomology provides us with the Euler class. In a similar fashion as before, the part corresponding to $C_{13,2}$ will acquire the weights of $T\bP^2$ corresponding to $[1:0:0]$. From this
+        \begin{align*}
+             e(\DefB(\mu_{13}))&=\scriptstyle\frac{((t_3-t_2)(t_3-t_1))((t_1-t_2)(t_1-t_3))((t_1-t_3)(t_1-t_2))((t_1-t_3)(t_1-t_2))((t_2-t_3)(t_2-t_1))}{((t_1-t_3)(t_1-t_2))((t_1-t_3)(t_1-t_2))}\\
+             &=((t_3-t_2)(t_3-t_1))((t_1-t_3)(t_1-t_2))((t_2-t_3)(t_2-t_1))\\
+             &=-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2.
+        \end{align*}
+    \end{itemize}
+    The expected degree of the Euler class is the codimension of $\ov M_{0,7}$ which is $6$, observe that 
+        \begin{align*}
+        e(N_{F_{13}\mid\ov M})&=\frac{-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2\bonj{(t_1-t_2)(t_1-t_3)\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)}}{(t_2-t_1)(t_3-t_1)}\\
+        &=-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)
+    \end{align*}
+    The integral is 
+    \begin{align*}
+        I_{13}&=\int_{F_{13}}\frac{p^5}{e(N_{F_{13}\mid\ov M})}\\
+        &=\int_{\ov M_{0,7}}\frac{(t_1-t_3)^5(t_1-t_2)^5}{-\bonj{(t_1-t_2)(t_1-t_3)(t_2-t_3)}^2\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)}\\
+        &=\frac{-(t_1-t_3)^3(t_1-t_2)^3}{(t_2-t_3)^2}\int_{\ov M_{0,7}}\frac{1}{\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)}.
+    \end{align*}
+    Now, we must expand both terms as power series and analyze those terms which have degree 4. Observe that we have
+    \begin{align*}
+        \frac{1}{\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)}&=\scriptstyle\left(1+\frac{\psi_b}{t_1-t_2}+\left(\frac{\psi_b}{t_1-t_2}\right)^2+\left(\frac{\psi_b}{t_1-t_2}\right)^3+\dots\right)\left(1+\frac{\psi_c}{t_1-t_3}+\left(\frac{\psi_c}{t_1-t_3}\right)^2+\left(\frac{\psi_c}{t_1-t_3}\right)^3+\dots\right)\\
+        &=\dots+\sum_{k=0}^{4}\left(\frac{\psi_b}{t_1-t_2}\right)^k\left(\frac{\psi_c}{t_1-t_3}\right)^{4-k}+\dots\\
+        &=\dots+\sum_{k=0}^{4}\left(\frac{1}{t_1-t_2}\right)^k\left(\frac{1}{t_1-t_3}\right)^{4-k}\psi_b^k\psi_c^{4-k}+\dots\\
+        \To\int_{\ov M_{0,7}}\frac{1}{\left(1-\frac{\psi_b}{t_1-t_2}\right)\left(1-\frac{\psi_c}{t_1-t_3}\right)}&=\dots+\sum_{k=0}^{4}\left(\frac{1}{t_1-t_2}\right)^k\left(\frac{1}{t_1-t_3}\right)^{4-k}\int_{\ov M_{0,7}}\psi_b^k\psi_c^{4-k}+\dots\\
+        &=\sum_{k=0}^{4}\left(\frac{1}{t_1-t_2}\right)^k\left(\frac{1}{t_1-t_3}\right)^{4-k}\binom{4}{k}\\
+        &=\left(\frac{1}{t_1-t_2}+\frac{1}{t_1-t_3}\right)^4=\left(\frac{2t_1-t_2-t_3}{(t_1-t_2)(t_1-t_3)}\right)^4.
+    \end{align*}
+    Replacing this term into our last expression leaves us with the final result for $I_{13}$
+    $$I_{13}=\frac{-(t_1-t_3)^3(t_1-t_2)^3}{(t_2-t_3)^2}\left(\frac{2t_1-t_2-t_3}{(t_1-t_2)(t_1-t_3)}\right)^4=\frac{-(2t_1-t_2-t_3)^4}{(t_1-t_2)(t_1-t_3)(t_2-t_3)^2}.$$
+    Following this process we may summarize the calculations with the following table.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth, trim= 0.1cm 6cm 0.1cm 4.1cm,clip]{../figs/FigsDNnotability4.pdf}
+        \caption{Summary of integrals for $\ov{M}_{0,5}(\bP^2,2)$}
+        \label{fig:summary-table-M05P22}
+    \end{figure}
+    Summing up all terms along with mirror images via the action $(23)\.$ we do get one which is the number of conics passing through 5 points.
 \end{Ex}
+Observe that in the same fashion as in example \ref{ex:N1-different-points}, distributing the marks throughout the fixed points in $\bP^2$, reduces the number of fixed loci to work with. Taking the integral 
+$$\int_{\ov{M}_{0,5}(\bP^2,2)}\ev_1^\ast([1:0:0])\ev_2^\ast([1:0:0])\ev_3^\ast([0:1:0])\ev_4^\ast([0:1:0])\ev_5^\ast([0:0:1])$$
+produces the same result with only a count of 3 fixed loci. The reader may be interested in pursuing this exercise on their own account.\par
+We have also applied the following lemma several times, it simplifies the contribution of psi-classes to the curve deformations bundle.
+
+\begin{Lem}
+    For $\psi,\widetilde\psi$ psi-classes in $\ov M_{0,n}$, it holds that
+    $$\int_{\ov M_{0,n}}\frac{1}{(1-\frac{\psi}{x-y})(1-\frac{\widetilde\psi}{x-z})}=\left(\frac{1}{x-y}+\frac{1}{x-z}\right)^{n-3}.$$
+\end{Lem}
+\section{Future directions}
+
+We have studied the methods of equivariant cohomology and localization in this work applied mainly to the space of maps. This, together with knowledge of the moduli space grants us the necessary tools to explore other moduli spaces to which we can apply these techniques.\par
+For the future, we will strive in developing the theory of different moduli spaces and further our understanding of equivariant line bundles.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
