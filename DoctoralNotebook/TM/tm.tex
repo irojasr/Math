@@ -304,7 +304,7 @@ This map is an isomorphism over the smooth locus of $X$ but may identify several
     $$2-2(1)-1=-1<0.$$
 \end{Ex}
 
-Once equipped with the idea of stability we can now calmly talk about $\ov M_{g,n}$ as the set of isomorphism classes of \emph{stable curves}. This space can be treated as an orbifold \cite{ZvonkineIntro}, as a Deligne-Mumford stack, but we will not deal with such intricacies here. Instead, we will now delve into the cohomology of this space and talk about the combinatorial tools that will help us further along the road.
+Once equipped with the idea of stability we can now calmly talk about $\ov M_{g,n}$ as the set of isomorphism classes of \emph{stable curves}. This space can be treated as an orbifold (as in Zvonkine's article \cite{ZvonkineIntro}), as a Deligne-Mumford stack, but we will not deal with such intricacies here. Instead, we will now delve into the cohomology of this space and talk about the combinatorial tools that will help us further along the road.
 
 \section{Cohomological classes of the moduli space}
 
@@ -355,7 +355,7 @@ Similar to the basics of the Chow ring, we will be reviewing the following prope
     Suppose $E\xrightarrow{\pi}B$ is a rank $r$ vector bundle. We have the following:
 \begin{itemize}
     \item $c_i(E)\neq 0$ whenever $0\leq i\leq r$.
-    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(B)$.%A^i(E)$. (¿or $A^i(B)$?) It was the base all along. 
+    \item $c_i(E)$ has degree $i$ in the Chow ring. This means $c_i(E)\in A^i(B)$.
     \item $c_0(E)=1$ is the fundamental class. It's usually the case that we rescale in order for this to be exactly $1$.
     \item If we define 
     $$c_{\text{tot}}=c_0+c_1+\dots+c_r$$
@@ -374,7 +374,7 @@ Similar to the basics of the Chow ring, we will be reviewing the following prope
     \item Chern classes commute with pullbacks.
 \end{itemize}
 
-For more, check out \href{https://math.stackexchange.com/questions/989147/quick-question-chern-classes-of-sym-wedge-hom-and-tensor}{this math.se post}\footnote{\href{math.stackexchange.com/q/989147/}{\ttt{math.stackexchange.com/q/989147/}}} or \href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{here}\footnote{\href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{\ttt{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}}}.
+Further details and extended properties of Chern classes can be found in the following two references: \href{https://math.stackexchange.com/questions/989147/}{this post in math.stackexchange}\footnote{\href{math.stackexchange.com/q/989147/}{\ttt{math.stackexchange.com/q/989147/}}} or \href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{this post by Charles Siegel}\footnote{\href{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}{\ttt{https://rigtriv.wordpress.com/2009/11/03/chern-classes-part-1/}}}.
 
 \end{Th}
 \subsection{Dual graphs}
@@ -405,7 +405,11 @@ The Schmitt and van Zelm condition allows this automatically.
     A vertex/edge-\term{labeling} by integers is a function from $V$ or $E$ to $\bZ_{\geq 0}$ respectively. 
 \end{Def}
 
-As our curves will be marked, we would like to denote that in a graph. The way to do this is via a set of \emph{half-edges} or \emph{legs}. Graphs can be defined by only specifying a set of half-edges and declaring certain properties, but we won't pursue that avenue\footnote{See more in \href{https://math.stackexchange.com/q/2678435}{\ttt{math.se/2678435}}.}. Following Schmitt and van Zelm we take the idea of half-edges to define stable graphs.
+As our curves will be marked, we would like to denote that in a graph. The way to do this is via a set of \emph{half-edges} or \emph{legs}. 
+\begin{Rmk}
+    Graphs can be defined by only specifying a set of half-edges and declaring certain properties. While not pursuing that approach, we refer the reader to a discussion on defining graphs in that manner.\footnote{See more in \href{https://math.stackexchange.com/q/2678435}{\ttt{math.stackexchange.com/q/2678435/}}.}. 
+\end{Rmk}
+Following Schmitt and van Zelm we take the idea of half-edges to define stable graphs.
 
 \begin{Def}
 A \term{stable graph} $\Ga$ is a tuple of sets and maps:
@@ -420,7 +424,7 @@ where $V$ is the set of vertices, $H$ the set of half-edges and $L$ is the set o
     \item And each vertex $v$ satisfies the condition
     $$2-2g(v)-\lvert a^{-1}(v)\rvert-\lvert \ze^{-1}(v)\rvert<0.$$
 \end{enumerate}    
-We may call $n(v)\defeq\lvert a^{-1}(v)\rvert+\lvert \ze^{-1}(v)\rvert$ the valence\footnote{Usually in graph theory this would be called the degree of a vertex, but to lose ambiguity when talking about maps, we will call it valence.} of the vertex $v$. This is number of half-edges and legs incident in $v$. 
+We may call $n(v)\defeq\lvert a^{-1}(v)\rvert+\lvert \ze^{-1}(v)\rvert$ the valence\footnote{In graph theory this quantity is called the degree of a vertex. However, to avoid ambiguity when discussing morphisms, we refer to it here as the valence.} of the vertex $v$. This is number of half-edges and legs incident in $v$. 
 \end{Def}
 
 Observe immediately the similarity between the last condition in the stable graph definition and the stability condition for curves in theorem \ref{th-stability-condition-22gn}. 
@@ -665,7 +669,7 @@ The quick reference for this part is \cite{cavalieri2022pseudostablehodgeintegra
 \begin{Def}
     The \term{Hodge bundle} on $\ov M_{g,n}$ is a rank $g$ vector bundle and is defined as 
     $$\bE=\pi_\ast(\om_\pi).$$
-    Its fiber over a point $[(C,p_1,\dots,p_n)]$ is $\Ga(C,\om_C)$\red{is this a typo in \cite{cavalieri2022pseudostablehodgeintegrals}}, the $g$-dimensional space of global sections of the dualizing sheaf.\par
+    Its fiber over a point $[(C,p_1,\dots,p_n)]$ is $\Ga(C,\om_C)$, the $g$-dimensional space of global sections of the dualizing sheaf of $C$.\par
     The $j^{\text{th}}$ \term{lambda-class} $\la_j$ is the $j^{\text{th}}$ Chern class of $\bE$
     $$\la_j=c_j(\bE)\in A^j(\ov M_{g,n})\word{for}j\in\bonj{g}.$$
 \end{Def}
@@ -698,6 +702,13 @@ Now returning to graphs, strata of $\ov M_{g,n}$ can support $\psi$ and $\la$ cl
     \end{figure}
 \end{Ex}
 
+From this we may extract a relation for psi-classes in $\ov{M}_{0,n}$ depending only on divisors of the form $\dl_{a,A}$.
+
+\begin{Lem}[\cite{ArbarelloCornalba}, Prop. 1.6, pg. 5]\label{lem:divisor-sum-identity-psi-class}
+    For any choice of marks $i,j,k$, arbitrary but fixed, the following relationship holds:
+    $$\psi_i=\sum_{\substack{A\ni i\\ A\not\ni j,k}}\dl_{0,A}.$$
+\end{Lem}
+
 \begin{Ex}%https://mathoverflow.net/questions/100213/pull-back-of-hodge-bundle-via-glueing-map
     For lambda-classes, let's consider the Hodge bundle restricted to a divisor $\dl_{a,A}$ on $\ov M_{g,n}$. There exist projections 
     $$p_1\:\ov{M}_{g,n}\to\ov{M}_{a,|A|},\word{and}p_2\:\ov{M}_{g,n}\to\ov{M}_{g-a,n-|A|}$$
@@ -713,7 +724,7 @@ Now returning to graphs, strata of $\ov M_{g,n}$ can support $\psi$ and $\la$ cl
 
     We haven't formally described how to compute the product of classes in $\ov M_{g,n}$ but this only requires knowing how to compute first Chern classes. Which we can do by using the cheat sheet theorem \ref{th-chern-class-cheat-sheet}.
 \end{Ex}
-As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes \cite{KockPsiClasses} also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
+As before, deep understanding or knowledge of what the relative dualizing sheaf is is not necessary to proceed. It's just important to know that these are special cohomology classes which show up when dealing with string theory as in the case of Witten's conjecture. More on psi-classes can be found in Zvonkine's article \cite{ZvonkineIntro} also in the viewpoint of differential forms which we don't touch here. Joachim Kock's notes on psi-classes \cite{KockPsiClasses} also contain valuable information. For now, let us put into practice the material which we've begun to describe. 
 
 \section{The intersection product on $\ov M_{g,n}$}
 
@@ -756,7 +767,7 @@ In order to multiply two classes via their graphs, we will look for graphs which
 Now we all the tools ready to define the multiplication of graphs which combinatorially explains multiplication of strata.
 
 \begin{Def}[\cite{YangIntersections}, pg. 5]
-    Let $G,H$ be decorated stable graphs and $\Ga(G,H)$ the set of graphs with generic $(G,H)$ structure.\footnote{i.e. the set of all graphs which contract into $G$ and $H$ generically.} Then the product of $G$ and $H$ is defined as 
+    Let $G,H$ be decorated stable graphs and $\Ga(G,H)$ the set of graphs with generic $(G,H)$ structure. In other words, the set of all graphs which contract into $G$ and $H$ generically. Then the product of $G$ and $H$ is defined as 
     $$G\. H=\sum_{A\in\Ga(\un G,\un H)}\frac{1}{|\Aut(A)|}F_A(G,H)\.A$$
     where we have 
     $$
@@ -913,7 +924,7 @@ We climb up a couple of dimensions into $\ov M_{0,6}$ in the next example. This 
         \caption{Codimension 2 strata indexed by $A$}
         \label{fig:irr-squared-4}
     \end{figure}
-    So in total, the sum of these classes gives us the result of squaring $\dl_{\text{irr}}$. We get a factor of 2 in each of the terms accounting for the automorphisms which we turn to the other side of the equation as a half factor.\red{check!}
+    So in total, the sum of these classes gives us the result of squaring $\dl_{\text{irr}}$. We get a factor of 2 in each of the terms accounting for the automorphisms which we turn to the other side of the equation as a half factor.%check automorphisms at some point.
 
      \begin{figure}[h!]
         \centering
@@ -921,7 +932,10 @@ We climb up a couple of dimensions into $\ov M_{0,6}$ in the next example. This 
         \caption{Final sum with all strata}
         \label{fig:irr-squared-5}
     \end{figure}
-    \red{Why is this zero in the end???}
+    Finally observe the restriction of the psi-classes $\psi_\8,\psi_\ast$ to the divisor $\dl_{\text{irr}}$ can be realized as the sum of the codimension 2 graphs as in the right.\par
+    This comes in part because of lemma \ref{lem:divisor-sum-identity-psi-class} which allows us to express the sum of psi-classes:
+    $$\psi_\8+\psi_\ast=\sum_{\substack{\8\in A,\ \ast\not\in A\\|A|\geq 1}}\dl_{0,A},\word{in}\ov{M}_{0,\bonj{n}\cup\set{\8,\ast}}.$$
+    Then restricting to the divisor $\dl_{\text{irr}}$ is to glue $\8$ and $\ast$ together. Switching the sign and canceling gives us the desired result. 
 \end{Ex}
 
 \section{Integration}
@@ -999,7 +1013,7 @@ $$\psi_i^k=(\pi_j^\ast\psi_i)^{k-1}(\pi_j^\ast\psi_i+\dl_{0,\set{ij}}),\quad k\i
 Observe now that the power of the psi-class has given us something of the form $\al\.f^\ast(\bt)$ where 
 $$\al=\pi_j^\ast\psi_i+\dl_{0,\set{ij}},\word{and}\bt=\psi_i^{k-1}$$
 and we may pull the power inside the $\pi_j^\ast$ because its a ring homomorphism, unlike the pushforward which is just a module morphism.\par
-This term begs to be put together with a $\pi_\ast$ to apply the projection formula, and we have a readily accisble $\pi_\ast$ when using the integral diagram!
+This term begs to be put together with a $\pi_\ast$ to apply the projection formula, and we have a readily accesible $\pi_\ast$ when using the integral diagram!
 
 \begin{Ex}
     Consider the integral 
@@ -1026,34 +1040,30 @@ This term begs to be put together with a $\pi_\ast$ to apply the projection form
 Continuing this example leads us to the general result. This serves as a guide for the inductive step in proving the string equation formula.
 
 \begin{Th}
-    Suppose $I$ is a multi-index and $\un\psi$ is an array of psi-classes, then 
+    Suppose $I$ is a multi-index and $\un\psi$ is a product of an array of psi-classes, then 
     $$\int_{\ov{M}_{0,n}}\un\psi^I=\binom{n-3}{I}.$$
 \end{Th}
 
 In the discussion of the previous result, we have used a couple of properties about pushforwards and pullbacks which should be enumerated.
 
-\begin{Rmk}
-    If $f\: X\to Y$ is a flat and proper map, then the pullback of $f$ is a map 
-    $$f^\ast\: A^\ast(Y)\to A^\ast(X)$$
-    such that
-    \begin{itemize}
-        \item respects codimension grading,
-        \item is a ring homomorphism, and 
-        \item generically satisfies $f^\ast(Z)=\bonj{f^{-1}(Z)}$. 
-    \end{itemize}
-    This last property may not occur at nodes for example. Meanwhile, the pushforward is a map
-    $$f_\ast\: A_\ast(X)\to A_\ast(Y)$$
-    which
-    \begin{itemize}
-        \item respects dimension grading,
-        \item is a module homomorphism, and
-        \item generically satisfies $f_\ast(Z)=\bonj{f(Z)}$. We can be more explicit here to say when things happen differently. 
-        \begin{enumerate}
-            \item If $\dim f(Z)<\dim Z$, then $f_\ast(Z)=0$.
-            \item If $\left.f\right|_Z\:Z\to f(Z)$ is finite of degree $n$, then $f_\ast(Z)=n\bonj{f(Z)}$.
-        \end{enumerate}
-    \end{itemize}
-\end{Rmk}
+\begin{Prop}\label{prop:push-pull-properties}
+Let $f\: X \to Y$ be a flat and proper morphism between schemes. Then the following properties hold:
+\begin{itemize}
+    \item The pullback map
+    $$f^\ast\: A^\ast(Y) \to A^\ast(X)$$
+    is a graded ring homomorphism that preserves codimension and satisfies, generically,
+    $$f^\ast([Z]) = [f^{-1}(Z)].$$
+    This may fail at singularities such as nodes.
+    \item The pushforward map
+    $$f_\ast\colon A_\ast(X) \to A_\ast(Y)$$
+    is a graded module homomorphism with the following properties:
+    \begin{enumerate}
+        \item If $\dim f(Z) < \dim Z$, then $f_\ast([Z]) = 0$.
+        \item If the restriction $f|_Z\colon Z \to f(Z)$ is finite of degree $n$, then
+        $$f_\ast([Z]) = n [f(Z)].$$
+    \end{enumerate}
+\end{itemize}
+\end{Prop}
 
 \chapter{Equivariant Cohomology and Localization}
 
@@ -1115,10 +1125,10 @@ We know that the usual cohomology of a point is trivial, but let's check two exa
 \end{enumerate}
 \end{Ex}
 
-There are questions which arose during the study of classifying spaces which we didn't have time to answer. But they surely have been studied.
+These examples raise natural questions about more general classifying spaces.
 
 \begin{Qn}
-    What happens when $G$ is a symmetric group $S_n$, or a finite group $\bZ/n\bZ$? Even more, what if $G$ is a matrix group, or an exceptional group such as the Mathieu group\footnote{A good reference for this is Classifying Spaces of Sporadic Groups by Benson and Smith.}?  
+What is the equivariant cohomology of a point when $G$ is a finite group such as $S_n$ or $\mathbb{Z}/n\mathbb{Z}$? What about when $G$ is a linear algebraic group, or an exceptional group like the Mathieu group?\footnote{The interested reader is deffered to \emph{Classifying Spaces of Sporadic Groups} by Benson and Smith.}
 \end{Qn}
 
     One can see that the idea of constructing the cohomology of the orbit space goes haywire as soon as our space is not a point. For $\bP^1$ one has to find
@@ -1612,7 +1622,7 @@ We will calculate
     Let us proceed with $F_3$, we must look at its dual graph and the normalization of $C_3$. 
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth, trim= 1.32cm 5.5cm 9cm 19.5cm,clip]{../figs/FigsDNnotability3.pdf}
+        \includegraphics[width=0.7\textwidth, trim= 1.32cm 5.6cm 9cm 19.5cm,clip]{../figs/FigsDNnotability3.pdf}
         \caption{Loci $F_3$ along dual graph and normalization of source curve}
         \label{fig:quadratic-F3-5-marks}
     \end{figure}
@@ -1762,8 +1772,8 @@ We have also applied the following lemma several times, it simplifies the contri
 \end{Lem}
 \section{Future directions}
 
-We have studied the methods of equivariant cohomology and localization in this work applied mainly to the space of maps. This, together with knowledge of the moduli space grants us the necessary tools to explore other moduli spaces to which we can apply these techniques.\par
-For the future, we will strive in developing the theory of different moduli spaces and further our understanding of equivariant line bundles.
+In this work we have developed the ideas of equivariant cohomology and localization, focusing on applying them to the moduli space of stable maps. Along the theory of moduli space of curves, we have the necessary tools to approach other moduli spaces to which we may apply these techniques.\par
+Looking ahead, the direction is to extend these methods to alternate moduli spaces. In particular, we aim to study \emph{pseudo}-stable curves and the analogous space of maps. 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
