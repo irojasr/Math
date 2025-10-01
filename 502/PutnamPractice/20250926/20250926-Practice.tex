@@ -1,0 +1,111 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2025}
+\def\nprofesor {Ignacio Rojas}
+\def\nsigla {Putnam}
+\def\nsiglahead {Putnam Practice}
+\def\nextra {PS3}
+\def\nlang {ENG}
+\def\nauthor {}
+\input{../../../headerVarillyDiff}
+
+\begin{document}
+
+\subsection*{Toolkit}
+\begin{itemize}
+    \item An eigenvalue of a matrix $A$ is a real number $\lambda$ such that $A\vec{v}=\lambda\vec{v}$ for some nonzero vector $\vec{v}$. Matrices of odd size always have at least one real eigenvalue, and $0$ being an eigenvalue guarantees that $A$ is non-invertible.
+    \item Any subset of a linearly independent set is itself linearly independent.
+    \item The rank of a matrix is the dimension of its column space. Equivalently, it is the dimension of its row space or of the image of the associated linear transformation. It also equals the number of nonzero rows in its row-reduced echelon form.
+    \item The symbol $\norm{\cdot}$ denotes the Euclidean norm. If $\vec{x}=(x_1,x_2,\dots,x_d)$, then
+    \[
+        \norm{\vec{x}}=\sqrt{x_1^2+x_2^2+\dots+x_d^2}.
+    \]
+    \item (Matrix-determinant lemma). For an invertible matrix $A$ and vectors $\vec{u},\vec{v}$,
+    \[
+        \det(A+\vec{u}\vec{v}^\sT)=(1+\vec{v}^\sT A^{-1}\vec{u})\det(A).
+    \]
+    \item For a linear operator $T:\bR^d\to\bR^d$, its operator norm is defined as
+    \[
+        \inf\{c\geq 0:\ \norm{T\vec{v}}\leq c\norm{\vec{v}},\ \forall \vec{v}\in \bR^d\}.
+    \]
+    Equivalently,
+    \[
+        \norm{T}=\sup_{\vec{v}\neq 0}\frac{\norm{T\vec{v}}}{\norm{\vec{v}}}.
+    \]
+    For a linear operator given by a $d\times d$ matrix, one can compute
+    \[
+        \norm{T}=\max_j\sum_{i=1}^{d}|T_{ij}|.
+    \]
+\end{itemize}
+
+\begin{Ej}
+In \emph{Determinant Tic-Tac-Toe}, Player 1 places a $1$ in an empty $3\times 3$ matrix. Player 0 responds by placing a $0$ in another empty position. Play continues alternately until the matrix is filled with five $1$’s and four $0$’s. Player 0 wins if the determinant is $0$, and Player 1 wins otherwise. Assuming optimal play, who wins, and what is the strategy?
+\end{Ej}
+
+\begin{Ej}
+Generalize the game to a $d\times d$ matrix. If Players 1 and 0 alternate filling entries with $1$’s and $0$’s, what can be said about optimal strategies and outcomes?
+\end{Ej}
+
+\begin{Ej}[Bulgarian National Olympiad, 2023, Problem 5]
+For a fixed $n\in\bN$, find the minimum value of
+\[
+    |x_1|+|x_1-x_2|+|x_1+x_2-x_3|+\dots+|x_1+x_2+\dots+x_{n-1}-x_n|,
+\]
+where $x_1,x_2,\dots,x_n\in\bR$ satisfy $|x_1|+|x_2|+\dots+|x_n|=1$.
+\end{Ej}
+
+\begin{Ej}[Problems Seminar, UNAM]
+Let $n=abcd$ be a four-digit number with $a\neq 0$. Define
+\[
+    d(n)=\det\twobytwo{a}{b}{c}{d}.
+\]
+Compute
+\[
+    \sum_{n=1000}^{9999} d(n).
+\]
+\end{Ej}
+
+\begin{Ej}[Adapted from a similar problem]
+Let $a_1,a_2,\dots,a_{2n}\in\bR$, and define the matrices
+\[
+    A=\nbyn{a_1^2+1}{a_1a_2}{a_1a_n}{a_2a_1}{a_2^2+1}{a_2a_n}{a_na_1}{a_na_2}{a_n^2+1},\quad 
+    B=\nbyn{a_1a_{n+1}}{a_1a_{n+2}}{a_1a_{2n}}{a_2a_{n+1}}{a_2a_{n+2}}{a_2a_{2n}}{a_na_{n+1}}{a_na_{n+2}}{a_na_{2n}},
+\]
+\[
+    C=\nbyn{a_{n+1}^2+1}{a_{n+1}a_{n+2}}{a_{n+1}a_{2n}}{a_{n+2}a_{n+1}}{a_{n+2}^2+1}{a_{n+2}a_{2n}}{a_{2n}a_{n+1}}{a_{2n}a_{n+2}}{a_{2n}^2+1}.
+\]
+Construct the block matrix
+\[
+    M=\threebythree{A}{\vec{0}}{B}{\vec{0}^\sT}{1}{\vec{0}^\sT}{B^\sT}{\vec{0}}{C},
+\]
+and compute $\det(M)$.
+\end{Ej}
+
+\begin{Ej}[Costa Rican Problems Seminar]
+Suppose $\vec{x}_1,\vec{x}_2,\dots,\vec{x}_k\in\bR^d$ satisfy
+\[
+    \vec{x}_1+\vec{x}_2+\dots+\vec{x}_k=0.
+\]
+Show that there exists a permutation $\sigma$ of $\{1,2,\dots,k\}$ such that for each $n\in\{1,2,\dots,k\}$,
+\[
+    \norm{\sum_{i=1}^{n}\vec{x}_{\sigma(i)}}\leq \left(\sum_{i=1}^n\norm{\vec{x}_{\sigma(i)}}^2\right)^{1/2}.
+\]
+\end{Ej}
+
+\begin{Ej}[Costa Rican TST 2022]
+Let $\cM$ be the set of $5\times 5$ real matrices of rank $3$. For $A\in\cM$, consider the $2^5-1$ nonempty subsets of its columns, and let $k_A$ denote the number of these subsets that are linearly independent.\par
+Determine the minimum and maximum possible values of $k_A$ as $A$ varies in $\cM$.
+\end{Ej}
+
+\begin{Ej}[Costa Rican TST 2022]
+Let $T:\bR^d\to\bR^d$ be a linear transformation. We say $T$ is \emph{tangential} if $\vec{v}\cdot T\vec{v}=0$ for all $\vec{v}\in\bR^d$.
+\begin{enumerate}
+    \item For even $d$, give an example of an invertible tangential transformation.
+    \item Show that for odd $d$, no tangential transformation is invertible.
+\end{enumerate}
+\end{Ej}
+
+\end{document}
+
