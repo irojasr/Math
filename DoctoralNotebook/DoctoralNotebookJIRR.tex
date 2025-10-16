@@ -8,7 +8,7 @@
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
 \def\ntrim{}
-%\def\darktheme{}
+\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
 %\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
@@ -39,12 +39,12 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \red{TO DO 3}
 \begin{itemize}
     \item Understand $\cG^1$ self intersection (ALMOST) and read new examples. (DONE b4 20241120)
-    \item Write down Hodge bundle info on distributivity.
+    \item Write down Hodge bundle info on distributivity. (DONE see master thesis SM2025)
     \item Do exercises Zvonkine. (DONE b4 20241120)
 \end{itemize}
 \red{TO DO 4}
 \begin{itemize}
-    \item Read chap 2 green book on stable maps
+    \item Read chap 2 green book on stable maps (kinda, B4 SM25)
     \item Read intros on stable map/kontsevich spaces papers.
     \item Finish Mumford formula understanding.(DONE b4 20241120)
 \end{itemize}
@@ -52,20 +52,20 @@ This is my doctoral notebook where I will add clean information regarding whatev
 \begin{itemize}
     \item Read equivariant cohomology of $\bP^1$. (DONE by end of II2024)
     \item Write down examples of E.C. for a point by torus and point by integers. (DONE around 202411)
-    \item Polish chapter 4 on strata, products, psi and lambda classes. (WORKING ON THIS RN)
+    \item Polish chapter 4 on strata, products, psi and lambda classes. (WORKING ON THIS RN)(DONE see TM SM25)
     \item Write down understanding of T3.1 MattAndRenzo.
-    \item Write down info on forgetful, pullback, pushforward
-    \item Write down statements of string and dilaton equation.
-    \item Write down integrals as constant map pushforward.
+    \item Write down info on forgetful, pullback, pushforward (DONE see TM SM25)
+    \item Write down statements of string and dilaton equation. (DONE see TM SM25)
+    \item Write down integrals as constant map pushforward. (DONE see TM SM25)
 \end{itemize}
 \red{TO DO 6 20241215}
 \begin{itemize}
     \item Finish writing examples on intersection products. (DONE)
     \item Add examples on psi and lambda classes.
-    \item Polish and pass to DN E.C. of point by T and Z. 
-    \item Write and polish E.C. of proj line. 
-    \item Apply Atiyah Bott to E.C. of proj line to get the same result. 
-    \item Read somewhere about E.C. of proj plane and write it down.
+    \item Polish and pass to DN E.C. of point by T and Z. (DONE see TM SM25, not passed here but ok)
+    \item Write and polish E.C. of proj line. (DONE see TM SM25)
+    \item Apply Atiyah Bott to E.C. of proj line to get the same result. (DONE see TM SM25)
+    \item Read somewhere about E.C. of proj plane and write it down. (DONE see TM SM25)
     \item Apply A.B. to proj plane and find the intersection of two lines. (DONE)
     \item Write down info on different linearizations of line bundles.
     \item Understand what is the hyperplane class $H$ in equivariant cohomology.
@@ -76,7 +76,11 @@ Phew it's been a long time
     \item Understand and write what is a linearization of line bundles. (see Mumford original paper)
     \item Understand the space of maps' stratification.
     \item Compute integrals of cohomology classes in the space of stable maps via localization.
-    \item Write thesis.
+    \item Write thesis. (DONE Summer2025)
+\end{itemize}
+\red{TO DO 8 20251015}
+\begin{itemize}
+    \item Read up on the Kodaira-Spencer map between deformations and cohomology \cite{GreenBookKockVainsencher} p. 76 and \href{https://math.stackexchange.com/questions/1322093/why-does-infinitesimal-lifting-imply-triviality-of-infinitesimal-deformations/1322196#1322196}{mse/1322093}
 \end{itemize}
 }
 \newpage
@@ -1121,8 +1125,147 @@ Our target integral along with the expected result via Aspinwall-Morrison's resu
 $$\int_{\ov{M}_{0,0}(\bP^1,3)}e(H^1(C,f^\ast\cO(-1)^2))=\frac{1}{3^3}.$$
 Via localization, as the torus action $t\.x=tx$ extends naturally from $\bP^1$ to $\cM$, we have $7$ fixed loci:
 
-what is up my pex
+%what is up my pex
 
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth, trim= 0.1cm 24cm 9cm 0.1cm,clip]{figs/FigsDNnotability5.pdf}
+        \caption{Fixed loci of $\cM$ (uhhhh)}
+        \label{fig:6.1-fixed-loci-maps-g0-d3}
+    \end{figure} 
+
+The calculation for odd numbered fixed loci is the same as even numbered so we only do the calculation for the odd ones.\par
+
+\textbf{Fixed locus 1:} Consider the first fixed loci representing a rational curve with two nodes, each $\bP^1$ maps with degree 1 to the base. The normalizaiton sequence for this curve is 
+$$0\to\cO_C\to\cO_{C_1}\oplus\cO_{C_2}\oplus\cO_{C_3}\to\bC_{n_1}\oplus\bC_{n_2}\to0$$
+where $\cO_{C_i}$ is the trivial sheaf of the $i^{\text{th}}$ component of the curve $C$. The $\bC_{n_i}$ correspond to skyscraper sheaves over the nodes. The numbering of the normalization sequence goes from bottom to top.
+
+\begin{Qn}
+    What are the maps in this normalization sequence?
+\end{Qn}
+
+Tensoring the sequence via $-\ox f^\ast\cO(-H)$ we obtain 
+$$0\to f^\ast\cO(-H)\to\cO(-H)^3\to \genr{(0)}\oplus\genr{(-t)}\to 0$$
+and then taking the long exact sequence in cohomology $H^\ast(C,-)$ we get 
+$$
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+H^0(f^\ast \cO(-H)) \arrow[r] &
+H^0(\cO(-H))^3 \arrow[r] &
+H^0(\genr{(-t)}) \oplus H^0(\genr{(0)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& H^1(f^\ast \cO(-H)) \arrow[r] &
+H^1(\cO(-H))^3 \arrow[r] &
+0
+\end{tikzcd}
+$$
+Observe that the first two terms are zero because the bundle is negative. By Serre duality:
+$$h^1(\cO(-1))=h^0(K_{\bP^1}\ox\cO(-1)^{\vee})=h^0(\cO(-2)\ox\cO(1))=h^0(\cO(-1))=0.$$
+Finally the last term corresponding to the $H^1$ of the skyscrapers is zero because of dimension vanishing. The sequence becomes
+$$0\to H^0(\genr{(-t)}) \oplus H^0(\genr{(0)}) \to H^1(f^\ast \cO(-H))\to0$$
+and taking Euler classes returns
+$$e( H^1(f^\ast \cO(-H)))=e(H^0(\genr{(-t)}))e(H^0(\genr{(0)}))=(-t)(0).$$
+Immediately the integral is zero for this and the second fixed loci. It is possible to calculate its normal bundle's Euler class, but we reserve that for the next maps.\par
+\textbf{Fixed locus 3:}\par
+The normalization sequence is now 
+$$0\to\cO_C\to\bigoplus_{i=1}^{4}\cO_{C_i}\to\bigoplus_{i=1}^{3}\bC_{n_i}\to0$$
+Here $C_4$ is the curve connecting the other $3$ $\bP^1$'s. Tensoring $-\ox f^\ast\cO(-H)$ we obtain 
+
+$$0\to f^\ast\cO(-H)\to\cO(-H)^3\oplus\cO(-t)\to \genr{(-t)}^3\to 0$$
+
+where $\cO(-t)$ is the copy of the fiber above $0$ at every point of the collapsed $\bP^1$. The pullback takes a copy of the fiber over zero and puts it over every point of that $\bP^1$ giving us the trivial sheaf in question.\par
+Taking now long exact sequence in cohomology $H^\ast(C,-)$ we obtain 
+$$
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+H^0(f^\ast \cO(-H)) \arrow[r] &
+H^0(\cO(-H))^3\oplus H^0(\cO(-t)) \arrow[r] &
+H^0(\genr{(-t)})^3
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& H^1(f^\ast \cO(-H)) \arrow[r] &
+H^1(\cO(-H))^3\oplus H^1(\cO(-t)) \arrow[r] &
+0
+\end{tikzcd}
+$$
+Cancelling some terms we are left with
+$$0\to H^0(\cO(-t))\to H^0(\genr{(-t)})^3\to H^1(f^\ast \cO(-H))\to 0.$$
+The first cohomology of the trivial bundle cancels because by Serre duality it has dimension $h^0(\cO(-2))=0$. The Euler class is thus 
+$$H^1(f^\ast \cO(-H))=\frac{(-t)^3}{-t}=t^2$$
+however when linearizing with $\cO(-H+t)$ all the weights in question become zero. So that the numerator ends up being zero altogether. Same reasoning applies to the fourth fixed loci.\par
+\textbf{Fixed locus 5:}\par
+The normalization sequence is 
+$$0\to\cO_C\to\cO_{C_1}\oplus\cO_{C_2}\to\bC_{n}\to0$$
+and observe that when pulling back $\cO(-H)$ to $C_2$ it pulls back with the same weights $-t$ and $0$. With respect to $C_2$'s hyperplane class, say $\widetilde{H}$ whose weights for $\cO(-\widetilde{H})$ are $\frac{-t}{2}$ and $0$, the pullback becomes $\cO(-2\widetilde{H})$. So the result of applying $-\ox f^\ast\cO(-H)$ is
+$$0\to f^\ast\cO(-H)\to\cO(-H)\oplus\cO(-2\widetilde{H})\to \genr{(0)}\to 0.$$
+We then take long exact sequence in cohomology $H^\ast(C,-)$:
+$$
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+H^0(f^\ast \cO(-H)) \arrow[r] &
+H^0(\cO(-H))\oplus H^0(\cO(-2\widetilde{H})) \arrow[r] &
+H^0(\genr{(0)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& H^1(f^\ast \cO(-H)) \arrow[r] &
+H^1(\cO(-H))\oplus H^1(\cO(-2\widetilde{H})) \arrow[r] &
+0
+\end{tikzcd}
+$$
+Immediately the first two terms cancel out because of negative degree and one $H^1$ cancels due to Serre duality. We are left with the sequence 
+$$0\to H^0(\genr{(0)})\to H^1(f^\ast \cO(-H))\to H^1(\cO(-2\widetilde{H}))\to 0.$$
+Observe that the middle section of $H^1(\cO(-2\widetilde{H}))$ has weight $\frac{-t}{2}$. This comes from the formula 
+$$
+\left\lbrace
+\begin{aligned}
+&w_0-w_\infty=(\deg.)w_{0,TX}\To w_0 - (\deg.)w_{0,TX}\\
+&-t-0=(-2)\left(\frac{t}{2}\right)\To -t-(-2)\left(\frac{t}{2}\right)=0.
+\end{aligned}
+\right.
+$$
+The middle section then has weight 
+
+$$-t-(-1)\left(\frac{t}{2}\right)=-t+\frac{t}{2}=\frac{-t}{2}$$
+
+Thus the whole Euler class for our desired bundle is 
+$$e(H^1(f^\ast \cO(-H)))=(0)\left(\frac{-t}{2}\right)=0.$$
+\begin{Ej}
+    The Euler class for the other linearization $\cO(-H+t)$ ends up being
+$$e(H^1(f^\ast \cO(-H+t)))=(t)\left(\frac{t}{2}\right).$$
+\end{Ej}
+
+Multiplying both classes returns $0$ and thus the integral is zero. The remaining fixed locus is the only one with a non-zero contribution to the integral.\par
+\textbf{Fixed locus 7:}\par 
+There's no need to apply a normalization sequence argument as there's only one component. We directly ask for $H^1(f^\ast(\cO(-H)))$. In this case $\cO(-H)$ pulls back to a $\cO(-3\widetilde{H})$ where $\widetilde{H}$ is the hyperplane class of the curve $C_7$. $H^1(\cO(-3\widetilde{H}))$ has 2 middle sections with weights
+$$w_0-w_{\tan},\word{and}w_0-2w_{\tan}.$$
+These are 
+$$-t-(-1)\left(\frac{t}{3}\right),\word{and}-t-(-2)\left(\frac{t}{3}\right)$$
+so that the resulting Euler class is 
+$$e(H^1(f^\ast(\cO(-H))))=\left(\frac{-2t}{3}\right)\left(\frac{-t}{3}\right)=\frac{2t^2}{9}.$$
+In an analogous fashion, $f^\ast\cO(-H+t)$ coincides with $C_7$'s $\cO(-3\widetilde{H}+t)$. It's two middle sections have weights
+$$w_\infty+w_{\tan},\quad w_\infty+2w_{\tan}\word{which are}t+(-1)\frac{t}{3},\quad t+(-2)\frac{t}{3}$$
+so that 
+$$i^\ast_7\left(e(H^1(f^\ast(\cO(-H))))e(H^1(f^\ast(\cO(-H+t))))\right)=\frac{2t^2}{9}\.\frac{2t^2}{9}=\frac{4t^4}{81}.$$
+\begin{Rmk}
+    The key difference between this locus and the others is that the $H^1$ contribution only considers the \emph{middle} sections which have non-zero weights. In the other cases, the extremes are taken, and one of those weights is zero. 
+\end{Rmk}
+We now proceed by considering the normal bundle of $F_7$ inside $\cM$. The dual graph of $C_7$ consists of an edge with label $3$ connecting two vertices. Such valence 1 vertices contribute each their corresponding tangent weight to automorphism bundle's Euler class:
+$$e(\Aut(C_7))=\left(\frac{t}{3}\right)\left(\frac{-t}{3}\right)=\frac{-t^2}{9}.$$
+The curve $C_7$ has no deformations as it is smooth. And finally looking at the deformations of the map
+$$\DefB(f)=H^0(C_7,f^\ast T\bP^1)$$
+which we identify to $\cO(2\.3\widetilde{H}-t)$ with respect to $\widetilde{H}$. This $\cO(6)$ has $7$ global sections with weights $w_0-kw_{\tan}$ with $0\leq k\leq \deg\cO(6)$, these are
+$$t,\frac{2t}{3},\frac t3,0,-\frac t3,-\frac{2t}{3},-t.$$
+The one with zero weight corresponds to a fixed section so we don't take that into account of the \emph{moving part} of the Euler class. We get
+$$e(\DefB(f_7))=\frac{-4t^6}{81}\To e(N)=\frac{4t^6}{81}\left(\frac{-t^2}{9}\right)^{-1}=\frac{4t^4}{27}.$$
+\begin{Rmk}
+    We have that $e(N)$'s degree coincides with the codimension of $F_7$ inside of $\cM$. The dimension of $\ov{M}_{0,0}\left(\bP^1,3\right)$ is 
+    $$(1+1)(3+1)+(0-3)-1=8-3-1=4$$
+    which coincides with our observation that $F_7$ is a point (or a zero-dimensional scheme) inside $\cM$.
+\end{Rmk}
+
+Finally putting this together we have that 
+
+$$\int_{\ov{M}_{0,0}(\bP^1,3)}e(\Ob)=0+\dots+0+\frac13\int_{F_7}\frac{i_7^\ast(e\.e)}{e(N_{F_7\mid\cM})}=\frac{{4t^4}/{81}}{{4t^4}/{27}}=\frac13\.\frac19=\frac{1}{27}$$
+
+as expected.
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
