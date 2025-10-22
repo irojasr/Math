@@ -1,0 +1,80 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2025}
+\def\nprofesor {Ignacio Rojas}
+\def\nsigla {MATH261}
+\def\nsiglahead {Calculus 3}
+\def\nextra {HW6}
+\def\nlang {ENG}
+\input{../../../headerVarillyDiff}
+
+
+\begin{document}
+\section*{Problem 9}
+Given $\mathbf{r}(t) = \langle 1 + t^2, 1 - t^2, e^t \rangle$, $-1 \le t \le 1$, and $\delta(x, y, z) = z^2$. The mass is
+\begin{align*}
+m &= \int_C \delta(x, y, z)\, ds = \int_{-1}^1 \delta(\mathbf{r}(t)) \|\mathbf{r}'(t)\|\, dt, \\
+\mathbf{r}'(t) &= \langle 2t, -2t, e^t \rangle, \quad \|\mathbf{r}'(t)\| = \sqrt{8t^2 + e^{2t}}, \\
+\delta(\mathbf{r}(t)) &= e^{2t}.
+\end{align*}
+Thus,
+\begin{equation*}
+m = \int_{-1}^1 e^{2t} \sqrt{8t^2 + e^{2t}}\, dt.
+\end{equation*}
+
+\section*{Problem 13}
+Given $\mathbf{F}(x, y) = \langle x^2 y, y \rangle$ and $y = x^2$, $0 \le x \le 1$.  
+\begin{align*}
+\mathbf{r}(x) &= \langle x, x^2 \rangle, \quad \mathbf{r}'(x) = \langle 1, 2x \rangle, \\
+\mathbf{F}(\mathbf{r}(x)) &= \langle x^4, x^2 \rangle, \\
+\mathbf{F}(\mathbf{r}(x)) \cdot \mathbf{r}'(x) &= x^4 + 2x^3.
+\end{align*}
+Hence,
+\begin{equation*}
+W = \int_0^1 (x^4 + 2x^3)\, dx = \frac{7}{10}.
+\end{equation*}
+
+\section*{Problem 20}
+$\mathbf{F}(x, y) = \langle x e^{x^2}, \tfrac{1}{2\sqrt{y}} \rangle$.  
+\begin{align*}
+\frac{\partial P}{\partial y} &= 0, \quad \frac{\partial Q}{\partial x} = 0 \Rightarrow \text{conservative.}\\
+f_x &= x e^{x^2} \Rightarrow f = \frac{1}{2} e^{x^2} + g(y), \\
+f_y &= g'(y) = \frac{1}{2\sqrt{y}} \Rightarrow g(y) = \sqrt{y} + C.
+\end{align*}
+\begin{equation*}
+f(x, y) = \frac{1}{2} e^{x^2} + \sqrt{y} + C.
+\end{equation*}
+
+\section*{Problem 25}
+$\mathbf{F}(x, y) = \langle \sin y, x \cos y + e^y \rangle$, $C: (0,0) \to (1,1)$.  
+\begin{align*}
+\frac{\partial P}{\partial y} &= \cos y, \quad \frac{\partial Q}{\partial x} = \cos y \Rightarrow \text{conservative.}\\
+f_x &= \sin y \Rightarrow f = x \sin y + g(y), \\
+f_y &= x \cos y + g'(y) = x \cos y + e^y \Rightarrow g'(y) = e^y \Rightarrow g(y) = e^y + C.
+\end{align*}
+\begin{equation*}
+f(x, y) = x \sin y + e^y, \quad \int_C \mathbf{F} \cdot d\mathbf{r} = f(1,1) - f(0,0) = \sin 1 + e - 1.
+\end{equation*}
+
+\section*{Problem 28}
+$\mathbf{F}(x, y) = \langle x^2, xy \rangle$  
+\begin{align*}
+\frac{\partial P}{\partial y} &= 0, \quad \frac{\partial Q}{\partial x} = y \Rightarrow \text{not conservative.}
+\end{align*}
+For $C_1: (0,0) \to (1,1)$, $\mathbf{r}(t)=\langle t,t\rangle, 0\le t\le1$:
+\begin{align*}
+\mathbf{r}'(t) &= \langle 1,1\rangle, \quad \mathbf{F}(\mathbf{r}(t)) = \langle t^2,t^2\rangle, \\
+\mathbf{F}\cdot \mathbf{r}' &= 2t^2, \quad \int_0^1 2t^2 dt = \frac{2}{3}.
+\end{align*}
+For $C_2: \mathbf{r}(t)=\langle t,t^2\rangle, 0\le t\le1$:
+\begin{align*}
+\mathbf{r}'(t) &= \langle 1,2t\rangle, \quad \mathbf{F}(\mathbf{r}(t)) = \langle t^2,t^3\rangle, \\
+\mathbf{F}\cdot \mathbf{r}' &= t^2 + 2t^4, \quad \int_0^1 (t^2 + 2t^4)dt = \frac{11}{15}.
+\end{align*}
+\begin{equation*}
+\text{Since } \frac{2}{3} \ne \frac{11}{15}, \text{ the Fundamental Theorem does not hold for this non-conservative field.}
+\end{equation*}
+
+\end{document}
