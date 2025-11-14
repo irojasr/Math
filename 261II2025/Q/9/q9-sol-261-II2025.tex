@@ -80,26 +80,83 @@ F=\left(\tfrac{x}{3},\,\tfrac{y}{3},\,\tfrac{z}{3}\right)
 \textbf{out of} the sphere of radius \(R\), assuming the normal vectors point outward.  
 (Your final answer should be an explicit number, not an integral.)
 
-\vfill
-\begin{flushright}
-\framebox(200,50){}
-\end{flushright}
+\textbf{Solution.}
+Parametrize the sphere of radius \(R\) by spherical coordinates:
+\[
+r(\theta,\phi) = (R\sin\phi\cos\theta,\, R\sin\phi\sin\theta,\, R\cos\phi),
+\quad 0\le \theta < 2\pi, \; 0 \le \phi \le \pi.
+\]
+
+Compute the tangent vectors:
+\[
+r_\theta = (-R\sin\phi\sin\theta,\, R\sin\phi\cos\theta,\, 0),
+\qquad
+r_\phi = (R\cos\phi\cos\theta,\, R\cos\phi\sin\theta,\, -R\sin\phi).
+\]
+
+Their cross product gives the oriented normal vector:
+\setlength{\tabcolsep}{6pt} % Default value: 6pt
+\renewcommand{\arraystretch}{0.5}
+\[
+r_\theta \times r_\phi 
+= \det\begin{pmatrix}
+\ii & \jj & \kk\\
+ -Rs\phi s\theta & Rs\phi c\theta & 0\\
+ Rc\phi c\theta & Rc\phi s\theta & -Rs\phi
+\end{pmatrix}=
+R^2\sin\phi\,(\sin\phi\cos\theta,\, \sin\phi\sin\theta,\, \cos\phi).
+\]
+Thus, 
+\[
+r_\theta \times r_\phi = R^2\sin\phi\, n,
+\quad\text{where } n = (\sin\phi\cos\theta,\, \sin\phi\sin\theta,\, \cos\phi)
+\]
+is the unit outward normal.
+
+Now evaluate \(F(r)\):
+\[
+F(r(\theta,\phi)) = \frac{1}{3}\big(R\sin\phi\cos\theta,\, R\sin\phi\sin\theta,\, R\cos\phi\big)
+= \frac{R}{3}n.
+\]
+
+Then
+\[
+F(r)\cdot (r_\theta \times r_\phi)
+= \frac{R}{3} n \cdot (R^2\sin\phi\, n)
+= \frac{R^3}{3}\sin\phi.
+\]
+
+Compute the flux:
+\[
+\Phi = \int_0^{2\pi}\!\!\int_0^{\pi}
+\frac{R^3}{3}\sin\phi\, d\phi\, d\theta
+= \frac{R^3}{3}(2\pi)(2)
+= \boxed{\tfrac{4}{3}\pi R^3.}
+\]
+
+
+
 
 \item Your dog/cat/pet has one of those lamp things so they don't do something they shouldn't. With some time in your hand, you idealize it as the portion of the cone \(z^2 = x^2 + y^2\) between \(z=2\) and \(z=4\). 
 Parametrize this surface as the \emph{ruled surface} joining the circles
 \[
 r_1(t) = (2\cos t,\,2\sin t,\,2), 
 \qquad
-r_2(t) = (4\cos t,\,4\sin t,\,4).
+r_2(t) = (4\cos t,\,4\sin t,\,4),\word{both in the range} 0\leq t\leq 2\pi.
 \]
 (Any other parametrization will get you at most half credit.)
 
-\vfill
-\begin{flushright}
-\framebox(350,50){}
-\end{flushright}
+\textbf{Solution.}
+A ruled surface joining \(r_1\) and \(r_2\) is
+\[
+r(s,t) = s\,(r_2(t)-r_1(t))+r_1(t), \quad 0 \le s \le 1, \, 0 \le t \le 2\pi.
+\]
+That is,
+\[
+r(s,t) = \big((2+2s)\cos t,\, (2+2s)\sin t,\, 2+2s\big).
+\]
+This parametrization covers the conical band between \(z=2\) and \(z=4\).
 
-\newpage
 \item Let us practice the right-hand rule. Consider the following three surfaces:  
 \begin{itemize}
     \item a cylinder of radius \(1\), given by \(r(\theta,z) = (\cos\theta,\, \sin\theta,\, z)\);
@@ -110,11 +167,13 @@ r_2(t) = (4\cos t,\,4\sin t,\,4).
 For each surface, indicate the order to cross the tangent vectors so that the normal vector points \textbf{outward} from the axis of symmetry (for the first two) and \textbf{upward} (for the graph).  
 Your answer should be written in the form \(r_u \times r_v\), no computations.
 
-\begin{flushright}
-\framebox(100,50){}\\
-\framebox(100,50){}\\
-\framebox(100,50){}\\
-\end{flushright}
+\textbf{Solution.}
+
+\begin{itemize}
+    \item Cylinder \(r(\theta,z) = (\cos\theta,\,\sin\theta,\,z)\): outward normal corresponds to \(r_\theta \times r_z\).
+    \item Surface of revolution \(r(x,\theta) = (x\cos\theta,\,\sqrt{x},\,x\sin\theta)\): outward from the \(y\)-axis corresponds to \(r_x \times r_\te\).
+    \item Graph \(r(x,y) = (x,\,y,\,\cos x + \sin y)\): upward corresponds to \(r_x \times r_y\).
+\end{itemize}
 
 \item Consider the vector field
 \[
@@ -124,10 +183,51 @@ Find the flux of \(\operatorname{curl}(F)\) across the surface \(x^2 + y^2 + z^2
 Use Stokes' theorem and fear not.  
 (Your final answer should be an explicit number, not an integral.)(You may use the facts $\int_0^{2\pi}\sin^2(x)\dd x=\pi$, and $\int_0^{2\pi}\cos^3(x)\dd x=0$.)
 
-\vfill
-\begin{flushright}
-\framebox(200,50){}
-\end{flushright}
+\textbf{Solution.}
+Let \(S\) be the upper hemisphere of radius \(6\).  
+Its boundary \(\partial S\) is the circle \(x^2 + y^2 = 36\), \(z=0\), oriented counterclockwise as viewed from above (since normals on the hemisphere point outward).
+
+By Stokes' theorem,
+\[
+\iint_S (\nabla \times F)\cdot n\, dS
+= \oint_{\partial S} F \cdot dr.
+\]
+
+On the boundary \(z=0\), the vector field reduces to
+\[
+F(x,y,0) = (y,\, x^2,\, 0).
+\]
+Parametrize the boundary by \(r(t) = (6\cos t,\, 6\sin t,\, 0)\), \(0\le t\le 2\pi\).
+Then \(dr = (-6\sin t,\, 6\cos t,\, 0)\,dt.\)
+
+Compute:
+\[
+F\cdot dr = (6\sin t)(-6\sin t) + (36\cos^2 t)(6\cos t)
+          = -36\sin^2 t + 216\cos^3 t.
+\]
+
+Integrate around the full circle:
+\[
+\oint F\cdot dr 
+= \int_0^{2\pi} \big(-36\sin^2 t + 216\cos^3 t\big)\, dt
+= -36 \int_0^{2\pi}\!\!\sin^2 t\, dt + 216 \int_0^{2\pi}\!\!\cos^3 t\, dt.
+\]
+The second integral vanishes (odd powers of full periods vanish), and
+\[
+\int_0^{2\pi} \sin^2 t\, dt = \pi.
+\]
+Thus
+\[
+\oint_{\partial S} F\cdot dr = -36\pi.
+\]
+
+Hence by Stokes' theorem, the flux is
+\[
+\boxed{-36\pi.}
+\]
+
+(The negative sign indicates that the circulation induced by \(F\) points opposite to the hemisphere's outward normal orientation.)
+
 
 \end{enumerate}
 
