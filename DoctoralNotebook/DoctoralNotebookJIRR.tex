@@ -8,7 +8,7 @@
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
 \def\ntrim{}
-\def\darktheme{}
+%\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
 %\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
@@ -81,6 +81,13 @@ Phew it's been a long time
 \red{TO DO 8 20251015}
 \begin{itemize}
     \item Read up on the Kodaira-Spencer map between deformations and cohomology \cite{GreenBookKockVainsencher} p. 76 and \href{https://math.stackexchange.com/questions/1322093/why-does-infinitesimal-lifting-imply-triviality-of-infinitesimal-deformations/1322196#1322196}{mse/1322093}
+\end{itemize}
+\red{TO DO 9 20251126}
+\begin{itemize}
+    \item Neatly write a proposition on the tangent normal sequence. \textbf{Exercise}: Prove that for \emph{a map} $f:X\to Y$ the sequence 
+    $$0\to TX\to f^\ast TY\to\quot{f^\ast TY}{TX}\to 0$$
+    is an exact sequence. Here $TX$ denotes $X$'s tangent sheaf. Find enough conditions on $f$ which guarantee that this sequence is indeed exact.
+    \item Answer question \ref{qn-gnr-function-total-lambda}.
 \end{itemize}
 }
 \newpage
@@ -1136,7 +1143,7 @@ Via localization, as the torus action $t\.x=tx$ extends naturally from $\bP^1$ t
 
 The calculation for odd numbered fixed loci is the same as even numbered so we only do the calculation for the odd ones.\par
 
-\textbf{Fixed locus 1:} Consider the first fixed loci representing a rational curve with two nodes, each $\bP^1$ maps with degree 1 to the base. The normalizaiton sequence for this curve is 
+\textbf{Fixed locus 1:} Consider the first fixed loci representing a rational curve with two nodes, each $\bP^1$ maps with degree 1 to the base. The normalization sequence for this curve is 
 $$0\to\cO_C\to\cO_{C_1}\oplus\cO_{C_2}\oplus\cO_{C_3}\to\bC_{n_1}\oplus\bC_{n_2}\to0$$
 where $\cO_{C_i}$ is the trivial sheaf of the $i^{\text{th}}$ component of the curve $C$. The $\bC_{n_i}$ correspond to skyscraper sheaves over the nodes. The numbering of the normalization sequence goes from bottom to top.
 
@@ -1266,6 +1273,248 @@ Finally putting this together we have that
 $$\int_{\ov{M}_{0,0}(\bP^1,3)}e(\Ob)=0+\dots+0+\frac13\int_{F_7}\frac{i_7^\ast(e\.e)}{e(N_{F_7\mid\cM})}=\frac{{4t^4}/{81}}{{4t^4}/{27}}=\frac13\.\frac19=\frac{1}{27}$$
 
 as expected.
+
+\section{My (?) theorem}
+
+In the pseudostable case, we can calculate the same GW invariant, just that now the calculation is a bit different because of cusps. Let us compute the genus 3, degree $d$ GW invariant:
+$$\int_{[\ov{\cM}^\text{ps}_{3,0}(X,d\bt)]^\vir}1.$$
+Ross \cite{DustyNotes} conjectures that the fundamental class localizes in a similar fashion as to the non-pseudostable case. We have
+$$\int_{[\ov{\cM}^\text{ps}_{3,0}(X,d\bt)]^\vir}1=\int_{[\ov{\cM}^\text{ps}_{3,0}(\bP^1,d)]^\vir}e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)).$$
+The fixed maps consist of a $\bP^1$ mapping as $z\mapsto z^d$ together with positive genus components collapsing down to either $0$ or $\infty$. Such maps can be enumerated by ordered partitions of $3$ with $2$ parts, we have the fixed loci
+$$F_{(3,0)},\quad F_{(2,1)},\quad F_{(1,2)},\word{and} F_{(0,3)}.$$
+The fixed locus $F_{(i,j)}$ denotes the nodal curve consisting of three components: one of genus $i$ mapping to zero, the smooth component $\bP^1$ and the genus $j$ component mapping to infinity; this, along the information of the map. Let us analyze the contribution of $F_{(3,0)}$.\par
+Instead of pulling back $\cO(-H)$, we pullback $\cO(-H+s+t)$ and then specialize to the cases $s=0$ and $s=-t$. Let $C$ be the curve in question, its normalization sequence is 
+$$0\to\cO_C\to \cO_{g=3}\oplus\cO_{\bP^1}\to\un\bC_{\text{node}}\to 0$$
+where $\cO_{g=3}$ is the trivial sheaf over the genus 3 component. Tensoring with $f^\ast\cO(-H+s+t)$ returns
+$$0\to f^\ast\cO(-H+s+t)\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\to\genr{(s)}\to 0.$$
+Taking long exact sequence in cohomology via $H^\ast(C,-)$ gives us
+$$%%Fix overful
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+H^0(f^\ast \cO(-H+s+t)) \arrow[r] &
+H^0(\cO(s))\oplus H^0(\cO(-d\widetilde{H}+s+t)) \arrow[r] &
+H^0(\genr{(s)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& H^1(f^\ast \cO(-H+s+t)) \arrow[r] &
+H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t)) \arrow[r] &
+0
+\end{tikzcd}
+$$
+Observe that the two negative bundles have zero $H^0$, then taking Euler classes and cancelling $H^0(\cO(s))$ with $H^0(\genr{(s)})$'s we obtain 
+\begin{align*}
+    e\bigl(H^1(f^\ast \cO(-H+s+t))\bigr)&=e\bigl(H^1(\cO(s))\bigr)e\bigl(H^1(\cO(-d\widetilde{H}+s+t))\bigr)\\
+    &=\bigl(s^3+(-\la_1^{\ps})s^2+\la_2^{\ps} s+(-\la_3^{\ps})\bigr)\left(\prod_{k=1}^{d-1}s+\frac{kt}{d}\right)
+\end{align*}
+where we used that
+$$H^1(\cO(s))\isom \bE^\vee\ox H^0(\cO(s)),$$
+via Serre duality. Specializing this quantity to $s=-t$ and $s=0$ and taking the product recovers the initial desired product pulledback to $F_{(3,0)}$. We have
+\begin{align*}
+    &i_{(3,0)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))\\
+    =&\bigl(-\la_3^{\ps}\bigr)\left(\prod_{k=1}^{d-1}\frac{kt}{d}\right)\bigl(-t^3-\la_1^{\ps}t^2-\la_2^{\ps}t-\la_3^{\ps}\bigr)\left(\prod_{k=1}^{d-1}-t+\frac{kt}{d}\right)\\
+    =&\la_3^{\ps}\bigl(t^3+\la_1^{\ps}t^2+\la_2^{\ps}t+\la_3^{\ps}\bigr)(-1)^{d-1}\left(\frac{t}{d}\right)^{2d-2}(d-1)!^2.
+\end{align*}
+
+\hrule 
+
+\begin{Rmk}\label{rmk-new-notn-hom-lambda}
+    We would like to use the notation $\La_g^{\ps}(k)$ from \cite{MattAndRenzo} which is
+$$\La_g^{\ps}(k)=\sum_{i=0}^{g}k^i\la_i^{\ps}.$$
+Evaluating at $k=1$ returns the total Chern class of the Hodge bundle and at $-1$, the dual's. Observe that the second quantity in our result is not exactly the total Chern class, but the \emph{homogeneous} version.\par
+Perhaps we should introduce new notation to be 
+$$\La_g^{\ps}(k,\l)=\sum_{i=0}^{g}k^i\la_i^{\ps}\l^{g-i}$$
+so that our quantity is $\La_g^{\ps}(1,t)$. The quantity $\La_g^{\ps}(k,\l)$ can even be expressed as a convolution of two sequences
+
+$$
+\La_g^{\ps}(k,\l)= \bigl((k^i\la_i^{\ps})_i\ast(\l^i)_i\bigr)(g)
+$$
+
+In particular, we may express the series whose general term is $\La_g^{\ps}(k,\l)$ as the product of two series:
+$$
+\sum_{g=0}^{\infty}\La_g^{\ps}(k,\l)=\left(\sum_{g=0}^{\infty}k^g\la_g^{\ps}\right)\left(\sum_{g=0}^{\infty}\l^g\right)=\frac{\La_g^{\ps}(k)}{1-\l}.
+$$
+Indeed, the sum $\La_g^{\ps}(k)$ is finite as there's no lambda class above the genus of the curve.
+\end{Rmk}
+
+\hrule
+
+\begin{Rmk}[20251202, after meeting]
+    Observe the lack of need to use the notation $\La_g^{\ps}(k,\l)$. It suffices to redefine $\La_g^{\ps}(k)$ as
+$$\La_g^{\ps}(k)\defeq\sum_{i=0}^{g}k^{g-i}\la_i^{\ps}.$$
+Then the old $\La_g^{\ps}(1,t)$ is just the new $\La_g^{\ps}(t)$. However the $\La_g^{\ps}(-1,t)$ doesn't match up quite nicely with $\La_g^{\ps}(-t)$. This last quantity is
+$$(-1)^gt^g+(-1)^{g-1}t^{g-1}\la_1^{\ps}+\dots+(-1)^0\la_g^{\ps}$$
+so that multiplying the whole quantity by $(-1)^g$, we change this expression to 
+$$t^{g}-t^{g-1}\la_1+\dots+(-1)^g\la_g=\La_g^{\ps}(-1,t)$$
+as desired. We will thus stick with this notation
+
+\end{Rmk}
+\begin{ptcb}
+    The simplification of the products is done in the following fashion.
+    \begin{align*}
+         &\prod_{k=1}^{d-1}\left(-t+\frac{kt}{d}\right)\left(\frac{kt}{d}\right)\\
+         =&\left(\frac{t}{d}\right)^{2d-2}(d-1)!\prod_{k=1}^{d-1}-d+k.
+    \end{align*}
+    Substituting $-\l$ as $-d+k$ we note that the product becomes
+    $$\prod_{k=1}^{d-1}-d+k=\prod_{\l=d+1}^{1}-\l=(-1)^{d-1}(d-1)!$$
+    so that combining with the previous amount we get
+    $$(-1)^{d-1}\left(\frac{t}{d}\right)^{2d-2}(d-1)!^2$$
+\end{ptcb}
+
+We are left with analyzing the normal bundle to $F_{(3,0)}$ inside the moduli space. As in the stable case, going through the tangent-normal sequence and using deformation theory to relate cohomology with the particular bundles we get 
+$$e(N_{(3,0)})=\frac{e(\DefB(f))e(\DefB(C))}{e(\Aut(C))e(\Ob(f))}$$
+and each equivariant Euler class only contributes its moving part.
+\begin{itemize}
+    \item The dual graph of the curve has one valence one vertex, it corresponds to the only smooth point of the curve. It lies over infinity so its contribution to the automorphisms bundle is 
+    $$e(\Aut(C))=-\frac{t}{d}.$$
+    \item In this case, the deformations of the curve come from the curve's normalization. Let $P,Q$ be the points in positive genus and smooth components respectively which map to the node. The Euler class then is 
+    $$e(\DefB(C))=-\psi_P-\psi_Q=-\psi_P+\frac{t}{d}$$
+    as the negative psi class corresponds to $c_1$ of the \emph{tangent} bundle. So it is the tangent weight at the point in question.
+    \item The map's deformations and obstructions come from the same sequence. Tensoring the normalization with $f^\ast T\bP^1$ we get
+    $$0\to f^\ast T\bP^1\to \cO(t)\oplus\cO(2d\widetilde{H}-t)\to\genr{(t)}\to 0.$$
+    Now the long sequence in cohomology contains the desired bundles as
+    $$%%Fix overful
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+\DefB(f) \arrow[r] &
+H^0(\cO(t))\oplus H^0(\cO(2d\widetilde{H}-t)) \arrow[r] &
+H^0(\genr{(t)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& \Ob(f) \arrow[r] &
+H^1(\cO(t))\oplus H^1(\cO(2d\widetilde{H}-t)) \arrow[r] &
+0
+\end{tikzcd}
+$$
+Taking Euler classes, cancelling out terms and realizing the $H^1$ of a positive bundle is zero gives us
+$$\frac{e(\DefB(f))}{e(\Ob(f))}=\frac{e\bigl(H^0(\cO(2d\widetilde{H}-t))\bigr)}{e\bigl(H^1(\cO(t))\bigr)}.$$
+$H^0(\cO(2d\widetilde{H}-t))$ has $2d+1$ middle sections and the one right in the middle is fixed, so we get $2d$ contributions as 
+$$e\bigl(H^0(\cO(2d\widetilde{H}-t))\bigr)=\prod_{\substack{k=0\\ k\neq d}}^{2d}t-\frac{kt}{d}=\left(\frac{t}{d}\right)^{2d}d!^2(-1)^d.$$
+\begin{ptcb}
+    The simplification for this product goes along similar lines:
+    \begin{align*}
+         &\prod_{\substack{k=0\\ k\neq d}}^{2d}t-\frac{kt}{d}\\
+         =&\left(\frac{t}{d}\right)^{2d}\prod_{\substack{k=0\\ k\neq d}}d-k\\
+         =&\left(\frac{t}{d}\right)^{2d}\bigl(d\.(d-1)\cdots 1\.(-1)\.(-2)\cdots (-d)\bigr)\\
+         =&\left(\frac{t}{d}\right)^{2d}d!^2(-1)^d.
+    \end{align*}
+\end{ptcb}
+Again via Serre duality, 
+$$e\bigl(H^1(\cO(t))\bigr)=t^3+(-\la_1^{\ps})t^2+\la_2^{\ps}t+(-\la_3^{\ps})=(-1)^3\La_3^{\ps}(-t).$$
+\end{itemize}
+We wrap everything up into
+$$e(N_{(3,0)})=\frac{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[-\psi_P+t/d\bigr]}{\bigl[(-1)^3\La_3^{\ps}(-t)\bigr]\bigl[-t/d\bigr]}.$$
+and putting it together with the pullback of the Euler classes up top, we get
+
+\begin{align*}
+    &\frac{\bigl[(-1)^3\La_3^{\ps}(-t)\bigr]\bigl[-t/d\bigr]\bigl[\la_3^{\ps}\La_3^{\ps}(t)(-1)^{d-1}\left(t/d\right)^{2d-2}(d-1)!^2\bigr]}{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[-\psi_P+t/d\bigr]}\\
+=&\frac{\bigl[(-1)^3\La_3^{\ps}(-t)\bigr]\bigl[-t/d\bigr]\bigl[\la_3^{\ps}\La_3^{\ps}(t)\bigr]}{\bigl[-t^2\bigr]\bigl[(t/d)(1-d\psi_P/t)\bigr]}\\
+=&\frac{\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)}{t^2(1-d\psi_P/t)}.
+\end{align*}
+
+\hrule
+
+\begin{Qn}\label{qn-gnr-function-total-lambda}
+    ¿How far can we stretch the generating function argument? In essence, we affirmed in the previous remark \ref{rmk-new-notn-hom-lambda} that
+    $$
+\sum_{g=0}^{\infty}\La_g^{\ps}(-1,t)=\sum_{g\geq 0}t^g+(-\la_1^{\ps})t^{g-1}+\dots+(-1)^g\la_g^{\ps}=\frac{\La_g^{\ps}(-1)}{1-t}.
+$$ 
+Multiplying both terms as 
+$$\frac{\La_g^{\ps}(1)\La_g^{\ps}(-1)}{(1-t)^2}$$
+does not yield the desired result because the series that we get has, as a general term, the convolution of $(\La_g^{\ps}(-1,t))_{g\geq 0}$ with $(\La_g^{\ps}(1,t))_{g\geq 0}$.\par
+Further development must be pursued.
+\end{Qn}
+
+\iffalse
+\begin{ptcb}
+    On the left, using Matt and Renzo's formula from \cite{MattAndRenzo} and homogenizing gives us
+    $$t^6+t^4\glu^1_\ast\bigl(\psi_\star-\psi_\8\bigr)+\frac{t^2}{2}\glu^2_\ast\bigl((\psi_{\star_1}-\psi_{\8_1})(\psi_{\star_2}-\psi_{\8_2})\bigr)+\frac{1}{6}\glu^3_\ast(\dots).$$
+    The right hand side on the other hand is the product of $\frac{1}{(1-t)^2}$ with 
+    $$1+\glu^1_\ast\bigl(\psi_\star-\psi_\8\bigr)+\frac{1}{2}\glu^2_\ast\bigl((\psi_{\star_1}-\psi_{\8_1})(\psi_{\star_2}-\psi_{\8_2})\bigr)+\frac{1}{6}\glu^3_\ast(\dots).$$
+    The series for $\frac{1}{(1-t)^2}$ is 
+    $$\sum_{g=1}^{\infty}gt^{g-1}=\sum_{g=0}^\infty(g+1)t^g$$
+    \begin{ptcb}
+    Indeed observe that 
+    $$g+1=\sum_{i=0}^{g}1\.1$$
+    and also via differentiation
+    \end{ptcb}
+    Taking the product of the sums 
+    $$\left(\sum_{g=0}^{\infty}\frac{1}{g!}\glu^g_\ast(\dots)\right)\left(\sum_{g=0}^{\infty}(g+1)t^g\right)$$
+    means that we must take the convolution which is
+    $$\sum_{g=0}^{\infty}\sum_{k=0}^{g}\frac{1}{k!}\glu_\ast^k(\dots)(g-k+1)t^{g-k}.$$
+    The first few terms of the inner sum are
+    $$(g+1)t^g+gt^{g-1}\glu^1_\ast(\cdots)+\frac{g-1}{2}t^{g-2}\glu^2(\cdots)+\cdots$$
+    This quantity \textbf{does not coincide} with the upper quantity.\par
+\end{ptcb}
+\fi
+
+\hrule
+
+\begin{Rmk}
+Let us observe that the degree of the class in question is 
+$$3+3+3-2=7$$
+which coincides with $\dim\ov{\cM}^{\ps}_{3,1}=3(3)-3+1=7$, the dimension of the fixed locus $F_{(3,0)}$.
+\end{Rmk}
+
+In the previous observation we have used the fact that $\ov{\cM}^{\ps}_{g,n}$ has the same dimension as its stable counterpart. This is mentioned in \cite{cavalieri2022pseudostablehodgeintegrals}, pp.5. We won't limit ourselves to only using this fact, we need two more results to further the calculation.
+
+\begin{Th}[\cite{cavalieri2022pseudostablehodgeintegrals}, T.2.4]
+    If $\cT\:\ov{\cM}_{g,n}\to\ov{\cM}^{\ps}_{g,n}$ is the ``contracting-eliiptic-tails'' morphism, then
+    $$\cT^\ast(\la_j)=\sum_{k=0}^{j}\frac{1}{k!}\glu_{\ast}^k\bigl(p_0^\ast(\la_{j-k})\bigr)$$
+\end{Th}
+
+\begin{Th}[\cite{MattAndRenzo}, T.3.1]
+    The following relationship holds:
+    $$\La_g^{\ps}(1)(-1)^g\La_g^{\ps}(-1)=\sum_{k=0}^{g}\frac{1}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right).$$
+\end{Th}
+
+In the previous result, homogenizing the total lambda classes, homogenizes the right hand side as well. This means that 
+$$
+\La_g^{\ps}(t)(-1)^g\La_g^{\ps}(-t)=\sum_{k=0}^{g}\frac{t^{2g-2k}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right).
+$$
+
+First we just expand the pseudostable Mumford relation to obtain
+\begin{align*}
+    &\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)\\
+    =&\la_3^{\ps}\.\bigl(t^6+t^4\glu_\ast^1(\psi_\star-\psi_\8)+\tfrac{t^2}{2}\glu_\ast^2((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82}))+\tfrac{1}{6}\glu_\ast^3(\dots)\bigr)
+\end{align*}
+
+After distributing, it's sufficient to just analyze terms of the form 
+\begin{align*}
+    &\la_3^{\ps}\.\glu_\ast^i\left(\prod_{j=1}^i(\psi_{\star j}-\psi_{\8j})\right)\\
+    =&\bigl(\la_3+\glu^1_\ast(p_0^\ast(\la_2))+\tfrac{1}{2}\glu^2_\ast(p_0^\ast(\la_1))+\tfrac{1}{6}\glu^3_\ast(1)\bigr)\.\glu_\ast^i\left(\prod_{j=1}^i(\psi_{\star j}-\psi_{\8j})\right)
+\end{align*}
+where $i$ ranges from $0$ to $g$. This means that the first term of the resulting sum is just $\la_3^{\ps}$.\par
+Let us work with 
+$$\la_3^{\ps}\.\glu_\ast^1(\psi_\star-\psi_\8).$$ 
+
+\begin{ptcb}
+For the first term:
+    \begin{align*}
+    \la_3\.\glu_\ast^1(\psi_\star-\psi_\8)&=\glu_\ast^1\bigl(p_0^\ast(\la_2)p_1^\ast(\la_1)(\psi_\star-\psi_\8)\bigr)\\
+    &=\glu_\ast^1\bigl(p_0^\ast(\la_2)p_1^\ast(\la_1)\psi_\star\bigr)
+\end{align*}
+where we lose the term with $\psi_\8$ because on $\ov\cM_{1,1}$ we have a $\la_1\psi_\8$.\par
+Now the second:
+\begin{align*}
+    &\glu_\ast^1(p_0^\ast(\la_2))\.\glu_\ast^1(\psi_\star-\psi_\8)\\
+=&\glu_\ast^1(p_0^\ast(\la_2)(\psi_\8^2-\psi_\star^2))+\glu_\ast^2\bigl(p_0^\ast(\la_1)p_2^\ast(\la_1)(\psi_{\star2}-\psi_{\82})\bigr)\\
+=&-\glu_\ast^1\bigl(p_0^\ast(\la_2)\psi_\star^2\bigr)+\glu_\ast^2\bigl(p_0^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star2}\bigr)
+\end{align*}
+where we once again lose the corresponding $\psi_\8$'s because of codimension reasons.
+\begin{align*}
+    &\glu_\ast^2(p_0^\ast(\la_1))\.\glu_\ast^1(\psi_\star-\psi_\8)\\
+=&
+\end{align*}
+\end{ptcb}
+
+\begin{Qn}
+    In the second term of the expansion
+    $$\glu_\ast^1(p_0^\ast(\la_2))\.\glu_\ast^1(\psi_\star-\psi_\8),$$
+    in the transverse intersection, ¿why doesn't that $\glu^2$ carry a $2$ factor?\par
+    With \textbf{Kelsey}, we developed the formula for the coefficient to be 
+    $$\binom{\text{Edges of result}}{\text{LCS}}\binom{\text{SCS}}{\text{uncolored}}\binom{\text{LCS}}{\text{SCS}-\text{already colored}}$$
+    where LCS/SCS stands for largest/smallest color set. The issue is that in this case the factor accompanying the $\glu^2$ would be a 2 which is not the real answer. Revisions must be made to the coefficient formula.
+\end{Qn}
+
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex

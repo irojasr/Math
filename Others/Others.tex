@@ -1,0 +1,74 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Segundo Semestre}
+\def\nyear {2025}
+\def\nprofesor {-}
+\def\nsigla {-}
+\def\nsiglahead {-}
+\def\nextra {OTROS}
+\input{../headerVarillyDiff}
+
+\begin{document}
+%\begin{multicols}{2}
+
+\begin{Ej}[Kunz Ej. 4 pag. 72]
+  Para una función \(K\)-regular \(\varphi: V \to W\), sea 
+  \[K[\varphi]: K[W] \to K[V]\] 
+  el homomorfismo de \(K\)-álgebras dado por \(f \mapsto f \circ \varphi\). \textit{Es decir, el pullback de $\vf$}.\par
+  Si \(\psi: W \to Z\) es otra función \(K\)-regular hacia una \(K\)-variedad \(Z\), entonces \textit{muestre que}
+  \[K[\psi \circ \varphi] = K[\varphi] \circ K[\psi].\] 
+  
+  Además, \textit{verifique que} \(K[\mathrm{id}] = \mathrm{id}_{K[V]}\).\par
+  \textit{Aparte, el mapeo} \(\varphi \mapsto K[\varphi]\) define una biyección entre el conjunto de todas las funciones \(K\)-regulares de \(V\) a \(W\) y el conjunto de todos los homomorfismos de \(K\)-álgebra \(K[W] \to K[V]\).\par
+  Aquí, los \(K\)-isomorfismos de \(V\) en \(W\) corresponden de manera biyectiva a los isomorfismos de \(K\)-álgebras \(K[W] \cong K[V]\).
+\end{Ej}
+
+\begin{ptcbr}
+Observe que \(\psi \circ \varphi: V \to Z\) y su pullback \(K[\psi \circ \varphi]: K[Z]\to K[V]\) está definido por:
+\[ K[\psi \circ \varphi](f)= f \circ (\psi \circ \varphi), \quad \text{para } f \in K[Z].\]
+
+Por otro lado, la composición \(K[\varphi] \circ K[\psi]\) está dada por:
+
+\[ (K[\varphi] \circ K[\psi])(f) = K[\varphi](f \circ \psi) = (f \circ \psi) \circ \varphi.\]
+
+Estas cantidades son iguales por lo que \(K[\psi \circ \varphi] = K[\varphi] \circ K[\psi]\), como se pedía.
+
+Esto prueba la primera parte del ejercicio.
+
+\tcbline
+En efecto, observe \(K[\id]\) es el mapeo $f\mapsto f\circ\id = f$. Se sigue que \(K[\id]\) es la identidad en \(K[V]\).
+\tcbline
+
+Para la segunda parte, queremos mostrar que el mapeo 
+\[
+(\vf\mapsto K[\vf]):\operatorname{Map}(V,W)\to\Hom\bigl(K[W],K[V]\bigr)
+\]
+es una biyección.\par
+
+Primero verificamos inyectividad. Supongamos que \(\varphi_1, \varphi_2: V \to W\) son funciones \(K\)-regulares con 
+\[K[\varphi_1] = K[\varphi_2].\] 
+
+Entonces, para cualquier \(f \in K[W]\), tenemos que \(f \circ \varphi_1 = f \circ \varphi_2\). En particular, vale para $\id_{K[V]}$ que 
+\[\id_{K[V]}\circ\vf_1=\id_{K[V]}\circ\vf_2\To \vf_1=\vf_2.\]
+
+Sobreyectividad: \red{No estoy seguro, pero creo que tiene que ver con el morfismo de evaluación}.
+
+\tcbline
+
+Si \(\varphi: V \to W\) es un isomorfismo, entonces existe \(\psi: W \to V\) con
+\[\psi \circ \varphi = \mathrm{id}_V\word{y}\varphi \circ \psi = \mathrm{id}_W.\]
+
+De la primera parte, sabemos que
+\[ K[\psi \circ \varphi] = K[\varphi] \circ K[\psi]\]
+
+y como \(\psi \circ \varphi = \mathrm{id}_V\), tenemos que:
+
+\[ K[\psi \circ \varphi] = K[\mathrm{id}_V] = \mathrm{id}_{K[V]}.\]
+
+De manera similar, dado que \(\varphi \circ \psi = \mathrm{id}_W\), tenemos que:\[ K[\varphi \circ \psi] = K[\mathrm{id}W] = \mathrm{id}{K[W]}.\]
+
+La otra dirección es análoga y basado en el apartado anterior, tenemos la correspondencia entre isomorfismos de variedades e isomorfismos de anillos de coordenadas.
+\end{ptcbr}
+%\end{multicols}
+\end{document} 
