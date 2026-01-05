@@ -8,7 +8,7 @@
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
 \def\ntrim{}
-%\def\darktheme{}
+\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
 %\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
@@ -1282,7 +1282,10 @@ Ross \cite{DustyNotes} conjectures that the fundamental class localizes in a sim
 $$\int_{[\ov{\cM}^\text{ps}_{3,0}(X,d\bt)]^\vir}1=\int_{[\ov{\cM}^\text{ps}_{3,0}(\bP^1,d)]^\vir}e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)).$$
 The fixed maps consist of a $\bP^1$ mapping as $z\mapsto z^d$ together with positive genus components collapsing down to either $0$ or $\infty$. Such maps can be enumerated by ordered partitions of $3$ with $2$ parts, we have the fixed loci
 $$F_{(3,0)},\quad F_{(2,1)},\quad F_{(1,2)},\word{and} F_{(0,3)}.$$
-The fixed locus $F_{(i,j)}$ denotes the nodal curve consisting of three components: one of genus $i$ mapping to zero, the smooth component $\bP^1$ and the genus $j$ component mapping to infinity; this, along the information of the map. Let us analyze the contribution of $F_{(3,0)}$.\par
+The fixed locus $F_{(i,j)}$ denotes the nodal curve consisting of three components: one of genus $i$ mapping to zero, the smooth component $\bP^1$ and the genus $j$ component mapping to infinity; this, along the information of the map. Let us analyze the contribution of $F_{(3,0)}$.
+
+\subsection{The $(3,0)$ contribution}
+
 Instead of pulling back $\cO(-H)$, we pullback $\cO(-H+s+t)$ and then specialize to the cases $s=0$ and $s=-t$. Let $C$ be the curve in question, its normalization sequence is 
 $$0\to\cO_C\to \cO_{g=3}\oplus\cO_{\bP^1}\to\un\bC_{\text{node}}\to 0$$
 where $\cO_{g=3}$ is the trivial sheaf over the genus 3 component. Tensoring with $f^\ast\cO(-H+s+t)$ returns
@@ -1453,9 +1456,9 @@ $$3+3+3-2=7$$
 which coincides with $\dim\ov{\cM}^{\ps}_{3,1}=3(3)-3+1=7$, the dimension of the fixed locus $F_{(3,0)}$.
 \end{Rmk}
 
-In the previous observation we have used the fact that $\ov{\cM}^{\ps}_{g,n}$ has the same dimension as its stable counterpart. This is mentioned in \cite{cavalieri2022pseudostablehodgeintegrals}, pp.5. We won't limit ourselves to only using this fact, we need two more results to further the calculation.
+In the previous observation we have used the fact that $\ov{\cM}^{\ps}_{g,n}$ has the same dimension as its stable counterpart. This is mentioned in \cite{RenzoAndCo}, pp.5. We won't limit ourselves to only using this fact, we need two more results to further the calculation.
 
-\begin{Th}[\cite{cavalieri2022pseudostablehodgeintegrals}, T.2.4]
+\begin{Th}[\cite{RenzoAndCo}, T.2.4]
     If $\cT\:\ov{\cM}_{g,n}\to\ov{\cM}^{\ps}_{g,n}$ is the ``contracting-eliiptic-tails'' morphism, then
     $$\cT^\ast(\la_j)=\sum_{k=0}^{j}\frac{1}{k!}\glu_{\ast}^k\bigl(p_0^\ast(\la_{j-k})\bigr)$$
 \end{Th}
@@ -1543,12 +1546,121 @@ $$\la_3^{\ps}\.\glu_\ast^2\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\
 The next term is 
 \begin{align*}
     &\glu_\ast^1(p_0^\ast(\la_2))\.\glu_\ast^2\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82})\bigr)\\
-=&2\glu_\ast^2\bigl(p_0^\ast(\la_1)p_1^\ast(\la_1)(\psi_{\star1}-\psi_{\81})(\psi_{\82}^2-\psi_{\star2}^2)\bigr)
+=&2\glu_\ast^2\bigl(p_0^\ast(\la_1)p_2^\ast(\la_1)(\psi_{\81}^2-\psi_{\star1}^2)(\psi_{\star2}-\psi_{\82})\bigr)\\
+&+\glu_\ast^3\bigl(p_2^\ast(\la_1)p_3^\ast(\la_1)(\psi_{\star2}-\psi_{\82})(\psi_{\star3}-\psi_{\83})\bigr)
 \end{align*}
+Observe that this term is immediately zero. On the first summand, no $\psi_\8$ can survive on the elliptic tails so the only possibility is to have the $\psi_\star$'s on the main component. This adds 3 degrees to the already loaded $M_{1,3}$ with a $\la_1$. In total, codimension 4 on dimension 3 space makes the element vanish.\par
+Similarly, no $\psi_\8$ survives the next term and the $M_{0,4}$ main component would have a $\psi_{\star2}\psi_{\star3}$ accompanying it, thus annihilating it.\par
+Now multiplying the $2$ $\glu^2$'s together:
+\begin{align*}
+    &\glu_\ast^2(p_0^\ast(\la_1))\.\glu_\ast^2\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82})\bigr)\\
+=&2\glu_\ast^2\bigl(p_0^\ast(\la_1)(\psi_{\81}^2-\psi_{\star1}^2)(\psi_{\82}^2-\psi_{\star2}^2)\bigr)\\
+&+4\glu_\ast^3\bigl(p_3^\ast(\la_1)(\psi_{\82}^2-\psi_{\star2}^2)(\psi_{\star3}-\psi_{\83})\bigr)
+\end{align*}
+Any term with a $\psi_\8^2$ immediately vanishes and also any $\psi_\8$ accompanying a lambda class. This leaves us with 
+$$2\glu_\ast^2\bigl(p_0^\ast(\la_1)\psi_{\star1}^2\psi_{\star2}^2\bigr)-4\glu_\ast^3\bigl(p_3^\ast(\la_1)\psi^2_{\star2}\psi_{\star3}\bigr)$$
+The first term carries codimension 5 on its $M_{1,3}$ component while the second one has codimension 3 on its $M_{0,4}$ component. This immediately annihilates those terms making the product zero at once.
 \end{ptcb}
 
+\begin{Rmk}
+    Notice that the excess codimension on the ``$0^{\text{th}}$ component'' comes from the lack of codimension on the elliptic tails. The first term has two elliptic tails with no decorations, adding two codimensions to the otherwise perfectly fine 3 dimensions, and the second term as well carries two more classes than needed. 
+\end{Rmk}
 
+\begin{ptcb}
+    We come to the final term which is $\glu_\ast^3(1)$. The product results in 
+    $$6\glu_\ast^3\bigl((\psi_{\82}^2-\psi_{\star2}^2)(\psi_{\83}^2-\psi_{\star3}^2)\bigr).$$
+    As before, the $\psi_{\8}^2$ terms vanish. This leaves us with an $M_{0,4}$ carrying 4 psi classes. The three excess codimensions correspond to the three elliptic tails without decorations.
+\end{ptcb}
 
+We have verified that 
+
+\begin{align*}
+    &\la_3^{\ps}\.\glu_\ast^2\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82})\bigr)\\
+    =&\la_3\.\glu_\ast^2\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82})\bigr)\\
+    =&\glu_\ast^2\bigl(p_0^\ast(\la_1)p_1^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star1}\psi_{\star2}\bigr)
+\end{align*}
+
+For the final calculation we're looking at 
+
+$$\la_3^{\ps}\.\glu_\ast^3\bigl((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82})(\psi_{\star3}-\psi_{\83})\bigr).$$
+
+The term with psi classes can be simplified to a linear combination of $\glu_\ast^3(\psi_{\star a}\psi_{\8b}\psi_{\8c})$ for $1\leq a,b,c\leq 3$ distinct plus a $-\glu_\ast^3(\psi_{\81}\psi_{\82}\psi_{\83})$.
+
+\begin{ptcb}
+    Against the ordinary lambda class, none of those terms survive as they all carry at least one $\psi_\8$.\par
+    Multiplying the $\glu_\ast^1(p_0^\ast(\la_2))$ term still returns a $\glu^3_\ast(1)$ graph with one edge bicolored. The lambda class distributes into two tails as $\la_1$'s. At least one of the $\psi_\8$'s is in the same component as a $\la_1$ in any of the cases, so the product is zero.\par
+    Similarly for $\glu_\ast^2(p_0^\ast(\la_1))$, the only case where the product could be non-zero is when the $\la_1$ gets distributed into the elliptic tail corresponding to the $\psi_{\star a}$. However, the other two edges would be bicolored giving $\psi_{\8}^2$ terms which annihilate the elliptic tails or adding more $\psi_{\star}$'s to the $M_{0,4}$ component. Both of these cases are zero.\par
+    Finally multiplying a $\glu_\ast^3(1)$ repeats all edges. The terms get annihilated either by excess $\psi_{\8}^2$'s or $\psi_{\star}$'s on the main component. 
+\end{ptcb}
+
+Collecting everything together we get
+
+\begin{align*}
+    &\la_3^{\ps}\.\bigl(t^6+t^4\glu_\ast^1(\psi_\star-\psi_\8)+\tfrac{t^2}{2}\glu_\ast^2((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82}))+\tfrac{1}{6}\glu_\ast^3(\dots)\bigr)\\
+    =&t^6\la_3^{\ps}\\
+    &+t^4\Bigl(\glu_\ast^1\bigl(p_0^\ast(\la_2)p_1^\ast(\la_1)\psi_\star\bigr)-\glu_\ast^1\bigl(p_0^\ast(\la_2)\psi_\star^2\bigr)+\glu_\ast^2\bigl(p_0^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star2}\bigr)\\
+    &\qquad-\glu^2_\ast(p_0^\ast(\la_1)\psi_{\star1}^2)+\half\glu^3_\ast(p_3^\ast(\la_1)\psi_{\star3})\Bigr)\\
+    &+\frac{t^2}{2}\glu_\ast^2\bigl(p_0^\ast(\la_1)p_1^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star1}\psi_{\star2}\bigr)+0
+\end{align*}
+
+We may divide by the $t^2$ term and then use the power series
+$$\frac{1}{1-(d\psi_P/t)}=\sum_{k\geq 0}(d\psi_P/t)^k.$$ 
+The only power that will survive is that which cancels the corresponding $t$ in the expansion. This is because of codimension reasons: there's either too little or too much. Our expression becomes
+
+\begin{align*}
+    &d^4\la_3^{\ps}\psi_{P}^4+d^2\glu_\ast^1\bigl(p_0^\ast(\la_2)p_1^\ast(\la_1)\psi_\star\bigr)\psi_P^2+d^2(0)\\
+    &+\frac{d^0}{2}\glu_\ast^2\bigl(p_0^\ast(\la_1)p_1^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star1}\psi_{\star2}\bigr)
+\end{align*}
+
+where the remaining terms accompanied by the $d^2$ degree get cancelled after multiplying the psi class.\par
+We may now calculate the integral corresponding to $F_{(3,0)}$'s contribution as
+\begin{align*}
+    I_{(3,0)}=&d^4\int_{\ov{M}^{\ps}_{3,1}}\la_3^{\ps}\psi_{P}^4+d^2\left(\int_{\ov{M}_{2,2}}\la_2\psi_P^2\psi_\star\right)\left(\int_{\ov{M}_{1,1}}\la_1\right)\\
+    &+\half\left(\int_{\ov{M}_{1,3}}\la_1\psi_{\star1}\psi_{\star2}\right)\left(\int_{\ov{M}_{1,1}}\la_1\right)^2
+\end{align*}
+Citing a couple more results is the way to calculate this integrals. the first result is about the behaviour of linear Hodge integrals. 
+
+\begin{Th}[\cite{RenzoAndCo}, P.3.2]
+    For any $j\in[g]$ and $F\in\bZ[\un x]$, 
+    $$\int_{\ov{M}_{g,n}^{\ps}}\la_j^{\ps}F(\un{\psi})=\int_{\ov{M}_{g,n}}\la_jF(\un{\psi}).$$
+\end{Th}
+
+This tells us that the result of the first integral is 
+$$d^4b^3,\word{where}b_g=\frac{2^{2g-1}-1}{2^{2g-1}}\frac{|B_{2g}|}{(2g)!}$$
+and $B_g$ is the $g^{\text{th}}$ Bernoulli number.\par
+For the integrals with one lambda class, we use the result previously known as the $\la_g$-conjecture.
+
+\begin{Th}[\cite{GetzlerAndPandharipande}, T.3]
+    For $k_1,\dots,k_n$ summing to $2g+n-3$,
+    $$\int_{\ov{M}_{g,n}}\psi_1^{k_1}\cdots\psi_n^{k_n}\la_g=\binom{2g+n-3}{k_1,\dots,k_n}b_g.$$ 
+\end{Th}
+
+This allows us to conclude that 
+\begin{align*}
+I_{(3,0)}&=d^4b_3+d^2\binom{4+2-3}{2,1}b_2\.\frac{1}{24}+\frac{1}{2}\binom{2+3-3}{1,1}b_1\.\frac{1}{24^2}\\
+&=d^4b_3+\frac{3d^2b_2}{24}+\frac{2b_1}{2\.24^2}
+\end{align*}
+
+\subsection{The $(2,1)$ contribution}
+
+The calculation proceeds in a similar fashion. The curve $C_{(2,1)}$ has a normalization sequence given by 
+
+$$0\to\cO_C\to \cO_{g=2}\oplus\cO_{\bP^1}\to\un\bC_{\text{node}}\oplus\un\bC_{\text{cusp}}x\to 0.$$
+In this case, $\un{\bC}x$ is the structure sheaf of $\Spec(\genr{x}/(x^2))$ \red{MUST ADD GOOD EXPLANATION ON WHY THIS IS THIS SHEAF, ¿why is the normalization sequence of cusp that? ¿why does the cusp normalize into such sheaf?}. Skipping my lack of understanding of cusps, we may tensor by $f^\ast\cO(-H+s+t)$ to get
+$$0\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\to\genr{(s)}+(\un{\bC}x\ox\cO(s+t))\to 0.$$
+The long exact sequence in cohomology returns
+$$%%Fix this diagram
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+0\arrow[r] &
+H^0(\cO(s))\oplus 0 \arrow[r] &
+H^0(\genr{(s)})\oplus H^0(\un{\bC}x\ox\cO(s+t))
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& H^1(f^\ast \cO(-H+s+t)) \arrow[r] &
+H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t)) \arrow[r] &
+0
+\end{tikzcd}
+$$
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
