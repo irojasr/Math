@@ -8,7 +8,7 @@
 \def\nsiglahead {Doctoral Notebook}
 \def\nlang {ENG}
 \def\ntrim{}
-\def\darktheme{}
+%\def\darktheme{}
 %\let\footruleskip\relax %%FADIR
 \input{../headerVarillyDiff}
 %\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
@@ -1371,7 +1371,7 @@ and each equivariant Euler class only contributes its moving part.
     \item In this case, the deformations of the curve come from the curve's normalization. Let $P,Q$ be the points in positive genus and smooth components respectively which map to the node. The Euler class then is 
     $$e(\DefB(C))=-\psi_P-\psi_Q=-\psi_P+\frac{t}{d}$$
     as the negative psi class corresponds to $c_1$ of the \emph{tangent} bundle. So it is the tangent weight at the point in question.
-    \item The map's deformations and obstructions come from the same sequence. Tensoring the normalization with $f^\ast T\bP^1$ we get
+    \item The map's deformations and obstructions come from the same sequence. Tensoring the normalization sequence with $f^\ast T\bP^1$ we get
     $$0\to f^\ast T\bP^1\to \cO(t)\oplus\cO(2d\widetilde{H}-t)\to\genr{(t)}\to 0.$$
     Now the long sequence in cohomology contains the desired bundles as
     $$%%Fix overful
@@ -1458,12 +1458,12 @@ which coincides with $\dim\ov{\cM}^{\ps}_{3,1}=3(3)-3+1=7$, the dimension of the
 
 In the previous observation we have used the fact that $\ov{\cM}^{\ps}_{g,n}$ has the same dimension as its stable counterpart. This is mentioned in \cite{RenzoAndCo}, pp.5. We won't limit ourselves to only using this fact, we need two more results to further the calculation.
 
-\begin{Th}[\cite{RenzoAndCo}, T.2.4]
+\begin{Th}[\cite{RenzoAndCo}, T.2.4]\label{th-renzoco-defn-pslambda}
     If $\cT\:\ov{\cM}_{g,n}\to\ov{\cM}^{\ps}_{g,n}$ is the ``contracting-eliiptic-tails'' morphism, then
     $$\cT^\ast(\la_j)=\sum_{k=0}^{j}\frac{1}{k!}\glu_{\ast}^k\bigl(p_0^\ast(\la_{j-k})\bigr)$$
 \end{Th}
 
-\begin{Th}[\cite{MattAndRenzo}, T.3.1]
+\begin{Th}[\cite{MattAndRenzo}, T.3.1]\label{th-matt-mumford-formula}
     The following relationship holds:
     $$\La_g^{\ps}(1)(-1)^g\La_g^{\ps}(-1)=\sum_{k=0}^{g}\frac{1}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right).$$
 \end{Th}
@@ -1620,7 +1620,7 @@ We may now calculate the integral corresponding to $F_{(3,0)}$'s contribution as
 \end{align*}
 Citing a couple more results is the way to calculate this integrals. the first result is about the behaviour of linear Hodge integrals. 
 
-\begin{Th}[\cite{RenzoAndCo}, P.3.2]
+\begin{Th}[\cite{RenzoAndCo}, P.3.2]\label{th-renzoco-only-one-pslambda}
     For any $j\in[g]$ and $F\in\bZ[\un x]$, 
     $$\int_{\ov{M}_{g,n}^{\ps}}\la_j^{\ps}F(\un{\psi})=\int_{\ov{M}_{g,n}}\la_jF(\un{\psi}).$$
 \end{Th}
@@ -1646,21 +1646,277 @@ I_{(3,0)}&=d^4b_3+d^2\binom{4+2-3}{2,1}b_2\.\frac{1}{24}+\frac{1}{2}\binom{2+3-3
 The calculation proceeds in a similar fashion. The curve $C_{(2,1)}$ has a normalization sequence given by 
 
 $$0\to\cO_C\to \cO_{g=2}\oplus\cO_{\bP^1}\to\un\bC_{\text{node}}\oplus\un\bC_{\text{cusp}}x\to 0.$$
-In this case, $\un{\bC}x$ is the structure sheaf of $\Spec(\genr{x}/(x^2))$ \red{MUST ADD GOOD EXPLANATION ON WHY THIS IS THIS SHEAF, ¿why is the normalization sequence of cusp that? ¿why does the cusp normalize into such sheaf?}. Skipping my lack of understanding of cusps, we may tensor by $f^\ast\cO(-H+s+t)$ to get
-$$0\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\to\genr{(s)}+(\un{\bC}x\ox\cO(s+t))\to 0.$$
-The long exact sequence in cohomology returns
-$$%%Fix this diagram
+
+In this case, $\un{\bC}x$ is the structure sheaf of $\Spec(\genr{x}/(x^2))$ \red{MUST ADD GOOD EXPLANATION ON WHY THIS IS THIS SHEAF, ¿why is the normalization sequence of cusp that? ¿why does the cusp normalize into such sheaf?}. Skipping my lack of understanding of cusps, we may tensor by ${\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\defeq f^\ast\cO(-H+s+t)$ to get
+$$0\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\to\genr{(s)}\oplus(\un{\bC}x\ox\cO(s+t))\to 0.$$
+After simplifying the long exact sequence in cohomology we get
+\begin{align*}
+    0&\to H^0(\cO(s))\to H^0(\genr{(s)})\oplus H^0(\un{\bC}x\ox\cO(s+t))\\
+    &\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t)) \to 0
+\end{align*}
+Taking Euler class returns 
+\begin{align*}
+    e({\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}})&=e(H^1(\cO(s)))e(H^1(\cO(-d\widetilde{H}+s+t)))e(H^0(\un{\bC}x\ox\cO(s+t)))\\
+    &=(s^2+(-\la_1^{\ps})s+\la_2^{\ps})\left(\prod_{k=1}^{d-1}\left(s+\frac{kt}{d}\right)\right)\left(-\frac{-t}{d}+s+t\right)\\
+\end{align*}
+
+\begin{Rmk}
+    The Euler class of the tensor product is the sum of both classes, no question there. However, the reason as to why the Euler class of $\un{\bC}x$ is \red{not clear}. The section $x$ carries the dual tangent weight at the corresponding point. Since the cusp is located at $\infty$ and the tangent weight there is $\frac{-t}{d}$, we have that the Euler class is $-\frac{-t}{d}$.
+\end{Rmk}
+
+Specializing into $s=-t$ and $s=0$ gives us the numerator
+\begin{align*}
+    &i_{(2,1)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))\\
+    =&\La_2^{\ps}(t)\left(\prod_{k=1}^{d-1}\left(-t+\frac{kt}{d}\right)\right)\left(\frac{t}{d}\right)\la_2^{\ps}\left(\prod_{k=1}^{d-1}\left(\frac{kt}{d}\right)\right)\left(\frac{t}{d}+t\right)\\
+    =&\la_2^{\ps}\La_2^{\ps}(t)\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl((t/d)(t/d+t)\bigr)
+\end{align*}
+
+For the normal bundle we follow a similar procedure.
+\begin{itemize}
+    \item There's no smooth points, so there's no automorphisms. In this case, $e(\Aut(C))=0$, but since this is not part of the \emph{moving} part of the Euler class, we don't consider it into the calculation.
+    \item We get a contribution from the node at 0, connecting the rational part with the positive genus part, and one from the cusp. 
+    $$e(\DefB(C))=\left(-\psi_P+\frac{t}{d}\right)\.24\left(\frac{-t}{d}\right)^2$$
+    \item Tensoring the normalization sequence with $f^\ast T\bP^1$ we get
+    $$0\to f^\ast T\bP^1\to \cO(t)\oplus\cO(2d\widetilde{H}-t)\to\genr{(t)}\oplus\bigl(\un{\bC}x\ox\cO(-t)\bigr)\to 0.$$
+    Now the long sequence in cohomology contains the desired bundles as
+    $$%%Fix overful
 \begin{tikzcd}[column sep=tiny, row sep=tiny]
 0 \arrow[r] &
-0\arrow[r] &
-H^0(\cO(s))\oplus 0 \arrow[r] &
-H^0(\genr{(s)})\oplus H^0(\un{\bC}x\ox\cO(s+t))
+\DefB(f) \arrow[r] &
+H^0(\cO(t))\oplus H^0(\cO(2d\widetilde{H}-t)) \arrow[r] &
+H^0(\genr{(t)})\oplus H^0\bigl(\un{\bC}x\ox\cO(-t)\bigr)
   \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
-& H^1(f^\ast \cO(-H+s+t)) \arrow[r] &
-H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t)) \arrow[r] &
+& \Ob(f) \arrow[r] &
+H^1(\cO(t))\oplus H^1(\cO(2d\widetilde{H}-t)) \arrow[r] &
 0
 \end{tikzcd}
 $$
+Taking Euler classes:
+\begin{align*}
+    \frac{e(\DefB(f))}{e(\Ob(f))}&=\frac{e\bigl(H^0(\cO(2d\widetilde{H}-t))\bigr)}{e\bigl(H^0\bigl(\un{\bC}x\ox\cO(-t)\bigr)\bigr)e\bigl(H^1(\cO(t))\bigr)}\\
+    &=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{\bigl(-(-t/d)+(-t)\bigr)\bigl((-1)^2\La_2^{\ps}(-t)\bigr)}
+\end{align*} 
+\end{itemize}
+
+Condensing this with the deformations of the curve we get 
+$$e(N_{(2,1)})=\frac{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[(-\psi_P+t/d)\.24(-t/d)^2\bigr]}{\bigl(t/d-t\bigr)\bigl((-1)^2\La_2^{\ps}(-t)\bigr)}$$
+whose degree is 
+$$(2d+1+2)-(1+2)=2d$$
+which should match with the codimension of $\ov{M}_{2,1}$ inside the space of maps. The way to check this without computing the dimension of the space of maps is by considering the whole quotient:
+\begin{align*}
+&\frac{\la_2^{\ps}\La_2^{\ps}(t)\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)(t/d)(t/d+t)(t/d-t)\La_2^{\ps}(-t)}{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[(-\psi_P+t/d)\.24(-t/d)^2\bigr]}\\
+=&\frac{\la_2^{\ps}\La_2^{\ps}(t)\La_2^{\ps}(-t)\bigl((1/d)(1/d+1)(1/d-1)t^3\bigr)}{(-t^2)\bigl(24(t/d)^3(1-d\psi_P/t)\bigr)}\\
+=&\frac{d^2-1}{24}\.\frac{\la_2^{\ps}\La_2^{\ps}(t)\La_2^{\ps}(-t)}{t^2\bigl(1-d\psi_P/t\bigr)}\\
+\end{align*}
+which has degree 4, same as the dimension of $\ov{M}_{2,1}$, $3\.2-3+1=4$.\par
+Using Matt's theorem \ref{th-matt-mumford-formula} we simplify this class as
+\begin{align*}
+    &\frac{\la_2^{\ps}}{\bigl(1-d\psi_P/t\bigr)}\sum_{k=0}^{2}\frac{t^{4-2k-2}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\\
+    =&\sum_{k=0}^{2}\frac{d^{2-2k}}{k!}\la_2^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_P^{2-2k}\\
+    =&d^2\la_2^{\ps}\psi_P^2+\la_2^{\ps}\glu_\ast^{1}(\psi_\star-\psi_\8)+0
+\end{align*}
+
+\begin{Rmk}
+    The last term is zero before even expanding the psi class.
+\end{Rmk}
+
+\begin{Ej}
+    Show that $\la_g^{\ps}\glu_{\ast}^g\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)$ is zero in general. ¿Can this be done by induction on the number of elliptic tails of $\la_g^{\ps}$'s terms?
+\end{Ej}
+
+We end this segment by calculating the product of the pseudostable lambda class with the 1 elliptic tail graph:
+
+\begin{align*}
+    &\bigl(\la_2+\glu^1_\ast(p_0^\ast(\la_1))+\tfrac{1}{2}\glu^2_\ast(1)\bigr)\glu_\ast^{1}(\psi_\star-\psi_\8)\\
+   =&\glu_\ast^{1}(p_0^\ast(\la_1)p_1^\ast(\la_1)\psi_\star)\\
+   &+\glu_\ast^{1}\bigl(p_0^\ast(\la_1)(\psi_{\8}^2-\psi_{\star}^2)\bigr)+\glu_\ast^{2}\bigl(p_2^{\ast}(\la_1)(\psi_{\star2}-\psi_{\82})\bigr)\\
+   &+\half\bigl(2\glu_\ast^2\bigl(\psi_{\81}^2-\psi_{\star1}^2\bigr)\bigr)\\
+   =&\glu_\ast^{1}(p_0^\ast(\la_1)p_1^\ast(\la_1)\psi_\star)
+\end{align*}
+
+Here, most terms vanish for codimension reasons. Putting this together and integrating we get
+
+\begin{align*}
+    &d^2\int_{\ov{M}^{\ps}_{2,1}}\la_2^{\ps}\psi_{P}^2+\left(\int_{\ov{M}_{1,2}}\la_1\psi_\star\right)\left(\int_{\ov{M}_{1,1}}\la_1\right)\\
+    =&d^2b_2+1/24^2
+\end{align*}
+where we used theorem \ref{th-renzoco-only-one-pslambda} once again for the first integral.\par
+Mutiplying by the coefficient we left behind we get a final result for the contribution of $F_{(2,1)}$
+$$I_{(2,1)}=\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right).$$
+
+\subsection{The $(1,2)$ contribution}
+
+Analogous to the previous case, the normalization sequence is 
+
+$$0\to\cO_C\to \cO_{\bP^1}\oplus\cO_{g=2}\to\un\bC_{\text{cusp}}y\oplus\un\bC_{\text{node}}\to 0.$$
+
+Tensoring by ${\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\defeq f^\ast\cO(-H+s+t)$ returns
+
+$$0\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to \cO(-d\widetilde{H}+s+t)\oplus\cO(s+t)\to(\un{\bC}y\ox\cO(s))\oplus\genr{(s+t)}\to 0.$$
+
+As before, we simplify with some minor changes
+
+\begin{align*}
+    0&\to H^0(\cO(s+t))\to  H^0(\un{\bC}y\ox\cO(s))\oplus H^0(\genr{(s+t)})\\
+    &\to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}\to H^1(\cO(-d\widetilde{H}+s+t))\oplus H^1(\cO(s+t)) \to 0
+\end{align*}
+
+Taking Euler classes we get
+
+\begin{align*}
+    e({\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}})&=e(H^1(\cO(-d\widetilde{H}+s+t)))e(H^1(\cO(s+t)))e(H^0(\un{\bC}y\ox\cO(s)))\\
+    &=\left(\prod_{k=1}^{d-1}\left(s+\frac{kt}{d}\right)\right)((s+t)^2+(-\la_1^{\ps})(s+t)+\la_2^{\ps})\left(-\frac{t}{d}+s\right)\\
+\end{align*}
+
+Plugging in $s=-t$ and $s=0$ gives
+
+\begin{align*}
+    &i_{(1,2)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))\\
+    =&\prod_{k=1}^{d-1}\left(-t+\frac{kt}{d}\right)\la_2^{\ps}\left(-\frac{t}{d}-t\right)\prod_{k=1}^{d-1}\left(\frac{kt}{d}\right)\bigl((-1)^2\La_2^{\ps}(-t)\bigr)\left(-\frac{t}{d}\right)\\
+    =&\la_2^{\ps}\La_2^{\ps}(-t)\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl((t/d)(t/d+t)\bigr)
+\end{align*}
+
+On the side of the normal bundle we don't have automorphisms as there's not smooth points. For curve deformations we get
+
+$$e(\DefB(C))=24\left(\frac{t}{d}\right)^2\left(-\psi_P+\frac{-t}{d}\right)$$
+
+whereas for map deformations and obstructions we repeat the previous process of tensoring the normalization sequence and then taking cohomology. First we get
+
+$$0\to f^\ast T\bP^1\to \cO(2d\widetilde{H}-t)\oplus\cO(-t)\to\bigl(\un{\bC}y\ox\cO(t)\bigr)\oplus\genr{(-t)}\to 0.$$
+
+This gets us 
+
+$$%%Fix overful
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+\DefB(f) \arrow[r] &
+ H^0(\cO(2d\widetilde{H}-t))\oplus H^0(\cO(-t)) \arrow[r] &
+ H^0\bigl(\un{\bC}y\ox\cO(t)\bigr)\oplus H^0(\genr{(-t)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& \Ob(f) \arrow[r] &
+H^1(\cO(2d\widetilde{H}-t))\oplus H^1(\cO(-t))\arrow[r] &
+0
+\end{tikzcd}
+$$
+
+Taking Euler classes:
+
+\begin{align*}
+    \frac{e(\DefB(f))}{e(\Ob(f))}&=\frac{e\bigl(H^0(\cO(2d\widetilde{H}-t))\bigr)}{e\bigl(H^0\bigl(\un{\bC}y\ox\cO(t)\bigr)\bigr)e\bigl(H^1(\cO(-t))\bigr)}\\
+    &=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{\bigl(-(t/d)+t\bigr)\La_2^{\ps}(t)}
+\end{align*} 
+
+Our integrand then is 
+
+\begin{align*}
+    &\frac{\la_2^{\ps}\La_2^{\ps}(-t)\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)(t/d)(t/d+t)(-t/d+t)\La_2^{\ps}(t)}{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]24(t/d)^2(-\psi_P-t/d)}\\
+    =&\frac{\la_2^{\ps}\La_2^{\ps}(-t)\La_2^{\ps}(t)\bigl((t/d)^3(d^2-1)\bigr)}{(-t^2)24(t/d)^2(-t/d)\bigl(1-(-d\psi_P/t)\bigr)}\\
+    =&\frac{d^2-1}{24}\.\frac{\la_2^{\ps}\La_2^{\ps}(-t)\La_2^{\ps}(t)}{t^2\bigl(1-(-d\psi_P/t)\bigr)}
+\end{align*}
+
+Simplifying again via theorem \ref{th-matt-mumford-formula} we notice that the negative coefficient on the psi class cancels due to the even powers it is raised to
+
+\begin{align*}
+    &\frac{\la_2^{\ps}}{\bigl(1-(-d\psi_P/t)\bigr)}\sum_{k=0}^{2}\frac{t^{4-2k-2}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\\
+    =&\sum_{k=0}^{2}\frac{(-d)^{2-2k}}{k!}\la_2^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)(-\psi_P)^{2-2k}\\
+    =&d^2\la_2^{\ps}\psi_P^2+\la_2^{\ps}\glu_\ast^{1}(\psi_\star-\psi_\8)
+\end{align*}
+
+Thus 
+
+$$I_{(1,2)}=I_{(2,1)}=\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right)$$
+
+\subsection{The $(0,3)$ contribution}
+
+We may expedite the calculation following the first case. First the normalization sequence
+
+$$0\to\cO_C\to \cO_{\bP^1}\oplus\cO_{g=3}\to\un\bC_{\text{node}}\to 0$$
+
+then tensoring with $f^\ast\cO(-H+s+t)$ 
+
+$$0\to f^\ast\cO(-H+s+t)\to \cO(-d\widetilde{H}+s+t)\oplus\cO(s+t)\to\genr{(s+t)}\to 0.$$
+
+Further, the long exact sequence in cohomology is
+
+\begin{align*}
+    0&\to H^0(\cO(s+t))\to H^0(\genr{(s+t)})\\
+    \to {\raisebox{-0.08em}{\scalebox{1.5}{$\star$}}}&\to H^1(\cO(s+t))\oplus H^1(\cO(-d\widetilde{H}+s+t)) \to 0
+\end{align*}
+
+so that the desired Euler class is the product
+
+\begin{align*}
+&e(H^1(\cO(s+t)))e(H^1(\cO(-d\widetilde{H}+s+t)))\\
+    =&\bigl((s+t)^3+(s+t)^2(-\la_1^{\ps})+(s+t)\la_2^{\ps}-\la_3^{\ps}\bigr)\left(\prod_{k=1}^{d-1}\left(s+\frac{kt}{d}\right)\right)
+\end{align*}
+
+Plugging $s=-t$, $s=0$ returns
+
+\begin{align*}
+    &i_{(3,0)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))\\
+    =&\bigl(-\la_3^{\ps}\bigr)\left(\prod_{k=1}^{d-1}\frac{kt}{d}\right)\bigl(t^3+t^2(-\la_1^{\ps})+t\la_2^{\ps}-\la_3^{\ps}\bigr)\left(\prod_{k=1}^{d-1}-t+\frac{kt}{d}\right)\\
+    =&(-\la_3^{\ps})(-1)^3\La_3^{\ps}(-t)(-1)^{d-1}\left(\frac{t}{d}\right)^{2d-2}(d-1)!^2.
+\end{align*}
+
+For the normal bundle:
+
+\begin{itemize}
+    \item The smooth point above zero gives us 
+    $$e(\Aut(C))=t/d.$$
+    \item The deformations of the curve give
+    $$e(\DefB(C))=-\psi_P+\frac{-t}{d}.$$
+    \item For deformations and obstructions of the map we tensor the normalization sequence 
+    $$0\to f^\ast T\bP^1\to \cO(2d\widetilde{H}-t)\oplus\cO(-t)\to\genr{(-t)}\to 0.$$
+    Taking cohomology gets us
+    $$
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+\DefB(f) \arrow[r] &
+ H^0(\cO(2d\widetilde{H}-t))\oplus H^0(\cO(-t)) \arrow[r] &
+H^0(\genr{(-t)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& \Ob(f) \arrow[r] &
+H^1(\cO(-t)) \arrow[r] &
+0
+\end{tikzcd}
+$$
+which gives
+$$\frac{e(\DefB(f))}{\Ob(f)}=\frac{e(H^0(\cO(2d\widetilde{H}-t)))}{e(H^1(\cO(-t)))}=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{(-1)^3\La_3^{\ps}(t)}$$
+\end{itemize}
+
+so that putting all together gets
+
+$$e(N_{(0,3)})=\frac{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[-\psi_P-t/d\bigr]}{\bigl[(-1)^3\La_3^{\ps}(t)\bigr]\bigl[t/d\bigr]}.$$
+
+The integrand is then
+
+\begin{align*}
+    &\frac{\bigl[(-\la_3^{\ps})(-1)^3\La_3^{\ps}(-t)(-1)^{d-1}\left(t/d\right)^{2d-2}(d-1)!^2\bigr]\bigl[(-1)^3\La_3^{\ps}(t)\bigr]\bigl[t/d\bigr]}{\bigl[\left(t/d\right)^{2d}d!^2(-1)^d\bigr]\bigl[-\psi_P-t/d\bigr]}\\
+    =&\frac{\bigl(\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)\bigr)(t/d)}{(-t^2)(-t/d)\bigl(1-(-d\psi_P/t)\bigr)}\\
+    =&\frac{\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)}{t^2\bigl(1-(-d\psi_P/t)\bigr)}.
+\end{align*}
+
+\iffalse
+We may expand using Matt's theorem \ref{th-matt-mumford-formula} to obtain
+
+\begin{align*}
+    &\frac{\la_3^{\ps}}{1-(-d\psi_P/t)}\sum_{k=0}^{3}\frac{t^{6-2k-2}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\\
+    =&\sum_{k=0}^{3}\frac{d^{6-2k-2}}{k!}\la_3^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_P^{6-2k-2}\\
+    =&d^4\la_3^{\ps}\psi_P^4+d^2\glu_\ast^1\bigl(p_0^\ast(\la_2)p_1^\ast(\la_1)\psi_\star\bigr)\psi_P^2\\
+    &+\half\glu_\ast^2\bigl(p_0^\ast(\la_1)p_1^\ast(\la_1)p_2^\ast(\la_1)\psi_{\star1}\psi_{\star2}\bigr)
+\end{align*}
+\fi
+
+Because the psi class only obtains even powers, this calculation is exactly the same as in the $(3,0)$ case. We conclude that 
+
+$$I_{(0,3)}=I_{(3,0)}=d^4b_3+\frac{3d^2b_2}{24}+\frac{2b_1}{2\.24^2}.$$
+
+The final result is 
+
+\begin{align*}
+    C^{\ps}(3,d)=&\frac2d\left(d^4b_3+\frac{3d^2b_2}{24}+\frac{2b_1}{2\.24^2}\right)+\frac2d\left(\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right)\right)\\
+    =&\frac{d^3}{6048}+\frac{d}{2880}=C(3,d)\left(1+\frac{21}{10d^2}\right)
+\end{align*}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
