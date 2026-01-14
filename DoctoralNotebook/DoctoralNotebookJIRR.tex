@@ -89,6 +89,12 @@ Phew it's been a long time
     is an exact sequence. Here $TX$ denotes $X$'s tangent sheaf. Find enough conditions on $f$ which guarantee that this sequence is indeed exact.
     \item Answer question \ref{qn-gnr-function-total-lambda}.
 \end{itemize}
+\red{TO DO 10 20260113}
+\begin{itemize}
+    \item Figure out the business about cusps deformations and whatever $\un{\bC}x$ is. In general normalization sequences.
+    \item prove a result about the product $(\la^{\ps})(\prod\psi's)$
+    \item prove the general case of $C^{\ps}(g,d)$
+\end{itemize}
 }
 \newpage
 \tableofcontents
@@ -1276,7 +1282,11 @@ as expected.
 
 \section{My (?) theorem}
 
-In the pseudostable case, we can calculate the same GW invariant, just that now the calculation is a bit different because of cusps. Let us compute the genus 3, degree $d$ GW invariant:
+In the pseudostable case, we can calculate the same GW invariant, just that now the calculation is a bit different because of cusps. 
+
+\subsection{$C^{\ps}(3,d)$}
+
+Let us compute the genus 3, degree $d$ GW invariant:
 $$\int_{[\ov{\cM}^\text{ps}_{3,0}(X,d\bt)]^\vir}1.$$
 Ross \cite{DustyNotes} conjectures that the fundamental class localizes in a similar fashion as to the non-pseudostable case. We have
 $$\int_{[\ov{\cM}^\text{ps}_{3,0}(X,d\bt)]^\vir}1=\int_{[\ov{\cM}^\text{ps}_{3,0}(\bP^1,d)]^\vir}e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)).$$
@@ -1284,7 +1294,7 @@ The fixed maps consist of a $\bP^1$ mapping as $z\mapsto z^d$ together with posi
 $$F_{(3,0)},\quad F_{(2,1)},\quad F_{(1,2)},\word{and} F_{(0,3)}.$$
 The fixed locus $F_{(i,j)}$ denotes the nodal curve consisting of three components: one of genus $i$ mapping to zero, the smooth component $\bP^1$ and the genus $j$ component mapping to infinity; this, along the information of the map. Let us analyze the contribution of $F_{(3,0)}$.
 
-\subsection{The $(3,0)$ contribution}
+\subsubsection{The $(3,0)$ contribution}
 
 Instead of pulling back $\cO(-H)$, we pullback $\cO(-H+s+t)$ and then specialize to the cases $s=0$ and $s=-t$. Let $C$ be the curve in question, its normalization sequence is 
 $$0\to\cO_C\to \cO_{g=3}\oplus\cO_{\bP^1}\to\un\bC_{\text{node}}\to 0$$
@@ -1412,6 +1422,7 @@ and putting it together with the pullback of the Euler classes up top, we get
 =&\frac{\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)}{t^2(1-d\psi_P/t)}.
 \end{align*}
 
+\iffalse
 \hrule
 
 \begin{Qn}\label{qn-gnr-function-total-lambda}
@@ -1425,7 +1436,7 @@ does not yield the desired result because the series that we get has, as a gener
 Further development must be pursued.
 \end{Qn}
 
-\iffalse
+
 \begin{ptcb}
     On the left, using Matt and Renzo's formula from \cite{MattAndRenzo} and homogenizing gives us
     $$t^6+t^4\glu^1_\ast\bigl(\psi_\star-\psi_\8\bigr)+\frac{t^2}{2}\glu^2_\ast\bigl((\psi_{\star_1}-\psi_{\8_1})(\psi_{\star_2}-\psi_{\8_2})\bigr)+\frac{1}{6}\glu^3_\ast(\dots).$$
@@ -1446,9 +1457,10 @@ Further development must be pursued.
     $$(g+1)t^g+gt^{g-1}\glu^1_\ast(\cdots)+\frac{g-1}{2}t^{g-2}\glu^2(\cdots)+\cdots$$
     This quantity \textbf{does not coincide} with the upper quantity.\par
 \end{ptcb}
-\fi
 
 \hrule
+\fi
+
 
 \begin{Rmk}
 Let us observe that the degree of the class in question is 
@@ -1473,7 +1485,7 @@ $$
 \La_g^{\ps}(t)(-1)^g\La_g^{\ps}(-t)=\sum_{k=0}^{g}\frac{t^{2g-2k}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right).
 $$
 
-First we just expand the pseudostable Mumford relation to obtain
+Now, we just expand the pseudostable Mumford relation to obtain
 \begin{align*}
     &\la_3^{\ps}\La_3^{\ps}(t)(-1)^3\La_3^{\ps}(-t)\\
     =&\la_3^{\ps}\.\bigl(t^6+t^4\glu_\ast^1(\psi_\star-\psi_\8)+\tfrac{t^2}{2}\glu_\ast^2((\psi_{\star1}-\psi_{\81})(\psi_{\star2}-\psi_{\82}))+\tfrac{1}{6}\glu_\ast^3(\dots)\bigr)
@@ -1641,7 +1653,7 @@ I_{(3,0)}&=d^4b_3+d^2\binom{4+2-3}{2,1}b_2\.\frac{1}{24}+\frac{1}{2}\binom{2+3-3
 &=d^4b_3+\frac{3d^2b_2}{24}+\frac{2b_1}{2\.24^2}
 \end{align*}
 
-\subsection{The $(2,1)$ contribution}
+\subsubsection{The $(2,1)$ contribution}
 
 The calculation proceeds in a similar fashion. The curve $C_{(2,1)}$ has a normalization sequence given by 
 
@@ -1744,7 +1756,7 @@ where we used theorem \ref{th-renzoco-only-one-pslambda} once again for the firs
 Mutiplying by the coefficient we left behind we get a final result for the contribution of $F_{(2,1)}$
 $$I_{(2,1)}=\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right).$$
 
-\subsection{The $(1,2)$ contribution}
+\subsubsection{The $(1,2)$ contribution}
 
 Analogous to the previous case, the normalization sequence is 
 
@@ -1826,7 +1838,7 @@ Thus
 
 $$I_{(1,2)}=I_{(2,1)}=\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right)$$
 
-\subsection{The $(0,3)$ contribution}
+\subsubsection{The $(0,3)$ contribution}
 
 We may expedite the calculation following the first case. First the normalization sequence
 
@@ -1917,6 +1929,8 @@ The final result is
     C^{\ps}(3,d)=&\frac2d\left(d^4b_3+\frac{3d^2b_2}{24}+\frac{2b_1}{2\.24^2}\right)+\frac2d\left(\frac{d^2-1}{24}\left(d^2b_2+\frac{1}{24^2}\right)\right)\\
     =&\frac{d^3}{6048}+\frac{d}{2880}=C(3,d)\left(1+\frac{21}{10d^2}\right)
 \end{align*}
+
+\subsection{The general case, $C^{\ps}(g,d)$}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
