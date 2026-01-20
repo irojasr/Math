@@ -1642,7 +1642,7 @@ $$d^4b^3,\word{where}b_g=\frac{2^{2g-1}-1}{2^{2g-1}}\frac{|B_{2g}|}{(2g)!}$$
 and $B_g$ is the $g^{\text{th}}$ Bernoulli number.\par
 For the integrals with one lambda class, we use the result previously known as the $\la_g$-conjecture.
 
-\begin{Th}[\cite{GetzlerAndPandharipande}, T.3]
+\begin{Th}[\cite{GetzlerAndPandharipande}, T.3]\label{th-lambdagConj}
     For $k_1,\dots,k_n$ summing to $2g+n-3$,
     $$\int_{\ov{M}_{g,n}}\psi_1^{k_1}\cdots\psi_n^{k_n}\la_g=\binom{2g+n-3}{k_1,\dots,k_n}b_g.$$ 
 \end{Th}
@@ -1893,7 +1893,7 @@ H^1(\cO(-t)) \arrow[r] &
 \end{tikzcd}
 $$
 which gives
-$$\frac{e(\DefB(f))}{\Ob(f)}=\frac{e(H^0(\cO(2d\widetilde{H}-t)))}{e(H^1(\cO(-t)))}=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{(-1)^3\La_3^{\ps}(t)}$$
+$$\frac{e(\DefB(f))}{e(\Ob(f))}=\frac{e(H^0(\cO(2d\widetilde{H}-t)))}{e(H^1(\cO(-t)))}=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{(-1)^3\La_3^{\ps}(t)}$$
 \end{itemize}
 
 so that putting all together gets
@@ -1931,6 +1931,151 @@ The final result is
 \end{align*}
 
 \subsection{The general case, $C^{\ps}(g,d)$}
+
+Contributing maps here are enumerated by pairs \((g_1,g_2)\) with \(g_1+g_2=g\) and \(g_1,g_2\geq0\). These are ordered partitions of \(g\). We study the general case \(g_1,g_2\) with \(g_1\neq g-1,0\) and we treat these ones separately.
+
+\subsubsection{The $(g_1,g_2)$ contribution}
+
+The curve \(C_{(g_1,g_2)}\) has the normalization sequence
+\[
+0\to\cO_C\to\cO_{g_1}\oplus\cO_{\bP^1}\oplus\cO_{g_2}\to\un{\bC}_{n_1}\oplus\un{\bC}_{n_2}\to0.
+\]
+Tensoring with $\Mickey\defeq f^\ast\cO(-H+s+t)$ gives
+$$0\to \Mickey\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\oplus\cO(s+t)\to\genr{(s)}\oplus\genr{(s+t)}\to 0.$$
+After taking the long exact sequence in cohomology and simplifying, we're left with
+\begin{align*}
+    0&\to H^0(\cO(s))\oplus H^0(\cO(s+t))\to H^0(\genr{(s)})\oplus H^0(\genr{(s+t)})\\
+    \to H^1(\Mickey)&\to H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t))\oplus H^1(\cO(s+t))\to 0
+\end{align*}
+Taking Euler classes gives us
+\begin{align*}
+    e(H^1(\Mickey))&=e\bigl(H^1(\cO(s))\bigr)e\bigl(H^1(\cO(-d\widetilde{H}+s+t))\bigr)e\bigl(H^1(\cO(s+t))\bigr)\\
+    &=(-1)^{g_1}\La_{g_1}^{\ps}(-s)\left(\prod_{k=1}^{d-1}\left(s+\frac{kt}{d}\right)\right)(-1)^{g_2}\La_{g_2}^{\ps}(-(s+t))
+\end{align*}
+
+We find the numerator by plugging in $s=-t$, $s=0$ and multiplying.
+
+\begin{align*}
+    &i_{(g_1,g_2)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))\\
+    =&(-1)^{g_1}\La_{g_1}^{\ps}(t)\prod_{k=1}^{d-1}\left(-t+\frac{kt}{d}\right)(-1)^{g_2}\la_{g_2}^{\ps}(-1)^{g_1}\la_{g_1}^{\ps}\prod_{k=1}^{d-1}\left(\frac{kt}{d}\right)(-1)^{g_2}\La_{g_2}^{\ps}(-t)\\
+    =&\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)\bigr)
+\end{align*}
+
+There's no automorphisms as there's no smooth points so that the normal bundle only considers deformations and obstructions. In this case
+
+\[
+e(\DefB(C))=(-\psi_{P_1}-\psi_{Q_1})(-\psi_{P_2}-\psi_{Q_2})=\left(-\psi_{P_1}+\frac{t}{d}\right)\left(-\psi_{P_2}+\frac{-t}{d}\right)
+\]
+
+For the map, we tensor the normalization sequence by \(f^\ast T\bP^1\) to get
+
+\[
+0\to f^\ast T\bP^1\to \cO(t)\oplus\cO(2d\widetilde{H}-t)\oplus\cO(-t)\to\genr{(t)}\oplus\genr{(-t)}\to 0.
+\]
+    
+Taking cohomology gets us
+
+\[
+\begin{tikzcd}[column sep=tiny, row sep=tiny]
+0 \arrow[r] &
+\DefB(f) \arrow[r] &H^0(\cO(t))\oplus
+ H^0(\cO(2d\widetilde{H}-t))\oplus H^0(\cO(-t)) \arrow[r] &
+H^0(\genr{(t)})\oplus H^0(\genr{(-t)})
+  \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+& \Ob(f) \arrow[r] &
+H^1(\cO(t))\oplus H^1(\cO(-t)) \arrow[r] &
+0
+\end{tikzcd}
+\]
+
+thus the desired quotient of Euler classes is
+
+\[
+\frac{e(\DefB(f))}{e(\Ob(f))}=\frac{e(H^0(\cO(2d\widetilde{H}-t)))}{e(H^1(\cO(t)))e(H^1(\cO(-t)))}=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{(-1)^{g_1}\La_{g_1}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}.
+\]
+
+We end by condensing everything into the integrand.
+
+\begin{align*}
+    &\frac{\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)\bigr)(-1)^{g_1}\La_{g_1}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}{\left(t/d\right)^{2d}d!^2(-1)^d\left(-\psi_{P_1}+t/d\right)\left(-\psi_{P_2}+({-t}/{d})\right)}\\
+    =&\frac{\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)(-1)^{g_1}\La_{g_1}^{\ps}(-t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)\bigr)}{(-t^2)\left(-\psi_{P_1}+t/d\right)\left(-\psi_{P_2}+({-t}/{d})\right)}\\
+    =&\frac{1}{d^2}\left(\frac{\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)(-1)^{g_1}\La_{g_1}^{\ps}(-t)}{t^2\left(1-d\psi_{P_1}/t\right)}\right)\left(\frac{\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}{t^2\left(1-(-d\psi_{P_2}/t)\right)}\right).
+\end{align*}
+
+We've seen before the minus sign on the psi class has no effect because of even powers. In this case, we just treat a general term of genus \(g\). Expanding via Matt's relation (theorem \ref{th-matt-mumford-formula}) gets us to 
+
+\begin{align*}
+    &\frac{\la_{g}^{\ps}\La_{g}^{\ps}(t)(-1)^{g}\La_{g}^{\ps}(-t)}{t^2\left(1-d\psi_{P}/t\right)}\\
+    =&\frac{\la_{g}^{\ps}}{t^2\left(1-d\psi_{P}/t\right)}\sum_{k=0}^{g}\frac{t^{2g-2k}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\\
+    =&\sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}\\
+    =&\sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right)\psi_{P}^{2g-2k-2}
+\end{align*}
+
+\hrule
+\begin{Ej}
+    The product 
+    \[
+    \la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}
+    \]
+    results in
+    \[
+    \glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right)\psi_{P}^{2g-2k-2}.
+    \]
+    However on its own, 
+    \[
+    \la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\neq\glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right).
+    \]
+\end{Ej}
+\hrule
+
+Taking the integral over $\ov{M}_{g,1}$ gets us to 
+
+\begin{align*}
+    &\sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\left(\int_{\ov{M}_{g-k,1+k}}\la_{g-k}\prod_{j=1}^{k}\psi_{\star j}\psi_{P}^{2g-2k-2}\right)\left(\int_{\ov{M}_{1,1}}\la_1\right)^k\\
+    =&\sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\frac{(2g-2-k)!}{(2g-2-2k)!}b_{g-k}\frac{1}{24^k}
+\end{align*}
+
+Here we applied the \(\la_g\)-conjecture \ref{th-lambdagConj} again to find the value of the first integral. Call this amount \(I_g\). Then our desired \((g_1,g_2)\) contribution is 
+\[
+I_{(g_1,g_2)}=\frac{1}{d^2}I_{g_1}I_{g_2}.
+\]
+
+\subsubsection{The \((g,0)\) contribution}
+
+The only difference with the previous calculation lies in the automorphisms bundle. In this case we get an
+\[
+e(\Aut(C))=-t/d
+\]
+which cancels with the \(t/d\) from the curve deformations, and the minus sign cancels out the minus in the \(-t^2\). On the \((0,g)\) case, signs are inverted but the only change is in the psi class in the denominator which doesn't alter the result of the integral. Thus 
+\[
+I_{(g,0)}=I_{(0,g)}=I_g
+\]
+
+\begin{Ej}
+    Write this neatly.
+\end{Ej}
+
+\subsubsection{The \((g-1,1)\) contribution}
+
+\begin{Ej}
+    Prove that 
+    \[
+    I_{(g-1,1)}=I_{(1,g-1)}=\frac{d^2-1}{24}I_{g-1}.
+    \]
+\end{Ej}
+
+\subsubsection{The whole contribution and generating functions}
+
+The full quantity we are looking for is 
+
+\begin{align*}
+C^{\ps}(g,d)&=\frac{1}{d}\left(I_{(g,0)}+I_{(g-1,1)}+\dots+I_{(g_1,g_2)}+\dots+I_{(1,g-1)}+I_{(0,g)}\right)\\
+&=\frac{1}{d}\left(I_g+\frac{d^2-1}{24}I_{g-1}+\dots+\frac{1}{d^2}I_{g_1}I_{g_2}+\dots+\frac{d^2-1}{24}I_{g-1}+I_g\right)
+\end{align*}
+
+\begin{Qn}
+    If such integrals can be extended beyond their just obtained definition, what are \(I_0\) and \(I_1\)? Can we fit them into the sum?
+\end{Qn}
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
