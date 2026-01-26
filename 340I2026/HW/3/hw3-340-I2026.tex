@@ -38,20 +38,94 @@ Recall that you must hand in a subset of the problems for which deleting any pro
 
 \begin{enumerate}
 
+  \item (1+) [2 points] A tank initially contains 120 liters of pure water. A mixture containing a concentration of $\gamma$ g/L of salt enters the tank at a rate of 2 L/min, and the well-stirred mixture leaves the tank at the same rate. Find an expression for the amount of salt in the tank at any time $t$. Also, find the limiting amount of salt in the tank as $t \to \infty$.
   
-  \item (2) [3 points] Suppose a deer population \(P(t)\) satisfies the logistic equation
+  \item (1+) [2 points] Consider a tank of water with a hole at the bottom. Torricelli's Law states that the rate at which water flows out is proportional to the square root of the height of the water, i.e., $\frac{dV}{dt} = -k\sqrt{h}$.
+Suppose the tank is a cylinder with cross-sectional area $A$. 
+\begin{enumerate}
+    \item Derive the differential equation for the height $h(t)$.
+    \item If the tank is initially filled to height $h_0$, how long does it take to drain completely?
+\end{enumerate}
+
+\item (E) (1) [1 point] Consider a population modeled by the logistic equation $y' = r y (1 - y/K)$.
+\begin{enumerate}
+    \item Find the general solution using separation of variables.
+    \item If $y(0) = K/2$, find the particular solution.
+    \item Sketch the phase line and identify the stability of the equilibrium points.
+\end{enumerate}
+
+\item (2-) [3 points] For an object of mass $m$ falling under gravity with air resistance proportional to the \textbf{square} of velocity:
+$$m \frac{dv}{dt} = mg - k v^2$$
+\begin{enumerate}
+    \item Determine the terminal velocity $v_\tau$.
+    \item Solve the differential equation to find $v(t)$ assuming $v(0)=0$. (Hint: You may need partial fractions or hyperbolic functions).
+    \item Compare the behavior of this solution to the linear drag model ($F = -kv$) as $t \to \infty$.
+\end{enumerate}
+  
+  \item (2-) [3 points] Suppose a deer population \(P(t)\) satisfies the logistic equation
   \[
   \dv{P}{t}=0.225P-0.0003P^2.
   \]
   With a direction field and an appropriate solution curve answer: If there's 25 deer at time \(t=0\), how much time will it take to double the population of deer? What is the limiting population?
 
-  \item (2) [3 points] Consider the population model \(y'=\frac{y}{10}\left(1-\frac{y}{K}\right)\) with capacity \(K>0\).
+  \item (2) [3 points] A projectile is launched vertically from Earth's surface. Gravity is not constant but varies with distance $x$ from the center of the Earth: $F_g = -GMm/x^2$.
+\begin{enumerate}
+    \item Write the differential equation $m \frac{dv}{dt} = F_g$.
+    \item Use the chain rule substitution $a = v \frac{dv}{dx}$ to convert this into a separable equation in $v$ and $x$.
+    \item Determine the minimum initial velocity $v_0$ required for the projectile to never return (i.e., $v > 0$ as $x \to \infty$).
+\end{enumerate}
+
+  \item (2+) [4 points] Consider a cascade of two tanks. Tank 1 contains $V_1$ gallons of brine and Tank 2 contains $V_2$ gallons. Pure water flows into Tank 1 at rate $r$ gal/min. The mixture flows from Tank 1 to Tank 2 at rate $r$, and from Tank 2 out to a drain at rate $r$.
+\begin{enumerate}
+    \item Let $x(t)$ be the salt in Tank 1 and $y(t)$ be the salt in Tank 2. Write the system of differential equations modeling this system.
+    \item Solve for $y(t)$ assuming initial conditions $x(0)=x_0$ and $y(0)=0$.
+\end{enumerate}
+
+\item (2+) [4 points] In fishery management, the Schaefer model modifies logistic growth to account for harvesting proportional to effort $E$. The equation is:
+$$\frac{dy}{dt} = r y \left(1 - \frac{y}{K}\right) - E y$$
+\begin{enumerate}
+    \item Show that if $E < r$, there is a stable equilibrium $y_2 > 0$. Find this value in terms of $E, r, K$.
+    \item The "sustainable yield" is $Y = E y_2$. Find the value of $E$ that maximizes this yield.
+\end{enumerate}
+
+\item (3) [9 points] If harvesting is done at a constant rate $h$ (independent of population size), the model becomes:
+$$\frac{dy}{dt} = r y \left(1 - \frac{y}{K}\right) - h$$
+Analyze the equilibrium points of this equation for different values of $h$. Show that a \textbf{saddle-node bifurcation} occurs at a critical value $h_c = rK/4$. What happens to the population if $h > h_c$?
+
+\item (2) [3 points] Let $y$ be the proportion of infectious individuals in a population and $x$ be the susceptible proportion, with $x+y=1$. The spread of the disease is modeled by:
+$$\frac{dy}{dt} = \alpha y (1 - y) - \beta y$$
+where $\alpha$ is the transmission rate and $\beta$ is the recovery rate. Analyze the stability of the disease-free equilibrium ($y=0$). Under what condition ($\alpha$ vs $\beta$) does an epidemic occur?
+
+\item (4) [10 points] Generalize this to a cascade of $n$ identical tanks each with volume $V$. Show that the salt in the $k$-th tank is given by a function resembling the Poisson distribution:
+\[  
+x_k(t) = \frac{x_0 (rt/V)^{k-1}}{(k-1)!} e^{-rt/V}
+\]
+  \item (2-) [3 points] Consider the population model \(y'=\frac{y}{10}\left(1-\frac{y}{K}\right)\) with capacity \(K>0\).
   \begin{enumerate}
     \item Find the general solution to this ODE.
     \item Assume that the initial population is a third of the capacity. Find the time at which population has doubled.
     \item Sketch the solution in the previous item on a \(ty\)-plane. Find the limit \(\lim_{t\to\infty}y(t)\).
   \end{enumerate}
 
+  \item (5) The Collatz conjecture deals with the discrete map on integers:
+  \[
+  n\mapsto\left\lbrace
+  \begin{aligned}
+    &n/2,\quad\text{if }n\text{ is even},\\
+    &3n+1,\quad\text{if }n\text{ is odd}.
+  \end{aligned}
+  \right.
+  \]
+Recent (1996) research attempts to embed this into a continuous differential equation. Consider a function $f(x)$ that interpolates these rules:
+\[
+f(x) = \frac{1}{4}(1 + 4x - (1 + 2x)\cos(\pi x))
+\]
+Analyze the differential equation $\frac{dx}{dt} = f(x) - x$. 
+\begin{enumerate}
+    \item Does this system possess limit cycles that correspond to the discrete cycle $4 \to 2 \to 1$?
+    \item \textbf{Open Problem:} Can you construct a Lyapunov function or use numerical boundaries to prove that all trajectories for $x > 0$ eventually enter a bounded region? (Note: A rigorous proof would likely solve the Collatz conjecture).
 \end{enumerate}
 
-\end{document} 
+\end{enumerate}
+
+\end{document}

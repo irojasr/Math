@@ -1638,7 +1638,7 @@ Citing a couple more results is the way to calculate this integrals. the first r
 \end{Th}
 
 This tells us that the result of the first integral is 
-$$d^4b^3,\word{where}b_g=\frac{2^{2g-1}-1}{2^{2g-1}}\frac{|B_{2g}|}{(2g)!}$$
+$$d^4b_3,\word{where}b_g=\frac{2^{2g-1}-1}{2^{2g-1}}\frac{|B_{2g}|}{(2g)!}$$
 and $B_g$ is the $g^{\text{th}}$ Bernoulli number.\par
 For the integrals with one lambda class, we use the result previously known as the $\la_g$-conjecture.
 
@@ -2076,6 +2076,64 @@ C^{\ps}(g,d)&=\frac{1}{d}\left(I_{(g,0)}+I_{(g-1,1)}+\dots+I_{(g_1,g_2)}+\dots+I
 \begin{Qn}
     If such integrals can be extended beyond their just obtained definition, what are \(I_0\) and \(I_1\)? Can we fit them into the sum?
 \end{Qn}
+
+\begin{ptcb}
+    Observe that 
+
+    \[    
+    I_0=\frac{d^{2(0)-2(0)-2}}{0!}\frac{(2(0)-2-(0))!}{(2(0)-2-2(0))!}b_0\frac{1}{24^0}=\frac{b_0}{d^2}=\frac{-1}{d^2}
+    \]
+
+    where we have computed \(b_0\) via the Bernoulli number definition.\par
+    On the other hand, for \(I_1\) we compute the two terms of the sum as
+    
+    \begin{align*}
+        I_1=&\frac{d^{2(1)-2(0)-2}}{0!}\frac{(2(1)-2-0)!}{(2(1)-2-2(0))!}b_1\frac{1}{24^0}\\
+        &+\frac{d^{2(1)-2(1)-2}}{1!}\frac{(2(1)-2-1)!}{(2(1)-2-2(1))!}b_0\frac{1}{24}\\
+        =&b_1+\frac{1}{d^2}\frac{(-1)!}{(-2)!}(-1)\frac{1}{24}\\
+        =&\frac{1}{24}+\frac{1}{d^2}(-2)(-1)\frac{1}{24}=\frac{d^2+2}{24d^2}
+    \end{align*}
+    and here we have abused the fact \(\Ga(x+1)/\Ga(x)=x\), even when the gamma functions has poles. However, if we take the quotient of the factorials, we instead get a \(-1\) as an answer to
+    \[
+    \lim_{n\to-1}\frac{n!}{(n-1)!}=\lim_{n\to-2}\frac{(n+1)!}{n!}=-1.
+    \]
+    
+    In this case, \(I_1=\frac{d^2+1}{24d^2}\) so that the sum for \(C^{\ps}(g,d)\) would then fit the pattern a bit more. 
+    \tcbline
+    \emph{Renzo suggests:} Take \(I_0\defeq d^2\) and \(I_1\defeq d^2(d^2-1)/24\) just like that outright. Define them \emph{ad hoc} to fit with the \(1/d^2\) term.
+\end{ptcb}
+
+\section{Virtual classes for the stupid mathematician}
+
+This section is now devoted to the study of \cite{VFCWorkMath}. 
+
+\subsection{Premier}
+
+Let us recall a couple of results first.
+
+\begin{Prop}
+    When two varieties \(X,Y\) intersect transversely, their codimension is added. Explicitly:
+    \[
+    \codim(X\cap Y)=\codim(X)+\codim(Y)
+    \]
+\end{Prop}
+
+Recall also the notion of intersection multiplicity. The strongest version of Bezout's theorem states that the degree of each irreducible component in the intersection of two varieties is linked to the degree of the ordinary ones via the relation 
+\[
+\deg(X)\deg(Y)=\sum_Z i(X,Y;Z)\deg(Z)
+\]
+where the sum runs over irreducible components \(Z\) of \(X\cap Y\).
+
+\begin{Rmk}
+    It is possible that this result only holds when one of the two varieties is an hypersurface. \red{Check!}
+\end{Rmk}
+
+Let's freshen up the understanding with a couple of examples. 
+
+\begin{Ex}
+    First, a couple of circles intersecting.
+\end{Ex}
+
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
 \printindex
