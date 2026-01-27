@@ -1,0 +1,86 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\DocumentMetadata{
+pdfversion=2.0,  
+lang=en-US,   
+pdfstandard={ua-2, a-4f},
+tagging = on, 
+tagging-setup={math/setup={mathml-SE}} ,
+}
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[extreme]{savetrees}
+\usepackage[utf8]{inputenc}
+\usepackage{newpxtext}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage{siunitx}
+
+%%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
+
+\hypersetup{
+pdftitle={MATH 340 -- Homework 3 Spring 2026},
+pdfauthor={Ignacio Rojas},
+pdfkeywords={third homework},%
+}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+\begin{center}
+    {\Large MATH 340 -- Homework 3,\quad Spring 2026}
+\end{center}
+
+Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details. NOTE: All problems from Boyce, Di Prima and Meade are from the \(11^{\text{th}}\)  edition, which is available online: \href{https://www.math.colostate.edu/~liu/MATH340_S26Crd/Textbook_BoyceDiPrimaMeade_11ed.pdf}{https://www.math.colostate.edu/\(\sim\)liu/MATH340\_S26Crd/Textbook\_BoyceDiPrimaMeade\_11ed.pdf}.
+
+\begin{enumerate}
+
+\item (2+) [4 points] In fishery management, the Schaefer model modifies logistic growth to account for harvesting proportional to effort \(E\). The equation is:
+\[
+\frac{dy}{dt} = r y \left(1 - \frac{y}{K}\right) - E y
+\]
+\begin{enumerate}
+    \item Show that if \(E < r\), there is a stable equilibrium \(y_2 > 0\). Find this value in terms of \(E, r, K\).
+    \item The "sustainable yield" is \(Y = E y_2\). Find the value of \(E\) that maximizes this yield.
+\end{enumerate}
+
+
+\item (2) [3 points] Let \(y\) be the proportion of infectious individuals in a population and \(x\) be the susceptible proportion, with \(x+y=1\). The spread of the disease is modeled by:
+\[
+\frac{dy}{dt} = \alpha y (1 - y) - \beta y
+\]
+where \(\alpha\) is the transmission rate and \(\beta\) is the recovery rate. Analyze the stability of the disease-free equilibrium (\(y=0\)). Under what condition (\(\alpha\) vs \(\beta\)) does an epidemic occur?
+
+
+\item (3) [9 points] If harvesting is done at a constant rate \(h\) (independent of population size), the model becomes:
+\[
+\frac{dy}{dt} = r y \left(1 - \frac{y}{K}\right) - h
+\]
+Analyze the equilibrium points of this equation for different values of \(h\). Show that a \textbf{saddle-node bifurcation} occurs at a critical value \(h_c = rK/4\). What happens to the population if \(h > h_c\)?
+
+
+  \item The Collatz conjecture (see \href{https://www.youtube.com/watch?v=094y1Z2wpJg}{https://www.youtube.com/watch?v=094y1Z2wpJg}) deals with the function on integers:
+  \[
+  n\mapsto\left\lbrace
+  \begin{aligned}
+    &n/2,\quad\text{if }n\text{ is even},\\
+    &3n+1,\quad\text{if }n\text{ is odd}.
+  \end{aligned}
+  \right.
+  \]
+Chamberland, 1996, embedded this into a differential equation. Consider a function \(f(x)\) that interpolates these rules:
+\[
+f(x) = \frac{1}{4}(1 + 4x - (1 + 2x)\cos(\pi x))
+\]
+Analyze the differential equation \(\frac{dx}{dt} = f(x) - x\). 
+
+\textbf{Open Problem:} Can you construct a Lyapunov function or use numerical boundaries to prove that all trajectories for \(x > 0\) eventually enter a bounded region? (Note: A rigorous proof would likely solve the Collatz conjecture).
+
+
+\end{enumerate}
+
+\end{document}
