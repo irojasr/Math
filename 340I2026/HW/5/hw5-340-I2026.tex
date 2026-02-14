@@ -1,0 +1,126 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\DocumentMetadata{
+pdfversion=2.0,  
+lang=en-US,   
+pdfstandard={ua-2, a-4f},
+tagging = on, 
+tagging-setup={math/setup={mathml-SE}} ,
+}
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[extreme]{savetrees}
+\usepackage[utf8]{inputenc}
+\usepackage{newpxtext}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{graphicx}
+
+%%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
+
+\hypersetup{
+pdftitle={MATH 340 -- Homework 5 Spring 2026},
+pdfauthor={Ignacio Rojas},
+pdfkeywords={fifth homework},%
+}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+\begin{center}
+    {\Large MATH 340 -- Homework 4,\quad Spring 2026}
+\end{center}
+
+Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details. NOTE: All problems from Boyce, Di Prima and Meade are from the \(11^{\text{th}}\)  edition, which is available online: \href{https://www.math.colostate.edu/~liu/MATH340_S26Crd/Textbook_BoyceDiPrimaMeade_11ed.pdf}{https://www.math.colostate.edu/\(\sim\)liu/MATH340\_S26Crd/Textbook\_BoyceDiPrimaMeade\_11ed.pdf}.
+
+\begin{enumerate}
+
+  \item (1-) [1 point] Boyce, di Prima, and Meade chapter 3 section 7 problem 1.
+  
+  \item (1) [1 point] Boyce, di Prima, and Meade chapter 3 section 7 problem 4.
+  
+  \item (1+) [2 points] Boyce, di Prima, and Meade chapter 3 section 7 problem 17.
+  
+  \item (2+) [4 points] Boyce, di Prima, and Meade chapter 3 section 7 problem 20.
+  
+  \item (2+) [4 points] Boyce, di Prima, and Meade chapter 3 section 8 problems 4 and 5.
+  
+  \item (2) [3 points] Boyce, di Prima, and Meade chapter 3 section 8 problem 6. [Hint: Answers might need to be approximated numerically via computer.]
+  
+  \item (\textbf{E}) (1+) [2 points] Consider the ODE \(y''+y=\cos(\alpha t)\). For which values of \(\alpha\) does this equation model a forced oscillation that incurs in the \emph{resonance} phenomenon?
+  
+  \item (\textbf{E}) (1+) [2 points] Consider the ODE \(y''\gamma y'+y=\sin(\beta t)\). For which values of \(\beta\) and \(\gamma\) does this equation model a free oscillation that is \emph{overdamped}?
+  
+  \item (\textbf{E}) (2) [3 points] Consider the IVP
+  \[
+  \ddot{x}+\frac{1}{16}x=\cos(2t),\quad x(0)=0,\quad \dot{x}(0)=1.
+  \]
+  \begin{itemize}
+    \item Find the general solution of the corresponding model that describes \emph{free} oscillation.
+    \item Find a particular solution for the nonhomogenous equation.
+    \item With the previous information solve the IVP.
+  \end{itemize}
+  
+    \item (\textbf{E}) (2+) [4 points] Consider the equation
+  \[
+  m\ddot{x}+b\dot{x}+kx=f(t)
+  \]
+  with constant coefficients \(m>0\), \(b,k\) which can be used to model oscillations.
+  \begin{itemize}
+    \item Consider the unforced motion. Find a condition (an inequality) relating \(m,b\) and \(k\) so that, indeed, the ODE models oscillatory motion. [Hint: Consider complex eigenvalues.]
+    \item Consider the concrete case where \((m,b,k)=(1,-2,2)\) and \(f(t)=e^{-t}\). Find the solution.
+  \end{itemize}
+
+
+  \item (3-) [8 points] In a real physical system it is impossible to measure the spring constant \(k\) precisely. This problem explores the resulting uncertainty in such a system. Consider the IVP:
+  \[
+  \left\lbrace
+  \begin{aligned}
+  &\ddot{x}+2\dot{x}+kx=0,\\
+  &x(0)=0,\\
+  &`'\dot{x}(0)=1.    
+  \end{aligned}
+  \right.
+  \]
+  \begin{itemize}
+    \item Show that the solution for \(k=1\) is \(x_1(t)=te^{-t}\).
+    \item Take \(k=1-1/10^{2n}\) (just a tiny tad bit below \(1\)), show that the solution of the IVP is 
+    \[
+    x_2(t)=10^ne^{-t}\sinh\left(\frac{t}{10^n}\right).
+    \]
+    [Hint: The identity \(\sinh(x)=(e^{x}-e^{-x})/2\) might come in handy.]
+    \item Now for \(k=1+\frac{1}{10^{2n}}\) (a bit above \(1\)), the solution is 
+    \[
+    x_3(t)=10^ne^{-t}\sin\left(\frac{t}{10^n}\right).
+    \]
+    [Hint: The identity \(\sin(x)=(e^{ix}-e^{-ix})/(2i)\) might come in handy.]
+    \item Graph the solutions \(x_1,x_2\) and \(x_3\) and realize that they exhibit behaviors of overdamped, critically damped, and damped motions. Observe particularly that \(x_3\) exhibits a very long pseudoperiod.
+    \item Show that for fixed \(t\), 
+    \[\lim_{n\to\infty}x_2(t)=\lim_{n\to\infty}x_3(t)=x_1(t).\]
+    Conclude that on a given finite time interval the three solutions are in “practical” agreement if \(n\) is sufficiently large.
+  \end{itemize}
+
+
+  \item (2+) [4 points] Consider a simple electrical circuit as in the figure consisting of a resistor \(R\) in ohms (\unit{\ohm}), a capacitor \(C\) in farads (\unit{F}), an inductor \(L\) in henries \unit{\henry}, and an electromotive force (emf) \(E(t)\) in volts (\unit{\volt}), usually a battery or a generator, all connected in series. 
+  \begin{center}
+  \includegraphics[width=0.4\textwidth]{fig1.png}
+  \end{center}
+  The current \(I\) flowing through the circuit is measured in amperes (\unit{\ampere}), and the charge \(q\) on the capacitor is measured in coulombs (\unit{\coulomb}). It is known that the voltage drops across a resistor, a capacitor, and an inductor are respectively \(RI\), \(\frac{1}{C}q\), and \(L\frac{dI}{dt}\). The voltage drop across an emf is \(E(t)\). Thus, from Kirchhoff's loop law, we have:
+\[
+L \frac{dI}{dt} + RI + \frac{1}{C}q = E(t)
+\]
+The relationship between \(q\) and \(I\) is given by \(I = \frac{dq}{dt}\), which also implies \(\frac{dI}{dt} = \frac{d^2q}{dt^2}\). Substituting these values into our initial equation, we obtain the governing ODE:
+
+\[
+L \frac{d^2q}{dt^2} + R \frac{dq}{dt} + \frac{1}{C}q = E(t)
+\]
+
+An RCL circuit connected in series has \(R = 180\unit{\ohm}\), \(C = 1/280\unit{\farad}\) , \(L = 20\unit{\henry}\) , and an applied voltage \(E(t) = 10 \sin(t)\). Assuming no initial charge on the capacitor, but an initial current of \(1\unit{\ampere}\)  at \(t = 0\) when the voltage is first applied, find the subsequent charge on the capacitor \(q(t)\). Identify the transient and steady-state terms.
+\end{enumerate}
+
+\end{document}
