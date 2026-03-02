@@ -21,10 +21,19 @@ tagging-setup={math/setup={mathml-SE}} ,
 %%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
 
 \hypersetup{
-pdftitle={MATH 340 -- Homework 4 Spring 2026},
+pdftitle={MATH 340 -- Homework 6 Spring 2026},
 pdfauthor={Ignacio Rojas},
-pdfkeywords={fourth homework},%
+pdfkeywords={sixth homework},%
 }
+
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+   #1 \\ #2 \end{pmatrix}}
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+   #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
+   #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
+   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
 
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
@@ -32,55 +41,76 @@ pdfkeywords={fourth homework},%
 \begin{document}
 
 \begin{center}
-    {\Large MATH 340 -- Homework 4,\quad Spring 2026}
+    {\Large MATH 340 -- Homework 6,\quad Spring 2026}
 \end{center}
 
 Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details. NOTE: All problems from Boyce, Di Prima and Meade are from the \(11^{\text{th}}\)  edition, which is available online: \href{https://www.math.colostate.edu/~liu/MATH340_S26Crd/Textbook_BoyceDiPrimaMeade_11ed.pdf}{https://www.math.colostate.edu/\(\sim\)liu/MATH340\_S26Crd/Textbook\_BoyceDiPrimaMeade\_11ed.pdf}.
 
 \begin{enumerate}
+  
+  \item (\(\sim\)\textbf{E}) (2) [3 points] Recall the trace-determinant formula for eigenvalues of a \(2\times 2\) matrix \(A= \twobytwo{a}{b}{c}{d}\)
+  \[
+  \lambda_{1},\lambda_{2}=m\pm\sqrt{m^2-p},\quad\text{where}\quad m=\frac{\Tr(A)}{2}=\frac{a+d}{2},\quad\text{and}\quad p=\det(A)=ad-bc.
+  \]
+  With this, find the eigenvalues and algebraic multiplicities of the following matrices:
+  \[\twobytwo{0}{1}{1}{0},\quad \twobytwo{2}{4}{-1}{-2},\quad \twobytwo{-3}{4}{-1}{1},\quad \twobytwo{-3}{-2}{2}{1},\quad \twobytwo{-3}{2}{-4}{1},\quad \twobytwo{3}{-1}{4}{-2},\quad\twobytwo{5}{-1}{3}{1}\]
+  
+  \item (\(\sim\)\textbf{E}) (1+) [2 points] Determine the values of the positive constants \(k\) and \(\gamma\) such that the matrices
+\[\twobytwo{0}{1}{-k}{1}\quad \text{and} \quad \twobytwo{0}{1}{-1}{-\gamma}\]
+have complex eigenvalues with imaginary parts equal to \(3\) and \(1/2\), respectively.
 
-  \item (1+) [2 points] Boyce, di Prima, and Meade chapter 3 section 1 problem 15.
-  
-  \item (2) [3 points] Boyce, di Prima, and Meade chapter 3 section 1 problem 19.
-  
-  \item (\textbf{E}) (1+) [2 points] Consider the ODE \(y^{(4)}+18y''+81y=0\). Show that the general solution can be written as \((A+Bt)\cos(3t)+(C+Dt)\sin(3t)\).
-  
-  \item (1+) [2 points] Boyce, di Prima, and Meade chapter 3 section 2 problems 19 and 20.
+\item (\(\sim\)\textbf{E}) (2) [3 points] Consider the vector function
+\[F(x,y)=\twobyone{-(x+y)(1-x-y)}{x(2+y)}.\]
+Find the Jacobian of \(F\) and evaluate it at \((0,0)\) and \((0,1)\). Determine the eigenvalues for both cases.
 
-  \item (\textbf{E}) (1) [1 point] Verify that \(y_1(t)=e^{2t}\) and \(y_2(t)=e^{3t}\) are solutions to \(y''-5y'+6y=0\) and that their Wronskian \(W[y_1,y_2]\) is never zero.
+\item (1+) [2 points] In order to send an undetected message to an agent in the field, each letter in the message is replaced by the
+number of its position in the alphabet and that number is entered in a matrix \(M\). Thus, for example, "READ" becomes the matrix \(M=\twobytwo{18}{5}{1}{4}\).\par
+In order to further avoid detection, each message with four letters is sent to the agent encoded as \(MC\), where \(C=\twobytwo{2}{-1}{1}{1}\). If the agent receives the matrix \(\twobytwo{51}{-3}{31}{-8}\), then what was the original message?
 
-  \item (\textbf{E}) (1) [1 point] Consider the ODE \(y''+4y'+13y=0\). Verify whether or not the functions \(y_1=e^{-3t}\cos(2t)\) and \(y_2=e^{-3t}\sin(2t)\) form a fundamental set of solutions. 
-  
-  \item (1) [1 point] Solve the IVP \(W[t^2+1,f(t)]=1\) with \(f(0)=1\).
-  
-  \item (1+) [2 points] If \(W[f,g] = t3 e^{2t}\) and \(f(t) = t^2\), find \(g(t)\). [Obs: Your answer will involve a non-elementary integral, you may leave your answer in terms of such integral.]
-  
-  \item (2-) [3 points] Boyce, di Prima, and Meade chapter 3 section 3 problem 13.
-  
-  \item (2) [3 points] Boyce, di Prima, and Meade chapter 3 section 3 problem 15.
-  
-  \item (1) [1 point] For which values of \(\lambda\) does the problem 
-  \[y''+\lambda y=0,\quad y(0)=y(1)=0\]
-  have non-zero solution? Find such solutions.
+\item (1+) [2 points] Let \(0<t<\pi\). The matrix \(\twobytwo{\cos(t)}{-\sin(t)}{\sin(t)}{\cos(t)}\) has eigenvalues \(\lambda_1,\lambda_2\). For what value of \(t\), does it hold that \(\lambda_1+\lambda_2=1\)?
 
-  \item (1) [1 point] Find a second order linear homogeneous equation whose corresponding characteristic equation has \(3-7i\) as one of its roots.
-
-  \item (2+) [4 points] Boyce, di Prima, and Meade chapter 3 section 4 problem 12.
-
-  \item (1+) [2 points] Boyce, di Prima, and Meade chapter 3 section 5 problem 10.
-
-  \item (2-) [3 points] Boyce, di Prima, and Meade chapter 3 section 5 problem 12.
-
+\item (1+) [2 points] Boyce, di Prima, and Meade chapter 7 section 2 problem 17.
   
-  \item (\textbf{E}) (2) [3 points] Find the general solution to the ODE \(\ddot{x}-4\dot{x}+3x=0\), then find a particular solution to \(\ddot{x}-4\dot{x}+3x=e^t\). Conclude by writing down the general solution of \(\ddot{x}-4\dot{x}+3x=e^t\).
-  
-  \item (\textbf{E}) (2) [3 points] Consider the ODE \(\ddot{x}-\dot{x}-2x=e^{-t}\). Find the general solution to the corresponding homogeneous equation. Then find a particular solution of the nonhomogenous equation. Conclude by finding the solution of the nonhomogenous equation satisfying \(x(0)=1\) and \(\dot{x}(0)=0\).
-  
-  \item (2) [3 points] Solve the following initial value problem where the characteristic equation is of degree 3 and higher. 
-  \[y^{(3)}+y''-4y'-4y= 8x+ 8 + 6 e^{-x},\quad y(0)=2,\quad y'(0)=-4,\quad y''(0)=12.\]
-  [Hint: At least one of its roots is an integer and can be found by inspection.]
+\item (2) [2 points] Boyce, di Prima, and Meade chapter 7 section 2 problem 18.
 
+\item (3-) [8 points] Find the eigenvalues and eigenvectors of the following \(3\times 3\) matrices
+\[
+\threebythree{0}{0}{-2}{0}{2}{2}{-2}{2}{1},\quad\threebythree{-2}{0}{2}{0}{0}{2}{2}{2}{1},\quad\threebythree{-1}{-4}{-4}{-4}{-3}{0}{-4}{0}{1}.
+\]
 
+%{{1,0,-1},{0,1,-1},{0,0,-1}}*{{1,0,0},{0,2,1},{0,0,2}}*{{1,0,-1},{0,1,-1},{0,0,-1}}^(-1)
+%{{0,-1,1},{-1,1,0},{1,0,0}}*{{2,0,0},{0,1,1},{0,0,1}}*{{0,-1,1},{-1,1,0},{1,0,0}}^(-1)
+%{{1,-1,1},{-1,1,0},{1,0,0}}*{{1,0,0},{0,2,1},{0,0,2}}*{{1,-1,1},{-1,1,0},{1,0,0}}^(-1)
+\item (3-) [8 points] Write down the Jordan decomposition of the following matrices
+\[
+\threebythree{1}{0}{1}{0}{2}{-1}{0}{0}{2},\quad\threebythree{0}{-1}{-1}{1}{2}{0}{0}{0}{2},\quad\threebythree{1}{-1}{-1}{1}{3}{1}{0}{0}{1}
+\]
+\item (1-) [1 point] If \(f\) is a linear vector function such that 
+\[f(1,1)=1,\quad\text{and}\quad f(-1,0)=2,\]
+how much is \(f(3,5)\)?
+
+\item (1-) [1 point] If \(A\) is a \(3\times 3\) matrix such that 
+\[
+A\threebyone{0}{1}{2}=\threebyone{1}{0}{0},\quad\text{and}\quad A\threebyone{3}{4}{5}=\threebyone{0}{1}{0},
+\]
+what is the value of \(A\threebyone{6}{7}{8}\)?
+
+%1
+\item (2) [3 points] For which value of \(b\) does the matrix
+\[A=\threebythree{0}{3}{1}{0}{0}{-12}{0}{3b}{12}\]
+have an eigenvalue of algebraic multiplicity \(2\)?
+
+\item (2+) [4 points] Supppose \(a>0\). If 
+\[A=\threebythree{a}{0}{0}{-a}{a}{-a}{a}{0}{2a},\]
+find the eigenvector(s) corresponding to \(A\)'s smallest eigenvalue.
+
+\item (1+) [2 points] Let \(a,b>0\) and consider the matrix
+\[
+\threebythree{a}{b-a}{a-b}{0}{a}{0}{0}{a-b}{b}
+\]
+with characteristic polynomial \(p(\lambda)=(\lambda-a)^2(\lambda-b)\). The eigenspace associated to \(\lambda=a\) is spanned by the vectors 
+\[\vec{v}_1=\threebyone{a}{b}{b},\quad\text{and}\quad\vec{v}_2=\threebyone{a}{-b}{-b}.\]
+With this information, is it possible to conclude that the matrix is diagonalizable? [Hint: Recall the AMGM inequality.]
 \end{enumerate}
 
 \end{document}
