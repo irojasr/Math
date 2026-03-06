@@ -1,6 +1,7 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
+\iffalse
 \DocumentMetadata{
 pdfversion=2.0,  
 lang=en-US,   
@@ -8,6 +9,7 @@ pdfstandard={ua-2, a-4f},
 tagging = on, 
 tagging-setup={math/setup={mathml-SE}} ,
 }
+\fi
 \documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage[extreme]{savetrees}
@@ -16,6 +18,7 @@ tagging-setup={math/setup={mathml-SE}} ,
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{physics}
+\usepackage[customcolors]{hf-tikz}
 
 %%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
 
@@ -25,91 +28,563 @@ pdfauthor={Ignacio Rojas},
 pdfkeywords={first handout},%
 }
 
+\tikzset{
+  style green/.style={
+    set fill color=green!50!lime!60,
+    set border color=white,
+  },
+  style cyan/.style={
+    set fill color=cyan!90!blue!60,
+    set border color=white,
+  },
+  style orange/.style={
+    set fill color=orange!80!red!60,
+    set border color=white,
+  },
+  row/.style={
+    above left offset={-0.15,0.31},
+    below right offset={0.15,-0.125},
+    #1
+  },
+  col/.style={
+    above left offset={-0.1,0.3},
+    below right offset={0.15,-0.15},
+    #1
+  }
+}
+
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+  #1 \\ #2 \end{pmatrix}}
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+    #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\twobythree}[6]{\begin{pmatrix} %% 2 x 3 matrix
+        #1 & #2 & #3\\ #4 & #5 & #6 \end{pmatrix}}
+\newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
+  #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\threebytwo}[6]{\begin{pmatrix} %% 3 x 1 matrix
+    #1 & #2\\ #3 & #4\\ #5&#6 \end{pmatrix}}
+\newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
+  #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
+
+\newcommand{\To}{\Rightarrow}
+
 %----------------------------------------------------------------------------------------
 %	ARTICLE CONTENTS
 %----------------------------------------------------------------------------------------
+
 \begin{document}
+\begin{multicols}{2}
+\textbf{Attention to notation!}
+\begin{itemize}
+  \item Swap: Exchange rows.
+  \begin{itemize}
+    \item \(R_i=R_j,\)
+    \item \(R_i\leftrightarrow R_j,\) 
+    \item \(r_i\leftrightarrow r_j.\)
+  \end{itemize}
+  \item Scaling: Multiply rows by constants.
+  \begin{itemize}
+    \item \(cR_i\),
+    \item \(R_i=cR_i\), 
+    \item \(cr_i\).
+  \end{itemize}
+  \item Combination: Add multiples of rows.
+  \begin{itemize}
+    \item \(R_i+cR_j,\)
+    \item \(R_i=R_i+cR_j,\)
+    \item \(R_i\leftarrow R_i+cR_j.\)
+  \end{itemize}
+\end{itemize}
 
-\begin{center}
-    {\Large MATH 340 -- Homework 1,\quad Spring 2026}
-\end{center}
+After applying this row operations, systems of equations keep having the same solutions. If a system is augmented, the augmentation also is affected by the same row operations.
 
-Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details. NOTE: All problems from Boyce, Di Prima and Meade are from the \(11^{\text{th}}\)  edition, which is available online in the coordinator's website: \href{https://www.math.colostate.edu/~liu/MATH340_S26Crd/}{https://www.math.colostate.edu/~liu/MATH340\_S26Crd/}.
+\textbf{Remark:}
+Given that systems are \emph{equivalent} after row operations, we apply them in order to get simpler equations to solve.
 
+\textbf{Definition:}
+A matrix is in \underline{row echelon form} if:
 \begin{enumerate}
-  \item (2) [3 points] Understand the following concepts by writing out their definitions:
-  \begin{multicols}{3}
-  \begin{enumerate}
-    \itemsep=0em
-    \item Slope/direction field
-    \item Phase line
-    \item Integral/solution curve
-    \item Isocline
-    \item Nullcline
-    \item Equilibrium point
-  \end{enumerate}
-  \end{multicols}
-  \item (2+) [4 points] Classify the following equations by answering: Is it implicit or can be made explicit? What is the order? Is it linear or nonlinear, and if it is linear, is it homogeneous, constant-coefficients? Is it autonomous? Is it exact?
-  \begin{multicols}{2}
-  \begin{enumerate}
-    \itemsep=0em
-    \item \(\sin(t)\ddot{x}+\cos(t)x=t^2\)
-    \item \(((y^{(3)})^2-\sin(x))'=0\)
-    \item \((y')^2-(y')^5=2x^3y^5\)
-    \item \(y^{(5)}+y^6=y^{(4)}-y''+y\)
-    \item \(\ddot{x}+tx^2=t\)
-    \item \(x^{(4)}=0\)
-  \end{enumerate}
-  \end{multicols}
-  
-  \item (1-) [1 point] For which \(k\) is \(\dot{x}+x^k=t^{k+2}\) linear? [Hint: There are two answers.]
-  
-  \item (2+) [4 points] Give an explicit example of a third order linear ODE with variable coefficients that is non autonomous and non homogeneous, and in which all derivatives up to third order appear.
-
-  \item (1+) [2 points] A first order ODE is written as \(P(x,y)\dd x+Q(x,y)\dd y=0\). Write  down the condition for this ODE to be exact. Consider the ODE
-  \[
-  (e^xy^2)\dd x+(2e^xy+x\cos(y))\dd y=0,\quad (x+3x^2\sin(y))\dd x+x^4\cos(y)\dd y=0.
-  \]
-  Determine whether they are exact.
-
-  \item (1+) [2 points] Boyce, di Prima, and Meade chapter 1 section 1 problems 11, 12 and 15.
-
-  \item (1) [1 point] For the differential equation
-  \[
-    x^{(3)}-12\ddot{x}+48\dot{x}-64x=0.
-  \]
-  Verify whether \(x_1(t)=e^{4t}\) and \(x_2(t)=e^t\) satisfy the equation.
-
-  \item (2-) [2 points] For a real valued function \(f\), show that 
-\[
-y(x)=\int_{0}^{x}tf(t)\dd t
-\]
-satisfies the differential equation \(xy''+(x-1)y'=0\).
-  
-  \item (3-) [8 points] Suppose \(y(x)\) solves the autonomous equation \(\dv{y}{x}=f(y)\) and is bounded above and below by two consecutive equilibrium points \(c_1<c_2\). If \(f(y)>0\), then it happens that \(\lim_{x\to\infty}y(x)=c_2\). Explain why its impossible for the limit to equal \(L<c_2\). In your argument, consider what happens to \(y'(x)\) as \(x\to\infty\).
-  
-  \item (2+) [4 points] Give an example of an autonomous differential equation with exactly three equilibrium points, two stable and one unstable. Draw the phase line indicating stability, and sketch the slope field. In the slope field, draw four distinct nonconstant solution solutions between the equilibria. Analyze the behaviour of the solutions as \(x\to\pm\infty\).\par 
-  [Use \href{https://aeb019.hosted.uark.edu/dfield.html}{https://aeb019.hosted.uark.edu/dfield.html} to help yourself.]
-
-  \item (1) [1 point] Consider the following autonomous equations
-  \[
-  y'=y^3-y,\quad y'=(y^4-16)(y^2-16).  
-  \]
-  List the equilibria for both.
-
-  \item (1) [1 point] Consider the differnetial equation 
-  \[
-  y'=y^n,\quad n>0
-  \]
-  Use \href{https://aeb019.hosted.uark.edu/dfield.html}{https://aeb019.hosted.uark.edu/dfield.html} and describe what happens to the equilibrium point \(0\)  as \(n\)  varies. Support your statements using the stability theorem.
-
-  \item (2+) [4 points] Consider the equation \(\dot{x}+kx=1\). Is there any value of \(k\) for which there is a nonconstant solution \(x\) such that \(x\to-3\) as \(t\to\infty\)? Explain and support your claims via the stability theorem.
-
-  \item (4) [10 points] Consider the initial value problem
-  \[
-  \dot{x}(t)=1+t^2x(t)^4,\quad x(0)=0.
-  \]
-  Show that the solution to this equation is necessarily an odd function, this is, \(x(-t)=-x(t)\). [Hint: Use the Picard-Lindelöf theorem.]
+  \item The zero rows are at the \textbf{bottom}.
+  \item The \(1^{\text{st}}\) nonzero entry of each row \textbf{is to the right} of the \(1^{\text{st}}\) nonzero entry of the previous row.
 \end{enumerate}
 
+
+\textbf{Example:}
+Consider the matrix 
+
+\[A=\begin{pmatrix}
+  1&0&1&-2&0\\ 0&0&0&-1&3\\ 0&0&2&4&-5
+\end{pmatrix}.\]
+
+Let's see if \(A\) is in row echelon form.\par 
+ 
+\begin{itemize}
+  \item[C1] Condition 1 of the definition is met because there are no zero rows.
+  \item[C2] The \(1^{\text{st}}\) nonzero entries of each row are 1, -1 and 2. The -1 in the second row is indeed to the \textbf{right} of the 1. But the 2 is to the \textbf{left} of the -1.
+\end{itemize}
+
+Condition 2 is not met, so \(A\) is not in row echelon form. But, can we convert it? Yes! With a row operation. Notice that by applying a \textbf{swap} we obtain:
+
+\
+The matrix \(A\) and the new matrix \textbf{are not the same}. However, this new matrix \textbf{is} in row echelon form.
+
+
+\textbf{Practice:}
+Consider the matrix 
+\[
+B=\begin{pmatrix}
+  1&2\\1&3\\0&0\\0&1
+\end{pmatrix}.\]
+ Is it in row echelon form? If not, convert it using row operations!\par As a \textbf{hint}, you should use the \textbf{combination} operation. 
+
+\vspace{5cm}
+
+\textbf{Definition:}
+  A matrix is in \underline{reduced} \underline{row echelon form} (\textbf{RREF}) if:
+  \begin{enumerate}
+    \item It is in \textbf{row echelon form}.
+    \item The \(1^{\text{st}}\) nonzero entry of each row is a 1.
+    \item In each \textbf{column}, the leading 1s are \textbf{only accompanied by zeros}.
+  \end{enumerate}
+
+
+\textbf{Example:}
+  Consider the last matrix we obtained from the previous example.
+  \[\begin{pmatrix}
+    1&0&1&-2&0\\ 0&0&2&4&-5\\ 0&0&0&-1&3
+  \end{pmatrix}\]
+  Is it in \textbf{reduced row echelon form}?
+  \begin{enumerate}
+    \item[C1] Yes, it is in row echelon form.
+    \item[C2] The \(1^{\text{st}}\) nonzero entries of each row are 1, 2 and -1. So only the first row meets this condition.
+  \end{enumerate}
+  We remedy this by applying two \textbf{scalings}:
+  \begin{align*}
+    \begin{pmatrix}
+      1&0&1&-2&0\\ 0&0&2&4&-5\\ 0&0&0&-1&3
+    \end{pmatrix}&\xrightarrow{\frac12 R_2}\begin{pmatrix}
+      1&0&1&-2&0\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&-1&3\\
+    \end{pmatrix}\\
+      &\xrightarrow{-1 R_3}\begin{pmatrix}
+        1&0&1&-2&0\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&1&-3\\
+    \end{pmatrix}
+  \end{align*}
+  With this, condition 2 is now met.\par However, condition 3 is still not met. The 1 in the second row has a 1 above it, and the one in the third row has a -2 and a 2. To get rid of them, we apply a \textbf{combination}.
+  \begin{align*}
+    \begin{pmatrix}
+        1&0&1&-2&0\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&1&-3\\
+    \end{pmatrix}&\xrightarrow{R_1-R_2} \begin{pmatrix}
+      1&0&0&-4&\frac{5}{2}\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&1&-3\\
+  \end{pmatrix}\\
+  &\xrightarrow{R_2-2R_3} \begin{pmatrix}
+      1&0&0&-4&\frac{5}{2}\\ 0&0&1&0&\frac{7}{2}\\ 0&0&0&1&-3\\
+\end{pmatrix}\\
+&\xrightarrow{R_1+4R_3} \begin{pmatrix}
+  1&0&0&0&\frac{-19}{2}\\ 0&0&1&0&\frac{7}{2}\\ 0&0&0&1&-3\\\end{pmatrix}
+  \end{align*}
+  Condition 3 is thus met, and this is the reduced row echelon form of \(A\).
+
+
+\textbf{Remark:}
+  By saying \emph{the} reduced row echelon form, we allude to uniqueness. This is because \textbf{every matrix} is row-equivalent to a \textbf{unique} matrix in \textbf{RREF}.
+
+
+  \textbf{Practice:} Let's solve the following system of equations in variables \((a,b,c,d)\):
+  \[
+  \left\lbrace\begin{aligned}
+    &3a-c=0\\
+    &8a-2d=0\\
+    &2b-2c-d=0
+              \end{aligned}\right.
+  \]
+
+  \textbf{Practice:} Consider the system of equations in variables \((u,v,w,x,y)\) below:
+  \[
+  \left\lbrace\begin{aligned}
+    &u+v-y=1\\
+    &v+2w+x+3y=1\\
+    &u-w+x+y=0
+              \end{aligned}\right.
+  \]
+ 
+  \begin{enumerate}
+    \item What is the coefficient matrix associated with the system? And the augmented matrix?
+    \item Reduce the augmented matrix to find the solution. ?
+    \item Which variables are free in the solution? How many parameters does the solution depend on? 
+  \end{enumerate}
+   \vspace{5cm}
+
+\subsection*{The Matrix Product}
+
+The condition that guarantees that two matrices \(A,B\) can be multiplied is:
+\
+If \(A\) is \([m\times p]\) and \(B\) is \([p\times n]\), then the entries of the product are defined by the formula:
+\
+More simply:
+\
+The matrix \(AB\) will be of size \([m\times n]\).
+
+\textbf{Example:}
+Consider the matrices
+
+\[
+A=\begin{pmatrix}
+    1&-1\\
+    3&4\\
+    -2&0\\
+    0&4
+\end{pmatrix},\ B=\begin{pmatrix}
+    2&0&-2&8&-5\\
+    1&-2&3&9&6
+\end{pmatrix}.
+\]
+
+
+Notice that:
+\begin{itemize}
+    \item \(A\) is \([4\times 2]\).
+    \item \(B\) is \([2\times 5]\).
+    \begin{itemize}
+        \item It holds that \(\#\text{cols. } A = \#\text{rows }B\).
+        \item We can multiply \(A\) and \(B\)!
+    \end{itemize}
+    \item The matrix \(AB\) will be of size \([4\times 5]\).
+\end{itemize}
+If we want to find the \((2,4)\) entry of \(AB\), we use row 2 of \(A\) and column \(4\) of \(B\):
+
+
+\[
+\left(\begin{array}{cc}
+    1&-1\\
+    \tikzmarkin[row=style cyan]{r2}3&4\tikzmarkend{r2}\\
+    -2&0\\
+    0&4
+  \end{array}\right)\quad\text{y}\quad
+  \left(\begin{array}{ccccc}
+    2&0&-2&\tikzmarkin[col=style green]{c4}8&-5\\
+    1&-2&3&9\tikzmarkend{c4}&6
+  \end{array}\right).
+\]
+
+We take the dot product of these vectors:
+\[(3,4)\cdot(8,9)=3\cdot 8+4\cdot 9=60\]
+and therefore \((AB)_{24}=60.\)
+
+
+In general, we can arrange the matrices in the following way:
+
+\[
+\begin{array}{cc|c|c|c|c|c}
+    &&2&0&-2&\tikzmarkin[col = style green]{c4d2}8&-5\\
+    &&1&-2&3&9&6\\
+    \hline1&-1&&&&&\\
+    \hline\tikzmarkin[row = style cyan]{r2d2}3&4&&&&(\ast)\tikzmarkend{r2d2}\tikzmarkend{c4d2}&\\
+\hline-2&0&&&&&\\
+   \hline 0&4&&&&&\\
+\end{array}
+\]
+
+
+\textbf{Practice:}
+  \begin{itemize}
+    \item Find the \((1,3)\) entry of \(AB\) by highlighting the corresponding rows and columns.
+    \item Perform the same procedure to find the \((3,2)\) entry of \(AB\).
+  \end{itemize}
+
+%https://tex.stackexchange.com/questions/232516/cannot-compile-matrix-multiplication-example-from-texample-net
+%https://tex.stackexchange.com/questions/448843/matrix-multiplication-with-tikz
+To find any entry, we locate the corresponding row and column of the matrices and calculate their dot product.
+
+
+
+\textbf{Exercise:}
+We already multiplied \(A\) on the left of \(B\). Can we multiply \(BA\)? That is, reversing the order of multiplication.
+
+
+\textbf{Remark:}
+In general, if \(A\) has dimensions \([m\times n]\) and \(B\) has dimensions \([n\times m]\), then both \(AB\) and \(BA\) exist.
+
+
+\textbf{Example:}
+  Consider the matrices 
+  \[
+  A=\begin{pmatrix}
+    1&-1\\
+    3&4\\
+    -2&0\\
+    0&4
+\end{pmatrix},\ B=\begin{pmatrix}
+    2&0&-2&8&-5\\
+    1&-2&3&9&6
+\end{pmatrix}.
+  \]
+
+If we want to find \(AB\), we first verify if we can multiply them. \(A\) is \([2\times 4]\) and \(B\) is \([4\times 2]\); in this case, 
+\[
+\text{\#rows } A=\text{\#cols. } B
+\]
+so we can calculate \(AB\).\par 
+In the same way, if we look for \(BA\), we can also calculate it because \[
+\text{\#rows } B=\text{\#cols. } A.
+\]
+
+
+\textbf{Practice:}
+  \begin{enumerate}
+    \item What size will the matrices \(AB\) and \(BA\) have?
+    \item Work together with someone to find the resulting matrices from the multiplication.
+  \end{enumerate}
+\vfill\null\columnbreak
+
+\subsection*{Determinants}
+
+\textbf{Notation:}
+The determinant of a matrix \(A\) is denoted by \(\det(A)\) or \(|A|\).
+
+
+\begin{itemize}
+  \item In the \([2\times 2]\) case, if \(A=\begin{pmatrix}
+    a&b\\c&d
+  \end{pmatrix}\), then
+  \[\det(A)=ad-bc.\]
+  
+  \item The \([3\times 3]\) case, \textbf{Sarrus' Rule}:\par 
+  If \(A=\begin{pmatrix}
+    a&b&c\\d&e&f\\g&h&i
+  \end{pmatrix}\), then we calculate its determinant by taking the first two columns and augmenting \(A\) with them such that we obtain
+  \[\left(\begin{array}{ccc|cc}
+    a&b&c&a&b\\d&e&f&d&e\\g&h&i&g&h
+  \end{array}\right)\]
+  from here we add the diagonals from top to bottom and subtract the diagonals from bottom to top such that 
+  \[\det(A)=aei+bfg+cdh-gec-hfa-idb.\]
+\end{itemize}
+
+\subsection*{Eigenvalues and Eigenvectors}
+
+Eigenvectors are generators for invariant spaces of linear maps; that is, \emph{they don't change direction after the mapping.}
+
+\textbf{Definition:} An \underline{eigenvector} of a map \(T\) is a non-zero vector \(\vec{x}\) that satisfies \(T(\vec{x})=\lambda\vec{x}\) for some scalar \(\lambda\). The constant \(\lambda\) is called the \underline{eigenvalue} associated with \(\vec{x}\).\par
+
+To find the eigenvectors, we modify the defining equation \(T(\vec{x})=\lambda\vec{x}\) as follows:
+
+\begin{align*}
+  T(\vec{x})=\lambda\vec{x}&\iff T(\vec{x})=\lambda\operatorname{id}(\vec{x})\\
+  &\iff T(\vec{x})-\lambda\operatorname{id}(\vec{x})=0\\
+  &\iff \left(T-\lambda\operatorname{id}\right)(\vec{x})=0\\
+  &\iff \left(A-\lambda I\right)(\vec{x})=0
+\end{align*}
+
+So we are tasked with finding the solutions \(\vec{x}\) to the matrix equation:
+\[
+ \left(A-\lambda I\right)(\vec{x})=0.
+\]
+
+\textbf{Remark:} For the matrix in question to have non-zero solutions to the homogeneous equation, we must guarantee that it is non-invertible. So that: 
+\[
+A-\lambda I\ \text{is non-invertible}\iff \det(A-\lambda I)=0.
+\]
+
+\textbf{Definition:} For a linear map \(T\) represented by a matrix \(A\), we define its \underline{characteristic polynomial} as: 
+\[
+f_A(x)=\det(A-xI).
+\]
+The zeroes, or roots, of the characteristic polynomial will be \(T\)'s eigenvalues.
+
+\textbf{Remark:}
+Observe that geometrically, we often start by identifying the eigenvectors, because invariant subspaces can be visually perceived. However, algebraically we proceed in reverse: finding the eigenvalues first and then their corresponding eigenvectors.
+
+\textbf{Definition:} 
+The \underline{algebraic multiplicity} (a.m.) of an eigenvalue \(\lambda\) is the degree of the factor \((x-\lambda)\) in the characteristic polynomial. It is also the number of times \(\lambda\) appears as an eigenvalue of the map.\par
+The \underline{geometric multiplicity} (g.m.) of an eigenvalue \(\lambda\) is the number of linearly independent eigenvectors associated with \(\lambda\).
+
+\textbf{Important:} 
+It always holds that: 
+\[1\leq \text{g.m.}\leq \text{a.m.}\]
+In other words: every eigenvalue always has at least one eigenvector associated with it. Furthermore, there can be no more linearly independent eigenvectors than instances of the eigenvalue they are associated with.
+
+\textbf{Example:} 
+We have \(C=\twobytwo{1}{3}{0}{1}\), a shear mapping. 
+\begin{itemize}
+  \item \(C\) is triangular \(\To\) \(\lambda=1\) with a.m.\(=2\).
+  \item It has a single eigenvector \((1,0)\), so g.m.\(=1\).
+  \item Since a.m. \(\neq\) g.m., \(C\) is not diagonalizable.
+\end{itemize}
+
+%https://ece.uwaterloo.ca/~dwharder/Integer_eigenvalues/
+
+\textbf{Example:}
+  Let's consider 
+  \[A=\twobytwo{2}{1}{1}{2}.\] 
+  We are looking for its eigenvectors.
+  \begin{enumerate}
+    \item Using the trace-determinant formula we have that: 
+    \[m=\frac{1}{2}(2+2),\ p=\det A=3\To \lambda=2\pm\sqrt{2^2-3},\]
+    so \(\lambda_1=3\) and \(\lambda_2=1\).
+    
+    \item The first eigenspace is: 
+    \[E_{\lambda_1}=\ker(A-3I)=\ker\twobytwo{-1}{1}{1}{-1}=\ker\twobytwo{1}{-1}{0}{0}.\]
+    The equation associated with this matrix is \(x-y=0\) and its solution is: 
+    \[(x,y)=(x,x)=x(1,1)\To E_{\lambda_1}=\operatorname{span}(1,1).\]
+    We conclude that \(\vec{v}_1=(1,1)\) is an eigenvector of \(A\) associated with \(\lambda_1=3\).
+    
+    \item The second eigenspace is: 
+    \[E_{\lambda_2}=\ker(A-I)=\ker\twobytwo{1}{1}{1}{1}=\ker\twobytwo{1}{1}{0}{0}.\]
+    The associated equation is \(x+y=0\). Its solution is: 
+    \[(x,y)=(x,-x)=x(1,-1)\To E_{\lambda_2}=\operatorname{span}(1,-1).\]
+    and thus the other eigenvector is \(\vec{v}_2=(1,-1)\) associated with \(\lambda_2=1\).
+  \end{enumerate}
+ 
+  
+ \textbf{Example:}
+  Let's consider 
+  \[A=\threebythree{0}{0}{-2}{0}{2}{2}{-2}{2}{1}.\] We are looking for its eigenvectors.
+  \begin{enumerate}
+    \item To find the eigenvalues, we must find the roots of the characteristic polynomial. We compute the determinant: 
+    \[f(\lambda) = \det(A-\lambda I) = \det\threebythree{-\lambda}{0}{-2}{0}{2-\lambda}{2}{-2}{2}{1-\lambda}.\]
+    To expand this determinant, we can use Sarrus' rule. We augment the matrix with its first two columns:
+    \[\left(\begin{array}{ccc|cc}
+      -\lambda & 0 & -2 & -\lambda & 0 \\
+      0 & 2-\lambda & 2 & 0 & 2-\lambda \\
+      -2 & 2 & 1-\lambda & -2 & 2
+    \end{array}\right)\]
+    Next, we sum the products of the top-to-bottom diagonals and subtract the products of the bottom-to-top diagonals:
+    \begin{align*}
+      f(\lambda) &= [ (-\lambda)(2-\lambda)(1-\lambda) + (0)(2)(-2) + (-2)(0)(2) ] \\
+      &\quad - [ (-2)(2-\lambda)(-2) + (2)(2)(-\lambda) + (1-\lambda)(0)(0) ] \\
+      &= [ -\lambda(2 - 3\lambda + \lambda^2) + 0 + 0 ] - [ 4(2-\lambda) - 4\lambda + 0 ] \\
+      &= (-\lambda^3 + 3\lambda^2 - 2\lambda) - (8 - 4\lambda - 4\lambda) \\
+      &= (-\lambda^3 + 3\lambda^2 - 2\lambda) - (8 - 8\lambda)\\
+      &= -\lambda^3 + 3\lambda^2 + 6\lambda - 8.
+    \end{align*}
+    By factoring the polynomial, we obtain \(f(\lambda) = -(\lambda - 1)(\lambda - 4)(\lambda + 2)\), so our eigenvalues are \(\lambda_1=1\), \(\lambda_2=4\), and \(\lambda_3=-2\). Because all three eigenvalues are distinct, we already know that a.m.\(=1\) for each of them.
+    
+    \item The first eigenspace is: 
+    \[E_{\lambda_1}=\ker(A-I)=\ker\threebythree{-1}{0}{-2}{0}{1}{2}{-2}{2}{0}.\]
+    We find the reduced row echelon form (RREF) of this matrix:
+    \[
+    \threebythree{1}{0}{2}{0}{1}{2}{0}{0}{0}
+    \]
+    This yields the equations \(x+2z=0\) and \(y+2z=0\). Its solution is: 
+    \begin{align*}
+      (x,y,z)&=(-2z,-2z,z)\\
+      &=z(-2,-2,1)\\
+      \To E_{\lambda_1}&=\operatorname{span}(-2,-2,1).
+    \end{align*}
+    We conclude that \(\vec{v}_1=(-2,-2,1)\) is an eigenvector of \(A\) associated with \(\lambda_1=1\).
+    
+    \item The second eigenspace is: 
+    \[E_{\lambda_2}=\ker(A-4I)=\ker\threebythree{-4}{0}{-2}{0}{-2}{2}{-2}{2}{-3}.\]
+    Finding its RREF gives:
+    \[
+    \threebythree{1}{0}{1/2}{0}{1}{-1}{0}{0}{0}
+    \]
+    This yields the equations \(x+\frac{1}{2}z=0\) and \(y-z=0\). To avoid fractions in our vector, we can set \(z=-2x\), which then gives \(y=-2x\). Its solution is: 
+    \begin{align*}
+      (x,y,z)&=(x,-2x,-2x)\\
+      &=x(1,-2,-2)\\
+      \To E_{\lambda_2}&=\operatorname{span}(1,-2,-2).
+    \end{align*}
+    Thus, the second eigenvector is \(\vec{v}_2=(1,-2,-2)\) associated with \(\lambda_2=4\).
+
+    \item The third eigenspace is: 
+    \[E_{\lambda_3}=\ker(A+2I)=\ker\threebythree{2}{0}{-2}{0}{4}{2}{-2}{2}{3}.\]
+    Finding its RREF gives:
+    \[
+    \threebythree{1}{0}{-1}{0}{1}{1/2}{0}{0}{0}
+    \]
+    This yields the equations \(x-z=0\) and \(y+\frac{1}{2}z=0\). To avoid fractions, we set \(z=-2y\) and thus \(x=-2y\). Its solution is: 
+    \begin{align*}
+      (x,y,z)&=(-2y,y,-2y)\\
+      &=y(-2,1,-2)\\
+      \To E_{\lambda_3}&=\operatorname{span}(-2,1,-2).
+    \end{align*}
+    And thus the final eigenvector is \(\vec{v}_3=(-2,1,-2)\) associated with \(\lambda_3=-2\).
+  \end{enumerate}
+  We see that for all three eigenvalues, a.m.\(=\)g.m.\(=1\).
+
+ \subsection*{Generalized eigenvectors}
+
+The geometric idea of a generalized eigenspace is that it is an entire line, plane, or subspace \emph{which doesn't pass through the origin} (\emph{it is an affine space!}) that, when acted upon by a linear map, gets pushed into a standard eigenspace.
+
+\textbf{Definition:} If \(\vec{v}_1\) is a standard eigenvector associated with \(\lambda\), a \underline{generalized eigenvector} \(\vec{v}_2\) is a vector that gets pushed into the direction of \(\vec{v}_1\). Algebraically, we find it by solving the non-homogeneous matrix equation:
+\[(A-\lambda I)\vec{v}_2 = \vec{v}_1\]
+
+\textbf{Example:}
+We have the shear mapping from before, 
+\[C=\twobytwo{1}{3}{0}{1},\]
+we know:
+\begin{itemize}
+  \item \(C\) is triangular \(\To\) \(\lambda=1\) with a.m.\(=2\).
+  \item It has a single eigenvector \(\vec{v}_1=(1,0)\), so g.m.\(=1\).
+  \item Since a.m. \(\neq\) g.m., \(C\) has a generalized eigenvectors.
+\end{itemize}
+
+To find the generalized eigenvector \(\vec{v}_2\), we solve the equation \((C - I)\vec{v}_2 = \vec{v}_1\):
+\[\twobytwo{0}{3}{0}{0}\begin{pmatrix}x\\y\end{pmatrix} = \begin{pmatrix}1\\0\end{pmatrix}\]
+This yields the equation 
+\[
+3y=1\To y=1/3
+\]
+and \(x\) is free. So that the solution to the system is
+\[
+(x,y)=(x,1/3)=x(1,0)+(0,1/3).
+\] 
+The solution includes the eigenvector itself but also the generalized eigenvector which we have not seen before.
+Thus, \(\vec{v}_2=(0,1/3)\) is a generalized eigenvector for \(C\).
+
+\textbf{Example:}
+Let's consider \(A=\threebythree{0}{-1}{-1}{1}{2}{0}{0}{0}{2}\). We will find all its eigenvectors and generalized eigenvectors.
+\begin{enumerate}
+  \item First, we find the characteristic polynomial:
+  \[f(\lambda) = \det(A-\lambda I) = \det\threebythree{-\lambda}{-1}{-1}{1}{2-\lambda}{0}{0}{0}{2-\lambda}.\]
+  Expanding along the third row gives:
+  \begin{align*}
+      f(\lambda) &= (2-\lambda) \det\twobytwo{-\lambda}{-1}{1}{2-\lambda} \\
+      &= (2-\lambda)(-\lambda(2-\lambda) - (-1)) \\
+      &= (2-\lambda)(\lambda^2 - 2\lambda + 1) \\
+      &= (2-\lambda)(\lambda - 1)^2.
+  \end{align*}
+  Our eigenvalues are \(\lambda_1=1\) (with a.m.\(=2\)) and \(\lambda_2=2\) (with a.m.\(=1\)).
+  
+  \item Let's find the eigenspace for \(\lambda_1=1\):
+  \[E_{\lambda_1}=\ker(A-I)=\ker\threebythree{-1}{-1}{-1}{1}{1}{0}{0}{0}{1}.\]
+  We find the RREF of this matrix:
+  \[\threebythree{1}{1}{0}{0}{0}{1}{0}{0}{0}\]
+  This yields the equations \(x+y=0\) and \(z=0\). Its solution is:
+  \begin{align*}
+    (x,y,z) &= (-y, y, 0) \\
+    &= y(-1, 1, 0) \\
+    \To E_{\lambda_1} &= \operatorname{span}(-1, 1, 0).
+  \end{align*}
+  We conclude that \(\vec{v}_1=(-1,1,0)\) is the only regular eigenvector for \(\lambda_1=1\). Since g.m.\(=1\) but a.m.\(=2\), we need a generalized eigenvector!
+  
+  \item To find the generalized eigenvector \(\vec{v}_2\) associated with \(\lambda_1=1\), we solve \((A-I)\vec{v}_2 = \vec{v}_1\). We set up the augmented matrix:
+  \[\left(\begin{array}{ccc|c} -1 & -1 & -1 & -1 \\ 1 & 1 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{array}\right)\]
+  Finding its RREF gives:
+  \[\left(\begin{array}{ccc|c} 1 & 1 & 0 & 1 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right)\]
+  This yields the equations \(x+y=1\) and \(z=0\). From here
+  \[
+  y=1-x
+  \]
+  so that our solution looks like
+  \begin{align*}
+    (x,y,z) &= (x, 1-x, 0) \\
+   &=(-x)(-1,1,0)+(0,1,0)
+  \end{align*}
+  Thus, \(\vec{v}_2=(0,1,0)\) is our generalized eigenvector and we see the original eigenvector in the solution.
+  
+  \item Finally, we find the eigenspace for \(\lambda_2=2\):
+  \[E_{\lambda_2}=\ker(A-2I)=\ker\threebythree{-2}{-1}{-1}{1}{0}{0}{0}{0}{0}.\]
+  Finding its RREF gives:
+  \[\threebythree{1}{0}{0}{0}{1}{1}{0}{0}{0}\]
+  This yields the equations \(x=0\) and \(y+z=0\). Its solution is:
+  \begin{align*}
+    (x,y,z) &= (0, -z, z) \\
+    &= z(0, -1, 1) \\
+    \To E_{\lambda_2} &= \operatorname{span}(0, -1, 1).
+  \end{align*}
+  And thus the third regular eigenvector is \(\vec{v}_3=(0,-1,1)\) associated with \(\lambda_2=2\).
+\end{enumerate}
+\vfill\null
+\end{multicols}
 \end{document} 
