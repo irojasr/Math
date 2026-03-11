@@ -1,7 +1,6 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-\iffalse
 \DocumentMetadata{
 pdfversion=2.0,  
 lang=en-US,   
@@ -9,7 +8,6 @@ pdfstandard={ua-2, a-4f},
 tagging = on, 
 tagging-setup={math/setup={mathml-SE}} ,
 }
-\fi
 \documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage[extreme]{savetrees}
@@ -122,10 +120,15 @@ Let's see if \(A\) is in row echelon form.\par
   \item[C1] Condition 1 of the definition is met because there are no zero rows.
   \item[C2] The \(1^{\text{st}}\) nonzero entries of each row are 1, -1 and 2. The -1 in the second row is indeed to the \textbf{right} of the 1. But the 2 is to the \textbf{left} of the -1.
 \end{itemize}
-
+\vfill\null\columnbreak
 Condition 2 is not met, so \(A\) is not in row echelon form. But, can we convert it? Yes! With a row operation. Notice that by applying a \textbf{swap} we obtain:
-
-\
+\[
+\begin{pmatrix}
+  1&0&1&-2&0\\ 0&0&0&-1&3\\ 0&0&2&4&-5
+\end{pmatrix}\xrightarrow[]{R_2\leftrightarrow R_3}\begin{pmatrix}
+  1&0&1&-2&0\\ 0&0&2&4&-5\\ 0&0&0&-1&3
+\end{pmatrix}.
+\]
 The matrix \(A\) and the new matrix \textbf{are not the same}. However, this new matrix \textbf{is} in row echelon form.
 
 
@@ -136,8 +139,6 @@ B=\begin{pmatrix}
   1&2\\1&3\\0&0\\0&1
 \end{pmatrix}.\]
  Is it in row echelon form? If not, convert it using row operations!\par As a \textbf{hint}, you should use the \textbf{combination} operation. 
-
-\vspace{5cm}
 
 \textbf{Definition:}
   A matrix is in \underline{reduced} \underline{row echelon form} (\textbf{RREF}) if:
@@ -169,7 +170,8 @@ B=\begin{pmatrix}
         1&0&1&-2&0\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&1&-3\\
     \end{pmatrix}
   \end{align*}
-  With this, condition 2 is now met.\par However, condition 3 is still not met. The 1 in the second row has a 1 above it, and the one in the third row has a -2 and a 2. To get rid of them, we apply a \textbf{combination}.
+  \vfill\null\columnbreak
+  With this, condition 2 is now met. However, condition 3 is still not met. The 1 in the second row has a 1 above it, and the one in the third row has a -2 and a 2. To get rid of them, we apply a \textbf{combination}.
   \begin{align*}
     \begin{pmatrix}
         1&0&1&-2&0\\ 0&0&1&2&\frac{-5}{2}\\ 0&0&0&1&-3\\
@@ -182,8 +184,8 @@ B=\begin{pmatrix}
 &\xrightarrow{R_1+4R_3} \begin{pmatrix}
   1&0&0&0&\frac{-19}{2}\\ 0&0&1&0&\frac{7}{2}\\ 0&0&0&1&-3\\\end{pmatrix}
   \end{align*}
-  Condition 3 is thus met, and this is the reduced row echelon form of \(A\).
 
+  Condition 3 is thus met, and this is the reduced row echelon form of \(A\).
 
 \textbf{Remark:}
   By saying \emph{the} reduced row echelon form, we allude to uniqueness. This is because \textbf{every matrix} is row-equivalent to a \textbf{unique} matrix in \textbf{RREF}.
@@ -212,7 +214,6 @@ B=\begin{pmatrix}
     \item Reduce the augmented matrix to find the solution. ?
     \item Which variables are free in the solution? How many parameters does the solution depend on? 
   \end{enumerate}
-   \vspace{5cm}
 
 \subsection*{The Matrix Product}
 
@@ -238,7 +239,7 @@ A=\begin{pmatrix}
     1&-2&3&9&6
 \end{pmatrix}.
 \]
-
+\vfill\null\columnbreak
 
 Notice that:
 \begin{itemize}
@@ -334,7 +335,6 @@ In the same way, if we look for \(BA\), we can also calculate it because \[
     \item What size will the matrices \(AB\) and \(BA\) have?
     \item Work together with someone to find the resulting matrices from the multiplication.
   \end{enumerate}
-\vfill\null\columnbreak
 
 \subsection*{Determinants}
 
@@ -584,6 +584,7 @@ Let's consider \(A=\threebythree{0}{-1}{-1}{1}{2}{0}{0}{0}{2}\). We will find al
     \To E_{\lambda_2} &= \operatorname{span}(0, -1, 1).
   \end{align*}
   And thus the third regular eigenvector is \(\vec{v}_3=(0,-1,1)\) associated with \(\lambda_2=2\).
+  \vfill\null\columnbreak
 \end{enumerate}
 \vfill\null
 \end{multicols}
