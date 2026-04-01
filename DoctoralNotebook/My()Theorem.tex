@@ -1,0 +1,393 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2024}
+\def\nprofesor {Renzo Cavalieri}
+\def\nsigla {DN}
+\def\nsiglahead {Doctoral Notebook}
+\def\nlang {ENG}
+\def\ntrim{}
+
+\input{../headerVarillyDiff}
+%\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-1.8 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
+\newcommand{\Mickey}{\pre{\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}\hspace{-2.3 mm}{\raisebox{-1.65mm}{\scalebox{2.1}{\ensuremath\bullet}}}^{\hspace{-2.1mm}\raisebox{-1mm}{\scalebox{1.3}{\ensuremath\bullet}}}}
+\newcommand{\Submickey}{\pre{\scalebox{0.75}{\ensuremath\bullet}}\hspace{-1.4mm}{\raisebox{-0.35mm}{\scalebox{1.1}{\ensuremath\bullet}}}^{\hspace{-1.1mm}\raisebox{-0.1mm}{\scalebox{0.75}{\ensuremath\bullet}}}}
+\author{\nauthor}
+\begin{document}
+
+\subsection{The general case, \(C^{\ps}(g,d)\)}
+
+Contributing maps here are enumerated by pairs \((g_1,g_2)\) with \(g_1+g_2=g\) and \(g_1,g_2\geq0\). These are ordered partitions of \(g\). We study the general case \(g_1,g_2\) with \(g_1\neq g-1,0\) and we treat these ones separately.
+
+\subsubsection{The \((g_1,g_2)\) contribution}
+
+The curve \(C_{(g_1,g_2)}\) has the normalization sequence
+\[0\to\cO_C\to\cO_{g_1}\oplus\cO_{\bP^1}\oplus\cO_{g_2}\to\un{\bC}_{n_1}\oplus\un{\bC}_{n_2}\to0.\]
+Tensoring with \(\Mickey\defeq f^\ast\cO(-H+s+t)\) gives
+
+\[0\to \Mickey\to \cO(s)\oplus\cO(-d\widetilde{H}+s+t)\oplus\cO(s+t)\to\genr{(s)}\oplus\genr{(s+t)}\to 0.\]
+
+After taking the long exact sequence in cohomology and simplifying, we're left with
+\begin{align*}
+    0                & \to H^0(\cO(s))\oplus H^0(\cO(s+t))\to H^0(\genr{(s)})\oplus H^0(\genr{(s+t)}) \\
+    \to H^1(\Mickey) & \to H^1(\cO(s))\oplus H^1(\cO(-d\widetilde{H}+s+t))\oplus H^1(\cO(s+t))\to 0
+\end{align*}
+Taking Euler classes gives us
+\begin{align*}
+    e(H^1(\Mickey)) & =e\bigl(H^1(\cO(s))\bigr)e\bigl(H^1(\cO(-d\widetilde{H}+s+t))\bigr)e\bigl(H^1(\cO(s+t))\bigr)                            \\
+                    & =(-1)^{g_1}\La_{g_1}^{\ps}(-s)\left(\prod_{k=1}^{d-1}\left(s+\frac{kt}{d}\right)\right)(-1)^{g_2}\La_{g_2}^{\ps}(-(s+t))
+\end{align*}
+
+We find the numerator by plugging in \(s=-t\), \(s=0\) and multiplying.
+
+\begin{align*}
+      & i_{(g_1,g_2)}^\ast(e(H^1f^\ast\cO(-H))e(H^1f^\ast\cO(-H+t)))                                                                                                                                       \\
+    = & (-1)^{g_1}\La_{g_1}^{\ps}(t)\prod_{k=1}^{d-1}\left(-t+\frac{kt}{d}\right)(-1)^{g_2}\la_{g_2}^{\ps}(-1)^{g_1}\la_{g_1}^{\ps}\prod_{k=1}^{d-1}\left(\frac{kt}{d}\right)(-1)^{g_2}\La_{g_2}^{\ps}(-t) \\
+    = & \bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)\bigr)
+\end{align*}
+
+There's no automorphisms as there's no smooth points so that the normal bundle only considers deformations and obstructions. In this case
+
+\[e(\DefB(C))=(-\psi_{P_1}-\psi_{Q_1})(-\psi_{P_2}-\psi_{Q_2})=\left(-\psi_{P_1}+\frac{t}{d}\right)\left(-\psi_{P_2}+\frac{-t}{d}\right)\]
+
+For the map, we tensor the normalization sequence by \(f^\ast T\bP^1\) to get
+
+\[0\to f^\ast T\bP^1\to \cO(t)\oplus\cO(2d\widetilde{H}-t)\oplus\cO(-t)\to\genr{(t)}\oplus\genr{(-t)}\to 0.\]
+
+Taking cohomology gets us
+
+\[\begin{tikzcd}[column sep=tiny, row sep=tiny]
+        0 \arrow[r] &
+        \DefB(f) \arrow[r]\ar[draw=none]{d}[name=X, anchor=center]{} &H^0(\cO(t))\oplus
+        H^0(\cO(2d\widetilde{H}-t))\oplus H^0(\cO(-t)) \arrow[r] &
+        H^0(\genr{(t)})\oplus H^0(\genr{(-t)})
+        \ar[rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east) |- (X.center) \tikztonodes -| ([xshift=-2ex]\tikztotarget.west) -- (\tikztotarget)}]{dll}[at end]{}\\[1ex]
+        & \Ob(f) \arrow[r] &
+        H^1(\cO(t))\oplus H^1(\cO(-t)) \arrow[r] &
+        0
+    \end{tikzcd}\]
+
+thus the desired quotient of Euler classes is
+
+\[\frac{e(\DefB(f))}{e(\Ob(f))}=\frac{e(H^0(\cO(2d\widetilde{H}-t)))}{e(H^1(\cO(t)))e(H^1(\cO(-t)))}=\frac{\left(t/d\right)^{2d}d!^2(-1)^d}{(-1)^{g_1}\La_{g_1}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}.\]
+
+We end by condensing everything into the integrand.
+
+\begin{align*}
+      & \frac{\bigl((-1)^{d-1}\left({t}/{d}\right)^{2d-2}(d-1)!^2\bigr)\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)\bigr)(-1)^{g_1}\La_{g_1}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}{\left(t/d\right)^{2d}d!^2(-1)^d\left(-\psi_{P_1}+t/d\right)\left(-\psi_{P_2}+({-t}/{d})\right)} \\
+    = & \frac{\bigl(\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)(-1)^{g_1}\La_{g_1}^{\ps}(-t)\bigr)\bigl(\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)\bigr)}{(-t^2)\left(-\psi_{P_1}+t/d\right)\left(-\psi_{P_2}+({-t}/{d})\right)}                                                                                   \\
+    = & {d^2}\left(\frac{\la_{g_1}^{\ps}\La_{g_1}^{\ps}(t)(-1)^{g_1}\La_{g_1}^{\ps}(-t)}{t^2\left(1-d\psi_{P_1}/t\right)}\right)\left(\frac{\la_{g_2}^{\ps}\La_{g_2}^{\ps}(-t)(-1)^{g_2}\La_{g_2}^{\ps}(t)}{t^2\left(1-(-d\psi_{P_2}/t)\right)}\right).
+\end{align*}
+
+We've seen before the minus sign on the psi class has no effect because of even powers. In this case, we just treat a general term of genus \(g\). Expanding via Matt's relation (theorem \ref{th-matt-mumford-formula}) gets us to
+
+\begin{align*}
+      & \frac{\la_{g}^{\ps}\La_{g}^{\ps}(t)(-1)^{g}\La_{g}^{\ps}(-t)}{t^2\left(1-d\psi_{P}/t\right)}                                                             \\
+    = & \frac{\la_{g}^{\ps}}{t^2\left(1-d\psi_{P}/t\right)}\sum_{k=0}^{g}\frac{t^{2g-2k}}{k!}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right) \\
+    = & \sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}                     \\
+    = & \sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right)\psi_{P}^{2g-2k-2}
+\end{align*}
+\hrule
+\begin{Ej}
+    The product
+    \[
+        \la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}
+    \]
+    results in
+    \begin{align*}
+         & \la_g\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}=\glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right)\psi_{P}^{2g-2k-2}.
+    \end{align*}
+    However on its own,
+    \[    \la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\neq\glu_\ast^k\left(p_0^\ast(\la_{g-k})\prod_{j=1}^{k}\psi_{\star j}p_j^\ast(\la_1)\right).
+    \]
+    Observe that the difference is that we're not multiplying the class \(\psi_{P}^{2g-2k-2}\).
+    To that effect do the following:
+
+    \begin{enumerate}
+        \item Describe a general formula for the product
+              \[
+                  \la_{g}^{\ps}\La_{g}^{\ps}(t)(-1)^{g}\La_{g}^{\ps}(-t).
+              \]
+        \item Verify that indeed after multiplying the \(\psi\) class \(\psi_{P}^{2g-2k-2}\), we get
+              \[
+                  \la_g^{\ps}\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}=\la_g\glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2},
+              \]
+              which means that all terms in the expansion of \(\la_g^{\ps}\) besides the first one go to zero when multiplied by
+              \[
+                  \glu_{\ast}^k\left(\prod_{j=1}^{k}\psi_{\star j}-\psi_{\8 j}\right)\psi_{P}^{2g-2k-2}.
+              \]
+    \end{enumerate}
+
+\end{Ej}
+
+\begin{ptcb}
+    We may normalize \(t=1\) use the expansion of \(\la_g^{\ps}\) \ref{th-renzoco-defn-pslambda} and the expansion of the total lambda classes \ref{th-matt-mumford-formula}, and then distribute the product so that we get a sum of terms of the form
+    \[
+        \glu_\ast^i(p_0(\la_{g-i}))\.\glu_{\ast}^j\left((\psi_{\star1}-\psi_{\81})\cdots(\psi_{\star j}-\psi_{\8 j})\right)
+    \]
+    Let us color the edges of these graphs blue and green respectively in order to color the result.
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth, trim= 1.3cm 20.8cm 5.1cm 3.9cm,clip]{figs/FigsDNnotability5.pdf}
+        \captionof{figure}{Initial coloring of product}\label{fig:6.2-initial-coloring-glui-times-gluj}
+    \end{center}
+
+    Call \(m=\min(i,j)\) and \(M=\max(i,j)\), the product will result in a sum of graphs with the structure of \(\glu_\ast^{M+k}(1)\). In order to color its edges we first color with the one associated with the smaller index, \(m\). There are
+    \[
+        \binom{M+k}{m}m!\text{ ways to color with }m\text{ colors}.
+    \]
+    \((M+k)-m\) edges remain unpainted. We have to pick
+    \[
+        M-((M+k)-m)=m-k
+    \]
+    edges to paint with the color corresponding to \(M\). Since the colors are distinguishable, we pick
+    \[
+        \binom{M}{m-k}
+    \]
+    for the overlap. And there's
+    \[
+        \binom{m}{m-k}(m-k)!
+    \]
+    ways to bicolor. Finally the remaining edges can be painted in \((M-m+k)!\) ways. Let \(\text{Bic}\) be the set of bicolored edges, \red{This is wrong as I'm assuming there's more green edges right now}and \(G\) the set of green edges. Our resulting sum of graphs is:
+    \[
+        \sum_{k=M}^{\min(g,i+j)}a_k\glu^{M+k}_\ast\left(p_0^\ast(\la_{g-(M+k)})\prod_{j\in\text{Bic}}(-\psi_{\star j}^2)\prod_{j\in\text{G}}(\psi_{\star j}p_j^\ast\la_1)\right)
+    \]
+    where \(a_k\) is the coefficient counting the number of ways to color the graph divided by the automorphisms of the graph.
+    \[
+        a_k=\frac{\binom{M+k}{m}m!\binom{M}{m-k}\binom{m}{m-k}(m-k)!(M-m+k)!}{(M+k)!}
+    \]
+    ˝\end{ptcb}
+
+\begin{Ej}
+
+\end{Ej}
+\hrule
+
+Taking the integral over \(\ov{M}_{g,1}\) gets us to
+
+\begin{align*}
+      & \sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\left(\int_{\ov{M}_{g-k,1+k}}\la_{g-k}\prod_{j=1}^{k}\psi_{\star j}\psi_{P}^{2g-2k-2}\right)\left(\int_{\ov{M}_{1,1}}\la_1\right)^k \\
+    = & \sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\frac{(2g-2-k)!}{(2g-2-2k)!}b_{g-k}\frac{1}{24^k}
+\end{align*}
+
+Here we applied the \(\la_g\)-conjecture \ref{th-lambdagConj} again to find the value of the first integral. Call this amount \(I_g\). Then our desired \((g_1,g_2)\) contribution is
+\[I_{(g_1,g_2)}={d^2}I_{g_1}I_{g_2}.\]
+
+\subsubsection{The \((g,0)\) contribution}
+
+The only difference with the previous calculation lies in the automorphisms bundle. In this case we get an
+\[e(\Aut(C))=-t/d\]
+which cancels with the \(t/d\) from the curve deformations, and the minus sign cancels out the minus in the \(-t^2\). On the \((0,g)\) case, signs are inverted but the only change is in the psi class in the denominator which doesn't alter the result of the integral. Thus
+\[I_{(g,0)}=I_{(0,g)}=I_g\]
+
+\begin{Ej}
+    Write this neatly.
+\end{Ej}
+
+\subsubsection{The \((g-1,1)\) contribution}
+
+\begin{Ej}
+    Prove that
+    \[    I_{(g-1,1)}=I_{(1,g-1)}=\frac{d^2-1}{24}I_{g-1}.
+    \]
+\end{Ej}
+
+\subsubsection{The whole contribution and generating functions}
+
+The full quantity we are looking for is
+
+\begin{align*}
+    C^{\ps}(g,d) & =\frac{1}{d}\left(I_{(g,0)}+I_{(g-1,1)}+\dots+I_{(g_1,g_2)}+\dots+I_{(1,g-1)}+I_{(0,g)}\right)                   \\
+                 & =\frac{1}{d}\left(I_g+\frac{d^2-1}{24}I_{g-1}+\dots+{d^2}I_{g_1}I_{g_2}+\dots+\frac{d^2-1}{24}I_{g-1}+I_g\right)
+\end{align*}
+
+\begin{Qn}
+    If such integrals can be extended beyond their just obtained definition, what are \(I_0\) and \(I_1\)? Can we fit them into the sum?
+\end{Qn}
+
+\begin{ptcb}
+    Observe that
+
+    \begin{align*}
+        I_0 & =\sum_{k=0}^{0}\frac{d^{2(0)-2k-2}}{k!}\frac{(2(0)-2-k)!}{(2(0)-2-2k)!}b_{0-k}\frac{1}{24^k} \\
+            & =\frac{d^{-2(0)-2}}{0!}\frac{(-2-0)!}{(-2-2(0))!}b_{0}\frac{1}{24^0}                         \\
+            & =\frac{b_0}{d^2}=\frac{1}{d^2}
+    \end{align*}
+
+
+
+    where we have \(b_0=1\) (without using the Bernoulli number definition) and naïvely cancelled the \((-2)!\) on top with the one on the bottom.\par
+    On the other hand, for \(I_1\) we compute the two terms of the sum as
+
+    \begin{align*}
+        I_1= & \sum_{k=0}^{1}\frac{d^{-2k}}{k!}\frac{(-k)!}{(-2k)!}b_{1-k}\frac{1}{24^k}                                  \\
+        =    & \frac{d^{-2(0)}}{0!}\frac{0!}{0!}b_1\frac{1}{24^0} +\frac{d^{-2(1)}}{1!}\frac{(-1)!}{(-2)!}b_0\frac{1}{24} \\
+        =    & b_1+\frac{1}{d^2}(-1)\frac{1}{24}                                                                          \\
+        =    & \frac{1}{24}-\frac{1}{24d^2}=\frac{d^2-1}{24d^2}
+    \end{align*}
+    and here we have abused the factorials in the sense that
+    \[
+        \lim_{n\to-1}\frac{n!}{(n-1)!}=\lim_{n\to-1}n=-1.
+    \]
+
+    In this case, \(I_1=\frac{d^2-1}{24d^2}\).
+
+    \iffalse
+        so that the sum for \(C^{\ps}(g,d)\) would then fit the pattern a bit more.
+        \tcbline
+        \emph{Renzo suggests:} Take \(I_0\defeq d^2\) and \(I_1\defeq d^2(d^2-1)/24\) just like that outright. Define them \emph{ad hoc} to fit with the \(1/d^2\) term.
+    \fi
+\end{ptcb}
+
+Given these two conditions
+
+\[
+    \left\lbrace
+    \begin{aligned}
+         & I_0=1/d^2,          \\
+         & I_1=(d^2-1)/(24d^2)
+    \end{aligned}
+    \right.
+    \word{and}
+    \left\lbrace
+    \begin{aligned}
+         & I_{(g,0)}=I_g,                       \\
+         & I_{(g-1,1)}=\frac{d^2-1}{24}I_{g-1}, \\
+    \end{aligned}
+    \right.
+\]
+
+these match perfectly when extending the relation \(I_{(g_1,g_2)}=d^2I_{g_1}I_{g_2}\). Observe that
+
+\begin{align*}
+     & I_{(g,0)}   =d^2I_gI_0=d^2I_g\left(\frac{1}{d^2}\right)=I_g,                                     \\
+     & I_{(g-1,1)} =d^2I_{g-1}I_{1}=d^2I_{g-1}\left(\frac{d^2-1}{24d^2}\right)=\frac{d^2-1}{24}I_{g-1}.
+\end{align*}
+
+\begin{Th}
+    The generating function for the integrals \(I_g\) is
+    \[
+        \frac{1}{d^2}\left(1-\frac{t^2}{24}\right)B\left(\frac{dt}{1-{t^2}/{24}}\right),
+    \]
+    where \(B(t)=\frac{t/2}{\sin\bigl(t/2\bigr)}\) is the generating function for \(b_g\).
+\end{Th}
+
+\begin{ptcbp}
+    Let us call \(\cI(t)=\sum_{g\geq 0} I_gt^{2g}\), then rewriting \(I_g\) we have
+    \[
+        \cI(t)=\sum_{g\geq 0} \sum_{k=0}^{g}\frac{d^{2g-2k-2}}{k!}\frac{(2g-2-k)!}{(2g-2-2k)!}b_{g-k}\frac{1}{24^k}t^{2g}.
+    \]
+    %https://math.stackexchange.com/questions/2558774/using-fubinis-theorem-to-find-an-infinite-sum
+    We apply Fubini's theorem to rearrange the sums as
+    \[
+        \sum_{k\geq 0} \sum_{g=k}^{\infty}\frac{d^{2g-2k-2}}{k!}\frac{(2g-2-k)!}{(2g-2-2k)!}b_{g-k}\frac{1}{24^k}t^{2g}
+    \]
+    and then take the change of variables \(g=n+k\). From this, as \(g\to k\), \(n\to 0\) and as \(g\) grows, \(n\) also grows. Our sum becomes
+    \[
+        \sum_{k\geq 0} \sum_{n=0}^{\infty}\frac{d^{2n-2}}{k!}\frac{(2n-2+k)!}{(2n-2)!}b_{n}\frac{1}{24^k}t^{2n+2k}.
+    \]
+    We may switch order of summation again and manipulate the sum as follows
+    \begin{align*}
+          & \sum_{n=0}^{\infty}\sum_{k=0}^{\infty}\frac{d^{2n-2}}{k!}\frac{(2n-2+k)!}{(2n-2)!}b_{n}\frac{1}{24^k}t^{2n+2k}  \\
+        = & \sum_{n=0}^{\infty}d^{2n-2}b_nt^{2n}\sum_{k=0}^{\infty}\frac{(2n-2+k)!}{(2n-2)!k!}\left(\frac{t^2}{24}\right)^k \\
+        = & \sum_{n=0}^{\infty}d^{2n-2}b_nt^{2n}\sum_{k=0}^{\infty}\binom{2n-2+k}{k}\left(\frac{t^2}{24}\right)^k.
+    \end{align*}
+    The inner sum is very suggestive of the generating function
+    \[
+        \frac{1}{(1-x)^{m+1}}\sum_{k=0}^{\infty}\binom{m+k}{k} x^k,
+    \]
+    so that we may rewrite it as
+    \begin{align*}
+          & \sum_{n=0}^{\infty}d^{2n-2}b_nt^{2n}\frac{1}{\bigl(1-t^2/24\bigr)^{(2n-2)+1}}                         \\
+        = & \frac{1}{d^2}\left(1-\frac{t^2}{24}\right)\sum_{n=0}^{\infty}b_n\left(\frac{dt}{1-t^2/24}\right)^{2n} \\
+        = & \frac{1}{d^2}\left(1-\frac{t^2}{24}\right)B\left(\frac{dt}{1-t^2/24}\right).
+    \end{align*}
+    This provees the desired identity.
+\end{ptcbp}
+
+\begin{Lem}
+    The \(m^{\text{th}}\) derivative of \(1/(1-x)\) is \(\frac{m!}{(1-x)^{m+1}}\) and its generating function is
+    \[
+        \sum_{k=0}^{\infty}\binom{m+k}{k}m! x^k.
+    \]
+\end{Lem}
+
+\begin{ptcbp}
+    The first part is proved by induction, then
+    \begin{align*}
+        D^{m}\frac{1}{1-x}        & =\sum_{n=m}^{\infty}n(n-1)\cdots(n-m+1)x^{n-m}            \\
+                                  & =\sum_{k=0}^{\infty}(k+m)(k+m-1)\cdots(k+1)x^k            \\
+        \To \frac{1}{(1-x)^{m+1}} & =\sum_{k=0}^{\infty}\frac{(k+m)(k+m-1)\cdots(k+1)}{m!}x^k \\
+                                  & =\sum_{k=0}^{\infty}\frac{(k+m)!}{k!m!}x^k                \\
+                                  & =\sum_{k=0}^{\infty}\binom{m+k}{k} x^k                    \\
+    \end{align*}
+
+\end{ptcbp}
+
+We may further simplify the generating function by using the expression for \(B(t)\) as
+
+\[
+    \cI(t)=\frac{1}{d^2}\left(1-\frac{t^2}{24}\right)\frac{\frac{dt/2}{1-t^2/24}}{\sin\left(\frac{dt}{2(1-t^2/24)}\right)}=\frac{t/2d}{\sin\left(\frac{dt/2}{1-t^2/24}\right)},
+\]
+
+whose first few terms of the expansion are
+
+\begin{align*}
+      & \frac{1}{d^{2}} + \frac{(d^{2} - 1) t^{2}}{24 d^{2}} + \frac{(7 d^{2} + 10) t^{4}}{5760} + \frac{(31 d^{4} + 147 d^{2} + 70) t^{6}}{967680} \\
+    + & \frac{(381 d^{6} + 3100 d^{4} + 5880 d^{2} + 1400) t^{8}}{464486400}                                                                        \\
+    + & \frac{(2555 d^{8} + 29337 d^{6} + 102300 d^{4} + 107800 d^{2} + 15400) t^{10}}{122624409600}+\dots
+\end{align*}
+
+% \begin{multline*}
+%     \frac{1}{d^{2}} + \frac{(d^{2} - 1) t^{2}}{24 d^{2}} + \frac{(7 d^{2} + 10) t^{4}}{5760} + \frac{(31 d^{4} + 147 d^{2} + 70) t^{6}}{967680} \\
+%     + \frac{(381 d^{6} + 3100 d^{4} + 5880 d^{2} + 1400) t^{8}}{464486400} \\
+%     + \frac{(2555 d^{8} + 29337 d^{6} + 102300 d^{4} + 107800 d^{2} + 15400) t^{10}}{122624409600} \\
+%     + \frac{(1414477 d^{10} + 20925450 d^{8} + 106786680 d^6 + 217217000 d^4 + 147147000 d^2 + 14014000) t^{12}}{2678117105664000} \\
+%     + \frac{(860055 d^{12} + 15559247 d^{10} + 104627250 d^8 + 320360040 d^6 + 434434000 d^4 + 206005800 d^2 + 14014000) t^{14}}{64274810535936000} \\
+%     + \frac{(355554717 d^{14} + 7602886200 d^{12} + 63481727760 d^{10} + 260870610000 d^8 + 544612068000 d^6 + 531747216000 d^4 + 186778592000 d^2 + 9529520000) t^{16}}{1048964907946475520000} \\
+%     + \frac{(5749691557 d^{16} + 141866332083 d^{14} + 1415657410440 d^{12} + 7317327153136 d^{10} + 20817474678000 d^8 + 31870698219360 d^6 + 23574126576000 d^4 + 6387827846400 d^2 + 253485232000) t^{18}}{669659197233029971968000} \\
+%     + \frac{(1922471824497 d^{18} + 53759616057950 d^{16} + 624211861165200 d^{14} + 3893057878710000 d^{12} + 14085854769786800 d^{10} + 29768988789540000 d^8 + 35057768041296000 d^6 + 20374780826400000 d^4 + 4391631644400000 d^2 + 139416877600000) t^{20}}{8839501403475995629977600000} \\
+%     + \frac{(26880641886945 d^{20} + 840120187305189 d^{18} + 11128240523995650 d^{16} + 81355612571864400 d^{14} + 358161324841320000 d^{12} + 971923979115289200 d^{10} + 1597602398371980000 d^8 + 1497467520621072000 d^6 + 702929938510800000 d^4 + 123453645114800000 d^2 + 3206588184800000) t^{22}}{4879404774718749587747635200000} \\
+%     + \frac{(5948296404933711 d^{22} + 205475626583807580 d^{20} + 3058037481790887960 d^{18} + 25654303821317971800 d^{16} + 133260493392713887200 d^{14} + 443260455623617632000 d^{12} + 943414209061240716800 d^{10} + 1246129870730144400000 d^8 + 953886810635622864000 d^6 + 369584941003678400000 d^4 + 53924552186144640000 d^2 + 1167198099267200000) t^{24}}{42626480111942996398563341107200000} \\
+%     + O(t^{25})
+% \end{multline*}
+
+In order to obtain a generating function for \(C^{\ps}(g,d)\), we recall that
+
+\begin{align*}
+    C^{\ps}(g,d) & =\frac{1}{d}\left(I_{(g,0)}+I_{(g-1,1)}+\dots+I_{(g_1,g_2)}+\dots+I_{(1,g-1)}+I_{(0,g)}\right)           \\
+                 & =\frac{1}{d}\left(d^2I_gI_0+d^2I_{g-1}I_1+\dots+{d^2}I_{g_1}I_{g_2}+\dots+d^2I_1I_{g-1}+d^2I_0I_g\right) \\
+                 & =d\left(I_gI_0+I_{g-1}I_1+\dots+I_{g_1}I_{g_2}+\dots+I_1I_{g-1}+I_0I_g\right)
+\end{align*}
+
+so taking the square of \(\cI(t)\) and multiplying by \(d\) gets us
+
+\begin{align*}
+    d\cI(t)^2     & =d\sum_{g\geq 0} \left(\sum_{\substack{g_1+g_2=g                                                                             \\ g_1,g_2\geq 0}}I_{g_1}I_{g_2}\right)t^{2g}\\
+                  & =\sum_{g\geq 0} d\left(\sum_{\substack{g_1+g_2=g                                                                             \\ g_1,g_2\geq 0}}I_{g_1}I_{g_2}\right)t^{2g}\\
+    \To d\cI(t)^2 & =\sum_{g\geq 0} C^{\ps}(g,d)t^{2g}                                                                                           \\
+    \To\cC(t)     & =d\left(\frac{t/2d}{\sin\left(\frac{dt/2}{1-t^2/24}\right)}\right)^2=\frac{t^2/4d}{\sin^2\left(\frac{dt/2}{1-t^2/24}\right)} \\
+\end{align*}
+
+The first few terms of this sum are
+
+\begin{align*}
+      & \frac{1}{d^{3}} + \frac{(d^{2} - 1) t^{2}}{12 d^{3}} + \left(\frac{1}{576 d^{3}} + \frac{d}{240}\right) t^{4} + \frac{d (10 d^{2} + 21) t^{6}}{60480} \\
+    + & \frac{d (84 d^{4} + 400 d^{2} + 315) t^{8}}{14515200} + \frac{d (180 d^{6} + 1386 d^{4} + 2750 d^{2} + 1155) t^{10}}{958003200}+\dots
+\end{align*}
+
+% \begin{multline*}
+%     \frac{1}{d^{3}} + \frac{(d^{2} - 1) t^{2}}{12 d^{3}} + \left(\frac{1}{576 d^{3}} + \frac{d}{240}\right) t^{4} + \frac{d (10 d^{2} + 21) t^{6}}{60480} \\
+%     + \frac{d (84 d^{4} + 400 d^{2} + 315) t^{8}}{14515200} + \frac{d (180 d^{6} + 1386 d^{4} + 2750 d^{2} + 1155) t^{10}}{958003200} \\
+%     + \frac{d (243232 d^{8} + 2620800 d^{6} + 8828820 d^{4} + 10010000 d^{2} + 2627625) t^{12}}{41845579776000} \\
+%     + \frac{d (17472 d^{10} + 243232 d^{8} + 1179360 d^{6} + 2354352 d^{4} + 1751750 d^{2} + 315315) t^{14}}{100429391462400} \\
+%     + \frac{d (2083392 d^{12} + 35642880 d^{10} + 227421920 d^{8} + 668304000 d^{6} + 900539640 d^{4} + 476476000 d^{2} + 62537475) t^{16}}{409751917166592000} \\
+%     + \frac{d (23863648 d^{14} + 484909488 d^{12} + 3851658720 d^{10} + 15123557680 d^{8} + 30554023500 d^{6} + 29942943030 d^{4} + 11882120250 d^{2} + 1188212025) t^{18}}{163491014949470208000} \\
+%     + \frac{d (35670931968 d^{16} + 840000409600 d^{14} + 8001006552000 d^{12} + 39543696192000 d^{10} + 108133437412000 d^{8} + 161325244080000 d^{6} + 120769870221000 d^{4} + 37343806500000 d^{2} + 2940824761875) t^{20}}{8632325589332026982400000} \\
+%     + \frac{d (275631713280 d^{18} + 7383882917376 d^{16} + 82110040038400 d^{14} + 490728401856000 d^{12} + 1705321898280000 d^{10} + 3481896684666400 d^{8} + 4019687331660000 d^{6} + 2380891727214000 d^{4} + 590498940281250 d^{2} + 37577205290625) t^{22}}{2382521862655639447142400000} \\
+%     + \frac{d (33401082427392 d^{20} + 1003299436339200 d^{18} + 12766733564143104 d^{16} + 89664163721932800 d^{14} + 379578418835616000 d^{12} + 993179473558272000 d^{10} + 1584262991523212000 d^{8} + 1463166188724240000 d^{6} + 704148728323540500 d^{4} + 143294409508250000 d^{2} + 7522956499183125) t^{24}}{10406855496079833105118003200000} \\
+%     + O(t^{25})
+% \end{multline*}
+
+\end{document}
