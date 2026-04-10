@@ -744,13 +744,13 @@ Let us begin with the Chern class cheat sheet\({}^{\text{TM}}\). This based off 
     \item \(c_0(E)=1\), or in words, it's the fundamental class. It's usually the case that we rescale in order for this to be exactly \(1\).
     \item If we define
 
-          \[c_{\text{tot}}=c_0+c_1+\dots+c_r\]
+          \[c_{\tot}=c_0+c_1+\dots+c_r\]
 
           and we have a short exact sequence of vector bundles
 
           \[0\to F\to E\to Q\to 0,\]
 
-          then \(c_{\text{tot}}(E)=c_{\text{tot}}(F)\.c_{\text{tot}}(Q)\). In particular we have
+          then \(c_{\tot}(E)=c_{\tot}(F)\.c_{\tot}(Q)\). In particular we have
 
           \[c_1(E)=c_1(F)+c_1(Q).\]
 
@@ -2511,7 +2511,11 @@ We've seen before the minus sign on the psi class has no effect because of even 
     ˝\end{ptcb}
 
 \begin{Ej}
-
+Verify the count via double counting in the other direction. Conclude that the coefficient in question ends up being 
+\[
+\binom{i}{v}\binom{j}{v}v!,
+\]
+where \(v\) is the number of vertices in the overlap.
 \end{Ej}
 \hrule
 
@@ -2741,6 +2745,25 @@ The first few terms of this sum are
 %     + O(t^{25})
 % \end{multline*}
 
+\subsection{Differential equations and Virasoro constraints}
+
+The function \(B(t)=\frac{t/2}{\sin(t/2)}\) satisfies the differential equation 
+
+\[
+y''+\cot\left(\frac{t}{4}\right)y'-\frac{y}{4}=0,\quad y(0)=1,\quad y'(0)=0.
+\]
+
+If we call \(T=\frac{t}{1-t^2/24}\), then \(\cI(t)=\frac{t}{d^2T}B(dT)\) and \(\cC(t)=\frac{t^2}{d^3T^2}B(dT)^2\).
+
+\begin{Qn}
+    Based on this information,
+    \begin{enumerate}
+        \item can we find a differential equation satisfied by \(\cI(t)\), and
+        \item can we show that \(\cI(t)\) or \(\cC(t)\) satisfy a modified version of the Virasoro constraints?
+    \end{enumerate}
+    More importantly, we must understand first what the Virasoro constraints are.
+\end{Qn}
+
 \section{Virtual classes for the stupid mathematician}
 
 This section is now devoted to the study of \cite{VFCWorkMath}.
@@ -2815,6 +2838,224 @@ To the effect of understanding the normal cone, let us build some examples throu
     \end{itemize}
 \end{Ex}
 
+\red{Once again gotta book it}
+
+\subsection{The excess contribution of double lines}
+
+The main issue with counting the number of conics through 5 points as an integral, is that if we integrate the product of 5 conics we don't get 1, instead
+
+\[
+\int_{\bP^5}(Q_1\cdots Q_5)=\int_{\bP^5}(2H)^5=32.
+\]
+
+So we count the contribution of locus of double lines \(Z\) to the class in question. First a reminder on what \(Z\) is.
+
+\begin{Lem}
+    The locus of double lines \(Z\) inside \(\bP^5\) is parametrized by \(\bP^2\) and is isomorphic to the image of \(\bP^2\) under the Veronese embedding \(\nu_2\:\bP^2\to\bP^5\).
+\end{Lem}
+
+\begin{ptcbp}
+    Recall that a general conic can be written as 
+    \[
+    ax^2+by^2+cz^2+dxy+exz+fyz=0
+    \]
+    for \(a,\dots,f\) up-to-rescaling. That this \([a:\dots:f]\in\bP^5\). Whereas double lines are of the form 
+    \[
+    (px+qy+rz)^2=0.
+    \]
+    Immediately we see that this depends on \([p:q:r]\in\bP^2\).
+    Expanding this expression gives us 
+    \[
+    p^2x^2+q^2y^2+r^2z^2+2pqxy+2prxz+2qryz=0
+    \]
+    and the coefficients are 
+    \begin{align*}
+    &[p^2:q^2:r^2:2pq:2pr:2qr]=T[p^2:q^2:r^2:pq:pr:qr],\\
+    &T=\diag(1,1,1,2,2,2)\in\PGL_6=\Aut(\bP^5).
+    \end{align*}
+    This lets us conclude that the locus of double lines is isomorphic under this transformation, \(T\), to \(\nu_2[\bP^2]\). In particular, \(Z\isom\bP^2\).
+\end{ptcbp}
+
+In order to find the contribution of \(Z\) to the 5 conics \(Q_i\) we apply a proposition from Fulton's Intersection Theory \cite{FultonIntersectionTheory}.
+
+\begin{Prop}[Prop.9.1.1. \cite{FultonIntersectionTheory}]
+    Let \(Y\) be a scheme with \(X_i\hookto Y\) regularly embedded subschemes, \(i\in[r]\) and \(V\) a \(k\) dimensional subvariety of \(Y\).\par
+    If \(Z\) is a connected component of \(V\cap\bigcap_iX_i\), then 
+    \((X_1\cdots X_r\.V)^Z\in A_m(Z)\)
+    is the part of \(X_1\cdots X_r\.V\) supported on \(Z\). If \(N_i\) is the restriction of \(N_{X_i|Y}\) to \(Z\), then
+    \[
+    (X_1\cdots X_r\.V)^Z=\Set{\prod_{i\in[r]}c_{\tot}(N_i)s(Z,V)}_m
+    \]
+    where \(s(Z,V)\) is the Segre class of \(Z\) in \(V\).
+\end{Prop}
+
+For the case we're working on, our class is
+\[
+    (Q_1\cdots Q_5\.\bP^5)^Z=\Set{\prod_{i\in[5]}c_{\tot}(N_i)s(Z,\bP^5)}_0
+\]
+and for the Segre class, we use the fact that it corresponds with the inverse of the total Chern class of the normal cone. This means that 
+\[
+s(Z,\bP^5)=c_{\tot}(C_{Z|\bP^5})=c_{\tot}(N_{Z|\bP^5})
+\]
+and the last equality occurs because the embedding \(Z\hookto\bP^5\) is regular.
+
+\begin{Rmk}
+    Recall that closed embeddings \(X\hookto Y\) are regular when both \(X\) and \(Y\) are smooth. This is the case for both \(Z\) and \(\bP^5\).
+\end{Rmk}
+
+From here we apply the tangent-normal sequence to the embedding \(i:Z\hookto\bP^5\) to get 
+
+\begin{gather*}
+0\to TZ\hookto i^\ast T\bP^5\onto N_{Z|\bP^5}\to0,\\
+    \To c_{\tot}(T\bP^5)=c_{\tot}(TZ)c_{\tot}(N_{Z|\bP^5}),\\
+    \To c_{\tot}(N_{Z|\bP^5})^{-1}=c_{\tot}(TZ)c_{\tot}(T\bP^5)^{-1}.
+\end{gather*}
+
+Using a couple of Euler sequences for \(\bP^5\) and \(Z\) we get 
+
+\begin{align*}
+    &0\to\cO_{\bP^5}\hookto\cO_{\bP^5}(1)^{6}\onto T\bP^5\to 0,\\
+    \To&c_{\tot}(\cO_{\bP^5}(1)^{6})=c_{\tot}(\cO_{\bP^5})c_{\tot}(T\bP^5),\\
+    \To&(1+H)^6=c_{\tot}(T\bP^5),
+\end{align*}
+
+while on the other hand, we use the fact that \(Z\isom \bP^2\)
+
+
+\begin{align*}
+    &0\to\cO_{Z}\hookto\cO_{Z}(1)^{3}\onto TZ\to 0,\\
+    \To&c_{\tot}(\cO_{Z}(1)^{3})=c_{\tot}(\cO_{Z})c_{\tot}(TZ),\\
+    \To&(1+L)^3=c_{\tot}(TZ).
+\end{align*}
+
+Here, \(L,H\) are the hyperplane classes of \(Z,\bP^5\) respectively. Restricting the hyperplane class from \(\bP^5\) to \(Z\) gives us \(H|_Z=2L\) so that our Segre class is 
+
+\[
+s(Z,\bP^5)=(1+L)^3(1+2L)^{-6}.
+\]
+
+Now each conic's normal bundle is \(\cO_Q(Q)\), its structure sheaf twisted by itself. (\red{Still need to understand why the normal bundle is \(O_Q\) twisted by itself and the calculation of its total Chern class.}) The total Chern class in this case is 
+\[
+c_{\tot}(N_i)=(1+2H)=(1+4L).
+\]
+The integral we wish to calculate then is 
+\[
+\int_Z(1+4L)^5(1+2L)^{-6}(1+L)^3
+\]
+and as \(Z\isom\bP^2\), the term we're looking for in the expansion is \(L^2\). Recall we may Taylor expand 
+\begin{align*}
+(1+2L)^{-6}&=\frac{1}{(1-(-2L))^6}=\sum_{k=0}^\infty\binom{5+k}{k}(-2L)^K\\
+&=1+\binom{6}{1}(-2L)^1+\binom{7}{2}(-2L)^2+O(L^3)\\
+&=1-12L+84L^2+O(L)^3
+\end{align*}
+so that puting everything together gives 
+\begin{align*}
+&\bigl(1+5(4L)+10(4L)^2+O(L^3)\bigr)\\
+\.&\bigl(1+3(L)+3(L)^2+O(L^3)\bigr)\\
+\.&\bigl(1-12L+84L^2+O(L)^3\bigr)\\
+=&1+11L+31L^2+O(L^3).
+\end{align*}
+Integrating against \(Z\) gives us the desired result \(31\). In conclusion, the contribution of the double lines to the conics is indeed 31 and that's where the excess contribution comes from.
+
+\subsection{My first virtual class}
+
+The virtual class depends on more information than just the scheme it refers to. 
+
+\begin{Def}\label{def-virtual-class}
+    For schemes \(X\hookto Y\), where \(Y\) is pure dimensional, and a rank \(r\) vector bundle \(E_{X/Y}\xrightarrow[]{\pi}X\) with an embedding of cones over \(X\), \(C_{X/Y}\hookto E_{X/Y}\), we have the morphisms of Chow groups 
+    \[
+    A_\ast(Y)\xrightarrow[{[V]\mapsto[C_{V\cap X}V]}]{\sg}A_\ast(C_{X/Y})\xrightarrow[]{i_\ast}A_{\ast}(E_{X/Y})\xrightarrow[]{0^{!}_{E_{X/Y}}}A_{\ast-r}.
+    \]
+    The \term{virtual fundamental class} of \(X\) with respect to the obstruction theory \(E_{X/Y}\) is the class
+    \[
+    [X]^{\vir}_{E_{X/Y}}=0^{!}_E[C_{X/Y}]=f^{!}_{E_{X/Y}}[Y],
+    \]
+    where \(f^{!}_{E_{X/Y}}=0^{!}_E\circ i_{\ast}\circ\sg\) is called the \term{generalised Gysin map} or \term{virtual pullback}.\par
+    A vector bundle with the cone embedding property is called an \term{obstruction bundle} for \(X\hookto Y\).
+\end{Def}
+
+The map \(0^{!}_E\: A_{k}(E)\to A_{k-r}(X)\) is the inverse of the flat pullback \(\pi^{\ast}\: A_{k-r}(X)\to A_k(E)\), guaranteed to exist because \(\pi^\ast\) is an isomorphism.
+
+\begin{Ex}
+    We will compute the virtual class of 
+    \[
+    X=V(x^2,xy),\word{w.r.t.}E=\cO_{\bP^2}(2)\oplus\cO_{\bP^2}(2).
+    \]
+\end{Ex}
+
+\begin{ptcb}
+    First observe that our variety \(X\) is cut by a section of \(\cO(2)^{2}\), this is \(s=(x^2,xy)\). We may realize the section \(s\) as 
+    \[
+    \cO_{\bP^2}\xrightarrow{s}\cO_{\bP^2}(2)^{\oplus 2}
+    \]
+    and dualizing gets us 
+    \[
+    % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAFEA9YAHR5pgwAviCGl0mXPkIoATOSq1GLNnwDGAeQD6vHgCMACp1kixE7HgJEAjKWuL6zVohDqAkqMUwoAc3hFQADMAJwgAWyQyEBwIJFslJzY4bj4BYVFxEBDwyOoYpHkElRdk3TSRagY6PRgGA0lLGRBgrB8ACxwQajaYOig2HAB3CB6+hDMs0IjEQvzEeJw6LAY2NogIAGtPISA
+\begin{tikzcd}
+E^{\vee} \arrow[rr, "\substack{s^{\vee}\\(a,b)\mapsto ax^2+bxy}"] \arrow[rd, "s^{\vee}"', two heads] &                      & \cO_{\bP^2} \\
+                                                                   & \cI \arrow[ru, hook] &            
+\end{tikzcd}
+    \]
+    where the map factors through the ideal sheaf as it's the image of \(s^{\vee}\) inside the trivial sheaf. Restricting our situation to \(X\) gives us the surjection 
+    \[
+    (E^\vee)|_X \to \cI/\cI^2 \to 0.
+    \]
+    Now taking \(\Spec(\Sym(-))\), the surjection becomes a closed embedding and so we get 
+    \[
+    \Spec(\Sym(\cI/\cI^2))\hookto\Spec(\Sym((E^\vee)|_X))\iff C_{X|\bP^2}\hookto E|_X.
+    \]
+    This verifies that the normal cone is embedded into \(E\). 
+\end{ptcb}
+
+
+    The next part of the argument in example 4.8 in \cite{VFCWorkMath} claims that the virtual class 
+    \[
+    [X]^{\vir}=0^{!}_{E}[C_{X|\bP^2}]
+    \]
+    where \(0^{!}_{E}\) is the \emph{inverse of the zero section} \(0_E\:X\to E\). Differing from the definition \ref{def-virtual-class} of virtual class that we just gave, as the map \(0^{!}_{E}\) is the inverse of the flat pullback
+    \[
+    \pi^\ast\: A_{k-r}(X)\to A_k(E).
+    \]
+
+\subsubsection{The Gysin morphism}
+
+The first instance of the Gysin map appears at the beginning of chapter 2 of Fulton \cite{FultonIntersectionTheory}. It's introduced via the intersection of (Cartier) divisors.
+
+\[
+i^\ast Z_k(X)\xrightarrow[\al\mapsto D\.\al]{} A_{k-1}(D)
+\]
+
+is the pullback of \(i:D\hookto X\), for \(D\) effective.\par
+Intuitively, this map takes a \(k\)-cycle \(\al\) of \(X\) and intersects it with \(D\). As \(D\) is a divisor, this adds one codimension to it so that we get an object of dimension \(k-1\).\par
+Further down the road in 3.3 we get the definition for a vector bundle. 
+
+\begin{Def}\label{def-Gysin-map-vector-bundles}
+    If \(E\xrightarrow{\pi}X\) is a rank \(r\) vector bundle with zero section \(0_E:\), then we define the \term{Gysin homomorphisms} as 
+    \[
+    0^{\ast}_E\: A_k(E)\xrightarrow[\bt\mapsto (\pi^{\ast})^{-1}(\bt)]{}A_{k-r}(X).
+    \]
+\end{Def}
+
+The previous pullback \(\pi^\ast\)'s inverse comes by virtue of the theorem that follows.
+
+\begin{Th}
+    Let \(E\xrightarrow{\pi}X\) be a rank \(r\) vector bundle on a scheme \(X\). Then the flat pullback
+    \[
+    \pi^{\ast}\: A_{k-r}(X)\to A_k(E)
+    \]
+    is an isomorphism for all \(k\).
+\end{Th}
+
+\begin{Qn}
+    By virtue of this definition \ref{def-Gysin-map-vector-bundles}, why not define the Gysin map as the pushforward of \(E\xrightarrow{\pi}X\) but dimension corrected? This so that class from \(A_k(E)\) do land on \(A_{k-r}(X)\)?\par
+    Intuitively, what is the difference between the pushforward and the Gysin map?
+\end{Qn}
+
+\red{Write a good example of the Gysin map. See ipad example w Renzo and correct details}
+
+\hrule
+
+Returning to the example at hand, intuitively \(0^!_E[C_{X|\bP^2}]\) is the intersection of the cone with the copy of \(X\) seen as the zero section of \(E\).
 
 %%%%%%%%%%%% Contents end %%%%%%%%%%%%%%%%
 \ifx\nextra\undefined
