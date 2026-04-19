@@ -1,0 +1,167 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\DocumentMetadata{
+pdfversion=2.0,  
+lang=en-US,   
+pdfstandard={ua-2, a-4f},
+tagging = on, 
+tagging-setup={math/setup={mathml-SE}} ,
+}
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[extreme]{savetrees}
+\usepackage[utf8]{inputenc}
+\usepackage{newpxtext}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage{siunitx}
+
+%%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
+
+\hypersetup{
+pdftitle={MATH 340 -- Homework 11 Spring 2026},
+pdfauthor={Ignacio Rojas},
+pdfkeywords={eleventh homework},%
+}
+
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+   #1 \\ #2 \end{pmatrix}}
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+   #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
+   #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
+   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
+\newcommand{\cL}{\mathcal{L}}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+\begin{center}
+   {\Large MATH 340 -- Homework 11,\quad Spring 2026}
+\end{center}
+
+Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details. NOTE: All problems from Boyce, DiPrima, and Meade are from the \(11^{\text{th}}\) edition, which is available online: \href{https://www.math.colostate.edu/~liu/MATH340_S26Crd/Textbook_BoyceDiPrimaMeade_11ed.pdf}{https://www.math.colostate.edu/\(\sim\)liu/MATH340\_S26Crd/Textbook\_BoyceDiPrimaMeade\_11ed.pdf}.
+
+\begin{enumerate}
+   \item (\textbf{E}) (2) [3 points] Find the inverse Laplace transforms of 
+   \[
+   F(s)=\frac{s-2}{s^2+2s+5},\quad G(s)=\frac{s-2}{s^2+2s+5},\quad H(s)=\frac{1}{s+1}.
+   \]
+
+   \item (2) [4 points] Find the inverse Laplace transforms of 
+   \[
+   F(s)=\frac{s-a}{(s^2+a^2)^2},\  a\neq 0,\quad G(s)=\ln\left(\frac{s^2+a^2}{s^2+b^2}\right),\ a,b\in\mathbb R,\quad H(s)=\frac{s^2}{s^3+s^2+s}.
+   \]
+
+   \item (\textbf{E}) (1+) [2 points] Using Laplace transforms solve the IVP
+   
+   \[
+   \left\lbrace
+   \begin{aligned}
+      &y''+2y'+5y=8e^t,\\
+      &y(0)=y'(0)=0.
+   \end{aligned}
+   \right.
+   \]
+
+   \item (\textbf{E}) (1+) [2 points] Using Laplace transforms solve the IVP
+   
+   \[
+   \left\lbrace
+   \begin{aligned}
+      &y''-2y'+2y=e^{-t},
+      &y(0)=0,\\
+      &y'(0)=1.
+   \end{aligned}
+   \right.
+   \]
+
+   \item (\textbf{E}) (1+) [2 points] Using Laplace transforms solve the IVP
+   
+   \[
+   \left\lbrace
+   \begin{aligned}
+      &y''+2y'+5y=e^{-t},
+      &y(0)=2,\\
+      &y'(0)=-1.
+   \end{aligned}
+   \right.
+   \]
+
+    \item (2) [3 points] Using Laplace transforms solve the IVP
+   
+   \[
+   \left\lbrace
+   \begin{aligned}
+      &ty''+4y'+9ty=\cos(3t),\\
+      &y(0)=y'(0)=0.
+   \end{aligned}
+   \right.
+   \]
+
+     \item (2) [3 points] Using Laplace transforms solve the IVP
+   
+   \[
+   \left\lbrace
+   \begin{aligned}
+      &y^{(3)}+y''+4y'+4y=-2,\\
+      &y(0)=0,\ y'(0)=1,\ y''(0)=-1.
+   \end{aligned}
+   \right.
+   \]
+
+   \item (2) [3 points] Boyce, DiPrima, and Meade chapter 6 section 2 problems 5 and 6.
+   
+   \item (2) [3 points] Boyce, DiPrima, and Meade chapter 6 section 2 problems 13 and 14.
+   
+   \item (1) [1 point] Boyce, DiPrima, and Meade chapter 6 section 2 problem 15.
+   
+   \item (2+) [4 points] Boyce, DiPrima, and Meade chapter 6 section 2 problem 26.
+   
+   \item (2+) [4 points] Boyce, DiPrima, and Meade chapter 6 section 2 problem 27.
+
+   \item (1+) [2 points] Suppose \(f,g\) are two functions such that 
+   \[
+      f(0)=1,\quad f'(t)=-g(t),\quad\text{for }t\geq 0. 
+   \]
+   If \(\cL\lbrace g(t)\rbrace=\frac{\sqrt{s^2+1}-s}{\sqrt{s^2+1}}\), find \(\cL\lbrace f(t)\rbrace\). 
+
+   \item (3-) [8 points] Verify that 
+   \[
+   \cL\lbrace -te^{at}f'(t)\rbrace = (s-a)F'(s-a)+F(s-a).
+   \]
+   With this in hand, find the inverse Laplace transform of 
+   \[
+   \frac{-4(s-3)^2}{(s^2-6s+13)^2}+\frac{2}{s^2-6s+13}.
+   \]
+
+   \item (3-) [8 points] The operation \(f\ast g\) is called the \emph{convolution} of \(f,g:[0,\infty[\) and is defined as 
+   \[
+      (f\ast g)(x)=\int_0^x f(u)g(x-u)\dd u.
+   \]
+   The Laplace transform has the property that 
+   \[
+   \cL\lbrace (f\ast g)(t)\rbrace = F(s)G(s),
+   \]
+   where \(F,G\) are the Laplace transforms of \(f,g\) respectively.\par
+   With this in hand, verify that
+   \[
+   \cL\lbrace -t(f\ast g)(t)\rbrace(s)=F'(s)G(s)+F(s)G'(s).
+   \]
+   Immediately find 
+   \[
+   \cL^{-1}\left\lbrace\frac{-2}{s^3}\cdot\frac{1}{s-a}+\frac{1}{s^2}\frac{-1}{(s-a)^2}\right\rbrace
+   \]
+   
+   \item (2+) [4 points] Find \(f(\pi/2)\) if 
+   \[
+   f(t)=\cL^{-1}\left\lbrace\ln\left(\frac{s+1}{\sqrt{s^2+4s+13}}\right)\right\rbrace
+   \]
+\end{enumerate}
+
+\end{document}

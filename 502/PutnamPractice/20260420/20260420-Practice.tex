@@ -1,0 +1,323 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Spring}
+\def\nyear {2026}
+\def\nprofesor {Ignacio Rojas}
+\def\nsigla {Putnam}
+\def\nsiglahead {Putnam Practice}
+\def\nextra {20260420 - Divisibility}
+\def\nlang {ENG}
+\def\nauthor {}
+\input{../../../headerVarillyDiff}
+
+\begin{document}
+
+\subsection*{Toolkit}
+
+\begin{itemize}
+    \item \textbf{Divisibility}: Let \(a, b \in \bZ\), we say that \(a\) \emph{divides} \(b\), or \(b\) is a \emph{multiple} of \(a\), if there exists \(k \in \bZ\) such that \(b = ak\). This relation is denoted by \(a|b\).
+    \item \textbf{Proposition}: Let \(a, b, c \in \bZ\).
+    \begin{enumerate}
+        \item \emph{Transitivity}: If \(a|b\) and \(b|c\), then \(a|c\).
+        \item \emph{Linear Combination}: If \(a|b\) and \(a|c\), then \(a|(bm + cn)\) for any \(m, n \in \bZ\).
+        \item \emph{Bounding}: If \(a|b\), then \(b = 0\) or \(|a| \leq |b|\).
+    \end{enumerate}
+    \item \textbf{Euclidean Division}: Let \(a, b \in \bZ\) with \(b \neq 0\). Then there exist unique \(q, r \in \bZ\) with \(0 \leq r < |b|\), such that \(a = bq + r\).
+    \item \textbf{Greatest Common Divisor}: The greatest common divisor of two or more integers is defined as the largest integer that divides all of them. For \(a, b \in \bZ\), we denote it as \(\gcd(a, b)\) or simply \((a, b)\).
+    \item \textbf{Theorem (Bachet-B\'{e}zout)}: Given \(a, b \in \bZ\) (not both zero), there exist \(x, y \in \bZ\) such that \(ax + by = \gcd(a, b)\).
+    \item \textbf{Coprimality}: Two integers \(a, b\) are \emph{relatively prime} (or \emph{coprime}) if \(\gcd(a, b) = 1\).
+    \item \textbf{Proposition}: Let \(a, b, c \in \bZ\).
+    \begin{enumerate}
+        \item \emph{Cancellation}: If \(a|bc\) and \(\gcd(a, b) = 1\), then \(a|c\). Alternatively, if \(a|bc\), then \((a / \gcd(a, b)) | c\).
+        \item \emph{Combining}: If \(a|c\), \(b|c\), and \(\gcd(a, b) = 1\), then \((ab)|c\).
+    \end{enumerate}
+    \item \textbf{Primes}: An integer \(p > 1\) is \emph{prime} if its only positive divisors are \(1\) and \(p\). An integer \(a > 1\) is \emph{composite} if it is not prime.
+    \item \textbf{Fundamental Theorem of Arithmetic}: Every integer \(n > 1\) can be uniquely expressed as a product of primes \(n = \prod_{i=1}^{\infty} p_i^{\alpha_i}\), where \(\alpha_i \in \{0, 1, 2, \dots \}\). Moreover, every positive rational \(r\) can be uniquely expressed as \(r = \prod_{i=1}^{\infty} p_i^{\beta_i}\) with \(\beta_i \in \bZ\).
+    \item \textbf{Number of Divisors}: If \(n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}\), then the number of positive divisors of \(n\) is \((\alpha_1 + 1)(\alpha_2 + 1) \cdots (\alpha_k + 1)\).
+    \item \textbf{\(p\)-adic Valuation}: For an integer \(a\), the \(p\)-adic valuation \(v_p(a)\) is the largest exponent \(\alpha\) such that \(p^{\alpha} | a\). For a rational \(r = a/b\), \(v_p(r) = v_p(a) - v_p(b)\).
+    \item \textbf{Proposition}: Let \(r, s \in \bQ\) and \(p\) be a prime.
+    \begin{enumerate}
+        \item \(v_p(rs) = v_p(r) + v_p(s)\).
+        \item \(v_p(r + s) \geq \min\{v_p(r), v_p(s)\}\), with equality if \(v_p(r) \neq v_p(s)\).
+    \end{enumerate}
+\end{itemize}
+\hrule
+\begin{center}
+    \textit{The science and art of asking questions is the source of all knowledge.} \\
+    --- Thomas Berger
+\end{center}
+
+\begin{Ej}
+Find all positive integers \(n\) such that deleting its last digit results in a number that divides \(n\).
+\end{Ej}
+
+\begin{Ej}
+Determine the largest integer \(n\) such that \(n^3 + 100\) is divisible by \(n + 10\).
+\end{Ej}
+
+\begin{Ej}
+Find all positive integers \(n\) such that \(n^2 + 1\) divides \(2n^4 + 4n^3 + 6n^2 + 8n + 10\).
+\end{Ej}
+
+\begin{Ej}
+For any integers \(a, b\), prove that \(\gcd(a, b) = \gcd(a, b - a)\).
+\end{Ej}
+
+\begin{Ej}
+Let \(n > 2\) be an integer. Prove that an even number of the fractions \(\frac{1}{n}, \frac{2}{n}, \dots, \frac{n-1}{n}\) are irreducible.
+\end{Ej}
+
+\begin{Ej}
+Show that \(\frac{21n + 4}{14n + 3}\) is irreducible for every positive integer \(n\).
+\end{Ej}
+
+\begin{Ej}
+Prove that if \(n\) is composite, then it must have a prime factor \(p \leq \sqrt{n}\).
+\end{Ej}
+
+\begin{Ej}
+Prove that if \(m\) and \(n\) are positive integers such that 
+\[
+m|n^2, n^2|m^3, m^3|n^4, n^4|m^5, \dots
+\]
+then \(m = n\).\par
+Give an example with \(m \neq n\) where \(m|n^2, n^2|m^3, m^3|n^4, n^4|m^5\), but \(m^5 \nmid n^6\).
+\end{Ej}
+
+\begin{Ej}
+Let \(m = \prod_{i=1}^k p_i^{\alpha_i}\) and \(n = \prod_{i=1}^k p_i^{\beta_i}\) be positive integers. Show that 
+\[
+\gcd(m, n) = \prod_{i=1}^k p_i^{\min\{\alpha_i, \beta_i\}}.
+\]
+\end{Ej}
+
+\begin{Ej}
+Prove that for any prime \(p\) and \(n \in \bN\):
+\[
+    v_p(n!) = \sum_{k=1}^{\infty} \left\lfloor \frac{n}{p^k} \right\rfloor.
+\]
+\end{Ej}
+
+\begin{Ej}
+Prove that for any given list of consecutive positive integers, there exists a power of \(2\) that divides exactly one of the numbers in the list. Conclude that there is no integer among the \(2^{n+1}\) sums of the form
+\[
+    \pm \frac{1}{k} \pm \frac{1}{k+1} \pm \frac{1}{k+2} \pm \dots \pm \frac{1}{k+n}.
+\]
+\end{Ej}
+
+\begin{Ej}
+Prove that for any positive integer \(k\), there exist \(k\) consecutive composite numbers.
+\end{Ej}
+
+\begin{Ej}
+During a census, a father told the interviewer that he had three daughters. When asked for their ages, the father replied: ``The product of their ages is 72 and the sum of their ages is my house number.'' The interviewer went to see the house number and said he still could not determine their ages. The father replied: ``True, I forgot to tell you that my eldest daughter plays the piano,'' at which point the interviewer was able to record the ages of the three daughters. What are their ages?
+\end{Ej}
+
+\begin{Ej}
+Let \(r, s, t\) be positive integers with \(\gcd(r, t) = 1\) such that \(\frac{1}{r} + \frac{1}{s} = \frac{1}{t}\). Prove that \(r = t + 1\) and \(s = t^2 + t\).
+\end{Ej}
+
+\begin{Ej}
+The sequence \(p_n\) is defined as follows:
+\begin{enumerate}[label=(\roman*)]
+    \item \(p_1 = 2\),
+    \item For all \(n \geq 2\), \(p_n\) is the largest prime dividing \(p_1 p_2 \dots p_{n-1} + 1\).
+\end{enumerate}
+Prove that \(p_n \neq 5\) for all \(n\).
+\end{Ej}
+
+\begin{Ej}
+Find all positive integers \(n\) with exactly 16 positive divisors \(1 = d_1 < d_2 < \dots < d_{16} = n\) such that \(d_6 = 18\) and \(d_9 - d_8 = 17\).
+\end{Ej}
+
+\begin{Ej}
+Determine all perfect squares \(n\) such that if \(1 = d_1 < d_2 < \dots < d_m = n\) are its divisors with \(m \geq 4\), then
+\[
+    \frac{1}{d_2} = \frac{1}{d_3} + \frac{1}{d_4} + \frac{1}{\sqrt{n}}.
+\]
+\end{Ej}
+
+\begin{Ej}
+Let \(m > n\) be positive integers such that \(mn(m - n)\) divides \(m^3 + n^3 + mn\). Prove that \(mn\) is a perfect cube.
+\end{Ej}
+
+\begin{Ej}
+Let \(d_1 < d_2 < \dots < d_k\) be the positive divisors of an integer \(n > 1\) and consider the number \(d = d_1d_2 + d_2d_3 + \dots + d_{k-1}d_k\). Prove that \(d < n^2\) and find all \(n\) for which \(d|n^2\).
+\end{Ej}
+
+\begin{Ej}
+Determine all composite integers \(n > 1\) satisfying the following property: if \(1 = d_1 < d_2 < \dots < d_k = n\) are all the positive divisors of \(n\), then \(d_i | (d_{i+1} + d_{i+2})\) for all \(1 \leq i \leq k - 2\).
+\end{Ej}
+
+\begin{Ej}
+Determine all triples of positive integers \((a, b, c)\) such that \(a^2 = 2^b + c^4\).
+\end{Ej}
+
+\begin{Ej}
+Let \(a_0, a_1, \dots, a_{n+1}\) be a sequence of integers such that \(a_0 = a_{n+1} = 1\). Furthermore, \(a_i > 1\) and \(a_i | (a_{i-1} + a_{i+1})\) for all \(1 \leq i \leq n\). Prove that there is at least one 2 in the sequence.
+\end{Ej}
+
+\begin{Ej}
+Let \(n\) be a positive integer and let \(a_1, a_2, \dots, a_k\) (\(k \geq 2\)) be distinct integers in the set \(\{1, 2, \dots, n\}\) such that \(n | a_i(a_{i+1} - 1)\) for \(i = 1, 2, \dots, k - 1\). Prove that \(n \nmid a_k(a_1 - 1)\).
+\end{Ej}
+
+\begin{Ej}
+Suppose that \(n\) is a positive integer and let \(1 = d_1 < d_2 < d_3 < d_4\) be the first four positive divisors of \(n\). Find all integers \(n\) such that \(n = d_1^2 + d_2^2 + d_3^2 + d_4^2\).
+\end{Ej}
+
+\begin{Ej}
+Let \(A \subset \bN\) be a set closed under addition such that \(\bN \setminus A\) is infinite. Prove that there exists an integer \(n \geq 2\) that divides all elements of \(A\).
+\end{Ej}
+
+\begin{Ej}
+We say that a set \(S\) of distinct positive integers is \emph{good} if for any pair of elements \(m, n \in S\) with \(m \neq n\), we have that the difference \(|m - n|\) divides both \(m\) and \(n\) simultaneously.
+\begin{enumerate}[label=\alph*)]
+    \item Prove that a good set cannot have an infinite number of elements.
+    \item Prove that for every positive integer \(N \geq 2\), there exists a good set with \(N\) elements.
+\end{enumerate}
+\end{Ej}
+
+\begin{Ej}
+The positive integers \(a_0, a_1, \dots, a_{3030}\) satisfy
+\[
+    2a_{n+2} = a_{n+1} + 4a_n, \quad \text{for } n = 0, 1, \dots, 3028.
+\]
+Prove that at least one of the numbers \(a_0, a_1, \dots, a_{3030}\) is divisible by \(2^{2020}\).
+\end{Ej}
+
+\newpage
+\section*{Solutions}
+\setcounter{Ej}{0}
+\begin{Ej}
+    Suppose \(m\) is the number we obtained when deleting the last digit \(a_0\) of \(n\). In this fashion we have 
+    \[
+    n=10m+a_0,\quad a_0\in\set{0,1,\dots,9}.
+    \]
+    Observe that 
+    \[
+    m\mid n\To m\mid 10m+a_0
+    \]
+    and as \(m\mid 10m\), then via the \emph{linear combination} property, it must occur that 
+    \[
+    m\mid (10m+a_0)-(10m)\To m\mid a_0.
+    \]
+    From here, we divide into cases:
+    \begin{itemize}
+        \item If \(a_0=0\) then \(m\) always divides \(0\). Therefore any \(n\) which is a multiple of 10 satifies the desired property.
+        \item If \(a_0\neq 0\), it must occur that 
+        \[
+        m\leq a_0\leq 9.
+        \]
+        In such cases, we must count manually
+        \begin{itemize}
+            \item If \(m=1\) then any \(a_0\) works, so 
+            \[
+            n\in\set{11,12,\dots,19}.
+            \]
+            \item If \(m=2\), then \(a_0\) is even and the numbers we get are
+            \[
+            n\in \set{22,24,26,28}.
+            \]
+            \item If \(m=3\), we get that \(a_0\) is a multiple of \(3\) so that 
+            \[
+            n\in\set{33,36,39}.
+            \]
+            \item Same idea happens for \(m=4\) and we get \(n=44\) or \(n=48\).
+            \item But for \(m=5,\dots,9\), the only numbers below \(10\) that will divide them are themselves. So we only get the multiples of \(11\):
+            \[
+            n\in\set{55,66,\dots,99}.
+            \]
+        \end{itemize}
+    \end{itemize}
+    In conclusion the numbers which we are looking for are the multiples of ten and the numbers listed above.
+
+\end{Ej}
+
+\begin{Ej}
+    We have that \(n+10 \mid n^3 + 100\) and we'd like to eliminate the terms with \(n\) by using a linear combination. To that effect, recall
+    \[
+    n^3 + 10^3 = (n+10)(n^2 - 10n + 100).
+    \]
+    Which in particular means that \(n+10 \mid n^3 + 1000\). 
+    Since \(n+10 \mid n^3+100\), it must divide their difference:
+    \[
+    n+10\mid (n^3 + 1000) - (n^3 + 100) \To n+10\mid 900.
+    \]
+    Therefore, \(n+10\) must be a divisor of \(900\). Since we want the largest possible integer \(n\), we should choose the largest divisor of \(900\), which is \(900\) itself. So we obtain 
+    \[
+    n+10 = 900 \To n = 890.
+    \]
+\end{Ej}
+
+\begin{Ej}
+    For  \(n^2 + 1\) to divide \(2n^4 + 4n^3 + 6n^2 + 8n + 10\), it must occur that the remainder when dividing is zero.\par
+    Via long division we obtain:
+    \[
+    2n^4 + 4n^3 + 6n^2 + 8n + 10 = (2n^2 + 4n + 4)(n^2 + 1) + 4n + 6.
+    \]
+    So \(n^2+1\) must divide the remainder: 
+    \[
+    n^2 + 1 \mid 4n + 6.
+    \]
+    Using the bounding property, a divisor cannot exceed the positive number it divides:
+    \[
+    n^2 + 1 \leq 4n + 6 \To n^2 - 4n - 5 \leq 0 \To (n-5)(n+1) \leq 0.
+    \]
+    As \(n\) is positive, \(n+1 > 0\). Thus \(n - 5 \leq 0\) giving us
+    \[
+    1\leq n\leq 5.
+    \]
+    We test each integer in this range to see if \(n^2+1 \mid 4n+6\):
+    \begin{itemize}
+        \item If \(n=1\), \(n^2+1=2\) and \(2\) divides \(4(1)+6=10\).
+        \item If \(n=2\), \(n^2+1=5\). \(5\) doesn't divide \(4(2)+6=14\).
+        \item If \(n=3\), \(n^2+1=10\). \(10\) doesn't divide \(4(3)+6=18\).
+        \item If \(n=4\), \(n^2+1=17\) and \(17\) doesn't divide \(4(4)+6=22\).
+        \item Finally if \(n=5\), \(n^2+1=26\), and it does divide \(4(5)+6=26\).
+    \end{itemize}
+    Therefore \(n \in \set{1, 5}\).
+\end{Ej}
+
+\begin{Ej}
+    Let \(d = \gcd(a, b)\), then
+    \[
+    d\mid a,\quad d\mid b\quad\To\quad d\mid b-a.
+    \]
+    Thus, \(d\) is a common divisor of \(a\) and \(b - a\), which means that it divides their greatest common divisor. If \(d' = \gcd(a, b - a)\), we have
+    \[
+    d \mid d'.
+    \]
+    Conversely, 
+    \[
+    d'\mid a,\quad d'\mid b-a\quad\To\quad d'\mid (b-a)+a=b
+    \]
+    Because \(d'\) divides both \(a\) and \(b\), it must divide their greatest common divisor, \(d\). So 
+    \[
+    d' \mid d.
+    \]
+    Since \(d \mid d'\) and \(d' \mid d\), they must be equal.
+\end{Ej}
+
+\begin{Ej}
+    Observe that a fraction \(\frac{k}{n}\) is irreducible when \(\gcd(k, n) = 1\). We are looking for the number of integers \(k \in \set{1, 2, \dots, n-1}\) that satisfy this condition.\par
+    
+    From the previous exercise, we get
+    \[
+    \gcd(k, n) = \gcd(n-k, n).
+    \]
+    This symmetry tells us that \(k\) is coprime to \(n\) if and only if \(n-k\) is coprime to \(n\). It must occur then, that the numbers leading to irreducible fractions come in pairs of the form \((k, n-k)\).\par
+    
+    Could an element pair with itself? 
+    If \(k = n-k\), we would have \(2k = n\), meaning \(k = n/2\). 
+    However, if \(k = n/2\), its irreducibility requires 
+    \[
+    1 = \gcd(n/2, n) = n/2
+    \]
+    which happens precisely when \(n = 2\). \par
+    
+    However, as \(n > 2\), the case \(k = n-k\) cannot yield an irreducible fraction. Thus, the coprimes strictly group into distinct, disjoint pairs \((k, n-k)\) with no self-pairing. 
+    Because they precisely arrange into pairs, the total count of such irreducible fractions must be an even number.
+\end{Ej}
+
+\end{document}
