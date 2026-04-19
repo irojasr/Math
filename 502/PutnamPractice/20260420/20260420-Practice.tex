@@ -73,6 +73,10 @@ Show that \(\frac{21n + 4}{14n + 3}\) is irreducible for every positive integer 
 \end{Ej}
 
 \begin{Ej}
+    For \(p\) prime, and \(0<k<p\), \(p\mid\binom{p}{k}\).
+\end{Ej}
+
+\begin{Ej}
 Prove that if \(n\) is composite, then it must have a prime factor \(p \leq \sqrt{n}\).
 \end{Ej}
 
@@ -318,6 +322,34 @@ Prove that at least one of the numbers \(a_0, a_1, \dots, a_{3030}\) is divisibl
     
     However, as \(n > 2\), the case \(k = n-k\) cannot yield an irreducible fraction. Thus, the coprimes strictly group into distinct, disjoint pairs \((k, n-k)\) with no self-pairing. 
     Because they precisely arrange into pairs, the total count of such irreducible fractions must be an even number.
+\end{Ej}
+
+\begin{Ej}
+    Observe that \(\frac{21n + 4}{14n + 3}\) is irreducible if \(\gcd(21n+4, 14n+3)=1\). Let \(d\) be a common divisor, then
+    \[
+    d\mid 14n+3, \quad d\mid 21n+4.
+    \]
+    It must occur that
+    \[
+    d \mid 3(14n+3) - 2(21n+4) \To d \mid (42n+9) - (42n+8) \To d \mid 1.
+    \]
+    As \(d\) is a positive integer, it must occur that \(d = 1\).
+\end{Ej}
+
+\begin{Ej}
+    For \(k > p\), we have \(\binom{p}{k} = 0\), so \(p \mid \binom{p}{k}\). \par
+    For \(0 < k < p\), as \(p\) is prime, we have \(\gcd(p, k) = 1\). Via \emph{Bachet-B\'{e}zout}, there exist \(a, b \in \bZ\) such that 
+    \[
+    1 = ap+bk.
+    \]
+    If we multiply by \(\binom{p}{k}\), we obtain
+    \begin{align*}
+        \binom{p}{k} &= (ap+bk)\binom{p}{k} \\
+        &= ap\binom{p}{k} + bk\binom{p}{k} \\
+        &= ap\binom{p}{k} + bp\binom{p-1}{k-1} \quad \left(\because \binom{n}{r} = \frac{n}{r} \binom{n-1}{r-1}\right) \\
+        &= p\left(a\binom{p}{k} + b\binom{p-1}{k-1}\right).
+    \end{align*}
+    As the term in parentheses is an integer, it must occur that \(p \mid \binom{p}{k}\). 
 \end{Ej}
 
 \end{document}
