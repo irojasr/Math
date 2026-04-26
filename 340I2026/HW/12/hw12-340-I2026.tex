@@ -1,0 +1,173 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\DocumentMetadata{
+pdfversion=2.0,  
+lang=en-US,   
+pdfstandard={ua-2, a-4f},
+tagging = on, 
+tagging-setup={math/setup={mathml-SE}} ,
+}
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[extreme]{savetrees}
+\usepackage[utf8]{inputenc}
+\usepackage{newpxtext}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage{siunitx}
+
+%%%%%%%%% === Document Configuration === %%%%%%%%%%%%%%
+
+\hypersetup{
+pdftitle={MATH 340 -- Homework 12 Spring 2026},
+pdfauthor={Ignacio Rojas},
+pdfkeywords={twelfth homework},%
+}
+
+\newcommand{\twobyone}[2]{\begin{pmatrix} %% 2 x 1 matrix
+   #1 \\ #2 \end{pmatrix}}
+\newcommand{\twobytwo}[4]{\begin{pmatrix} %% 2 x 2 matrix
+   #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\threebyone}[3]{\begin{pmatrix} %% 3 x 1 matrix
+   #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand{\threebythree}[9]{\begin{pmatrix} %% 3 x 3 matrix
+   #1 & #2 & #3 \\ #4 & #5 & #6 \\ #7 & #8 & #9 \end{pmatrix}}
+\newcommand{\cL}{\mathcal{L}}
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+\begin{center}
+   {\Large MATH 340 -- Homework 12,\quad Spring 2026}
+\end{center}
+
+Recall that you must hand in a subset of the problems for which deleting any problem makes the total score less than 10. The maximum possible score on this homework is 10 points. See the syllabus for scoring details.
+
+\begin{enumerate}
+   \item (\textbf{E}) (2) [3 points] Find and classify the equilibrium points of the system
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=y,       \\
+                & y'(t)=\sin(x).
+            \end{aligned}
+            \right.
+         \]
+
+   \item (\textbf{E}) (1+) [2 points] Consider the following Lotka-Volterra model describing the dynamics of a predator-prey populations:
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=10x-xy/5, \\
+                & y'(t)=xy/4-20y.
+            \end{aligned}
+            \right.
+         \]
+         Find and classify its equilibria.
+
+   \item (\textbf{E}) (1+) [2 points] Find and classify the equilibrium points of the system
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=x+x^2+y^2, \\
+                & y'(t)=y-xy.
+            \end{aligned}
+            \right.
+         \]
+
+   \item (2+) [4 points] Find and classify the equilibrium points of the system
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=y,           \\
+                & y'(t)=\cos(x) - y.
+            \end{aligned}
+            \right.
+         \]
+
+   \item (2+) [4 points] Consider the following Rosenzweig-MacArthur predator-prey model, where the predator is limited by its capacity to hunt the prey:
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=x(6-x) - \frac{4xy}{2+x}, \\
+                & y'(t)=\frac{2xy}{2+x} - y.
+            \end{aligned}
+            \right.
+         \]
+         Find and classify its equilibrium points.
+
+   \item (2+) [4 points] Find and classify the equilibrium points of the system
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=(x-y)(y^2-4), \\
+                & y'(t)=(x+y)(x^2-9).
+            \end{aligned}
+            \right.
+         \]
+
+   \item (2+) [4 points] Consider the following Rosenzweig-MacArthur predator-prey model, where the predator is limited by its capacity to hunt the prey:
+         \[
+            \left\lbrace
+            \begin{aligned}
+                & x'(t)=x(5-x) - \frac{4xy}{2+x}, \\
+                & y'(t)=\frac{2xy}{2+x} - y.
+            \end{aligned}
+            \right.
+         \]
+         Find and classify its equilibrium points.
+
+   \item (1) [1 point] If \(f,g\) are differentiable functions, verify that the function \(u(x,y)=f(x)g(y)\) satisfies the PDE
+         \[
+            uu_{xy}=u_xy_y.
+         \]
+
+   \item (1-) [1 point] Verify that the function \(u(x,y)=\sin(ax)\sinh(ay)\) satisfies the Laplace equation \(u_{xx}+u_{yy}=0\)
+
+   \item (2) [3 points] Via the method of characteristic curves and solve the PDEs:
+         \[
+            (1+x^2)u_x+u_y=0,\quad u_x+2xu_y=2xu,\quad 3u_y+u_{xy}=0
+         \]
+
+   \item (2+) [4 points] Solve the following Dirichlet problems:
+         \[
+            \begin{cases}
+               u_x+u_y+u=e^{x+2y}, \\
+               u(x,0)=0.
+            \end{cases}\quad
+            \begin{cases}
+               u_x+u_y-u=0, \\
+               u(x,0)=\cos(x).
+            \end{cases}
+         \]
+
+   \item (2) [3 points] Solve the PDE
+         \[
+            uu_x+u_y=1,\quad u(x,x)=0.
+         \]
+         What happens if the condition is changed to \(u(x,x)=1\)?
+
+   \item (1+) [2 points] Via the method of separation of variables, find the associated ODEs for the following PDEs
+         \[
+            u_t=ku_{xx}-au,\quad u_t=k\partial_x^{4}u,\quad 3u_{yy}+7u_{xxy}=5u_{xxxy}.
+         \]
+
+   \item (3-) [8 points] Consider the heat equation in \((x,t)\in [0,\pi]\times]0,\infty[\):
+         \[
+            \begin{cases}
+               u_t=u_{xx}, \\
+               u_x(0,t)=u_x(\pi,t)=0.
+            \end{cases}
+         \]
+         Via separation of variables, show that if \(u\) is a solution, then either \(u\) is constant or or the form
+         \[
+            u(x,t)=a_ne^{-n^2t}\cos(nx),\quad\text{for some integer }n,\quad\text{and }a_n\text{ constant}.
+         \]
+         If additionally given the boundary condition \(u(x,0)=\sin^2(x)\) determine the solution.
+\end{enumerate}
+
+\end{document}
