@@ -10,6 +10,7 @@ tagging-setup={math/setup={mathml-SE}} ,
 }
 \documentclass[12pt]{article}
 \usepackage{amsmath,amssymb}
+\usepackage{enumitem}
 \usepackage[extreme]{savetrees}
 \usepackage[utf8]{inputenc}
 \usepackage{newpxtext}
@@ -89,16 +90,22 @@ Recall that you must hand in a subset of the problems for which deleting any pro
             \right.
          \]
 
-   \item (2+) [4 points] Consider the following Rosenzweig-MacArthur predator-prey model, where the predator is limited by its capacity to hunt the prey:
+   \item (2+) [4 points] The Lotka-Volterra model assumes no influence of external agents. A natural question is what happens to this equilibrium when, for example, one or both populations are harvested at a constant rate. We model this with harvesting constants \(H_1, H_2 \geq 0\) for prey and predator respectively:
          \[
             \left\lbrace
             \begin{aligned}
-                & x'(t)=x(6-x) - \frac{4xy}{2+x}, \\
-                & y'(t)=\frac{2xy}{2+x} - y.
+                & x'(t)=x(1-y/2)-H_1,   \\
+                & y'(t)=(y/4)(x-3)-H_2.
             \end{aligned}
             \right.
          \]
-         Find and classify its equilibrium points.
+         \begin{enumerate}
+            \item Show that \((3,2)\) is an equilibrium when \(H_1=H_2=0\), and classify it.
+            \item Before computing, reason from the structure of the equations: if only the prey is harvested (\(H_1>0,\, H_2=0\)), do you expect the predator population at equilibrium to increase, decrease, or stay the same relative to the unharvested case? Verify your thoughts by computing it.
+            \item Analogously, for \(H_1=0,\, H_2>0\), carry out the same analysis and computation.
+            \item For the case \(H_1, H_2>0\), when both populations are harvested, determine the equilibrium and describe how it depends on \(H_1\) and \(H_2\). Under what condition on \(H_1\) and \(H_2\) does a biologically meaningful equilibrium (i.e., with both populations positive) cease to exist?
+         \end{enumerate}
+         \noindent\textit{Hint:} In parts (b)--(d) you can choose \emph{nice} values of \(H_1, H_2\) to guide your intuition, but your conclusions should be stated for general \(H_1, H_2>0\).
 
    \item (2+) [4 points] Find and classify the equilibrium points of the system
          \[
@@ -109,17 +116,22 @@ Recall that you must hand in a subset of the problems for which deleting any pro
             \end{aligned}
             \right.
          \]
-
-   \item (2+) [4 points] Consider the following Rosenzweig-MacArthur predator-prey model, where the predator is limited by its capacity to hunt the prey:
+         \vfill
+         \newpage
+   \item (2+) [4 points] Consider the following Rosenzweig-MacArthur predator-prey model, where the predator is limited by its capacity to hunt the prey. The prey also grows logistically, with carrying capacity \(K > 0\):
          \[
             \left\lbrace
             \begin{aligned}
-                & x'(t)=x(5-x) - \frac{4xy}{2+x}, \\
+                & x'(t)=x(K-x) - \frac{4xy}{2+x}, \\
                 & y'(t)=\frac{2xy}{2+x} - y.
             \end{aligned}
             \right.
          \]
-         Find and classify its equilibrium points.
+         \begin{enumerate}
+            \item Show that the system has an equilibrium at \((2,K-2)\). For what range of values of \(K\) is this equilibrium biologically meaningful (i.e., both populations are positive)?
+            \item Classify the equilibrium. You should find that the solution changes its behaviour as \(K\) passes through a \emph{critical value}. Determine that value.
+            \item With this, describe the long-term behavior of solutions for \(K\) slightly below and slightly above that critical value. What does this transition mean biologically for the predator and prey populations?
+         \end{enumerate}
 
    \item (1) [1 point] If \(f,g\) are differentiable functions, verify that the function \(u(x,y)=f(x)g(y)\) satisfies the PDE
          \[
@@ -163,7 +175,7 @@ Recall that you must hand in a subset of the problems for which deleting any pro
                u_x(0,t)=u_x(\pi,t)=0.
             \end{cases}
          \]
-         Via separation of variables, show that if \(u\) is a solution, then either \(u\) is constant or or the form
+         Via separation of variables, show that if \(u\) is a solution, then either \(u\) is constant or of the form
          \[
             u(x,t)=a_ne^{-n^2t}\cos(nx),\quad\text{for some integer }n,\quad\text{and }a_n\text{ constant}.
          \]
