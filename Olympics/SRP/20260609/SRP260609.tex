@@ -1,0 +1,326 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Primer Semestre}
+\def\nyear {2026}
+\def\nprofesor {Ignacio Rojas}
+\def\nsigla {SRP}
+\def\nsiglahead {Seminario de Resoluci\'on de Problemas}
+\def\nextra {SRP4}
+\def\nauthor {}
+\input{../../../headerVarillyDiff}
+
+\begin{document}
+
+\begin{Ej}
+Podemos reescribir
+
+\begin{align*}
+\frac{1}{n(n+1)}=\frac{A}{n}+\frac{B}{n+1}&\To 1=A(n+1)+Bn\\
+(n=0)&\To 1=A(1)\\
+(n=-1)&\To 1=B(-1)\\
+&\To A=1,\quad B=-1\\
+&\To \frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}.
+\end{align*}
+ 
+La serie en cuestión se convierte en 
+
+\[
+\sum_{n=1}^{\infty}\left(\frac{1}{n}-\frac{1}{n+1}\right)=\left(1-\half\right)+\left(\half-\frac13\right)+\dots
+\]
+
+que es una serie telescópica. Concluimos así que su valor es \(1\).
+\end{Ej}
+
+\begin{Ej}
+    Observamos primero que las series convergen. Para la serie de términos impares, esto se sigue por comparación directa con \(\sum \frac{1}{n^2}\) pues 
+    \begin{align*}
+    \frac{1}{(2n-1)^2}\leq\frac{1}{n^2}&\iff n^2\leq 4n^2-4n+1\\
+    &\iff 0\leq 3n^2-4n+1
+    \end{align*}    
+    que ocurre cuando \(n\geq 1\) o \(n\leq 1/3\). Como el criterio de comparación busca un \(N\) suficientemente grande, podemos tomar \(N=1\) (o bien \(N=2\)) para garantizar que la serie de términos impares converge.\par
+    Para la serie de términos pares, como \(1/(2n)^2=(1/4)(1/n^2)\) entonces es la serie es un múltiplo de una serie que ya es convergente.\par
+    Finalmente la tercera serie converge por el criterio de series alternantes.\par
+    Observemos ahora que 
+    \[
+    \sum_{n=1}^{\infty}\frac{1}{(2n)^2}=\frac{1}{4}\sum_{n=1}^{\infty}\frac{1}{n^2}=\frac{1}{4}\frac{\pi^2}{6}=\frac{\pi^2}{24}.
+    \]
+    Por otro lado, como las series son absolutamente convergentes tenemos que 
+    \[
+    \sum_{n=1}^{\infty}\frac{1}{n^2}-\sum_{n=1}^{\infty}\frac{1}{(2n)^2}=\sum_{n=1}^{\infty}\frac{1}{(2n-1)^2}
+    \]
+    y así la serie da \(\pi^2/8\). De la misma forma 
+    \[
+    \sum_{n=1}^{\infty}\frac{1}{(2n-1)^2}-\sum_{n=1}^{\infty}\frac{1}{(2n)^2}=\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{n^2}
+    \]
+    que nos da \(\pi^2/8-\pi^2/24=\pi^2/12\).
+\end{Ej}
+
+\begin{Ej}
+    Para este ejercicio buscamos reescribir
+    \[
+    \frac{1}{n(n+1)(n+2)}=\frac{A}{n(n+1)}+\frac{B}{(n+1)(n+2)}
+    \]
+    con la esperanza de volver a utilizar la idea de las series telescópicas. Si esta igualdad fuere cierta, entonces ocurriría que 
+    \[
+    1=A(n+2)+Bn\To A=\half,\quad B=-\half.
+    \]
+    Así, tenemos que la serie vale
+    \[
+    \half\left(1/(1\.2)-\frac{1}{2\.3}\right)+\half\left(1/(2\.3)-\frac{1}{3\.4}\right)+\dots=\frac{1}{4}.
+    \]
+\end{Ej}
+
+Para el siguiente problema utilizamos el siguiente resultado.
+
+\begin{Th}
+Si una serie de potencias \(f(x)=\sum_{n=0}^{\infty}a_nx^n\) tiene radio de convergencia \(R>0\) entonces existe \(f'(x)\) para \(x\in\obonj{-R,R}\) y su serie de potencias está dada por 
+\[
+f'(x)=\sum_{n=1}^{\infty}na_nx^{n-1}.
+\]
+\end{Th}
+
+\begin{Ej}
+    Para calcular \(\sum_{n=1}^{\infty}n/2^n\) utilizamos el resultado anterior. Sabemos que 
+    \[
+    \sum_{n=0}^{\infty}a^n=\frac{1}{1-a},\word{para}|a|<1.
+    \]
+    Derivando obtenemos 
+    \[
+    \frac{1}{(1-a)^2}=\sum_{n=1}^{\infty}na^{n-1}.
+    \]
+    Así, multiplicando por \(a\) y sustituyendo \(a=1/2\) tenemos que 
+    \[
+    2=\frac{1/2}{(1-1/2)^2}=\sum_{n=1}^{\infty}n/2^n.
+    \]
+\end{Ej}
+
+Para el siguiente ejercicio aprovechamos el segundo lema de Borel-Cantelli. 
+
+\begin{Th}[Borel-Cantelli 2]
+    Si \((E_n)_{n\geq 1}\) es una sucesión de eventos independientes con 
+    \[
+    \sum_{n=1}^\infty P(E_n)\to\infty,
+    \]
+    entonces \(P(\limsup E_n) = 1\). 
+\end{Th}
+
+Semanticamente, el segundo lema de Borel-Cantelli dice que la suma de las probabilidades diverge, entonces la probabilidad de que ocurran infinitos de estos eventos es \(1\).
+
+\begin{Ej}
+    La probabilidad de que \(A\) falle un tiro es \(1-a\). Entonces la probabilidad de que ocurra un acierto, sea de \(A\) o de \(B\) es 
+    \[
+    p=1-(1-a)(1-b)=a+b-ab.
+    \]
+    Sumando tenemos \(\sum_{n\geq 0} p=\infty\) por lo que la probabilidad de que ocurran infinitos aciertos es \(1\). En particular, debe ocurrir un acierto y así uno de los pistoleros muere.
+\end{Ej}
+
+Para este siguiente ejercicio, usamos un lema de comparación de sucesiones para cersiorarnos que podemos simplificar el cálculo.
+
+\begin{Lem}
+    Si \((a_n)_{n\geq 1}\) y \((b_n)_{n\geq 1}\) son dos sucesiones de números reales positivos con \(a_n \sim b_n\) cuando \(n\to\infty\). Si \(\lim_{n\to\infty} \sqrt[n]{b_n} = L\) con \(L > 0\), entonces \(\lim_{n\to\infty} \sqrt[n]{a_n} = L\).
+\end{Lem}
+
+\begin{proof}
+    Tenemos que \(\lim_{n\to\infty} {a_n}/{b_n} = 1\). Así, creativamente reescribimos \(\sqrt[n]{a_n}\) como:
+    \[
+    \sqrt[n]{a_n} = \sqrt[n]{\frac{a_n}{b_n} \cdot b_n} = \sqrt[n]{\frac{a_n}{b_n}} \cdot \sqrt[n]{b_n}.
+    \]
+    Basta probar que \(\lim_{n\to\infty} \sqrt[n]{a_n/b_n} = 1\). Llamemos \(c_n = a_n/b_n\). Por definición, para \(\eps \in \obonj{0,1}\) existe \(N \in \bN\) tal que cuando \(n \geq N\):
+    \[
+    1 - \eps < c_n < 1 + \eps.
+    \]
+    Tomando raíz \(n\)-ésima en ambos lados:
+    \[
+    \sqrt[n]{1 - \eps} < \sqrt[n]{c_n} < \sqrt[n]{1 + \eps}.
+    \]
+    Como \(\eps\) es arbitrario, pero fijo, tenemos que los límites laterales valen \(1\). Por el teorema del emparedado tenemos \(\lim_{n\to\infty} \sqrt[n]{c_n} = 1\). Finalmente:
+    \[
+    \lim_{n\to\infty} \sqrt[n]{a_n} = \lim_{n\to\infty} \sqrt[n]{\frac{a_n}{b_n}} \cdot \lim_{n\to\infty} \sqrt[n]{b_n} = 1 \cdot L = L.
+    \]
+\end{proof}
+
+\begin{Ej}
+    El radio de convergencia se encuentra utilizando el criterio de la raíz. Analizamos la expresión
+    \[
+    \lim_{n\to\infty}\sqrt[n]{|F_nx^n|}.
+    \] 
+    Como \(|\psi|<1\), tenemos que 
+    \[
+    |F_n|\sim \frac{\phi^n}{\sqrt{5}}
+    \]
+    pues el cociente entre esos dos términos da como resultado
+    \[
+    \frac{\phi^n-\psi^n}{\phi^n}=1-\frac{(-1)^n}{\phi^{2n}}.
+    \]
+    Por el lema anterior, basta analizar entonces
+    \[
+    \lim_{n\to\infty}\sqrt[n]{|\phi^nx^n/\sqrt{5}|}=\phi |x|.
+    \]
+    Para que la serie sea convergente, debe ocurrir que \(\phi |x|<1\) y así \(|x|<\frac{1}{\phi}=\frac{\sqrt{5}-1}{2}\).\par
+    Para encontrar la expresión algebraica de la función usamos nuevamente la fórmula de Binet. Tenemos que 
+    \begin{align*}
+        f(x)&=\sum_{n\geq 0}F_nx^n\\
+        &=\frac{1}{\sqrt{5}}\left(\sum_{n\geq 0}(\phi x)^n-\sum_{n\geq 0}(\psi x)^n\right)\\
+        &=\frac{1}{\sqrt{5}}\left(\frac{1}{1-\phi x}-\frac{1}{1-\psi x}\right)\\
+        &=\frac{1}{\sqrt{5}}\left(\frac{(\phi-\psi)x}{1-(\phi+\psi)x+\phi\psi x^2}\right)
+    \end{align*}
+    Un cálculo rápido nos da 
+    \[
+    \phi+\psi=1,\quad \phi-\psi=\sqrt{5},\word{y}\phi\psi=-1.
+    \]
+    Otra forma de ver esto es recordando que \(\phi,\psi\) son las raices del polinomio \(x^2-x-1\) entonces utilizando las fórmulas de Vieta
+    \[
+    \phi+\psi=-(-1),\quad \phi\psi=-1.
+    \]
+    Resolvemos así que la función en cuestión es 
+    \[
+    \frac{1}{\sqrt{5}}\frac{\sqrt{5}x}{1-(1)x-x^2}=\frac{x}{1-x-x^2}.
+    \]
+\end{Ej}
+
+\begin{Ej}
+    La función \(\eta(s)\) converge por el criterio de series alternantes porque \(1/n^s\) es decreciente y va para cero para \(s>0\) fijo pero arbitrario.\par
+    Podemos encontrar pruebas para el caso complejo por ejemplo en \url{https://math.stackexchange.com/questions/1042512}.\par
+    Para la ecuación funcional, separamos las partes par e impar de la función en cuestión.
+    \[
+    \eta(s)=\sum_{n\geq 1}\frac{(-1)^{2n-1}}{(2n)^s}+\sum_{n\geq 1}\frac{(-1)^{(2n+1)-1}}{(2n+1)^s}=\sum_{n\geq 1}\frac{-1}{(2n)^s}+\sum_{n\geq 1}\frac{1}{(2n+1)^s}
+    \]
+    Sumamos cero de forma creativa como la diferencia de dos series de la forma \(\sum 1/(2n)^s\). Obtenemos 
+    \begin{align*}
+        &\sum_{n\geq 1}\frac{-1}{(2n)^s}+\sum_{n\geq 1}\frac{1}{(2n+1)^s}+\sum_{n\geq 1}\frac{1}{(2n)^s}-\sum_{n\geq 1}\frac{1}{(2n)^s}\\
+        =&\left(\sum_{n\geq 1}\frac{1}{(2n)^s}+\sum_{n\geq 1}\frac{1}{(2n+1)^s}\right)-2\sum_{n\geq 1}\frac{1}{(2n)^s}\\
+        =&\zeta(s)-2\sum_{n\geq 1}\frac{2^{-s}}{n^s}\\
+        =&\zeta(s)(1-2^{1-s})
+    \end{align*}
+    y esta es la identidad deseada.
+\end{Ej}
+
+Como el siguiente ejercicio tiene un seno, quisiéramos usar un criterio de comparación al límite pero no podemos porque la serie no es de términos positivos. Hay que ser levemente más creativos.
+
+\begin{Ej}
+    Modificamos el término general de la serie. Observemos que:
+    \[
+    \sqrt{n^2+1}-n = \frac{(\sqrt{n^2+1}-n)(\sqrt{n^2+1}+n)}{\sqrt{n^2+1}+n} = \frac{1}{\sqrt{n^2+1}+n}.
+    \]
+    Así reescribimos la expresión como:
+    \begin{align*}
+         \pi\sqrt{n^2+1} &= n\pi + \frac{\pi}{\sqrt{n^2+1}+n}\\
+  \To \sin(\pi\sqrt{n^2+1}) &= \sin\left(n\pi + \frac{\pi}{\sqrt{n^2+1}+n}\right)\\
+   &= (-1)^n \sin\left(\frac{\pi}{\sqrt{n^2+1}+n}\right).
+    \end{align*}
+    Definamos \(u_n = \sin\left(\frac{\pi}{\sqrt{n^2+1}+n}\right)\). La serie original es entonces la serie alternante \(\sum_{n=0}^{\infty} (-1)^n u_n\). Aplicamos el criterio de Leibniz para series alternantes:
+    \begin{enumerate}
+        \item \textbf{Positividad:} Para todo \(n \geq 1\), se cumple que \(0 < \frac{\pi}{\sqrt{n^2+1}+n} \leq \frac{\pi}{\sqrt{2}+1} < \frac{\pi}{2}\). Dado que el seno es positivo en el intervalo \(\obonj{0, \pi/2}\), tenemos que \(u_n > 0\) para todo \(n \geq 1\).
+        \item \textbf{Límite:} Como \(\lim_{n\to\infty} \frac{\pi}{\sqrt{n^2+1}+n} = 0\), se tiene que \(\lim_{n\to\infty} u_n = \sin(0) = 0\).
+        \item \textbf{Decrecimiento:} Consideremos la función \(f(x) = \sin\left(\frac{\pi}{\sqrt{x^2+1}+x}\right)\) para \(x \geq 1\). La función \(h(x) = \sqrt{x^2+1}+x\) es estrictamente creciente, lo que implica que \(g(x) = \frac{\pi}{h(x)}\) es estrictamente decreciente. Como la imagen de \(g(x)\) está contenida en el intervalo \(\obonj{0, \pi/2}\) y la función seno es estrictamente creciente en dicha región, la composición \(f(x) = \sin(g(x))\) es estrictamente decreciente. Así, la sucesión es decreciente (\(u_{n+1} < u_n\)).
+    \end{enumerate}
+    Al cumplirse las tres condiciones del criterio de Leibniz, concluimos que la serie converge.
+\end{Ej}
+
+Para el ejercicio sobre la suma de Abel, consideremos un ejemplo.
+
+\begin{Ex}
+    Ordinariamente la serie
+    \[
+    1+1-1+1-1+\dots
+    \]
+    no converge, pero en otro sentido
+    \[\lim_{r\to1^{-}}1-r+r^2-r^3+\dots=\lim_{r\to1^{-}}\frac{1}{1+r}=\half.\]
+    También la serie 
+    \[
+    1-\half+\frac13-\frac14+\dots
+    \]
+    es convergente por el criterio de series alternantes. Entonces usando el sumas de Abel obtenemos
+    \[
+    \lim_{r\to1^{-}}r-\frac{r^2}{2}+\frac{r^3}{3}+\dots.
+    \]
+    Llamemos \(f(r)\) y derivamos para obtener
+    \[
+    \begin{cases}
+        &f(0)=0\\
+        &f'(r)=1-r+r^2-r^3+\dots
+    \end{cases}
+    \]
+    por lo que \(f(r)=\log(1+r)\) y hay que tener cuidado en la frontera.\par
+    Similarmente el mismo método se puede usar para averiguar el valor de
+    \[
+        1-\frac13+\frac15-\frac17+\dots=\frac{\pi}{4}
+    \]
+    considerando \(f(r)=\arctan(r)\).
+\end{Ex}
+
+\begin{Ej}
+    Usamos la fórmula de Abel
+    \begin{align*}
+        &a_0b_0+a_1b_1+a_2b_2+\dots\\
+        =&(A_0-A_{-1})b_0+(A_1-A_0)b_1+(A_2-A_1)b_2+\dots\\
+        =&A_0(b_0-b_1)+A_1(b_1-b_2)+\dots
+    \end{align*}
+    Si esta suma terminace tendríamos un término final de \(A_nb_n\), por ello necesitamos que las hipótesis de convergia y cotas.\par
+    Cortamos el segmento inicial 
+    \begin{align*}
+        S_N(r)&=\sum_{n=0}^{N}a_nr^n\\
+        &=a_0+(A_1-A_0)r+\dots+(A_N-A_{N-1})r^N\\
+        &=a_0(1-r)+A_1(r-r^2)+\dots+A_Nr^N\\
+        &=(1-r)\left(a_0+A_1r+\dots+A_{N-1}r^{N-1}\right)+A_Nr^N
+    \end{align*}
+    \red{FINISH}
+\end{Ej}
+
+Para el criterio de Dirichlet, consideramos la serie armónica alternante. Variemos esto un poco a 
+\[
+1+\half-\frac23+\frac14+\frac15-\frac26+\dots
+\]
+Esta serie se puede ver como 
+\[
+a_n=1,1,-2,1,1,-2,\dots,\quad b_n=\frac1n
+\]
+donde \(S=\sum a_nb_n\). Por el criterio de Dirichlet, esta serie converge. Su valor se puede encontrar usando el método de Abel.
+
+\begin{Ex}
+    La cota para el número armónico es por medio de integrales. Tenemos 
+    \[
+    \log(n+1)\leq H_n\leq 1+\log(n)\To 0< H_n-\log(n)<1
+    \]
+    que entonces es convergente a \(\ga\).
+\end{Ex}
+\newpage
+
+\textbf{Problemas del Seminario}
+\setcounter{Ej}{0}
+
+\begin{Ej}
+    Como la serie es convergente, existe un \(N\) tal que para \(n\geq N\),
+    \[
+    \sum_{k=n+1}^{2n}a_k<\eps,\quad \eps>0.
+    \]
+    Dado que \((a_n)\) es una sucesión decreciente, vale que 
+    \[
+    na_{2n}\leq \sum_{k=n+1}^{2n}a_k<\eps\To 2na_{2n}<2\eps
+    \]
+    para \(\eps>0\) fijo pero arbitrario y \(n\geq N\). En el caso de los términos impares tenemos que 
+    \[
+    a_{2n+1}\leq a_{2n}\To (2n+1)a_{2n+1}\leq (2n+1)a_{2n}=2na_{2n}+a_{2n}.
+    \]
+    Nuevamente como la serie converge, la sucesión \((a_n)\) va para cero. Así, sea \(M\) el índice para el cual \(a_{2n}<\eps\). Si \(n\geq \max(M,N)\) entonces
+    \[
+    (2n+1)a_{2n+1}\leq 2na_{2n}+a_{2n}<2\eps+\eps.
+    \]
+    Por lo tanto \(na_n\) va para cero.
+\end{Ej}
+
+\begin{Ej}
+    Llamemos \(a_{m,n}=\frac{m^2n}{3^m(n3^m+m3^n)}\), si ``trasponemos'' y sumamos obtenemos 
+    \begin{align*}
+        a_{m,n}+a_{n,m}&=\frac{m^2n}{3^m(n3^m+m3^n)}+\frac{n^2m}{3^n(n3^m+m3^n)}\\
+        &=\frac{3^nm^2n+3^mn^2m}{3^{m+n}(n3^m+m3^n)}\\
+        &=\frac{mn(3^nm+3^mn)}{3^{m+n}(n3^m+m3^n)}\\
+        &=\frac{mn}{3^{m+n}}.
+    \end{align*}
+    Por tanto la suma en cuestión se convierte en 
+    \[
+    2S=\left(\sum_{n\geq 1}\frac{n}{3^n}\right)^2=2\left(\frac{1/3}{(1-1/3)^2}\right)^2=9/8
+    \]
+\end{Ej}
+\end{document}
