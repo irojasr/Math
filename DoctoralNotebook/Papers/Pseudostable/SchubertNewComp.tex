@@ -1,0 +1,716 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {1991}
+\def\nprofesor {David Schubert}
+\def\nauthor{David Schubert}
+\def\nsigla {CompMath78}
+\def\nsiglahead {A new compactification of the moduli space of curves}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../../../headerVarillyDiff.tex}
+
+%%% Additional packages and commands for this article
+\usepackage{mathtools}
+
+\newcommand{\unresolved}[1]{\textbf{[UNRESOLVED: #1]}}
+\newcommand{\mathunresolved}[1]{\text{\unresolved{#1}}}
+
+%%% Missing calligraphic letter from the header
+\providecommand{\cX}{\mathcal{X}}
+
+%%% Operator names used in this paper (providecommand to avoid clash with header)
+\providecommand{\Spec}{\operatorname{Spec}}
+\providecommand{\SL}{\operatorname{SL}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\Pic}{\operatorname{Pic}}
+\providecommand{\Proj}{\operatorname{Proj}}
+\providecommand{\Hom}{\operatorname{Hom}}
+\DeclareMathOperator{\depth}{depth}
+
+%%% Numbering: The paper uses Section.Number scheme starting from 0
+\setcounter{section}{-1}
+
+%%% Theorem-like environments matching the paper's numbering:
+%%% The paper numbers Theorems, Lemmas, Definitions, Propositions, Corollaries
+%%% all from one counter within each section.
+%%% The header already defines these, but we adjust numbering.
+
+\begin{document}
+
+% --- Source PDF page 1 (title page, NUMDAM cover) ---
+% Omitted: NUMDAM/Compositio Mathematica cover page.
+
+% --- Source PDF page 2 ---
+
+\begin{center}
+{\itshape Compositio Mathematica} {\bfseries 78}: 297--313, 1991.\\
+\copyright\ 1991 {\itshape Kluwer Academic Publishers. Printed in the Netherlands.}
+\end{center}
+
+\vspace{1em}
+
+\begin{center}
+{\LARGE\bfseries A new compactification of the moduli space of curves}
+\end{center}
+
+\vspace{1em}
+
+\begin{flushleft}
+{\large\textsc{David Schubert}}\\
+{\itshape Department of Mathematics, SUNY College at Geneseo, Geneseo, NY 14454}\\[0.5em]
+Received 28 March 1990; accepted 3 July 1990
+\end{flushleft}
+
+\vspace{1em}
+
+\section{Introduction}
+
+We work over an algebraically closed field $k$.
+
+The moduli space $\mathfrak{M}_g$ for curves of genus $g \geqslant 2$ can be constructed by using Geometric Invariant Theory (GIT) to construct a quotient of either the Chow variety or the Hilbert Scheme which parameterizes $n$-canonically embedded curves in $\mathbf{P}^{(2n-1)(g-1)-1}$ for $n \geqslant 3$. The quotients of the Chow variety and the Hilbert scheme are complete. Thus the closure of $\mathfrak{M}_g$ in the quotient gives a compactification of $\mathfrak{M}_g$.
+
+Mumford [Mu2] has shown using the Chow variety, and Gieseker [G] has shown using the Hilbert scheme that when $n \geqslant 5$ the associated compactification of $\mathfrak{M}_g$ is a moduli space for Mumford--Deligne stable curves. The aim of this paper is to show that when $g \geqslant 3$ and $n = 3$, the associated compactification of $\mathfrak{M}_g$ is a moduli space for a class of curves which we will call pseudo-stable.
+
+\medskip
+
+\noindent\textsc{Definition.} A reduced connected complete curve is \emph{Mumford--Deligne stable} if
+
+\begin{enumerate}[(i)]
+\item it has only ordinary double points as singularities; and
+\item every subcurve of genus 0 meets the rest of the curve at at least 3 points.
+\end{enumerate}
+
+\noindent A reduced connected complete curve is \emph{pseudo-stable} if
+
+\begin{enumerate}[(i)]
+\item it has only ordinary double points and ordinary cusps as singularities;
+\item every subcurve of genus 1 meets the rest of the curve at at least 2 points; and
+\item every subcurve of genus 0 meets the rest of the curve at at least 3 points.
+\end{enumerate}
+\hfill$\square$
+
+\medskip
+
+Our method closely follows that of Mumford and Gieseker. We use 1-Parameter Subgroups (1-PS's) of $\SL(N+1)$ to show that when $n=3$ the Chow points of curves which are not pseudo-stable are unstable in the sense of GIT, and thus are not represented in the compactification of $\mathfrak{M}_g$. The singular curves are then shown to be represented in the compactification of $\mathfrak{M}_g$ by considering degenerations of smooth curves and the completeness of the quotient scheme.
+
+% --- Source PDF page 3 ---
+
+In \S1 we review Geometric Invariant Theory as it applies to the Chow variety. In \S2 we present modified lemmas of Mumford and Gieseker to show that curves with bad singularities or multiple components have unstable Chow points. In \S3 we show that curves with elliptic tails have unstable Chow points. In \S4 we discuss the relationship between Mumford--Deligne stable curves and pseudo-stable curves. In \S5 we use the previous results to construct a moduli space for pseudo-stable curves.
+
+This work is a large part of the author's thesis written under David Gieseker. The author wishes to thank him again for his guidance and patience.
+
+\section{Chow stability}
+
+In this section we review Geometric Invariant Theory (GIT) as it applies to the Chow variety. More complete treatments can be found in [Mu1, Mu2 and Mo].
+
+A non-negative Chow cycle $X$ of dimension $r$ in $\mathbf{P}^N$ is a formal sum $X = \Sigma\, a_i X_i$ where each $X_i$ is a variety of dimension $r$ in $\mathbf{P}^N$ and each $a_i$ is a non-negative integer. The degree of $X$ is $\Sigma\, a_i \deg X_i$. For each $r$, $N$ and $d$ there is a Chow variety which parameterizes non-negative Chow cycles in $\mathbf{P}^N$ of dimension $r$ and degree $d$.
+
+The natural action of $\SL(N+1)$ on $\mathbf{P}^N$ determines a natural action on the Chow variety. GIT says that on the open subset of what are called semi-stable points, a quotient of the action by $\SL(N+1)$ can be taken to get a projective scheme. On the open subset of what are called stable points, this quotient is an orbit space. We call a Chow cycle stable (resp.\ semi-stable) if its Chow point is stable (resp.\ semi-stable).
+
+We will now consider a method for determining which Chow cycles are stable.
+
+A \emph{weighted flag} of $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ is a filtration $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1)) = V_0 \supset \cdots \supset V_N$ and a set of integers $r_0 \geqslant r_1 \geqslant \cdots \geqslant r_N = 0$. Associated to each weighted flag is a 1-PS $\la(t)$ of $\SL(N+1)$. If $k = \Sigma\, r_i$ and $X_0, \dots, X_N$ are coordinates on $\mathbf{P}^N$ where $V_i = \spn\{X_i, \dots, X_N\}$, then $\la(t)X_i = t^{(N+1)r_i - k} X_i$. Note that we may choose a weighted flag by specifying the $r_i$'s and the $X_i$'s.
+
+Let $\Phi_X$ and $\Phi_Y$ be the Chow forms of Chow cycles $X$ and $Y$ in $\mathbf{P}^N$, and let $\la(t)$ be the 1-PS of $\SL(N+1)$ associated to a weighted flag $F$. Then
+\[
+\Phi_{X+Y} = \Phi_X \Phi_Y \quad \text{and} \quad (\Phi_X)^{\la(t)} (\Phi_Y)^{\la(t)} = (\Phi_{X+Y})^{\la(t)}.
+\]
+Further $\Phi_X = \Sigma_{i=a}^{b}\, \Phi_{X,i}$ where $(\Phi_X)^{\la(t)} = \Sigma_{i=a}^{b}\, t^i \Phi_{X,i}$. We call $a$ the \emph{$F$-weight of $X$}. Geometric Invariant Theory says that the point in the Chow variety corresponding to $\Phi_X$ is stable (resp.\ semi-stable) if the $F$-weight of $X$ is ${} < 0$ (resp.\ $\leqslant 0$) for every weighted flag of $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$.
+
+% --- Source PDF page 4 ---
+
+Note that the $F$-weight of the cycle $X + Y$ is the sum of the $F$-weights of the cycles $X$ and $Y$.
+
+If $f(n)$ is a polynomial of degree $r$, we denote by n.l.c.\ $(f)$ (the normed linear coefficient of $f$) the integer $e$ such that
+\[
+f(n) = e\,\frac{n^r}{r!} + \text{lower terms.}
+\]
+
+Let $X$ be a variety in $\mathbf{P}^N$ of dimension $r$, and let $F$ be a weighted flag of $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ as above. Let $\al\colon \tilde{X} \to X$ be a proper birational morphism of varieties. Let $X' = \tilde{X} \times \mathbf{A}^1$. Let $\cJ$ be the ideal sheaf of $\cO_{X'}$ defined by
+\[
+\cJ \cdot [\al^* \cO_X(1) \otimes \cO_{\mathbf{A}^1}] = \text{subsheaf generated by } t^{r_i} \al^* X_i \quad (i = 1, \dots, n).
+\]
+We denote
+\[
+e_F(X) = \text{the n.l.c.\ of } X(\cO_{X'}(n)/\cJ^n \cO_{X'}(n))
+\]
+which is a polynomial of degree $r + 1$ for $n \gg 0$.
+
+We note that Lemma 5.6 of [Mu2] shows that $e_F(X) = e_F(\tilde{X})$.
+
+Mumford showed in [Mu2] that the $F$-weight of a variety $X$ is
+\[
+e_F(X) - \frac{r+1}{N+1}\deg(X) \sum r_i.
+\]
+
+If a Chow cycle $Y = \Sigma\, a_i Y_i$ where the $Y_i$ are varieties, we let $e_F(Y) = \Sigma\, a_i e_F(Y_i)$.
+
+We now have the following theorem.
+
+\begin{Th}\label{thm:1.1}
+A Chow cycle is stable (resp.\ semi-stable) iff
+\[
+e_F(X) \leqslant \frac{r+1}{N+1}\deg(X) \sum r_i
+\]
+for every weighted flag $F$ of $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$.
+\end{Th}
+
+\begin{ptcbp}
+This is essentially Theorem 2.9 of [Mu2]. \hfill$\square$
+\end{ptcbp}
+
+We now consider ways to estimate $e_F(X)$ for a reduced curve $X$ in $\mathbf{P}^N$.
+
+\begin{Lem}\label{lem:1.2}
+Let $X$ be an $r$-dimensional variety in $\mathbf{P}^N$. Let $F$ be the weighted flag determined by $X_0, \dots, X_N$ and $r_0 \geqslant \cdots \geqslant r_N = 0$. Suppose $X_j, \dots, X_N$ vanish on $X$, and $r_0 = \cdots = r_{j-1}$. Then $e_F(X) = (r+1)\, r_0 \deg(X)$.
+\end{Lem}
+
+\begin{ptcbp}
+We use the following result which is found in [Mo].
+
+% --- Source PDF page 5 ---
+
+\begin{Lem}\label{lem:1.3}
+Let $R$ be the homogeneous coordinate ring of a variety $X$ in $\mathbf{P}^N$. Let $I$ be the ideal in $R[t]$ generated by $\{X_i t^{r_i} \mid 0 \leqslant i \leqslant N\}$. Then $e_F(X) = \text{n.l.c.}$ $\dim_k(R[t]/I^m)_m$ where $R[t] = \bigoplus_{i=1}^{\infty} R_i[t]$ is the grading for $R[t]$.
+\end{Lem}
+
+\begin{ptcbp}
+This follows from combining Proposition 3.2 and Corollary 3.3 of [Mo]. \hfill$\square$
+\end{ptcbp}
+
+Let $I = (t^{r_0} X_0, \dots, t^{r_N} X_N)$ be an ideal of $R[t]$. Then $I = t^{r_0}(X_0, \dots, X_N)$. Then $(R[t]/I^m)_m = R_m[t]/(t^{mr_0} R_m)$. So
+\[
+\dim_k(R[t]/I^m)_m = r_0 m \dim_k R_m
+\]
+\[
+= r_0 m\,\frac{\deg(X)}{r!}\, m^r + \text{lower terms}
+\]
+\[
+= \frac{(r+1)r_0 \deg(X)}{(r+1)!}\, m^{r+1} + \text{lower terms.}
+\]
+
+Thus $e_F(X) = (r+1)r_0 \deg(X)$ by Lemma~\ref{lem:1.3}. \hfill$\square$
+\end{ptcbp}
+
+Let $F$ be a weighted flag determined by $X_0, \dots, X_N$ and $r_0 \geqslant \cdots \geqslant r_N = 0$. Let $\al\colon \tilde{X} \to X$ be the normalization of a reduced curve $X$ in $\mathbf{P}^N$. Suppose there is an $l$ such that $\al^* X_l$ does not vanish on $\tilde{X}$ and $r_l = 0$. Let $\cJ$ be the ideal sheaf of $\cO_{\tilde{X} \times \mathbf{A}^1}$ defined by
+\[
+\cJ \cdot [\al^* \cO_X(1) \otimes \cO_{\mathbf{A}^1}] = \text{subsheaf generated by } t^{r_i} \al^* X_i \quad (i = 1, \dots, n).
+\]
+
+Note that $\cO_{\tilde{X} \times \mathbf{A}^1}/\cJ$ has finite support, because $\al^* X_l$ does not vanish on $\tilde{X}$ and $r_l = 0$.
+
+Let $P \in \tilde{X}$. We denote $e_F(\tilde{X})_P = \text{n.l.c.}\ \dim_k(\cO_{X' \times \mathbf{A}^1, P \times \{0\}}/(\cJ_{P \times \{0\}})^m)$. Note that $e_F(X) = \Sigma_{P \in \tilde{X}}\, e_F(\tilde{X})_P$.
+
+\begin{Lem}\label{lem:1.4}
+In the above situation, suppose $v(\al^* X_i) + r_i \geqslant a$ for $i = 0, \dots, N$ where $v$ is the natural valuation on $\cO_{\tilde{X},P}$. Then $e_F(\tilde{X})_P \geqslant a^2$.
+\end{Lem}
+
+\begin{ptcbp}
+Let $s$ generate the maximal ideal of $\cO_{\tilde{X},P}$. Let
+\[
+R = \cO_{\tilde{X} \times \mathbf{A}^1, P \times \{0\}} = \cO_{\tilde{X},P}[t]_{(s,t)}.
+\]
+Let
+\[
+I = \cJ_{P \times \{0\}} = (t^{r_0} s^{v(X_0)}, \dots, t^{r_N} s^{v(X_N)})
+\]
+where $s^{v(X_i)} = 0$ if $v(X_i) = \infty$. Then
+\[
+I^m = (\{s^b t^c \mid \text{there exist non-negative integers } n_0, \dots, n_N \text{ such that } \Sigma\, n_i \geqslant m,\ \Sigma\, n_i v(X_i) \leqslant b,\ \Sigma\, n_i r_i \leqslant c\}).
+\]
+
+% --- Source PDF page 6 ---
+
+Thus
+\[
+\dim_k(R/I^m) \leqslant \Sigma_{c=0}^{ma}\, \min\{\Sigma\, n_i v(X_i) \mid \text{there exist non-negative integers}
+\]
+\[
+n_0, \dots, n_N \text{ such that } \Sigma\, n_i \geqslant m,\ \Sigma\, n_i r_i \leqslant c\}.
+\]
+
+We have
+\begin{align*}
+v(X_i) + r_i &\geqslant a \\
+\sum n_i v(X_i) + \sum n_i r_i &\geqslant a \sum n_i \\
+\sum n_i v(X_i) &\geqslant a \sum n_i - \sum n_i r_i
+\end{align*}
+
+So
+\[
+\dim_k(R/I^m) \geqslant \sum_{c=0}^{ma} (am - c) \geqslant \frac{m^2}{2}\, a^2 + \text{lower terms.}
+\]
+
+Finally $e_F(\tilde{X})_P = \text{n.l.c.}\ \dim_k(R/I^m) \geqslant a^2$. \hfill$\square$
+\end{ptcbp}
+
+\section{Unstable curves}
+
+In this section we consider genus $g \geqslant 3$ connected curves of degree $d = 6(g-1)$ in $\mathbf{P}^N$ where $N = 5(g-1)-1$. We show that if such a curve $X$ is Chow semi-stable, then $X$ must be reduced as a scheme and have only ordinary double points, ordinary cusps, and tachnodes which involve a line as singularities. We also show that if the Chow point of a curve $X$ is in the closure of the set of Chow points of smooth curves $Y$ such that $\cO_Y(1) = \om_Y^{\otimes 3}$, then $\cO_X(1) = \om_X^{\otimes 3}$.
+
+The proofs in this section are elementary modifications of those of Gieseker [G] and Mumford [Mu2].
+
+\begin{Lem}\label{lem:2.1}
+If $X$ has a triple point, then $X$ is not Chow semi-stable.
+\end{Lem}
+
+\begin{ptcbp}
+The proof of Proposition 3.1 in [Mu2] shows that such an $X$ cannot be Chow semi-stable if $d/(N+1) < 3/2$. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:2.2}
+If $X$ has a tachnode and a line does not pass through the tachnode, then $X$ is not Chow semi-stable.
+\end{Lem}
+
+\begin{ptcbp}
+This amounts to translating the proof of Lemma 5.8 in [G] which concerns the Hilbert scheme to the case of the Chow variety.
+
+Suppose $X$ has a tachnode at $P$ which does not involve a line. Let $\tilde{X}$ be the normalization of $X$. Let $Q$ and $R$ be the inverse image of $P$ in $\tilde{X}$. We can choose $X_0, \dots, X_N$ in $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ such that $X_1, \dots, X_N$ vanish at $P$ and $X_2, \dots, X_N$ vanish to order $\geqslant 2$ at $Q$ and $R$. Let $r_0 = 2$, $r_1 = 1$, and $r_i = 0$ for $i \geqslant 2$. The
+
+% --- Source PDF page 7 ---
+
+weighted flag determined by the $X_i$'s and the $r_i$'s has $e_F(\tilde{X})_Q \geqslant 4$ and $e_F(\tilde{X})_R \geqslant 4$, so $e_F(X) \geqslant 8 \geqslant \frac{36}{5} \cdot 3 = 2\frac{6}{5} \cdot 3 = 2d/(N+1) \Sigma\, r_i$. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:2.3}
+If $X$ has a cusp which is not ordinary, then $X$ is not Chow semi-stable.
+\end{Lem}
+
+\begin{ptcbp}
+Suppose $X$ has a cusp which is not ordinary. Let $\tilde{X}$ be the normalization of $X$ and let $P$ be the inverse image of the cusp. We can choose $X_0, \dots, X_N$ in $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ so that $X_1, \dots, X_N$ vanish to order $\geqslant 2$ at $P$ and $X_2, \dots, X_N$ vanish to order $\geqslant 4$ at $P$. Let $r_0 = 4$, $r_1 = 2$, and $r_i = 0$ for $i \geqslant 2$. Then $e_F(\tilde{X})_P \geqslant 16 \geqslant \frac{72}{5} = 2\frac{6}{5} \cdot 6 = 2d/(N+1) \Sigma\, r_i$. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:2.4}
+If a connected Chow cycle $X$ has any multiple components, then $X$ is not Chow semi-stable.
+\end{Lem}
+
+\begin{ptcbp}
+Suppose $X = Y + nC$ where $Y$ is non-negative, $C$ has no multiple components, $n \geqslant 2$, and $Y$ and $C$ have no common components. Choose $P \in Y \cap C$. Choose $X_0, \dots, X_N$ in $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ such that $X_1, \dots, X_N$ vanish at $P$. Let $r_0 = 1$ and $r_i = 0$ for $i \geqslant 1$. Then
+\[
+e_F(X) \geqslant e_F(Y)_P + ne_F(C)_P \geqslant 1 + 2 = 3 > 2\tfrac{6}{5} \cdot 1 = 2\,\frac{d}{(N+1)} \sum r_i.
+\]
+
+So $X$ is not Chow semi-stable.
+
+It remains to show the case where $X = nC$ where $C$ is an irreducible curve and $n \geqslant 2$. Choose a smooth point $P \in C$. Choose $X_0, \dots, X_N$ in $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ such that $X_1, \dots, X_N$ vanish at $P$ and $X_2, \dots, X_N$ vanish to order $\geqslant 2$ at $P$. Let $r_0 = 2$, $r_1 = 1$, and $r_i = 0$ for $i \geqslant 2$. Then
+\[
+e_F(X) \geqslant n\, e_F(C)_P \geqslant 2 \cdot 4 > 36/5 = 2\,\frac{d}{(N+1)} \sum r_i. \qquad\qquad\square
+\]
+\end{ptcbp}
+
+\begin{Lem}\label{lem:2.5}
+Let $X$ be a connected curve in $\mathbf{P}^N$ which is Chow semi-stable. Let $\om_X$ be the dualizing sheaf for $X$. Then
+
+\begin{enumerate}[\upshape(i)]
+\item $X$ is embedded by a complete linear system and $H^0(X, \cO_X(1)) = 0$; and
+\item If $X = C_1 \cup C_2$ is a decomposition of $X$ into two sets of components such that $\cW = C_1 \cup C_2$ and $w = \# \cW$ (counted with multiplicities), then
+\[
+|\!\deg(C_1) - 3\deg_{C_1}(\om_X)| \leqslant w/2.
+\]
+\end{enumerate}
+\end{Lem}
+
+\begin{ptcbp}
+By the previous lemmas we see that $X$ must be generically reduced, and $X$ is a local complete intersection. Thus $\om_X$ is locally free.
+
+The proof of this lemma follows almost word for word the proof of Proposition 5.5 in [Mu2] where 8/7 is replaced by 6/5. The only difference is in the proof that $H^1(C_1, \cO_{C_1}(1)) = 0$ if $C_1$ is irreducible. Using 6/5 we can conclude
+
+% --- Source PDF page 8 ---
+
+that if $H^1(C_1, \cO_{C_1}(1)) \neq 0$, then $\deg(C_1)$ is 1, 2 or 3 as opposed to 1 or 2 if 8/7 is used. If $\deg(C_1) = 3$, then $C_1$ must be rational or elliptic of degree 3. It follows that $H^1(C_1, \cO_{C_1}(1)) = 0$. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:2.6}
+Suppose $\cX \to \Spec(k[[t]])$ is a flat family of curves. Let $\eta$ be the generic point of $\Spec(k[[t]])$, and let $0$ be the special point. Suppose that $\cX$ is embedded in $\mathbf{P}^N \times \Spec(k[[t]])$ so that $\cX_\eta$ is smooth and $\cO_{\cX_\eta}(1) = \om_{\cX_\eta}^{\otimes 3}$. Suppose that $\cX_0$ is Chow semi-stable. Then $\cO_{\cX_0}(1) = \om_{\cX_0}^{\otimes 3}$.
+\end{Lem}
+
+\begin{ptcbp}
+Let $D_i$, $i = 1, \dots, m$, be the irreducible components of $\cX_0$. It follows that $\cO_\cX(1) = \om_{\cX/k[[t]]}^{\otimes 3}(\Sigma\, a_i D_i)$. We may assume $a_i \geqslant 0$ for $i = 1, \dots, m$, and $\min a_i = 0$. Let $C_1 = \bigcup_{r_i = 0} D_i$, and let $C_2 = \cX_0 - C_1$. Now
+\begin{align*}
+\#(C_1 \cap C_2) &\leqslant \deg_{C_1}(\cO_{\cX_0}(\Sigma\, a_i D_i)) \\
+&= \deg C_1 - 3\deg_{C_1}(\om_{\cX_0})
+\end{align*}
+
+which contradicts (ii) of Lemma 2.5 if $C_2 \neq \varnothing$. \hfill$\square$
+\end{ptcbp}
+
+Note that $\cX_0$ in the above lemma cannot have a tachnode, because a tachnode would have a line $L$ passing through it. It cannot be that
+\[
+\deg(L) = 1 \quad \text{and} \quad \cO_{\cX_0}(1) = \om_{\cX_0}^{\otimes 3}.
+\]
+
+\section{Instability of elliptic tails}
+
+In this section we exhibit the weighted flag that shows that a curve $X$ embedded by $\om_X^{\otimes 3}$ cannot be Chow semi-stable and have an elliptic tail.
+
+\begin{Lem}\label{lem:3.1}
+Suppose $X$ is embedded by $\Ga(X, \om_X^{\otimes 3})$ in $\mathbf{P}^N$ $(N = 5(g-1)-1)$, and $X$ has a subcurve $C_1$ of genus $1$ which meets $C_2 = X - C_1$ at exactly one point. Then $X$ is not Chow semi-stable.
+\end{Lem}
+
+\begin{ptcbp}
+Suppose $X$ satisfies the hypotheses of the lemma. From previous lemmas, we may assume that $P = C_1 \cap C_2$ is an ordinary double point. Hence $\cO(1)|_{C_1} = \cO_{C_1}(3P)$. We can choose $X_0, \dots, X_N$ in $H^0(\mathbf{P}^N, \cO_{\mathbf{P}^N}(1))$ such that $X_N$ and $X_{N-1}$ vanish on $C_2$, and $X_N$ vanishes to order 3 at $P$ on $C_1$. Let $r_N = 0$, $r_{N-1} = 2$ and $r_i = 3$ for $i \leqslant N - 3$.
+\begin{align*}
+e_F(X) &\geqslant e_F(C_2) + e_F(C_1)_P \\
+&= 2 \cdot 3 \cdot \deg(C_2) + 9 \\
+&= 6[6(g-1) - 3] + 9 \\
+&= 36(g-1) - 9 \quad > \quad 36(g-1) - 48/5 \\
+&= 2\tfrac{6}{5}[15(g-1) - 4] \quad = \quad 2\tfrac{6}{5}[3(N+1) - 4] \\
+&= 2\tfrac{6}{5} \sum r_1.
+\end{align*}
+
+% --- Source PDF page 9 ---
+
+So $X$ is not Chow semi-stable. \hfill$\square$
+\end{ptcbp}
+
+\section{Pseudo-stable curves}
+
+In this section we discuss the relationship between Mumford--Deligne stable (M-D stable) curves and pseudo-stable (p-stable) curves which were defined in the introduction.
+
+\begin{Lem}\label{lem:4.1}
+Let $X$ be an M-D stable curve of genus $\geqslant 3$. Then there is a unique connected subcurve $C$ of $X$ such that
+
+\begin{enumerate}[\upshape(i)]
+\item $\overline{X - C} = \cup\, C_i$ where each $C_i$ is connected and has genus $1$;
+\item $\#(C_i \cap \overline{X - C_i}) = 1$ and $C_i \cap C_j = \varnothing$; and
+\item every connected genus $1$ subcurve $D$ of $C$ satisfies $\#(D \cap \overline{X - D}) \geqslant 2$.
+\end{enumerate}
+\end{Lem}
+
+\begin{ptcbp}
+To show existence choose a subcurve $C$ of $X$ minimal with respect to satisfying (i) and (ii). Suppose $D$ is a connected genus 1 subcurve of $C$. If $D = C$ and $(D \cap \overline{X - D}) \leqslant 1$, then $X$ has genus $\leqslant 2$ which violates the assumption that $X$ has genus $\geqslant 3$. If $\#(D \cap \overline{C - D}) = 1$ and $\#(D \cap \overline{X - C}) = 0$, then $C - D$ satisfies (i) and (ii) which contradicts the minimality of $C$. Thus
+\[
+\#((D \cap \overline{X - D}) = \#(D \cap \overline{C - D}) + \#(D \cap \overline{X - C}) \geqslant 2,
+\]
+and $C$ satisfies condition 3.
+
+Suppose that $C'$ also satisfies conditions (i), (ii) and (iii). Let $Y$ be a connected component of $X - C$.
+
+\emph{Claim.}\quad $Y$ is irreducible.
+
+\emph{Proof of Claim.}\quad Let $Z$ be the irreducible component of $Y$ which intersects $C$.
+
+Suppose $Z$ has genus 0. Then no connected component of $\overline{Y - Z}$ has genus 0, because such a connected component would have to intersect with $Z$ three times which would imply that $Y$ has genus $\geqslant 2$. Since $Y$ has genus 1 and $\overline{Y - Z}$ has no connected components of genus 0, we must have $\overline{Y - Z}$ as genus 1 and $\#(Z \cap \overline{Y - Z}) = 1$. But then $\#(Z \cap \overline{X - Z}) = \#(Z \cap C) + \#(Z \cap \overline{Y - Z}) = 2$ implies that $X$ is not M-D stable.
+
+Thus $Z$ must have genus 1 and $\overline{Y - Z}$ must be the union of connected components of genus 0, each of which intersects $Z$ exactly once. Thus $\overline{Y - Z} = \varnothing$ since $X$ is M-D stable. So the claim holds.
+
+Now (iii) implies that $Y \subset \overline{X - C'}$. Since this is true for all connected components of $\overline{X - C}$, we have $C' \subset C$. The minimality of $C$ with respect to conditions (i) and (ii) implies that $C' = C$. \hfill$\square$
+\end{ptcbp}
+
+% --- Source PDF page 10 ---
+
+\begin{Lem}\label{lem:4.2}
+Let $Y$ and $Z$ be p-stable curves of the same genus $\geqslant 3$. Let $P_1, \dots, P_n \in Y$ be points where $Y$ has an ordinary cusp. Let $Q_1, \dots, Q_m \in Z$ be
+
+% --- Source PDF page 10 (cont.) ---
+
+points where $Z$ has an ordinary cusp. Then there exists an M-D stable curve $X$ of the same genus as $Z$ and a morphism $f\colon X \to Z$ such that:
+
+\begin{enumerate}[\upshape(i)]
+\item $f$ is an isomorphism over $Z - \{Q_1, \dots, Q_m\}$;
+\item $f^{-1}(Q_i)$ is a connected genus $1$ subcurve of $X$ such that
+\[
+\#(f^{-1}(Q_i) \cap \overline{X - f^{-1}(Q_i)}) = 1 \quad \text{for } i = 1, \dots, m.
+\]
+\end{enumerate}
+
+\noindent\emph{Furthermore, if there exists a morphism $g\colon X \to Y$ such that:}
+
+\begin{enumerate}[\upshape(i)]
+\item $g$ is an isomorphism over $Y - \{P_1, \dots, P_n\}$; and
+\item $g^{-1}(P_i)$ is a connected genus $1$ subcurve of $X$ such that
+\[
+\#(g^{-1}(P_i) \cap \overline{X - g^{-1}(P_i)}) = 1 \quad \text{for } i = 1, \dots, n,
+\]
+\end{enumerate}
+
+\noindent\emph{then $Z$ is isomorphic to $Y$.}
+\end{Lem}
+
+\begin{ptcbp}
+We can choose irreducible open neighborhoods $U_i$ of $Q_i$ in $Z$ such that $U_i - \{Q_i\}$ is nonsingular for $i = 1, \dots, m$. By replacing each $U_i$ with the normalization of $U_i$, we get a curve $C$ and a morphism $\pi\colon C \to Z$ such that $\pi^{-1}(Q_i)$ is a non-singular point of $C$, and $\pi$ is an isomorphism over $Z - \{Q_1, \dots, Q_m\}$. Let $X$ be the curve obtained by attaching non-singular elliptic curves $E_i$ to $C$ at the points $\pi^{-1}(Q_i)$ such that each $E_i \cap C$ is an ordinary double point. Let $f\colon X \to Z$ be the morphism which sends each $E_i$ to $Q_i$ and such that $f|_C = \pi$.
+
+Since the only singularities of $Z$ which are not ordinary cusps are ordinary double points, the only singularities of $X$ are ordinary double points. Suppose $D$ is a connected genus $O$ subcurve of $X$. Then $D \subset C$ and the genus of $\pi(D)$ is equal to the number of cusps in $\pi(D)$. Also
+\begin{align*}
+\#(D \cap \overline{X - D}) &= \#(D \cap \overline{C - D}) + \#(D \cap \overline{X - C}) \\
+&= \#(\pi(D) \cap \overline{Z - \pi(D)}) + \text{the genus of } \pi(D) \\
+&\geqslant 3
+\end{align*}
+
+because $Z$ is p-stable and has genus $\geqslant 3$. Hence $X$ is M-D stable.
+
+Now suppose we have a morphism $g\colon X \to Y$ as in the second half of the lemma.
+
+\emph{Claim.}\quad $\overline{f^{-1}(Z - \{Q_1, \dots, Q_m\})} = \overline{g^{-1}(Y - \{P_1, \dots, P_n\})}$.
+
+\emph{Proof of Claim.}\quad We will show that both subcurves of $X$ satisfy the conditions of Lemma 4.1.
+
+% --- Source PDF page 11 ---
+
+Conditions (i) and (ii) follow immediately from the requirements for each $f^{-1}(Q_i)$ and each $g^{-1}(P_i)$.
+
+Let $D$ be a connected genus 1 subcurve of $\overline{f^{-1}(Z - \{Q_1, \dots, Q_m\})}$. Let $N$ be the number of cusps in $f(D)$. Let $g_{f(D)}$ be the genus of $f(D)$. Then $1 + N = g_{f(D)}$. Also
+\[
+\#(D \cap \overline{X - D}) = \#(f(D) \cap \overline{Z - f(D)}) + N.
+\]
+
+We have $g_{f(D)} + \#(f(D) \cap \overline{Z - f(D)}) \geqslant 3$, because $Z$ is p-stable of genus $\geqslant 3$. Hence
+\begin{align*}
+1 + N + \#(D \cap \overline{X - D}) - N &\geqslant 3 \\
+1 + \#(D \cap \overline{X - D}) &\geqslant 3 \\
+\#(D \cap \overline{X - D}) &\geqslant 2
+\end{align*}
+
+and $\overline{f^{-1}(Z - \{Q_1, \dots, Q_m\})}$ satisfies conditions (iii) of Lemma 4.1. A similar argument shows that $\overline{g^{-1}(Y - \{P_1, \dots, P_n\})}$ satisfies the same condition.
+
+Let $C = \overline{f^{-1}(Z - \{Q_1, \dots, Q_m\})} = \overline{g^{-1}(Y - \{P_1, \dots, P_n\})}$. For any point $R \in C$ we have $g(R)$ is a cusp if and only if $R \in \overline{X - C}$. Thus both $\cO_Y$ and $\cO_Z$ can be identified with the same subsheaf of $\cO_C$, so $Y$ and $Z$ are isomorphic. \hfill$\square$
+\end{ptcbp}
+
+% --- Source PDF page 11 (cont.) ---
+
+For the rest of this section we take $R$ to be a discrete valuation ring which contains its residue field $k$. We let $K$ denote the quotient field of $R$. When $X$ is an $R$-scheme, we use $X_0$ to denote the special fiber and $X_\eta$ to denote the generic fiber.
+
+\begin{Lem}\label{lem:4.3}
+Let $X$ be an integral projective $R$-scheme such that $X_\eta$ is a non-singular curve and $X_0$ is generically reduced. Then $X$ is normal iff $X_0$ is reduced.
+\end{Lem}
+
+\begin{ptcbp}
+Note that every point $P \in X$ such that $\dim(\cO_{X,P}) = 1$, $\cO_{X,P}$ is regular. This is clear if $P \in X_\eta$, since $X_\eta$ is an open non-singular subscheme of $X$. We have $X$ is flat over $\Spec(R)$, because $X$ is integral and $X_\eta \neq \varnothing$. Hence $\dim(X_0) = \dim(X_\eta) = 1$. If $P \in X_0$ and $\dim(\cO_{X,P}) = 1$, then $\bar{P}$ contains a closed point $Q$ such that $X_0$ is smooth at $Q$, because $X_0$ is generically reduced. Thus $\cO_{X,Q}$ is regular, because the ideal of $X_0$ in $\cO_{X,Q}$ is principal. Hence $\cO_{X,P}$ is the localization of a regular local ring, so $\cO_{X,P}$ is regular.
+
+It follows that $X$ is normal iff for every point $P \in X$ such that $\dim(\cO_{X,P}) = 2$, we have $\operatorname{depth}(\cO_{X,P}) = 2$. If $\dim(\cO_{X,P}) = 2$, then $P$ is a closed point of $X_0$. We have $\operatorname{depth}(\cO_{X,P}) = \operatorname{depth}(\cO_{X_0,P}) + 1$. Since $X_0$ is generically reduced, it follows that $\operatorname{depth}(\cO_{X_0,P}) = 1$ iff $X_0$ is reduced. \hfill$\square$
+\end{ptcbp}
+
+% --- Source PDF page 12 ---
+
+\begin{Lem}\label{lem:4.4}
+Let $X$ and $Y$ be projective $R$-schemes which are flat over $R$. Suppose $X_0$ and $Y_0$ are reduced curves. Suppose that there is an isomorphism of $K$-schemes $\vf\colon X_\eta \to Y_\eta$. Suppose that $X_\eta$ and $Y_\eta$ are non-singular connected curves. Then there is a projective $R$-scheme $Z$ which is flat over $R$ and $R$-morphisms $\pi_1\colon Z \to X$, $\pi_2\colon Z \to Y$ such that:
+
+\begin{enumerate}[\upshape(i)]
+\item $\pi_1|_{Z_\eta}$ is an isomorphism;
+\item $\pi_2 \circ \pi_1|_{X_\eta^{-1}} = \vf$;
+\item If $P$ is a generic point of $Z_0$, then either $\pi_1(P)$ is a generic point of $X_0$, or $\pi_2(P)$ is a generic point of $Y_0$;
+\item $Z_0$ is reduced; and
+\item $Z$ is flat over $R$.
+\end{enumerate}
+\end{Lem}
+
+\begin{ptcbp}
+Let $W$ be the closure of the image of $X_\eta$ in $X \times_R Y$ under the map $\id \times \vf$, and give $W$ the reduced induced subscheme structure.
+
+Note that since $X_\eta \cong Y_\eta \cong W_\eta$ are integral, we have $X$ and $Y$ are integral by flatness. Since $W$ is the closure of an irreducible subset, $W$ is irreducible. Thus $W$ is integral, since $W$ is reduced. Note that $W$ is projective over $R$, because $X$, $Y$ and $X \times_R Y$ are.
+
+Let $Z$ be the normalization of $W$. Then $Z$ is integral and projective, because $W$ is so. Since both $Z$ and $W$ are integral, they are flat over $\Spec(R)$ proving assertion (v). Let $\psi\colon Z \to W$ be the natural map of $Z$ to $W$. Let $\pi_1$ be $\psi$ composed with the projection of $W$ onto $X$, and let $\pi_2$ be $\psi$ composed with the projection of $W$ onto $Y$.
+
+Suppose $P$ is a generic point of $Z_0$, and suppose $\pi_1(P)$ is a closed point $Q$ of $X_0$. Then $\psi(P) \in W_0$ is generic, because the morphism $\psi$ is finite. Since $\psi(P)$ lies in $\{Q\} \times Y_0$, the projection of $\psi(P)$ onto $Y$ must be a generic point of $Y_0$. Thus $\pi(P)$ is a generic point of $Y_0$, and assertion (iii) holds.
+
+Since $X$ and $Y$ are normal by Lemma 4.3, Zariski's main theorem applies. Thus each $\pi_i$ is an isomorphism over a neighborhood of a point $P$ if $\pi_i^{-1}(P)$ is finite. This is true for all generic points of $X_0$ and $Y_0$, because $Z$ is flat over $R$ implies $Z_0$ has dimension 1. Assertion (iii) now implies that every generic point $P$ of $Z_0$ is contained in an open set $U$ of $Z$ which is isomorphic to either $\pi_1(U)$ or $\pi_2(U)$. Thus $Z_0$ is generically reduced. So $Z_0$ is reduced by Lemma 4.3, and assertion (iv) holds.
+
+We have $W_\eta$ is non-singular, since it is isomorphic to $X_\eta$. Hence the morphism $\vf\colon Z \to W$ is an isomorphism over $W_\eta$, and assertion (i) follows. Assertion (ii) follows immediately from the construction of $Z$ and $W$. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:4.5}
+Let $X$, $Y$, $Z$, $\pi_1$ and $\pi_2$ be as in Lemma 4.4. Suppose $P \in X_0$ is a closed point such that $\pi_1$ is not an isomorphism over any open neighborhood of $P$. Let $E = \pi_1^{-1}(P)$. Let $C = \pi_2(E)$. Then the map $\pi_2\colon Z \to Y$ is an isomorphism over an open neighborhood of each point $Q \in C - \{\pi_2(Q') \mid Q' \in E \cap F\}$.
+\end{Lem}
+
+\begin{ptcbp}
+As mentioned in the proof of the previous lemma, $X$ and $Y$ are normal by Lemma 4.3, so Zariski's main theorem applies.
+
+% --- Source PDF page 13 ---
+
+Suppose $Q \in C$, and $\pi_2$ is not an isomorphism over $Q$. Then $\pi_2^{-1}(Q)$ is a connected subcurve of $Z_0$. There are no common components of $\pi_2^{-1}(Q)$ and $E$ by assertion (iii) of Lemma 4.4. Hence $\pi_2^{-1}(Q) \subset F$. Since $Q \in C = \pi_2(E)$, there is a point $Q' \in \pi_2^{-1}(Q) \cap E \subset F \cap E$, and the lemma holds. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:4.6}
+Suppose $X$, $Y$, $Z$, $\pi_1$ and $\pi_2$ are as in Lemma 4.4. Suppose $P \in X_0$ is a closed point, and $U$ is an open neighborhood of $P \in X$ such that $\pi_1$ is an isomorphism over $U - \{P\}$. Let $W$ be the $R$-scheme obtained by glueing $X - \{P\}$ and $\pi_1^{-1}(U)$ by the isomorphism
+\[
+\pi_1|_{\pi_1^{-1}(U - \{P\})}\colon \pi_1^{-1}(U - \{P\}) \to U - \{P\}.
+\]
+
+Then $W$ is projective over $R$.
+\end{Lem}
+
+\begin{ptcbp}
+Our proof follows the method of the proof of Theorem II.7.17 of [H].
+
+\emph{Claim.}\quad There exists a coherent ideal sheaf $\cJ \subset \cO_X$ such that:
+
+\begin{enumerate}[\upshape(i)]
+\item $W \cong P(\cS)$, where $\cS$ is the graded $\cO_X$-algebra $\cO_X \oplus \cJ \oplus \cJ^2 \oplus \cdots$; and
+\item $\cO_X/\cJ$ has support only at $P$.
+\end{enumerate}
+
+\emph{Proof of Claim.}\quad First note that we only need to describe $\cJ$ in a neighborhood of $P$, since we can extend $\cJ$ to all of $X$ by $\cO_X$. Note that we are free to shrink $U$ as much as necessary as long as it remains an open neighborhood of $P$.
+
+We may assume $U$ is affine. Let $S = \cO(U)$ and let $F$ be the quotient field of $S$. Then there is a graded ring $T = \bigoplus_{i=0}^{\infty} T_i$ such that: $T_0 = S$; $T$ is finitely generated by $T_1$ as a $T_0$-algebra; and $\pi_1^{-1}(u) \cong \Proj(T)$. There is an $S$-morphism of $T_1$ into $F$, because $Z$ and $X$ are birational. There exists an $f \in S$ such that $fT_1 \in S$ when $T_1$ is considered as a submodule of $F$. Let $J = fT_1$. Then $T \cong S \oplus J \oplus J^2 \oplus \cdots$. Since $T_1 \neq 0$ and $S$ is integral, there are at most finitely many height-1 prime ideals of $S$ which contain $J$. Since $X$ is normal, we may shrink $U$ so that every height-1 prime ideal which contains $J$ is principal. We can then find $x \in S$ so that $I = \{a \mid ax \in J\}$ is not contained in any height-1 prime ideal. Then $T \cong S \oplus I \oplus I^2 \oplus \cdots$, because $I^n$ is isomorphic to $J^n$ via multiplication by $x^n$. We can shrink $U$ so that $I$ is not contained in any maximal ideal of $S$ which does not correspond to $P$. Now $I$ induces the claimed ideal sheaf.
+
+Theorem 5.5.3 of [Gr] now implies that $W = P(\cS')$ where $\cS'$ is a coherent graded $\cO_{\Spec(R)}$-algebra. Hence $W$ is projective over $R$, because $\Spec(R)$ is affine. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:4.7}
+Let $X$, $Y$, $Z$, $\pi_1$ and $\pi_2$ be as in Lemma 4.4. Let $P$ be a closed point of $X_0$. Suppose that either $X_0$ is non-singular at $P$, or $P$ is an ordinary double point. Then if $\pi_1$ is not an isomorphism over any open neighborhood of $P$, $\pi_1^{-1}(P)$ is a curve of genus $0$.
+\end{Lem}
+
+\begin{ptcbp}
+We can choose an open neighborhood $U$ of $P$ such that $\pi_1$ is an
+
+% --- Source PDF page 14 ---
+
+isomorphism over $U - \{P\}$. Then the $R$-scheme $W$ obtained by glueing $\pi_1^{-1}(U)$ and $X - \{P\}$ by $\pi_1$ is projective by Lemma 4.6. Let $\pi$ be the morphism from $W$ to $X$. We have $W$ is flat over $R$ because $W$ is integral as $Z$ and $X$ are. Hence $X_0$ and $W_0$ have the same genus, and $\pi|_{W_0}$ is and isomorphism over $X_0 - \{P\}$. The lemma now follows. \hfill$\square$
+\end{ptcbp}
+
+\begin{Lem}\label{lem:4.8}
+Let $X$, $Y$, $Z$, $\pi_1$ and $\pi_2$ be as in Lemma 4.4. Suppose that $X_0$ is an M-D stable curve and that $Y_0$ is a p-stable curve of genus $\geqslant 3$. Then:
+
+\begin{enumerate}[\upshape(i)]
+\item $\pi_1\colon Z \to X$ is an isomorphism;
+\item $\pi_2\colon Z \to Y$ is an isomorphism over $Y - \{P \mid P \in Y_0 \text{ is a cusp}\}$.
+\item If $P \in Y_0$ is a cusp, then $E = \pi_2^{-1}(P)$ is a connected curve of genus $1$ and $\#(E \cap \overline{Z_0 - E}) = 1$.
+\end{enumerate}
+\end{Lem}
+
+\begin{ptcbp}
+Since $X_0$ is M-D stable, all points in $X_0$ are either non-singular or ordinary double points. Hence, if $P \in X_0$ is a closed point for which $\pi_1$ is not an isomorphism over any open neighborhood of $P$, $E = \pi_1^{-1}(P)$ is a connected curve of genus 0 by Lemma 4.7. Let $C = \pi_2(E)$, and let $F = \overline{Z_0 - E}$. Then $\pi_2$ is an isomorphism over an open neighborhood in $Y$ of each point in $C - \{\pi_2(Q') \mid Q' \in E \cap F\}$ by Lemma 4.5. Since $P$ is either non-singular or an ordinary double point, there are at most two points in $E \cap F$.
+
+Let $D = \overline{Y_0 - C}$. Note that if $Q \in C \cap D$, then there is a point $Q' \in E \cap F$ such that $Q = \pi_2(Q')$. This is clear if $\pi_2$ is an isomorphism over a neighborhood of $Q$ and follows from the above otherwise. Thus $\#(C \cap D) = 0$, 1 or 2. We will consider these three cases.
+
+\emph{Case} $\#(C \cap D) = 0$: Then we have $Y_0 = C$, since $Y_0$ is connected. Then there are at most two points in $C$ which do not have any open neighborhoods in $C$ over which $\pi_{2|_E}\colon E \to C$ is an isomorphism.
+
+Suppose $\pi_{2|_E}$ is an isomorphism. Then $C = Y_0$ has genus 0, which contradicts $Y_0$ has genus $\geqslant 3$.
+
+Suppose that there is exactly one point $Q \in C$ such that $\pi_{2|_E}$ is not an isomorphism over any open neighborhood of $Q$ in $C$. Then $Q$ must be either a cusp or an ordinary double point. If $Q$ is a cusp, then $Y_0 = C$ has genus 1, which is a contradiction. If $Q$ is an ordinary double point, then $Q$ has two pre-image points in $E$. Then $C = Y_0$ has genus 1, which is a contradiction.
+
+Suppose that there are two points $Q_1$, $Q_2 \in C$ which do not have open neighborhoods in $C$ over which $\pi_{2|_E}$ is an isomorphism. Both $Q_1$ and $Q_2$ have at most one pre-image point in $E$, because $E \cap F$ contains at most two points and each $\pi_2^{-1}(Q_i) \subset F$. Thus $Q_1$ and $Q_2$ are cusps. In this case $Y_0 = C$ has genus 2 which is a contradiction.
+
+\emph{Case} $\#(C \cap D) = 1$. The morphism $\pi_{1|_E}\colon E \to C$ is an isomorphism over an open neighborhood of $C \cap D$ in $C$, because $C$ is non-singular at this point. There is at most one point $Q \in C$ which does not have an open neighborhood in $C$ over
+
+% --- Source PDF page 15 ---
+
+which $\pi_{2|_E}$ is an isomorphism, because $E \cap F$ consists of at most two points, one of which gets mapped to $C \cap D$.
+
+If $\pi_{2|_E}$ is an isomorphism with $C$, then $C$ is a genus 0 subcurve of $Y_0$ such that $\#(C \cap \overline{Y_0 - C}) < 3$, and $Y_0$ is not p-stable.
+
+Suppose there is exactly one point $Q \in C$ which does not have an open neighborhood in $C$ over which $\pi_{2|_E}$ is and isomorphism. Then $Q$ must be a cusp, because $\#(\pi^{-1}(Q) \cap E) \leqslant 1$. So $C$ is a genus 1 subcurve of $Y_0$ with $\#(C \cap \overline{Y_0 - C}) < 2$, and $Y_0$ is not p-stable.
+
+\emph{Case} $\#(C \cap D) = 2$. Then $\pi_{2|_E}\colon E \to C$ must be an isomorphism over an open neighborhood of the points in $C \cap D$, because $C$ is non-singular at these points. Then $\pi_{2|_E}$ must be an isomorphism, because of the restriction that $E \cap F$ contains at most two points. Hence $C$ is a genus 0 subcurve of $Y_0$ such that $\#(C \cap \overline{Y_0 - C}) < 3$, and $Y_0$ is not p-stable.
+
+We have now proved that there is no point $P \in X$ such that $\pi_1^{-1}(P)$ is infinite. Hence $\pi_1$ is an isomorphism, and assertion (i) holds.
+
+It follows from (i) that $Z_0$ is an M-D stable curve. Let $Q \in Y_0$ be an ordinary double point or a closed point at which $Y_0$ is non-singular. Suppose there is no open neighborhood of $Q$ over which $\pi_2$ is an isomorphism. Then $E = \pi_2^{-1}(Q)$ has genus 0 by Lemma 4.7. If $Y_0$ is non-singular at $Q$, then
+\[
+\#((\pi_2^{-1}(Y_0 - \{Q\}) \cap \pi_2^{-1}(Q))) = \#(Z_0 - \pi_2^{-1}(Q) \cap \pi_2^{-1}(Q)) = 1.
+\]
+
+This implies that $Z_0$ is not M-D stable. If $Q$ is an ordinary double point, then
+\[
+\#((\pi_2^{-1}(Y_0 - \{Q\}) \cap \pi_2^{-1}(Q))) = \#(Z_0 - \pi_2^{-1}(Q) \cap \pi_2^{-1}(Q)) \leqslant 2.
+\]
+
+Again, this implies that $Z_0$ is not M-D stable. We have now proved assertion (ii).
+
+If $P \in Y_0$ is a cusp, then $\pi_2$ cannot be an isomorphism over $P$, because $Z_0$ does not have any cusps. We can choose an open neighborhood $U$ of $P$ in $Y$ such that $\pi_2$ is an isomorphism over $U - \{P\}$. Let $W$ be the scheme obtained by glueing $\pi_2^{-1}(U)$ and $Y - \{P\}$ via the isomorphism
+\[
+\pi_2|_{\pi_2^{-1}(U - \{P\})}\colon \pi_2^{-1}(U - \{P\}) \to U - \{P\}.
+\]
+
+Then $W$ is projective over $R$ by Lemma 4.6. Let $\pi$ be the morphism from $W$ to $Y$. We have $W$ is flat over $R$, $W$ is integral as $Y$ and $Z$ are. Hence $W_0$ has the same genus as $Y_0$. We have that $P$ has one pre-image point $Q \in \overline{W_0 - \pi_2^{-1}(P)}$, because a cusp has only one pre-image point in the normalization of a reduced curve. The curve $F = \overline{\pi^{-1}(U - \{P\})}$ is non-singular at the pre-image of $P$, because $Z_0$ which contains only ordinary double points as singularities. Hence the genus of $F$ is one less than the genus of $Y_0$. Then $\pi^{-1}(P)$ must have genus 1, because $\#(F \cap \pi^{-1}(P)) = 1$. Thus assertion (iii) holds. \hfill$\square$
+\end{ptcbp}
+
+% --- Source PDF page 16 ---
+
+\section{The moduli space of pseudo-stable curves}
+
+In this section we will construct the moduli space of pseudo-stable curves, and show that it is complete.
+
+\begin{Th}\label{thm:5.1}
+If $C$ is a smooth curve embedded by a complete linear system of degree $d > 2g$, then $C$ is Chow stable.
+\end{Th}
+
+\begin{ptcbp}
+This is Theorem 4.15 of [Mu2]. \hfill$\square$
+\end{ptcbp}
+
+It follows that any smooth curve $C$ of genus $g > 2$ embedded by $\Ga(C, \om_C^{\otimes 3})$ is Chow stable.
+
+Let $g \geqslant 3$, $d = 6(g-1)$, and $N = 5(g-1) - 1$. Let $H$ be the Hilbert scheme parameterizing connected subcurves of $\mathbf{P}^N$ with Hilbert polynomial $P(n) = dn + 1 - g$. Let $\mathrm{Ch}$ be the Chow variety parameterizing 1-cycles of degree $d$ in $\mathbf{P}^N$. Let $H_3 \subset H$ be the subscheme of 3-canonically embedded curves of genus $g$ in $\mathbf{P}^N$. Let $\mathrm{Ch}_s$ be the open subset of $\mathrm{Ch}$ consisting of GIT-stable points under the action of $\SL(N+1)$. Theorem 5.10 of [Mu1] says that there is a morphism $\Phi\colon H \to \mathrm{Ch}$. Let $U_C = \Phi^{-1}(\mathrm{Ch}_s) \cap \overline{H_3}$. Let $Z \to H$ be the universal curve over $H$, and for $h \in H$, let $X_h$ denote the fiber over $h$ of $Z \to H$.
+
+\begin{Lem}\label{lem:5.2}
+If $h \in U_C$, then $X_h$ is p-stable.
+\end{Lem}
+
+\begin{ptcbp}
+There is a morphism $\Spec(k[[t]]) \to U_C$ such that the special point maps to $h$ and $\cX = Z \times_{U_C} \Spec(k[[t]])$ has a smooth generic fiber over $\Spec(k[[t]])$. Let $\cX_\eta$ denote the generic fiber and $\cX_0 = X_h$ denote the special fiber. Since $\cX_0$ is Chow semi-stable, it follows from the lemmas in \S2 that $\cX_0$ has no triple points, no cusps which are not ordinary, no tachnodes which do not involve a line, and is generically reduced. Lemma 2.6 shows that $\cO_{\cX_0}(1) \cong \om_{\cX_0}^{\otimes 3}$. It follows that $\cX_0$ does not contain any lines, so it does not have any tachnodes. Further $\cX_0$ cannot have any rational subcurves that meet the rest of the $\cX_0$ at 1 or 2 points. Lemma 3.1 show that $\cX_0$ does not have any elliptic tails. Thus $\cX_0$ must be p-stable. \hfill$\square$
+\end{ptcbp}
+
+The map $\Phi|_{U_C}\colon U_C \to \mathrm{Ch}$ is one-to-one and therefore quasi-affine. Now Proposition 1.8 of [Mu1] shows that the points in $U_C$ are GIT-stable under the action of $\SL(N+1)$ on the Hilbert scheme induced by $\Phi\colon H \to \mathrm{Ch}$, because $U_C \subset \Phi^{-1}(\mathrm{Ch}_s)$ and $\Phi|_{U_C}$ is quasi-affine.
+
+Let $Q$ be the GIT-quotient of $U_C$ by the action of $\SL(N+1)$. The following lemma shows that $Q$ is a moduli space for p-stable curves.
+
+\begin{Lem}\label{lem:5.3}
+Suppose $C$ is a p-stable curve. Then there is an $h \in U_C$ such that $X_h \cong C$.
+\end{Lem}
+
+\begin{ptcbp}
+Let $Y_0$ be the M-D stable curve associated to $C$ as in Lemma 4.2. There is a morphism $Y \to \Spec(k[[t]])$ such that the generic fiber $Y_\eta$ is smooth and the special fiber is $Y_0$. Embed $Y_\eta$ in $\mathbf{P}^N_{k((t))}$ by $\Ga(Y_\eta, \om_{Y_\eta}^{\otimes 3})$ and let $\Psi(Y_\eta)$ denote its image there. Then Lemma 5.3 of [Mu2] says that by replacing $k[[t]]$ with some finite extension and choosing a suitable basis of $\Ga(Y_\eta, \om_{Y_\eta}^{\otimes 3})$ we may assume that the
+
+% --- Source PDF page 17 ---
+
+closure $X$ in $\mathbf{P}^N_{k[[t]]}$ of $\Psi(Y_\eta)$ satisfies
+
+\begin{enumerate}[\upshape(i)]
+\item $X_\eta = Y_\eta$; and
+\item $X_0$ is Chow stable or Chow semi-stable with positive dimensional stabilizer.
+\end{enumerate}
+
+The proof of the last lemma shows that $X_0$ must be p-stable. Lemma 4.8 says there is a $\Spec(k[[t]])$-morphism $X \to Y$ with properties that lead us to conclude $X_0 \cong C$ by Lemma 4.2.
+
+It is easy to see that any p-stable curve $C$ with genus $\geqslant 3$ has only finitely many automorphisms. Each subcurve birational to $\mathbf{P}^1$ contains 3 points which are cusps or ordinary double points of $C$. Each subcurve birational to an elliptic curve contains at least 2 points which are cusps or ordinary double points of $C$. Thus the p-stable curve $X_0$ must be Chow stable and not just Chow semi-stable. Thus $X_0$ corresponds to a point in $U_C$. \hfill$\square$
+\end{ptcbp}
+
+We are now ready to prove
+
+\begin{Th}\label{thm:5.4}
+The GIT-quotient $Q$ of $U_C$ is a complete moduli space for p-stable curves.
+\end{Th}
+
+\begin{ptcbp}
+It remains to show that $Q$ is complete. Let $Q'$ be the quotient of the semi-stable points of $\overline{U_C}$. Then GIT says that $Q'$ is complete, and we have $Q \subset Q'$.
+
+We will show $Q = Q'$. Let $P$ be a point of $Q'$. Then there is a curve $Y \subset \mathbf{P}^N_{k[[t]]}$ such that $Y_\eta$ is smooth with the $\om_{Y_\eta}^{\otimes 3}$ embedding and $Y_0$ corresponds to $P \in Q'$. Thus $Y$ induces a map $\Spec(k[[t]]) \to Q'$ where the special point is mapped to $P$. Lemma 5.3 of [Mu2] says that by replacing $k[[t]]$ with some finite extension and choosing a suitable embedding $\Psi\colon Y_\eta \to \mathbf{P}^N_{k((t))}$, we may assume that the closure $X$ of $\Psi(Y_\eta)$ in $\mathbf{P}^N_{k[[t]]}$ is such that
+
+\begin{enumerate}[\upshape(i)]
+\item $X_\eta = \Psi(Y_\eta)$ is embedded by $\Ga(X_\eta, \om_{X_\eta}^{\otimes 3})$; and
+\item $X_0$ is Chow stable.
+\end{enumerate}
+
+Now $Y$ and $X$ induce the same mapping of $\Spec(k[[t]])$ to $Q'$. But $X_0$ corresponds to a point in $Q$. Thus $P \in Q$. \hfill$\square$
+\end{ptcbp}
+
+\bigskip
+
+\noindent\textbf{Acknowledgement}
+
+\medskip
+
+This work is a large part of the author's thesis written under David Gieseker. The author wishes to thank him again for his guidance and patience.
+
+% --- Source PDF page 18 ---
+
+\begin{thebibliography}{Mu2}
+
+\bibitem[G]{G} Gieseker, D., \emph{Lectures on the Moduli of Curves}. Tata Institute, Bombay, 1982.
+
+\bibitem[Gr]{Gr} Grotendiek, A., Elements de Geometrie Algebraique, \emph{Publ.\ I.H.E.S.}\ 8 (1961).
+
+\bibitem[H]{H} Hartshorne, R., \emph{Algebraic Geometry}. Springer-Verlag, New York, 1977.
+
+\bibitem[Mo]{Mo} Morrison, I., Projective Stability of Ruled Surfaces. \emph{Inventiones Math.}\ 56 269--304 (1980).
+
+\bibitem[Mu1]{Mu1} Mumford, D., \emph{Geometric Invariant Theory}. Springer-Verlag, New York (1965).
+
+\bibitem[Mu2]{Mu2} Mumford, D., Stability of Projective Varieties. \emph{Enseignement Math.}\ XXIII, 39--110 (1977).
+
+\end{thebibliography}
+
+\end{document}

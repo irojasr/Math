@@ -1,0 +1,80 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre{II}
+\def\nterm{Fall}
+\def\nyear{2026}
+\def\nprofesor{}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla{DN}
+\def\nsiglahead{Graph Products}
+\def\nextra{}
+\def\nlang{ENG}
+
+\input{../../../headerVarillyDiff.tex}
+\usepackage{xstring}
+
+% The one-vertex graph representing the fundamental class of \mathcal M_{g,n}.
+% Genus zero is a small solid vertex.  For at most eight legs, draw every leg;
+% otherwise use the compact notation.
+\newif\iffundclasscompact
+\newcommand{\fundclass}[2]{%
+  \begin{tikzpicture}[
+      baseline=(genus.base),
+      line width=0.55pt,
+      line cap=round
+    ]
+    \IfStrEq{#1}{0}{%
+      \node[fill,circle,minimum size=2.2mm,inner sep=0pt] (genus) {};
+    }{%
+      \node[draw,circle,minimum size=8mm,inner sep=0pt,font=\small]
+        (genus) {$#1$};
+    }%
+
+    \fundclasscompactfalse
+    \IfInteger{#2}{%
+      \ifnum#2>8\relax
+        \fundclasscompacttrue
+      \fi
+    }{\fundclasscompacttrue}% Symbolic inputs such as n use compact notation.
+
+    \iffundclasscompact
+      \draw (genus.235) -- ++(235:3mm) coordinate (leftleg);
+      \draw (genus.305) -- ++(305:3mm) coordinate (rightleg);
+      \draw[dotted]
+        (leftleg) -- node[midway,below=0.8mm,font=\scriptsize] {$#2$} (rightleg);
+    \else
+      \ifnum#2>0\relax
+        \foreach \leg in {1,...,#2}{%
+          \pgfmathsetmacro{\legangle}{-90+360*(\leg-1)/#2}%
+          \draw (genus.\legangle) -- ++(\legangle:2.75mm);
+        }%
+      \fi
+    \fi
+  \end{tikzpicture}%
+}
+
+\begin{document}
+
+This worksheet is practice for carrying out the Schmitt--van Zelm algorithm by hand.
+
+\begin{Ex}
+Let \([C]\in\ov{M}_{g,n}\) and \(G\) its dual graph.  The fundamental class of
+$\ov{M}_{g,n}$ has as its dual graph a unique vertex labeled \(g\) with \(n\) legs.
+
+\[
+  [\mathcal M_{g,n}]
+  \quad\longleftrightarrow\quad
+  \fundclass{0}{} .
+\]
+
+It is the identity for graph multiplication, so visually
+
+\[
+  G\,\cdot\,\fundclass{g}{n}
+  \;=\;
+  G.
+\]
+\end{Ex}
+
+
+\end{document}

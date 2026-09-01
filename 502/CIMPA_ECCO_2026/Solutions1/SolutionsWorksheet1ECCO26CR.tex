@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\title{Solutions to Worksheet \#1}
+\author{}
+\date{August 3, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item \textbf{Solution.}
+We use the action in which $\pi(x_i)=x_{\pi(i)}$.  Write the three
+monomials of $f$ as
+\[
+A=x_1x_2^2x_4^4,\qquad
+B=x_2^2x_3^4x_4,\qquad
+C=x_1^4x_2^2x_3.
+\]
+The variable $x_2$ is the only variable that has exponent $2$ in every
+monomial.  Therefore, any permutation that fixes $f$ must fix $2$.
+
+The cycle $(1\,4\,3)$ fixes $2$ and sends
+\[
+A\longmapsto B,\qquad B\longmapsto C,\qquad C\longmapsto A.
+\]
+Thus $(1\,4\,3)$ fixes the sum $f$.  Its inverse $(1\,3\,4)$ also fixes
+$f$, as does the identity.
+
+There are no other possibilities.  Indeed, after fixing $2$, the image of
+$A$ must be one of $A$, $B$, or $C$.  Because the exponents $1$, $0$, and
+$4$ on $x_1,x_3,x_4$ are distinct, each choice determines the permutation
+completely, and the three choices give precisely the permutations above.
+Hence
+\[
+\boxed{\{\pi\in S_4:\pi(f)=f\}
+ =\{\mathrm{id},(1\,4\,3),(1\,3\,4)\}.}
+\]
+
+\item \textbf{Solution.}
+Start with the monomial $x_1^7x_3^2$ and take its alternating sum over
+$S_3$:
+\[
+f=\sum_{\pi\in S_3}\operatorname{sgn}(\pi)\,
+       \pi(x_1^7x_3^2).
+\]
+Since the exponents $7$, $2$, and $0$ are distinct, the six monomials in
+this sum are distinct.  Expanding gives
+\[
+\begin{aligned}
+f={}&x_1^7x_3^2-x_2^7x_3^2-x_1^2x_3^7-x_1^7x_2^2\\
+   &\quad+x_1^2x_2^7+x_2^2x_3^7.
+\end{aligned}
+\]
+In particular, $x_1^7x_3^2$ occurs with coefficient $1$.
+
+To verify the required property, let $\sigma\in S_3$.  Reindexing the sum
+with $\tau=\sigma\pi$ gives
+\[
+\begin{aligned}
+\sigma(f)
+ &=\sum_{\pi\in S_3}\operatorname{sgn}(\pi)\,
+      (\sigma\pi)(x_1^7x_3^2)\\
+ &=\operatorname{sgn}(\sigma)
+   \sum_{\tau\in S_3}\operatorname{sgn}(\tau)\,
+      \tau(x_1^7x_3^2)
+ =\operatorname{sgn}(\sigma)f.
+\end{aligned}
+\]
+
+\medskip
+\noindent\textbf{Alternative solution.}
+The same polynomial can be written as the determinant
+\[
+f=
+\begin{vmatrix}
+x_1^7 & x_2^7 & x_3^7\\
+1     & 1     & 1\\
+x_1^2 & x_2^2 & x_3^2
+\end{vmatrix}.
+\]
+Permuting the variables permutes the columns of the determinant, so the
+determinant is multiplied by the sign of the permutation.  Expanding the
+determinant also shows that the coefficient of $x_1^7x_3^2$ is $1$.
+
+\item \textbf{Solution.}
+A monomial symmetric polynomial is the sum of all distinct monomials
+obtained by permuting the indicated exponents among the available
+variables.  Therefore,
+\[
+m_{3,2}(x_1,x_2)=x_1^3x_2^2+x_1^2x_2^3,
+\]
+and
+\[
+\begin{aligned}
+m_{3,2}(x_1,x_2,x_3)
+={}&x_1^3x_2^2+x_1^3x_3^2+x_2^3x_1^2\\
+ &+x_2^3x_3^2+x_3^3x_1^2+x_3^3x_2^2.
+\end{aligned}
+\]
+The partition $(3,3,1,1)$ has four positive parts, so it cannot be placed
+in only three variables.  Hence
+\[
+m_{3,3,1,1}(x_1,x_2,x_3)=0.
+\]
+With four variables, choose the two variables that receive exponent $3$;
+the other two receive exponent $1$.  Thus
+\[
+\begin{aligned}
+m_{3,3,1,1}(x_1,x_2,x_3,x_4)
+={}&x_1^3x_2^3x_3x_4+x_1^3x_3^3x_2x_4
+   +x_1^3x_4^3x_2x_3\\
+ &+x_2^3x_3^3x_1x_4+x_2^3x_4^3x_1x_3
+   +x_3^3x_4^3x_1x_2.
+\end{aligned}
+\]
+
+\item \textbf{Solution.}
+The coefficient of $x^n$ in the product is obtained by the Cauchy product:
+\[
+\begin{aligned}
+f(x)g(x)
+ &=\sum_{n=0}^{\infty}
+   \left(\sum_{\substack{i+j=n\\i,j\geq 0}}j\right)x^n\\
+ &=\sum_{n=0}^{\infty}
+   \left(\sum_{j=0}^{n}j\right)x^n
+ =\sum_{n=0}^{\infty}\frac{n(n+1)}{2}x^n.
+\end{aligned}
+\]
+Equivalently, as formal power series,
+\[
+f(x)=\frac{1}{1-x},
+\qquad
+g(x)=\frac{x}{(1-x)^2},
+\]
+so
+\[
+\boxed{f(x)g(x)=\frac{x}{(1-x)^3}
+=\sum_{n=0}^{\infty}\frac{n(n+1)}{2}x^n.}
+\]
+
+\item \textbf{Solution.}
+Distributing the two sums gives
+\[
+\begin{aligned}
+fg
+ &=\left(\sum_{i=1}^{\infty}x_ix_{i+1}\right)
+   \left(\sum_{j=1}^{\infty}x_j\right)\\
+ &=\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}
+   x_ix_{i+1}x_j.
+\end{aligned}
+\]
+Separating the cases $j=i$, $j=i+1$, and
+$j\notin\{i,i+1\}$ gives the more explicit form
+\[
+\boxed{
+fg=\sum_{i=1}^{\infty}
+   \left(x_i^2x_{i+1}+x_ix_{i+1}^2\right)
+ +\sum_{i=1}^{\infty}
+   \sum_{\substack{j\geq 1\\j\ne i,i+1}}
+   x_ix_{i+1}x_j.}
+\]
+The last double sum should not be simplified by discarding repetitions.
+For example, $x_ix_{i+1}x_{i+2}$ occurs twice: once using the adjacent
+pair $(i,i+1)$ and once using the adjacent pair $(i+1,i+2)$.
+
+\item \textbf{Solution.}
+By definition,
+\[
+m_{2,1}=\sum_{i\ne j}x_i^2x_j
+=\sum_{i<j}\left(x_i^2x_j+x_ix_j^2\right).
+\]
+On the other hand,
+\[
+\begin{aligned}
+m_2m_1
+ &=\left(\sum_i x_i^2\right)\left(\sum_jx_j\right)\\
+ &=\sum_i x_i^3+\sum_{i\ne j}x_i^2x_j
+ =m_3+m_{2,1}.
+\end{aligned}
+\]
+Therefore,
+\[
+\boxed{m_2m_1\ne m_{2,1};\qquad
+m_2m_1=m_3+m_{2,1}.}
+\]
+
+\item \textbf{Solution.}
+In a product $m_3m_2m_1$, choose one variable for the exponent $3$, one
+for the exponent $2$, and one for the exponent $1$.  We classify the
+result according to which choices are equal.
+\begin{itemize}
+\item If all three choices are the same, we obtain $m_6$.
+\item If only the choices for exponents $3$ and $2$ are the same, we
+obtain $m_{5,1}$.
+\item If only the choices for exponents $3$ and $1$ are the same, we
+obtain $m_{4,2}$.
+\item If only the choices for exponents $2$ and $1$ are the same, we
+obtain $m_{3,3}$.  Each monomial of this type occurs twice, because
+either of its two variables can come from the $m_3$ factor.
+\item If all three choices are distinct, we obtain $m_{3,2,1}$.
+\end{itemize}
+Consequently,
+\[
+\boxed{m_3m_2m_1
+=m_6+m_{5,1}+m_{4,2}+2m_{3,3}+m_{3,2,1}.}
+\]
+
+\item \textbf{Solution.}
+Recall that
+\[
+m_{1^r}=\sum_{\substack{A\subseteq\{1,2,\ldots\}\\|A|=r}}
+\prod_{i\in A}x_i.
+\]
+Fix one monomial of type $(2,1^{a+b})$.  It uses $a+b+1$ distinct
+variables: one variable is squared and the other $a+b$ variables occur
+to the first power.
+
+To obtain this monomial from
+$m_{1^{a+1}}m_{1^{b+1}}$, the squared variable must be selected in both
+factors.  Of the remaining $a+b$ variables, choose $a$ to join it in the
+first factor; the remaining $b$ must be selected in the second factor.
+There are
+\[
+\binom{a+b}{a}=\binom{a+b}{b}
+\]
+ways to do this.  By symmetry every monomial in
+$m_{2,1^{a+b}}$ has the same coefficient.  Therefore the requested
+coefficient is
+\[
+\boxed{\binom{a+b}{a}.}
+\]
+
+\item \textbf{Solution.}
+\begin{enumerate}
+\item In forming the product, we choose either $1$ or $x_i$ from each
+factor.  A term obtained by choosing $r$ distinct variables is a monomial
+of type $(1^r)$.  Hence
+\[
+\boxed{\prod_{i=1}^{\infty}(1+x_i)
+=\sum_{r=0}^{\infty}m_{1^r}
+=1+m_1+m_{1,1}+m_{1,1,1}+\cdots.}
+\]
+\item The same argument applies, but choosing $-x_i$ from $r$ factors
+contributes the sign $(-1)^r$.  Therefore,
+\[
+\boxed{\prod_{i=1}^{\infty}(1-x_i)
+=\sum_{r=0}^{\infty}(-1)^r m_{1^r}
+=1-m_1+m_{1,1}-m_{1,1,1}+\cdots.}
+\]
+\end{enumerate}
+
+\item \textbf{Solution.}
+For each variable, use the geometric series
+\[
+1+x_i+x_i^2+\cdots=\frac{1}{1-x_i}.
+\]
+When the products are multiplied out, every monomial
+$x_1^{a_1}x_2^{a_2}\cdots$ of finite total degree occurs exactly once.
+Grouping monomials whose positive exponents form the same partition
+$\lambda$ gives
+\[
+\prod_{i=1}^{\infty}\frac{1}{1-x_i}
+=1+\sum_{n=1}^{\infty}\sum_{\lambda\vdash n}m_\lambda.
+\]
+The initial $1$ corresponds to choosing $1$ from every factor, or
+equivalently to the empty partition.  Since the worksheet specifies
+partitions of positive integers, the requested sum is therefore
+\[
+\boxed{\sum_{n=1}^{\infty}\sum_{\lambda\vdash n}m_\lambda
+=\prod_{i=1}^{\infty}\frac{1}{1-x_i}-1.}
+\]
+If the empty partition is included and its monomial symmetric function is
+defined to be $1$, then the answer is simply
+$\prod_{i=1}^{\infty}(1-x_i)^{-1}$.
+
+\end{enumerate}
+
+\end{document}

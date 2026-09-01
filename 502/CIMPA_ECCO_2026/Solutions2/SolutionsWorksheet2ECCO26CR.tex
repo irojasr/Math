@@ -1,0 +1,405 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\title{Solutions to Worksheet \#2}
+\author{}
+\date{August 3, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item \textbf{Solution.}
+For the change of basis from $e$ to $m$, the number
+$M_{\lambda,\mu}(e,m)$ counts fillings of the rows of shape $\lambda$
+with content $\mu$ such that every row is \emph{strictly increasing}.
+There is no condition down the columns.  Rows in different positions
+are regarded as different, even when they have the same length.
+
+Here the shape $(2^2,1^4)=(2,2,1,1,1,1)$ has two rows of length $2$
+and four one-cell rows.  Call the long rows $A$ and $B$.  The content
+$(3^2,1^2)=(3,3,1,1)$ means that the complete filling must contain
+three $1$'s, three $2$'s, one $3$, and one $4$.  Because a long row is
+strictly increasing, it cannot contain two equal entries.
+
+We count according to where the exceptional entries $3$ and $4$ occur.
+
+\begin{enumerate}
+\item Suppose neither $3$ nor $4$ is in a long row.  Then both long
+rows must be $[1,2]$.  The four one-cell rows contain $1,2,3,4$ in any
+order, giving
+\[
+4!=24
+\]
+fillings.
+
+\item Suppose exactly one of $3,4$ is in a long row.  Choose which
+exceptional entry is used ($2$ choices), choose whether it is in $A$
+or $B$ ($2$ choices), and choose whether its companion is $1$ or $2$
+($2$ choices).  The other long row is then forced to be $[1,2]$.
+The four one-cell rows contain two equal entries and two other entries,
+so they can be filled in
+\[
+\frac{4!}{2!}=12
+\]
+ways.  This case contributes
+\[
+2\cdot2\cdot2\cdot12=96.
+\]
+
+\item Suppose both $3$ and $4$ occur in the long rows.  There are
+three possibilities.
+\begin{enumerate}
+\item If $3$ and $4$ are together, choose their long row in $2$ ways.
+The other long row must be $[1,2]$, and the one-cell rows contain
+$1,1,2,2$.  This gives
+\[
+2\cdot\frac{4!}{2!2!}=12.
+\]
+
+\item If $3$ and $4$ are in different long rows and have the same
+companion, choose that companion in $2$ ways and choose which long row
+contains $3$ in $2$ ways.  The one-cell rows contain three copies of
+one of $1,2$ and one copy of the other, so this gives
+\[
+2\cdot2\cdot\frac{4!}{3!}=16.
+\]
+
+\item If $3$ and $4$ are in different long rows and have different
+companions, choose which long row contains $3$ in $2$ ways and choose
+which exceptional entry is paired with $1$ in $2$ ways.  The one-cell
+rows contain $1,1,2,2$, so this gives
+\[
+2\cdot2\cdot\frac{4!}{2!2!}=24.
+\]
+\end{enumerate}
+Thus this case contributes $12+16+24=52$.
+\end{enumerate}
+
+Adding the three cases, we obtain
+\[
+\boxed{M_{(2^2,1^4),(3^2,1^2)}(e,m)=24+96+52=172.}
+\]
+
+\item \textbf{Solution.}
+We use row-strict tableaux of shape $\lambda$ and content $1^n$.
+The content $1^n=(1,1,\ldots,1)$ means that the entries
+$1,2,\ldots,n$ each appear exactly once.
+
+First choose which $\lambda_1$ entries go in the first row, then which
+$\lambda_2$ of the remaining entries go in the second row, and so on.
+Once the entries of a row have been chosen, there is only one legal way
+to place them: in increasing order.  Therefore
+\[
+\boxed{M_{\lambda,1^n}(e,m)
+=\binom{n}{\lambda_1,\ldots,\lambda_\ell}
+=\frac{n!}{\lambda_1!\cdots\lambda_\ell!}.}
+\]
+
+\item \textbf{Solution.}
+The content $(n)$ means that every one of the $n$ cells must contain
+$1$.  A strictly increasing row cannot contain two $1$'s.  Therefore
+every row must have length $1$, which is exactly the shape
+$\lambda=1^n$.  For this shape there is one filling: put $1$ in every
+cell.  Hence
+\[
+\boxed{M_{\lambda,n}(e,m)=
+\begin{cases}
+1,&\lambda=1^n,\\
+0,&\text{otherwise}.
+\end{cases}}
+\]
+
+\item \textbf{Solution.}
+Assume $n\geq2$.  The content $(n-1,1)$ means that the tableau has
+$n-1$ entries equal to $1$ and one entry equal to $2$.
+
+Since rows are strictly increasing, no row can contain two $1$'s.
+Thus every row has length $1$, except possibly one row of length $2$.
+Consequently, the only possible shapes are $1^n$ and
+$(2,1^{n-2})$.
+
+For shape $1^n$, choose which of the $n$ one-cell rows contains the
+unique $2$; all other rows contain $1$.  This gives $n$ fillings.  For
+shape $(2,1^{n-2})$, the long row is forced to be $[1,2]$, and every
+one-cell row is forced to contain $1$, giving one filling.  Therefore
+\[
+\boxed{M_{\lambda,(n-1,1)}(e,m)=
+\begin{cases}
+n,&\lambda=1^n,\\
+1,&\lambda=(2,1^{n-2}),\\
+0,&\text{otherwise}.
+\end{cases}}
+\]
+
+\item \textbf{Solution.}
+The statement is false.  Take
+\[
+\lambda=(4,1,1),\qquad \mu=(3,3).
+\]
+Both are partitions of $6$, and $\lambda>_{\mathrm{lex}}\mu$ because
+$4>3$.  Their conjugates are
+\[
+\lambda'=(3,1,1,1),\qquad \mu'=(2,2,2).
+\]
+Now $\mu'<_{\mathrm{lex}}\lambda'$, rather than
+$\mu'>_{\mathrm{lex}}\lambda'$.  This is a counterexample.
+
+\item \textbf{Solution.}
+Let
+\[
+E(t)=\prod_{i\geq1}(1+x_it)=\sum_{r\geq0}e_rt^r
+\]
+and let $\omega$ be a primitive cube root of unity, so
+$1+\omega+\omega^2=0$.  Since
+\[
+1+x+x^2=(1-\omega x)(1-\omega^2x),
+\]
+we obtain
+\[
+\boxed{\prod_{i\geq1}(1+x_i+x_i^2)
+=E(-\omega)E(-\omega^2)
+=\left(\sum_{r\geq0}(-\omega)^re_r\right)
+ \left(\sum_{s\geq0}(-\omega^2)^se_s\right).}
+\]
+This expression has integer coefficients because the two factors are
+complex conjugates.  For example, its first homogeneous pieces are
+\[
+1+e_1+(e_1^2-e_2)+(e_1e_2-2e_3)+\cdots.
+\]
+
+\item \textbf{Solution.}
+\begin{enumerate}
+\item Only the first five rows and first three columns can be nonzero.
+The row sums are $(3,1,1,1,1)$ and the column sums are $(4,2,1)$.
+The row of sum $3$ must be $(1,1,1)$.  After removing it, the four
+remaining rows each contain one $1$, and the remaining column sums are
+$(3,1,0)$.  Choose which three of the four rows place their $1$ in the
+first column; the remaining row uses the second column.  Thus
+\[
+\boxed{M_{(4,2,1),(3,1^4)}(e,m)=\binom43=4.}
+\]
+
+\item Transposition is a bijection.  A matrix with row sums $\mu_i$
+and column sums $\lambda_j$ is sent by transposition to a matrix with
+row sums $\lambda_j$ and column sums $\mu_i$.  Therefore
+\[
+\boxed{M_{\lambda,\mu}(e,m)=M_{\mu,\lambda}(e,m).}
+\]
+
+\item In the tableaux interpretation, row $j$ of the Young diagram of
+$\lambda$ is filled with distinct positive integers, written in
+increasing order, and integer $i$ occurs $\mu_i$ times.  Define
+$a_{ij}=1$ when integer $i$ occurs in tableau row $j$, and define
+$a_{ij}=0$ otherwise.  Distinctness within a tableau row makes this a
+$\{0,1\}$-matrix.  Its row sum is $\mu_i$ and its column sum is
+$\lambda_j$.
+
+Conversely, from such a matrix, fill tableau row $j$ with the indices
+$i$ for which $a_{ij}=1$, in increasing order.  These constructions
+are inverse to one another, so they give the required bijection.
+\end{enumerate}
+
+\item \textbf{Solution.}
+For the change of basis from $h$ to $m$, the number
+$M_{\lambda,\mu}(h,m)$ counts fillings of the rows of shape $\lambda$
+with content $\mu$ such that every row is \emph{weakly increasing}.
+Again, there is no condition down the columns, and equal-length rows in
+different positions are distinguished.
+
+We have two long rows $A,B$ of length $2$ and four one-cell rows.  We
+must place three $1$'s, three $2$'s, one $3$, and one $4$.  The main
+difference from Exercise 1 is that repeated entries are now allowed in
+a long row: for example, $[1,1]$ and $[2,2]$ are legal.
+
+We count according to how many of $3,4$ occur in the long rows.
+
+\begin{enumerate}
+\item Suppose neither $3$ nor $4$ is in a long row.  Each of $A,B$ is
+one of
+\[
+[1,1],\qquad [1,2],\qquad [2,2].
+\]
+The pair $([1,1],[1,1])$ is impossible because it uses four $1$'s,
+and $([2,2],[2,2])$ is impossible for the same reason with $2$'s.
+The legal possibilities contribute as follows:
+\[
+\begin{array}{c|c|c|c}
+\text{types of }A,B&\text{orders}&\text{entries in one-cell rows}
+&\text{count}\\ \hline
+\{[1,1],[1,2]\}&2&2,2,3,4&2\cdot 4!/2!=24\\
+\{[1,1],[2,2]\}&2&1,2,3,4&2\cdot 4!=48\\
+\{[1,2],[1,2]\}&1&1,2,3,4&4!=24\\
+\{[1,2],[2,2]\}&2&1,1,3,4&2\cdot 4!/2!=24
+\end{array}
+\]
+Thus this case contributes $120$.
+
+\item Suppose exactly one of $3,4$ is in a long row.  Choose that
+exceptional entry in $2$ ways and choose its long row in $2$ ways.
+Its companion is either $1$ or $2$.
+
+If its companion is $1$, the other long row may be $[1,1]$, $[1,2]$,
+or $[2,2]$.  The corresponding one-cell rows can be filled in
+\[
+\frac{4!}{3!}=4,qquad
+\frac{4!}{2!}=12,qquad
+\frac{4!}{2!}=12
+\]
+ways, respectively.  This gives $4+12+12=28$ fillings.  If the
+companion is $2$, the same argument with $1$ and $2$ interchanged gives
+another $28$.  Therefore this case contributes
+\[
+2\cdot2\cdot(28+28)=224.
+\]
+
+\item Suppose both $3$ and $4$ are in the long rows.
+\begin{enumerate}
+\item They may be together in one long row, which can be chosen in
+$2$ ways.  The other long row may be $[1,1]$, $[1,2]$, or $[2,2]$.
+The one-cell rows can then be filled in $4$, $6$, or $4$ ways,
+respectively.  This gives
+\[
+2(4+6+4)=28.
+\]
+
+\item They may be in different long rows.  There are $2$ ways to
+decide which long row contains $3$.  If both companions are $1$, the
+one-cell rows can be filled in $4$ ways; if both are $2$, there are
+$4$ ways; and if the companions are different, there are $2$ choices
+for their assignment and $6$ fillings of the one-cell rows.  This gives
+\[
+2(4+4+2\cdot6)=40.
+\]
+\end{enumerate}
+Thus this case contributes $28+40=68$.
+\end{enumerate}
+
+Adding all three cases gives
+\[
+\boxed{M_{(2^2,1^4),(3^2,1^2)}(h,m)=120+224+68=412.}
+\]
+
+\item \textbf{Solution.}
+We count weakly increasing row fillings of shape $\lambda$ and content
+$1^n$.  Since the entries $1,2,\ldots,n$ are all distinct, choose
+which $\lambda_1$ entries go in the first row, which $\lambda_2$ of
+the remaining entries go in the second row, and so forth.  After the
+entries of a row have been chosen, their weakly increasing order is
+forced; because the entries are distinct, it is actually strictly
+increasing.  Thus
+\[
+\boxed{M_{\lambda,1^n}(h,m)
+=\frac{n!}{\lambda_1!\cdots\lambda_\ell!}.}
+\]
+
+\item \textbf{Solution.}
+The content $(n)$ means that every cell contains $1$.  This is allowed
+because a row only has to be weakly increasing, so repeated entries
+are permitted.  Every row is therefore forced, and there is exactly
+one tableau of every shape $\lambda\vdash n$.  Thus
+\[
+\boxed{M_{\lambda,n}(h,m)=1}
+\qquad\text{for every }\lambda\vdash n.
+\]
+
+\item \textbf{Solution.}
+The content $(n-1,1)$ consists of $n-1$ copies of $1$ and one copy of
+$2$.  Choose the row that will contain the unique $2$.  In that row,
+weak increase forces the $2$ to be the final entry, with all earlier
+entries equal to $1$.  Every other row consists entirely of $1$'s.
+
+Thus each row gives exactly one tableau, depending on whether that row
+is chosen to contain the $2$.  Since $\lambda$ has $\ell(\lambda)$
+rows, including rows of equal length in different positions, we obtain
+\[
+\boxed{M_{\lambda,(n-1,1)}(h,m)=\ell(\lambda),}
+\]
+where $\ell(\lambda)$ is the number of parts of $\lambda$.
+
+\item \textbf{Solution.}
+Write
+\[
+p_\lambda=p_{\lambda_1}\cdots p_{\lambda_\ell},
+\qquad
+p_{\lambda_j}=\sum_{i\geq1}x_i^{\lambda_j}.
+\]
+For each row $j$, choosing the term $x_i^{\lambda_j}$ from
+$p_{\lambda_j}$ means placing the entry $i$ in all $\lambda_j$ cells
+of that row.  Therefore the relevant tableaux are exactly the fillings
+in which \emph{every row is constant}.  There is no condition relating
+one row to another.
+
+After making one choice for every row, the exponent of $x_i$ is the
+total number of cells filled with $i$.  Hence the resulting monomial
+has exponent sequence $\mu$ exactly when the filling has content
+$\mu$.  We have therefore proved the combinatorial interpretation
+\[
+\boxed{M_{\lambda,\mu}(p,m)
+=\#\{\text{constant-row fillings of shape $\lambda$ and content $\mu$}\}.}
+\]
+
+\item \textbf{Solution.}
+We count constant-row tableaux of shape $(2,2,1,1,1,1)$ and content
+$(3,3,1,1)$.  Thus we need three $1$'s, three $2$'s, one $3$, and one
+$4$.
+
+The two long rows cannot be filled with $3$ or $4$, because a constant
+row of length $2$ would use two copies of that entry, but the content
+provides only one copy of each.  They also cannot both be filled with
+$1$, since that would require four $1$'s, and they cannot both be
+filled with $2$.  Therefore one long row must be $[1,1]$ and the other
+must be $[2,2]$.
+
+There are $2$ ways to decide which long row gets the $1$'s.  After
+that choice, the four one-cell rows must contain one each of
+$1,2,3,4$, and these four entries can be assigned to the four rows in
+$4!$ ways.  Hence
+\[
+\boxed{M_{(2^2,1^4),(3^2,1^2)}(p,m)=2\cdot4!=48.}
+\]
+
+\item \textbf{Solution.}
+The content $1^n$ uses each of the entries $1,2,\ldots,n$ exactly
+once.  A constant row of length greater than $1$ would repeat its
+entry, so such a row is impossible.  Consequently every row must have
+length $1$, which means $\lambda=1^n$.
+
+For this shape, assign the $n$ distinct entries to the $n$ one-cell
+rows.  The first row has $n$ choices, the second has $n-1$, and so on,
+for a total of $n!$ tableaux.  Therefore
+\[
+\boxed{M_{\lambda,1^n}(p,m)=
+\begin{cases}
+n!,&\lambda=1^n,\\
+0,&\text{otherwise}.
+\end{cases}}
+\]
+
+\item \textbf{Solution.}
+The content $(n)$ means that all $n$ cells contain $1$.  Every row is
+then constant automatically, and there are no choices to make.  Thus
+there is exactly one such tableau for every shape $\lambda\vdash n$,
+and
+\[
+\boxed{M_{\lambda,n}(p,m)=1}
+\qquad\text{for every }\lambda\vdash n.
+\]
+
+\item \textbf{Solution.}
+The content $(n-1,1)$ consists of $n-1$ copies of $1$ and one copy of
+$2$.  Because rows must be constant, the row containing $2$ cannot
+have length greater than $1$: otherwise it would contain at least two
+$2$'s.  Thus the unique $2$ must occupy a one-cell row.  After choosing
+that row, every other row is forced to contain only $1$'s.
+
+There is one choice for each part of $\lambda$ equal to $1$.  If
+$m_1(\lambda)$ denotes the number of such parts, then
+\[
+\boxed{M_{\lambda,(n-1,1)}(p,m)=m_1(\lambda),}
+\]
+where $m_1(\lambda)$ denotes the multiplicity of the part $1$ in
+$\lambda$.
+
+\end{enumerate}
+\end{document}

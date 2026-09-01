@@ -1,0 +1,372 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2001}
+\def\nprofesor {Barbara Fantechi}
+\def\nauthor{Barbara Fantechi}
+\def\nsigla {Stacks}
+\def\nsiglahead {Stacks for Everybody}
+\def\nlang {ENG}
+\let\footruleskip\relax %%FADIR
+\input{../headerVarillyDiff}
+
+%%% Additional packages and commands for this article
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+
+\newcommand{\unresolved}[1]{\textbf{[UNRESOLVED: #1]}}
+\newcommand{\mathunresolved}[1]{\text{\unresolved{#1}}}
+
+\begin{document}
+
+% --- Source PDF page 1 ---
+
+\begin{center}
+{\LARGE\bfseries Stacks for Everybody}
+\end{center}
+
+\vspace{1em}
+
+\begin{flushleft}
+{\large\textsc{Barbara Fantechi}}
+\end{flushleft}
+
+\vspace{1em}
+
+\noindent\textbf{Abstract.} Let $\mathfrak{S}$ be a category with a Grothendieck topology. A stack over $\mathfrak{S}$ is a category fibered in groupoids over $\mathfrak{S}$, such that isomorphisms form a sheaf and every descent datum is effective. If $\mathfrak{S}$ is the category of schemes with the \'etale topology, a stack is algebraic in the sense of Deligne-Mumford (respectively Artin) if it has an \'etale (resp.\ smooth) presentation.
+
+I will try to explain the previous definitions so as to make them accessible to the widest possible audience. In order to do this, we will keep in mind one fixed example, that of vector bundles; if you know what pullback of vector bundles is in some geometric context (schemes, complex analytic spaces, but also varieties or manifolds) you should be able to follow this exposition.
+
+\let\thefootnote\relax\footnotetext{C. Casacuberta et al.\ (eds.), \emph{European Congress of Mathematics}\\
+\copyright\ Springer Basel AG 2001}
+
+\section{Introduction}
+
+Stacks (the french original name is \emph{champs} [4]) have been part of algebraic geometry for several decades now; algebraic stacks were introduced by Deligne and Mumford in [3] in order to study the moduli space of curves, and their definition was later generalized by Artin [1]. Since then, algebraic stacks have become a very useful tool for algebraic geometers, but still not a very popular one: possible reasons are the lack of references (see however the recent book of Laumon and Moret-Bailly [5]) and the long and technical definitions, which can discourage the newcomer.
+
+The idea of this exposition is to alternate rigorous, general definitions with the study of one concrete example: the classifying stack parametrizing rank $r$ vector bundles. The ``everybody'' in the title means that you don't have to be an algebraic geometer: stacks, and even reasonable analogues of algebraic stacks, can be defined in the context of complex analytic spaces, manifolds (your favorite kind) and even topological spaces.
+
+\section{A Category with a Grothendieck Topology}
+
+\subsection{The base category $\mathfrak{S}$}
+
+We want to talk of geometric objects, so as a first step we have to specify what kind of geometry we want to do. My favorite is a very small part of algebraic geometry, namely the study of quasiprojective schemes over the complex numbers.
+
+% --- Source PDF page 2 ---
+
+You might prefer other kind of schemes, or maybe complex analytic spaces, or real (or complex) manifolds, or topological spaces. In any case, the objects of our study form a category, i.e.\ we are also interested in morphisms among them; regular morphisms for schemes, differentiable or analytic maps for manifolds, and so on.
+
+In this paper we will consider the category we work on as fixed, and when needed will refer to it as $\mathfrak{S}$. Its objects will be called schemes, because ``scheme'' makes for easier reading then ``object of $\mathfrak{S}$'' or ``quasiprojective scheme over the complex numbers''. Feel free to replace scheme by manifold (or variety, or complex analytic space, etc) everywhere.
+
+\subsection{Cartesian diagrams and fiber products}
+
+A commutative diagram
+$$
+\begin{tikzcd}
+T' \arrow[r, "\bar{f}"] \arrow[d, "p'"'] & T \arrow[d, "p"] \\
+S' \arrow[r, "f"'] & S
+\end{tikzcd}
+\eqno{(1)}
+$$
+is called \emph{cartesian} if it induces all other commutative diagrams with the same lower-right corner; that is, for any other commutative diagram
+$$
+\begin{tikzcd}
+U \arrow[r, "g"] \arrow[d, "q"'] & T \arrow[d, "p"] \\
+S' \arrow[r, "f"'] & S
+\end{tikzcd}
+$$
+there is a unique morphism $h\colon U \to T'$ such that $q = p' \circ h$ and $g = \bar{f} \circ h$.
+
+Another way to express this is to say that $T'$ is the \emph{fiber product} of $S'$ and $T$ over $S$, and to write $T' = S' \times_S T$. In fact, given $f$ and $p$, $T'$, $p'$ and $\bar{f}$ are unique up to canonical isomorphism. One can also say that $p'$ is the \emph{base change} of $p$ induced by the morphism $f$.
+
+A concrete way to construct a fiber product is to consider the morphism $(f, p)\colon S' \times T \to S \times S$ and take the fiber product to be the inverse image of the diagonal; you can check that this works for schemes over a fixed base (take the scheme-theoretic inverse image, given by the pullback ideal sheaf), topological spaces, or sets. It also works for manifolds in case, say, $p$ is a submersion (in which case so is $p'$).
+
+\subsection{The \'etale topology}
+
+We will assume that the category $\mathfrak{S}$ we work with has a \emph{Grothendieck topology}, that is given a scheme $S$, it makes sense to say whether any given collection of morphisms $\{S_i \to S\}$ is an open covering. You can find a precise definition of Grothendieck topology in [2].
+
+When objects of $\mathfrak{S}$ are topological spaces, we can take open coverings to be the usual ones. You can stick to this and proceed to the next section now if you
+
+% --- Source PDF page 3 ---
+
+want: we will use the convention that, for an open covering $\{S_i \to S\}$, we write $S_{ij}$ for $S_i \cap S_j$ and similarly for $S_{ijk}$.
+
+However, in order to define algebraic stacks when $\mathfrak{S}$ is a category of schemes, the Zariski topology is not appropriate, because it's too coarse; in particular, the analogue of the implicit function theorem does not hold. An \'etale morphism (for smooth schemes this means one whose differential is an isomorphism at every point) is not necessarily a local isomorphism.
+
+Because of this, in the definition of algebraic stack one uses the \emph{\'etale topology}; that is, define an open covering to be a collection of \'etale morphisms $\{S_i \to S\}$ such that $\cup S_i \to S$ is surjective. We will use the following notational convention: if $\{S_i \to S\}$ is an open covering, we write $S_{ij}$ for the fiber product $S_i \times_S S_j$ and analogously for $S_{ijk}$. For fixed $j$, $\{S_{ij} \to S_j\}$ is an open covering of $S_j$ because the property of being \'etale is invariant under base change. If each $S_i \to S$ is an open embedding, then $S_{ij}$ is canonically isomorphic to $S_i \cap S_j$.
+
+\section{A Category Fibered in Groupoids}
+
+\subsection{Our guiding example: the category $V_r$}
+
+I assume you know what a vector bundle over a scheme is (remember, if you want you can read manifold wherever I write scheme), and what the pullback of a vector bundle is. To fix notation, if $E$ is a vector bundle over $S$, and $f\colon T \to S$ is a morphism of schemes, I will call a diagram
+$$
+\begin{tikzcd}
+F \arrow[r, "\bar{f}"] \arrow[d] & E \arrow[d] \\
+T \arrow[r, "f"'] & S
+\end{tikzcd}
+\eqno{(2)}
+$$
+a \emph{pullback diagram} if $F$ is a vector bundle over $T$, and the diagram makes $F$ into the pullback of $E$ via $f$ (hence, the diagram is cartesian and $\bar{f}$ induces a linear isomorphism on fibers). We will also say that $(F, \bar{f})$ is a pullback of $E$ via $f$.
+
+Pullback is essentially unique; that is, given another pullback $(F', \bar{f}')$, there exists a unique isomorphism $\alpha\colon F' \to F$ of vector bundles over $T$ such that $\bar{f}' = \bar{f} \circ \alpha$. This uniqueness depends on having fixed not only the bundle $F$ but also the morphism $\bar{f}$.
+
+We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles over schemes; its morphisms are pullback diagrams, i.e.\ diagram (2) defines a morphism from $F$ to $E$. You can figure out for yourself how composition of morphisms is defined. There is a natural forgetful functor from $V_r$ to $\mathfrak{S}$, which associates to every bundle its base scheme and to every pullback diagram (2) the morphism $f$ of the bases.
+
+% --- Source PDF page 4 ---
+
+\subsection{Schemes as categories over $\mathfrak{S}$}
+
+A \emph{category over} $\mathfrak{S}$ is a category $X$ with a fixed covariant functor $\pi\colon X \to \mathfrak{S}$. We say that an object $E$ of $X$ is \emph{over} a scheme $S$, or \emph{lifts} $S$, or \emph{is a lifting} of $S$, if $\pi(E) = S$, and similarly for morphisms. If $S$ is a scheme, the \emph{fiber} of $X$ over $S$ is the subcategory of objects over $S$, and morphisms over the identity of $S$.
+
+For instance, $V_r$ is a category over $\mathfrak{S}$; the fiber over $S$ is the category whose objects are vector bundles over $S$, and whose morphisms are the isomorphisms among them.
+
+To a scheme $S$ we can associate a category $\mathfrak{S}/S$ (the category of $S$-schemes) over $\mathfrak{S}$ as follows: the objects are morphisms with target $S$ in $\mathfrak{S}$; a morphism from $f\colon T \to S$ to $f'\colon T' \to S$ is a $g\colon T \to T'$ such that $f = f' \circ g$; the projection functor sends the object $T \to S$ to $T$ and a morphism $g$ to itself.
+
+Pictorially,
+$$
+\begin{tikzcd}[row sep=large, column sep=large]
+T \arrow[d, ""{name=L}] & T' \arrow[d, ""{name=R}] \\
+S & S
+\arrow[from=L, to=R, "g", shorten <=1em, shorten >=1em]
+\end{tikzcd}
+\quad\text{means that}\quad
+\begin{tikzcd}[row sep=large, column sep=large]
+T \arrow[r, "g"] \arrow[d] & T' \arrow[d] \\
+S \arrow[r, equal] & S
+\end{tikzcd}
+\quad\text{commutes.}
+$$
+
+In the particular case where $S$ is a point $p$ (or a final object in the category $\mathfrak{S}$, if you find this clearer), the category $\mathfrak{S}/p$ is just the category $\mathfrak{S}$ itself, and the natural projection is the identity functor.
+
+\subsection{Morphisms of categories}
+
+A \emph{morphism} of categories over $\mathfrak{S}$ is a covariant functor commuting with the projection to $\mathfrak{S}$.
+
+Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S \to X$ a morphism of categories over $\mathfrak{S}$. To this morphism we can associate an object $E$ of $X$ over $S$, the image of $\id_S\colon S \to S$.
+
+For instance, to every morphism $\mathfrak{S}/S \to V_r$ we can associate a vector bundle $E$ over $S$. Conversely, given the associated vector bundle $E$, a morphism $\mathfrak{S}/S \to V_r$ is determined by the datum, for every $T \to S$, of a vector bundle $F$ over $T$, together with a pullback diagram (2) (to prove this, use that every object $f\colon T \to S$ in $\mathfrak{S}/S$ has a unique morphism to $\id_S$, namely $f$ itself).
+
+If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, then the associated object is a morphism $g\colon T \to S$, and $f$ is uniquely determined by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism.
+
+From now on we will use the same letter to indicate a scheme $S$ and the stack $\mathfrak{S}/S$.
+
+\subsection{2-morphisms and isomorphisms of categories}
+
+If $X$ and $Y$ are categories over $\mathfrak{S}$, and $f$, $g$ are morphisms from $X$ to $Y$, a \emph{2-morphism} $f \to g$ is a natural transformation over the identity functor on $\mathfrak{S}$.
+
+% --- Source PDF page 5 ---
+
+Because of the existence of 2-morphisms, categories over $\mathfrak{S}$ form a 2-category, i.e., morphisms can be isomorphic without being equal; the situation is analogous to that of homotopy theory, where two continuous maps can be homotopic without being equal.
+
+As an example, define $f\colon V_r \to V_r$ by associating to each vector bundle its dual. Then $f$ is a morphism of categories over $\mathfrak{S}$ and there is a 2-isomorphism between $f \circ f$ and the identity of $V_r$.
+
+An \emph{isomorphism} of categories over $\mathfrak{S}$ is a morphism which is an equivalence of categories, that is it induces bijections on morphisms and is surjective on objects up to isomorphism. An isomorphism has an inverse up to 2-isomorphisms, although to prove this one may need some form of the axiom of choice.
+
+Let $G$ be an algebraic group (or a Lie group, or a topological group, as you prefer); we can make a category $BG$ over $\mathfrak{S}$ whose objects are principal $G$-bundles, and morphisms are pullback diagrams. We can define an isomorphism from $V_r$ to $BGL(r)$ by associating to each vector bundle its frame bundle.
+
+\subsection{A category fibered in groupoids}
+
+The existence and uniqueness-up-to-isomorphism property for the pullback of vector bundles can be restated in categorical language by saying that $V_r$ is a category fibered in groupoids over $\mathfrak{S}$.
+
+\begin{Def}\label{def:3.1}
+A category $X$ over $\mathfrak{S}$ is called a \emph{category fibered in groupoids}, or \emph{groupoid fibration}, over $\mathfrak{S}$ if for any choice of a morphism of schemes $f\colon T \to S$ and of a lifting $E$ of $S$ to $X$, there exists a lifting $\bar{f}\colon F \to E$ of $f$ to $X$, and the lifting is unique up to unique isomorphism: i.e., for any other lifting $\bar{f}'\colon F' \to E$ there is a unique isomorphism $\alpha\colon F' \to F$ over $\id_T$ such that $\bar{f}' = \bar{f} \circ \alpha$.
+\end{Def}
+
+As a partial motivation for the name, note that any morphism of $X$ over an isomorphism of $\mathfrak{S}$ is also an isomorphism; in particular, for every scheme $S$, the \emph{fiber} of $X$ over $S$ defined in 3.2, is a groupoid, a category where all morphisms are isomorphisms.
+
+\section{Stacks}
+
+As we saw, a category fibered in groupoids over $\mathfrak{S}$ is something that ``pulls back like bundles''. It is a stack if, moreover, it glues like bundles.
+
+\subsection{Notational conventions}
+
+Let $X$ be a groupoid fibration over $\mathfrak{S}$. We assume that for every morphism $f\colon T \to S$, and every object $E$ over $S$, we have chosen one lifting $f_E\colon f^* E \to E$ of $f$ with target $E$. This can be achieved by direct construction, or by a suitable version of the axiom of choice. Note that it is not required, in this choice, that $g^*(f^* E) = (f \circ g)^* E$; the two are only canonically isomorphic. This choice of pullback is not logically necessary; it just makes it easier to write down the definition of stack (see also \S 6.3).
+
+% --- Source PDF page 6 ---
+
+If $E'$ is another object over $S$, and $\alpha\colon E' \to E$ is a morphism in the fiber (hence an isomorphism) there is a unique (iso)morphism $f^*\alpha\colon f^* E' \to f^* E$ such that the diagram
+$$
+\begin{tikzcd}
+f^*E' \arrow[r, "f_{E'}"] \arrow[d, "f^*\alpha"'] & E' \arrow[d, "\alpha"] \\
+f^*E \arrow[r, "f_E"'] & E
+\end{tikzcd}
+$$
+commutes.
+
+A further bit of convention: if the morphism $f\colon T \to S$ is clear from the context, we write $E \mid T$ or $E$ over $T$ instead of $f^* E$, and similarly for morphisms.
+
+\subsection{Descent data}
+
+Let $\{S_i \to S\}$ be an open covering of a scheme, and $E$ a vector bundle on $S$; let $E_i$ be a pullback of $E$ to $S_i$. We cannot reconstruct $E$ from knowing the $E_i$'s only; for instance, we may have different bundles which become trivial on the same open covering.
+
+However, the fact that $E_i$ is the pullback of $E$ means that we have induced isomorphisms $\alpha_{ij}\colon E_i \mid S_{ij} \to E_j \mid S_{ij}$, which satisfy the cocycle condition on $S_{ijk}$, and $E$ can be recovered up to isomorphism by knowing $E_i$ and $\alpha_{ij}$. This motivates the following:
+
+\begin{Def}\label{def:4.1}
+Let $X$ be a category fibered in groupoids over $\mathfrak{S}$. A \emph{descent datum for $X$ over a scheme $S$} is the following: an open covering $\{S_i \to S\}$; for every $i$, a lifting $E_i$ of $S_i$ to $X$; for every $i, j$ an isomorphism $\alpha_{ij}\colon E_i \mid S_{ij} \to E_j \mid S_{ij}$ in the fiber which satisfies the cocycle condition $\alpha_{ik} = \alpha_{jk} \circ \alpha_{ij}$ over $S_{ijk}$.
+
+The descent datum is said to be \emph{effective} if there exists a lifting $E$ of $S$ to $X$ together with isomorphisms $\alpha_i\colon E \mid S_i \to E_i$ in the fiber such that $\alpha_{ij} = \alpha_j \mid S_{ij} \circ (\alpha_i \mid S_{ij})^{-1}$.
+\end{Def}
+
+You can think of the covering $\{S_i\}$ as lying over $S$ (after all, it covers it); we have a collection of bundles above, and we `descend' them to a bundle over $S$.
+
+\subsection{Definition of stack}
+
+Before giving the definition of stack, we must introduce another `technical' condition, the categorical expression of the fact that isomorphisms between bundles on the same scheme can be defined locally on an open covering and then glued in a unique way, once they agree on the overlaps.
+
+\begin{Def}\label{def:4.2}
+Let $X$ be a category fibered in groupoids over $\mathfrak{S}$. We say that \emph{isomorphisms are a sheaf for $X$} if, for any scheme $S$ and any $E, E'$ in the fiber over $S$, for every open covering $\{S_i \to S\}$ of $S$, and for every collection of isomorphisms $\alpha_i\colon E \mid S_i \to E' \mid S_i$ in the fiber over $S_i$ such that $\alpha_i \mid S_{ij} = \alpha_j \mid S_{ij}$, there is a unique isomorphism $\alpha\colon E \to E'$ such that $\alpha \mid S_i = \alpha_i$.
+\end{Def}
+
+% --- Source PDF page 7 ---
+
+\begin{Def}\label{def:4.3}
+A \emph{stack} is a category fibered in groupoids over $\mathfrak{S}$ such that isomorphisms are a sheaf and every descent datum is effective.
+\end{Def}
+
+If $X$ is a stack, then for every descent datum as in Definition \ref{def:4.1}, the $(E, \alpha_i)$ whose existence follows by effectivity are essentially unique: i.e., for any other possibility $(E', \alpha'_i)$ there exists a unique isomorphism $\beta\colon E' \to E$ in the fiber such that $\alpha'_i = \alpha_i \circ \beta$.
+
+Morphisms of stacks are defined to be morphisms of categories over $\mathfrak{S}$, and the same for 2-morphisms and isomorphisms.
+
+\subsection{Representable stacks and morphisms}
+
+The category $\mathfrak{S}/S$ is always fibered in groupoids over $\mathfrak{S}$, but not a priori a stack: this depends on the topology. It is true, and easy to prove, for each $\mathfrak{S}$ we mentioned (schemes, varieties, complex analytic spaces, manifolds, topological spaces, etc) with the usual topology. It is also true for schemes with the \'etale topology.
+
+\begin{Def}\label{def:4.4}
+A stack $X$ over $\mathfrak{S}$ is \emph{representable} if it is isomorphic to the stack $\mathfrak{S}/S$ induced by a scheme $S$ (see also \S 6.3).
+\end{Def}
+
+Informally speaking, a representable morphism of stacks is one whose fibers are schemes.
+
+\begin{Def}\label{def:4.5}
+A morphism $X \to Y$ of stacks is \emph{representable} if, for every morphism $S \to Y$ with $S$ (the stack associated to) a scheme, the fiber product $S \times_Y X$ is representable.
+\end{Def}
+
+Oops! I didn't tell you what the fiber product of stacks is, did I? Well, it was done on purpose. The definition can be found in the last section; think of it for the moment as enjoying a universal property analogous to the one we saw for schemes. The proof of the next lemma is in \S 6.2.
+
+\begin{Lem}\label{lem:4.6}
+Let $W$ be a vector space of dimension $r$. Define a morphism $p \to V_r$ (recall that $p$ is the category $\mathfrak{S}/p$) mapping every scheme $T$ to the trivial bundle $T \times W$, and every morphism to the obvious pullback diagram. Then for every scheme $S$ and every morphism $S \to V_r$ (with associated bundle $E$ on $S$), the fiber product $S \times_{V_r} p$ is a representable stack, isomorphic to the frame bundle of $E$. Hence, the morphism $p \to V_r$ is representable.
+\end{Lem}
+
+\section{Algebraic Stacks and Groupoid Schemes}
+
+A property of morphisms of schemes is \emph{invariant under base change} if, for any cartesian diagram (1), if $p$ has the property then so has $p'$.
+
+\begin{Def}\label{def:5.1}
+Let $P$ be a property of morphisms of schemes which is invariant under base change. A representable morphism $X \to Y$ of stacks has property $P$ if, for every morphism $S \to Y$ with $S$ a scheme, the induced morphism of schemes $S \times_Y X \to S$ has $P$.
+\end{Def}
+
+% --- Source PDF page 8 ---
+
+As an example, among such properties there are smooth, \'etale, proper, an open embedding, a closed embedding. If you're not an algebraic geometer, smooth is essentially the same as submersion, that is morphism of manifolds with surjective differential at every point.
+
+From now on, $\mathfrak{S}$ is the category of quasiprojective schemes over the complex numbers, with the \'etale topology. Many other choices are possible in the context of algebraic geometry, but we are striving for clearness and not for generality. If you want to keep thinking that $\mathfrak{S}$ is complex analytic spaces, manifolds, etc, with the usual topology, you can do so, as most of what follows still makes sense: however, I don't know whether there is an official definition of analytic or differentiable stack.
+
+\begin{Def}\label{def:5.2}
+A stack $X$ over $\mathfrak{S}$ is \emph{algebraic in the sense of Deligne and Mumford (resp.\ Artin)} if there exists an \'etale (resp.\ smooth) and surjective representable morphism $S \to X$ where $S$ is (the stack associated to) a scheme: we say $S \to X$ is a \emph{presentation of $X$}.
+\end{Def}
+
+Lemma \ref{lem:4.6} implies that $p \to V_r$ is representable, smooth and surjective. Hence, the stack $V_r$ is algebraic in the sense of Artin, and the morphism $p \to V_r$ is a presentation.
+
+The stack $V_r$ is a special case of quotient stack. Let $G$ be an algebraic group acting on a scheme $S$ on the left. Let $[S/G]$ be the following category over $\mathfrak{S}$: its objects are principal homogeneous $G$-bundles with a $G$-equivariant morphism to $S$. In analogy with $V_r$, its morphisms are those pullback diagrams which are compatible with the morphism to $S$. If $S$ is a point $p$, with the trivial $G$ action, then $[p/G]$ is $BG$ defined before.
+
+\begin{Th}\label{thm:5.3}
+The category $[S/G]$ is an algebraic stack, there is a presentation $S \to [S/G]$ which is smooth and surjective of relative dimension $\dim G$.
+\end{Th}
+
+The proof of the theorem is analogous to that of Lemma \ref{lem:4.6}: for any morphism $T \to [S/G]$ (associated to a $G$-equivariant morphism $P \to S$, where $P$ is a principal $G$-bundle), the fiber product $T \times_{[S/G]} S$ is naturally isomorphic to $P$. Many moduli stacks arise as quotients; in fact, one of the key features of stacks is that for any group action you can take a quotient which behaves as if the action were fixed-point free.
+
+\section{Final Remarks}
+
+\subsection{Fiber product of stacks}
+
+\begin{Def}\label{def:6.1}
+If $f\colon X \to Y$ and $g\colon Z \to Y$ are morphisms of stacks over $\mathfrak{S}$, their fiber product can be defined as follows. Its objects are triples $(x, z, \alpha)$ where $\alpha\colon f(x) \to g(z)$ is a morphism in a fiber of $Y$; a morphism $(x, z, \alpha) \to (x', z', \alpha')$ is a pair of morphisms $\beta_1\colon x \to x'$, $\beta_2\colon z \to z'$ in fibers of $X$ and $Z$ respectively such that $g(\beta_2) \circ \alpha = \alpha' \circ f(\beta_1)\colon f(x) \to g(z')$.
+\end{Def}
+
+% --- Source PDF page 9 ---
+
+This is indeed a stack and it enjoys 2-categorical properties similar to those of the usual fiber product; there are natural morphisms from $X \times_Y Z$ to $X$ (mapping $(x, z, \alpha)$ to $x$ and $(\beta_1, \beta_2)$ to $\beta_1$) and to $Z$. The induced diagram
+$$
+\begin{tikzcd}[row sep=large, column sep=large]
+X \times_Y Z \arrow[r] \arrow[d] & Z \arrow[d, "g"] \\
+X \arrow[r, "f"'] & Y
+\end{tikzcd}
+$$
+does not commute, but only \emph{2-commute}, that is the two composition morphisms $X \times_Y Z \to Y$ are not the same but only canonically 2-isomorphic. In analogy with the case of schemes, the diagram `induces' all other 2-commuting diagrams with the same lower right corner.
+
+\subsection{Outline of proof of Lemma \ref{lem:4.6}}
+
+Recall that the frame bundle $P$ of a vector bundle $E$ over $S$ has as fiber over $s \in S$ the set of possible bases for $E_s$. Fix a basis $B = (v_1, \dots, v_r)$ of $W$. For a scheme $T$, there is a natural bijection between pullback diagrams
+$$
+\begin{tikzcd}
+T \times W \arrow[r, "\bar{f}"] \arrow[d] & E \arrow[d] \\
+T \arrow[r, "f"'] & S
+\end{tikzcd}
+$$
+and morphisms $g\colon T \to P$ (given the pullback diagram, for every $t \in T$ set $g(t) = \bar{f}(B)$, a basis of $E_{f(t)}$).
+
+Let $Z$ be the fiber product $S \times_{V_r} p$, and fix a scheme $T$. Spelling out Definition \ref{def:6.1} in this case, an object of $Z$ over $T$ is a pullback diagram
+$$
+\begin{tikzcd}
+F \arrow[r, "\bar{f}"] \arrow[d] & E \arrow[d] \\
+T \arrow[r, "f"'] & S
+\end{tikzcd}
+$$
+(the image via $S \to V_r$ of $f$) together with an isomorphism $\alpha\colon F \to T \times W$ of vector bundles over $T$.
+
+We can define a morphism $Z \to P$ sending such an object to the morphism $T \to P$ associated to the pullback diagram
+$$
+\begin{tikzcd}
+T \times W \arrow[r, "\bar{f} \circ \alpha^{-1}"] \arrow[d] & E \arrow[d] \\
+T \arrow[r, "f"'] & S;
+\end{tikzcd}
+$$
+we leave it to the reader to define the functor $Z \to P$ on morphisms and to check that it is an isomorphism (in fact, one can easily construct an explicit inverse).
+
+% --- Source PDF page 10 ---
+
+\subsection{Strictly speaking}
+
+Definitions \ref{def:4.1} and \ref{def:4.2} implicitly assume that $(E \mid S_i) \mid S_{ij}$ is the same bundle as $(E \mid S_j) \mid S_{ij}$. This is not true, but each of them is canonically isomorphic to $E_{ij} \defeq E \mid S_{ij}$, and we have just omitted the canonical isomorphisms. Actually my favorite convention is that $f_E\colon f^* E \to E$ should mean \emph{any} lifting of $f$ with target $E$ (after all, they're all canonically isomorphic).
+
+In Definition \ref{def:4.4} a representable stack should be one isomorphic to the stack associated to an algebraic space, not to a scheme, to be consistent with the existing literature. As every scheme is an algebraic space, this means that the definition of algebraic stack presented here is slightly narrower then the usual one.
+
+\subsection{Afterword}
+
+In analogy with the identification of a scheme $S$ with the category $\mathfrak{S}/S$, a stack $X$ ``is'' the collection of all morphisms from any scheme to $X$: the fiber of $X$ over a scheme $S$ is equivalent to the category of morphisms from $S$ to $X$. The big difference with $\mathfrak{S}/S$ is that morphisms are allowed to be isomorphic without being equal. The stack condition ensures that, as in the case of schemes, morphisms can be defined locally and then glued.
+
+The presentation can be used to define geometrical properties of an algebraic stack: e.g., $V_r$ is smooth of dimension $-r^2$ (yes, it's negative) because $p$ is smooth of dimension zero and $p \to V_r$ has relative dimension $r^2$. Of course one has to check that this does not depend on the choice of the presentation. In fact, many of the usual tools of algebraic geometry can be extended to algebraic stacks: coherent and locally free sheaves, cohomology, and even Riemann-Roch theorem and Chow groups. I would like to tell you more, but (to quote a favorite author) my paper reminds me to conclude.
+
+% --- Source PDF page 11 ---
+
+\begin{thebibliography}{9}
+
+\bibitem{1}
+M. Artin, \emph{Versal Deformations and Algebraic Stacks}, Invent. Math., \textbf{27}, (1974), 165--189.
+
+\bibitem{2}
+M. Artin, \emph{Grothendieck Topologies}, Cambridge, Mass., 1962, mimeographed lecture notes.
+
+\bibitem{3}
+P. Deligne and D. Mumford, \emph{The irreducibility of the space of curves of given genus}, Publ. Math. IHES, \textbf{36}, (1969), 75--109.
+
+\bibitem{4}
+J. Giraud, \emph{Cohomologie non-ab\'elienne}, Springer-Verlag, Berlin 1971, Grundlehren der mathematischen Wissenschaften, Band 179.
+
+\bibitem{5}
+G. Laumon and L. Moret-Bailly, \emph{Champs alg\'ebriques}, Springer-Verlag, 1999.
+
+\end{thebibliography}
+
+\vspace{2em}
+
+\noindent Dipartimento di Matematica e Informatica\\
+Universit\`a di Udine\\
+Viale delle Scienze, 206\\
+33100 Udine, Italy\\
+\emph{E-mail address:} \texttt{fantechi@dimi.uniud.it}
+
+\end{document}

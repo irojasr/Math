@@ -1,0 +1,161 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {I}
+\def\nterm {Summer}
+\def\nyear {2026}
+\def\nprofesor {Rosa Orellana}
+\def\nauthor {Ignacio Rojas}
+\def\nsigla {ECCO}
+\def\nsiglahead {Intro to Symmetric Functions}
+\def\nlang {ENG}
+\let\footruleskip\relax
+\input{headerVarillyDiff}
+
+\usepackage{ytableau}
+\usepackage{docmute}
+\usepackage{import}
+
+\graphicspath{{../BigCombined/}{../1/}{../2/}{../3/}{../4/}{../Sage/}}
+
+\title{CIMPA--ECCO 2026\\
+Lecture Notes, Worksheets, and Solutions}
+\author{Rosa Orellana\\[0.5em]
+{\large Lecture notes transcribed by Ignacio Rojas}}
+\date{August 2026}
+
+\hypersetup{
+  pdftitle={CIMPA--ECCO 2026: Lecture Notes, Worksheets, and Solutions},
+  pdfauthor={Rosa Orellana; lecture notes transcribed by Ignacio Rojas}
+}
+
+\setsecnumdepth{section}
+\settocdepth{section}
+\settypeblocksize{49pc}{39pc}{*}
+\setlrmargins{*}{*}{1.2}
+\checkandfixthelayout
+\setlength{\footskip}{30pt}
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+
+% Restore the numbering used by the standalone worksheets.  The lecture-note
+% header uses letters for top-level enumerations, whereas worksheet exercises
+% are numbered and their subparts are lettered.
+\newcommand{\worksheetnumbering}{%
+  \renewcommand{\theenumi}{\arabic{enumi}}%
+  \renewcommand{\labelenumi}{\theenumi.}%
+  \renewcommand{\theenumii}{\alph{enumii}}%
+  \renewcommand{\labelenumii}{(\theenumii)}%
+}
+
+% Imported worksheets already contain a document wrapper and a title.  Docmute
+% removes the wrapper; this setup suppresses the repeated title and makes each
+% Spanish heading subordinate to the surrounding worksheet section.
+\newcommand{\worksheetimportsetup}{%
+  \let\maketitle\relax
+  \let\section\subsection
+  \let\bf\bfseries
+  \worksheetnumbering
+}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\clearpage
+\tableofcontents
+
+\mainmatter
+\part{Lecture Notes}
+
+% ECCOLectures.tex was transcribed slide by slide.  Its \newpage commands
+% separate source slides rather than mathematical units, so they are suppressed
+% locally.  Memoir's chapter commands still provide page breaks at the four
+% genuine lecture transitions, while ordinary sections flow naturally.
+\begingroup
+\let\lecturenewpage\newpage
+\let\lecturechapter\chapter
+\renewcommand{\chapter}{\lecturenewpage\lecturechapter}
+\let\newpage\relax
+\subimport{../BigCombined/}{ECCOLectures.tex}
+\endgroup
+
+\part{Worksheets and Solutions}
+
+\chapter{Worksheets}
+
+\section{Worksheet 1}
+\begingroup
+\worksheetimportsetup
+\subimport{../1/}{Worksheet1.tex}
+\endgroup
+
+\clearpage
+\section{Worksheet 2}
+\begingroup
+\worksheetimportsetup
+\subimport{../2/}{Worksheet2.tex}
+\endgroup
+
+\clearpage
+\section{Worksheet 3}
+\begingroup
+\worksheetimportsetup
+\subimport{../3/}{Worksheet3.tex}
+\endgroup
+
+\clearpage
+\section{Worksheet 4}
+\begingroup
+\worksheetimportsetup
+\subimport{../4/}{Worksheet4.tex}
+\endgroup
+
+\clearpage
+\section{SageMath Worksheet}
+\begingroup
+\worksheetimportsetup
+\subimport{../Sage/}{main.tex}
+\endgroup
+
+\chapter{Solutions}
+
+\section{Solutions to Worksheet 1}
+\begingroup
+\let\maketitle\relax
+\worksheetnumbering
+\subimport{../Solutions1/}{SolutionsWorksheet1ECCO26CR.tex}
+\endgroup
+
+\clearpage
+\section{Solutions to Worksheet 2}
+\begingroup
+\let\maketitle\relax
+\worksheetnumbering
+\subimport{../Solutions2/}{SolutionsWorksheet2ECCO26CR.tex}
+\endgroup
+
+\clearpage
+\section{Solutions to Worksheet 3}
+\begingroup
+\let\maketitle\relax
+\worksheetnumbering
+\subimport{../Solutions3/}{SolutionsWorksheet3ECCO26CR.tex}
+\endgroup
+
+\clearpage
+\section{Solutions to Worksheet 4}
+\begingroup
+\let\maketitle\relax
+\worksheetnumbering
+\subimport{../Solutions4/}{SolutionsWorksheet4ECCO26CR.tex}
+\endgroup
+
+\clearpage
+\section{SageMath Solutions}
+\begingroup
+\let\maketitle\relax
+\worksheetnumbering
+\subimport{../SolutionsSage/}{SolutionsWorksheetSageECCO26CR.tex}
+\endgroup
+
+\end{document}

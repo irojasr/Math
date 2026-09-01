@@ -1,0 +1,263 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\title{Solutions to Worksheet \#4}
+\author{}
+\date{August 5, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item \textbf{Solution.}
+Recall that
+\[
+X_G=\sum_{\kappa}\prod_{v\in V(G)}x_{\kappa(v)},
+\]
+where the sum is over proper colorings by positive integers.  Let
+$\sigma$ be any permutation of the positive integers.  Replacing every
+color $i$ by $\sigma(i)$ is a bijection from proper colorings to proper
+colorings.  It permutes the variables in every monomial but leaves the
+whole sum unchanged.  Thus $X_G$ is invariant under every permutation
+of the variables, so it is symmetric.
+
+\item \textbf{Solution.}
+Let $e$ be any edge of $C_4$.  Deleting $e$ produces the path $P_4$,
+which is a tree on four vertices, while contracting $e$ produces the
+triangle $C_3$.  Therefore
+\[
+\chi_{C_4}(n)
+=n(n-1)^3-n(n-1)(n-2).
+\]
+Simplifying,
+\[
+\boxed{\chi_{C_4}(n)
+=n(n-1)(n^2-3n+3)
+=n^4-4n^3+6n^2-3n.}
+\]
+
+\item \textbf{Solution.}
+We use Stanley's power-sum formula
+\[
+X_G=\sum_{A\subseteq E(G)}(-1)^{|A|}p_{\lambda(A)},
+\]
+where $\lambda(A)$ is the partition of the component sizes of the
+spanning subgraph $(V(G),A)$.
+\begin{enumerate}
+\item Deleting the chosen edge gives $P_4$.  Among its three edges,
+there are three one-edge subsets, two adjacent two-edge subsets, one
+disjoint two-edge subset, and one three-edge subset.  Hence
+\[
+\boxed{X_{P_4}
+=p_{1,1,1,1}-3p_{2,1,1}+2p_{3,1}+p_{2,2}-p_4.}
+\]
+
+\item Contracting the edge gives $C_3=K_3$.  The subset formula gives
+\[
+\boxed{X_{C_3}=p_{1,1,1}-3p_{2,1}+2p_3.}
+\]
+
+\item The two terms in a deletion--contraction formula do not even
+have the same degree: $X_{P_4}$ has degree $4$, while $X_{C_3}$ has
+degree $3$.  More explicitly,
+\[
+X_{C_4}
+=p_{1,1,1,1}-4p_{2,1,1}+4p_{3,1}+2p_{2,2}-3p_4,
+\]
+which is not $X_{P_4}-X_{C_3}$.  Thus the ordinary
+deletion--contraction relation does not hold for the chromatic
+symmetric function.
+\end{enumerate}
+
+\item \textbf{Solution.}
+\begin{enumerate}
+\item By the binomial theorem,
+\[
+\begin{aligned}
+n(n-1)^{k-1}
+&=n\sum_{i=0}^{k-1}\binom{k-1}{i}n^i(-1)^{k-1-i}\\
+&=\boxed{\sum_{j=1}^{k}(-1)^{k-j}
+\binom{k-1}{j-1}n^j}.
+\end{aligned}
+\]
+
+\item Taking $j=k-1$, the coefficient is
+\[
+\boxed{-\binom{k-1}{k-2}=-(k-1).}
+\]
+
+\item For a simple graph,
+\[
+\boxed{[n^{k-1}]\chi_G(n)=-|E(G)|.}
+\]
+We prove this by induction on the number of edges.  For the graph with
+no edges, $\chi_G(n)=n^k$, and both sides are $0$.  Choose an edge $e$.
+By induction, the coefficient of $n^{k-1}$ in
+$\chi_{G-e}(n)$ is $-(|E(G)|-1)$.  The contracted graph has $k-1$
+vertices, so its chromatic polynomial is monic of degree $k-1$.
+Consequently, deletion--contraction gives
+\[
+[n^{k-1}]\chi_G(n)
+=-(|E(G)|-1)-1=-|E(G)|.
+\]
+
+\item If $\chi_G(n)=n(n-1)^{k-1}$, part (b) says that the coefficient
+of $n^{k-1}$ is $-(k-1)$.  By part (c), $G$ has $k-1$ edges.  Since
+$G$ is connected, a connected graph on $k$ vertices with $k-1$ edges
+is a tree.
+\end{enumerate}
+
+\item \textbf{Solution.}
+Call the graphs $G_1$ and $G_2$ in their displayed order.  In either
+graph there are four independent pairs.  Thus a coloring of type
+$(2,1,1,1)$ is obtained by choosing one of those pairs and then
+assigning the three singleton colors in $3!$ ways, giving coefficient
+$4\cdot3!=24$.
+
+There are two ways in either graph to choose two disjoint independent
+pairs.  Since the two pair-colors can be interchanged, the coefficient
+of $m_{2,2,1}$ is $2\cdot2!=4$.  No independent set has size $3$, and
+a coloring with all colors distinct contributes $5!=120$.  Therefore
+the two graphs have the same answer:
+\[
+\boxed{X_{G_1}=X_{G_2}
+=4m_{2,2,1}+24m_{2,1,1,1}+120m_{1,1,1,1,1}.}
+\]
+
+\item \textbf{Solution.}
+In the power expansion, the coefficient of $p_n$ is
+\[
+\sum_{\substack{A\subseteq E(G)\\(V(G),A)\text{ connected}}}
+(-1)^{|A|}.
+\]
+It is zero when $G$ is disconnected, because no edge subset can
+connect all the vertices.  When $G$ is connected, the signed sum is
+nonzero; up to the sign $(-1)^{n-1}$, it counts acyclic orientations
+having a unique sink at any fixed vertex.  At least one such
+orientation is obtained by ordering vertices by their distance from
+the chosen sink and directing edges toward smaller distance.
+Consequently,
+\[
+\boxed{G\text{ is connected if and only if }[p_n]X_G\ne0.}
+\]
+More generally, the smallest number of parts among partitions
+indexing nonzero power-sum terms is the number of connected components.
+
+\item \textbf{Solution.}
+The term $p_{2,1^{n-2}}$ in the subset expansion can arise only from a
+subset containing exactly one edge.  Every edge contributes
+$-p_{2,1^{n-2}}$.  Hence
+\[
+\boxed{[p_{2,1^{n-2}}]X_G=-|E(G)|.}
+\]
+If $X_G=X_H$, these coefficients agree, so $G$ and $H$ have the same
+number of edges.
+
+\item \textbf{Solution.}
+In a proper coloring of $K_n$, all vertices receive distinct colors.
+For each set of $n$ colors there are $n!$ assignments to the vertices,
+so
+\[
+\boxed{X_{K_n}=n!e_n.}
+\]
+In particular,
+\[
+X_{K_1}=e_1,\quad
+X_{K_2}=2e_2,\quad
+X_{K_3}=6e_3,\quad
+X_{K_4}=24e_4,\quad
+X_{K_5}=120e_5.
+\]
+
+\item \textbf{Solution.}
+Let $e=uv$, where $u$ is the leaf and $v$ is its neighbor.
+\begin{enumerate}
+\item Deleting $e$ leaves $u$ isolated.  Thus
+$G\setminus e=(G-u)\mathbin{\sqcup}K_1$.
+
+\item Dot-contraction contracts $u$ and $v$ and then adds an isolated
+vertex.  Contracting a leaf edge simply removes the leaf, so the
+result is again $(G-u)\mathbin{\sqcup}K_1$.
+
+\item The graphs in (a) and (b) are isomorphic.
+
+\item Leaf-contraction contracts $u$ and $v$ and then attaches a new
+leaf to the merged vertex.  This recreates a graph isomorphic to $G$.
+
+\item The deletion-near-contraction relation is
+\[
+X_G=X_{G\setminus e}-X_{\text{dot}(G,e)}
+    +X_{\text{leaf}(G,e)}.
+\]
+For a leaf edge, the first two terms cancel and the last term is
+$X_G$, so the relation reduces to the tautology $X_G=X_G$.  It makes
+no progress.  This is why the recursive algorithm uses internal
+edges.
+\end{enumerate}
+
+\item \textbf{Solution.}
+Write $\mathrm{st}_r=X_{St_r}$ and
+$\mathrm{st}_\lambda=\prod_i\mathrm{st}_{\lambda_i}$.  There are
+three trees on five vertices: $St_5$, the tree $T_5$ with degree
+sequence $(3,2,1,1,1)$, and the path $P_5$.
+
+For $T_5$, apply DNC to the unique internal edge adjacent to the
+degree-$3$ vertex.  The deletion, dot-contraction, and
+leaf-contraction terms are respectively star forests of types
+$(3,2)$, $(4,1)$, and $(5)$.  Thus
+\[
+\boxed{X_{T_5}=\mathrm{st}_5-\mathrm{st}_{4,1}
+                       +\mathrm{st}_{3,2}.}
+\]
+Similarly, applying DNC to the middle edge of $P_4$ gives
+\[
+X_{P_4}=\mathrm{st}_{2,2}-\mathrm{st}_{3,1}+\mathrm{st}_4.
+\]
+Applying DNC to an internal edge of $P_5$ then gives
+\[
+\begin{aligned}
+X_{P_5}
+&=\mathrm{st}_{3,2}-X_{P_4}\mathrm{st}_1+X_{T_5}\\
+&=\boxed{\mathrm{st}_5-2\mathrm{st}_{4,1}
++2\mathrm{st}_{3,2}+\mathrm{st}_{3,1,1}
+-\mathrm{st}_{2,2,1}.}
+\end{aligned}
+\]
+Finally, by definition,
+\[
+\boxed{X_{St_5}=\mathrm{st}_5.}
+\]
+
+\item \textbf{Solution.}
+Call the displayed graphs $H_1$ and $H_2$.  The subset formula gives
+the same power-sum expansion for both:
+\[
+\begin{aligned}
+X_{H_i}={}&p_{1^6}-6p_{2,1^4}+6p_{2,2,1,1}-p_{2,2,2}
++8p_{3,1,1,1}\\
+&-6p_{3,2,1}-9p_{4,1,1}+3p_{4,2}
++6p_{5,1}-2p_6.
+\end{aligned}
+\]
+To convert to the star basis, one may use
+\[
+p_n=\sum_{r=0}^{n-1}(-1)^r\binom{n-1}{r}
+\mathrm{st}_{r+1,1^{n-1-r}}
+\]
+and multiply this identity for the parts of each power-sum index.
+After collecting terms,
+\[
+\boxed{\begin{aligned}
+X_{H_1}=X_{H_2}
+={}&2\mathrm{st}_6-4\mathrm{st}_{5,1}
++3\mathrm{st}_{4,2}+2\mathrm{st}_{4,1,1}\\
+&-3\mathrm{st}_{3,2,1}+\mathrm{st}_{2,2,2}.
+\end{aligned}}
+\]
+Thus these two nonisomorphic graphs have the same chromatic symmetric
+function.
+
+\end{enumerate}
+\end{document}

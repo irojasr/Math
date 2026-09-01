@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{ytableau}
+\title{Solutions to Worksheet \#3}
+\author{}
+\date{August 4, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+\item \textbf{Solution.}
+The semistandard tableaux of shape $(2,2)$ give
+\[
+\boxed{s_{2,2}=m_{2,2}+m_{2,1,1}+2m_{1,1,1,1}.}
+\]
+For example, the coefficient $2$ is the number of standard Young
+tableaux of shape $(2,2)$.
+
+The Jacobi--Trudi identity gives
+\[
+\boxed{s_{2,2}=h_2^2-h_3h_1=h_{2,2}-h_{3,1}.}
+\]
+Since $(2,2)$ is self-conjugate and the involution $\omega$ exchanges
+$h_r$ with $e_r$, we also have
+\[
+\boxed{s_{2,2}=e_2^2-e_3e_1=e_{2,2}-e_{3,1}.}
+\]
+Finally, using the character values for the representation indexed by
+$(2,2)$, or converting the preceding formulas with Newton's
+identities, gives
+\[
+\boxed{s_{2,2}
+=\frac{1}{12}p_{1,1,1,1}
++\frac14p_{2,2}
+-\frac13p_{3,1}.}
+\]
+
+\item \textbf{Solution.}
+\begin{enumerate}
+\item Suppose a semistandard tableau of shape $\lambda$ and content
+$\mu$ exists.  Because columns strictly increase, an entry in row
+$r$ is at least $r$.  Therefore all entries among
+$1,2,\ldots,r$ must lie in the first $r$ rows.  It follows that
+\[
+\mu_1+\cdots+\mu_r\leq\lambda_1+\cdots+\lambda_r
+\qquad\text{for every }r.
+\]
+If $\mu>_{\mathrm{lex}}\lambda$, let $r$ be the first index at which
+they differ.  Then $\mu_i=\lambda_i$ for $i<r$ and
+$\mu_r>\lambda_r$, contradicting the displayed inequality.  Hence
+\[
+\boxed{\mu>_{\mathrm{lex}}\lambda\quad\Longrightarrow\quad
+K_{\lambda,\mu}=0.}
+\]
+
+\item In a tableau of shape and content $\lambda$, all $\lambda_1$
+copies of $1$ must lie in the first row, so that row consists entirely
+of $1$'s.  After removing it, all $\lambda_2$ copies of $2$ must fill
+the second row.  Continuing in this way shows that row $i$ must
+consist entirely of $i$'s.  This tableau is semistandard and is the
+only possibility.  Thus
+\[
+\boxed{K_{\lambda,\lambda}=1.}
+\]
+\end{enumerate}
+
+\item \textbf{Solution.}
+The monomial expansion of a Schur function is
+\[
+s_\lambda=\sum_{\mu\vdash k}K_{\lambda,\mu}m_\mu.
+\]
+Order the partitions of $k$ lexicographically.  Exercise 2 says that
+this change-of-basis matrix is triangular, and its diagonal entries
+are all $K_{\lambda,\lambda}=1$.  Its determinant is therefore $1$,
+so it is invertible.  Since the monomial functions
+$\{m_\mu:\mu\vdash k\}$ form a basis of $\Lambda^k$, the same is true
+of
+\[
+\boxed{\{s_\lambda:\lambda\vdash k\}.}
+\]
+
+\item \textbf{Solution.}
+Only the entries $1$ and $2$ are available.  Since columns strictly
+increase, a tableau can have at most two rows.  Its shape must be
+\[
+(2k-r,r)\qquad\text{for some }0\leq r\leq k.
+\]
+In the $r$ columns of height two, the top entry must be $1$ and the
+bottom entry must be $2$.  The remaining cells are all in the first
+row; weak increase forces the remaining $k-r$ copies of $1$ to come
+before the remaining $k-r$ copies of $2$.  Thus there is exactly one
+tableau for each value of $r$.  The answer is
+\[
+\boxed{k+1.}
+\]
+
+\item \textbf{Solution.}
+Let
+\[
+E(t)=\sum_{n\geq0}e_nt^n,\qquad
+H(t)=\sum_{n\geq0}h_nt^n.
+\]
+The given identity is exactly the statement
+\[
+E(-t)H(t)=1.
+\]
+Suppose $\omega$ is defined by $\omega(e_n)=h_n$ and extended as an
+algebra homomorphism.  Apply $\omega$ to the displayed identity:
+\[
+H(-t)\,\omega(H(t))=1.
+\]
+Replacing $t$ by $-t$ in the original identity also gives
+$E(t)H(-t)=1$.  An inverse is unique, so
+\[
+\omega(H(t))=E(t).
+\]
+Comparing coefficients yields $\omega(h_n)=e_n$.  Thus $\omega^2$
+fixes every $e_n$ (and every $h_n$).  Since the $e_n$ generate the
+ring of symmetric functions,
+\[
+\boxed{\omega^2=\mathrm{id}.}
+\]
+
+\item \textbf{Solution.}
+Since $h_r=s_r$, apply the Pieri rule to $s_3h_2$.  Adding a
+horizontal strip of two boxes to the row $(3)$ produces exactly
+$(5)$, $(4,1)$, and $(3,2)$.  Hence
+\[
+\boxed{h_{3,2}=s_5+s_{4,1}+s_{3,2}.}
+\]
+
+\item \textbf{Solution.}
+Apply $\omega$ to the answer in Exercise 6.  The involution exchanges
+$h$ and $e$ and sends $s_\lambda$ to $s_{\lambda'}$.  The conjugates
+of $(5)$, $(4,1)$, and $(3,2)$ are respectively
+$(1^5)$, $(2,1^3)$, and $(2,2,1)$.  Therefore
+\[
+\boxed{e_{3,2}=s_{1^5}+s_{2,1^3}+s_{2,2,1}.}
+\]
+
+\item \textbf{Solution.}
+Newton's identities give
+\[
+p_3=3h_3-3h_2h_1+h_1^3.
+\]
+By the Pieri rule,
+\[
+h_3=s_3,\qquad
+h_2h_1=s_3+s_{2,1},\qquad
+h_1^3=s_3+2s_{2,1}+s_{1,1,1}.
+\]
+Substitution gives
+\[
+\boxed{p_3=s_3-s_{2,1}+s_{1,1,1}.}
+\]
+
+\item \textbf{Solution.}
+The statement is false.  Let $\lambda=(2)$ and $\mu=(1,1)$.  There is
+one semistandard tableau of shape $(2)$ and content $(1,1)$, namely a
+row containing $1,2$.  Thus $K_{(2),(1,1)}=1$.  A column of shape
+$(1,1)$ cannot be filled with two copies of $1$ because columns must
+strictly increase, so $K_{(1,1),(2)}=0$.  Hence the two Kostka numbers
+need not be equal.
+
+\item \textbf{Solution.}
+The partitions of $3$ give
+\[
+\boxed{\begin{aligned}
+h_3&=s_3,\\
+h_{2,1}&=s_3+s_{2,1},\\
+h_{1,1,1}&=s_3+2s_{2,1}+s_{1,1,1}.
+\end{aligned}}
+\]
+The pattern is Young's rule:
+\[
+\boxed{h_\lambda=\sum_{\mu\vdash3}K_{\mu,\lambda}s_\mu.}
+\]
+In general, the coefficient of $s_\mu$ in $h_\lambda$ is the number
+of semistandard tableaux of shape $\mu$ and content $\lambda$.
+
+\item \textbf{Solution.}
+For $a\geq1$ and $b\geq0$, the Jacobi--Trudi determinant for the hook
+$(a,1^b)$ is
+\[
+s_{a,1^b}=
+\begin{vmatrix}
+h_a&h_{a+1}&h_{a+2}&\cdots&h_{a+b}\\
+1&h_1&h_2&\cdots&h_b\\
+0&1&h_1&\cdots&h_{b-1}\\
+\vdots&\ddots&\ddots&\ddots&\vdots\\
+0&\cdots&0&1&h_1
+\end{vmatrix}.
+\]
+Expand along the first row.  The minor corresponding to $h_{a+i}$ is
+the Jacobi--Trudi determinant for $e_{b-i}$; the cofactor sign is
+$(-1)^i$.  Therefore
+\[
+\boxed{s_{a,1^b}
+=\sum_{i=0}^b(-1)^ih_{a+i}e_{b-i}.}
+\]
+This also proves the formula inductively: the case $b=0$ is
+$s_a=h_a$, and increasing $b$ adds one more cofactor to the same
+Jacobi--Trudi expansion.
+
+\end{enumerate}
+\end{document}
