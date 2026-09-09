@@ -1,0 +1,3433 @@
+\documentclass[12pt]{memoir}
+
+% Metadata follows the English notes and worksheets in this notebook.
+\def\nsemestre{II}
+\def\nterm{September}
+\def\nyear{2026}
+\def\nprofesor{}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla{BG}
+\def\nsiglahead{The classifying stack}
+\def\nextra{Expository notes}
+\def\nlang{ENG}
+\let\footruleskip\relax
+\input{../../../headerVarillyDiff.tex}
+\author{Ignacio Rojas\\[0.4ex]ChatGPT (OpenAI)}
+
+% Only document-specific helpers: notation, colors, theorem environments,
+% multicol, hyperref, and the TikZ cd library already come from the header.
+\newcommand{\BGtag}[1]{\href{https://stacks.math.columbia.edu/tag/#1}{Tag~\texttt{#1}}}
+\newcommand{\BGcheckpoint}[1]{\par\smallskip{\raggedright\noindent\blu{\textbf{Checkpoint.}} #1\par}\smallskip}
+\newcommand{\BGsolution}[1]{\subsection*{Solution to Exercise~\ref{#1}}\label{sol:#1}}
+\counterwithout{section}{chapter}
+\setsecnumdepth{subsection}
+\settocdepth{section}
+\setlength{\columnsep}{20pt}
+\setlength{\emergencystretch}{1.5em}
+\renewcommand{\bibsection}{\section{References}\label{sec:references}}
+\hypersetup{pdftitle={The classifying stack BG: from categories to descent},
+  pdfauthor={Ignacio Rojas; ChatGPT (OpenAI)},
+  pdfsubject={Fppf torsors, fibered categories, and effective descent}}
+
+\begin{document}
+\maketitle
+\begin{center}
+\emph{From an ordinary category to a stack, with double covers as a running example}
+\par\bigskip
+\begin{minipage}{0.8\textwidth}
+\small\centering
+Developed from Ignacio Rojas's mathematical questions and reading notes,
+with exposition, drafting, and revision by ChatGPT (OpenAI).
+The examples and proofs are intended to make the terminology usable
+before it is compressed into general definitions.
+\end{minipage}
+\end{center}
+\clearpage
+\tableofcontents*
+\clearpage
+\begin{multicols}{2}
+\raggedcolumns
+
+\section{Introduction and purpose}\label{sec:intro}
+
+The aim is to prove that $BG$ is a stack, starting with its objects and
+arrows. We first display those data, so that every subsequent definition
+has a specific purpose: explaining an ingredient of $(S,P)$ or an
+operation on such pairs. The preliminary sections are an illustrated
+guide to reading this definition, not a list of prerequisites to master
+before meeting $BG$.
+
+The reader is assumed to know basic schemes, ring maps, and categories.
+Group schemes, torsors, sites, and the functor of points are developed
+here through separate examples and diagrams. In particular, an abstract
+two-element group will give a family of two labelled copies of each
+base scheme. We begin the meaning of ``two copies'' with finite sets.
+
+The exposition follows the categorical viewpoint in Fantechi's
+\emph{Stacks for Everybody}, especially Sections~3--4 and~6.3
+\cite{Fantechi}. Exact external results are cited from the Stacks Project
+\cite{Stacks}. The final comparison explains how to transfer the argument
+to families of curves. We prove the stack axioms, not the additional
+property called algebraicity. Set-theoretic size conventions play no
+role in the calculations: we use ``collection'' when the objects need
+not form a set, just as when speaking of the category of all schemes.
+
+\section{Starting point: the data defining BG}\label{sec:start}
+
+Fix a scheme $B$ and a group scheme $G\to B$. The example throughout is
+$G=(\bZ/2\bZ)_B$. The following definition names the data first; the
+subsequent sections unpack \emph{$B$-scheme}, \emph{group scheme},
+\emph{fppf torsor}, and \emph{equivariant}. All torsors in the definition
+are schemes. The assumptions on $G$ used in the proof are specified
+and explained in Section~\ref{sec:groups}.
+
+\begin{Def}[Objects and arrows for $BG$]\label{def:BGdata}
+The data from which we build the total category $BG$ are as follows.
+\begin{itemize}
+\item \emph{Objects:} pairs $(S,P)$, where $S\to B$ is a $B$-scheme
+and $P\to S$ is an fppf torsor for $G_S=G\times_B S$. The notation
+$P$ includes its structure map and its $G_S$-action.
+\item \emph{Morphisms:} a pair $(f,\widetilde f)$ from $(S,P)$ to
+$(T,Q)$ consists of a $B$-morphism $f:S\to T$ and an equivariant
+scheme morphism $\widetilde f:P\to Q$ making the square commute:
+\end{itemize}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+P \arrow[r,"\widetilde f"] \arrow[d] &Q \arrow[d]\\
+S \arrow[r,"f"'] &T.
+\end{tikzcd}
+\]
+\end{Def}
+
+There are three levels in this definition:
+\begin{itemize}
+\item $B$ is the fixed base \emph{scheme}.
+\item $\Sch/B$ is the base \emph{category}; its objects are $S\to B$.
+\item $BG$ is the proposed \emph{total category}; its objects carry
+both $S$ and a torsor $P\to S$.
+\end{itemize}
+Thus $(S,P)$ is not an object of the base category. The projection
+will forget $P$ and retain $S$. We have specified objects and arrows;
+identities, composition, and the category axioms will be checked in
+Section~\ref{sec:total}, after the words in the definition have been
+explained. Defining the data does not yet establish those axioms.
+
+\subsection{Roadmap for the proof}
+Here is the route we will follow to show that $BG$ is a stack.
+\begin{enumerate}[label=(\arabic*)]
+\raggedright
+\item $BG$ is a category: define identities and composition and check
+their laws.
+\item $BG$ is a category over $\Sch/B$: verify the projection functor.
+\item $BG$ is fibered over $\Sch/B$: construct pullbacks and prove
+their cartesian universal property.
+\item $BG$ is fibered in groupoids: prove that every arrow over an
+identity in the base is invertible.
+\item Isomorphisms between torsors form a sheaf: glue compatible local
+isomorphisms uniquely.
+\item Object descent is effective: construct a global torsor from
+compatible local torsors.
+\item Collect these results to conclude that $BG$ is a stack.
+\end{enumerate}
+Each numbered item needs its own verification; the last two gluing
+steps are additional to constructing a fibered category.
+
+\subsection{Guide to the ingredients}
+\begin{itemize}
+\item Section~\ref{sec:categories}: $B$-schemes, categories over a base,
+disjoint unions, and fiber products.
+\item Section~\ref{sec:points}: how to interpret points of a scheme as
+maps, with affine coordinates and a proof of the Yoneda argument used.
+\item Sections~\ref{sec:groups}--\ref{sec:torsors}: the group scheme
+$G$, the covering rule, and the torsor $P\to S$.
+\item Section~\ref{sec:quotient}: why the notation $[\operatorname{pt}/G]$
+leads to these objects.
+\end{itemize}
+After this introduction to the ingredients, Section~\ref{sec:total}
+returns to Definition~\ref{def:BGdata} and starts the proof in the
+order above. Exercises~\ref{ex:coproducts}--\ref{ex:coveroperations}
+provide additional practice with the preliminary constructions.
+
+\section[Categories and categories over a base]{Categories over a base}\label{sec:categories}
+
+\subsection{Schemes and schemes with a specified base}
+A scheme $S$ has an underlying topological space and a structure sheaf,
+locally isomorphic as a locally ringed space to $\Spec A$ for a ring $A$.
+The topology and sheaf are not arbitrary extra choices. A
+\emph{$B$-scheme} is this same kind of scheme together with a specified
+morphism $s:S\to B$. The added structure is the map, not a new meaning
+of the word scheme.
+
+\begin{Ex}[The affine line as a scheme over a field]
+Let $k$ be a field and take $B=\Spec k$. The inclusion of constants
+$\iota:k\to k[t]$ induces a scheme morphism in the reverse direction:
+\[
+\begin{tikzcd}[column sep=large]
+k \arrow[r,"\iota"] & k[t]
+\end{tikzcd}
+\qquad c\longmapsto c,
+\]
+\[
+\begin{tikzcd}[column sep=large]
+\bA^1_k=\Spec k[t] \arrow[r,"\pi=\Spec\iota"] & \Spec k.
+\end{tikzcd}
+\]
+What does $\pi$ do? A topological point of $\Spec k[t]$ is a prime
+ideal $\mathfrak p$. The underlying map sends it to
+$\iota^{-1}(\mathfrak p)=\mathfrak p\cap k$. This is always $(0)$:
+a proper ideal cannot contain a nonzero constant, which is a unit.
+Since $(0)$ is the only prime ideal of a field, every point maps to
+the unique point of $\Spec k$. For instance, $(t-a)$ maps to $(0)$.
+
+The scheme morphism also includes a map on functions: a constant $c$
+on the base pulls back to the constant polynomial $c$. Thus the map
+of spectra and the inclusion of constants describe the same morphism
+from its two sides. The general scheme--ring correspondence is recalled
+in Section~\ref{sec:points}.
+\end{Ex}
+
+\begin{Ex}[The relative affine line and its local squares]
+For a general base scheme $B$, the relative affine line comes with
+a map $\pi:\bA^1_B\to B$. Over an affine open $U=\Spec A\subset B$,
+its description is
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+\Spec A[t] \arrow[r,hook] \arrow[d,"\pi_U"']
+ &\bA^1_B \arrow[d,"\pi"]\\
+U=\Spec A \arrow[r,hook] &B.
+\end{tikzcd}
+\]
+The left vertical map is induced by $A\to A[t]$, $a\mapsto a$;
+on prime ideals it sends $\mathfrak p$ to $\mathfrak p\cap A$.
+Unlike the field example, the target can have many points.
+The square says that $\Spec A[t]$ is the inverse image of $U$ under
+$\pi$. It is a fiber-product square, in the sense explained below.
+
+For a principal open $D(a)\subset U$, the smaller local square is
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+\Spec A_a[t] \arrow[r,hook] \arrow[d]
+ &\Spec A[t] \arrow[d]\\
+\Spec A_a \arrow[r,hook] &\Spec A.
+\end{tikzcd}
+\]
+The horizontal maps come from localization, and the vertical maps
+from inclusion of constants. The identity
+$A[t]_a=A_a[t]$ makes these descriptions agree on smaller opens.
+They glue to the relative affine line. This is the affine-local
+description of Definition~27.5.1, \BGtag{01M0}, with the restriction
+and base-change properties in Lemma~27.4.6, \BGtag{01LX}.
+\end{Ex}
+
+\begin{Def}[The category of $B$-schemes]\label{def:slice}
+The category $\Sch/B$ is defined by the following data.
+\begin{itemize}
+\item \emph{Objects:} pairs $(S,s)$ with $S$ a scheme and $s:S\to B$
+a scheme morphism.
+\item \emph{Morphisms:} an arrow $(S,s)\to(T,t)$ is a scheme morphism
+$f:S\to T$ such that $t\circ f=s$.
+\item \emph{Identities and composition:} use the identity and
+composition of scheme morphisms. The equation defining an arrow is
+preserved: if $u\circ g=t$ and $t\circ f=s$, then
+$u\circ(g\circ f)=s$.
+\end{itemize}
+The condition on morphisms is the commuting triangle
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+S \arrow[rr,"f"] \arrow[dr,"s"'] && T \arrow[dl,"t"]\\
+& B &
+\end{tikzcd}
+\]
+The identity and associativity laws are inherited from $\Sch$.
+\end{Def}
+
+\begin{Rmk}[Comparison with Fantechi]
+This is exactly the slice construction in Fantechi's Section~3.2,
+with $B$ in place of her fixed scheme $S$; it is
+also called the \emph{slice category}. We shall often abbreviate its
+object $(S,s)$ to $S$, but the map $s$ remains part of the data.
+``A scheme over $B$'' and ``a $B$-scheme'' mean the same thing.
+The object $(B,\id_B)$ is terminal: from $(S,s)$ there is exactly one
+arrow to it, namely $s$.
+\end{Rmk}
+
+\subsection{Categories over a category, and their fibers}
+\begin{Def}
+A category consists of objects, sets of arrows between objects, identity
+arrows, and an associative composition law with left and right identity
+laws. A functor preserves the sources and targets of arrows, identities,
+and composition.
+\end{Def}
+
+\begin{Def}
+A \emph{category over} a category $\cC$ is a category $\cF$ equipped with a
+functor $p:\cF\to\cC$. An object $x$ lies over $S$ if $p(x)=S$;
+an arrow $u:x\to y$ lies over $f:S\to T$ if $p(u)=f$.
+The \emph{fiber category} $\cF_S$ is specified by
+\[
+ \operatorname{Ob}(\cF_S)=\{x:p(x)=S\}
+\]
+and, for two such objects $x,y$, by
+\[
+\begin{aligned}
+\Hom_{\cF_S}(x,y)
+=\{u\in\Hom_{\cF}(x,y):\\[-0.4ex]
+\hfill p(u)=\id_S\}.
+\end{aligned}
+\]
+These arrows are called \emph{vertical}.
+\end{Def}
+
+We use $\cF_S$ for the fiber throughout, and $(BG)_S$ for the fiber
+of $BG$. One may also write $p^{-1}(S)$ provided that its arrows mean
+exactly those in the definition, not all arrows between the selected
+objects. Later, parentheses in $X(T)$ will denote a \emph{set of points},
+not a fiber category.
+
+\begin{Rmk}[Vertical arrows]
+``Vertical'' is a geometric nickname: imagine objects of $\cF$ arranged
+above the objects of $\cC$. A vertical arrow does not move in the base;
+its base arrow is the identity. It need not be drawn vertically on the
+page. For a general functor there is no additional triangle to check:
+$p(u)=\id_S$ is the complete condition. Triangles arise when the
+particular categories have themselves been defined using triangles,
+as with $\Sch/B$.
+\end{Rmk}
+
+\begin{Ej}[Fiber versus full subcategory]\label{ex:fiber}
+A \emph{full subcategory} on selected objects retains every arrow of
+the original category between those objects. Let $\cD$ be the full
+subcategory of $\cF$ on the objects $x$ with $p(x)=S$.
+Write the object collections and arrow sets of $\cD$ and $\cF_S$
+separately. Then take $p=\id_{\cC}$ and an endomorphism
+$\varepsilon:S\to S$ with $\varepsilon\ne\id_S$.
+Which category contains $\varepsilon$? Why? Use $t\mapsto t^2$ on
+$\bA^1_k$ as a concrete example. The full comparison is worked out in
+the \hyperref[sol:ex:fiber]{solution on page~\pageref*{sol:ex:fiber}}.
+\end{Ej}
+
+\subsection{Fiber products: construction, then universal property}
+Suppose given $q:X\to S$ and $f:T\to S$. We want a scheme over $T$
+that retains precisely the part of $X$ lying over the base specified by
+$f$. This operation is called \emph{base change} or \emph{pullback}.
+\begin{Ex}[A fiber product of finite sets]\label{ex:finitefiber}
+Take three sets
+\[
+\begin{gathered}
+ S=\{0,1\},\qquad T=\{a,b,c\},\\
+ X=\{u,v,w\}.
+\end{gathered}
+\]
+Define maps by
+\[
+\begin{array}{c|ccc}
+t&a&b&c\\\hline
+f(t)&0&0&1
+\end{array}
+\qquad
+\begin{array}{c|ccc}
+x&u&v&w\\\hline
+q(x)&0&1&1.
+\end{array}
+\]
+The fiber product retains only pairs with the same image in $S$:
+\[
+\begin{aligned}
+T\times_S X
+ &=\{(t,x):f(t)=q(x)\}\\
+ &=\{(a,u),(b,u),(c,v),(c,w)\}.
+\end{aligned}
+\]
+For example, $(a,v)$ is excluded because $0\ne1$.
+The projections remember the first and second entries:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+T\times_S X \arrow[r,"\pr_X"] \arrow[d,"\pr_T"']
+ &X \arrow[d,"q"]\\
+T \arrow[r,"f"'] &S.
+\end{tikzcd}
+\]
+Over $a$ there is one choice, $u$; over $c$ there are two choices,
+$v$ and $w$. Pullback replaces the old base labels $0,1$ by the new
+base labels $a,b,c$, using $f$ to decide which old fiber to copy.
+\end{Ex}
+
+\begin{Ex}[A fiber product of affine schemes]\label{ex:affinefiber}
+For schemes, structure sheaves must be retained as well. If
+$S=\Spec R$, $T=\Spec A$, and $X=\Spec C$, use the two ring maps
+$\alpha:R\to A$ and $\gamma:R\to C$. Form
+\[
+ T\times_S X=\Spec(A\otimes_R C).
+\]
+The ring diagram is
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+R \arrow[r,"\gamma"] \arrow[d,"\alpha"']
+ &C \arrow[d,"c\mapsto1\otimes c"]\\
+A \arrow[r,"a\mapsto a\otimes1"'] &A\otimes_R C.
+\end{tikzcd}
+\]
+Applying $\Spec$ reverses all four arrows:
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+\Spec(A\otimes_R C) \arrow[r,"\pr_X"] \arrow[d,"\pr_T"']
+ &\Spec C \arrow[d,"q"]\\
+\Spec A \arrow[r,"f"'] &\Spec R.
+\end{tikzcd}
+\]
+The ring square commutes because
+$\alpha(r)\otimes1=1\otimes\gamma(r)$. The scheme square therefore
+commutes too. For example, if $R=k$, $A=k[v]$, and $C=k[x]$, then
+$A\otimes_R C\cong k[v,x]$: the product of two affine lines over
+$k$ is the affine plane, with its coordinate projections.
+Lemma~26.17.2, \BGtag{01JQ}, proves the general affine formula.
+\end{Ex}
+
+These affine constructions glue to give fiber products of arbitrary
+schemes (Section~26.17, \BGtag{01JO}). If the original arrows are
+$B$-morphisms, the product is a $B$-scheme via its map to $S\to B$.
+
+\begin{Def}[The universal property of a fiber product]
+The universal property describes exactly the maps \emph{into this
+constructed scheme}. For every scheme $W$ with maps $b:W\to T$ and
+$a:W\to X$ satisfying $fb=qa$, there exists exactly one map
+$\lambda:W\to T\times_S X$ with
+\[
+ \pr_T\lambda=b,\qquad \pr_X\lambda=a.
+\]
+The diagram is
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+W \arrow[drr,bend left,"a"] \arrow[ddr,bend right,"b"']
+ \arrow[dr,dashed,"\lambda"] &&\\
+&T\times_S X \arrow[r,"\pr_X"] \arrow[d,"\pr_T"']
+ &X \arrow[d,"q"]\\
+&T \arrow[r,"f"'] &S
+\end{tikzcd}
+\]
+\end{Def}
+Thus a compatible pair of maps from $W$ gives a \emph{unique map},
+not generally an isomorphism.
+
+\begin{Ex}[The unique map need not be an isomorphism]\label{ex:originplane}
+Let the common target be $S=\Spec k$, and take
+$T=\Spec k[v]$ and $X=\Spec k[x]$. Put $W=\Spec k$.
+Define $b:W\to T$ by $v\mapsto0$ on rings and $a:W\to X$ by
+$x\mapsto0$. Both composites $W\to S$ are the identity. The resulting
+diagram is
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+\Spec k \arrow[drr,bend left,"a"]
+ \arrow[ddr,bend right,"b"'] \arrow[dr,dashed,"\lambda"] &&\\
+&\bA^2_k \arrow[r,"\pr_X"] \arrow[d,"\pr_T"']
+ &\bA^1_{x,k} \arrow[d]\\
+&\bA^1_{v,k} \arrow[r] &\Spec k.
+\end{tikzcd}
+\]
+The map $\lambda$ is the origin in the plane: its ring map is
+$k[v,x]\to k$, $F\mapsto F(0,0)$. There is exactly one map with
+these two coordinate maps, because the images of $v$ and $x$ determine
+the ring homomorphism. It is not an isomorphism: that homomorphism has
+the nonzero kernel $(v,x)$.
+
+The point $W$ does not itself have the universal property. For instance,
+the two maps from $Z=\Spec k[z]$ given by $v\mapsto z$ and
+$x\mapsto0$ are compatible over $k$, but cannot factor through $W$
+with its origin projections. Such a factorization would force the
+image of $v$ to be $0$, not $z$.
+\end{Ex}
+
+\begin{Prop}[Uniqueness of a fiber product]\label{prop:fiberunique}
+Suppose $F$, with projections $p_T,p_X$, and $W'$, with projections
+$b',a'$, both satisfy the fiber-product universal property for
+$T\xrightarrow{f}S\xleftarrow{q}X$. There is a unique isomorphism
+$\alpha:W'\to F$ preserving both projections.
+\end{Prop}
+\begin{proof}
+First use $W'$ as the source in the universal property of $F$.
+It gives the dashed map $\alpha$ in
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+W' \arrow[rr,"a'"] \arrow[dr,dashed,"\alpha"]
+ \arrow[dd,"b'"'] &&X \arrow[dd,"q"]\\
+&F \arrow[ur,"p_X"'] \arrow[dl,"p_T"] &\\
+T \arrow[rr,"f"'] &&S.
+\end{tikzcd}
+\]
+Thus $p_T\alpha=b'$ and $p_X\alpha=a'$.
+Now use $F$ as the source in the universal property of $W'$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+F \arrow[rr,"p_X"] \arrow[dr,dashed,"\beta"]
+ \arrow[dd,"p_T"'] &&X \arrow[dd,"q"]\\
+&W' \arrow[ur,"a'"'] \arrow[dl,"b'"] &\\
+T \arrow[rr,"f"'] &&S.
+\end{tikzcd}
+\]
+This gives $b'\beta=p_T$ and $a'\beta=p_X$.
+Consequently
+\[
+ p_T\alpha\beta=p_T,\qquad p_X\alpha\beta=p_X.
+\]
+Both $\alpha\beta$ and $\id_F$ are maps $F\to F$ with these
+projections. Uniqueness in the universal property of $F$ gives
+$\alpha\beta=\id_F$. The same argument with $W'$ gives
+$\beta\alpha=\id_{W'}$. Thus $\alpha$ and $\beta$ are inverse.
+The first universal property already says that $\alpha$ is the only
+map preserving the projections, hence the only such isomorphism.
+\end{proof}
+
+\begin{Rmk}
+Merely having the outer commuting square for $W'$ gives $\alpha$,
+but not $\beta$. The second universal property, valid for \emph{every}
+source scheme, is what supplies the inverse.
+\end{Rmk}
+
+\begin{Ex}[Pulling back a parabola]\label{ex:parabola}
+Let $k$ be a field. Name the original base and the family:
+\[
+\begin{aligned}
+ S&=\Spec k[t],\\
+ X&=\Spec\bigl(k[t,x]/(x^2-t)\bigr).
+\end{aligned}
+\]
+Thus $X$ is the closed subscheme $V(x^2-t)$ of the affine $(t,x)$-plane.
+The map $q:X\to S$ is induced by
+$k[t]\to k[t,x]/(x^2-t)$, $t\mapsto\bar t$. On $k$-valued points
+it is precisely $(t,x)\mapsto t$. Over a value $t_0$, its fiber has
+equation $x^2=t_0$. For $k=\bR$ the picture is the parabola $t=x^2$
+projecting to the $t$-axis.
+
+Now choose a \emph{new base} $T=\Spec k[v]$ and a map $f:T\to S$
+whose ring homomorphism is
+\[
+ \alpha:k[t]\longrightarrow k[v],\qquad t\longmapsto v^2.
+\]
+On $k$-valued points, $f$ sends $v$ to $v^2$. The pullback must assign
+to $v$ the old fiber over $t=v^2$: its equation is therefore $x^2=v^2$.
+Here is exactly how the earlier tensor product produces that equation.
+In Example~\ref{ex:affinefiber}, take
+\[
+\begin{gathered}
+ R=k[t],\qquad A=k[v],\\
+ C=k[t,x]/(x^2-t).
+\end{gathered}
+\]
+Use $\alpha$ above for $R\to A$, and $t\mapsto\bar t$ for
+$R\to C$. Then
+\[
+\begin{aligned}
+A\otimes_R C
+ &\cong k[v,t,x]/(t-v^2,x^2-t)\\
+ &\cong k[v,x]/(x^2-v^2).
+\end{aligned}
+\]
+The two relations first identify the copies of $t$, then retain the
+equation defining $X$. Eliminating $t$ gives the second isomorphism.
+Write $X'=\Spec k[v,x]/(x^2-v^2)$. The scheme square is
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X' \arrow[r,"h"] \arrow[d,"q'"'] &X \arrow[d,"q"]\\
+T \arrow[r,"f"'] &S.
+\end{tikzcd}
+\]
+The maps, on $k$-valued points, are
+\[
+\begin{aligned}
+h(v,x)&=(v^2,x),& q'(v,x)&=v,\\
+q(t,x)&=t,& f(v)&=v^2.
+\end{aligned}
+\]
+In particular, $qh(v,x)=v^2=fq'(v,x)$.
+On coordinate rings, $h$ sends $\bar t$ to $v^2$ and $\bar x$ to $x$.
+
+The real picture suggested by the equations is accurate: the original
+family is a parabola, while the pulled-back family is the union of
+the lines $x=v$ and $x=-v$. But the operation is not replacing one
+curve by an isomorphic curve. It changes the base map and retains a
+comparison map $h$ to the original family. For instance, over $v=2$
+the new fiber copies the old fiber over $t=4$, with choices $x=2,-2$.
+
+If $\operatorname{char}k\ne2$, restrict to $v\ne0$. In
+$k[v,v^{-1},x]$, the ideals $(x-v)$ and $(x+v)$ are comaximal:
+their difference contains the unit $2v$. The Chinese remainder theorem
+therefore gives
+\[
+ \frac{k[v,v^{-1},x]}{(x^2-v^2)}
+ \cong k[v,v^{-1}]\times k[v,v^{-1}].
+\]
+This is where the two lines become two \emph{disjoint} copies of the
+new base. Over $v=0$ they meet, so the full family is not the trivial
+double cover. In characteristic $2$, the equation is $(x-v)^2=0$;
+there are not two distinct lines. These qualifications matter when
+we later compare double covers with torsors.
+\end{Ex}
+
+\subsection{Two copies are a disjoint union, not a product}
+\begin{Ex}[Two labelled copies of a three-element set]\label{ex:labelledset}
+Let $E=\{1,2,3\}$. The disjoint union $E\amalg E$ is
+\[
+\begin{aligned}
+E\amalg E&=(E\times\{0\})\cup(E\times\{1\})\\
+ &=\{1_0,2_0,3_0,1_1,2_1,3_1\},
+\end{aligned}
+\]
+where $n_i$ abbreviates $(n,i)$. In particular $1_0\ne1_1$: the label
+is part of the element. This is different from $E\cup E=E$, which
+has three elements, and from $E\times E$, which has nine.
+
+To give a function $F:E\amalg E\to E$, specify its value on each
+of the six labelled elements. Equivalently, give two functions
+$f_0,f_1:E\to E$ and set
+\[
+ F(n_0)=f_0(n),\qquad F(n_1)=f_1(n).
+\]
+For example, choose $f_0=\id_E$ and $f_1(n)=4-n$. The function is
+\[
+\begin{array}{c|rrrrrr}
+y&1_0&2_0&3_0&1_1&2_1&3_1\\\hline
+F(y)&1&2&3&3&2&1.
+\end{array}
+\]
+The particular choice $f_0=f_1=\id_E$ gives the \emph{fold map}
+$\pi(n_i)=n$. It forgets only the label. Both $2_0$ and $2_1$, for
+instance, map to $2$.
+\end{Ex}
+
+\begin{Def}[Disjoint union and its structure sheaf]
+For a scheme $S$, construct $S\amalg S$ with underlying set
+$|S|\times\{0,1\}$. Write its points as $s_i=(s,i)$, with $s\in|S|$.
+An open subset is of the form $U_0\amalg U_1$, where each $U_i$ is
+open in $S$. Define
+\[
+ \cO_{S\amalg S}(U_0\amalg U_1)
+ =\cO_S(U_0)\times\cO_S(U_1),
+\]
+with restriction on each factor separately. The inclusions
+$j_i:S\to S\amalg S$ send $s$ to $s_i$ and identify the sheaf on
+the $i$th copy with $\cO_S$.
+\end{Def}
+
+\begin{Prop}[The constructed union is a scheme and a coproduct]
+For a scheme $S$, the preceding ringed space is a scheme. Together
+with $j_0,j_1$, it is a coproduct in $\Sch$: for every scheme $Y$,
+restriction induces a bijection
+\[
+\begin{gathered}
+\Hom(S\amalg S,Y)\\
+\longrightarrow\Hom(S,Y)\times\Hom(S,Y),\\
+F\longmapsto(Fj_0,Fj_1).
+\end{gathered}
+\]
+\end{Prop}
+\begin{proof}
+The displayed sheaf is a sheaf because gluing and uniqueness hold on
+each copy separately. Every point $s_i$ has an open neighbourhood
+isomorphic, as a ringed space, to an affine open of $S$. Thus the
+ringed space is locally an affine scheme, proving the first assertion.
+
+Given morphisms $f_0,f_1:S\to Y$, define $F$ to equal $f_i$ on the
+$i$th open copy. There is no overlap between the copies, hence no
+compatibility condition. The maps on spaces and sheaves assemble
+uniquely and are locally morphisms of schemes, so they define a unique
+scheme morphism $F$. Conversely, any $F$ restricts to these two maps.
+\end{proof}
+
+The symbol $\amalg$ is used for the categorical coproduct. The
+proposition checks that the labelled-copy construction realizes that
+universal property for schemes; it is not a second, unrelated object.
+The resulting map $F$ is often written $[f_0,f_1]$, called a
+\emph{copairing}. Its domain is a union, not a product:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S \arrow[r,"j_0"] \arrow[dr,"f_0"']
+ &S\amalg S \arrow[d,dashed,"F"]
+ &S \arrow[l,"j_1"'] \arrow[dl,"f_1"]\\
+&Y&
+\end{tikzcd}
+\]
+For $Y=S$ and $f_0=f_1=\id_S$, this constructs the scheme morphism
+\[
+ \pi=[\id_S,\id_S]:S\amalg S\longrightarrow S.
+\]
+Its underlying map is $s_i\mapsto s$, and its pullback of functions
+on an open $U\subset S$ is $a\mapsto(a,a)$ in
+$\cO_S(U)\times\cO_S(U)$. This specifies both parts of the scheme
+morphism. Its defining equations are $\pi j_0=\pi j_1=\id_S$.
+The notation $[\id_S,\id_S]$ does not mean a function taking values
+in ordered pairs; the pair records the two restrictions of a single
+function. Interchanging labels defines an automorphism
+$\sigma(s_i)=s_{1-i}$, with $\sigma^2=\id$ and $\pi\sigma=\pi$.
+The composite $S\amalg S\to S\to B$ makes the union a $B$-scheme,
+and $\pi$ is an arrow both in $\Sch/B$ and in $\Sch/S$.
+
+\begin{Ex}[Two affine lines, with their coordinate rings]\label{ex:twosheets}
+Take $B=\Spec k$, $A=k[z]$, and $S=\Spec A=\bA^1_k$.
+The disjoint union of two affine lines is
+\[
+ S\amalg S\cong\Spec(k[z]\times k[z]).
+\]
+Indeed the idempotents $(1,0)$ and $(0,1)$ split this spectrum into
+disjoint open subsets. Localizing at either idempotent gives $k[z]$,
+so these subsets have exactly the structure sheaves of the two affine
+lines. This is the product-ring calculation in Lemma~10.21.2,
+\BGtag{00ED}, including the localizations in its proof.
+
+The fold and the two inclusions correspond to these ring maps:
+\[
+\begin{aligned}
+\pi^*:k[z]&\longrightarrow k[z]\times k[z],\\
+p(z)&\longmapsto(p(z),p(z)),\\
+j_0^*:k[z]\times k[z]&\longrightarrow k[z],\\
+(p(z),q(z))&\longmapsto p(z),\\
+j_1^*:k[z]\times k[z]&\longrightarrow k[z],\\
+(p(z),q(z))&\longmapsto q(z).
+\end{aligned}
+\]
+For example, the two labelled points above $z=2$ have prime ideals
+$(z-2)\times k[z]$ and $k[z]\times(z-2)$. Contracting either ideal
+along $\pi^*$ gives $(z-2)$ in $k[z]$. The involution interchanges the
+factors of the product ring.
+
+Compare three operations on the same $S$:
+\[
+\begin{aligned}
+S\amalg S&=\Spec(k[z]\times k[z]),\\
+S\times_k S&=\Spec k[z_0,z_1],\\
+S\times_S S&\cong\Spec k[z].
+\end{aligned}
+\]
+They give two disjoint lines, a plane, and one line, respectively.
+\end{Ex}
+
+The objects in our running example have the form
+\[
+ (S,\pi:P\to S,\sigma).
+\]
+Here $S$ varies among $B$-schemes, $P$ is a scheme over $S$, and $\sigma$
+is the sheet-exchanging involution. We will make ``double cover''
+precise in Section~\ref{sec:torsors}: it means a cover that becomes
+two copies after an allowed base change, not just a map that happens
+to be two-to-one on some set of points.
+
+The \emph{total} collection lets $S$ vary; for example it includes the
+trivial cover of $\Spec k$ and the trivial cover of $\bA^1_k$ when
+$B=\Spec k$. The collection over one fixed $S$ only includes covers
+of that $S$. These are the object data of Definition~\ref{def:BGdata}
+in the running example. With the arrows there specified and the
+category axioms checked in Section~\ref{sec:total}, they give $BG$
+and its fiber $(BG)_S$, respectively. The fiber keeps only arrows
+over $\id_S$, not every arrow between those objects in the total category.
+
+A \emph{nontrivial} double cover is one not isomorphic over $S$ to the
+fold map. One example, justified in Section~\ref{sec:sites}, is
+$\Spec\bC\to\Spec\bR$ with complex conjugation. This example also
+warns against counting topological points: each spectrum has one point,
+but the map is a double cover in the algebraic sense.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: $B$-schemes, $\Sch/B$, categories over a base, and fibers
+$\cF_S$.
+\item Constructed: labelled disjoint unions and affine fiber products.
+\item Proved: two fiber products are uniquely isomorphic preserving
+their projections.
+\item Check: write the fold map on labelled elements and on functions.
+\item Check: distinguish a map into a fiber product from an isomorphism
+between two fiber products.
+\end{itemize}}
+
+\section{Test schemes and the functor of points}\label{sec:points}
+
+\subsection{A test point is a morphism over the fixed base}
+\begin{Def}[$T$-valued points]\label{def:testpoints}
+Fix $B$-schemes $b_X:X\to B$ and $b_T:T\to B$. Define the set
+\[
+ X(T):=\Hom_B(T,X).
+\]
+An element $\xi\in X(T)$ is therefore a scheme morphism
+$\xi:T\to X$ satisfying $b_X\circ\xi=b_T$. It is called a
+\emph{$T$-valued point}, or a \emph{$T$-point}, of $X$.
+\end{Def}
+The condition ``over $B$'' is the commutative triangle
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+T \arrow[rr,"\xi"] \arrow[dr,"b_T"'] && X \arrow[dl,"b_X"]\\
+&B&
+\end{tikzcd}
+\]
+We call the source $T$ a \emph{test scheme} when considering this set
+of maps into $X$. For example, when $B=\Spec k$, choosing $T=\Spec k$
+asks for rational points; choosing $T=\Spec k[\epsilon]/(\epsilon^2)$
+allows maps that
+also detect nilpotent functions, as Example~\ref{ex:dualpoints} computes.
+
+\begin{Rmk}[Notation and the suppressed base]
+The notation $X(T)$ is standard: it is exactly Poonen's
+Definition~2.3.1 in \cite[Section~2.3]{Poonen}. The base is suppressed
+in that notation, but remains part of both objects. Thus $X(T)$ means
+maps over our specified $B$, not all scheme maps $T\to X$.
+The longer notation $h_X(T)$ will denote the same set. The letter
+$\xi$ will name a morphism; a letter such as $z$ will name a polynomial
+variable. Keeping these roles separate helps in the computations below.
+\end{Rmk}
+
+\subsection{The functor of points: both assignments}
+\begin{Def}[Functor of points]\label{def:pointfunctor}
+For a fixed $B$-scheme $X$, its functor of points is
+\[
+ h_X:(\Sch/B)^{\mathrm{op}}\longrightarrow\mathsf{Sets}.
+\]
+On objects, it assigns $T\mapsto h_X(T)=X(T)$. On an arrow
+$u:T'\to T$ of $B$-schemes, it assigns the function
+\[
+\begin{aligned}
+ h_X(u):X(T)&\longrightarrow X(T'),\\
+ \xi&\longmapsto\xi\circ u.
+\end{aligned}
+\]
+Here $\mathsf{Sets}$ is the category of sets and functions, and
+$\mathrm{op}$ records that arrows reverse direction.
+\end{Def}
+This is the functor in Stacks Project Example~4.3.4, \BGtag{001O},
+applied to $\Sch/B$; see also Schemes, Section~26.13, \BGtag{01J5}.
+
+Precomposition is pictured by
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+T' \arrow[rr,"u"] \arrow[dr,"\xi\circ u"'] &&T \arrow[dl,"\xi"]\\
+&X&
+\end{tikzcd}
+\]
+All arrows are over $B$, so the composite is again an allowed test
+point. The identity law is $\xi\circ\id_T=\xi$. If
+$v:T''\to T'$, associativity gives
+\[
+ (\xi\circ u)\circ v=\xi\circ(u\circ v).
+\]
+Consequently
+$h_X(v)\circ h_X(u)=h_X(u\circ v)$, which is the composition law
+for this contravariant functor. We have specified the object assignment,
+the arrow assignment, and checked both functor laws.
+
+\subsection{Affine test schemes turn the definition into algebra}
+\begin{Th}[Affine morphisms and ring maps]\label{th:affinepoints}
+For commutative rings $A$ and $R$, taking the induced map on global
+sections gives a bijection
+\[
+\begin{gathered}
+ \Hom_{\Sch}(\Spec R,\Spec A)\\
+ \xrightarrow{\sim}\Hom_{\mathrm{rings}}(A,R),\\
+ \xi\longmapsto\xi^\sharp.
+\end{gathered}
+\]
+The inverse sends a ring map $\theta:A\to R$ to the scheme morphism
+$\Spec\theta:\Spec R\to\Spec A$.
+\end{Th}
+This is the affine case of Lemma~26.6.4, \BGtag{01I1};
+Lemma~26.6.5, \BGtag{01I2}, packages it as an equivalence between
+affine schemes and the opposite category of rings. This is a theorem
+about schemes, not Yoneda's lemma. For orientation, the underlying
+map sends a prime ideal $\mathfrak q\subset R$ to
+$\theta^{-1}(\mathfrak q)\subset A$; localization of $\theta$ gives
+the required maps on structure sheaves. The theorem asserts that this
+procedure and passage to global sections undo each other.
+
+Now specialize explicitly to $B=\Spec k$, where $k$ is a field,
+$X=\Spec A$, and $T=\Spec R$, with specified $k$-algebra structures
+on $A$ and $R$. Being a map \emph{over $\Spec k$} means that the
+corresponding ring map respects $k$. The two triangles are
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+\Spec R \arrow[rr,"\xi"] \arrow[dr] &&\Spec A \arrow[dl]\\
+&\Spec k&
+\end{tikzcd}
+\]
+and, with directions reversed,
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+A \arrow[rr,"\xi^\sharp"] &&R\\
+&k \arrow[ul] \arrow[ur]&
+\end{tikzcd}
+\]
+Thus the theorem restricts to a bijection
+\[
+ X(\Spec R)\simeq\Hom_{k\text{-alg}}(A,R).
+\]
+The abbreviation $X(R)$ for $X(\Spec R)$ is also customary when the
+base ring is understood. It does not mean that a ring has become a
+scheme without applying $\Spec$.
+
+\begin{Ex}[Recall: rational points]\label{ex:rationalpoints}
+Over $B=\Spec k$, a \emph{$k$-rational point} of $X$ is a
+$k$-morphism $\xi:\Spec k\to X$; their set is denoted $X(k)$.
+For an affine scheme defined by polynomial equations, this recovers
+solutions whose coordinates lie in $k$. The word ``rational'' here
+does not require $k=\bQ$.
+
+For instance, let $X=\bA^1_k=\Spec k[z]$. By
+Theorem~\ref{th:affinepoints}, a $k$-point corresponds to a
+$k$-algebra map $k[z]\to k$. Such a map is determined by one
+element $a\in k$, the image of $z$, and is evaluation:
+\[
+ \xi_a^\sharp(F(z))=F(a).
+\]
+The single point of $\Spec k$ maps to the prime ideal $(z-a)$.
+Therefore $\bA^1_k(k)\simeq k$. For a general affine
+$X=\Spec k[z_1,\ldots,z_n]/I$, the same argument gives the tuples
+$(a_1,\ldots,a_n)\in k^n$ annihilating every polynomial in $I$.
+This is the coordinate interpretation recalled in
+\cite[Section~2.3.1]{Poonen}.
+\end{Ex}
+
+\begin{Ex}[An affine line has points valued in any algebra]
+Keep $B=\Spec k$ and $X=\Spec k[z]$, but now take
+$T=\Spec R$ for any $k$-algebra $R$. Then
+\[
+ X(T)\simeq\Hom_{k\text{-alg}}(k[z],R)\simeq R.
+\]
+The second bijection sends $\xi^\sharp$ to $\xi^\sharp(z)$.
+Conversely, $r\in R$ gives evaluation $F(z)\mapsto F(r)$, so
+there is no condition on $r$. For example, with $R=k[t]$, the rule
+$z\mapsto t^2$ determines a $T$-point $\xi:T\to X$.
+This is a morphism from an entire affine line, not a choice of a
+single topological point of $X$.
+\end{Ex}
+
+\begin{Ex}[Dual numbers detect what field-valued points miss]\label{ex:dualpoints}
+Let $B=\Spec k$ and
+$X=\Spec k[z]/(z^2)$. A test point with source $T=\Spec R$
+corresponds to a $k$-algebra map
+\[
+ \xi^\sharp:k[z]/(z^2)\longrightarrow R.
+\]
+Its value $r=\xi^\sharp(\overline z)$ must satisfy $r^2=0$;
+conversely, every such $r$ gives a map. Thus
+\[
+ X(\Spec R)\simeq\{r\in R:r^2=0\}.
+\]
+If $R=L$ is a field extension of $k$, the only possibility is $r=0$.
+Field-valued points cannot distinguish $X$ from $\Spec k$ in this
+example: each has exactly one $L$-point for every such $L$.
+
+Instead use the \emph{dual numbers}
+$R=k[\epsilon]/(\epsilon^2)$, where $\epsilon$ denotes the residue
+class and is nonzero although $\epsilon^2=0$. An element is uniquely
+$a+b\epsilon$ with $a,b\in k$. Its square vanishes precisely when
+$a=0$. Therefore
+\[
+ X(\Spec R)\simeq\{b\epsilon:b\in k\}.
+\]
+In particular, the assignments $\overline z\mapsto0$ and
+$\overline z\mapsto\epsilon$ give two different scheme morphisms
+$\xi_0,\xi_1:T\to X$. Their underlying maps of topological spaces
+are the same: both spaces have just one point. They differ on
+functions, since $\xi_0^\sharp(\overline z)=0$ and
+$\xi_1^\sharp(\overline z)=\epsilon$. Allowing nonreduced test
+schemes detects this difference. It does not manufacture extra
+topological points.
+\end{Ex}
+
+\subsection{Changing the target: naturality as a square}
+Keep $X,Y$ over $B$, and let $f:X\to Y$ be a $B$-morphism.
+For every test scheme $T$, postcomposition gives a function
+\[
+\begin{aligned}
+ h_f(T):X(T)&\longrightarrow Y(T),\\
+ \xi&\longmapsto f\circ\xi.
+\end{aligned}
+\]
+This time the arrow $f:X\to Y$ and the induced function point in
+the same direction; the reversal in $h_X$ concerned its source $T$.
+For each $u:T'\to T$, there is a commutative square of \emph{sets}
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X(T) \arrow[r,"h_f(T)"] \arrow[d,"h_X(u)"']
+ &Y(T) \arrow[d,"h_Y(u)"]\\
+X(T') \arrow[r,"h_f(T')"'] &Y(T')
+\end{tikzcd}
+\]
+Starting with $\xi\in X(T)$, the two routes give respectively
+$(f\circ\xi)\circ u$ and $f\circ(\xi\circ u)$, which agree by
+associativity. Equivalently,
+\[
+ h_f(T')(\xi\circ u)=h_f(T)(\xi)\circ u.
+\]
+A collection of functions $X(T)\to Y(T)$ is called a
+\emph{natural transformation} when it commutes with precomposition
+in this way for every $u$. Thus ``natural in $T$'' means this
+explicit compatibility, not an unspecified property of the formulas.
+
+\subsection{The Yoneda argument we will actually use}
+\begin{Th}[Yoneda for the functors of points]\label{th:pointyoneda}
+Suppose functions $\eta_T:X(T)\to Y(T)$ are given for every
+$B$-scheme $T$, and for every $u:T'\to T$ satisfy
+\[
+ \eta_{T'}(\xi\circ u)=\eta_T(\xi)\circ u.
+\]
+There is a unique $B$-morphism $f:X\to Y$ such that
+$\eta_T(\xi)=f\circ\xi$ for every $T$ and every $\xi\in X(T)$.
+\end{Th}
+This is Lemma~4.3.5, \BGtag{001P}, applied to the category $\Sch/B$.
+Here the short proof is useful enough to give in full.
+\begin{proof}
+Use $X$ itself as the test scheme. Its identity morphism is an element
+of $X(X)$. Define
+\[
+ f:=\eta_X(\id_X)\in Y(X)=\Hom_B(X,Y).
+\]
+This is already a genuine $B$-morphism by the definition of $Y(X)$.
+We must show it gives all the prescribed functions, not just the one
+at $X$. For any $\xi:T\to X$, naturality gives the square
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X(X) \arrow[r,"\eta_X"] \arrow[d,"h_X(\xi)"']
+ &Y(X) \arrow[d,"h_Y(\xi)"]\\
+X(T) \arrow[r,"\eta_T"'] &Y(T).
+\end{tikzcd}
+\]
+Apply it to $\id_X$ in the upper left. The left-then-bottom route
+gives $\eta_T(\id_X\circ\xi)=\eta_T(\xi)$; the
+top-then-right route gives $f\circ\xi$. This proves existence.
+If $f'$ induced the same functions, evaluation at $\id_X$ would
+give $f'=f'\circ\id_X=\eta_X(\id_X)=f$. This proves uniqueness.
+\end{proof}
+
+\begin{Rmk}[How pointwise notation will be used]
+In these notes the formula $(g,p)\mapsto g\cdot p$ means a rule
+for maps from every $T$, compatible with precomposition. It does not
+mean a rule only on the underlying topological points. Yoneda then
+turns such a natural rule into a unique scheme morphism.
+To check equality of two already defined scheme maps, it likewise
+suffices to check every test scheme: using their source and its
+identity point detects equality.
+
+For fiber products the universal property gives
+\[
+ (T\times_S X)(W)\simeq T(W)\times_{S(W)}X(W).
+\]
+On the right is a fiber product of \emph{sets of morphisms}: its
+elements are compatible pairs of maps from $W$. It is not the product
+of the underlying topological spaces of the schemes.
+\end{Rmk}
+
+\BGcheckpoint{\begin{itemize}
+\item Defined $X(T)=h_X(T)=\Hom_B(T,X)$, with its base triangle.
+\item Defined $h_X$ on objects and arrows; verified its functor laws.
+\item Computed rational, affine-line, and dual-number test points.
+\item Expressed naturality by a commutative square and proved the
+Yoneda recovery formula $f=\eta_X(\id_X)$.
+\end{itemize}}
+
+\section{Group schemes, built from examples}\label{sec:groups}
+
+\subsection{An ordinary group is not automatically a scheme}
+Let $H=\bZ/2\bZ=\{0,1\}$ be the abstract two-element group. This is a
+set with an addition law. We do \emph{not} take a map from this bare
+two-element set into $B$ and call it a group scheme. Instead we build
+an actual scheme
+\[
+ H_B=B_0\amalg B_1\longrightarrow B,
+\]
+where each $B_a$ is a copy of $B$ and the map is the fold map of
+Example~\ref{ex:twosheets}. Over every point of $B$ there is a copy
+with label $0$ and a copy with label $1$. If $B$ has infinitely many
+points, $H_B$ does too.
+
+The labels tell us how to define a multiplication morphism. There are
+four components in $H_B\times_B H_B$, indexed by $(a,b)\in H^2$.
+Each is a copy of $B$. Map it by the identity on $B$ to the component
+of $H_B$ labeled $a+b$ modulo $2$:
+\[
+\begin{array}{c|cccc}
+(a,b)&(0,0)&(0,1)&(1,0)&(1,1)\\\hline
+a+b&0&1&1&0.
+\end{array}
+\]
+The unit map $e:B\to H_B$ is inclusion of $B_0$. Inversion is the
+identity on both components because $-a=a$ in $H$. These are genuine
+morphisms of schemes, defined component by component. This is our
+first group scheme.
+
+\subsection{What ``group object'' packages}
+An ordinary group can be described by a multiplication
+$H\times H\to H$, a unit map $\{*\}\to H$ selecting the identity,
+and an inverse map $H\to H$. The group axioms are equations between
+composites of these maps. To make a group object in $\Sch/B$, replace
+sets by $B$-schemes, products by fiber products over $B$, and the
+one-point terminal set by the terminal $B$-scheme $(B,\id_B)$.
+
+\begin{Def}[Group scheme]\label{def:groupscheme}
+A group scheme over $B$ is a $B$-scheme $\pi_G:G\to B$ equipped with
+$B$-morphisms
+\[
+\begin{aligned}
+ m&:G\times_B G\to G,\\
+ e&:B\to G,\\
+ \iota&:G\to G
+\end{aligned}
+\]
+for multiplication, unit, and inverse. They satisfy associativity,
+the two unit laws, and the two inverse laws.
+\end{Def}
+For precision, write $G^n$ for the $n$-fold product over $B$.
+Associativity is the commutative square
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+G^3 \arrow[r,"m\times\id_G"] \arrow[d,"\id_G\times m"']
+ &G^2 \arrow[d,"m"]\\
+G^2 \arrow[r,"m"'] &G
+\end{tikzcd}
+\]
+The unit and inverse laws, with each pairing a map $G\to G^2$, are
+\[
+\begin{aligned}
+m\langle e\pi_G,\id_G\rangle&=\id_G,\\
+m\langle\id_G,e\pi_G\rangle&=\id_G,\\
+m\langle\iota,\id_G\rangle&=e\pi_G,\\
+m\langle\id_G,\iota\rangle&=e\pi_G.
+\end{aligned}
+\]
+The phrase ``over $B$'' includes $\pi_Ge=\id_B$ and, for example,
+$\pi_Gm=\pi_G\pr_1=\pi_G\pr_2$. Multiplication combines two elements
+over the \emph{same} base; it does not combine unrelated fibers.
+There need not be a group structure on the underlying topological set
+of $G$.
+
+For every $T\to B$, the set $G(T)=\Hom_B(T,G)$ is an ordinary group:
+multiply $g,h:T\to G$ by $m\circ(g,h)$; its identity is
+$T\to B\xrightarrow{e}G$; its inverse sends $g$ to $\iota g$.
+The diagram equations give the usual group axioms on this set.
+This is equivalent to Definition~39.4.1, \BGtag{022S}; the equivalence
+uses precisely the Yoneda argument of Section~\ref{sec:points}.
+
+For a finite abstract group $H$, the same component construction gives
+$H_B=\coprod_{h\in H}B$ with products of labels given by the group
+law. Its $T$-points are locally constant maps $T\to H$: the inverse
+images of the labeled components are an open-and-closed partition of
+$T$. If $T$ is nonempty and connected, this is just a choice of one
+element of $H$. For disconnected $T$ there can be more choices.
+This construction is called the \emph{constant group scheme}
+(Example~39.5.6 in \BGtag{047F}).
+
+\subsection{An infinite example: addition on the affine line}
+Let $B=\Spec A$. Take $G=\Spec A[x]$, and define multiplication
+by the ring map
+\[
+ A[x]\longrightarrow A[x_1,x_2],\qquad x\longmapsto x_1+x_2.
+\]
+The unit is given by $x\mapsto0$ in $A$; inversion by $x\mapsto-x$.
+Their equations are the ordinary addition laws. This group scheme is
+denoted $\mathbb G_{a,B}$. On $T=\Spec R$ it gives the additive group
+$(R,+)$; in particular $\mathbb G_{a,k}(k)=(k,+)$, an infinite group
+when $k$ is infinite. We have put a group law on a familiar scheme,
+not replaced a group by an unrelated topological space.
+
+Likewise $\mathbb G_{m,B}=\Spec A[x,x^{-1}]$ uses $x\mapsto x_1x_2$
+for multiplication, $x\mapsto1$ for its unit, and $x\mapsto x^{-1}$
+for inversion. Its $R$-points form the group $R^\times$. These
+constructions glue over arbitrary $B$; see Examples~39.5.1 and~39.5.3
+in \BGtag{047F}.
+
+\subsection{Changing the base of a group scheme}
+For a specified $s:S\to B$, form
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+G_S=G\times_B S \arrow[r] \arrow[d,"\pi_{G_S}"']
+ &G \arrow[d,"\pi_G"]\\
+S \arrow[r,"s"'] &B
+\end{tikzcd}
+\]
+The result is an $S$-scheme. It becomes a group scheme over $S$ by
+pulling back the three structure maps. For example,
+\[
+ G_S\times_S G_S\simeq(G\times_B G)\times_B S,
+\]
+so $m_S$ is $m$ pulled back to $S$. On test points the formulas are
+\[
+\begin{aligned}
+ m_S((g_1,t),(g_2,t))&=(m(g_1,g_2),t),\\
+ e_S(t)&=(e(s(t)),t),\\
+ \iota_S(g,t)&=(\iota(g),t).
+\end{aligned}
+\]
+The shared $t$ is exactly the condition in the product over $S$.
+The original equations pull back to the new equations, so these maps
+give a group scheme (Lemma~39.4.2, \BGtag{022T}). Thus $G_S$ is not a
+single ordinary group: it is a scheme over $S$ with a group law, and
+$G_S(T)$ is an ordinary group for every $T\to S$.
+For $H_B=B\amalg B$ this construction gives $H_S=S\amalg S$ with
+the same label addition. For $\mathbb G_{a,B}$ it gives $\bA^1_S$
+with addition.
+
+\subsection{The geometric hypotheses}
+These adjectives apply to the \emph{scheme morphism} $\pi_G:G\to B$,
+not to an abstract set of group elements. Recall the following
+definitions for any scheme morphism $f:X\to Y$.
+
+\emph{Affine.} The inverse image of each affine open $\Spec A\subset Y$
+is an affine scheme $\Spec C$. This is a relative property; $Y$ need
+not itself be affine (Section~29.11, \BGtag{01S5}).
+
+\emph{Locally of finite presentation.} Around every point of $X$ we
+can choose affine opens $\Spec C\subset X$ and $\Spec A\subset Y$
+with the first mapping into the second, such that
+\[
+ C\simeq A[x_1,\ldots,x_n]/(f_1,\ldots,f_r)
+\]
+as an $A$-algebra, for finite $n,r$. The coefficients belong to the
+base ring $A$, not necessarily $\bC$. Thus the recollection ``finitely
+many variables and a finitely generated ideal of relations'' is exactly
+right. It is not a claim that the scheme has finitely many points or
+that its group of sections is a finitely presented abstract group.
+Finite presentation of a morphism without ``locally'' additionally
+requires quasi-compactness and quasi-separatedness
+(Definition~29.22.1, \BGtag{01TP}). These additional global conditions
+are not prerequisites for the torsor proof; the local condition is the
+one imposed on $G\to B$.
+
+\emph{Flat.} A ring map $A\to C$ is flat if tensoring an exact sequence
+of $A$-modules with $C$ preserves exactness. Since tensor product is
+already right exact, this means it also preserves injections. A scheme
+morphism is flat when its induced local-ring maps are flat; one can
+equivalently check the corresponding ring maps on affine charts
+(Section~29.26, \BGtag{01U2}). This controls how algebraic relations
+behave in a family; it is not a synonym for smoothness. Free modules
+are flat, which verifies all the examples needed immediately.
+
+Check these conditions for $H_B$ with $H=\bZ/2\bZ$. Above $\Spec A$
+its algebra is
+\[
+ A\times A\simeq A[z]/(z^2-z).
+\]
+Evaluation at $z=0,1$ gives the isomorphism. The two factors are
+separated by the comaximal ideals $(z)$ and $(z-1)$, even in
+characteristic $2$. It is affine, has one generator and one relation,
+and is free of rank two as an $A$-module. Hence its map to $B$ is
+affine, flat, and locally of finite presentation.
+For $\mathbb G_{a,B}$, the algebra $A[x]$ has one generator and no
+relations, and is free as an $A$-module with basis $1,x,x^2,\ldots$.
+This example shows that finite presentation as an \emph{algebra} does
+not mean finite generation as a \emph{module}.
+
+\begin{Def}[Standing geometric assumptions]\label{def:standing}
+From now on $G\to B$ is a group scheme whose structure morphism is
+affine, flat, and locally of finite presentation.
+\end{Def}
+Its unit section makes it surjective: $\pi_Ge=\id_B$, so every base
+point has the point supplied by $e$ above it. Affineness will let us
+construct glued torsors using algebras. Flatness and local finite
+presentation will make torsor projections allowable covering maps.
+These are sufficient working hypotheses, not a claim of minimality.
+
+\BGcheckpoint{\begin{itemize}
+\item Constructed: $(\bZ/2\bZ)_B$, $\mathbb G_a$, and $\mathbb G_m$.
+\item Defined: group-scheme structure maps and the three geometric
+hypotheses.
+\item Verified: the constant group satisfies these hypotheses.
+\item Check: distinguish $H$, $H_B$, and $H_B(T)$.
+\end{itemize}}
+
+\section{Coverings, sites, and sheaves}\label{sec:sites}
+
+\subsection{Start with ordinary open covers}
+On a topological space, an open cover lets us work on smaller pieces
+and compare answers on intersections. For example, continuous
+functions on $U_i$ agreeing on $U_i\cap U_j$ give one continuous
+function on $\bigcup_i U_i$. A site keeps this idea but allows the
+maps used as local pieces to be more general than open inclusions.
+It is not another scheme, variety, or topological space.
+
+In these notes a \emph{site} means a category together with a rule
+specifying which families of arrows $\{U_i\to U\}$ count as covers.
+The covering-family formulation requires three rules:
+\begin{enumerate}[label=(\arabic*)]
+\item An isomorphism, by itself, is a cover.
+\item Covers of covering pieces combine to give a cover of the
+original object.
+\item The fiber products needed to pull a cover back along any arrow
+exist, and the resulting family covers the new base.
+\end{enumerate}
+This is Definition~7.6.2, \BGtag{00VH}. The covering rule is often
+called a Grothendieck topology; formally these families specify a
+basis for that topology. We need only the families and these rules.
+
+Thus $(\Sch/B)_{\mathrm{fppf}}$ means precisely ``the category of
+$B$-schemes, equipped with the fppf covering rule.'' Its objects and
+arrows are still the objects and arrows of $\Sch/B$. In particular,
+\emph{not every arrow must be fppf}; the extra rule only singles out
+covering families. Nor have we changed the Zariski topology inside
+each individual scheme. When this is called a \emph{big} site, the
+word indicates that arbitrary $B$-schemes are admitted as objects,
+not merely open subsets of $B$. No set-theoretic construction of a
+``small model'' is needed to follow this proof.
+
+\subsection{The fppf covering rule}
+\begin{Def}\label{def:fppf}
+An fppf cover of $S$ is a family of $B$-morphisms $\{f_i:S_i\to S\}$
+such that each $f_i$ is flat and locally of finite presentation, and
+their images together cover $S$.
+\end{Def}
+This is Definition~34.7.1, \BGtag{021M}. The letters abbreviate the
+French words for faithfully flat and of finite presentation. For a
+family the surjectivity requirement is \emph{joint}: an individual
+$S_i$ need not cover all of $S$. A single surjective flat morphism
+locally of finite presentation is a cover by itself.
+
+An ordinary Zariski open covering is an fppf covering, but the allowed
+maps need not be open immersions. For example,
+\[
+ U=\Spec\bC\longrightarrow S=\Spec\bR
+\]
+is an fppf cover: the algebra $\bC=\bR[z]/(z^2+1)$ is free of rank
+two over $\bR$ and finitely presented, and the map is surjective.
+It is not an isomorphism of schemes. Over the new base $U$, the cover
+itself becomes
+\[
+ U\times_S U\simeq U\amalg U.
+\]
+Indeed, as a $\bC$-algebra using the first tensor factor,
+\[
+\begin{aligned}
+\bC\otimes_{\bR}\bC
+ &\simeq\bC[z]/(z^2+1)\\
+ &\simeq\bC\times\bC,
+\end{aligned}
+\]
+since $z^2+1=(z-i)(z+i)$ has distinct roots. Conjugating the second
+factor exchanges the two components. This is a double cover that
+splits after an allowed base change. It is not split over $\bR$:
+a section would give an $\bR$-algebra map $\bC\to\bR$, impossible
+because $-1$ has no square root in $\bR$. Also, $\Spec\bR$ has no
+smaller nonempty open on which it could split. This is the practical
+reason to allow more than Zariski covers.
+
+\subsection{What stability and composition say}\label{subsec:coverrules}
+\emph{Stable under base change} means the following concrete operation
+preserves the covering property. If $\{S_i\to S\}$ is a cover and
+$f:T\to S$ is \emph{any} $B$-morphism, form
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+T\times_S S_i \arrow[r] \arrow[d] &S_i \arrow[d]\\
+T \arrow[r,"f"'] &S.
+\end{tikzcd}
+\]
+The conclusion is that $\{T\times_S S_i\to T\}_i$ is again an fppf
+cover. Flatness and local finite presentation survive this pullback,
+and the pulled-back family is jointly surjective. Geometrically, a
+point of $T$ has image in some $S_i\to S$ and has a point above it in
+the corresponding fiber product, allowing a residue-field extension
+if necessary. Thus the local pieces still cover after changing base.
+
+\emph{Composition of covers} means exactly covering the covering
+pieces. If $\{S_i\to S\}_i$ is a cover and for each $i$ we have a
+cover $\{U_{ij}\to S_i\}_{j\in J_i}$, then the composite family
+\[
+ \{U_{ij}\longrightarrow S_i\longrightarrow S\}_{i,j}
+\]
+covers $S$. Composites remain flat and locally of finite presentation;
+joint surjectivity follows in two steps. The index set $J_i$ is allowed
+to depend on $i$.
+
+The exact reference is Lemma~34.7.3, \BGtag{021O}: part~(1) concerns
+isomorphisms, part~(2) composition, and part~(3) base change. In
+contrast, Lemma~34.7.2, \BGtag{021N}, compares types of covers: it says
+that syntomic covers, and hence smooth, \emph{\'etale}, and Zariski
+covers, are fppf. It does \emph{not} establish the preceding two
+stability statements. In particular the inclusion is not a statement
+that every fppf cover is smooth or \emph{\'etale}.
+
+These verifications are needed even though our initial covers are
+fppf: pulling back a torsor will produce a \emph{new} covering family,
+and gluing locally trivial objects will produce a cover of a cover.
+The lemma ensures those new families are still allowed.
+
+\subsection{Locality and the use of fpqc theorems}
+``After this cover'' means after pullback along every $S_i\to S$.
+For a scheme $P\to S$, write $P_{S_i}=P\times_S S_i$. Thus
+``$P$ is locally isomorphic to $Q$'' means $P_{S_i}\simeq Q_{S_i}$
+for some cover. It need not mean an isomorphism on Zariski open
+subsets of $S$.
+
+We shall occasionally quote theorems stated for \emph{fpqc} covers,
+a broader class of flat covers that permits maps not locally of finite
+presentation. In the covering-family definition, every affine open
+in the target must equal the union of the images of finitely many
+affine opens in members of the family. Affine opens are quasi-compact:
+a quasi-compact space
+is one in which every open cover has a finite subcover. This condition
+provides the finiteness needed in descent without imposing finitely
+many algebra generators. This is Definition~34.9.1, \BGtag{022B}.
+
+The fact we use is Lemma~34.9.7, \BGtag{022C}: every fppf cover is
+an fpqc cover. Consequently an fpqc descent theorem applies to each
+of \emph{our fppf covers}. We are not changing topology in the proof.
+Just as a theorem for all groups can be applied to finite groups, a
+theorem for the larger class can be used on this subclass.
+
+Two further phrases must be distinguished. A property is
+\emph{preserved by base change} if a map having it still has it after
+any change of base. It is \emph{detected by a cover} if knowing it
+for all pulled-back maps implies it for the given original map.
+For example, if a given map $P\to Q$ becomes an isomorphism after an
+fppf cover of $S$, a locality theorem says it was already an
+isomorphism. The original $P,Q$ must already exist for this assertion.
+``Fpqc-local on the target'' packages preservation along such covers
+and detection on them; it does not by itself assert preservation
+under \emph{arbitrary}, possibly nonflat, base change.
+
+\subsection{Presheaves and sheaves: what exactly gets glued?}
+A \emph{presheaf of sets} assigns a set $F(T)$ to each object $T$ and
+a restriction function $F(T)\to F(T')$ to each arrow $u:T'\to T$.
+Write $u^*s$ for the restriction of $s$. The laws are
+\[
+ \id^*s=s,\qquad v^*(u^*s)=(uv)^*s.
+\]
+This is the same reversal of arrows as for the functor of points.
+It does not yet assert that locally defined elements glue.
+
+A presheaf is a \emph{sheaf} for our covering rule if, whenever
+$\{T_i\to T\}$ is a cover and $s_i\in F(T_i)$ have equal
+restrictions to every $T_i\times_T T_j$, there exists exactly one
+$s\in F(T)$ restricting to all $s_i$. For open covers this is the
+familiar agreement-on-intersections rule. Fiber products replace
+intersections because the new covering pieces need not be subsets.
+
+For example, $F(T)$ might be functions on $T$, or maps from $T$ to
+a fixed scheme, or isomorphisms between two objects pulled back to $T$.
+In the last case the \emph{elements being glued are maps}. Later the
+second stack condition will glue the \emph{objects themselves}; that
+is a separate problem.
+
+A map of presheaves is a family of functions on $F(T)$ commuting
+with restrictions, just as in Section~\ref{sec:points}. A presheaf
+$F$ is \emph{represented by a scheme $X$} if there are compatible
+bijections $F(T)\simeq\Hom(T,X)$ for every $T$ in the base category.
+This says that the rule $F$ comes from an actual geometric object $X$.
+Not every rule comes with such an object.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: site, fppf cover, presheaf, sheaf, and representability.
+\item Verified: fppf covers survive pullback and composition.
+\item Check: distinguish an fppf cover from an arbitrary arrow of the site.
+\item Check: distinguish gluing maps from gluing objects.
+\end{itemize}}
+
+\section{Torsors: groups without a chosen origin}\label{sec:torsors}
+
+\subsection{Actions, sections, and triviality}
+For an ordinary group $H$, a nonempty set on which $H$ acts freely
+and transitively looks like $H$ after one chooses an element to be its
+origin. Without that choice it is a torsor, not a group with a specified
+identity. Our scheme definition makes this description work in families.
+
+Given a scheme $P\to S$, an action of $G_S$ is an $S$-morphism
+$a_P:G_S\times_S P\to P$ satisfying
+$a_P(e,p)=p$ and $a_P(g,a_P(h,p))=a_P(gh,p)$ on all test points.
+Equivalently these are equations of scheme morphisms. An equivariant
+map respects this action: applying $g$ and then the map is the same
+as applying the map and then $g$. See Definition~39.10.1,
+\BGtag{022Z}.
+
+A \emph{section} of $\pi_P:P\to S$ is a morphism $s:S\to P$ with
+$\pi_Ps=\id_S$. It chooses an element over every base point in a way
+that is a morphism of schemes, not an arbitrary set-theoretic choice.
+For a double cover with sheet swap, such a section labels its sheet
+as $0$ and the other sheet as $1$. A torsor need not have a global
+section, but it must have such descriptions after allowed base changes.
+
+\subsection{The definition with its local isomorphisms}
+\begin{Def}\label{def:torsor}
+A left $G_S$-torsor is a scheme $\pi_P:P\to S$ with an action
+\[
+ a_P:G_S\times_S P\longrightarrow P
+\]
+and an fppf cover $\{U_a\to S\}$ on which there are equivariant
+isomorphisms $P_{U_a}\simeq G_{U_a}$. On $G_{U_a}$ the action is left
+multiplication. The action must satisfy the unit and associativity laws.
+\end{Def}
+Our convention agrees with Definition~39.11.3, \BGtag{049A}.
+Trivializations are required to exist; they are not extra chosen data in
+the definition of the object.
+
+The associated \emph{torsor identity} is the map
+\begin{equation}\label{eq:theta}
+\begin{aligned}
+ \Theta_P:G_S\times_S P&\longrightarrow P\times_S P,\\
+ (g,p)&\longmapsto(g\cdot p,p).
+\end{aligned}
+\end{equation}
+It is an isomorphism. On a trivialization its inverse is
+$(p_1,p_2)\mapsto(p_1p_2^{-1},p_2)$, and being an isomorphism is
+fpqc-local on the base (Lemma~35.23.19, \BGtag{02L4}).
+
+In particular, this asserts simple transitivity on sections after any
+test-scheme base change whenever a section is available. It is stronger
+than a statement only about geometric points.
+
+\begin{Ex}[The torsor identity on four copies]
+Take $G=(\bZ/2\bZ)_B$ and the trivial torsor $P=S_0\amalg S_1$,
+where the subscripts label the two copies of $S$. Both
+$G_S\times_S P$ and $P\times_S P$ consist of four copies of $S$.
+The map $\Theta_P$ acts on their labels as follows:
+\[
+\begin{array}{c|c}
+ \text{source }(g,p)&\text{target }(g+p,p)\\ \hline
+ (0,0)&(0,0)\\
+ (1,0)&(1,0)\\
+ (0,1)&(1,1)\\
+ (1,1)&(0,1)
+\end{array}
+\]
+On each labeled copy it is the identity map of $S$. Thus this table
+describes an isomorphism of schemes, not merely a bijection between
+four abstract points. Given target labels $(a,b)$, the unique group
+label carrying $b$ to $a$ is $g=a-b$ in $\bZ/2\bZ$. The inverse
+sends $(a,b)$ to $(a-b,b)$ and again preserves the base. This is what
+``there is a unique group element taking the second point to the
+first'' looks like as a scheme morphism.
+\end{Ex}
+
+\begin{Prop}\label{prop:torsorcriterion}
+Under the standing assumptions on $G$, Definition~\ref{def:torsor} is
+equivalent to requiring that $P\to S$ be surjective, flat, and locally
+of finite presentation and that $\Theta_P$ be an isomorphism.
+\end{Prop}
+\begin{proof}
+Local triviality proves the identity as above and transfers flatness and
+local finite presentation from $G_S\to S$ to $P\to S$. These properties
+are fpqc-local on the base (Lemmas~35.23.17 and~35.23.13,
+\BGtag{02L2} and \BGtag{02KY}). Surjectivity follows on the same
+trivializing cover, since $G_S$ has a unit section.
+
+Conversely, use the singleton fppf cover $P\to S$. The pulled-back
+object $P\times_S P\to P$, with projection to its second factor, is
+equivariantly isomorphic via $\Theta_P$ to $G_S\times_S P\to P$.
+It is therefore trivial on this cover.
+\end{proof}
+
+More generally, a section $s:S\to P$ trivializes a torsor by
+$g\mapsto g\cdot s$. Its inverse sends $p$ to the unique $g$ with
+$p=g\cdot s(\pi_P(p))$, furnished by $\Theta_P^{-1}$. This is the
+section criterion of Lemma~39.11.2, \BGtag{0499}.
+
+\subsection{Sheaf torsors and representability}
+The proof below can be followed using schemes as torsors throughout.
+This subsection explains a different definition often encountered in
+references. It separates a rule for local sections from the question
+whether a scheme realizes that rule.
+The representability paragraph previews the gluing theorem of
+Section~\ref{sec:effective}; its ``cocycle'' means the consistency
+equation for three local identifications, defined fully in
+Section~\ref{sec:stackdef}.
+
+For a scheme $X\to S$, write $h_X(T)=\Hom_S(T,X)$. A topology is
+\emph{subcanonical} if each such representable functor is a sheaf.
+The fppf topology is subcanonical: schemes satisfy the stronger fpqc
+sheaf condition (Lemma~35.13.7, \BGtag{023Q}).
+
+A torsor under the sheaf of groups $h_{G_S}$ is a sheaf of sets
+$\cP$ on $(\Sch/S)_{\mathrm{fppf}}$, with an action, locally isomorphic
+to $h_{G_S}$ with its regular action. No scheme is part of this definition.
+For an already represented sheaf $h_P$, the two torsor definitions agree
+(Lemma~39.11.4, \BGtag{049B}).
+
+For affine $G$, \emph{every} such sheaf torsor is represented by an affine
+$S$-scheme. Here is the representability argument and its precise input.
+Choose local trivializations by affine $U_a$-schemes $G_{U_a}$. Yoneda
+turns their sheaf transition maps into scheme isomorphisms satisfying a
+cocycle. Effective descent for affine morphisms, stated in
+Theorem~\ref{th:affinedescent}, produces an affine $S$-scheme $P$.
+The local identifications $h_P|_{U_a}\simeq\cP|_{U_a}$ glue to
+$h_P\simeq\cP$ by the sheaf axiom. Thus representability uses affine
+descent, not the claim that $BG$ is a stack; compare Remark~39.11.5,
+\BGtag{049C}. One can also allow geometric objects called algebraic
+spaces, which are needed for the comparison with curves later.
+No knowledge of them is needed in the torsor proof: affineness lets
+us stay inside schemes.
+
+\begin{Ex}[The first double cover]\label{ex:trivialdouble}
+Let $G=(\bZ/2\bZ)_B=B\amalg B$. Then
+\[
+ G_S\times_S S\simeq G_S=S\amalg S\to S
+\]
+is the trivial torsor. The nonidentity element exchanges the two sheets.
+This group scheme is finite \emph{\'etale} over every base. Its sections
+over $T$ are locally constant maps from $T$ to $\bZ/2\bZ$.
+
+On an affine base $\Spec A$,
+\[
+ \mu_2=\Spec A[z]/(z^2-1).
+\]
+If $2$ is invertible, the Chinese remainder theorem identifies it with
+$\Spec(A\times A)$. Over a nonempty $\bF_2$-scheme it has a nonzero
+square-zero coordinate $z-1$, whereas the constant group has two disjoint
+copies of the base and is \emph{\'etale}. The two groups are therefore
+different in characteristic $2$. This distinction is relative to the
+base, which itself might be nonreduced. Over a characteristic-two
+field-valued base point, their fibers are respectively
+$\Spec k[\epsilon]/(\epsilon^2)$ and
+$\Spec k\amalg\Spec k$, so they cannot be isomorphic over that base.
+\end{Ex}
+
+\begin{Ej}[The torsor identity alone]\label{ex:empty}
+Let $S\ne\varnothing$. Show that $P=\varnothing$ satisfies
+$G_S\times_S P\simeq P\times_S P$ but is not a torsor. Identify the
+missing condition.
+\end{Ej}
+\begin{Ej}[Sections and triviality]\label{ex:section}
+Prove that a torsor $P\to S$ is trivial if and only if it has a section.
+Describe how changing a section changes the trivialization.
+\end{Ej}
+\begin{Ej}[Two groups of order two]\label{ex:mu}
+Compare the coordinate algebras of $(\bZ/2\bZ)_{\Spec k}$ and
+$\mu_{2,k}$ when $\Char k=2$. What are their $k$-points? Explain why a
+comparison only of orders or ranks cannot identify the group schemes.
+\end{Ej}
+
+\subsection{The topology choice revisited}
+The single fppf cover $\Spec\bC\to\Spec\bR$ already showed why
+Zariski local triviality is too restrictive. For the constant group of
+order two, the torsors are finite \emph{\'etale} double covers; this
+means in particular that they split on \emph{\'etale} covers, a class
+of algebraic local coordinate changes broader than open immersions.
+The precise splitting theorem is used in Section~\ref{sec:double}.
+All these covers are fppf, so we can keep one covering rule throughout.
+
+For reference, if $G\to B$ is smooth, an fppf torsor is smooth and
+surjective over its base: smoothness is detected on the trivializing
+cover (Lemma~35.23.29, \BGtag{02VL}). Smooth surjective morphisms have
+\emph{\'etale} local sections (Lemma~37.38.6, \BGtag{055U}), so
+such torsors are already \emph{\'etale}-locally trivial. The fppf
+rule also accommodates nonsmooth groups such as $\mu_2$ in
+characteristic $2$. Under our flatness and presentation hypotheses,
+fpqc-local triviality gives the same torsors (Lemma~95.15.4,
+\BGtag{0CQJ}). These comparisons are background; the proof uses fppf
+covers and the explicitly stated descent theorems only.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: action, equivariance, section, torsor, and local triviality.
+\item Verified: a section trivializes a torsor; the torsor identity
+expresses simple transitivity.
+\item Check: explain why a double cover can be locally trivial without
+a global choice of sheet.
+\end{itemize}}
+
+\begin{Th}[Target theorem]\label{th:target}
+Let $B$ be a scheme and let $G\to B$ satisfy
+Definition~\ref{def:standing}. The category of scheme-represented
+fppf $G$-torsors, with equivariant arrows over varying $B$-schemes,
+is a stack in groupoids on $(\Sch/B)_{\mathrm{fppf}}$.
+It realizes
+\[
+ BG=[B/G]=[\operatorname{pt}/G],
+\]
+where $\operatorname{pt}$ is the relative point $B$.
+\end{Th}
+This is the assertion to be proved, not an assumption. The next
+sections first construct the category and then verify each of the
+properties in the roadmap.
+
+\section{The meaning of the quotient notation}\label{sec:quotient}
+
+Before constructing the total category, distinguish four meanings of a
+quotient by a group.
+
+First consider an ordinary group $H$. Make a category with one object,
+called $*$, and one arrow $*\to *$ for each element of $H$. Compose
+arrows using multiplication in $H$; the identity element gives the
+identity arrow, and $h^{-1}$ gives the inverse of the arrow $h$.
+A category whose arrows are all invertible is called a \emph{groupoid}.
+An invertible arrow from an object to itself is an \emph{automorphism}.
+Thus this one-object groupoid remembers the whole group of symmetries,
+although its set of objects has only one member.
+
+For a $B$-scheme $S$, we can do this with the ordinary group
+$G(S)=\Hom_B(S,G)$. The important point is that changing $S$ changes
+the group of sections. We must retain this dependence on $S$, not just
+choose one group once and for all.
+
+\emph{The action groupoid.} The trivial action on the relative point is
+encoded by the diagram $G\rightrightarrows B$: both arrows are the
+structure map, while multiplication in $G$ specifies composition.
+This is called an \emph{internal groupoid} because its objects and
+arrows are themselves specified by schemes. For each $B$-scheme $S$,
+it gives the one-object groupoid with automorphism group $G(S)$ just
+described.
+It retains the stabilizer, meaning the group of symmetries of the
+object; the set of orbits would be a singleton.
+
+\emph{The naive quotient prestack.} Varying $S$ gives a groupoid-valued
+presheaf $\cB_0$ with one object over $S$ and automorphisms $G(S)$.
+Pullback of arrows is restriction of sections. Because $G$ is a sheaf,
+arrows already satisfy sheaf descent; this is the meaning of
+\emph{prestack} used here. Object descent is not yet required.
+
+\emph{Stackification.} A stackification of a prestack is a stack
+receiving a morphism from it, universal for morphisms to stacks, up to
+the usual natural isomorphisms. For the action groupoid this construction
+is the definition of the quotient stack; see Definition~78.20.1,
+\BGtag{044Q}. Informally it adds objects represented by compatible local
+objects, and identifies descriptions related by refinement.
+
+\emph{Torsors.} The unique object of $(\cB_0)_S$ corresponds to the
+trivial torsor $G_S$. This means that the one object is represented
+geometrically by the trivial family, and its arrows become symmetries
+of that family.
+
+\emph{Convention check.} The next calculation only keeps track of
+multiplication order; for the running example $\bZ/2\bZ$, the group is
+commutative and every element equals its inverse, so this distinction
+disappears. A left-equivariant automorphism of $G_S$ has the
+form $R_h(x)=xh$. Since
+\[
+ R_k\circ R_h=R_{hk},
+\]
+$\Aut_{G_S}(G_S)$ is naturally $G(S)^{\mathrm{op}}$ via $h\mapsto R_h$.
+The functor from the one-object groupoid with composition
+$g_2\circ g_1=g_2g_1$ sends $g$ to $R_{g^{-1}}$; indeed
+\[
+ R_{g_2^{-1}}\circ R_{g_1^{-1}}
+ =R_{(g_2g_1)^{-1}}.
+\]
+This makes the left/right convention explicit.
+
+Every torsor is locally a trivial one, and its local identifications are
+the transition automorphisms of those trivial objects. Once the stack
+axioms are proved below, this identifies the resulting stack with the
+stackification of $\cB_0$. The canonical equivalence is
+Lemma~95.15.4, \BGtag{0CQJ}; it is a comparison with the notation, not an
+input into our proof of descent.
+
+For $G=\bZ/2\bZ$, the naive fiber contains just a labeled pair of
+sheets, while stackification admits all locally split double covers.
+Section~\ref{sec:double} gives explicit nonsplit examples.
+
+\begin{Ej}[Opposite-group check]\label{ex:opposite}
+For a possibly noncommutative $G$, verify the two displayed composition
+formulas. Explain why $g\mapsto R_g$ is not generally a functor from
+the one-object groupoid with its usual composition, and why
+$g\mapsto R_{g^{-1}}$ is.
+\end{Ej}
+
+\BGcheckpoint{\begin{itemize}
+\item Distinguished: the one-object groupoid, the naive prestack,
+its stackification, and the torsor description.
+\item Check: explain why a nonsplit double cover is missing from the
+naive fiber.
+\end{itemize}}
+
+\section{Checking that BG is an ordinary category}\label{sec:total}
+
+\subsection{Objects, arrows, and equivariance}
+We return to Definition~\ref{def:BGdata}. Its objects are the pairs
+$(S,P)$, with $P\to S$ a $G_S$-torsor. We now understand all the
+ingredients. We spell out equivariance for its arrows, then supply
+identities and composition and verify the category axioms.
+
+For $f:S\to T$, write
+\[
+ \alpha_f=\id_G\times f:G_S\to G_T.
+\]
+A prospective arrow $(S,P)\to(T,Q)$ is a pair $(f,\widetilde f)$ with
+$f$ a $B$-morphism and $\widetilde f:P\to Q$ fitting into
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+P \arrow[r,"\widetilde f"] \arrow[d,"\pi_P"'] & Q \arrow[d,"\pi_Q"]\\
+S \arrow[r,"f"'] & T
+\end{tikzcd}
+\]
+The required equivariance means that the following diagram commutes:
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+G_S\times_S P \arrow[r,"a_P"]
+  \arrow[d,"\alpha_f\times\widetilde f"'] & P \arrow[d,"\widetilde f"]\\
+G_T\times_T Q \arrow[r,"a_Q"'] & Q
+\end{tikzcd}
+\]
+In test-point notation this is
+$\widetilde f(g\cdot p)=\alpha_f(g)\cdot\widetilde f(p)$.
+The factor $\alpha_f$ is necessary because the groups act over different
+bases.
+
+\subsection{Category axioms}
+Define
+\[
+ \id_{(S,P)}=(\id_S,\id_P).
+\]
+Both required diagrams commute for this pair. For successive arrows
+$(f,\widetilde f)$ and $(g,\widetilde g)$, define
+\[
+ (g,\widetilde g)(f,\widetilde f)
+ =(gf,\widetilde g\widetilde f).
+\]
+The composite lies over $gf$ since
+\[
+ \pi_R\widetilde g\widetilde f
+ =g\pi_Q\widetilde f=gf\pi_P.
+\]
+Its equivariance follows from $\alpha_{gf}=\alpha_g\alpha_f$:
+\[
+\begin{aligned}
+ \widetilde g\widetilde f(h\cdot p)
+ &=\widetilde g(\alpha_f(h)\cdot\widetilde f(p))\\
+ &=\alpha_{gf}(h)\cdot\widetilde g\widetilde f(p).
+\end{aligned}
+\]
+For three arrows, the base components of the two parenthesizations agree
+by associativity in $\Sch/B$, and the total-space components agree by
+associativity of scheme morphisms. Thus composition is associative.
+Composing on the left with $(\id_T,\id_Q)$, or on the right with
+$(\id_S,\id_P)$, leaves both components of $(f,\widetilde f)$ unchanged.
+This proves both identity laws.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: objects, arrows, identities, and composition.
+\item Verified: equivariance of composites, associativity, and both
+identity laws.
+\item Result: $BG$ is an ordinary category.
+\end{itemize}}
+
+For double covers, equivariance says
+$\widetilde f\sigma_P=\sigma_Q\widetilde f$. Identities and composites
+commute with the involutions by the equations just checked. We do not
+define arrows to be arbitrary maps of degree-two covers with the actions
+forgotten.
+
+\begin{Ex}[Moving the base and exchanging the sheets]
+Let $B=\Spec k$, $S=\bA^1_k$, and $P=S_0\amalg S_1$ with its
+sheet-swap action. The following square defines a total-category
+arrow $(S,P)\to(S,P)$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+ S_0\amalg S_1 \arrow[r,"\widetilde f"] \arrow[d,"\pi"']
+ &S_0\amalg S_1 \arrow[d,"\pi"]\\
+ S \arrow[r,"f"']&S.
+\end{tikzcd}
+\]
+Here $f$ is the squaring map, and on labeled test points
+\[
+ f(t)=t^2,\qquad \widetilde f(t,a)=(t^2,a+1).
+\]
+Each component map is the scheme morphism defined by
+$k[t]\to k[t]$, $t\mapsto t^2$. The equation expressing
+equivariance is
+\[
+ \widetilde f(t,a+1)=(t^2,a)=\sigma\widetilde f(t,a).
+\]
+This arrow is not invertible: an inverse pair would require an inverse
+to $f$, but the image of its ring map does not contain $t$. In contrast,
+$\sigma(t,a)=(t,a+1)$ together with $\id_S$ defines an invertible
+arrow whose square is the identity. Composing the displayed arrow
+with itself gives $(t,a)\mapsto(t^4,a)$: the two sheet exchanges
+cancel, but the composite base map is not the identity. The two components of a
+total-category arrow carry different information.
+\end{Ex}
+
+\begin{Ej}[Category axioms]\label{ex:axioms}
+Write the complete verification of the identity laws and associativity
+for three pairs $(f,\widetilde f)$. Explain why defining arrows as actual
+maps $P\to Q$ avoids having to insert associativity isomorphisms of
+fiber products in the definition of composition.
+\end{Ej}
+\begin{Ej}[All arrows between trivial torsors]\label{ex:arrows}
+Fix $f:S\to T$. Show that an equivariant map $G_S\to G_T$ over $f$
+has the form
+\[
+ (x,s)\longmapsto(xh(s),f(s)),
+ \qquad h\in G(S).
+\]
+If a second arrow over $g:T\to U$ is determined by $k\in G(T)$,
+compute the section determining the composite.
+\end{Ej}
+
+\section{The projection to schemes}\label{sec:projection}
+
+The definition of a category over a base now applies to our constructed
+category. The data already include base objects and base arrows; the
+remaining obligation is to check functoriality. Define
+\[
+ p:BG\longrightarrow\Sch/B,
+ \qquad p(S,P)=S,
+\]
+and $p(f,\widetilde f)=f$. We have
+\[
+ p(\id_{(S,P)})=\id_S
+\]
+and
+\[
+\begin{aligned}
+ p((g,\widetilde g)(f,\widetilde f))
+ &=gf\\
+ &=p(g,\widetilde g)p(f,\widetilde f).
+\end{aligned}
+\]
+Thus this is a functor. It forgets the torsor but retains the base map of
+each arrow. The terminology ``over $S$'' and ``over $f$'' now refers
+precisely to this functor.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: $p(S,P)=S$ and $p(f,\widetilde f)=f$.
+\item Verified: preservation of identities and composition.
+\item Result: $p:BG\to\Sch/B$ is a functor.
+\end{itemize}}
+
+For a double cover, $p$ remembers $S$ and forgets both sheets and the
+involution. In particular, forgetting the involution is not the same
+operation as taking isomorphism classes of covers.
+
+\begin{Ej}[An arrow over a nonidentity endomorphism]\label{ex:projection}
+Assume $B\ne\varnothing$. Take $S=\bA^1_B$ with its endomorphism $f$
+given by $t\mapsto t^2$.
+Use trivial torsors to construct an arrow $(S,G_S)\to(S,G_S)$ over $f$.
+Why is it not a morphism in the fiber $(BG)_S$?
+\end{Ej}
+
+\section{Fiber categories and pullback torsors}\label{sec:pullback}
+
+\subsection{The fiber, without yet asserting invertibility}
+By definition, $(BG)_S$ has $G_S$-torsors as objects and equivariant
+$S$-maps as arrows. In other words, the arrows have base component
+$\id_S$. At this point we do not build invertibility into their
+definition. It will be proved in Section~\ref{sec:groupoids}.
+
+\subsection{Keep the types of objects separate}
+The following similar-looking symbols describe different kinds of
+mathematical objects:
+\begin{itemize}
+\item $G_S$ is a \emph{scheme over $S$}, with a group law.
+\item $(BG)_S$ is a \emph{category}: its objects are torsors over
+$S$, and its arrows are equivariant $S$-maps between them.
+\item $G_S(T)=\Hom_S(T,G_S)$ is a \emph{set with a group law},
+once a particular morphism $T\to S$ has been specified.
+\item $P_T=P\times_S T$ is a \emph{scheme over $T$}, obtained
+from a particular torsor $P\to S$; it is one object of $(BG)_T$.
+\end{itemize}
+For the trivial double cover, $G_S$ and $P$ can be the same
+underlying $S$-scheme. Neither is the category $(BG)_S$: that
+category also includes other torsors over $S$ and the maps between
+them. The subscript on $(BG)_S$ means ``keep the base fixed at $S$,''
+whereas the parentheses in $G_S(T)$ mean ``take maps from $T$.''
+
+\subsection{Base change of the geometric data}
+Given $f:T\to S$ and a torsor $P\to S$, we must produce an object over
+$T$. Set
+\[
+ f^*P=P\times_S T,\qquad G_T=G_S\times_S T.
+\]
+The base change of the action is
+\[
+ g\cdot(p,t)=(\alpha_f(g)\cdot p,t).
+\]
+The unit and associativity equations hold because their diagrams are
+base changes of the action diagrams on $P$. If $\{U_a\to S\}$
+trivializes $P$, then $\{U_a\times_S T\to T\}$ is an fppf cover, and
+on it $f^*P$ is the regular $G_T$-torsor. Consequently $f^*P\to T$ is
+a torsor. The morphism $\Theta_{f^*P}$ is also the base change of
+$\Theta_P$, so it is an isomorphism.
+
+Projection gives an equivariant arrow
+\begin{equation}\label{eq:pullbackarrow}
+ (f,\pr_P):(T,f^*P)\longrightarrow(S,P).
+\end{equation}
+We have constructed a lift of $f$; it remains to prove its universal
+property in the total category.
+
+\BGcheckpoint{\begin{itemize}
+\item Constructed: $f^*P$, its action, and its projection to $P$.
+\item Verified: local triviality and equivariance.
+\item Still to check: the cartesian universal property.
+\end{itemize}}
+
+For $\bZ/2\bZ$, pullback gives $P\times_S T\to T$ with involution
+$(p,t)\mapsto(\sigma_P(p),t)$. Pulling back $S\amalg S\to S$ yields
+$T\amalg T\to T$.
+
+\begin{Ej}[A pullback computation]\label{ex:pullback}
+Let $k$ have characteristic different from $2$, and consider
+$P\to S=\Spec k[t,t^{-1}]$ given by $u^2=t$.
+Pull it back by $T=\Spec k[v,v^{-1}]\to S$, $t=v^2$.
+Write its coordinate algebra and exhibit its two sheets and involution.
+\end{Ej}
+
+\section{Cartesian morphisms and the fibration}\label{sec:cartesian}
+
+The pullback torsor has already been constructed. Its extra property
+is this: a map into the original torsor can be viewed as a map into the
+pulled-back torsor whenever its base map has been specified through the
+new base. There is exactly one way to do so. The word \emph{cartesian}
+packages this existence-and-uniqueness assertion; it does not mean that
+every object mapping into the pullback is isomorphic to it.
+
+\begin{Def}\label{def:cartesian}
+An arrow $u:x\to y$ in a category over $\cC$, lying over $f:T\to S$,
+is \emph{cartesian} if the following holds. Given $z$ over $V$, an arrow
+$v:z\to y$ over $h:V\to S$, and $k:V\to T$ with $h=fk$, there is a
+unique arrow $w:z\to x$ over $k$ such that $uw=v$.
+A \emph{fibered category} is a category over $\cC$ admitting a
+cartesian lift of every $f:T\to S$ with every prescribed target over $S$.
+\end{Def}
+The Stacks Project uses the term \emph{strongly cartesian} for this
+property, which allows any factorization $h=fk$
+(Definition~4.33.1, \BGtag{02XK}). Its fibration definition requires
+these lifts (Definition~4.33.5, \BGtag{02XM}).
+
+The data already constructed in \eqref{eq:pullbackarrow} have the right
+source, target, and base map. We now verify the quantified factorization
+condition. Let $(V,R)$ be any object, let
+$(h,\widetilde h):(V,R)\to(S,P)$ be any arrow, and suppose $h=fk$.
+The competing diagrams are
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+R \arrow[rr,"\widetilde h"] \arrow[dr,dashed,"\lambda"'] && P\\
+& P\times_S T \arrow[ur,"\pr_P"'] &
+\end{tikzcd}
+\]
+over
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+V \arrow[rr,"h"] \arrow[dr,"k"'] && S\\
+& T \arrow[ur,"f"'] &
+\end{tikzcd}
+\]
+
+The two maps $\widetilde h:R\to P$ and $k\pi_R:R\to T$ satisfy
+\[
+ \pi_P\widetilde h=h\pi_R=fk\pi_R.
+\]
+The universal property of $P\times_S T$, stated in
+Section~\ref{sec:categories}, therefore gives a unique map
+\[
+\begin{aligned}
+ \lambda:R&\longrightarrow P\times_S T,\\
+ r&\longmapsto(\widetilde h(r),k\pi_R(r)).
+\end{aligned}
+\]
+It lies over $k$, and $\pr_P\lambda=\widetilde h$. For $g\in G_V$,
+\[
+\begin{aligned}
+ \lambda(g\cdot r)
+ &=(\alpha_h(g)\cdot\widetilde h(r),k\pi_R(r))\\
+ &=\alpha_k(g)\cdot\lambda(r),
+\end{aligned}
+\]
+because $\alpha_h=\alpha_f\alpha_k$. Thus $(k,\lambda)$ is an arrow of
+$BG$. Any other factorization must have the same projections to $P$
+and $T$, so the fiber-product uniqueness clause makes it equal to
+$(k,\lambda)$. This proves cartesianness.
+
+In the double-cover picture, the map $\lambda$ records two things:
+which point of the old cover $P$ a point of $R$ maps to, and which
+point of the new base $T$ it is meant to lie above. The equation
+$h=fk$ says these two records describe the same point of $S$.
+It makes the pair a point of the fiber product. The construction gives
+a map $R\to P\times_S T$, not an assertion that $R$ equals that
+fiber product.
+
+\subsection{Unique pullbacks and their coherence}
+Suppose $u:x\to y$ and $u':x'\to y$ are cartesian lifts of the same
+$f:T\to S$. Applying their universal properties gives vertical arrows
+$a:x\to x'$ and $b:x'\to x$ with $u'a=u$ and $ub=u'$.
+Both $ba$ and $\id_x$ are factorizations of $u$ through $u$ over
+$\id_T$, so $ba=\id_x$; likewise $ab=\id_{x'}$. The isomorphism $a$
+is unique \emph{subject to compatibility with $u,u'$}. This does not
+forbid other automorphisms of the underlying torsor.
+
+For $T\xrightarrow{f}S\xrightarrow{g}U$ and a torsor $P\to U$,
+the canonical comparison is
+\[
+\begin{aligned}
+ P\times_U T&\xrightarrow{\sim}(P\times_U S)\times_S T,\\
+ (p,t)&\longmapsto((p,f(t)),t).
+\end{aligned}
+\]
+Thus $(gf)^*P\simeq f^*(g^*P)$. Projection also gives
+$(\id_S)^*P\simeq P$. The comparison maps are equivariant and respect
+the maps to $P$. For three successive base changes, all ways of inserting
+these comparisons agree: they have the same projections to each factor,
+so uniqueness in the fiber-product property proves coherence.
+The general categorical version is Lemma~4.33.7, \BGtag{02XO}.
+
+\BGcheckpoint{\begin{itemize}
+\item Verified: a competing arrow factors uniquely through the pullback
+arrow over the prescribed base map.
+\item Result: $BG\to\Sch/B$ is fibered.
+\item Check: write both projections of the factorization.
+\end{itemize}}
+
+For double covers, the factorization sends $r$ to its image in the
+original cover together with its prescribed point of the new base.
+Successive base changes retain the same two sheets and give canonically
+isomorphic double covers.
+
+\begin{Ej}[Complete the cartesian diagram]\label{ex:cartesian}
+In the competing diagram above, prescribe $R$, $\widetilde h$, and $k$.
+Write both projections of $\lambda$. Prove directly that equivariance
+uses $\alpha_h=\alpha_f\alpha_k$, and that no other arrow over $k$ can
+factor $(h,\widetilde h)$ through \eqref{eq:pullbackarrow}.
+\end{Ej}
+\begin{Ej}[Uniqueness with a qualification]\label{ex:unique}
+A trivial double cover has a nontrivial deck automorphism. Explain why
+this does not contradict uniqueness up to unique isomorphism of a
+cartesian lift. Which compatibility equation does the deck automorphism
+usually fail?
+\end{Ej}
+
+\section{Why the fibers are groupoids}\label{sec:groupoids}
+
+\begin{Def}
+A groupoid is a category in which every arrow has an inverse. A
+\emph{category fibered in groupoids} is a fibered category whose fibers
+are groupoids.
+\end{Def}
+
+We already have a fibered category, and $(BG)_S$ was defined using all
+equivariant $S$-maps. The remaining task is to prove their invertibility.
+
+\begin{Lem}[Equivariant maps of torsors]\label{lem:torsormap}
+If $P$ and $Q$ are $G_S$-torsors, every equivariant $S$-map $u:P\to Q$
+is an isomorphism, whose inverse is equivariant.
+\end{Lem}
+\begin{proof}
+Take trivializing covers for both torsors and form their fiber products;
+this gives a common fppf trivializing cover $\{U_a\to S\}$.
+On each $U_a$, the map becomes an equivariant map $G_{U_a}\to G_{U_a}$.
+If $h=u(e)$, equivariance gives $u(x)=xh$. The map $x\mapsto xh^{-1}$
+is its inverse. Consequently $u$ is an isomorphism after the cover and
+therefore globally by \BGtag{02L4}. If $q=u(p)$, the equation
+$u(gp)=gq$ implies $u^{-1}(gq)=gu^{-1}(q)$, proving equivariance of the
+inverse.
+\end{proof}
+
+\BGcheckpoint{\begin{itemize}
+\item Proved: every equivariant map of torsors over the same base is
+invertible.
+\item Result: every fiber $(BG)_S$ is a groupoid.
+\item Together with cartesian lifts: $BG\to\Sch/B$ is a category
+fibered in groupoids.
+\end{itemize}}
+
+\subsection{The equivalent description of total arrows}
+We can now justify an often-used alternative definition. Given
+$(f,\widetilde f):(S,P)\to(T,Q)$, the commutative square induces
+\[
+\begin{aligned}
+ \widehat f:P&\longrightarrow f^*Q=Q\times_T S,\\
+ p&\longmapsto(\widetilde f(p),\pi_P(p)).
+\end{aligned}
+\]
+It is an equivariant $S$-map between torsors, hence an isomorphism by
+Lemma~\ref{lem:torsormap}. Conversely, such an isomorphism followed by
+projection to $Q$ yields $\widetilde f$. Therefore total arrows are
+equivalently base maps $f$ equipped with $P\simeq f^*Q$; see also
+Examples of Stacks, Section~95.14.8, \BGtag{04UR}.
+
+Every total arrow is consequently cartesian: it is the composite of a
+vertical isomorphism with a cartesian pullback arrow. This also verifies
+the alternative convention for a category fibered in groupoids in which
+all arrows are required to be cartesian. Notice that $P\to Q$ itself
+need not be an isomorphism when the base map is not an isomorphism.
+
+For the constant group of order two, an arrow in the fiber is locally
+$x\mapsto x+\varepsilon$ with $\varepsilon\in\bZ/2\bZ$. It is either
+the identity or the sheet swap on each connected component. This is the
+concrete form of the lemma.
+
+\begin{Ej}[Invertibility without defining it]\label{ex:invertible}
+Prove Lemma~\ref{lem:torsormap}, including the construction of a common
+trivializing cover. Why is checking bijectivity only on geometric fibers
+not a substitute for the scheme-theoretic proof? Give a total arrow
+whose map on total spaces is not an isomorphism.
+\end{Ej}
+
+\section{The definition of a stack}\label{sec:stackdef}
+
+The available structure is now a category fibered in groupoids. A choice
+of cartesian lifts is called a \emph{cleavage}; it makes notation such as
+$f^*x$ convenient. Its canonical comparison isomorphisms will always be
+inserted when comparing iterated pullbacks.
+
+\begin{Def}[The two stack conditions]\label{def:stack}
+A category fibered in groupoids $\cF$ on our site is a stack if:
+\begin{enumerate}[label=(\arabic*)]
+\item Isomorphisms form a sheaf. For $x,y\in\cF_S$, define
+\[
+ T\longmapsto\Isom_{\cF_T}(x_T,y_T).
+\]
+This presheaf must be a sheaf for fppf covers of $S$-schemes.
+\item For every fppf cover $\{S_i\to S\}$, every descent datum for
+objects is effective.
+\end{enumerate}
+\end{Def}
+This is Definition~8.5.1, \BGtag{02ZI}, with its fibration condition
+already established. We spell out the terminology in the second clause.
+
+\subsection{First picture: an ordinary open cover}
+For the moment let the $S_i$ be open subsets covering $S$. Suppose a
+double cover is given over each $S_i$. On $S_i\cap S_j$, an
+isomorphism says which sheet in the first description corresponds to
+which sheet in the second. On a triple intersection, changing from the
+first description to the third directly must have the same result as
+changing first to the second and then to the third. This is the
+\emph{cocycle condition}: the identifications must not depend on the
+route taken.
+
+To \emph{descend} this information means to construct a single double
+cover over $S$ with these local descriptions. The datum is called
+\emph{effective} when such a global cover actually exists. For general
+fppf covers, the same questions make sense, but $S_i\times_S S_j$
+takes the place of the intersection. Its two projections keep track
+of which local description is being used. These projections must be
+retained because the covering maps need not be inclusions.
+
+\begin{Ex}[Two routes through the sheet labels]
+Suppose the local double covers have been labeled on the open sets
+$S_i$. On a triple overlap $V=S_i\cap S_j\cap S_k$, each
+description is $V\amalg V$; call the three labeled descriptions
+$L_i,L_j,L_k$. A transition from labels $i$ to labels $j$ adds a
+locally constant value $\varepsilon_{ij}$ in $\bZ/2\bZ$.
+The two proposed routes from $L_i$ to $L_k$ are
+\[
+\begin{tikzcd}[column sep=small,row sep=large]
+ L_i \arrow[rr,"+\varepsilon_{ik}"]
+     \arrow[dr,"+\varepsilon_{ij}"']&&L_k\\
+ &L_j \arrow[ur,"+\varepsilon_{jk}"']&
+\end{tikzcd}
+\]
+Starting with label $a$, the lower route gives
+$a+\varepsilon_{ij}+\varepsilon_{jk}$, and the direct route gives
+$a+\varepsilon_{ik}$. The diagram commutes precisely when
+\[
+ \varepsilon_{ij}+\varepsilon_{jk}=\varepsilon_{ik}
+ \quad\text{on }V.
+\]
+For instance, if the first two transitions swap sheets, the direct
+transition must preserve them. Choosing all three transitions to be
+swaps on a nonempty $V$ is inconsistent: the lower route sends $0$
+to $0$, but the direct route sends $0$ to $1$. Each proposed map
+individually is a valid isomorphism; it is their joint compatibility
+that fails. This is the extra information recorded by a cocycle.
+\end{Ex}
+
+\subsection{The general datum}
+Put $S_{ij}=S_i\times_S S_j$ with projections $r_1,r_2$, and put
+$S_{ijk}=S_i\times_S S_j\times_S S_k$. On triple overlaps let $q_{ab}$
+select factors $a,b$. A \emph{descent datum} consists of $x_i\in\cF_{S_i}$
+and isomorphisms
+\[
+ \varphi_{ij}:r_1^*x_i\xrightarrow{\sim}r_2^*x_j
+\]
+such that
+\begin{equation}\label{eq:cocycle}
+ q_{23}^*\varphi_{jk}\circ q_{12}^*\varphi_{ij}
+ =q_{13}^*\varphi_{ik}.
+\end{equation}
+All arrows in this equation are over $S_{ijk}$. This is
+Definition~8.3.1, \BGtag{026B}, with projection indices starting at $1$.
+
+The datum is \emph{effective} if there is $x\in\cF_S$ with
+$\psi_i:x|_{S_i}\simeq x_i$ for which
+\begin{equation}\label{eq:recovery}
+ \varphi_{ij}=(r_2^*\psi_j)\circ(r_1^*\psi_i)^{-1}.
+\end{equation}
+The two pullbacks of $x$ in the middle are identified canonically.
+
+\subsection{Self-overlaps require care}\label{subsec:selfoverlap}
+An fppf cover need not consist of open immersions. Thus $S_{ii}$ need
+not equal $S_i$, and the two objects $r_1^*x_i,r_2^*x_i$ on $S_{ii}$
+are different pullbacks. The correct normalization is
+\begin{equation}\label{eq:diagonal}
+ \Delta_i^*\varphi_{ii}=\id_{x_i},
+\end{equation}
+where $\Delta_i:S_i\to S_i\times_S S_i$. If
+$s_{ij}:S_{ij}\to S_{ji}$ exchanges factors, then
+\[
+ s_{ij}^*\varphi_{ji}=\varphi_{ij}^{-1}.
+\]
+To prove \eqref{eq:diagonal}, pull the $(i,i,i)$ cocycle back along the
+small diagonal. The resulting invertible endomorphism $a$ satisfies
+$a^2=a$, hence $a=\id$. Pulling the $(i,j,i)$ cocycle back along
+$(u,v)\mapsto(u,v,u)$ then proves the inverse formula.
+These are Remarks~8.3.2, \BGtag{026C}. The assertion
+``$\varphi_{ii}=\id$ on all of $S_{ii}$'' is in general incorrect.
+
+\subsection{The categorical meaning of descent}
+Morphisms between descent data are families $u_i:x_i\to y_i$ such that
+\[
+ \eta_{ij}\circ r_1^*u_i=r_2^*u_j\circ\varphi_{ij},
+\]
+where $\eta_{ij}$ is the transition system for $y_i$. They form the
+descent groupoid $\operatorname{Desc}_{\cF}(\{S_i\to S\})$.
+Restriction is a functor
+\[
+ \cF_S\longrightarrow\operatorname{Desc}_{\cF}(\{S_i\to S\}).
+\]
+The Isom-sheaf axiom says it is fully faithful: compatible local arrows
+between two existing global objects come from unique global arrows.
+Effective descent says it is essentially surjective: each local object
+system has a global realization. Both are required for an equivalence.
+
+\BGcheckpoint{\begin{itemize}
+\item Defined: the Isom-sheaf axiom, descent datum, cocycle, and
+effective descent.
+\item Check: state separately what must glue in each stack axiom.
+\item Still to prove: both gluing assertions for $BG$.
+\end{itemize}}
+
+\begin{Ej}[A fibered groupoid with insufficient arrow descent]\label{ex:cfg}
+On the open-set site of a space consisting of two discrete points, set
+$A(U)=\bZ/2\bZ$ for nonempty $U$ and $A(\varnothing)=\{0\}$, with
+the evident restrictions. Form the one-object groupoid with automorphism
+group $A(U)$ over every open $U$. Explain why its associated total
+category is fibered in groupoids but its automorphisms do not form a sheaf.
+\end{Ej}
+
+\section{Isomorphisms form a sheaf}\label{sec:isomsheaf}
+
+\subsection{The presheaf and its exact restriction laws}
+The objects $P$ and $Q$ are already defined over all of $S$. What will
+vary locally is an \emph{identification between them}. Over a
+$B$-scheme $T\to S$, such an identification is an equivariant
+isomorphism $P_T\to Q_T$. Thus the elements of the set we are about
+to define are maps, not points of either cover.
+
+Restriction has a concrete meaning. Given $u:T'\to T$, pull back the
+map $\varphi:P_T\to Q_T$ along $u$. On the corresponding fiber
+products it sends $(p,t')$ to $(\varphi(p),t')$: the identification of
+the covers is unchanged, but the base has been changed to $T'$.
+The comparison maps below only identify these iterated fiber products
+with the previously chosen notation $P_{T'}$ and $Q_{T'}$.
+
+Fix $G_S$-torsors $P,Q$. Define
+\[
+\begin{aligned}
+ \cI(T)&=\underline{\Isom}_G(P,Q)(T)\\
+       &=\Isom_{G_T}(P_T,Q_T).
+\end{aligned}
+\]
+For $u:T'\to T$ over $S$, let
+\[
+ c_{P,u}:P_{T'}\xrightarrow{\sim}u^*(P_T)
+\]
+be the canonical comparison, and similarly for $Q$. Define the
+restriction function by
+\[
+ \rho_u(\varphi)=c_{Q,u}^{-1}\circ u^*\varphi\circ c_{P,u}.
+\]
+It is a map between the chosen objects $P_{T'}$ and $Q_{T'}$.
+Identity comparisons give $\rho_{\id}=\id$. If $v:T''\to T'$, coherence
+of the fiber-product comparisons gives
+$\rho_v\rho_u=\rho_{uv}$ as an \emph{equality of functions}. Thus
+$\cI$ is an actual set-valued presheaf, not a presheaf only up to
+isomorphism. This construction is formalized in Lemma~8.2.1 and
+Definition~8.2.2, \BGtag{026A} and \BGtag{02ZB}.
+
+\subsection{The external gluing theorem}
+\begin{Th}[Descent for scheme morphisms]\label{th:homdescent}
+Let $X,Y$ be schemes over a scheme $S$, and let $\{S_i\to S\}$ be an
+fpqc cover. Compatible $S_i$-maps $X_{S_i}\to Y_{S_i}$ glue to a unique
+$S$-map $X\to Y$. In particular, equality of maps can be checked after
+the cover. No affineness assumption on $X$ or $Y$ is required.
+\end{Th}
+This is Lemma~35.35.11 and its Hom-sheaf formulation in
+Remark~35.35.12, \BGtag{02W0} and \BGtag{040L}. One underlying reason
+is that representable functors are fpqc sheaves: $X_{S_i}\to X$ is a
+cover, and compatible maps from these schemes to $Y$ glue by the sheaf
+axiom for $h_Y$. Compatibility with the maps to $S$ is checked by the
+same uniqueness statement.
+
+\subsection{Apply the theorem to torsor isomorphisms}
+The available data are an fppf cover $\{S_i\to S\}$ and equivariant
+isomorphisms $\varphi_i:P_{S_i}\simeq Q_{S_i}$ agreeing on overlaps.
+We must glue them and verify equivariance, invertibility, and uniqueness.
+
+Theorem~\ref{th:homdescent} applies because $P,Q$ are schemes and the
+cover is fpqc. It produces a unique underlying $S$-morphism
+$\varphi:P\to Q$. To check equivariance, compare
+\[
+ \varphi a_P,\qquad a_Q(\id_G\times\varphi)
+\]
+as maps $G_S\times_S P\to Q$. Their base changes agree because every
+$\varphi_i$ is equivariant. The equality part of the theorem makes
+them equal globally.
+
+The local inverses $\varphi_i^{-1}$ agree on overlaps and glue to
+$\chi:Q\to P$. The maps $\chi\varphi$ and $\id_P$ agree on the cover,
+as do $\varphi\chi$ and $\id_Q$. Hence they are equal globally and
+$\varphi$ is an isomorphism. Its inverse is equivariant by the same
+equation or by Lemma~\ref{lem:torsormap}. Finally, uniqueness of the
+underlying map gives uniqueness among equivariant isomorphisms.
+
+To prove the sheaf axiom on the \emph{whole} slice site, repeat this
+argument over every $T\to S$ and every fppf cover of $T$, with $P_T,Q_T$
+in place of $P,Q$.
+
+\BGcheckpoint{\begin{itemize}
+\item Constructed: the unique glued map and its inverse.
+\item Verified: equivariance and both inverse equations.
+\item Result: $\underline{\Isom}_G(P,Q)$ is an fppf sheaf, the first
+stack axiom.
+\end{itemize}}
+
+For trivial double covers, a section of this sheaf is a locally constant
+choice to preserve or exchange the two labels. Compatible choices on a
+cover glue uniquely. For two nontrivial double covers, the same argument
+glues their local maps commuting with the involutions; no global labeling
+of either cover is required.
+
+\begin{Ej}[The presheaf law]\label{ex:presheaf}
+Using the comparisons $c_{P,u}$, verify $\rho_v\rho_u=\rho_{uv}$.
+Explain why the restriction law is an equality even though iterated
+fiber products are only canonically isomorphic.
+\end{Ej}
+\begin{Ej}[Gluing]\label{ex:glueiso}
+Write the two maps whose equality expresses equivariance of a glued
+$P\to Q$. Then prove invertibility by gluing local inverses. Identify
+which clauses of Theorem~\ref{th:homdescent} are used for existence and
+for uniqueness.
+\end{Ej}
+
+\section{Effective descent for torsors}\label{sec:effective}
+
+\subsection{The affine descent input}
+Here \emph{affine over $S$} is a property of the morphism to $S$;
+it does not require the total space to be an affine scheme. For
+example, $S\amalg S\to S$ is affine: above an affine open
+$V=\Spec A$ it is
+$V\amalg V=\Spec(A\times A)$. This remains true when
+$S=\bP^1_k$, although $S\amalg S$ is not an affine scheme.
+The affine descent theorem concerns this relative meaning of affine.
+
+The remaining stack condition starts with local objects, so it must
+construct a new global scheme. We use the following theorem as a black box.
+
+\begin{Th}[Effective descent of affine morphisms]\label{th:affinedescent}
+Let $\{S_i\to S\}$ be an fpqc cover. Suppose $X_i\to S_i$ are affine
+morphisms with isomorphisms $r_1^*X_i\simeq r_2^*X_j$ satisfying the
+cocycle condition. There exists an affine $S$-scheme $X$ and
+isomorphisms $X_{S_i}\simeq X_i$ recovering those transitions.
+Together with Theorem~\ref{th:homdescent}, this gives an equivalence
+between affine $S$-schemes and their descent data.
+\end{Th}
+This is Lemma~35.37.1, \BGtag{0245}. The theorem depends on faithfully
+flat descent of modules and algebras, not on torsor stackness. In affine
+coordinates it descends an algebra with compatible identifications to
+an algebra over the base ring; taking its spectrum constructs the
+global affine scheme. A cocycle is needed so that these identifications
+are mutually consistent.
+
+We also use Lemma~35.23.20, \BGtag{02L5}: if a morphism of schemes
+becomes affine over an fpqc cover of its target, it was affine already.
+This assertion concerns a \emph{given} global morphism; it is distinct
+from the effective-descent theorem, which constructs a global object.
+
+\subsection{The datum and the underlying scheme}
+Suppose given $G_{S_i}$-torsors $P_i\to S_i$ and equivariant
+$\varphi_{ij}:r_1^*P_i\simeq r_2^*P_j$ satisfying
+\eqref{eq:cocycle}. They prescribe how local torsors should be identified
+on repeated base changes. We seek $(P,\psi_i)$ satisfying
+\eqref{eq:recovery} and all torsor axioms.
+
+Each $P_i\to S_i$ is affine: a trivializing fppf cover makes it
+isomorphic to the affine morphism $G_{S_i}\to S_i$, and
+\BGtag{02L5} applies. The outer cover is fpqc by \BGtag{022C}.
+Thus every hypothesis of Theorem~\ref{th:affinedescent} is verified.
+It gives an affine $P\to S$ and isomorphisms
+\[
+ \psi_i:P_{S_i}\xrightarrow{\sim}P_i
+\]
+recovering the specified transitions. At this stage $P$ is a scheme over
+$S$; its action is still to be constructed.
+
+\subsection{Descend the action and its equations}
+Transport each action $a_i:G_{S_i}\times P_i\to P_i$ to
+\[
+ a_i'=\psi_i^{-1}a_i(\id_G\times\psi_i)
+\]
+on $(G_S\times_S P)_{S_i}\to P_{S_i}$. On $S_{ij}$, equivariance of
+$\varphi_{ij}$ says
+\[
+ \varphi_{ij}a_i=a_j(\id_G\times\varphi_{ij}).
+\]
+Substitution of \eqref{eq:recovery} shows that $a_i'$ and $a_j'$ agree.
+Theorem~\ref{th:homdescent}, applied with $X=G_S\times_S P$ and $Y=P$,
+produces a unique map $a:G_S\times_S P\to P$.
+
+Associativity compares the two maps from $G_S\times_S G_S\times_S P$
+to $P$:
+\[
+ a(m\times\id_P),\qquad a(\id_G\times a).
+\]
+They agree after every $S_i$ because $a_i$ is an action. Thus they agree
+globally. The same equality test proves
+$a(e\times\id_P)=\id_P$. We have obtained a group action, and the
+$\psi_i$ are equivariant by the way it was constructed.
+
+\subsection{Local triviality and the torsor identity}
+For each $i$, choose an fppf cover $\{U_{ia}\to S_i\}$ trivializing
+$P_i$. Composition of fppf coverings makes
+$\{U_{ia}\to S\}_{i,a}$ a cover. On it,
+\[
+ P_{U_{ia}}\simeq(P_i)_{U_{ia}}\simeq G_{U_{ia}}
+\]
+equivariantly. Consequently $P\to S$ is locally trivial in the chosen
+topology. Proposition~\ref{prop:torsorcriterion} also gives its
+surjectivity, flatness, and local finite presentation.
+
+For an explicit check of the torsor identity, form
+\[
+ \Theta_P:G_S\times_S P\to P\times_S P.
+\]
+Under $\psi_i$ its base change is $\Theta_{P_i}$, hence an isomorphism.
+The isomorphism-locality theorem \BGtag{02L4} therefore makes
+$\Theta_P$ an isomorphism. This verifies the requested identity globally,
+in addition to local triviality.
+
+\subsection{Recovery and compatible uniqueness}
+The maps $\psi_i$ already satisfy \eqref{eq:recovery}, by the affine
+descent construction, and they are now maps of torsors. Suppose
+$(P',\psi_i')$ is another realization. Define
+\[
+ \lambda_i=(\psi_i')^{-1}\psi_i:P_{S_i}\simeq P'_{S_i}.
+\]
+The two recovery equations imply agreement of $\lambda_i$ and
+$\lambda_j$ on overlaps. Section~\ref{sec:isomsheaf} gives a unique
+equivariant isomorphism $\lambda:P\simeq P'$ such that
+\[
+ \psi_i'\lambda_{S_i}=\psi_i
+\]
+for every $i$. The compatibility equations, not a claim that torsors have
+no automorphisms, are what force uniqueness.
+
+\subsection{The sheaf interpretation}
+There is also a useful way to see the gluing before testing
+representability. On a test $T\to S$, put $T_i=T\times_S S_i$ and
+consider tuples
+\[
+ (p_i)\in\prod_i P_i(T_i)
+\]
+such that $\varphi_{ij}(p_i)=p_j$ on $T\times_S S_{ij}$.
+These sets, with restriction of tuples, form a sheaf $\cP$.
+Indeed, compatible tuples on a cover of $T$ glue componentwise by the
+sheaf property of each $P_i$, and their compatibility equations can be
+checked on that cover. Over $S_j$, restriction to the diagonal of the
+$j$-th component gives $\cP|_{S_j}\simeq h_{P_j}$; the inverse
+transports that section to the other components by $\varphi_{ji}$.
+The cocycle proves compatibility and that these maps are inverse.
+The action is componentwise.
+
+This argument constructs a sheaf torsor. Affine descent is the separate
+representability step, and identifies $\cP$ with $h_P$. Thus even this
+version uses no circular appeal to the stack of torsors.
+
+\BGcheckpoint{\begin{itemize}
+\item Constructed: the global scheme, action, and local identifications.
+\item Verified: action laws, local triviality, the torsor identity, and
+recovery of transitions.
+\item Result: effective descent, with uniqueness compatible with the
+local identifications.
+\end{itemize}}
+
+For trivial double covers the transition maps are
+$x\mapsto x+\varepsilon_{ij}$; their cocycle says the parity of sheet
+swaps is independent of the route through a triple overlap. Affine
+descent constructs the double cover, and equivariance glues its
+involution. This remains valid for a singleton fppf cover with a
+nontrivial self-overlap.
+
+\begin{Ej}[A descent datum is more than local objects]\label{ex:datum}
+Write a torsor descent datum using $r_1,r_2$ and $q_{12},q_{23},q_{13}$.
+For trivial double covers interpret the cocycle as an equation for
+$\varepsilon_{ij}$. On a triple overlap, why is the assignment
+$\varepsilon_{ij}=\varepsilon_{jk}=1$, $\varepsilon_{ik}=1$ inconsistent?
+\end{Ej}
+\begin{Ej}[The self-overlap error]\label{ex:self}
+Let $U=P\to S$ be a double-cover torsor and use its tautological
+section to trivialize $P_U$. On $U\times_S U$, define
+$\varepsilon(u,v)$ by $v=\varepsilon(u,v)\cdot u$.
+Show that this is its transition function, that it vanishes on the
+diagonal, and that it is $1$ on the graph of the deck involution.
+Why does this refute $\varphi_{11}=\id$ on the entire self-overlap?
+\end{Ej}
+\begin{Ej}[Descend a structure map]\label{ex:action}
+Assume affine descent has produced $P$ and $\psi_i$. Prove in detail
+that the transported actions $a_i'$ agree, and list the domains of the
+two morphisms used to check associativity. Is checking the action only
+on geometric points sufficient?
+\end{Ej}
+\begin{Ej}[Uniqueness of a realization]\label{ex:realization}
+For two realizations $(P,\psi_i)$ and $(P',\psi_i')$, prove that
+$(\psi_i')^{-1}\psi_i$ agrees on overlaps. State exactly the uniqueness
+assertion that follows, and explain why omitting the $\psi_i$ changes it.
+\end{Ej}
+
+\section{The stack theorem}\label{sec:theorem}
+
+We now apply Definition~\ref{def:stack} to the structure we have built.
+The required data and their verifications are all available:
+\begin{enumerate}[label=(\arabic*)]
+\item Section~\ref{sec:total} established an ordinary category $BG$.
+\item Section~\ref{sec:projection} established the functor to $\Sch/B$.
+\item Sections~\ref{sec:pullback}--\ref{sec:cartesian} constructed
+cartesian lifts of all base maps.
+\item Section~\ref{sec:groupoids} proved invertibility in every fiber.
+\item Section~\ref{sec:isomsheaf} proved the Isom-sheaf condition on
+every slice site.
+\item Section~\ref{sec:effective} proved effective object descent.
+\end{enumerate}
+These prove Theorem~\ref{th:target}.
+
+The functor from the naive prestack to this torsor category is fully
+faithful on fibers: its arrows are exactly the translations described
+in Section~\ref{sec:quotient}. Every torsor is locally in its image.
+Since the target is now proved to be a stack, the stackification
+comparison of \BGtag{0CQJ} identifies it with $[B/G]$.
+
+\BGcheckpoint{\begin{itemize}
+\item Verified: a category over $\Sch/B$, cartesian lifts, and groupoid
+fibers.
+\item Verified: both descent axioms.
+\item Result: $BG=[\operatorname{pt}/G]$ is a stack for the fppf
+covering rule.
+\end{itemize}}
+
+For the constant group of order two, the theorem says that equivariant
+isomorphisms of double covers glue uniquely and that every compatible
+system of local double covers has a global realization.
+
+\section{A detailed double-cover example}\label{sec:double}
+
+\subsection{The groupoid of double covers}
+Let $G=(\bZ/2\bZ)_B$. A torsor is finite \emph{\'etale} of degree $2$:
+it has this property on a trivializing cover, and finite locally free
+morphisms of fixed degree and \emph{\'etale} morphisms descend
+fpqc-locally (Lemmas~35.23.32 and 35.23.31, \BGtag{02VO} and
+\BGtag{02VN}).
+Conversely, a finite \emph{\'etale} degree-two cover is
+\emph{\'etale}-locally two copies of its base
+(Lemma~41.18.3, \BGtag{04HN}). The unique permutation
+exchanging the two points commutes with every permutation of two points,
+so its local involutions glue, independently of labeling, to a canonical
+action of $\bZ/2\bZ$. This is a torsor action.
+
+For the trivial cover over $S$, an automorphism is
+$x\mapsto x+\varepsilon$ with $\varepsilon\in G(S)$. If $S$ is
+nonempty and connected, there are exactly two choices. On a disconnected
+base the choice can differ on each open-and-closed component; it is
+incorrect to count exactly two global automorphisms for every base.
+
+\subsection{A nonsplit cover and its splitting cover}
+Take a field $k$ with $\Char k\ne2$, let
+\[
+\begin{aligned}
+ S&=\Spec k[t,t^{-1}],\\
+ P&=\Spec k[u,u^{-1}],
+\end{aligned}
+\]
+and use $t=u^2$ for the structural map. The coordinate algebra is free
+of rank two over $k[t,t^{-1}]$, with basis $1,u$, and the derivative
+$2u$ is a unit. The standard \emph{\'etale} algebra criterion says that
+a monic polynomial with invertible derivative in its quotient algebra
+defines an \emph{\'etale} algebra (Definition~10.144.1 and
+Lemma~10.144.2(1), \BGtag{00UB} and \BGtag{00UC}). Thus our map is
+finite \emph{\'etale}. The action is
+$u\mapsto-u$.
+
+The torsor identity can be checked without counting points: the algebra
+of $P\times_S P$ is
+\[
+ k[u^{\pm1},v^{\pm1}]/(u^2-v^2).
+\]
+The ideals $(u-v)$ and $(u+v)$ are comaximal because $2v$ is invertible.
+Thus this scheme is the disjoint union of the diagonal and the graph of
+the involution, exactly the two components of $G_S\times_S P$.
+
+A section of $P\to S$ would give $w\in k[t,t^{-1}]$ with $w^2=t$.
+Every unit has the form $ct^n$, so this would force $2n=1$.
+There is no section, and hence the torsor is nontrivial by
+Exercise~\ref{ex:section}. Nevertheless it splits on the single fppf
+cover $P\to S$. Its self-overlap records whether $v=u$ or $v=-u$.
+The transition $\varepsilon(u,v)$ equals $0$ or $1$ respectively, and
+on a triple overlap
+\[
+ \varepsilon(u,v)+\varepsilon(v,w)=\varepsilon(u,w).
+\]
+The equality expresses the composition of signs. Descent of the trivial
+torsor over $P$, with this transition, reconstructs the original
+nonsplit torsor over $S$.
+
+\subsection{Characteristic two}
+Over a field $k$ of characteristic $2$, the morphism
+\[
+ \Spec k[x]\longrightarrow\Spec k[t],
+ \qquad t=x^2-x,
+\]
+is free of degree two, with invertible derivative $-1$.
+Its involution is $x\mapsto x+1$. On the self-product the difference
+$y-x$ satisfies
+\[
+ (y-x)^2-(y-x)=0,
+\]
+which splits into the comaximal factors $y-x$ and $y-x-1$.
+This verifies the constant-group torsor identity in characteristic $2$.
+A polynomial section would solve $r(t)^2-r(t)=t$; a nonconstant $r$
+has even degree on the left and a constant $r$ gives a constant. Thus
+the torsor is nontrivial.
+
+By comparison, over $k[t,t^{-1}]$ the map $t=u^2$ in characteristic $2$
+is a $\mu_2$-torsor: it is finite faithfully flat and the ratio of two
+lifts is an element of $\mu_2$. It is not \emph{\'etale}, and the
+formula $u\mapsto-u$ becomes the identity, so it does not define a
+constant $\bZ/2\bZ$-torsor action.
+
+\begin{Ej}[Automorphisms on a disconnected base]\label{ex:automorphisms}
+Let $S=S_1\amalg S_2$, with both $S_i$ nonempty and connected. Determine
+the automorphism group of the trivial constant-group double cover over
+$S$. Explain its sheaf interpretation.
+\end{Ej}
+\begin{Ej}[Artin--Schreier check]\label{ex:AS}
+Verify the degree, \emph{\'etale} property, involution, torsor identity,
+and nontriviality of $t=x^2-x$ in characteristic $2$. Locate precisely
+where the analogous formula $u\mapsto-u$ fails for the constant group.
+\end{Ej}
+
+\section{Comparison with families of curves}\label{sec:curves}
+
+\subsection{The actual moduli problem}
+The Stacks Project studies curves in Section~99.15, \BGtag{0D4Y}.
+Its category $\Curves$ (Situation~99.15.1, \BGtag{0D4Z}) has objects
+$X\to S$ with $S$ a scheme, $X$ an algebraic space, and the morphism
+flat, proper, finitely presented, of relative dimension at most one.
+No smoothness, connectedness, reducedness, or fixed genus is imposed.
+Relative dimension is in the sense of Definition~67.33.2,
+\BGtag{06LR}. Here is the distinction from the dimension of the total
+space: a family over a curve may have a two-dimensional total space,
+while each fiber is only one-dimensional. The relative-dimension
+condition concerns those fibers. More precisely, at a point of the
+family one measures the dimension there in the fiber over its image
+in the base; the bound must hold at every point. Thus ``at most one''
+also allows zero-dimensional fibers, rather than requiring every fiber
+to be a smooth, connected curve. We may restrict the base schemes to
+$B$-schemes throughout.
+
+An arrow is a \emph{cartesian} square
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+ X' \arrow[r] \arrow[d] & X \arrow[d]\\
+ S' \arrow[r,"f"'] & S
+\end{tikzcd}
+\]
+If all commutative squares were allowed, arrows in a fixed fiber could
+include noninvertible endomorphisms; the fibers would not be groupoids.
+
+\subsection{The formal categorical correspondence}
+\noindent
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+$BG$ & $\Curves$\\
+\midrule
+Torsor $P\to S$ & Family $X\to S$\\
+Equivariant arrow over $f$ & Cartesian square over $f$\\
+$P\simeq f^*Q$ & $X'\simeq f^*X$\\
+Pullback torsor & Base-changed family\\
+Equivariant isomorphism & Isomorphism of families\\
+Affine descent & Algebraic-space descent\\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+
+Identities and composites are defined componentwise; cartesian squares
+paste, so the result is a category. Forgetting $X$ gives a functor to
+schemes. Base change gives the cartesian lift, by exactly the same
+factorization proof as Section~\ref{sec:cartesian}. Flatness, properness,
+finite presentation, and the relative-dimension bound are stable under
+arbitrary base change. For the first three properties see
+Lemmas~67.30.4, 67.40.3, and 67.28.3, respectively:
+\BGtag{03MO}, \BGtag{04WP}, and \BGtag{03XR}. For the dimension bound
+use Lemma~67.34.3(1), \BGtag{04NS}. Finally a cartesian square over
+$\id_S$ identifies $X'$
+with $S\times_S X=X$, so each fiber is a groupoid.
+
+The base-change and locality facts used here are stated below. Thus the
+formal categorical argument is identical, while closure of the class
+of allowed objects is a geometric theorem.
+
+\subsection{Isomorphism descent for curves}
+For global $X,Y\to S$, consider
+\[
+ T\longmapsto\Isom_T(X_T,Y_T).
+\]
+The relevant black box is Lemma~95.7.2, \BGtag{04UA}: compatible local
+morphisms between two algebraic spaces over a scheme glue uniquely on
+an fppf covering. It applies to these $X,Y$ even if they are not schemes.
+Gluing inverses and checking the two identity composites on the cover
+proves the Isom-sheaf condition. No representability theorem for this
+Isom sheaf is needed for stackness.
+
+\subsection{Effective descent and the geometric conditions}
+The required object-descent theorem is Lemma~80.11.3(2),
+\BGtag{0ADV}: descent data for algebraic spaces $X_i\to S_i$ of finite
+type are effective for any fppf covering family $\{S_i\to S\}$.
+It yields an algebraic space $X\to S$ and compatible
+$X_{S_i}\simeq X_i$. Finite presentation implies finite type, so it
+applies to our families. We use part~(2) explicitly; the unrestricted
+part~(1) has a countability qualification in the Stacks Project's size
+conventions.
+
+It remains to verify that $X\to S$ is an allowed object. For algebraic
+spaces the following properties are fpqc-local on the target, so they
+are detected on our cover:
+\begin{itemize}
+\item finite presentation:\newline Lemma~74.11.12, \BGtag{041V};
+\item flatness:\newline Lemma~74.11.13, \BGtag{041W};
+\item properness:\newline Lemma~74.11.19, \BGtag{0422}.
+\end{itemize}
+Thus $X\to S$ has these three properties. In particular it is locally
+of finite type. Lemma~67.34.3(1), \BGtag{04NS}, says that its relative
+dimension at a point equals that of any base change at a point above it.
+Every point of $X$ lifts to some $X_{S_i}$ because the base-changed
+cover is jointly surjective. The local bound at most one therefore
+holds globally. Preservation under base change alone would not supply
+this converse; joint surjectivity is also used.
+
+The recovery maps are those of the descent theorem, and two realizations
+are uniquely isomorphic compatibly by morphism descent. This proves the
+two missing stack axioms for $\Curves$ using explicit geometric inputs.
+It is the argument packaged in Lemma~99.13.3, \BGtag{0D1G}, and
+Lemma~99.15.3, \BGtag{0D52}; these packaged results are checks on our
+argument, not assumptions that $\Curves$ is already a stack.
+
+\subsection{Why algebraic spaces occur}
+Schemes have fully faithful fpqc descent, but arbitrary scheme descent
+data need not be effective as schemes. Lemma~110.68.1, \BGtag{08KF},
+gives even projective schemes with \emph{\'etale} descent data that fail
+to descend in schemes. This is a general example, not specifically a
+curve-family example. For curves themselves, Lemma~110.69.1,
+\BGtag{0D5E}, gives a family over $\bA^1_k$ with total space not a scheme.
+Allowing algebraic spaces is therefore substantive.
+
+For $BG$, affineness made both the local objects and their descended
+object schemes. For curves, effective descent uses the larger category
+of algebraic spaces. The Isom axiom only glues arrows between existing
+objects; the object axiom must construct geometry and check it remains
+in the class under consideration. This explains why the latter is
+usually the harder assertion.
+
+\begin{Ej}[Transfer the proof to curves]\label{ex:curves}
+For each step from category to stack, identify the corresponding step
+for $\Curves$. Name the extra geometric inputs. Detect the errors in:
+``Every commutative square of curve families is an arrow'' and
+``Morphisms of schemes descend, so local families always glue to a
+scheme.''
+\end{Ej}
+
+\section{Summary of the logical progression}\label{sec:summary}
+
+The following chain records the cumulative construction; each downward
+step includes a new verification, rather than claiming an implication
+from one isolated property to the next.
+\[
+\boxed{\begin{gathered}
+ BG\text{ is a category}\\ \Downarrow\\
+ BG\text{ is over }\Sch/B\\ \Downarrow\\
+ BG\text{ is fibered over }\Sch/B\\ \Downarrow\\
+ BG\text{ is fibered in groupoids}\\ \Downarrow\\
+ \underline{\Isom}_G\text{ is a sheaf}\\ \Downarrow\\
+ \text{torsor descent is effective}\\ \Downarrow\\
+ BG\text{ is a stack}.
+\end{gathered}}
+\]
+Here is the inventory of black boxes, separated from what the proofs
+constructed explicitly.
+\begin{enumerate}[label=(\arabic*)]
+\item Fiber products of schemes and their universal property; base
+change and composition of fppf covers, \BGtag{021O}; and the inclusion
+of fppf covers among fpqc covers, \BGtag{022C}.
+\item Subcanonicity and full faithfulness of scheme descent:
+\BGtag{023Q}, \BGtag{02W0}, and \BGtag{040L}.
+\item Locality of isomorphisms, affineness, flatness, and local finite
+presentation: \BGtag{02L4}, \BGtag{02L5}, \BGtag{02L2}, \BGtag{02KY}.
+\item Effective descent of affine morphisms, \BGtag{0245}. This is the
+substantial existence theorem for the torsor proof. The action and its
+equations were then descended explicitly.
+\item For the interpretation of notation, the quotient-stack
+definition and torsor comparison, \BGtag{044Q} and \BGtag{0CQJ}.
+These are not used to prove torsor descent.
+\item For the curve comparison, morphism descent \BGtag{04UA},
+effective descent \BGtag{0ADV}(2), and locality of the defining
+properties \BGtag{041V}, \BGtag{041W}, \BGtag{0422}, \BGtag{04NS}.
+Their base-change stability uses \BGtag{03MO}, \BGtag{04WP},
+\BGtag{03XR}, and \BGtag{04NS} separately from locality.
+\end{enumerate}
+The double-cover computations use the elementary finite
+\emph{\'etale} algebra criterion (a monic polynomial with invertible
+derivative) and finite \emph{\'etale} local splitting. The
+algebra criterion is \BGtag{00UB}--\BGtag{00UC}; the splitting result
+is \BGtag{04HN}. Descent of finite locally free morphisms of fixed
+degree and of \emph{\'etale} morphisms uses \BGtag{02VO} and
+\BGtag{02VN}. Smoothness locality and local sections, used only to
+compare topologies, are \BGtag{02VL} and \BGtag{055U}. The constant
+group and $\mu_2$ were distinguished by their coordinate algebras, not
+by a characteristic-independent identification.
+
+\section{Exercises: synthesis and review}\label{sec:exercises}
+
+Exercises~\ref{ex:fiber}--\ref{ex:curves} appear immediately after the
+relevant constructions. The next two combine several stages; the final
+six return to the foundations and can be attempted on a first reading.
+All exercises have a numbered solution in Section~\ref{sec:solutions}.
+
+\begin{Ej}[Change of trivializations]\label{ex:change}
+Let $\tau_i:P_{S_i}\simeq G_{S_i}$ be left-equivariant trivializations,
+and write $\tau_j\tau_i^{-1}=R_{h_{ij}}$. Prove
+\[
+ h_{ik}=h_{ij}h_{jk}
+\]
+on triple overlaps. If $\tau_i'=R_{b_i}\tau_i$, compute $h_{ij}'$ and
+prove the new transitions satisfy the same cocycle. Interpret the
+answer for $G=\bZ/2\bZ$.
+\end{Ej}
+\begin{Ej}[Two failures of forgetting data]\label{ex:forget}
+Take $B=\Spec\bR$ and $G=(\bZ/2\bZ)_B$. Compare the split torsor
+with $\Spec\bC\to\Spec\bR$, where the involution is complex
+conjugation. Prove that they become isomorphic after the fppf cover
+$\Spec\bC\to\Spec\bR$ but are not isomorphic over $\bR$. Deduce:
+\begin{enumerate}[label=(\alph*)]
+\item the prestack of only trivial torsors can satisfy the Isom-sheaf
+condition while failing effective object descent;
+\item taking isomorphism classes of all torsors gives a presheaf that
+need not be a sheaf, although the torsor category is a stack.
+\end{enumerate}
+\end{Ej}
+
+\subsection{Foundational review}
+\begin{Ej}[Disjoint union versus product]\label{ex:coproducts}
+Take $B=\Spec k$ and $S=\bA^1_k$. Give the coordinate rings of
+$S\amalg S$, $S\times_B S$, and $S\times_S S$. Describe the ring
+map defining the fold $S\amalg S\to S$. Explain why the fold is an
+arrow of $\Sch/B$ and of $\Sch/S$, and identify its two sections.
+\end{Ej}
+
+\begin{Ej}[A map into a fiber product]\label{ex:universalmap}
+Take $X=T=\bA^1_k$ over $S=\Spec k$, and let $W=\Spec k$ map to
+the origin of each. Draw the induced map $W\to T\times_S X$ and
+explain why it is not an isomorphism. What extra property of $W$
+would make the comparison an isomorphism? Separately, pull the family
+$x^2=t$ back by $t=1$ and compute the result when $\Char k\ne2$.
+\end{Ej}
+
+\begin{Ej}[Test points and Yoneda in coordinates]\label{ex:testpoints}
+Let $T=\Spec k[\epsilon]/(\epsilon^2)$. Show that sending the
+coordinate of $\bA^1_k$ to $0$ and to $\epsilon$ gives different
+$T$-points with the same image on topological points. For every
+$k$-algebra $R$, the rule $r\mapsto r^2$ is a function on the
+$R$-points of $\bA^1_k$. Check naturality and recover the scheme
+morphism by evaluating on the identity point, as in the Yoneda proof.
+\end{Ej}
+
+\begin{Ej}[Three meanings of a group symbol]\label{ex:groupobjects}
+For $H=\bZ/2\bZ$ and $B=\bA^1_k$, distinguish $H$, $H_B$, and
+$H_B(T)$. Describe the unit, multiplication, and inversion of $H_B$
+on its labeled components. Compute $H_B(T)$ for $T=B$ and for
+$T=B\amalg B$, and describe the pullback of $H_B$ to any $S\to B$.
+\end{Ej}
+
+\begin{Ej}[Finite presentation is a relative algebra condition]\label{ex:fpflat}
+Explain why $A[z]/(z^2-z)$ is a finitely presented $A$-algebra and
+flat as an $A$-module. Why is $A[x]$ finitely presented as an algebra
+even though, for $A\ne0$, it is not finitely generated as an
+$A$-module? Finally show that $\bZ/2\bZ$ is finitely presented as a
+$\bZ$-algebra but is not flat over $\bZ$.
+\end{Ej}
+
+\begin{Ej}[The covering rule in use]\label{ex:coveroperations}
+Given an fppf cover $\{S_i\to S\}$, a map $T\to S$, and covers
+$\{U_{ij}\to S_i\}_j$, write the pulled-back and composite covering
+families. Identify the relevant parts of \BGtag{021O} and explain
+why \BGtag{021N} is not the reference for these assertions.
+For the singleton fold cover $S\amalg S\to S$, compute its pullback
+to $T$, and then cover each of its two sheets by two copies again.
+Does every arrow in $(\Sch/B)_{\mathrm{fppf}}$ have to be flat?
+\end{Ej}
+
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+\raggedcolumns
+\section{Hints and solutions}\label{sec:solutions}
+
+The exercise statements occur earlier so that they can be attempted
+independently. Each solution begins with a short hint and then gives
+the complete argument.
+
+\BGsolution{ex:fiber}
+\hint{First select the objects; then decide which arrows to retain.}
+Both categories have the object collection $\{x:p(x)=S\}$. For two
+objects in this collection, fullness means keeping every arrow:
+\[
+ \Hom_{\cD}(x,y)=\Hom_{\cF}(x,y).
+\]
+The fiber instead keeps precisely the subset on which $p(u)=\id_S$.
+Since the source and target of $p(u)$ are both $S$, a discarded arrow
+can project to a nonidentity endomorphism of $S$.
+
+When $p=\id_{\cC}$, the equation $p(x)=S$ forces $x=S$. Thus there
+is one object in each category. Their arrow sets are
+\[
+\begin{aligned}
+ \End_{\cD}(S)&=\End_{\cC}(S),\\
+ \End_{\cF_S}(S)&=\{\id_S\}.
+\end{aligned}
+\]
+In particular $\varepsilon$ is present in $\cD$ and absent from the
+fiber: the identity \emph{functor} leaves $\varepsilon$ unchanged;
+it does not turn it into the identity \emph{morphism}. For
+$S=\bA^1_k$, the maps corresponding to $t\mapsto t^2$ and
+$t\mapsto t$ differ as ring maps, hence as scheme maps. This remains
+true over a finite field even if those maps happen to agree on some
+set of rational points.
+
+There is no contradiction and no extra triangle condition for an
+arbitrary functor. Both categories are subcategories with the same
+objects, but only the first is required to be full. The word
+``over $S$'' for an object is weaker than the condition ``over
+$\id_S$'' for an arrow.
+
+\BGsolution{ex:empty}
+\hint{Both sides of the proposed identity are empty.}
+Both $G_S\times_S\varnothing$ and
+$\varnothing\times_S\varnothing$ equal $\varnothing$, so the map
+between them is an isomorphism. But the empty morphism is not surjective
+over nonempty $S$. No fppf cover can turn it into $G$, which has a unit
+section. The missing requirement is local nonemptiness, supplied here
+by local triviality or by the surjectivity of an fppf covering.
+
+\BGsolution{ex:section}
+\hint{Evaluate $\Theta_P^{-1}$ on $(p,s(\pi_P(p)))$.}
+If $s$ is a section, the map $g\mapsto g\cdot s$ is equivariant. The
+torsor identity gives, for every test point $p$, a unique $g$ with
+$p=g\cdot s$, naturally in the test scheme, and hence gives a morphism
+inverse. A trivial torsor has its unit section. If $s'=h\cdot s$ for
+$h\in G(S)$, the two trivializations $F_s(g)=g\cdot s$ obey
+$F_{s'}=F_s\circ R_h$. Every other section has this form, by the same
+identity.
+
+\BGsolution{ex:mu}
+\hint{Compute idempotents and nilpotents.}
+The constant group has algebra $k\times k$ and two $k$-points.
+In characteristic $2$, $\mu_2$ has algebra
+$k[\epsilon]/(\epsilon^2)$ and only one $k$-point: any field element
+whose square is zero is zero. It also has a nonzero nilpotent element,
+so its scheme structure differs from the reduced algebra $k\times k$.
+Both algebras have dimension two as $k$-vector spaces, but rank does not
+determine an algebra or a group scheme.
+
+\BGsolution{ex:opposite}
+\hint{Apply the composites to a variable $x$.}
+We have $(R_k\circ R_h)(x)=(xh)k=x(hk)$.
+Usual groupoid composition sends $(g_1,g_2)$ to $g_2g_1$, but
+$(R_{g_2}\circ R_{g_1})(x)=xg_1g_2$. This reverses the required order.
+Replacing each parameter by its inverse gives
+$g_1^{-1}g_2^{-1}=(g_2g_1)^{-1}$, exactly the required functorial law.
+
+\BGsolution{ex:axioms}
+\hint{Compute the two components separately.}
+For $a=(f,\widetilde f)$, $b=(g,\widetilde g)$,
+$c=(h,\widetilde h)$, both $(cb)a$ and $c(ba)$ equal
+$(hgf,\widetilde h\widetilde g\widetilde f)$. Both left and right
+composition with the appropriate identity leave each component fixed.
+The composites remain equivariant by the calculation in
+Section~\ref{sec:total}. Because the top components are actual scheme
+maps, this is strict associativity of maps. If arrows were specified
+instead by $P\simeq f^*Q$, composition would require the comparison
+$f^*g^*R\simeq(gf)^*R$.
+
+\BGsolution{ex:arrows}
+\hint{Evaluate at the unit section of $G_S$.}
+The composite of $e_S:S\to G_S$ with the given arrow is a map $S\to G_T$
+over $f$, hence a section $h\in G(S)$. Equivariance forces the formula
+in the exercise, and that formula defines an equivariant morphism for
+every $h$. Under the second arrow, $xh(s)$ is multiplied on the right
+by $k(f(s))$. Thus the composite over $gf$ has parameter
+$h\cdot f^*k\in G(S)$, in this order.
+
+\BGsolution{ex:projection}
+\hint{Use the unit parameter in Exercise~\ref{ex:arrows}.}
+Take $\widetilde f=\alpha_f:G_S\to G_S$. The square commutes, and
+$\alpha_f$ intertwines the two regular actions over $f$. The pair
+$(f,\alpha_f)$ is therefore a total arrow. For a nonempty base the
+endomorphism $t\mapsto t^2$ of $\bA^1_B$ differs from the identity,
+so this arrow is not vertical and is excluded from the fiber. If $B$
+is empty the example is vacuous; choose a nonempty base as intended.
+
+\BGsolution{ex:pullback}
+\hint{Factor $u^2-v^2$ and use that $2v$ is invertible.}
+The coordinate algebra is
+\[
+ k[v^{\pm1},u]/(u^2-v^2).
+\]
+Here $u$ is automatically invertible. The ideals $(u-v)$ and $(u+v)$
+are comaximal, so the Chinese remainder theorem identifies the algebra
+with $k[v^{\pm1}]\times k[v^{\pm1}]$. The two sections are $u=v$ and
+$u=-v$. The involution $u\mapsto-u$ exchanges these sections, giving
+the trivial double cover of $T$.
+
+\BGsolution{ex:cartesian}
+\hint{There is no freedom once the two projections are prescribed.}
+The projections must be $\pr_P\lambda=\widetilde h$ and
+$\pr_T\lambda=k\pi_R$. They are compatible because
+$\pi_P\widetilde h=fk\pi_R$. The fiber product gives a unique
+$\lambda$. Applying it to $g\cdot r$ changes the first component by
+$\alpha_h(g)$ and leaves the second unchanged. The induced action on
+$P\times_S T$ uses $\alpha_f\alpha_k(g)$, which is the same element.
+Thus the factorization is equivariant. Another arrow over $k$ satisfying
+the factorization equation has both the same projections, hence is equal.
+
+\BGsolution{ex:unique}
+\hint{A pullback includes its arrow to the original object.}
+For a cartesian lift $u:x\to y$, uniqueness concerns vertical
+automorphisms $a$ with $ua=u$. The cartesian property forces such $a$
+to be $\id_x$. For a pulled-back double cover the deck involution changes
+the projected point of the original cover, so generally $ua\ne u$.
+It is a torsor automorphism but not an automorphism of the prescribed
+cartesian lift. The latter includes the structure arrow $u$.
+
+\BGsolution{ex:invertible}
+\hint{Common refinements trivialize both source and target.}
+If $U_i$ trivializes $P$ and $V_j$ trivializes $Q$, then
+$U_i\times_S V_j$ jointly form an fppf cover of $S$. On this cover the
+map is $R_h$ for its value at the unit, hence has inverse $R_{h^{-1}}$.
+Isomorphism locality proves global invertibility and equivariance of
+the inverse follows from $u(gp)=gu(p)$. Geometric points alone do not
+detect scheme isomorphisms: for example, $\Spec k\to
+\Spec k[\epsilon]/(\epsilon^2)$ is a bijection on geometric points
+but not an isomorphism. Finally, the pullback of a trivial torsor along
+a proper nonempty open immersion of bases gives a total arrow whose
+top map is an open immersion, not an isomorphism.
+
+\BGsolution{ex:cfg}
+\hint{Choose different automorphisms on the two singleton opens.}
+Restrictions of $A$ are group homomorphisms. The associated total
+category has one object over each open, and pullback along inclusions
+is given by the designated object and the identity group element; the
+groupoid construction yields cartesian lifts. Every vertical arrow is
+invertible. On the two singleton opens choose automorphisms $0$ and $1$.
+They agree on the empty intersection since $A(\varnothing)$ is trivial.
+But a global section of $A$ is one element that restricts to the same
+element on both singleton opens. No section has the prescribed pair
+$(0,1)$, so the automorphism presheaf is not a sheaf.
+
+\BGsolution{ex:presheaf}
+\hint{Expand both restrictions and cancel adjacent comparisons.}
+The composite restriction is
+\[
+\begin{aligned}
+ \rho_v\rho_u(\varphi)
+ ={}&c_{Q,v}^{-1}\,v^*(c_{Q,u}^{-1})\\
+ &\circ v^*u^*\varphi\circ v^*c_{P,u}\circ c_{P,v}.
+\end{aligned}
+\]
+Coherence identifies the outer composites with the comparisons for
+$uv$, and identifies the middle map with $(uv)^*\varphi$.
+Thus the result equals $c_{Q,uv}^{-1}(uv)^*\varphi\,c_{P,uv}$.
+Both sides are maps between the same chosen $P_{T''}$ and $Q_{T''}$,
+so this is equality, not an unspecified isomorphism of arrows.
+
+\BGsolution{ex:glueiso}
+\hint{Equivariance and inverse laws are equalities of morphisms.}
+The maps are $\varphi a_P$ and $a_Q(\id_G\times\varphi)$ from
+$G_S\times_S P$ to $Q$. The theorem's existence clause glues the
+underlying $\varphi_i$, and its uniqueness clause makes these two
+maps equal since they are equal after the cover. Apply existence again
+to the compatible $\varphi_i^{-1}$, obtaining $\chi$. Apply uniqueness
+to $\chi\varphi$ and $\id_P$, then to $\varphi\chi$ and $\id_Q$.
+This proves invertibility. A second global isomorphism with the same
+restrictions has the same underlying map by uniqueness.
+
+\BGsolution{ex:datum}
+\hint{All three maps in the cocycle must be over one triple overlap.}
+The datum is $P_i$ and
+$\varphi_{ij}:r_1^*P_i\simeq r_2^*P_j$, with
+$q_{23}^*\varphi_{jk}\,q_{12}^*\varphi_{ij}=q_{13}^*\varphi_{ik}$.
+For the constant group the transition is addition of
+$\varepsilon_{ij}$, so composition is addition of the two pulled-back
+sections. The required equation is
+$\varepsilon_{ij}+\varepsilon_{jk}=\varepsilon_{ik}$.
+Two swaps give $0$, not $1$, so the proposed triple gives incompatible
+identifications whenever that triple overlap is nonempty.
+
+\BGsolution{ex:self}
+\hint{Compare the two tautological sections on the self-overlap.}
+Use coordinates on $P_U$ given by the map $(x,u)\mapsto x\cdot u$.
+On $U\times_S U$, the coordinate $x$ in the first trivialization and
+$y$ in the second describe the same point exactly when
+$x\cdot u=y\cdot v$. With $v=\varepsilon(u,v)\cdot u$, this says
+$y=x+\varepsilon(u,v)$ in $\bZ/2\bZ$. The torsor identity makes
+$\varepsilon$ a well-defined section. It is $0$ when $v=u$ and $1$
+when $v=\sigma(u)$. Simple transitivity gives the cocycle by composing
+these comparisons. Thus the transition is identity along the diagonal
+but is a swap on the other component. A single covering member still
+has meaningful descent data on its self-overlap.
+
+\BGsolution{ex:action}
+\hint{Substitute $\varphi_{ij}=\psi_j\psi_i^{-1}$ into equivariance.}
+The equation $\varphi_{ij}a_i=a_j(\id\times\varphi_{ij})$, after
+precomposing with $\id\times\psi_i$ and postcomposing with
+$\psi_j^{-1}$, becomes
+$\psi_i^{-1}a_i(\id\times\psi_i)
+=\psi_j^{-1}a_j(\id\times\psi_j)$. These are the transported actions,
+so they glue. Both associativity maps have domain
+$G_S\times_S G_S\times_S P$ and codomain $P$; the unit equation has
+domain $P$. Their equality is checked as maps after the fppf cover.
+Geometric-point checks alone miss nilpotents, as in
+Exercise~\ref{ex:invertible}, so they are insufficient.
+
+\BGsolution{ex:realization}
+\hint{Both local systems have the same transition map.}
+On an overlap, the recovery equations yield
+$\psi_j=\varphi_{ij}\psi_i$ and
+$\psi_j'=\varphi_{ij}\psi_i'$, with pullbacks understood. Hence
+\[
+ (\psi_j')^{-1}\psi_j
+ =(\psi_i')^{-1}\varphi_{ij}^{-1}\varphi_{ij}\psi_i
+ =(\psi_i')^{-1}\psi_i.
+\]
+The Isom sheaf gives a unique $\lambda:P\simeq P'$ with
+$\psi_i'\lambda_{S_i}=\psi_i$. If the local identification maps are
+forgotten, this equation is no longer required, and one can compose
+with any torsor automorphism. A trivial double cover already has a
+nonidentity example.
+
+\BGsolution{ex:automorphisms}
+\hint{Choose independently on the two connected components.}
+Each component admits the identity or the swap, so the global group is
+$(\bZ/2\bZ)^2$ with four elements. In general the automorphism sheaf
+of the trivial torsor is the sheaf of locally constant
+$\bZ/2\bZ$-valued functions. The value on a disjoint union is the
+product of the values on its components, exactly as the sheaf axiom
+requires.
+
+\BGsolution{ex:AS}
+\hint{Subtract the two roots in the self-product.}
+As a $k[t]$-algebra, $k[x]=k[t][x]/(x^2-x-t)$ is free with basis $1,x$.
+The derivative is $-1$, so the finite flat map is \emph{\'etale}.
+Translation by $1$ preserves $x^2-x$ and has order two. In the
+self-product the difference $y-x$ satisfies $d(d-1)=0$, and $(d)$ and
+$(d-1)$ are comaximal. These two components give the torsor identity.
+A section would yield $r^2-r=t$ in $k[t]$. For positive degree $n$, the
+left side has degree $2n$; for degree zero it is constant. Neither equals
+$t$. Finally, $-u=u$ in characteristic $2$, so negation does not
+exchange two sheets and cannot supply the nonidentity constant-group
+action.
+
+\BGsolution{ex:curves}
+\hint{Separate universal properties from closure under descent.}
+Define objects and cartesian arrows, then check identity and pasting of
+squares to obtain a category. Forgetting total spaces is a functor.
+The fiber product supplies cartesian lifts, while base-change stability
+of the four geometric conditions ensures that these are allowed
+objects. A fiber arrow is an isomorphism because its square is cartesian
+over an identity. The morphism-descent theorem for algebraic spaces,
+\BGtag{04UA}, glues local isomorphisms and their inverses. Effective
+descent \BGtag{0ADV}(2) constructs the global algebraic space; the
+locality theorems for flatness, properness, finite presentation, and
+relative dimension verify its membership in $\Curves$.
+An arbitrary commutative square need not be cartesian, so the first
+proposed assertion has too many arrows. Full faithfulness for schemes
+does not give essential surjectivity, and \BGtag{08KF} disproves the
+second assertion. Affine torsors avoid that problem through
+\BGtag{0245}; curve families require algebraic spaces.
+
+\BGsolution{ex:change}
+\hint{Track the order of right multiplications.}
+The composite $R_{h_{jk}}\circ R_{h_{ij}}$ sends $x$ to
+$xh_{ij}h_{jk}$, hence $h_{ik}=h_{ij}h_{jk}$. The new transition is
+\[
+ R_{b_j}\circ R_{h_{ij}}\circ R_{b_i}^{-1},
+\]
+which sends $x$ to $xb_i^{-1}h_{ij}b_j$. Therefore
+\[
+ h_{ij}'=b_i^{-1}h_{ij}b_j.
+\]
+On a triple overlap the adjacent factors $b_jb_j^{-1}$ cancel,
+giving $h_{ij}'h_{jk}'=b_i^{-1}h_{ik}b_k=h_{ik}'$.
+For $\bZ/2\bZ$ this becomes
+$\varepsilon_{ij}'=b_i+\varepsilon_{ij}+b_j$; changing local labels
+changes the transition functions but not the glued cover.
+
+\BGsolution{ex:forget}
+\hint{Use $\bC\otimes_{\bR}\bC\simeq\bC\times\bC$.}
+The nonsplit cover is finite \emph{\'etale} of degree two, with conjugation
+exchanging the two complex embeddings. Base changing it to $\bC$ gives
+the algebra $\bC\otimes_{\bR}\bC\simeq\bC\times\bC$, so it becomes
+the trivial torsor, equivariantly. Over $\bR$ it has no section: no
+$\bR$-algebra map $\bC\to\bR$ exists. The split cover has sections,
+so the covers are not isomorphic.
+
+For (a), transport the canonical descent data of the nonsplit torsor
+through its trivialization over $\bC$. This gives a datum of trivial
+local torsors. Were it effective in the prestack of trivial torsors,
+compatible uniqueness in the full torsor stack would make the nonsplit
+torsor isomorphic to a split one, a contradiction. The arrow sheaves
+of the trivial-torsor prestack still satisfy the sheaf axiom because
+they are given by the sheaf $G$.
+
+For (b), the two distinct global isomorphism classes restrict to the
+same local class on this cover. Thus the isomorphism-class presheaf is
+not even separated. The stack keeps the chosen isomorphisms and their
+cocycles; passing just to classes discards precisely that information.
+
+\BGsolution{ex:coproducts}
+\hint{Disjoint union corresponds to a product of rings; fiber product
+of affine schemes corresponds to a tensor product of rings.}
+The three rings, in the stated order, are
+\[
+k[t]\times k[t],\qquad k[t_1,t_2],\qquad k[t].
+\]
+The last calculation uses $k[t]\otimes_{k[t]}k[t]\simeq k[t]$.
+The fold corresponds to the diagonal homomorphism
+$k[t]\to k[t]\times k[t]$, $f\mapsto(f,f)$.
+Its composite with either projection of rings is the identity, so
+the two component inclusions are sections of the fold. All maps
+respect the map to $\Spec k$, giving the arrow in $\Sch/B$.
+In $\Sch/S$ its target is $(S,\id_S)$ and its source is the
+disjoint union equipped with the fold as structure map.
+
+\BGsolution{ex:universalmap}
+\hint{Existence of a comparison map is not universality of its source.}
+The fiber product is $\bA^2_k$. The induced map is its origin,
+corresponding to $k[t,x]\to k$ with $t,x\mapsto0$. This ring map
+is not an isomorphism, so neither is the scheme map. If $W$, with its
+two projections, satisfied the same universal mapping property for
+every competing scheme, the comparison would be an isomorphism by
+the two-factorization argument in Section~\ref{sec:categories}.
+For the second part the pullback algebra is
+\[
+k[x]/(x^2-1)\simeq k\times k,
+\]
+because $(x-1)$ and $(x+1)$ are comaximal when $2$ is invertible.
+Thus the fiber over $t=1$ is two copies of $\Spec k$.
+
+\BGsolution{ex:testpoints}
+\hint{A map into the affine line is determined by the image of its
+coordinate, including nilpotent information.}
+The ring maps $k[x]\to k[\epsilon]/(\epsilon^2)$ with images $0$
+and $\epsilon$ are different, since $\epsilon\ne0$. Both induce
+the same map on spectra: the unique prime $(\epsilon)$ contracts to
+$(x)$. Thus topological-point data alone do not determine a morphism.
+For any $k$-algebra map $\alpha:R\to R'$, one has
+$\alpha(r^2)=\alpha(r)^2$, which is the naturality equation.
+The identity point of $\bA^1_k$ corresponds to $x\in k[x]$.
+Applying the rule gives $x^2$, so the recovered morphism is the
+squaring map, defined by $k[x]\to k[x]$, $x\mapsto x^2$.
+
+\BGsolution{ex:groupobjects}
+\hint{The labels form a group, the copies of $B$ form a scheme, and
+sections choose labels locally constantly.}
+$H$ is the two-element abstract group. The scheme $H_B$ is two
+copies $B_0\amalg B_1$ of the affine line, with the fold map to $B$.
+The unit includes $B_0$, multiplication sends the component $(a,b)$
+to $B_{a+b}$ by the identity on the base, and inversion is the
+identity on each component. These are morphisms of $B$-schemes.
+Since $B$ is nonempty and connected, $H_B(B)\simeq H$.
+The two connected components of $T=B\amalg B$ can choose their
+labels independently, giving $H_B(T)\simeq H\times H$.
+Finally $H_B\times_B S\simeq S\amalg S$, with exactly the same
+componentwise group operations over $S$.
+
+\BGsolution{ex:fpflat}
+\hint{Count algebra generators separately from module generators;
+test flatness by tensoring an injection.}
+The first algebra has one generator and one relation. Evaluation at
+$0$ and $1$ identifies it with $A\times A$, which is free of rank
+two as an $A$-module and hence flat. The algebra $A[x]$ has one
+generator and no relations; its module basis is the infinite family
+$1,x,x^2,\ldots$. Finitely many polynomials have bounded degrees,
+so their $A$-linear span cannot contain all powers of $x$ when
+$A\ne0$.
+The algebra $\bZ/2\bZ$ is $\bZ/(2)$, hence finitely presented with
+no variables and one relation. Tensor the injection
+$\bZ\xrightarrow{\times2}\bZ$ with $\bZ/2\bZ$. The resulting
+map is the zero endomorphism of a nonzero group and is not injective.
+Thus finite presentation does not imply flatness.
+
+\BGsolution{ex:coveroperations}
+\hint{Ask what the new target is in each operation.}
+The pulled-back cover of $T$ is
+$\{T\times_S S_i\to T\}_i$; this is part~(3) of \BGtag{021O}.
+The composite cover of $S$ is
+$\{U_{ij}\to S_i\to S\}_{i,j}$; this is part~(2).
+Tag~\texttt{021N} instead asserts inclusions between classes of
+covers, so it does not supply these conclusions.
+The pullback of the fold is $T\amalg T\to T$. Covering each of
+these two sheets by two copies gives the four-copy fold onto $T$
+after composition. Doing this instead to the original two $S$-sheets
+gives the four-copy fold onto $S$. These are still covers, though a
+four-copy fold over a nonempty base is not a double-cover torsor for
+the two-element group. Being a cover and being that particular kind of torsor
+are different conditions.
+Finally the arrows of the site are all $B$-scheme morphisms.
+For $B=\Spec\bZ$, the map $\Spec\bF_2\to B$ is an arrow but is
+not flat, as Exercise~\ref{ex:fpflat} shows; it is not an fppf
+covering map.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Stacks}
+The Stacks Project Authors, \emph{The Stacks Project},
+\href{https://stacks.math.columbia.edu}{stacks.math.columbia.edu}.
+The linked tags in the text are permanent identifiers; statements and
+numbering were checked in September 2026. Principal groups of references:
+\begin{itemize}
+\item Foundations: fiber products \BGtag{01JO}, \BGtag{01JQ};
+product-ring spectra \BGtag{00ED}; relative affine space \BGtag{01M0},
+\BGtag{01LX}; affine morphism--ring map correspondence \BGtag{01I1},
+\BGtag{01I2}; functors of points \BGtag{001O}, \BGtag{01J5};
+Yoneda \BGtag{001P};
+sites \BGtag{00VH}; affine morphisms \BGtag{01S5}; local finite
+presentation \BGtag{01TP}; flatness \BGtag{01U2}.
+\item Topologies on Schemes, \S34.7 and \S34.9:
+\BGtag{021M}, \BGtag{021N}, \BGtag{021O}, \BGtag{022B}, \BGtag{022C}.
+\item Group schemes and actions: \BGtag{022S}, \BGtag{022T},
+\BGtag{047F}, \BGtag{022Z}.
+\item Groupoid Schemes, \S39.11, and Examples of Stacks, \S95.14--95.15:
+\BGtag{049A}, \BGtag{0499}, \BGtag{049B}, \BGtag{049C},
+\BGtag{04UR}, \BGtag{0CQJ}.
+\item Stacks, \S8.2--8.5: \BGtag{026A}, \BGtag{02ZB},
+\BGtag{026B}, \BGtag{026C}, \BGtag{02ZI}; quotient-stack definition:
+\BGtag{044Q}.
+\item Categories, \S4.33: \BGtag{02XK}, \BGtag{02XM}, \BGtag{02XO}.
+\item Descent, \S35.13, \S35.23, \S35.35, \S35.37:
+\BGtag{023Q}, \BGtag{02L4}, \BGtag{02L5}, \BGtag{02L2},
+\BGtag{02KY}, \BGtag{02W0}, \BGtag{040L}, \BGtag{0245}.
+\item Smooth and finite \emph{\'etale} examples:
+\BGtag{02VL}, \BGtag{055U}, \BGtag{02VO}, \BGtag{02VN},
+\BGtag{04HN}, \BGtag{00UB}, \BGtag{00UC}.
+\item Algebraic spaces and curves: \BGtag{04UA}, \BGtag{0ADV},
+\BGtag{041V}, \BGtag{041W}, \BGtag{0422}, \BGtag{04NS},
+\BGtag{03MO}, \BGtag{04WP}, \BGtag{03XR}, \BGtag{06LR},
+\BGtag{0D4Z}, \BGtag{0D1G}, \BGtag{0D52}.
+\item Limits of scheme descent and nonscheme curve families:
+\BGtag{08KF}, \BGtag{0D5E}.
+\end{itemize}
+
+\bibitem{Fantechi}
+Barbara Fantechi,
+\href{https://doi.org/10.1007/978-3-0348-8268-2_20}{\emph{Stacks for Everybody}}, in
+\emph{European Congress of Mathematics}, Barcelona, 2000, Vol.~I,
+Progress in Mathematics~201, Birkh\"auser, 2001, pp.~349--359.
+Sections~3--4 develop categories
+fibered in groupoids and the two stack conditions; Section~6.3 discusses
+canonical pullback identifications. Local transcription:
+\texttt{StacksForEverybody.tex} in the notebook's
+\texttt{Papers/Stacks} directory.
+
+\bibitem{Poonen}
+Bjorn Poonen, \emph{Rational Points on Varieties}, Graduate Studies in
+Mathematics~186, American Mathematical Society, 2017.
+\href{https://math.mit.edu/~poonen/papers/Qpoints.pdf}{Author-hosted text},
+Section~2.3, especially Definitions~2.3.1 and~2.3.3, for $T$-valued
+points and the functor of points, and Section~2.3.1 for rational points.
+\end{thebibliography}
+
+\end{multicols}
+\end{document}
