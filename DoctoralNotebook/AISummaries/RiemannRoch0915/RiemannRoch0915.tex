@@ -1,0 +1,715 @@
+\documentclass[12pt]{memoir}
+
+% Match the format of the ClassifyingStack summary.
+\def\nsemestre{II}
+\def\nterm{September}
+\def\nyear{2026}
+\def\nprofesor{}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla{RR0915}
+\def\nsiglahead{Riemann--Roch and very ampleness}
+\def\nextra{Expository notes}
+\def\nlang{ENG}
+\let\footruleskip\relax
+\input{../../../headerVarillyDiff.tex}
+\author{Ignacio Rojas\\[0.4ex]ChatGPT (OpenAI)}
+
+\newcommand{\RRtag}[1]{\href{https://stacks.math.columbia.edu/tag/#1}{Tag~\texttt{#1}}}
+\newcommand{\RRcheckpoint}[1]{\par\smallskip{\raggedright\noindent\blu{\textbf{Checkpoint.}} #1\par}\smallskip}
+\newcommand{\RRsolution}[1]{\subsection*{Solution to Exercise~\ref{#1}}\label{sol:#1}}
+\counterwithout{section}{chapter}
+\setsecnumdepth{subsection}
+\settocdepth{section}
+\setlength{\columnsep}{20pt}
+\setlength{\emergencystretch}{1.5em}
+\renewcommand{\bibsection}{\section{References}\label{sec:references}}
+\hypersetup{pdftitle={Riemann--Roch and very ampleness: RR0915},
+  pdfauthor={Ignacio Rojas; ChatGPT (OpenAI)},
+  pdfsubject={Sections, negative degree, point and tangent separation, and pseudostability}}
+
+\begin{document}
+\maketitle
+\begin{center}
+\emph{From a degree bound to an embedding of a curve}
+\par\bigskip
+\begin{minipage}{0.8\textwidth}
+\small\centering
+Developed from Ignacio Rojas's questions following an advisor meeting,
+with exposition and drafting by ChatGPT (OpenAI).
+The follow-up question about negative degree is placed at the first
+use of that argument. Exercises and separate solutions check both
+the calculations and their geometric meaning.
+\end{minipage}
+\end{center}
+\clearpage
+\tableofcontents*
+\clearpage
+\begin{multicols}{2}
+\raggedcolumns
+
+\section{Context and the goal}\label{sec:context}
+
+The original question concerned a numerical condition for
+pseudostability of a marked curve. Write
+\[
+ M=p_1+\cdots+p_n,\qquad B=\omega_C(M).
+\]
+For connected reduced projective curves with only nodes and ordinary
+cusps, distinct smooth markings, and $g+n>2$, our discussion related
+pseudostability to very ampleness of $B^{\otimes2}$.
+The relevant embedding theorem of Catanese--Franciosi--Hulek--Reid
+(CFHR) checks degrees on \emph{all subcurves}.
+
+During the advisor meeting, the smooth-curve version was explained
+using Riemann--Roch and Serre duality. The purpose here is to fill in
+the gaps in that proof: why negative degree rules out sections, why
+dimensions detect base points and distinguish points, and why a
+simple zero detects a tangent direction. Section~\ref{sec:pseudo}
+returns to the original singular-curve problem.
+
+\begin{Th}\label{th:embedding}
+Let $C$ be a smooth connected projective curve over $\bC$ of genus $g$.
+If $L$ is a line bundle with $\deg L\ge 2g+1$, then $L$ is very ample.
+\end{Th}
+
+Unless stated otherwise, these smoothness and projectivity assumptions
+remain in force. Set $d=\deg L$ and
+\[
+ h^i(L)=\dim_{\bC}H^i(C,L).
+\]
+In particular, $h^0$ counts \emph{linearly independent sections}, not
+the number of elements of the space of sections. We write
+$L(-D)=L\otimes\cO_C(-D)$, and $K_C$ denotes a canonical divisor,
+so $\cO_C(K_C)\cong\omega_C$.
+
+\section{Degree, zeros, and the apparent contradiction}\label{sec:degree}
+
+\subsection{What the order of a section means}\label{sec:local-sections}
+First recall how to write a section using ordinary functions. A line
+bundle has a one-dimensional vector space $A|_x$ over each point $x$.
+Near any point, on a sufficiently small open set $U$, it can be
+identified with a product:
+\[
+ A|_U\cong U\times\bC.
+\]
+This identification is called a \emph{local trivialization}. It
+preserves the point of $U$ and is linear on each fiber. A vector in
+the fiber over $x$ is now described by $(x,a)$, where $a\in\bC$.
+A regular section on $U$ is consequently described by
+\[
+ x\longmapsto(x,f(x))
+\]
+for a regular function $f$ on $U$. Its value at $x$ is zero exactly
+when $f(x)=0$. Thus, after choosing local coordinates in the fibers,
+we can calculate with the function $f$ representing the section.
+
+Choosing such an identification is equivalent to choosing a
+nonzero vector, hence a \emph{basis}, in each one-dimensional fiber,
+varying regularly with $x$. This is a choice of bases for the fibers,
+not a basis of the vector space $H^0(C,A)$ of global sections.
+The product description is local; a single such identification
+need not exist over the whole curve.
+
+Now let a nonzero regular section $s$ be represented locally by $f$.
+In a local parameter $z$ vanishing at $x$, write
+\[
+ f=z^m u,\qquad u(x)\ne0.
+\]
+Then $\operatorname{ord}_x(s)=m\ge0$. A different local trivialization
+multiplies the representing function by a nowhere-zero regular
+function, which does not change its order of vanishing. Since $s$
+is not identically zero, it has only finitely many zeros and defines
+the effective divisor
+\[
+ D_s=\sum_{x\in C}\operatorname{ord}_x(s)\,x.
+\]
+Here $s$ is a \emph{section}; $D_s$ is its \emph{divisor of zeros}.
+``Effective'' describes the nonnegative coefficients of $D_s$.
+
+Multiplication by $s$ identifies $\cO_C(D_s)$ with $A$.
+To see this in functions, shrink $U$ so that $u$ is nowhere zero.
+Local sections of $\cO_C(D_s)$ have the form $z^{-m}h$, with $h$
+regular. Multiplication by the function $f=z^m u$ representing $s$
+sends
+\[
+ z^{-m}h\longmapsto uh.
+\]
+This is an isomorphism onto the functions representing sections of
+$A$, since multiplication by $u$ has inverse multiplication by
+$u^{-1}$. Consequently,
+\[
+\begin{aligned}
+ A&\cong\cO_C(D_s),\\
+ \deg A&=\sum_x\operatorname{ord}_x(s)\ge0.
+\end{aligned}
+\]
+
+\begin{Lem}\label{lem:negative}
+If $\deg A<0$, then $H^0(C,A)=\{0\}$.
+\end{Lem}
+\begin{proof}
+If a nonzero regular section existed, its effective zero divisor
+would give $\deg A\ge0$, a contradiction.
+\end{proof}
+
+\subsection{The follow-up question, at its point of use}
+\begin{Qn}
+If $\deg A$ is a sum of nonnegative orders, how could that sum equal
+a negative degree?
+\end{Qn}
+
+It cannot. The statement about a nonnegative sum is \emph{conditional
+on the existence of a nonzero regular section}. For example, if
+$\deg A=-1$, assuming such an $s$ exists would force
+\[
+ -1=\sum_x\operatorname{ord}_x(s)\ge0.
+\]
+This impossibility disproves the existence of $s$. It does not
+construct a negative sum of nonnegative numbers.
+
+The degree of $A$ is defined even when $A$ has no nonzero regular
+sections. One way to compute it is to choose a nonzero meromorphic
+section $t$ and form its divisor. Then
+\[
+ \deg A=\sum_x\operatorname{ord}_x(t),
+\]
+where poles contribute negative orders. Equivalently, degree is the
+total zero multiplicity minus the total pole multiplicity. Different
+choices give the same degree: their ratio is a meromorphic function,
+whose principal divisor has degree zero.
+
+Thus a negative-degree line bundle exists perfectly well; every
+nonzero meromorphic section has more poles than zeros, and none can
+be regular everywhere. The zero section always exists, but has no
+finite divisor of zeros to which this argument applies.
+
+\RRcheckpoint{State the argument in the order ``negative degree;
+assume a nonzero regular section; obtain a contradiction.'' Which
+assumption is rejected?}
+
+\section{The vanishing and dimension calculation}\label{sec:rr}
+
+For a line bundle $F$, Serre duality and Riemann--Roch give
+\[
+\begin{aligned}
+ H^1(C,F)&\cong H^0(C,\omega_C\otimes F^{-1})^\vee,\\
+ h^0(F)-h^1(F)&=\deg F+1-g.
+\end{aligned}
+\]
+The first formula changes an $H^1$ computation into a question about
+sections. Lemma~\ref{lem:negative} then answers that question by degree.
+The second formula computes $h^0$ once $h^1$ vanishes.
+
+For $F=L$, the degree of the dual bundle is
+\[
+ \deg(\omega_C\otimes L^{-1})=2g-2-d\le-3.
+\]
+Hence $H^1(C,L)=0$. The calculation
+$(2g-2)-(2g-1)=-1$ from the meeting uses the weaker bound
+$d\ge2g-1$, which suffices for this first vanishing. The stronger
+bound $d\ge2g+1$ allows us to subtract two points as well.
+
+\begin{Lem}\label{lem:uniform}
+Let $d\ge2g+1$ and let $D$ be an effective divisor of degree $r\le2$.
+Then
+\[
+\begin{aligned}
+ H^1(C,L(-D))&=0,\\
+ h^0(L(-D))&=d-r+1-g.
+\end{aligned}
+\]
+\end{Lem}
+\begin{proof}
+The line bundle dual to $L(-D)$ in Serre duality has degree
+\[
+\begin{aligned}
+ \deg(\omega_C\otimes L^{-1}(D))
+ &=2g-2-d+r\\
+ &\le r-3<0.
+\end{aligned}
+\]
+It has no nonzero sections. Duality gives the vanishing, and
+Riemann--Roch gives the claimed dimension.
+\end{proof}
+
+In particular, for distinct $p,q\in C$,
+\begin{equation}\label{eq:dimensions}
+\begin{aligned}
+ h^0(L)&=d+1-g,\\
+ h^0(L(-p))&=d-g,\\
+ h^0(L(-p-q))&=d-1-g,\\
+ h^0(L(-2p))&=d-1-g.
+\end{aligned}
+\end{equation}
+Each additional required order of vanishing removes one independent
+section. The next section explains why these drops give an embedding.
+
+\section{The three geometric tests}\label{sec:geometry}
+
+\subsection{Base points: can a section be nonzero at $p$?}\label{sec:basepoints}
+We want to show that, for every $p$, some global section of $L$ is
+nonzero at $p$. The comparison with $L(-p)$ uses two different maps:
+an inclusion of sheaves and an evaluation map on global sections.
+The inclusion exists for every $L$, independently of any assumption
+about the dimensions of its spaces of sections.
+
+\subsubsection*{The inclusion on sheaves and the map on fibers}
+We use the same notation $L$ for a line bundle and its sheaf of local
+sections. The arrow $L(-p)\hookrightarrow L$ is an injection of these
+\emph{sheaves}; it need not be injective on every fiber.
+
+On a smooth curve, $\cO_C(-p)$ is the ideal sheaf of the point $p$:
+its sections on a neighborhood of $p$ are regular functions vanishing
+at $p$. Its natural inclusion into $\cO_C$, tensored with the locally
+free sheaf $L$, gives
+\[
+ L(-p)=L\otimes\cO_C(-p)\hookrightarrow L.
+\]
+This is the ideal-sheaf interpretation of a negative effective
+divisor; see \RRtag{0C4T} in \cite{Stacks}.
+
+Use the local description from Section~\ref{sec:local-sections}:
+identify $L|_U$ with $U\times\bC$, so a section is represented by
+a regular function $f$. Choose a local parameter $z$ with $z(p)=0$.
+The section vanishes at $p$ precisely when $f(p)=0$, in which case
+$f=zg$ for a regular $g$, after shrinking $U$ if needed.
+
+This gives a compatible local description of $L(-p)$ by functions
+$g$: when its section is viewed as a section of $L$, the representing
+function is $zg$. Thus the map on local sections is simply
+\[
+ g\longmapsto zg.
+\]
+The input function describes a section of $L(-p)$; the output
+function describes its image in $L$. Both bundles look like
+$U\times\bC$ locally, but the map between them is multiplication
+by $z$, not the identity.
+
+It is injective on local sections: if $zg$ is \emph{identically}
+zero, then $g$ is identically zero. In these product coordinates,
+the corresponding bundle map is
+\[
+ \iota:(x,a)\longmapsto(x,z(x)a).
+\]
+On the fiber over $p$, this sends every $(p,a)$ to $(p,0)$ because
+$z(p)=0$. In particular, the nonzero source vector $(p,1)$ has zero
+image. After shrinking $U$ so that $z$ has no other zeros, the map
+is an isomorphism on fibers away from $p$.
+
+For example, the source section represented by the constant
+function $1$ maps to the target section represented by $z$.
+The latter is not the zero section: $z$ is not identically zero,
+although $z(p)=0$. There is no contradiction between these assertions.
+An injection of sheaves of sections is therefore different from a
+fiberwise inclusion of vector bundles.
+
+On global sections, $\iota$ induces an injection
+\[
+ H^0(C,L(-p))\hookrightarrow H^0(C,L).
+\]
+It takes sections of $L(-p)$ to sections of $L$ vanishing at $p$.
+It does not take arbitrary sections of $L$ and force them to vanish.
+Identifying the source with its image, we obtain
+\[
+\begin{aligned}
+ &H^0(C,L(-p))\\
+ &\qquad=\{s\in H^0(C,L):s(p)=0\}.
+\end{aligned}
+\]
+
+\subsubsection*{The kernel belongs to the domain}
+Give the three vector spaces different names:
+\[
+\begin{aligned}
+ V&=H^0(C,L),\\
+ W&=H^0(C,L(-p))\subseteq V,\\
+ F&=L|_p.
+\end{aligned}
+\]
+Here the inclusion of $W$ uses the identification just explained.
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+Space & Meaning of an element\\
+\midrule
+$V$ & A global section of $L$.\\
+$W$ & A global section of $L$ whose value at $p$ is zero.\\
+$F$ & A single vector in the fiber over $p$.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Evaluation remembers just one value of a section:
+\[
+ \operatorname{ev}_p:V\longrightarrow F,\qquad s\longmapsto s(p).
+\]
+Its kernel is $W$, a subspace of the \emph{domain} $V$, not of the
+target fiber $F$. Every section in $W$ maps to the same zero vector
+of $F$, but the section itself can be nonzero elsewhere on $C$.
+The arrangement of the spaces is
+\[
+ 0\longrightarrow W\hookrightarrow V
+ \xrightarrow{\operatorname{ev}_p}F.
+\]
+There is no terminal zero here until surjectivity has been proved.
+
+Since $\dim F=1$, the \emph{image} of evaluation is either $\{0\}$
+or all of $F$. Rank--nullity gives
+\[
+\begin{aligned}
+ \operatorname{codim}_V W
+ &=\dim V-\dim W\\
+ &=\dim\operatorname{im}(\operatorname{ev}_p)\in\{0,1\}.
+\end{aligned}
+\]
+Thus there are two possibilities:
+\begin{itemize}
+\raggedright
+\item Codimension zero: $W=V$. Every section is in the kernel,
+so every section vanishes at $p$. The point $p$ is a base point.
+\item Codimension one: $\dim W=\dim V-1$. There is a section outside
+the kernel, hence a section nonzero at $p$. The point $p$ is not a
+base point.
+\end{itemize}
+Codimension one does not mean that $W$ is the zero space. If $V$ has
+dimension $10$, such a kernel has dimension $9$.
+
+\begin{Ex}[Many sections can have the same value zero]\label{ex:quadratic-evaluation}
+Take $C=\bP^1$, $L=\cO_{\bP^1}(2)$, and $p=[0:1]$.
+A global section is a homogeneous quadratic polynomial
+\[
+ s=aX^2+bXY+cY^2.
+\]
+On the chart $Y\ne0$, use $z=X/Y$. The local product description
+of $\cO_{\bP^1}(2)$ represents this section by the regular function
+obtained by dividing its homogeneous expression by $Y^2$:
+\[
+ \frac{s}{Y^2}=az^2+bz+c.
+\]
+The point $p$ has $z=0$, so evaluation gives the scalar $c$ in the
+identified fiber $L|_p\cong\bC$. Consequently,
+\[
+\begin{aligned}
+ V&=\operatorname{span}\{X^2,XY,Y^2\},\\
+ W&=\operatorname{span}\{X^2,XY\}.
+\end{aligned}
+\]
+The kernel $W$ has dimension two inside the three-dimensional space
+$V$; it cannot be a subspace of the one-dimensional fiber $F$.
+Both $X^2$ and $XY$ are nonzero sections whose values at $p$ are zero.
+The section $Y^2$ has nonzero value there, so $p$ is not a base point.
+\end{Ex}
+
+\RRcheckpoint{For the local map $g\mapsto zg$, explain why it is
+injective on sections but zero on the fiber at $p$. What happens
+to the section represented by $g=1$? In the
+evaluation map, which space contains the kernel, and which contains
+the image?}
+
+\subsubsection*{Using Riemann--Roch to finish the test}
+There is no need to begin by assuming equality of dimensions.
+Equation~\eqref{eq:dimensions} directly gives
+\[
+\begin{aligned}
+ \dim V&=h^0(L)=d+1-g,\\
+ \dim W&=h^0(L(-p))=d-g.
+\end{aligned}
+\]
+Thus $W$ has codimension one in $V$: some section of $L$ is nonzero
+at $p$. Since the same calculation holds for every $p$, $L$ is
+basepoint-free.
+
+\begin{Rmk}[Correcting the equality in the notes]
+Basepoint-freeness requires a dimension drop, not equality of the
+two dimensions. The sections nonzero at $p$ are the complement of
+the kernel; they do not form a vector subspace.
+\end{Rmk}
+
+The sheaf exact sequence also explains the role of cohomology.
+Writing $i:\{p\}\hookrightarrow C$, it is
+\[
+ 0\to L(-p)\to L\to i_*(L|_p)\to0,
+\]
+where $i_*(L|_p)$ is the sheaf supported at $p$ with value $L|_p$.
+The long exact sequence of cohomology contains
+\[
+ H^0(C,L)\longrightarrow L|_p
+ \longrightarrow H^1(C,L(-p))=0.
+\]
+Thus every prescribed value at $p$ comes from a global section.
+
+A basis $s_0,\ldots,s_N$ now defines a morphism
+\[
+\begin{aligned}
+ \varphi_L:C&\longrightarrow\bP^N,\\
+ x&\longmapsto[s_0(x):\cdots:s_N(x)].
+\end{aligned}
+\]
+Basepoint-freeness ensures that these coordinates never all vanish.
+A local trivialization turns the fiber values into numbers; changing
+it rescales all coordinates together and leaves the projective
+point unchanged.
+
+\subsection{Distinct points: can a section distinguish $p$ and $q$?}
+For $p\ne q$, there is an inclusion
+\[
+ H^0(C,L(-p-q))\subset H^0(C,L(-p)).
+\]
+The first space requires vanishing at both points; the second only
+requires vanishing at $p$. Their dimensions differ by one, so we can
+choose a section $s$ in the second space but outside the first. Then
+\[
+ s(p)=0,\qquad s(q)\ne0.
+\]
+Include $s$ in a basis. Its projective coordinate is zero at
+$\varphi_L(p)$ and nonzero at $\varphi_L(q)$, so these images differ.
+Equivalently, the hyperplane defined by $s$ contains one image but
+misses the other. This proves injectivity of $\varphi_L$ on points.
+
+\subsection{Tangents: can a section detect first-order movement?}
+The inclusion
+\[
+ H^0(C,L(-2p))\subset H^0(C,L(-p))
+\]
+compares sections vanishing to order at least two with those
+vanishing to order at least one. Again the dimension drops by one.
+Hence there is an $s$ vanishing to order exactly one at $p$.
+
+Choose $t$ with $t(p)\ne0$, using basepoint-freeness, and restrict
+to a neighborhood where $t$ never vanishes. At each point $x$ there,
+$s(x)$ is a unique scalar multiple of $t(x)$; those scalars form
+the regular function $s/t$. Equivalently, represent the two sections
+by functions in the same local trivialization and take their ratio.
+In a local parameter $z$ centered at $p$,
+\[
+ \frac{s}{t}=az+O(z^2),\qquad a\ne0.
+\]
+The independent sections $s,t$ can be included in a basis, making
+$s/t$ an affine coordinate of $\varphi_L$ near $p$. Its derivative
+at $p$ is nonzero. Since $T_pC$ has dimension one, the differential
+$d\varphi_{L,p}$ is injective.
+
+This last check is necessary: the injective map
+$z\mapsto(z^2,z^3)$ has zero derivative at the origin and produces a
+cusp in its image. A simple zero supplies the nonzero linear term
+that detects the tangent direction.
+
+The complete linear system therefore has no base points and separates
+points and tangent vectors. The projective embedding criterion gives
+a closed embedding, proving Theorem~\ref{th:embedding}; see also
+\RRtag{0H2V} in \cite{Stacks}.
+
+\RRcheckpoint{Explain each strict inclusion by completing the sentence
+``There is a section that vanishes \ldots\ but does not vanish
+\ldots.'' For the tangent test, specify the order of vanishing.}
+
+\section{Returning to pseudostability}\label{sec:pseudo}
+
+Now allow the nodal and cuspidal curves from Section~\ref{sec:context}.
+For a connected reduced union of components $Z\subseteq C$, put
+\[
+ h(Z)=p_a(Z),\qquad \ell(Z)=k(Z)+n(Z),
+\]
+where $k(Z)$ counts nodes attaching $Z$ to its complement and $n(Z)$
+counts markings on $Z$. Internal singularities do not contribute to
+$\ell(Z)$; their contribution is already reflected in $p_a(Z)$.
+For $Z=C$, set $k(C)=0$.
+
+Restriction of the dualizing bundle gives
+\[
+ \deg(B|_Z)=2h(Z)-2+\ell(Z).
+\]
+Under the stated assumptions, the usual conditions that $B$ be ample
+and that there be no unmarked arithmetic-genus-one tails are
+equivalently packaged as
+\[
+\begin{gathered}
+ h(Z)+\ell(Z)>2\\
+ \Longleftrightarrow\quad\deg(B|_Z)>h(Z)
+\end{gathered}
+\]
+for every connected subcurve $Z$. For genus zero this requires at
+least three attachments or markings; for genus one it requires at
+least two. For proper subcurves of genus at least two it is automatic;
+for $Z=C$ the assumption $g+n>2$ supplies it. Conversely the inequality
+on each irreducible component gives positive degree, hence ampleness.
+
+\subsection{Why the smooth theorem needs an extension}
+A reducible curve can have a line bundle of very large total degree
+whose restriction to one component is trivial. Such a component
+cannot be embedded. Also, a section can vanish identically on one
+component while being nonzero on another, so the smooth-curve
+argument about its effective zero divisor cannot be used unchanged.
+
+For our reduced curves, the sufficient part of CFHR's Theorem~1.1
+\cite{CFHR} says that $A$ is very ample if
+\[
+ \deg(A|_Z)\ge2p_a(Z)+1
+\]
+for every connected subcurve $Z$. At singular points one tests all
+length-two subschemes. On a smooth curve those tests are exactly
+$p+q$ with $p\ne q$, and $2p$; at a singular point they require
+more care because the point need not be a Cartier divisor.
+
+For $A=B^{\otimes2}$, the integer inequality $\deg(B|_Z)>p_a(Z)$ gives
+\[
+ \deg(A|_Z)\ge2p_a(Z)+2.
+\]
+Thus CFHR proves the desired very ampleness for pseudostable curves.
+
+Conversely, if $B^{\otimes2}$ is very ample, then $B$ is ample.
+An unmarked genus-one tail $E$ attached at $q$ would have
+$\deg(B|_E)=1$. Positivity on every irreducible component forces
+$E$ to be irreducible. Its dualizing bundle is trivial, and
+Riemann--Roch and Serre duality on this integral Gorenstein curve give
+\[
+\begin{aligned}
+ B^{\otimes2}|_E&\cong\cO_E(2q),\\
+ h^0(E,\cO_E(2q))&=2.
+\end{aligned}
+\]
+This complete linear system maps to $\bP^1$ and cannot embed a
+genus-one curve. Since a very ample bundle restricts to a very ample
+bundle on a subcurve, such a tail is excluded.
+
+The elementary proof explains the degree bound for smooth curves;
+the subcurve theorem supplies the extra input for the original
+pseudostability criterion. Merely requiring $B^{\otimes2}$ to be
+\emph{ample} would add nothing to ampleness of $B$.
+
+\section{Exercises: checking comprehension}\label{sec:exercises}
+
+Attempt these before consulting Section~\ref{sec:solutions}.
+
+\begin{Ej}[Negative degree and the missing assumption]\label{ex:negative}
+On $\bP^1$, fix $p$ and let $A=\cO_{\bP^1}(-p)$.
+What is $\deg A$? Explain why $H^0(\bP^1,A)=0$ in two ways:
+using the contradiction argument, and by viewing a section as a
+global regular function required to vanish at $p$.
+Why does this not rule out a nonzero meromorphic section of $A$?
+\end{Ej}
+
+\begin{Ej}[Three degree thresholds]\label{ex:thresholds}
+Use duality to show that $\deg F\ge2g-1$ implies $H^1(C,F)=0$.
+Deduce that $\deg L\ge2g$ guarantees basepoint-freeness, and explain
+why the argument for very ampleness uses $\deg L\ge2g+1$.
+For $g=2$ and $d=5$, compute all four dimensions in
+Equation~\eqref{eq:dimensions}.
+\end{Ej}
+
+\begin{Ej}[Evaluation and dimensions]\label{ex:evaluation}
+Suppose $h^0(L)=4$. If $h^0(L(-p))=4$, what happens at $p$?
+If instead $h^0(L(-p))=3$, what happens? Can this dimension be $2$?
+Explain using the evaluation map and the dimension of its target.
+\end{Ej}
+
+\begin{Ej}[Separating two points]\label{ex:points}
+Let $p\ne q$ and assume
+$h^0(L(-p))>h^0(L(-p-q))$.
+State exactly what section this produces. Assuming $L$ is
+basepoint-free, explain why $\varphi_L(p)\ne\varphi_L(q)$.
+On $\bP^1$ with coordinates $[X:Y]$ and $L=\cO(1)$, find such
+a section for $p=[0:1]$ and $q=[1:0]$.
+\end{Ej}
+
+\begin{Ej}[A simple zero and a derivative]\label{ex:tangents}
+If $s$ vanishes to order exactly one at $p$ and $t(p)\ne0$, compute
+the first-order term of $s/t$ in a local parameter. What changes
+if $s$ vanishes to order at least two? Explain why the map
+$z\mapsto(z^2,z^3)$ is injective but has zero differential at $0$.
+\end{Ej}
+
+\begin{Ej}[Why total degree is insufficient]\label{ex:subcurves}
+Let $C=C_1\cup R$, where both components are copies of $\bP^1$
+meeting at one node. Glue $A|_{C_1}\cong\cO_{\bP^1}(m)$ and
+$A|_R\cong\cO_R$, with $m\ge1$, by identifying their fibers at
+the node. Compute $p_a(C)$ and $\deg A$. Why is $A$ not very ample,
+even though the smooth numerical bound on total degree holds?
+Which CFHR inequality fails?
+\end{Ej}
+
+\end{multicols}
+\clearpage
+\begin{multicols}{2}
+\raggedcolumns
+\section{Hints and solutions}\label{sec:solutions}
+
+\RRsolution{ex:negative}
+\hint{A regular function on a connected projective curve is constant.}
+The degree is $-1$. A nonzero regular section would give an effective
+zero divisor of degree $-1$, which is impossible. Alternatively,
+$\cO(-p)\hookrightarrow\cO$ identifies its global sections with
+global regular functions vanishing at $p$. The only such constant is
+zero. Meromorphic sections may have poles, whose negative orders
+allow their divisor to have degree $-1$.
+
+\RRsolution{ex:thresholds}
+\hint{After subtracting $r$ points, retain degree at least $2g-1$.}
+We have
+$\deg(\omega_C\otimes F^{-1})\le-1$, so duality gives $H^1(C,F)=0$.
+For $d\ge2g$, this applies to both $L$ and $L(-p)$, and
+Riemann--Roch gives the one-dimensional drop proving
+basepoint-freeness. For $d\ge2g+1$, it also applies after subtracting
+any effective divisor of degree two, giving both separation tests.
+For $g=2,d=5$, the dimensions are $4,3,2,2$.
+These are sufficient uniform bounds, not necessary conditions for
+an individual line bundle.
+
+\RRsolution{ex:evaluation}
+\hint{Use rank--nullity for evaluation into $L|_p$.}
+If the kernel has dimension $4$, evaluation is zero and $p$ is a
+base point. If it has dimension $3$, evaluation is surjective and
+some section is nonzero at $p$. Kernel dimension $2$ would require
+rank $2$, impossible for a map to a one-dimensional space.
+
+\RRsolution{ex:points}
+\hint{Choose a vector in the larger space outside the smaller one.}
+There is an $s$ with $s(p)=0$ and $s(q)\ne0$. Include it in a basis:
+the corresponding coordinate vanishes at one projective image and
+not at the other, so the images differ. In the stated example,
+$s=X$ works. The basis $X,Y$ gives the identity embedding of
+$\bP^1$ into $\bP^1$.
+
+\RRsolution{ex:tangents}
+\hint{Represent both sections by functions using the same local
+product description of the line bundle.}
+Let $s$ and $t$ be represented by $f=az+O(z^2)$ and $g=b+O(z)$,
+where $a,b\ne0$. Then $s/t$ is the function
+$f/g=(a/b)z+O(z^2)$, which has nonzero derivative. If $s$ has order at
+least two, the ratio has no linear term. The map $(z^2,z^3)$ has
+derivative $(2z,3z^2)$, zero at $0$. It is injective: away from the
+origin the ratio of the second coordinate to the first recovers
+$z$, and only $z=0$ maps to the origin.
+
+\RRsolution{ex:subcurves}
+\hint{A very ample line bundle remains very ample on a subcurve.}
+The single-node union has arithmetic genus
+$0+0+1-2+1=0$, while $\deg A=m\ge1=2p_a(C)+1$.
+However, $A|_R\cong\cO_R$ has only constant sections and cannot
+embed $R$. Hence $A$ is not very ample. The CFHR inequality on
+$R$ would require
+\[
+ \deg(A|_R)=0\ge2p_a(R)+1=1,
+\]
+which fails. This example isolates the need to check subcurves.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{Stacks}
+The Stacks Project Authors, \emph{The Stacks Project}.
+\href{https://stacks.math.columbia.edu/tag/0H2V}{Lemma~53.22.5,
+Tag~\texttt{0H2V}}: very ampleness from degree at least $2g+1$,
+using separation of length-two subschemes.
+\RRtag{0C4T} identifies $\cO_C(-D)$ with the ideal sheaf of an
+effective Cartier divisor $D$.
+
+\bibitem{CFHR}
+F.~Catanese, M.~Franciosi, K.~Hulek, and M.~Reid,
+\href{https://doi.org/10.1017/S0027763000025381}{\emph{Embeddings of
+curves and surfaces}}, Nagoya Mathematical Journal~154 (1999),
+185--220. Theorem~1.1 gives the subcurve embedding criterion;
+Remark~2.1 explains the length-two test.
+\end{thebibliography}
+
+\end{multicols}
+\end{document}

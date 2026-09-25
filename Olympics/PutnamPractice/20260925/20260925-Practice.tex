@@ -1,0 +1,619 @@
+\documentclass[12pt]{memoir}
+
+\def\nsemestre {II}
+\def\nterm {Fall}
+\def\nyear {2026}
+\def\nprofesor {Ignacio Rojas}
+\def\nsigla {Putnam}
+\def\nsiglahead {Putnam Practice}
+\def\nextra {20260925 -- Ibero 2026}
+\def\nlang {ENG}
+\def\nauthor {}
+%\def\studentversion{} %comment for solutions
+\input{../../../headerVarillyDiff}
+
+\hypersetup{
+    pdftitle={Putnam Practice -- September 25, 2026 -- Iberoamerican Olympiad},
+    pdfsubject={Six problems from the 41st Iberoamerican Mathematical Olympiad}
+}
+\newif\ifpracticesolutions
+\practicesolutionstrue
+% Define \studentversion before inputting this file to omit the solutions.
+\ifdefined\studentversion\practicesolutionsfalse\fi
+
+% Compile from this directory:
+% latexmk -pdf 20260925-Practice.tex
+% pdflatex -jobname=20260925-Handout '\def\studentversion{1}\input{20260925-Practice.tex}'
+% Statements: https://omaforos.com.ar/archivo.php?id=9946
+% Event: https://ibero2026.oma.org.ar/es/olimpiada/
+% Solutions adapted and checked from the two notes supplied for this practice.
+
+\begin{document}
+
+\begin{center}
+    {\large\bfseries Iberoamerican Mathematical Olympiad 2026}\\[3pt]
+    Friday, September 25, 2026
+\end{center}
+
+\noindent Problems from the 41st Iberoamerican Mathematical Olympiad
+(Buenos Aires, 2026), translated from Spanish.
+
+\subsection*{Toolkit}
+\begin{itemize}[itemsep=4pt]
+    \item \textbf{Partial sums and residues.}
+    For a sequence \((a_n)\), write 
+    \[S_n=a_1+\cdots+a_n\]
+    for its partial sums. Modulo \(m\), the recurrence \(S_n=S_{n-1}+a_n\) has only \(m\)
+    possible states.
+
+    \item \textbf{Term from sums and averages.}
+    Note that 
+    \[
+    S_n=S_{n-1}+a_n\To S_n-S_{n-1}=a_n.
+    \]
+    If \(n\mid S_n\), call \(b_n=S_n/n\). Then
+    \[
+        a_n=nb_n-(n-1)b_{n-1}
+        =b_{n-1}+n(b_n-b_{n-1})\qquad(n\geq2).
+    \]
+
+    \item \textbf{Polynomial divisibility.}
+    If \(p\in\bZ[x]\) and \(u,v\in\bZ\), then
+    \[
+        u-v\mid p(u)-p(v).
+    \]
+    Also, if \(1=d_1<\cdots<d_k=n\) are all positive divisors of \(n\),
+    then \(d_i d_{k+1-i}=n\).
+\end{itemize}
+
+\begin{nonum-Def}
+A \term{partial order} on a set \(A\) is a binary relation \(\leq\) which is
+\begin{enumerate}
+    \item \textbf{Reflexive.} For any \(a\in A\), \(a\leq a\).
+    \item \textbf{Antisymmetric.} For \(a,b\in A\), \(a\leq b\) and \(b\leq a\) imply \(a=b\).
+    \item \textbf{Transitive.} For \(a,b,c\in A\), if \(a\leq b\) and \(b\leq c\), then \(a\leq c\).
+\end{enumerate}
+\end{nonum-Def}
+
+\begin{nonum-Ex}
+For a set \(A\), its power set along with the containment relation form a partial order \((\cP(A),\subseteq)\).
+\end{nonum-Ex}
+
+\begin{nonum-Def}
+    In a poset (partially ordered set), a \term{chain} is totally ordered subset. This is, every element is comparable.\par
+    On the other hand, an \term{antichain} is a set of mutually incomparable elements.
+\end{nonum-Def}
+
+\begin{nonum-Th}[Dilworth]
+In a finite poset, the maximum size of an antichain equals the minimum number of chains needed to cover all elements. This number is called the \term{width} of the partial order.
+\end{nonum-Th}
+\iffalse
+\begin{itemize}
+
+    \item \textbf{Coordinates adapted to geometry.}
+    Coordinate axes need not be perpendicular. In a basis of vectors
+    \(\mathbf u,\mathbf v\), squared distance from the origin is
+    \[
+        Q(x,y)=\|\mathbf u\|^2x^2
+        +2(\mathbf u\cdot\mathbf v)xy+\|\mathbf v\|^2y^2.
+    \]
+    A circle has equation \(Q(x,y)+Ux+Vy+W=0\).
+    If \(U,V\) depend affinely on one parameter, so does the center.
+\end{itemize}
+\fi
+
+\subsection*{Help for Problem 3}
+
+\begin{center}
+    \begin{tikzpicture}[
+        x={(3.6cm,0cm)}, y={(2cm,1cm)}, z={(0cm,3cm)},
+        cube edge/.style={draw=black!55, line width=0.7pt},
+        hidden edge/.style={cube edge, dashed, draw=black!35},
+        friend path/.style={draw=red!85!black, line width=1.3pt,
+            line cap=round, line join=round},
+        alfajor/.style={circle, draw=brown!80!black, fill=orange!65,
+            line width=0.7pt, inner sep=0pt, minimum size=5.5pt},
+        font=\small
+    ]
+        \coordinate (O) at (0,0,0);
+        \coordinate (T) at (1,1,1);
+        \coordinate (A) at (1/4,1/4,1/3);
+        \coordinate (B) at (3/4,2/3,3/4);
+
+        % The twelve cube edges; the three rear edges are dashed.
+        \draw[hidden edge] (O) -- (0,1,0) -- (1,1,0);
+        \draw[hidden edge] (0,1,0) -- (0,1,1);
+        \draw[cube edge] (O) -- (1,0,0) -- (1,1,0) -- (T)
+            -- (0,1,1) -- (0,0,1) -- cycle;
+        \draw[cube edge] (1,0,0) -- (1,0,1) -- (0,0,1);
+        \draw[cube edge] (1,0,1) -- (T);
+
+        % Each step increases exactly one coordinate.
+        \draw[friend path,
+            postaction={decorate},
+            decoration={markings,
+                mark=at position 0.18 with {\arrow{Stealth[length=2mm]}},
+                mark=at position 0.43 with {\arrow{Stealth[length=2mm]}},
+                mark=at position 0.69 with {\arrow{Stealth[length=2mm]}},
+                mark=at position 0.94 with {\arrow{Stealth[length=2mm]}}}]
+            (O) -- (1/4,0,0) -- (1/4,1/4,0) -- (A)
+            -- (3/4,1/4,1/3) -- (3/4,2/3,1/3) -- (B)
+            -- (1,2/3,3/4) -- (1,1,3/4) -- (T);
+
+        \node[alfajor, label=above left:{$A$}] at (A) {};
+        \node[alfajor, label=below right:{$B$}] at (B) {};
+        \fill (O) circle[radius=1.5pt] node[below left] {$(0,0,0)$};
+        \fill (T) circle[radius=1.5pt] node[above right] {$(1,1,1)$};
+        \node[below] at (0.7,0,0) {$x$};
+        \node[above left] at (0,0.6,0) {$y$};
+        \node[left] at (0,0,0.65) {$z$};
+    \end{tikzpicture}
+
+    {\small The red path collects alfajores located at
+    \(A=(\tfrac14,\tfrac14,\tfrac13)\) and
+    \(B=(\tfrac34,\tfrac23,\tfrac34)\).\\
+    Every segment is parallel to a cube edge, and no coordinate decreases.}
+
+    \par\vspace{12pt}
+    \begin{flushleft}
+        \includegraphics[height=5cm,keepaspectratio]{assets/mafalda-lineart.png}
+    \end{flushleft}
+\end{center}
+\vfill
+\noindent\small
+\textbf{Sources:}
+\href{https://ibero2026.oma.org.ar/es/olimpiada/}{Official Ibero 2026 website};
+\href{https://omaforos.com.ar/archivo.php?id=9946}{OMA Foros, 2026 problem archive}.
+\normalsize
+
+\newpage
+\section*{Problems: Day 1}
+
+\begin{Ej}
+Let \(a_1,a_2,\ldots,a_{1000}\) be a permutation of the integers
+\(1,2,\ldots,1000\). Determine all possible values of \(a_1\) for which,
+regardless of how the remaining integers are ordered, there is an integer
+\(k\), \(1\leq k\leq1000\), such that
+\[
+    a_1+a_2+\cdots+a_k
+\]
+is divisible by \(3\).
+\end{Ej}
+
+\begin{Ej}
+Does there exist a bijection \(f:\bZ_{>0}\to\bZ_{>0}\) satisfying all of
+the following conditions?
+\begin{enumerate}[label=(\roman*)]
+    \item For every positive integer \(n\), the sum
+    \(f(1)+f(2)+\cdots+f(n)\) is divisible by \(n\).
+    \item For every positive integer \(n\),
+    \[
+        f(1)+f(2)+\cdots+f(n)\leq n^2.
+    \]
+    \item For infinitely many positive integers \(n\),
+    \[
+        f(1)+f(2)+\cdots+f(n)=n^2.
+    \]
+\end{enumerate}
+\emph{Note:} Bijectivity means that each positive integer appears exactly
+once in the list \(f(1),f(2),\ldots\).
+\end{Ej}
+
+\begin{Ej}
+Mafalda dreams of taking an interstellar trip with her friends. On the
+journey, she discovers a cube-shaped room containing \(2026\) motionless
+\emph{alfajores} floating inside it. She chooses a vertex of
+the cube and places all her accompanying friends there.
+
+Each friend must travel to the opposite vertex, moving only in directions
+parallel to the edges of the cube and always away from the starting
+vertex, collecting every alfajor encountered along the way.
+
+What is the minimum number of friends Mafalda must bring to guarantee
+that they can collect all the alfajores, regardless of their arrangement?
+
+\emph{Note:} Treat the friends and the alfajores as points in space.
+\end{Ej}
+
+\newpage
+\section*{Problems: Day 2}
+
+\begin{Ej}
+A sequence \(a_1,a_2,\ldots\) of positive integers is called
+\emph{porte\~na} if it satisfies the following conditions:
+\begin{enumerate}[label=(\roman*)]
+    \item \(a_1<a_2<a_3<\cdots\).
+    \item \(2a_n-n\) is a perfect square for every \(n\geq1\).
+    \item \(a_{n-1}+a_n\leq n^2\) for every \(n\geq2\).
+\end{enumerate}
+Determine all porte\~na sequences.
+\end{Ej}
+
+\begin{Ej}
+Let \(ABC\) be an acute triangle with \(AB>AC\), inscribed in a circle
+\(\Gamma\). A point \(X\), distinct from \(A\) and \(C\), varies along
+the arc \(AC\) of \(\Gamma\) that does not contain \(B\).
+The lines \(AX\) and \(BC\) meet at \(P\).
+
+The line through \(P\) parallel to \(AB\) meets the tangent to
+\(\Gamma\) at \(B\) at \(D\). The line through \(P\) parallel to
+\(AC\) meets the tangent to \(\Gamma\) at \(C\) at \(E\).
+
+Prove that the circumcenter of triangle \(XDE\) lies on a fixed line.
+
+\emph{Note:} The circumcenter of a triangle is the center of the circle
+through its three vertices.
+\end{Ej}
+
+\begin{Ej}
+Determine all integers \(n>1\) for which there exist a permutation
+\(d_1,d_2,\ldots,d_k\) of all the positive divisors of \(n\) and a
+polynomial \(P(x)\in\bZ[x]\) such that
+\[
+    P(d_j)=d_{j+1}\qquad(1\leq j\leq k-1).
+\]
+\end{Ej}
+
+\ifpracticesolutions
+\newpage
+\section*{Solutions}
+\setcounter{Ej}{0}
+\renewcommand{\theHEj}{solution.\arabic{Ej}}
+
+\begin{Ej}[Residues of partial sums]
+The answer is \(\boxed{a_1\equiv0\text{ or }2\pmod3}\).
+Among \(1,\ldots,1000\), there are \(333\) numbers of residue \(0\),
+\(334\) of residue \(1\), and \(333\) of residue \(2\) modulo \(3\).
+
+If \(a_1\equiv0\), take \(k=1\). Suppose instead that \(a_1\equiv2\)
+and that no partial sum is divisible by \(3\). Ignore the multiples of
+\(3\), which do not change a partial sum's residue. From a current sum
+of residue \(2\), the next nonzero residue must be \(2\); from a sum of
+residue \(1\), it must be \(1\). Thus the \(667\) nonzero residues are
+forced to be
+\[
+    2,2,1,2,1,\ldots,2,1.
+\]
+This would require \(334\) twos and \(333\) ones, contrary to the counts
+above.
+
+Finally, for any prescribed \(a_1\equiv1\), order the remaining
+nonmultiples of \(3\) in \(333\) pairs of residues \((1,2)\), and put
+all multiples of \(3\) last. The partial sums have residues
+\(1,2,1,2,\ldots\), followed by more ones. None is divisible by \(3\).
+\end{Ej}
+
+\begin{Ej}[Integer averages and equality cases]
+\textbf{No such bijection exists.}
+Write \(S_n=\sum_{j=1}^n f(j)=nb_n\), where \(b_n\) is an integer
+with \(1\leq b_n\leq n\). If \(b_n<b_{n-1}\), then
+\[
+    f(n)=nb_n-(n-1)b_{n-1}
+    \leq b_{n-1}-n\leq-1,
+\]
+a contradiction. Therefore \((b_n)\) is nondecreasing.
+
+Suppose \(S_N=N^2\), so that \(b_N=N\). For every \(m>N\),
+\[
+    f(m)=b_{m-1}+m(b_m-b_{m-1})\geq N.
+\]
+Surjectivity forces \(1,\ldots,N-1\) to occur among the first \(N\)
+values. Injectivity and their sum then give
+\[
+    \{f(1),\ldots,f(N)\}
+    =\left\{1,\ldots,N-1,\frac{N(N+1)}2\right\}.
+\]
+We show that \(N\geq5\) is impossible. Since \(f(1)=1\) and
+\[
+    f(N)=N^2-S_{N-1}\equiv1\pmod{N-1},
+\]
+the value \(f(N)\) cannot be among \(1,\ldots,N-1\): the only candidate
+is the already used value \(1\). Hence
+\[
+    f(N)=\frac{N(N+1)}2,\qquad S_{N-1}=\frac{N(N-1)}2.
+\]
+Divisibility by \(N-1\) makes \(N\) even, hence \(N\geq6\).
+
+Now \(f(N-1)\) lies in \(\{1,\ldots,N-1\}\), and
+\[
+    f(N-1)\equiv S_{N-1}\equiv N/2\pmod{N-2}.
+\]
+For \(N\geq6\), the only possible value is \(N/2\). Consequently
+\(S_{N-2}=N(N-2)/2\), and similarly
+\[
+    f(N-2)\equiv S_{N-2}\equiv N/2\pmod{N-3}.
+\]
+Again the only representative in \(\{1,\ldots,N-1\}\) is \(N/2\),
+because \(N/2-(N-3)\leq0\) and \(N/2+(N-3)>N-1\).
+This contradicts injectivity. Equality can occur only when \(N\leq4\),
+so it cannot occur infinitely often.
+\end{Ej}
+
+\begin{Ej}[Monotone paths and partial orders]
+The minimum number is \(\boxed{1519}\).
+
+For a fixed starting vertex, choose coordinates so that the cube is
+\([0,1]^3\) and that vertex is the origin. A single friend can visit a
+list of points precisely when they form a chain for coordinatewise order:
+\[
+    (x,y,z)\preceq(x',y',z')
+    \quad\Longleftrightarrow\quad x\leq x',\ y\leq y',\ z\leq z'.
+\]
+Indeed, the coordinates along a permitted path never decrease, and any
+chain can be joined by segments parallel to the cube's edges. By
+Dilworth's theorem, the number of friends needed equals the largest
+antichain size in this order.
+
+Opposite starting vertices reverse the order and have the same chains
+and antichains. Thus there are four relevant orders, represented by
+the coordinate directions
+\[
+    v_1=(1,1,1),\quad v_2=(1,1,-1),\quad
+    v_3=(1,-1,1),\quad v_4=(1,-1,-1).
+\]
+In order \(i\), compare coordinates after multiplying them by the
+corresponding entries of \(v_i\). Every pair of distinct points is
+comparable in at least one of these orders: choose signs matching their
+coordinate differences, up to reversing all three signs.
+
+\textbf{Upper bound.}
+If all four orders had antichains \(A_i\) of size \(1520\), their
+total number of memberships would be \(4\cdot1520=6080\).
+But no two distinct points can belong to all four antichains, since
+they would be incomparable in every order. Thus at most one point
+belongs to four of the sets, and each other point belongs to at most
+three. This gives at most
+\[
+    4+3\cdot2025=6079
+\]
+memberships, a contradiction. Some order therefore has width at most
+\(1519\), and Mafalda can choose its starting vertex.
+
+\textbf{Lower bound.}
+Center the cube at the origin. Place respectively
+\(507,507,506,506\) points on the four rays \(t v_i\), \(t>0\).
+Choose all \(2026\) parameters \(t\) distinct and sufficiently small
+that the points lie in the cube's interior.
+
+For two points \(s v_i,t v_j\) with \(s>t\), every coordinate of
+their difference has the sign of the corresponding coordinate of
+\(v_i\): its absolute value is either \(s-t\) or \(s+t\).
+Thus they are comparable in exactly order \(i\). In particular, in
+order \(i\), all points outside ray \(i\) form an antichain.
+Each such antichain has at least \(2026-507=1519\) points.
+Every choice of starting vertex therefore needs at least \(1519\)
+friends, proving the claim.
+\end{Ej}
+
+\begin{Ej}[A sequence squeezed between two bounds]
+The unique sequence is \(\boxed{a_n=n(n+1)/2}\).
+Write
+\[
+    2a_n-n=b_n^2,\qquad b_n\in\bZ_{\geq0}.
+\]
+Since the positive integers \(a_n\) strictly increase,
+\[
+    b_{n+1}^2-b_n^2=2(a_{n+1}-a_n)-1\geq1.
+\]
+Thus the nonnegative integers \(b_n\) strictly increase. Also
+\(b_1^2=2a_1-1\geq1\), so \(b_n\geq n\) for all \(n\).
+On the other hand, the last condition gives
+\[
+    b_{n-1}^2+b_n^2\leq2n^2-2n+1=(n-1)^2+n^2.
+\]
+The lower bounds force equality, hence \(b_n=n\) for every \(n\).
+Therefore \(a_n=(n+n^2)/2\). Conversely, these triangular numbers
+strictly increase, satisfy \(2a_n-n=n^2\), and have
+\(a_{n-1}+a_n=n^2\).
+\end{Ej}
+
+\newpage
+\begin{Ej}[Coordinates along the sides of the triangle]
+Use \(\overrightarrow{AB},\overrightarrow{AC}\) as a coordinate basis,
+so that \(A=(0,0)\), \(B=(1,0)\), and \(C=(0,1)\). Put
+\[
+    r=AB^2,\quad s=AC^2,\quad
+    h=2\overrightarrow{AB}\cdot\overrightarrow{AC},\quad
+    R=r+s,\quad K=R-h=BC^2.
+\]
+Squared distance from \(A\) is the positive definite quadratic form
+\[
+    Q(x,y)=rx^2+hxy+sy^2.
+\]
+In particular, a Euclidean circle has equation
+\(Q(x,y)+Ux+Vy+W=0\). The original circle is
+\(\Gamma:Q(x,y)-rx-sy=0\), and its tangents at \(B,C\) are
+\[
+    rx+(h-s)y=r,\qquad (h-r)x+sy=s.
+\]
+
+\textbf{Describe the moving points.}
+Write \(P=(a,b)\), where \(a=1-t\) and \(b=t\). The parallel-line
+conditions and the tangent equations give
+\[
+    D=\left(a+\frac{bK}{r},b\right),\qquad
+    E=\left(a,b+\frac{aK}{s}\right).
+\]
+Since \(A,X,P\) are collinear, substituting \(X=\lambda(a,b)\) in
+\(\Gamma\) gives
+\[
+    q=Q(a,b),\qquad m=ra+sb,\qquad
+    X=\frac{m}{q}(a,b).
+\]
+Here \(q>0\). Also \(a,b\ne0\): otherwise \(AX\) would be \(AC\)
+or \(AB\), making \(X=C\) or \(X=B\), which the prescribed arc excludes.
+
+\textbf{Find the circle through \(X,D,E\).}
+The useful calculation is to write its equation so that its parameter
+dependence is visible. Consider
+\[
+\begin{split}
+    F_t(x,y)={}&h\bigl(Q(x,y)-rx-sy\bigr)\\
+        &+ra\bigl(R(1-x)-hy\bigr)
+         +sb\bigl(R(1-y)-hx\bigr).
+\end{split}
+\]
+Because \(h>0\), this has the quadratic part of a circle. We verify
+that \(F_t=0\) passes through the required points.
+
+At \(X=\lambda(a,b)\), the first term vanishes, and
+\[
+\begin{split}
+    F_t(X)
+    &=Rm-\lambda\bigl(Rra^2+hab(r+s)+Rsb^2\bigr)\\
+    &=Rm-\lambda Rq=0.
+\end{split}
+\]
+For \(D=(D_x,D_y)\), direct substitution using \(a+b=1\) gives
+\[
+\begin{aligned}
+    Q(D)-rD_x-sD_y&=\frac{sb^2K}{r},\\
+    R(1-D_x)-hD_y&=-\frac{sbK}{r},\\
+    R(1-D_y)-hD_x&=K\left(a-\frac{hb}{r}\right).
+\end{aligned}
+\]
+Therefore
+\[
+    F_t(D)=\frac{hsb^2K}{r}-asbK
+        +sbK\left(a-\frac{hb}{r}\right)=0.
+\]
+Interchanging \((r,a,x)\) with \((s,b,y)\) gives \(F_t(E)=0\).
+The points are noncollinear; indeed,
+\[
+    \det(D-X,E-X)=\frac{hK^2a^2b^2}{rsq}>0.
+\]
+Thus \(F_t=0\) is the circumcircle of \(XDE\).
+
+\textbf{Read off the center.}
+Write \(F_t=hQ+L(t)x+M(t)y+N(t)\). All three coefficients are
+affine in \(t\), because \(a=1-t\) and \(b=t\). The center
+\((u_t,v_t)\) satisfies
+\[
+    \begin{pmatrix}2r&h\\h&2s\end{pmatrix}
+    \begin{pmatrix}u_t\\v_t\end{pmatrix}
+    =-\frac1h\begin{pmatrix}L(t)\\M(t)\end{pmatrix}.
+\]
+The fixed matrix is invertible, since
+\(4rs-h^2=4AB^2AC^2\sin^2\angle BAC>0\).
+Hence \((u_t,v_t)=(u_0,v_0)+t(u_1,v_1)\) for fixed vectors,
+so the circumcenter lies on a fixed line.
+\end{Ej}
+
+\newpage
+\begin{Ej}[A polynomial orbit through the divisors]
+The answer is
+\[
+    \boxed{n=p^a\quad\text{or}\quad n=p(2p-1),}
+\]
+where \(p\) is prime, \(a\geq1\), and in the second family
+\(2p-1\) is also prime.
+
+For an integer polynomial, \(x-y\mid P(x)-P(y)\).
+Consequently, whenever \(i,j<k\),
+\begin{equation*}
+    d_i-d_j\mid d_{i+1}-d_{j+1}. \tag{*}
+\end{equation*}
+The successors are distinct, and the list contains no fixed points
+or cycles: either would repeat a divisor.
+
+\textbf{Step 1: for composite \(n\), the last divisor is \(n\).}
+Prime \(n\) already belongs to a claimed family, so assume that \(n\)
+is composite. Let \(p\) be its smallest prime factor and \(M=n/p\)
+its largest proper divisor. Thus \(k\geq3\) and \(M\leq n/2\).
+
+If neither \(1\) nor \(n\) were last, then
+\(n-1\mid P(n)-P(1)\). The images are distinct divisors of \(n\),
+so their difference has absolute value at most \(n-1\). Hence their
+images must be \(1,n\), creating fixed points or a two-cycle.
+Therefore \(d_k\in\{1,n\}\).
+
+Let \(g_j=|d_{j+1}-d_j|\). Relation (*) gives
+\(g_j\mid g_{j+1}\), so the positive gaps are nondecreasing.
+Suppose \(d_k=1\). If \(n\) occurs before position \(k-1\), the
+gap following it is at least \(n-M\), whereas the last gap is at most
+\(M-1<n-M\), a contradiction.
+If \(d_{k-1}=n\), put \(x=d_{k-2}\). Then \(1<x\leq M\), and
+\[
+    n-x\mid n-1,\qquad \frac{n-1}{2}<n-x<n-1.
+\]
+This is impossible, since a proper positive divisor of \(n-1\) is
+at most \((n-1)/2\). Thus \(d_k=n\).
+
+\textbf{Step 2: examine the images of \(1\) and \(M\).}
+If \(n=p^2\), it is already a prime power. Otherwise \(M>p\).
+Since \(M-1\mid P(M)-P(1)\), their images form either the pair
+\(\{1,M\}\) or the pair \(\{p,n\}\). Indeed, two proper divisors
+lie between \(1\) and \(M\), so a nonzero difference divisible by
+\(M-1\) forces the first pair. If one image is \(n=pM\) and the
+other is \(u\leq M\), then \(u\equiv p\pmod{M-1}\), forcing
+\(u=p\) because \(1<p<M\).
+The first pair creates fixed points or a two-cycle. Therefore
+\(\{P(1),P(M)\}=\{p,n\}\).
+
+\textbf{Case A: \(P(1)=p\) and \(P(M)=n\).}
+For a proper divisor \(x>1\),
+\(x-1\mid P(x)-p\). If \(P(x)<p\), then \(P(x)=1\), since
+\(p\) is the smallest divisor above \(1\). This would give
+\(x-1\mid p-1\), hence \(x=p\), producing the two-cycle
+\(1\leftrightarrow p\). Also \(P(x)\ne p\) by injectivity on
+the proper divisors. Thus \(P(x)>p\), so
+\(P(x)-p\geq x-1\) and \(P(x)>x\).
+The whole list is therefore increasing. Write it as
+\[
+    1=e_1<e_2=p<\cdots<e_{k-1}=M<e_k=n.
+\]
+
+For \(3\leq j\leq k-1\), repeatedly apply (*) to the pair
+\((e_2,e_j)\), shifting both indices forward \(k-1-j\) times:
+\[
+    e_j-p\mid e_{k-1}-e_{k+1-j}
+    =\frac np-\frac n{e_j}
+    =\frac{n(e_j-p)}{pe_j}.
+\]
+It follows that
+\begin{equation*}
+    pe_j\mid n\qquad(3\leq j\leq k-1). \tag{**}
+\end{equation*}
+
+Suppose \(n\) is not a power of \(p\), and let \(p^a\) be its
+highest power of \(p\). If \(a\geq2\), then \(p^a\) is a proper
+divisor different from \(1,p\), so (**) would imply
+\(p^{a+1}\mid n\). Thus \(a=1\), and \(n=pM\) with \(p\nmid M\).
+If \(M\) were composite, choose a divisor \(u\) with \(1<u<M\).
+Then \(pu\) is a proper divisor different from \(1,p\), and (**)
+would give \(p^2u\mid n\), again a contradiction.
+Hence \(M=q\) is prime, with \(q>p\).
+
+The list is now \(1,p,q,pq\). Its consecutive gaps give
+\[
+    p-1\mid q-p,\qquad q-p\mid q(p-1).
+\]
+Writing \(q-p=m(p-1)\) gives \(m\mid q\). Since \(1\leq m<q\)
+and \(q\) is prime, \(m=1\), so \(q=2p-1\).
+
+\textbf{Case B: \(P(1)=n\) and \(P(M)=p\).}
+Now \(M-p\mid P(p)-p\), and \(P(p)\ne p,n\) by injectivity.
+If \(P(p)>p\), then \(P(p)\leq M\), so divisibility forces
+\(P(p)=M\), giving the two-cycle \(p\leftrightarrow M\).
+Therefore \(P(p)=1\), so \(M-p\mid p-1\) and \(M\leq2p-1\).
+Every prime factor of \(M\) is at least \(p\). If \(M\) were
+composite, then \(M\geq p^2>2p-1\). Hence \(M=q\) is prime and
+\(n=pq\), with the forced ordering \(q,p,1,pq\).
+Its gaps give \(q-p\mid p-1\) and \(p-1\mid pq-1\).
+The second divisibility implies \(p-1\mid q-1\), hence
+\(p-1\mid q-p\). Thus \(q-p=p-1\), and again \(q=2p-1\).
+
+\textbf{Step 3: construct the polynomial in each family.}
+For \(n=p^a\), use the ordering \(1,p,\ldots,p^a\) and
+\(P(x)=px\).
+For \(n=pq\), where \(q=2p-1\) is prime, use the ordering
+\(1,p,q,pq\) and
+\[
+    P(x)=x^2-px+q.
+\]
+Indeed, \(P(1)=p\), \(P(p)=q\), and
+\(P(q)=q(q-p+1)=pq\). Both families therefore work.
+\end{Ej}
+
+\fi
+\end{document}

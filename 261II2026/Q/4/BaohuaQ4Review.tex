@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{headcolor}{RGB}{31,73,125}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{headcolor}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{headcolor}}{\thesubsection}{1em}{}
+
+\title{\textbf{Quiz: Multiple Integrals}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent\emph{Companion quiz to ``Lecture Notes: Multiple Integrals'' (covers Sections 1--6: iterated integrals, general regions, changing order, polar coordinates, and triple integrals).}
+
+\subsection*{A. Conceptual / Visualization}
+
+\textbf{A1.} Sketch the region $D$ bounded by $y=x^2$ and $y=\sqrt{x}$ for $0\le x\le 1$. Shade it, and mark the two points where the curves intersect.
+
+\textbf{A2.} Sketch the triangular region with vertices $(0,0)$, $(0,1)$, $(1,1)$ that appears in $\displaystyle\int_0^1\int_x^1 e^{y^2}\, dy\, dx$. Then rewrite the integral in the order of dx dy.
+
+\textbf{A3.} Without doing any computation, describe in words what the solid $E=\{(x,y,z): x^2+y^2\le 4,\ 0\le z\le 4-x^2-y^2\}$ looks like, and state which coordinate system (rectangular, polar-in-$xy$, or otherwise) is most natural for projecting it onto the $xy$-plane.
+
+\textbf{A4.} True or false, and justify briefly: ``For triple integrals, any of the six possible orders of integration ($dx\,dy\,dz$, $dz\,dx\,dy$, etc.) are equally natural to set up for a general solid $E$.'' If false, explain which variable is usually best kept outermost and why.
+
+\textbf{A4.} True or false, ``polar coordinates can be used in triple integrals".
+
+\subsection*{B. Error Analysis (Spot the Mistake)}
+
+Each item below contains a setup error. Identify the error(s) and correct them.
+
+\textbf{B1.} A student converts $\displaystyle\iint_D (x^2+y^2)\, dA$, where $D$ is the disk $x^2+y^2\le 9$, to polar coordinates and writes:
+\[
+\iint_D (x^2+y^2)\, dA = \int_0^{2\pi}\int_0^3 r^2\, dr\, d\theta
+\]
+
+\textbf{B2.} A student sets up a Type I double integral as:
+\[
+\int_0^{g_1(x)}\int_a^b f(x,y)\, dy\, dx
+\]
+
+\textbf{B3.} A student is asked to switch the order of integration on $\displaystyle\int_0^1\int_x^1 e^{y^2}\, dy\, dx$ and simply writes:
+\[
+\int_0^1\int_x^1 e^{y^2}\, dy\, dx = \int_x^1\int_0^1 e^{y^2}\, dx\, dy
+\]
+
+\textbf{B4.} A student sets up a triple integral over a solid $E$ as:
+\[
+\iiint_E f\, dV = \int_a^b\int_{g_1(x)}^{g_2(x)}\int_{u_1(x,y,z)}^{u_2(x,y,z)} f\, dz\, dy\, dx
+\]
+Explain why this is impossible as written, independent of what $f$ or $E$ actually are.
+
+\subsection*{C. Set Up Only (Do Not Evaluate)}
+
+\textbf{C1.} Set up the double integral $\iint_D xy\, dA$, where $D$ is the region bounded by $y=x$ and $y=x^3$ in the first quadrant.
+
+\textbf{C2.} Set up the integral needed to reverse the order of integration in $\displaystyle\int_0^1\int_{y^2}^{1} f(x,y)\, dx\, dy$ (i.e., rewrite it as $dy\,dx$ instead). Do not evaluate.
+
+\textbf{C3.} Set up, in polar coordinates, the double integral for the area that lies inside both circles $r=1$ and $r=2\sin\theta$.
+
+\textbf{C4.} Set up the triple integral, with $z$ outermost, for the volume of the solid bounded above by $z=x+y+2$ and below by the rectangle $D=[0,1]\times[0,1]$ in the $xy$-plane.
+
+\subsection*{D. Short Computation}
+
+\textbf{D1.} Evaluate $\displaystyle\int_0^1\int_0^2 (3x+2y)\, dy\, dx$.
+
+\textbf{D2.} Evaluate $\displaystyle\int_0^1\int_0^{x} 6xy\, dy\, dx$.
+
+\textbf{D3.} Use polar coordinates to evaluate $\displaystyle\iint_D 1\, dA$, where $D$ is the quarter-disk $x^2+y^2\le 1$, $x\ge0$, $y\ge0$ (i.e., confirm this equals the expected quarter-circle area).
+
+\textbf{D4.} Evaluate $\displaystyle\int_0^1\int_0^{1-x}\int_0^{1-x-y} dz\, dy\, dx$ (the volume of the tetrahedron bounded by the coordinate planes and the plane $x+y+z=1$).
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Answer Key (Brief)}
+
+\textbf{A1:} The two curves meet where $x^2=\sqrt{x}$, i.e., at $x=0$ and $x=1$; on $(0,1)$, $\sqrt{x}\ge x^2$, so $D$ is the lens-shaped region between $y=x^2$ (bottom) and $y=\sqrt{x}$ (top).
+
+\textbf{A2:} As Type I, the triangle is described by $0\le x\le1$, $x\le y\le1$ (vertical strips between the line $y=x$ and the line $y=1$). As Type II, the same triangle is $0\le y\le1$, $0\le x\le y$ (horizontal strips between $x=0$ and the line $x=y$) --- same region, different slicing direction.
+
+\textbf{A3:} $E$ is the solid sitting above the disk $x^2+y^2\le4$ in the $xy$-plane and below the downward paraboloid $z=4-x^2-y^2$ --- a dome-shaped solid. Since the projection $D$ is a disk and the integrand/boundary involves $x^2+y^2$, polar coordinates in $x,y$ (with $z$ kept rectangular) is the natural choice for the outer double integral.
+
+\textbf{A4:} False. It's best practice to keep $z$ outermost (i.e., use $dz\,dy\,dx$ or $dz\,dx\,dy$) because the solid is naturally trapped between a bottom and top surface in $z$, which gives simple $z$-bounds; the remaining double integral over the $xy$-projection can then be handled with familiar Type I/Type II/polar techniques. Making $x$ or $y$ outermost instead usually forces an awkward, unnatural description of the solid.
+
+\textbf{B1:} Missing the extra factor of $r$ from the polar area element $dA=r\,dr\,d\theta$, and the integrand $x^2+y^2=r^2$ needs that extra $r$ folded in too. Correct: $\displaystyle\int_0^{2\pi}\int_0^3 r^2\cdot r\, dr\, d\theta = \int_0^{2\pi}\int_0^3 r^3\, dr\, d\theta$.
+
+\textbf{B2:} The inner variable's bounds ($0$ to $g_1(x)$) don't match a Type I region correctly here --- more importantly, the outer variable's bounds ($a$ to $b$) are written for $x$, but $x$ is the \emph{inner} differential in this integral ($dy\,dx$ means $y$ is inner, $x$ is outer) --- so the bounds are simply mismatched to the wrong variable: $y$'s bounds should depend on $x$ (e.g., $g_1(x)$ to $g_2(x)$), while $x$'s bounds should be constants ($a$ to $b$), not the other way around.
+
+\textbf{B3:} Simply swapping $dy\,dx\to dx\,dy$ without changing the limits is incorrect --- the bounds $x$ to $1$ and $0$ to $1$ don't describe the same region once the order is swapped. The correct re-derivation (see Section 4, Worked Example 1) is $\displaystyle\int_0^1\int_0^y e^{y^2}\, dx\, dy$, found by re-sketching the triangular region and re-describing it as Type II.
+
+\textbf{B4:} This violates the general bounds rule: the innermost variable being integrated ($z$) cannot appear in its own bounds. The $u_1, u_2$ bounds for $z$ are only allowed to depend on the \emph{outer} variables not yet integrated (here, $x$ and $y$), never on $z$ itself.
+
+\textbf{D1:} $\displaystyle\int_0^1\int_0^2(3x+2y)\,dy\,dx = \int_0^1\left[3xy+y^2\right]_0^2 dx = \int_0^1(6x+4)\,dx = 3+4=7$.
+
+\textbf{D2:} $\displaystyle\int_0^1\int_0^x 6xy\,dy\,dx = \int_0^1 3x\cdot x^2\,dx = \int_0^1 3x^3\,dx = \frac{3}{4}$.
+
+\textbf{D3:} $\displaystyle\int_0^{\pi/2}\int_0^1 r\,dr\,d\theta = \frac{\pi}{2}\cdot\frac{1}{2} = \frac{\pi}{4}$, matching the known quarter-circle area $\frac{1}{4}\pi(1)^2$. \checkmark
+
+\textbf{D4:} $\displaystyle\int_0^1\int_0^{1-x}\int_0^{1-x-y} dz\,dy\,dx = \int_0^1\int_0^{1-x}(1-x-y)\,dy\,dx = \int_0^1 \frac{(1-x)^2}{2}\,dx = \left[-\frac{(1-x)^3}{6}\right]_0^1 = \frac{1}{6}$.
+
+\end{document}
