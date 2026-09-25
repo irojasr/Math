@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{headcolor}{RGB}{31,73,125}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\titleformat{\section}{\large\bfseries\color{headcolor}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{headcolor}}{\thesubsection}{1em}{}
+
+\title{\textbf{Math261 Pre-Quiz5 Review}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\subsection*{\textbf{Part A}: Conceptual / Visualization}
+
+\textbf{A1.} Sketch the cross section (in the $xz$-plane, i.e.\ $y=0$) of the solid bounded by the cylinder $x^2+y^2=4$, above by the plane $z=6-x$, and below by the plane $z=0$. Label where the boundary curves cross the $z$-axis and the vertical lines $x=-2$ and $x=2$.
+
+\textbf{A2.} Sketch the cross section (in the $xz$-plane, i.e.\ $y=0$) of the solid bounded above by $z=\sqrt{x^2+y^2}$ and below by $z=x^2+y^2$. Label where the two curves intersect, and shade the region between them.
+
+\textbf{A3.} For the solid $\rho \leq 2$, $\pi/6 \leq \varphi \leq \pi/3$, $0\leq\theta\leq 2\pi$, describe in words what the solid looks like (e.g., is it a full cone, a wedge, a shell, a band around the sphere?).
+
+\textbf{A4.} True or false, and justify briefly: ``In spherical coordinates, $\varphi$ always ranges over $0$ to $2\pi$, just like $\theta$ does.'' If false, state the correct range and explain the geometric reason for the difference.
+
+\subsection*{\textbf{Part B}. Error Analysis (Spot the Mixed-Up Coordinates)}
+
+Each item below sets up an integral that mixes coordinate systems incorrectly, or has a mismatched volume element. Identify the error(s) and correct them.
+
+\textbf{B1.}
+\[
+\iiint_E f\, dV = \int_0^{2\pi}\int_0^2\int_0^{4-r^2} f(r,\theta,z)\cdot \rho^2\sin\varphi\; dz\, dr\, d\theta
+\]
+
+\textbf{B2.}
+\[
+\iiint_E f\, dV = \int_0^{2\pi}\int_0^\pi\int_0^a f(\rho,\theta,\varphi)\, d\rho\, d\varphi\, d\theta
+\]
+
+\textbf{B3.} A student is asked to find the volume of the solid ball $x^2+y^2+z^2\leq 4$ and writes:
+\[
+V = \int_0^{2\pi}\int_0^2\int_0^2 r\cdot \rho^2\sin\varphi\; dr\, d\rho\, d\theta
+\]
+Identify every problem with this setup (there is more than one).
+
+\textbf{B4.} A student converts the cone $z=\sqrt{x^2+y^2}$ into spherical coordinates and gets $\rho=\pi/4$. Explain the conceptual mistake (not just ``wrong formula'') that led to this error.
+
+\subsection*{\textbf{Part C}. Set Up Only (Do Not Evaluate)}
+
+\textbf{C1.} Set up the integral, in cylindrical coordinates, for the volume of the solid bounded above by $z=8-x^2-y^2$ and below by $z=x^2+y^2$.
+
+\textbf{C2.} Set up the integral, in spherical coordinates, for $\iiint_E (x^2+y^2+z^2)\, dV$, where $E$ is the region between the spheres $\rho=1$ and $\rho=3$.
+
+\textbf{C3.} Set up the integral, in cylindrical coordinates, for the volume of the solid that lies inside the cylinder $x^2+y^2=1$, above the plane $z=0$, and below the cone $z=2-\sqrt{x^2+y^2}$.
+
+\textbf{C4.} Set up the integral, using whichever coordinate system is most natural, for the mass of the solid hemisphere $x^2+y^2+z^2\leq 9$, $z\geq 0$, with density $\delta(x,y,z)=\sqrt{x^2+y^2+z^2}$.
+
+\subsection*{\textbf{ Part D}. Short Computation}
+
+\textbf{D1.} Evaluate $\displaystyle\int_0^{2\pi}\int_0^1\int_0^r z\cdot r\; dz\, dr\, d\theta$.
+
+\textbf{D2.} Evaluate $\displaystyle\int_0^{\pi/2}\int_0^{\pi/2}\int_0^1 \rho^2\sin\varphi\; d\rho\, d\varphi\, d\theta$.
+
+\textbf{D3.} Find the volume of the solid cylinder $x^2+y^2\leq 1$, $0\leq z\leq 3$, by setting up and evaluating a triple integral in cylindrical coordinates. (This should confirm the elementary formula $V=\pi r^2 h$.)
+
+\textbf{D4.} Evaluate $\iiint_E z^2\, dV$ where $E$ is the solid ball $\rho\leq 1$, using spherical coordinates.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Answer Key (Brief)}
+
+\textbf{A1:} The cross section is bounded below by the horizontal line $z=0$ and above by the tilted line $z=6-x$, over $-2\leq x\leq 2$ (from the cylinder). At $x=-2$, the top boundary is at $z=8$; at $x=2$, it's at $z=4$; the two boundary lines don't meet within this strip, so the cross section is a trapezoid-shaped region, not a triangle.
+
+%\begin{center}
+%\includegraphics[width=0.7\textwidth]{a1_cross_section.png}
+%\end{center}
+
+\textbf{A2:} In the $xz$-plane ($y=0$), the cone becomes $z=|x|$ and the paraboloid becomes $z=x^2$. These meet where $|x|=x^2$, i.e., at $x=-1,0,1$. Between $x=-1$ and $x=1$, the cone lies above the paraboloid, so the cross section is the lens-shaped region between the two curves, pinched to a point at the origin.
+
+%\begin{center}
+%\includegraphics[width=0.7\textwidth]{a2_cross_section.png}
+%\end{center}
+
+\textbf{A3:} A spherical ``band'' or zone: a shell-like sector of the ball of radius 2, restricted to angles between $30^\circ$ and $60^\circ$ from the positive $z$-axis, swept through a full revolution in $\theta$ --- visually like a cone-shaped band cut out of a solid sphere.
+
+\textbf{A4:} False. $\varphi$ ranges over $0$ to $\pi$ only, because $\varphi$ measures the angle down from the positive $z$-axis, and any point in 3D space can be reached with $\varphi$ between $0$ (straight up) and $\pi$ (straight down); going past $\pi$ would just retrace points already covered by adjusting $\theta$ instead.
+
+\textbf{B1:} The volume element mixes cylindrical variables $(r,\theta,z)$ with the spherical factor $\rho^2\sin\varphi$. It should simply be $r\,dz\,dr\,d\theta$.
+
+\textbf{B2:} Missing the $\rho^2\sin\varphi$ factor entirely --- the spherical volume element is $\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$, not $d\rho\,d\varphi\,d\theta$.
+
+\textbf{B3:} Multiple errors: (i) it mixes $r$ (cylindrical) and $\rho$ (spherical) in the same integral; (ii) it's missing $\sin\varphi$; (iii) the bounds $0$ to $2$ for both $r$ and $\rho$ double-count/misassign the radius --- a ball of radius 2 should just be set up in spherical alone, as $0\leq\rho\leq 2$, $0\leq\varphi\leq\pi$, $0\leq\theta\leq 2\pi$, with volume element $\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta$.
+
+\textbf{B4:} The student converted the equation as if setting $\rho$ equal to the angle rather than solving for $\varphi$; the cone $z=\sqrt{x^2+y^2}$ becomes $z=r$, i.e., $\rho\cos\varphi=\rho\sin\varphi$, giving $\tan\varphi=1$, so $\varphi=\pi/4$ --- a constant \emph{angle}, not a value of $\rho$. The mistake is conflating ``the equation simplifies to a constant'' with ``that constant is $\rho$'' instead of recognizing which spherical variable actually becomes constant.
+
+\textbf{D1:} $2\pi\int_0^1\int_0^r zr\,dz\,dr = 2\pi\int_0^1 r\cdot\frac{r^2}{2}\,dr = 2\pi\cdot\frac{1}{2}\cdot\frac{1}{4} = \dfrac{\pi}{4}$.
+
+\textbf{D2:} $\dfrac{\pi}{2}\cdot[-\cos\varphi]_0^{\pi/2}\cdot\left[\dfrac{\rho^3}{3}\right]_0^1 = \dfrac{\pi}{2}\cdot 1\cdot\dfrac{1}{3} = \dfrac{\pi}{6}$.
+
+\textbf{D3:} $V = \displaystyle\int_0^{2\pi}\int_0^1\int_0^3 r\,dz\,dr\,d\theta = 2\pi\cdot 3\cdot\dfrac{1}{2} = 3\pi = \pi(1)^2(3)$. \checkmark
+
+\textbf{D4:} $\displaystyle\int_0^{2\pi}\int_0^\pi\int_0^1 \rho^2\cos^2\varphi\cdot\rho^2\sin\varphi\,d\rho\,d\varphi\,d\theta = 2\pi\cdot\frac{1}{5}\cdot\int_0^\pi \cos^2\varphi\sin\varphi\,d\varphi = 2\pi\cdot\frac{1}{5}\cdot\frac{2}{3} = \dfrac{4\pi}{15}$.
+
+\end{document}
