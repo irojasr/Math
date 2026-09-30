@@ -179,7 +179,7 @@ Consequently, the section has lower boundary $z=x^2$ and upper boundary
 $z=2|x|$. Solving $x^2=2|x|$ gives $x=-2,0,2$.
 
 \begin{center}
-\includegraphics[width=0.54\linewidth]{figures/q5-cone-paraboloid-section.pdf}
+\includegraphics[width=0.50\linewidth]{figures/q5-cone-paraboloid-section.pdf}
 \end{center}
 
 \textit{Full credit:} a correctly shaded sketch of both lobes with all three
@@ -187,48 +187,72 @@ intersections labeled. Hand-drawn curves need not be to scale.
 Accept the equivalent three-dimensional labels $(-2,0,4)$, $(0,0,0)$,
 and $(2,0,4)$, or $O$ for the origin.
 
-\vspace{14pt}
+% Keep the cross-section diagram and the complete Question 4 solution together.
+\newpage
 \item \textbf{Final answer:}
 \[
-  \boxed{
-  \left\{
-  \begin{aligned}
-    &\pi/2\leq\theta\leq\pi,\\
-    &0\leq\varphi\leq\pi,\\
-    &1\leq\rho\leq2.
-  \end{aligned}
-  \right.}
+  \boxed{\displaystyle
+  I=\int_0^1\int_0^z\int_{x^2}^{2x^2}
+  z^2x^3e^{x^3}\,dy\,dx\,dz
+  =\frac{3-e}{9}.}
 \]
-Here $\varphi$ is measured from the positive $z$-axis and
-$\theta$ is the azimuthal angle. The conversion is
+Fix a height $z=z_0$, with $0<z_0\leq1$, and view that horizontal plane
+in $(x,y)$-coordinates. The first integral covers $R_1$ (blue), and the
+second covers $R_2$ (orange):
+\begin{center}
+\includegraphics[width=0.62\linewidth]{figures/q5-parabolic-strip-section.pdf}
+\end{center}
+The pieces share the segment $AB$ on $y=z_0^2$; $BC$ is the boundary
+$x=z_0$. The line $y=2z_0^2$ meets the region only at $C$.
+The labeled coordinates are $(x,y)$; append $z_0$ to obtain points
+in the solid. At $z_0=0$, the section collapses to the origin.
+
+\medskip
+For each fixed $0\leq z\leq1$, the two original sections combine as follows:
 \[
   \left\{
   \begin{aligned}
-    &1\leq x^2+y^2+z^2\leq4,\\
-    &x\leq0,\\
-    &y\geq0
+    &0\leq y\leq z^2,\\
+    &\sqrt{y/2}\leq x\leq\sqrt{y}
   \end{aligned}
   \right.
-  \qquad\Longrightarrow\qquad
+  \quad\text{or}\quad
   \left\{
   \begin{aligned}
-    &1\leq\rho\leq2,\\
-    &\pi/2\leq\theta\leq\pi,\\
-    &0\leq\varphi\leq\pi.
+    &z^2\leq y\leq2z^2,\\
+    &\sqrt{y/2}\leq x\leq z
+  \end{aligned}
+  \right.
+  \quad\Longleftrightarrow\quad
+  \left\{
+  \begin{aligned}
+    &0\leq x\leq z,\\
+    &x^2\leq y\leq2x^2.
   \end{aligned}
   \right.
 \]
-The radii come from $1\leq\rho^2\leq4$.
-Since $x=\rho\sin\varphi\cos\theta$ and
-$y=\rho\sin\varphi\sin\theta$, the signs select the second-quadrant
-azimuthal sector. There is no restriction on $z$, so both hemispheres
-are included. This is one quarter of the shell.
+The curves are $y=x^2$ and $y=2x^2$; the right boundary is $x=z$.
+The original upper $x$-bound changes from $\sqrt{y}$ to $z$ at $y=z^2$.
+The two pieces meet only along that boundary, so their integrals add
+without double-counting volume. No coordinate change or Jacobian is needed.
+
+Integrating in $y$ supplies $2x^2-x^2=x^2$. Next use $u=x^3$ and integration
+by parts, with $\int ue^u\,du=(u-1)e^u+C$:
+\[
+\begin{aligned}
+  I&=\int_0^1 z^2\int_0^z x^5e^{x^3}\,dx\,dz
+    =\frac13\int_0^1 z^2\bigl((z^3-1)e^{z^3}+1\bigr)\,dz\\
+   &=\frac19\int_0^1\bigl((v-1)e^v+1\bigr)\,dv
+    =\frac19\left[(v-2)e^v+v\right]_0^1
+    =\frac{3-e}{9},\qquad v=z^3.
+\end{aligned}
+\]
 
 \smallskip
-\textit{Full credit:} all three bounds describing this region exactly once,
-apart from boundary points. Accept any ordering of the inequalities and
-$\pi/2+2k\pi\leq\theta\leq\pi+2k\pi$ for $k\in\mathbb Z$,
-with the same $\rho$ and $\varphi$ bounds. No volume calculation is requested.
+\textit{Full credit:} a single integral in the requested order $dy\,dx\,dz$
+with the correct bounds and integrand, together with an exact value
+equivalent to $(3-e)/9$. Either the combined integral alone or the value
+alone is incomplete.
 
 \end{enumerate}
 \end{document}
