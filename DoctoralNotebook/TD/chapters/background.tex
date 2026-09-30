@@ -1,0 +1,82 @@
+\chapter{Background}
+\label{chap:background}
+
+% TODO: Establish notation for curves, moduli spaces, and stacks.
+% TODO: Add the needed intersection theory, Hodge classes, Gromov--Witten
+% theory, virtual fundamental classes, and localization, with citations.
+
+\section{Category Theory}
+\label{section:categoryThry}
+
+\begin{Def}
+    A \term{category} \(\cat{C}\) consists of 
+    \begin{itemize}
+        \item A class \emph{Obj} of entities called objects.
+        \item A class \emph{Arw} of entities called arrows.
+        \item Assignments
+        \[\textit{source}:\textit{Arw}\to\textit{Obj},\word{and}\textit{target}:\textit{Arw}\to\textit{Obj}.\]
+        These assignments are represented in the obvious way: \(A\xrightarrow{f}B\) indicates that \(f\) is an arrow with \emph{source} \(A\) and \emph{target} \(B\). 
+        \item An assignment 
+        \[
+        1:\textit{Obj}\to\textit{Arw}
+        \]
+        which, given an object \(A\in\cat{C}\), yields an arrow \(1_A\) satisfying \(A\xrightarrow{1_A}A\). In other words, the \emph{source} and \emph{target} assignments of the distinguished arrow \(1_A\) are \(A\) itself.
+        \item A partial composition
+        \[
+        \textit{Arw}\x\textit{Arw}\to\textit{Arw}.
+        \]
+        Given two arrows \(A\xrightarrow{f}B_1\) and \(B_2\xrightarrow{g}C\), they are composable when \(B_1\) and \(B_2\) are the same object. The resulting arrow has the form \(A\xrightarrow{fg}C\).
+    \end{itemize}
+    Additionally the category \(\cat{C}\) must satisfy the following conditions:
+    \begin{itemize}
+        \item Suppose we are given a diagram as follows:
+        \[
+        A\xrightarrow{f}B\xrightarrow{g}C\xrightarrow{h}D.
+        \]
+        We require that \((fg)h=f(gh)\). In other words, composition is associative.
+        \item Consider an arrow \(f\) and the two identity arrows as follows:
+        \[
+        A\xrightarrow{1_A}A\xrightarrow{f}B\xrightarrow{1_B}B.
+        \]
+        We require that \(f1_B=f=1_Af\).
+    \end{itemize}
+\end{Def}
+
+\begin{Rmk}
+We say ``class'' and ``assignment'' to allow for the possibility that \emph{Obj} and \emph{Arw} are not sets. If they were, then an assignment would be the same as a function. We also denote, \(\Mor_{\cat{C}}(A,B)\) for the class of all arrows with source \(A\) and target \(B\). 
+\end{Rmk}
+
+\subsection{Examples of categories}
+
+\begin{Ex}
+    In these categories, every object has extra properties and arrows are functions which respect this property. Rather than making the notion of \emph{concrete category} precise, we will list some examples:
+    \begin{table*}[h]
+        \centering
+        \begin{tabular}{lll}\toprule
+            Category & Objects & Arrows\\ \midrule
+            \(\cat{Set}\)& sets & functions\\
+            \(\cat{Grp}\)& groups & morphisms\\
+            \(\cat{AbGrp}\)&  Abelian groups & morphisms\\
+            \(\cat{Rng}\)&  rings & morphisms\\
+            \(\cat{Top}\)&  topological spaces & continuous functions\\
+            \(\cat{Vect}_{k}\)&  vector spaces over a field \(k\) & linear maps\\
+       \bottomrule
+        \end{tabular}
+        \end{table*}
+\end{Ex}
+
+\begin{Def}
+    For a category \(\cat{C}\), \(\cat{D}\) is a \term{subcategory} of \(\cat{C}\) if the class of objects (resp. arrows) of \(\cat{D}\) is a subset of the class of objects (resp. arrows) of \(\cat{C}\).\par
+    Moreover \(\cat{D}\) is a \term{full subcategory} of \(\cat{C}\) if it's a subcategory and for all objects \(X,Y\) of \(\cat{D}\), 
+    \[
+    \Mor_{\cat{D}}(X,Y)=\Mor_{\cat{C}}(X,Y).
+    \]
+\end{Def}
+
+An examples of an important category that is studied in algebraic geometry is the following:
+
+\begin{Ex}
+    
+\end{Ex}
+
+

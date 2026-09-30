@@ -1,0 +1,106 @@
+\documentclass[doctor]{thesis}
+% University structure and formatting are controlled by thesis.cls.
+% The complete original example, instructions, and license are preserved in
+% docs/template-example.tex.txt. See BUILDING.md for compilation commands.
+
+% The preview build passes this selector; normal builds include every chapter.
+\ifdefined\ThesisPreviewChapter
+  \expandafter\includeonly\expandafter{\ThesisPreviewChapter}
+  % The class creates this counter on its copyright page. Previews skip that
+  % page, but must define the counter before restoring full-build checkpoints.
+  \newcounter{@temppage}
+\fi
+
+% Mathematical packages, notation, and theorem environments only.
+\input{VarillyThesisMacros}
+
+% Graphics: LaTeX loads graphicx once, including the class's indirect load.
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg}
+% Subfigures must preserve the class's caption formatting.
+\usepackage[caption=false]{subfig}
+\usepackage{booktabs}
+
+% Retain the template's URL and numeric BibTeX citation setup.
+\usepackage{url}
+\urlstyle{same}
+\usepackage{cite}
+
+% The template's reference conveniences (cref here means Chapter, not cleveref).
+\newcommand{\eref}[1]{\eqref{#1}}
+\newcommand{\fref}[1]{Figure~\ref{#1}}
+\newcommand{\cref}[1]{Chapter~\ref{#1}}
+\newcommand{\sref}[1]{Section~\ref{#1}}
+\newcommand{\aref}[1]{Appendix~\ref{#1}}
+\newcommand{\tref}[1]{Table~\ref{#1}}
+
+% Title page metadata.
+% TODO: Replace the title placeholder with the approved dissertation title.
+\title{TODO: Dissertation title}
+% Full name is recorded in the author's Spring 2026 MATH 340 syllabus.
+\author{José Ignacio Rojas Rojas}
+\email{ir@colostate.edu}
+% Department and institution are supported by the previous thesis cover.
+\department{Department of Mathematics}
+% TODO: Confirm the defense/submission semester and year.
+\semester{TODO: Semester and year}
+
+% Committee names have no honorifics, as required by the template.
+\advisor{Renzo Cavalieri}
+% A co-advisor is optional; none has been specified.
+\committee{Mark Shoemaker}
+\committee{Maria Gillespie}
+\committee{Joshua Berger}
+
+% The class prints Doctor of Philosophy, Colorado State University, and
+% Fort Collins, Colorado for this doctoral template.
+% TODO: Confirm the precise degree wording before submission.
+
+% Copyright page: preserve its special page-number handling without choosing
+% a copyright year or license on the author's behalf.
+% TODO: Supply the copyright statement and year.
+\mycopyright{TODO: Copyright statement and year.}
+
+% Abstract: required front matter; no research abstract has been supplied.
+\abstract{TODO: Write the dissertation abstract.}
+
+% Optional acknowledgements: activate both commands when text is ready.
+% \acknowledgements{...}
+
+% The template permits hyperref, but does not require it. If added later,
+% load it last and verify preliminary-page numbering and PDF destinations.
+
+\begin{document}
+
+% Chapter previews share this preamble, but omit preliminary pages.
+\ifdefined\ThesisPreviewChapter\else
+\frontmatter % preliminary pages use the class's Roman-page-number logic
+\maketitle
+\makemycopyright
+\makeabstract
+% \makeacknowledgements
+% Optional dedication/custom preliminary pages belong here; see the example.
+\tableofcontents
+% Activate these optional lists when the thesis contains tables or figures.
+% \listoftables
+% \listoffigures
+\fi
+
+\mainmatter % thesis body, starting at Arabic page 1
+\include{chapters/introduction}
+\include{chapters/background}
+\include{chapters/chapter1}
+
+\backmatter % unnumbered supplementary material
+\bibliographystyle{plain} % numeric references, sorted by author/year/title
+% Temporary bibliography inventory while the chapters contain no citations.
+% This prints all current records. Remove nocite once actual chapter citations
+% exist; the style still determines their alphabetical order.
+\nocite{*}
+\bibliography{bibiTD}
+
+\appendix % CSU template places appendices AFTER the bibliography
+% TODO: Include appendix chapters here if needed; none are drafted yet.
+
+\end{document}
