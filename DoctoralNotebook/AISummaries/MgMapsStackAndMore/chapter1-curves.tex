@@ -1,0 +1,665 @@
+\chapter{\texorpdfstring{$\Mgn$}{Stable pointed curves} is a stack}\label{ch:curves}
+
+\section{A family of stable pointed curves}
+
+Start with a scheme $S$ over $\CC$, and fix integers $g,n\geq0$ with
+\begin{equation}\label{eq:stable-range}
+                         2g-2+n>0.
+\end{equation}
+We want to put one complete, connected, possibly nodal curve over each
+point of $S$, together with $n$ labelled points that vary as sections.
+The scheme $S$ is the parameter scheme; it is not the curve being
+classified. The inequality is the \emph{stable range}: for example,
+$(g,n)=(2,0),(1,1),(0,3)$ are allowed, and $(0,0)$ is not allowed
+for stable pointed curves.
+
+\begin{Def}[Family of stable pointed curves]\label{def:stable-family}
+The input is a $\CC$-scheme $S$. A family over $S$ consists of a scheme
+$C$, a proper flat finitely presented morphism $\pi:C\to S$, and
+sections $\sigma_a:S\to C$ for $1\leq a\leq n$, such that:
+\begin{enumerate}
+\item For every geometric point $\bar s:\Spec\Omega\to S$, where
+$\Omega$ is algebraically closed, the fiber
+$C_{\bar s}=C\times_S\Spec\Omega$ is a connected reduced curve with
+only ordinary nodes as possible singularities, and arithmetic genus
+$g$.
+\item Each section takes values in the smooth locus of $\pi$, and the
+images of different sections are disjoint.
+\item In the normalization of each geometric fiber, every component
+of genus zero carries at least three special points, and every
+component of genus one carries at least one special point. A special
+point is a marked point or a preimage of a node; a self-node contributes
+two such preimages to the same component.
+\end{enumerate}
+We write $\xi=(S,C,\pi,\sigma_1,\ldots,\sigma_n)$ for all these data.
+\end{Def}
+
+Here ``finitely presented'' rules out infinitely many equations or
+parameters in the relative construction; it is the useful finiteness
+condition when $S$ need not be noetherian. Flatness is a condition on
+the family, not just on its individual fibers. Properness is the
+algebraic completeness condition. The sections satisfy
+$\pi\sigma_a=\id_S$ and remember their labels. Their disjointness is
+a condition on the entire family, including nonreduced bases.
+
+At a node of a geometric fiber, the completed local ring is
+$\Omega[[x,y]]/(xy)$: two smooth branches meet. The arithmetic genus
+of a proper connected reduced curve over $\Omega$ is
+$g=\dim_\Omega H^1(C_{\bar s},\mathcal O_{C_{\bar s}})$.
+Thus a genus-two fiber need not be a smooth surface with two handles;
+it can be reducible, with the genus distributed among its components
+and its incidence graph.
+
+The normalization separates the branches at each node. If a normalized
+component $E$ has genus $h$ and $r$ special points, the stability test
+can be written as $2h-2+r>0$. In particular, its content concerns
+\emph{each component}, not just the total genus. The geometric facts
+relating this test to automorphisms and line bundles are explained in
+Alper \cite[Definition 6.3.2, Proposition 6.3.5, pp.~225--226]{Alper}.
+The family definition is \cite[Definition 6.3.20, p.~231]{Alper}.
+
+\begin{Ex}[A smooth genus-two object]\label{ex:genus-two}
+Let $C_0$ be the smooth projective completion of
+\[
+                            y^2=x^6-1
+\]
+over $\CC$. More precisely it is the smooth double cover of $\PP^1$
+branched at the six distinct sixth roots of unity. The double-cover
+genus formula gives $2g(C_0)-2=2(-2)+6=2$, hence $g(C_0)=2$.
+The affine equation alone would not be a proper curve, which is why
+the completion is part of the description.
+
+With no markings, $C_0\to\Spec\CC$ is an object for $(g,n)=(2,0)$.
+Its only normalized component has $h=2,r=0$, so it is stable.
+The involution $\iota(x,y)=(x,-y)$ extends over the completion.
+Stability allows this nontrivial automorphism; it asks for a finite
+automorphism group, not a trivial group. If we want one marking,
+$p=(1,0)$ is a smooth point fixed by $\iota$, so
+$(C_0,p)$ is a useful example for $(2,1)$ too.
+\end{Ex}
+
+\begin{Ex}[A stable nodal genus-two object]\label{ex:genus-two-nodal}
+Take smooth elliptic curves $E_1,E_2$ with chosen points $q_1,q_2$,
+and identify these points to one ordinary node $q$. The result
+$C=E_1\cup_q E_2$ is projective and connected. The normalization
+sequence is
+\[
+0\longrightarrow\mathcal O_C\longrightarrow
+\mathcal O_{E_1}\oplus\mathcal O_{E_2}
+\longrightarrow\mathbb C_q\longrightarrow0,
+\]
+where the last map takes the difference of values at the two branches.
+It gives $\chi(\mathcal O_C)=0+0-1=-1$, hence genus two.
+Each normalized elliptic component has its one node preimage as a
+special point. Thus both have $2h-2+r=1>0$. This is a stable
+unmarked curve even though neither elliptic component would be
+stable as an isolated unmarked curve.
+\end{Ex}
+
+\begin{Ej}\label{ex:stability-test}
+A rational component has one self-node and one additional marked
+smooth point. How many special points are on its normalization?
+Does this component pass the stability test? Why would counting the
+self-node just once give the wrong answer?
+\end{Ej}
+
+\subsection{Base and notation for the whole construction}
+
+Our base category is $\Sch/\CC$, the category of all $\CC$-schemes
+and $\CC$-morphisms, with the \emph{\'etale topology}. A cover is a
+family of \'etale maps $\{S_i\to S\}$ whose images together cover
+$S$. Ordinary open covers are examples, but a cover need not consist
+of inclusions. For example,
+\[
+\Spec\CC[u,u^{-1}]\longrightarrow\Spec\CC[t,t^{-1}],\qquad t=u^2,
+\]
+is a one-map \'etale cover. Locally it supplies a choice of square
+root; globally there is no preferred choice.
+
+We use $\Mgn$ for the stable pointed-curve construction throughout.
+The notation $\mathcal M_{g,n}$ denotes its open substack of
+\emph{smooth} curves, once the stack has been constructed. With
+$n=0$, write $\overline{\mathcal M}_g$ and $\mathcal M_g$,
+respectively. An informal ``$M_g$'' must be disambiguated: smooth
+curves and their stable compactification are different moduli
+problems. Plain noncalligraphic symbols in some references instead
+denote coarse spaces; we do not use them for our stacks.
+
+\section{First construct an ordinary category}\label{sec:curve-category}
+
+\subsection{Objects and arrows}
+
+The objects of our \emph{total category} are all the tuples $\xi$
+of Definition~\ref{def:stable-family}, allowing $S$ to vary. Thus
+the base is part of the object. The same curve family pulled back
+to a new base is a new object, even if its fibers look familiar.
+
+\begin{Def}[An arrow between families]\label{def:curve-arrow}
+Given objects $\xi=(C\xrightarrow{\pi}S,\sigma_\bullet)$ and
+$\eta=(D\xrightarrow{\rho}T,\tau_\bullet)$, an arrow
+$(u,h):\xi\to\eta$ consists of maps $u:S\to T$ and $h:C\to D$
+such that
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+C\arrow[r,"h"]\arrow[d,"\pi"']&D\arrow[d,"\rho"]\\
+S\arrow[r,"u"']&T
+\end{tikzcd}
+\qquad
+\rho h=u\pi,\qquad h\sigma_a=\tau_a u\quad(1\leq a\leq n),
+\]
+and the square is cartesian. Explicitly, the induced map
+\[
+             (\pi,h):C\longrightarrow S\times_TD
+\]
+must be an isomorphism.
+\end{Def}
+
+The input is two families. The data of an arrow say that the first
+is the second viewed over the new base $S$, with an identification
+of the pulled-back total space. The condition is an isomorphism of
+\emph{schemes over $S$}, not merely a bijection of geometric fibers.
+The map $h:C\to D$ itself need not be an isomorphism when $u$ is
+not one. For instance, inclusion of a fiber is usually not an
+isomorphism of total spaces.
+
+Why not allow arbitrary maps between curves? The moduli problem
+identifies two presentations of the same family. A degree-two map
+between curves or a constant map changes the geometric object; it
+is not such an identification. In particular, a constant
+$C_0\to C_0$ is not an arrow here. This choice of arrows is essential
+to obtaining groupoids as fibers. It does not mean that every arrow
+of the total category is invertible.
+
+\begin{Ex}[Arrows over a point]
+Over $\Spec\CC$, the only base endomorphism as a $\CC$-scheme is
+the identity. An arrow from $C_0$ to a second genus-two curve $D_0$
+is therefore exactly a curve isomorphism $h:C_0\xrightarrow{\sim}D_0$.
+If points are marked, $h$ must send each labelled point to the
+point with the same label. The identity and $\iota$ give different
+arrows $C_0\to C_0$, including in the one-pointed example $(C_0,(1,0))$.
+An object and its automorphisms are retained, not replaced by just
+one element of a set of isomorphism classes.
+\end{Ex}
+
+\subsection{Identities, composition, and the axioms}
+
+The identity of $\xi$ is $(\id_S,\id_C)$. Its square is cartesian
+and it preserves the sections. If $(u,h):\xi\to\eta$ and
+$(v,k):\eta\to\zeta$, where $\zeta=(E\to U,\upsilon_\bullet)$,
+define
+\[
+                        (v,k)\circ(u,h)=(vu,kh).
+\]
+We must check that this is still an allowed arrow. The base square
+commutes because the two smaller squares do. The section equation is
+$kh\sigma_a=k\tau_a u=\upsilon_a vu$. Finally,
+\[
+C\simeq S\times_TD
+\simeq S\times_T(T\times_UE)
+\simeq S\times_UE,
+\]
+so the composite square is cartesian. Composition is associative
+because scheme morphisms compose associatively in both entries of
+the pair. Composing with the stated identities changes neither
+entry. We have now checked all the category axioms.
+
+\MCcheckpoint{So far we have an ordinary category. There has been no
+gluing theorem and no assertion about a parameter space representing it.}
+
+\begin{Ej}\label{ex:total-vs-fiber}
+Let $C_0\times\mathbb A^1\to\mathbb A^1$ be the constant
+genus-two family. Explain why the inclusion of the fiber at $0$
+defines an arrow in the total category, but has no inverse there.
+Why does this not contradict the forthcoming claim that each fiber
+category is a groupoid?
+\end{Ej}
+
+\section{The category over schemes and its fibers}
+
+A \emph{category over $\Sch/\CC$} starts with a category and asks
+us to specify a functor from it to $\Sch/\CC$. It need not yet have
+pullbacks or satisfy any descent condition. Here define
+\[
+p:\Mgn\longrightarrow\Sch/\CC,\qquad
+p(\xi)=S,\qquad p(u,h)=u.
+\]
+The identity calculation gives $p(\id_\xi)=\id_S$, and the
+composition calculation gives $p((v,k)\circ(u,h))=v\circ u$.
+Thus $p$ is a covariant functor. If this is the functor previously
+called \texttt{Target}, then $p=\texttt{Target}$: it retains the
+target $S$ of the structural morphism $C\to S$. Later, for stable
+maps, this word will still mean $S$, not the fixed target variety $X$.
+This is Fantechi's Section~3.2 notion of a category over the base
+\cite{Fantechi}.
+
+\begin{Def}[The fiber category]\label{def:curve-fiber}
+Fix $S$. The category $\Mgn(S)$ has all families over this exact
+scheme $S$ as objects. Its arrows are the arrows of the total
+category lying over $\id_S$. Thus an arrow is an $S$-isomorphism
+$h:C\xrightarrow{\sim}D$ satisfying $h\sigma_a=\tau_a$.
+\end{Def}
+
+The word ``fiber'' here means a category, not the geometric fiber
+$C_{\bar s}$ of a scheme morphism. Objects in $\Mgn(S)$ can be
+entire varying families. For $S=\Spec\CC$, they are individual
+stable pointed curves and their marked isomorphisms. The requirement
+that arrows lie over the \emph{identity} is important: an automorphism
+of $S$ different from the identity would give an arrow in the total
+category, but not in this fiber category.
+
+\section{Pullbacks and cartesian arrows}\label{sec:curve-pullback}
+
+\subsection{Construct the changed family}
+
+Suppose we have a family $\xi$ over $S$ and a $\CC$-morphism
+$u:T\to S$. We are asked to produce its family over $T$.
+Set $C_T=T\times_SC$, let $\pi_T:C_T\to T$ be projection, and
+put $\sigma_{a,T}=(\id_T,\sigma_a u)$. Then
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+C_T=T\times_SC\arrow[r,"q"]\arrow[d,"\pi_T"']&C\arrow[d,"\pi"]\\
+T\arrow[r,"u"']&S
+\end{tikzcd}
+\]
+is a cartesian square and $q\sigma_{a,T}=\sigma_a u$.
+
+Properness, flatness, and finite presentation survive base change.
+So do the smooth-locus and disjointness conditions on the sections.
+The geometric fibers of $\pi_T$ are geometric base changes of those
+of $\pi$; connectedness, nodality, genus, and the component stability
+test are unchanged by extension of algebraically closed fields.
+Consequently $u^*\xi=(C_T\to T,\sigma_{\bullet,T})$ is an allowed
+object. The pair $(u,q):u^*\xi\to\xi$ is an allowed arrow.
+These base-change statements are standard family-of-curves facts;
+see \cite[Section 6.3.4, pp.~231--232]{Alper}.
+
+\begin{Ex}[Pulling back the genus-two family]
+For the constant family $C_0\times S\to S$, changing the base to
+$T$ gives $C_0\times T\to T$. Pullback to a point of $S$ selects
+a fiber, while pullback to an infinitesimal scheme such as
+$\Spec\CC[\epsilon]/(\epsilon^2)$ also remembers infinitesimal
+parameter information. Pullback is thus more than substituting
+complex numbers into an equation.
+\end{Ex}
+
+\subsection{The categorical universal property}
+
+The word ``cartesian'' has a second, related usage, for an arrow
+in a category over a base. Its definition starts with an arrow
+$q:\xi_T\to\xi$ over $u:T\to S$. The question is whether all
+arrows whose base maps factor through $u$ factor uniquely through
+$q$ in the corresponding way.
+
+\begin{Def}[Cartesian arrow]\label{def:cartesian-arrow}
+An arrow $q:\xi_T\to\xi$ over $u:T\to S$ is cartesian if for
+every object $\zeta$ over $R$, base map $v:R\to T$, and arrow
+$a:\zeta\to\xi$ over $uv$, there is a unique arrow
+$b:\zeta\to\xi_T$ over $v$ with $q b=a$.
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+\zeta\arrow[rr,"a"]\arrow[dr,dashed,"b"']&&\xi\\
+&\xi_T\arrow[ur,"q"']&
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[row sep=large,column sep=large]
+R\arrow[rr,"uv"]\arrow[dr,"v"']&&S\\
+&T\arrow[ur,"u"']&
+\end{tikzcd}
+\]
+The base factorization $v$ is specified; it is not something to be
+chosen as part of the asserted uniqueness.
+\end{Def}
+
+Let us verify this for the pullback just constructed. Write the
+total space of $\zeta$ as $E$, its projection as $\lambda:E\to R$,
+and the total-space map of $a$ as $a_C:E\to C$. There is exactly
+one scheme map
+\[
+           b_C=(v\lambda,a_C):E\longrightarrow T\times_SC
+\]
+with those two projections, by the scheme fiber-product property.
+It respects the marked sections because both of its projections
+do. It remains to check that it defines a \emph{moduli arrow}:
+since $a$ is an arrow, $E\simeq R\times_SC$; on the other hand,
+\[
+                R\times_T(T\times_SC)\simeq R\times_SC.
+\]
+Thus $E\to R\times_TC_T$ is an isomorphism, exactly the required
+cartesian-square condition for $(v,b_C)$. Uniqueness as a scheme
+map implies uniqueness as a moduli arrow. This proves the full
+universal property, including the requirement that the candidate
+factorization belongs to our category.
+
+\begin{Ej}\label{ex:cartesian-uniqueness}
+If two pullback objects $\xi_T,\xi'_T$ with arrows to $\xi$ satisfy
+Definition~\ref{def:cartesian-arrow}, show that there is a unique
+isomorphism between them commuting with the arrows to $\xi$.
+Why is it incorrect to omit ``commuting with the arrows'' when
+asserting uniqueness for a genus-two curve with an involution?
+\end{Ej}
+
+\section{Why the category is fibered in groupoids}
+
+A category over schemes is \emph{fibered} if an object over $S$
+has a cartesian pullback arrow over every map $T\to S$. We have
+constructed one and checked the universal property. A
+\emph{groupoid} is a category in which every arrow is invertible.
+In $\Mgn(S)$, the cartesian-square requirement over $\id_S$ says
+precisely that $h:C\to D$ is an isomorphism. Its inverse is over
+$S$ and satisfies $h^{-1}\tau_a=\sigma_a$, so it too is a fiber
+arrow. Therefore all fibers are groupoids.
+
+We have proved that $p:\Mgn\to\Sch/\CC$ is a \emph{category
+fibered in groupoids}. In fact every arrow in this total category
+is cartesian, since its definition identifies its source with the
+appropriate pullback. Thus it also satisfies Fantechi's
+Definition~3.1 in Section~3.5 \cite{Fantechi}: liftings with a
+fixed target and base map are unique up to a unique compatible
+isomorphism. Chosen iterated pullbacks need not be literally equal:
+$(uv)^*\xi$ and $v^*u^*\xi$ have their canonical isomorphism.
+All overlap equations below use those identifications, as Fantechi
+explains in Sections~4.1 and~6.3.
+
+\MCcheckpoint{Pullback explains how to move a known family to a new
+base. A stack needs the reverse operation too: recover global data
+from compatible local data. Neither part of that gluing assertion
+has been proved by merely checking the category axioms.}
+
+\section{What the two stack conditions ask}\label{sec:fantechi}
+
+Fix an \'etale cover $\{S_i\to S\}$. Write
+$S_{ij}=S_i\times_SS_j$ and
+$S_{ijk}=S_i\times_SS_j\times_SS_k$. These are the places where
+two or three descriptions of the same base point can be compared.
+For an open cover they are intersections. For a noninjective
+cover they are actual fiber products, with several possible
+comparisons even when there is only one index $i$.
+
+\begin{Def}[Fantechi's stack conditions]\label{def:stack}
+Start with a category fibered in groupoids $\mathcal F$ over our site.
+It is a stack if the following two requirements hold.
+\begin{enumerate}
+\item \emph{Isomorphisms are a sheaf.} Given two objects $\xi,\eta$
+already over $S$, and local isomorphisms
+$a_i:\xi|_{S_i}\to\eta|_{S_i}$ agreeing over every $S_{ij}$,
+there is exactly one global isomorphism $a:\xi\to\eta$ whose
+restrictions are the $a_i$.
+\item \emph{Every object descent datum is effective.} Given objects
+$\xi_i$ over $S_i$ and isomorphisms
+$\alpha_{ij}:\xi_i|_{S_{ij}}\to\xi_j|_{S_{ij}}$ satisfying
+\begin{equation}\label{eq:cocycle}
+\alpha_{jk}\circ\alpha_{ij}=\alpha_{ik}\quad\hbox{over }S_{ijk},
+\end{equation}
+there is an object $\xi$ over $S$ and isomorphisms
+$b_i:\xi|_{S_i}\to\xi_i$ such that
+\begin{equation}\label{eq:effective}
+             \alpha_{ij}=b_j\circ b_i^{-1}\quad\hbox{over }S_{ij}.
+\end{equation}
+\end{enumerate}
+\end{Def}
+
+This is Fantechi \cite[Sections 4.2--4.3, Definitions 4.1--4.3]{Fantechi}.
+In the requested local \path{StacksForEverybody.tex}, the descent
+definition is labelled \texttt{def:4.1} (lines 207--211), the
+isomorphism-sheaf condition is \texttt{def:4.2} (lines 219--221),
+and the stack definition is \texttt{def:4.3} (lines 225--227).
+The source-PDF markers place them on pp.~6, 6, and 7, respectively.
+
+The first condition begins with global objects and asks us to glue
+\emph{an arrow}. The second begins with local objects and asks us
+to build \emph{a global object}. A list of isomorphism classes of
+local objects is insufficient for the second: the actual transition
+isomorphisms and their cocycle are part of the input. On a triple
+overlap, going from description $i$ to $j$ and then to $k$ must
+agree with going directly from $i$ to $k$.
+
+For fixed $\xi,\eta$ over $S$, the sheaf in the first condition is
+the assignment
+\[
+(T\xrightarrow{v}S)\longmapsto
+\Iso_T(v^*\xi,v^*\eta),
+\]
+with restriction maps given by pullback. Each value is a \emph{set
+of isomorphisms}, not a set of curves. The sheaf assertion means
+existence and uniqueness of gluing for this assignment on covers
+of every $T$. It makes no assertion here that this sheaf is a
+scheme; representability will be a further geometric property.
+
+\section{First stack condition: isomorphisms form a sheaf}\label{sec:curve-isom}
+
+Let $\xi=(C\xrightarrow{\pi}S,\sigma_\bullet)$ and
+$\eta=(D\xrightarrow{\rho}S,\tau_\bullet)$ be stable pointed families. Suppose
+$a_i:C_i=C\times_SS_i\xrightarrow{\sim}D_i=D\times_SS_i$
+are $S_i$-isomorphisms preserving all labels, with
+$a_i|_{S_{ij}}=a_j|_{S_{ij}}$. We must construct exactly one
+$S$-isomorphism with these restrictions.
+
+\paragraph{The theorem that glues the underlying maps.}
+For schemes $Y,Z$ and an \'etale cover $\{Y_i\to Y\}$, compatible
+maps $Y_i\to Z$ glue to a unique map $Y\to Z$. More generally this
+holds for fpqc covers: Vistoli \cite[Proposition 4.31, pp.~91--92]{Vistoli}
+uses the representable-sheaf theorem, and
+\cite[Lemma 35.13.7, \MCtag{023Q}]{Stacks} states that theorem
+precisely. On affine pieces it is faithfully flat descent of ring
+homomorphisms, including the equalizer
+$A\to B\rightrightarrows B\otimes_AB$; the theorem extends the
+affine calculation to scheme morphisms. This is our external
+morphism-descent input, not a consequence of the stack we are
+trying to prove exists.
+
+\paragraph{Apply it to the correct covering.}
+The maps $C_i\to C$ are an \'etale cover, by base change from
+$S_i\to S$. Compose $a_i$ with $D_i\to D$ to get maps
+$C_i\to D$. Their overlaps agree by assumption, so the theorem
+gives a unique scheme map $a:C\to D$. The two maps from $C$ to
+$S$ given by $\rho a$ and $\pi$ agree after this cover; uniqueness
+in the same theorem gives $\rho a=\pi$. Thus $a$ is over $S$,
+and its actual pullback to $S_i$ is $a_i$.
+
+\paragraph{Recover invertibility.}
+The inverse maps $a_i^{-1}$ also agree on overlaps. Applying the
+theorem to the cover $\{D_i\to D\}$ gives $b:D\to C$.
+Both $ba$ and $\id_C$ restrict to $\id_{C_i}$, hence are equal;
+likewise $ab=\id_D$. Consequently $a$ is an isomorphism. We have
+not inferred invertibility merely from a bijection on fibers.
+
+\paragraph{Recover the markings and uniqueness.}
+For each marking index $r$, the maps $a\sigma_r,\tau_r:S\to D$
+agree on all $S_i$, so they are equal. Hence the global
+isomorphism is an arrow in $\Mgn(S)$. Any other such arrow with
+the same local restrictions is equal as a scheme map to this
+one. This proves existence, the required properties, and
+uniqueness. The argument works over any test scheme $T\to S$,
+so it proves the sheaf condition in full.
+
+\begin{Ex}[Compatible genus-two isomorphisms]
+Let $S=\mathbb A^1$, with $U=S\setminus\{0\}$ and
+$V=S\setminus\{1\}$. Take $C=D=C_0\times S$. The local maps
+$\iota\times\id_U$ and $\iota\times\id_V$ agree on
+$U\cap V$ and glue to $\iota\times\id_S$. If instead we take
+the identity on $U$ and $\iota$ on $V$, they disagree on the
+overlap and no global map has those restrictions. The sheaf
+condition never promises to glue incompatible arrows. This
+example illustrates the general proof; it does not prove the
+condition for other families or other covers.
+\end{Ex}
+
+\begin{Ej}\label{ex:iso-sheaf}
+Why is it not enough to glue just the underlying maps and say
+``therefore they are isomorphisms''? Explain both a way to finish
+using their inverses and the separate check required by markings.
+\end{Ej}
+
+\input{descent-lemma.tex}
+
+\section{Second stack condition: descent data are effective}\label{sec:curve-descent}
+
+The input now differs from that of the preceding sheaf proof.
+There need not be a known global curve. We are given an \'etale
+cover $\{S_i\to S\}$, families
+\[
+ (C_i\xrightarrow{\pi_i}S_i,\sigma_{1,i},\ldots,\sigma_{n,i}),
+\]
+and isomorphisms
+\[
+\alpha_{ij}:C_i\times_{S_i}S_{ij}
+   \xrightarrow{\sim}C_j\times_{S_j}S_{ij}
+\]
+over $S_{ij}$ taking every $\sigma_{a,i}$ to $\sigma_{a,j}$.
+On $S_{ijk}$, we are given the equality
+$\alpha_{jk}\alpha_{ij}=\alpha_{ik}$ of scheme maps.
+That last requirement means the following triangle commutes:
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+C_i|_{S_{ijk}}\arrow[r,"\alpha_{ij}"]\arrow[dr,"\alpha_{ik}"']
+ &C_j|_{S_{ijk}}\arrow[d,"\alpha_{jk}"]\\
+ &C_k|_{S_{ijk}}.
+\end{tikzcd}
+\]
+All three vertices are curves over the \emph{same} triple overlap.
+For a nontrivial \'etale cover, one cannot replace these fiber
+products by informal intersections.
+
+\paragraph{Step 1: provide compatible ample bundles.}
+On $C_i$ form
+$L_i=\omega_{C_i/S_i}(\sum_{a=1}^n\sigma_{a,i})$.
+The preceding descent discussion establishes that it is invertible
+and relatively ample, commutes with base change, and is carried to
+the corresponding bundle by an isomorphism of pointed families.
+In particular $\alpha_{ij}^*L_j\simeq L_i$ on the overlap.
+These are the canonical pullback identifications, so their
+composites on triple overlaps agree. There is no arbitrary
+scalar choice of transition maps on the line bundles.
+
+\paragraph{Step 2: construct the global scheme.}
+Apply the polarized scheme-descent theorem stated above to
+$(C_i,L_i,\alpha_{ij})$. All its hypotheses have just been
+checked: the cover is faithfully flat locally of finite
+presentation after the stated refinements, each $C_i\to S_i$
+is proper, flat, and finitely presented, the bundles are relatively
+ample, and both the scheme and bundle transition maps satisfy
+their cocycles. We obtain a scheme $C\to S$, a relatively ample
+bundle $L$, and isomorphisms
+\[
+                       b_i:C\times_SS_i\xrightarrow{\sim}C_i
+\]
+whose transition maps are the given $\alpha_{ij}$. These
+identifications are part of the output: effectiveness asks for
+them, not just for some global curve with isomorphic fibers.
+
+Properness, finite presentation, and flatness of $C\to S$ can
+be checked after the faithfully flat cover, so they hold because
+they hold for every $\pi_i$. This uses the descent-of-properties
+theorem \cite[Proposition 1.15, pp.~11--12]{Vistoli}, or precisely
+\MCtag{02L0}, \MCtag{02L1}, and \MCtag{02L2} in \cite{Stacks}.
+
+\paragraph{Step 3: descend the sections.}
+The local sections, transported by $b_i^{-1}$ and then projected
+to $C$, give maps $s_{a,i}:S_i\to C$. They agree on $S_{ij}$
+because $\alpha_{ij}$ preserves marking $a$. The morphism-sheaf
+theorem gives a unique $\sigma_a:S\to C$ with these restrictions.
+The equation $\pi\sigma_a=\id_S$ holds after the cover, hence
+globally. Thus we have recovered genuine sections, including
+over nonreduced parameter schemes.
+
+Their images lie in the smooth locus because this assertion is
+local after \'etale base change. They are disjoint: a point in
+an intersection would lift after the surjective cover to an
+intersection of the corresponding local sections, which does
+not exist. Equivalently their fiber product is empty after a
+faithfully flat cover, so it was empty to start with.
+
+\paragraph{Step 4: check the geometric fibers and stability.}
+Take any geometric point $\bar s:\Spec\Omega\to S$. After
+passing to an algebraically closed extension if necessary, it
+lifts to some $S_i$. The geometric fiber of $C$ at that lifted
+point is, by $b_i$, the corresponding fiber of $C_i$. It is
+connected, reduced, nodal, has genus $g$, has distinct smooth
+markings, and meets the component stability inequalities.
+These geometric assertions are unchanged by algebraically
+closed field extension; hence they hold for $C_{\bar s}$.
+We have verified every part of Definition~\ref{def:stable-family}.
+The recovered $L$ is also canonically the bundle
+$\omega_{C/S}(\sum\sigma_a)$, since that identification holds
+locally and the compatible bundle maps descend.
+
+\paragraph{Step 5: check the prescribed descent datum.}
+By construction $\alpha_{ij}=b_jb_i^{-1}$. The $b_i$ preserve
+all recovered sections, so they are isomorphisms in the fiber
+categories, not just isomorphisms of unmarked schemes. We have
+therefore produced exactly the object and identifications
+required by Fantechi's Definition~4.1.
+
+If another family $C'\to S$ with identifications $b_i'$ has
+the same descent datum, the local maps $b_i^{-1}b_i'$ agree
+on overlaps. The first stack condition glues them to a unique
+global isomorphism compatible with all identifications. This
+is the appropriate uniqueness statement; the object need not
+have a trivial automorphism group.
+
+\subsection{A nontrivial genus-two descent datum}\label{sec:genus-two-twist}
+
+Let $S=\Spec\CC[t,t^{-1}]$ and let
+$U=\Spec\CC[u,u^{-1}]\to S$ be $t=u^2$. Over $U$ take
+the constant family $C_0\times U$. The overlap $U\times_SU$
+has two components, specified by $u_2=u_1$ and $u_2=-u_1$.
+Define the transition map to be the identity on the first
+component and $\iota$ on the second. In affine coordinates it is
+\[
+                  (x,y_1)\longmapsto(x,y_2),
+                   \qquad y_2=(u_1/u_2)y_1.
+\]
+On a triple overlap the factors multiply as
+$(u_2/u_3)(u_1/u_2)=u_1/u_3$, so the cocycle holds.
+The data are a family and a rule comparing its two possible
+square-root descriptions, even though the cover has only one
+member.
+
+Here the descended family can be written explicitly as the
+smooth projective double cover with affine equation
+\[
+                            z^2=t(x^6-1).
+\]
+To specify the completion over the whole base, use the section
+$t(X^6-Z^6)$ of $\mathcal O_{\PP^1_S}(6)$ and the usual
+double-cover algebra
+$\mathcal O_{\PP^1_S}\oplus\mathcal O_{\PP^1_S}(-3)$,
+whose multiplication is determined by that section. Its relative
+spectrum is finite over $\PP^1_S$, hence proper over $S$.
+After the \'etale cover it is $C_0\times U$, so it is flat,
+smooth of relative dimension one, and genus two. The local
+identification is $y=z/u$; these identifications have exactly
+the stated transition maps. The section $(x,z)=(1,0)$ can be
+included if we want the one-pointed version.
+
+Pullback along $T\to S$ replaces $t$ by its invertible pullback
+function on $T$. In particular the original square-root cover
+makes the family constant. The example shows why transition
+maps are real information: locally constant descriptions can
+carry a nontrivial gluing rule. Our general descent theorem,
+not this equation, was what proved effectiveness for every
+stable-curve datum.
+
+\begin{Ej}\label{ex:twisted-datum}
+For this one-map cover, explain why the overlap still contains
+more than the diagonal. Check the cocycle when the first
+comparison and the second comparison are both sign changes.
+Compute the transition on the local expression $y=z/u$.
+\end{Ej}
+
+\begin{Th}[The stable pointed-curve stack]\label{th:curve-stack}
+For $g,n\geq0$ with $2g-2+n>0$, the category of stable
+$n$-pointed genus-$g$ curves defined above, with its projection
+to $\Sch/\CC$, is a stack for the \'etale topology.
+\end{Th}
+\begin{proof}
+Identities and composition make it a category. The projection
+is a functor. Base change gives cartesian liftings and all
+fibers are groupoids. Compatible isomorphisms glue uniquely
+by Section~\ref{sec:curve-isom}. Every object descent datum
+is effective by Section~\ref{sec:curve-descent}. These are
+exactly the hypotheses and the two conclusions required by
+Definition~\ref{def:stack}.
+\end{proof}
+
+\input{curve-properties.tex}

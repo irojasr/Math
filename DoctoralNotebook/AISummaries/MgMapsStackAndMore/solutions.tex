@@ -1,0 +1,94 @@
+\chapter{Solutions to the checks}\label{app:solutions}
+
+\section{Stable pointed curves}
+
+\MCsolution{ex:stability-test}
+The normalization has two points above the self-node and one
+marked point, so $r=3$. For a rational component,
+$2h-2+r=-2+3=1>0$. Counting the node only once would give
+$r=2$, which would incorrectly declare the component unstable.
+The local dualizing contribution comes from both branches.
+
+\MCsolution{ex:total-vs-fiber}
+The base map is $i:\Spec\CC\to\mathbb A^1$ at $0$ and the
+total-space map is $C_0\to C_0\times\mathbb A^1$ at $0$.
+The square is a fiber-product square, so this is a moduli arrow.
+If it had an inverse in the total category, applying $p$ would
+give an inverse to $i$, which does not exist. A fiber category
+over $S$ contains only arrows over $\id_S$. The arrow just
+constructed lies over $i$, not over an identity, so it is not
+a counterexample to the groupoid assertion.
+
+\MCsolution{ex:cartesian-uniqueness}
+Apply the universal property of $\xi_T\to\xi$ to
+$\xi'_T\to\xi$ with base factorization $\id_T$ to obtain
+$b:\xi'_T\to\xi_T$. Interchanging the roles gives
+$c:\xi_T\to\xi'_T$. Both $bc$ and the identity are
+factorizations of the same arrow through $\xi_T\to\xi$,
+so uniqueness gives $bc=\id$; similarly $cb=\id$.
+The commuting condition determines this isomorphism. Without
+that condition, the identity and a hyperelliptic involution
+can be two different isomorphisms between the same genus-two
+objects.
+
+\MCsolution{ex:iso-sheaf}
+Morphism descent produces a map, whose invertibility still
+needs verification. Glue the compatible local inverse maps
+and check the two composite maps against the identities
+after the covers of the two total spaces. Uniqueness of
+morphism gluing then makes them identities globally.
+For each label $r$, compare the maps $a\sigma_r$ and
+$\tau_r$ from the base to the target total space. Their
+local equality gives global equality. Invertibility alone
+would not say that labels are preserved.
+
+\MCsolution{desc:exercise-polarization}
+The canonical base-change isomorphisms for $\omega$ and
+preservation of every marking divisor give
+$a_{ij}^*L_j\simeq L_i$. Denote this isomorphism by
+$\lambda_{ij}$. Functoriality carries the equation
+$a_{ik}=a_{jk}a_{ij}$ to
+\[
+             \lambda_{ik}=\lambda_{ij}\circ a_{ij}^*\lambda_{jk}.
+\]
+Thus the bundle transitions have the required cocycle.
+Unrelated ample bundles need not even pull back to isomorphic
+bundles under the specified $a_{ij}$; and arbitrary chosen
+isomorphisms, when available, need not satisfy a cocycle.
+The canonical bundle supplies both existence and coherence
+without adding a new choice to the moduli object.
+
+\MCsolution{ex:twisted-datum}
+An overlap point is a pair of square roots $u_1,u_2$ of the
+same nonzero $t$. Either $u_2=u_1$ or $u_2=-u_1$.
+Only the first comparison is on the diagonal. Two sign
+changes compose to the identity since $\iota^2=\id$;
+in coordinates $(u_2/u_3)(u_1/u_2)=u_1/u_3=1$.
+From $y_i=z/u_i$ one gets
+$y_j=(u_i/u_j)y_i$, exactly the prescribed transition map.
+Checking only the diagonal of this overlap would lose all
+the information about the involution.
+
+\input{curve-property-solutions.tex}
+
+\section{Stable maps}
+\input{map-solutions.tex}
+
+\section{The cuspidal roadmap}
+\MCsolution{ex:cusp-roadmap}
+The isomorphism-sheaf argument glues underlying morphisms,
+their inverses, and the compatibility equations. Effective
+object descent then uses the functorial ample bundle to
+descend the total spaces, followed by the markings and the
+map, and the assumed locality to recover all defining
+conditions. Along with the category and base-change checks,
+this proves the stack axioms.
+
+It does not construct an algebraic atlas, prove boundedness,
+represent the diagonal, exclude infinitesimal automorphisms,
+or prove existence and uniqueness of limits. Those are
+needed for the proposed proper Deligne--Mumford conclusion.
+The marked cuspidal cubic has an ample $\omega_C(p)$ but a
+positive-dimensional automorphism group, demonstrating that
+even the automorphism part does not follow from ampleness
+in the cuspidal setting.

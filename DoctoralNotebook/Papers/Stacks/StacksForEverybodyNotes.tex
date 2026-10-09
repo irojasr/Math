@@ -2,34 +2,85 @@
 
 \def\nsemestre {II}
 \def\nterm {Fall}
-\def\nyear {2001}
+\def\nyear {2001-2026}
 \def\nprofesor {Barbara Fantechi}
-\def\nauthor{Barbara Fantechi}
-\def\nsigla {Stacks}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla {Articles}
 \def\nsiglahead {Stacks for Everybody}
 \def\nlang {ENG}
 \let\footruleskip\relax %%FADIR
-\input{../headerVarillyDiff}
+\input{../../../headerVarillyDiff}
 
 %%% Additional packages and commands for this article
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 
-\newcommand{\unresolved}[1]{\textbf{[UNRESOLVED: #1]}}
-\newcommand{\mathunresolved}[1]{\text{\unresolved{#1}}}
+% Preserve the shared preamble's strike-through command when loading soul.
+\let\headerst\st
+\let\st\relax
+\usepackage{soul}
+\let\st\headerst
+\soulregister\ref7
+
+% Number this article by sections, without memoir's chapter-zero prefix.
+\counterwithout{section}{chapter}
+\setsecnumdepth{subsection}
+
+% Highlight prose and inline math; the colors stay local to each command.
+% Inside highlights, write inline math as $...$ (or \mbox{\(...\)}).
+\definecolor{noteblue}{HTML}{00C0F3}
+\definecolor{notegreen}{HTML}{6DC067}
+\definecolor{notepink}{HTML}{F07DAA}
+
+% Round each highlight segment and overlap the fills for continuous lines.
+% Darken blending preserves letters where adjacent segments overlap.
+\makeatletter
+\newcommand{\roundedhighlight}[1]{%
+  \begingroup
+  \setuloverlap{2pt}%
+  \def\SOUL@ulunderline##1{{%
+    \setbox\z@\hbox{##1}%
+    \rlap{\SOUL@ulcolor{\tikz[overlay,blend mode=darken]{%
+      \fill[rounded corners=2pt]
+        (-\SOUL@uloverlap,-\SOUL@uldp)
+        rectangle (\dimexpr\wd\z@+\SOUL@uloverlap\relax,\SOUL@ulht);%
+    }}}%
+    \unhcopy\z@
+  }}%
+  \hl{#1}%
+  \endgroup
+}
+\makeatother
+
+\DeclareRobustCommand{\hlblue}[1]{{\sethlcolor{noteblue}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlgreen}[1]{{\sethlcolor{notegreen}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlpink}[1]{{\sethlcolor{notepink}\roundedhighlight{#1}}}
+
+% After a passage, use \passagemark\label{passage:name}; refer with \ref.
+\newcounter{passage}
+\newcommand{\passagemark}{%
+  \refstepcounter{passage}%
+  \textsuperscript{\normalfont[\thepassage]}%
+}
+
+\hypersetup{
+  pdftitle={Stacks for Everybody (Notes)},
+  pdfauthor={Barbara Fantechi; notes taken by Ignacio Rojas}
+}
 
 \begin{document}
 
 % --- Source PDF page 1 ---
 
 \begin{center}
-{\LARGE\bfseries Stacks for Everybody}
+{\LARGE\bfseries Stacks for Everybody (Notes)}
 \end{center}
 
 \vspace{1em}
 
 \begin{flushleft}
-{\large\textsc{Barbara Fantechi}}
+{\large\textsc{Barbara Fantechi}}\\[0.5em]
+{\small\itshape (Notes taken by \nauthor)}
 \end{flushleft}
 
 \vspace{1em}
@@ -67,6 +118,10 @@ $$
 T' \arrow[r, "\bar{f}"] \arrow[d, "p'"'] & T \arrow[d, "p"] \\
 S' \arrow[r, "f"'] & S
 \end{tikzcd}
+\left(\iff \begin{tikzcd}
+S'\x_ST \arrow[r, "\bar{f}"] \arrow[d, "p'"'] & T \arrow[d, "p"] \\
+S' \arrow[r, "f"'] & S
+\end{tikzcd}\right)
 \eqno{(1)}
 $$
 is called \emph{cartesian} if it induces all other commutative diagrams with the same lower-right corner; that is, for any other commutative diagram
@@ -75,10 +130,15 @@ $$
 U \arrow[r, "g"] \arrow[d, "q"'] & T \arrow[d, "p"] \\
 S' \arrow[r, "f"'] & S
 \end{tikzcd}
+\left(\iff \begin{tikzcd}
+U \arrow[rdd, "q"', bend right] \arrow[rrd, "g", bend left] \arrow[rd, "\exists!h", dashed] &                                          &                  \\
+                                                                                            & T' \arrow[d, "p'"'] \arrow[r, "\bar{f}"] & T \arrow[d, "p"] \\
+                                                                                            & S' \arrow[r, "f"']                       & S               
+\end{tikzcd}\right)
 $$
 there is a unique morphism $h\colon U \to T'$ such that $q = p' \circ h$ and $g = \bar{f} \circ h$.
 
-Another way to express this is to say that $T'$ is the \emph{fiber product} of $S'$ and $T$ over $S$, and to write $T' = S' \times_S T$. In fact, given $f$ and $p$, $T'$, $p'$ and $\bar{f}$ are unique up to canonical isomorphism. One can also say that $p'$ is the \emph{base change} of $p$ induced by the morphism $f$.
+Another way to express this is to say that $T'$ is the \emph{fiber product} of $S'$ and $T$ over $S$, and to write \hlgreen{$T' = S' \times_S T$}. In fact, given $f$ and $p$, $T'$, $p'$ and $\bar{f}$ are unique up to canonical isomorphism. \hlblue{One can also say that $p'$ is the \emph{base change} of $p$ induced by the morphism $f$}\passagemark\label{passage:DefBaseChange}.
 
 A concrete way to construct a fiber product is to consider the morphism $(f, p)\colon S' \times T \to S \times S$ and take the fiber product to be the inverse image of the diagonal; you can check that this works for schemes over a fixed base (take the scheme-theoretic inverse image, given by the pullback ideal sheaf), topological spaces, or sets. It also works for manifolds in case, say, $p$ is a submersion (in which case so is $p'$).
 
@@ -86,16 +146,74 @@ A concrete way to construct a fiber product is to consider the morphism $(f, p)\
 
 We will assume that the category $\mathfrak{S}$ we work with has a \emph{Grothendieck topology}, that is given a scheme $S$, it makes sense to say whether any given collection of morphisms $\{S_i \to S\}$ is an open covering. You can find a precise definition of Grothendieck topology in [2].
 
+\begin{ptcb}
+What a category \(\cat{C}\) having a Grothendieck topology means is that the sentence \(\set{X_i\xrightarrow{\pi_i}X}_{i\in I}\) is an open cover of \(X\) makes sense.
+\begin{Qn}
+¿Is it the case that objects \(X_i\) and the maps \(\pi_i\) belong in the category \(\cat{C}\)?
+\end{Qn}
+\tcbline
+Indeed yes.
+\end{ptcb}
+
 When objects of $\mathfrak{S}$ are topological spaces, we can take open coverings to be the usual ones. You can stick to this and proceed to the next section now if you
 
 % --- Source PDF page 3 ---
 
 want: we will use the convention that, for an open covering $\{S_i \to S\}$, we write $S_{ij}$ for $S_i \cap S_j$ and similarly for $S_{ijk}$.
 
-However, in order to define algebraic stacks when $\mathfrak{S}$ is a category of schemes, the Zariski topology is not appropriate, because it's too coarse; in particular, the analogue of the implicit function theorem does not hold. An \'etale morphism (for smooth schemes this means one whose differential is an isomorphism at every point) is not necessarily a local isomorphism.
+However, in order to define algebraic stacks when $\mathfrak{S}$ is a category of schemes, the Zariski topology is not appropriate, because it's too coarse; in particular, \hlpink{the analogue of the implicit function theorem does not hold}. An \'etale morphism (for smooth schemes this means \hlgreen{one whose differential is an isomorphism at every point}\passagemark\label{passage:etale-differential}) is not necessarily a local isomorphism.
 
-Because of this, in the definition of algebraic stack one uses the \emph{\'etale topology}; that is, define an open covering to be a collection of \'etale morphisms $\{S_i \to S\}$ such that $\cup S_i \to S$ is surjective. We will use the following notational convention: if $\{S_i \to S\}$ is an open covering, we write $S_{ij}$ for the fiber product $S_i \times_S S_j$ and analogously for $S_{ijk}$. For fixed $j$, $\{S_{ij} \to S_j\}$ is an open covering of $S_j$ because the property of being \'etale is invariant under base change. If each $S_i \to S$ is an open embedding, then $S_{ij}$ is canonically isomorphic to $S_i \cap S_j$.
+\begin{ptcb}
 
+Recall that the implicit function theorem for Euclidean space asks for the following. Given a function \(f\in\cC^1(\bR^{d_1+d_2},\bR^{d_2})\), we want a function \(g:\bR^{d_1}\to\bR^{d_2}\) such that \(\Ga(g)=V(f)\).\par
+As this is not globally possible, we pick \((\vec{a},\vec{b})\in V(f)\) and so we look for a neighborhood \(U_1\times U_2\) of \((a,b)\) such that 
+\[
+\exists g:U_1\to U_2(\Ga(g)\mid_{U_1}=V(f)\mid_{U_1\x U_2}).
+\]
+The theorem then states:
+\begin{nonum-Th}
+    If the Jacobian of \(f\) with respect to the \(\bR^{d_2}\) variables is invertible, then there exists a \(U_1\) neighborhood of \(\vec{a}\) and a function \(g:U_1\to U_2\) such that \(\Ga(g)\mid_{U_1}=V(f)\mid_{U_1\x U_2}\). Moreover \(g\) is differentiable with
+    \[
+    Jg=(-Jf_{\vec{y}})^{-1}(Jf_{\vec{x}}).
+    \]
+\end{nonum-Th}
+
+\begin{Qn}
+    ¿Is it then the case that in the Zariski topology it is not possible to find such open sets \(U_1,U_2\)? If not, ¿what about the coarseness makes the theorem fail?
+\end{Qn}
+\end{ptcb}
+
+\begin{ptcb}
+\begin{Qn}
+    Referring to passage~\ref{passage:etale-differential}, if the open cover has differentials being isomorphisms, ¿does this mean something about the tangent spaces/bundles? ¿Are those isomorphic?
+\end{Qn}
+\tcbline
+Yes, from Milne's geometry notes says:
+
+\begin{nonum-Def}
+A regular map \(\vf:V\to W\) smooth varieties is étale at a point \(P\in V\) if \((\dd\vf)_P:T_PV\to T_{\vf(P)}W\) is an isomorphism; \(\vf\) is étale if it is étale at all points of \(V\).
+\end{nonum-Def}
+
+Following this for a \(S_i\xrightarrow{\pi_i}S\) we have that for \(P\in S_i\),
+\[
+(\dd\pi_i)_P:T_PS_i\to T_{\pi_i(P)}S
+\]
+is an isomorphism. So, in terms of bundles over \(S_i\), \(TS_i\isom \pi_i^\ast TS\).
+\end{ptcb}
+
+Because of this, in the definition of algebraic stack one uses the \emph{\'etale topology}; that is, define an open covering to be a collection of \'etale morphisms $\{S_i \to S\}$ such that $\cup S_i \to S$ is surjective. We will use the following notational convention: if $\{S_i \to S\}$ is an open covering, we write \hlgreen{$S_{ij}$ for the fiber product $S_i \times_S S_j$} and analogously for $S_{ijk}$. For fixed $j$, $\{S_{ij} \to S_j\}$ is an open covering of $S_j$ because the property of \hlblue{being \'etale is invariant under base change}\passagemark\label{passage:ÉtaleInvarianceBaseChange}. If each $S_i \to S$ is an open embedding, then $S_{ij}$ is canonically isomorphic to $S_i \cap S_j$.
+
+\begin{ptcb}
+    Let us unpack what the étale-ness under base change means. First, if we have a cover \(\set{S_i\to S}_{i\in I}\) and take the fiber product \(S_{ij}\) as in the diagram
+    \[
+    \begin{tikzcd}
+S_i\x_SS_j \arrow[d, "\text{pr}_2"'] \arrow[r, "\operatorname{pr}_1"] & S_i \arrow[d, "\pi_i"] \\
+S_j \arrow[r, "\pi_j"']                                               & S                     
+\end{tikzcd}
+    \]
+    then in terms of base changes (passage \ref{passage:DefBaseChange}), \(\operatorname{pr}_2\) is the base change of \(\pi_i\) induced by \(\pi_j\).\par
+    We're saying that for a fixed \(j\in I\), the collection \(\set{S_{ij}\xrightarrow{\operatorname{pr_2}}S_j}_{i\in I}\) is also an open cover. And even more it's étale. This is, the differentials of all the \(\operatorname{pr}_2\)'s are isomorphisms.
+\end{ptcb}
 \section{A Category Fibered in Groupoids}
 
 \subsection{Our guiding example: the category $V_r$}
