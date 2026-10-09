@@ -1,0 +1,70 @@
+\documentclass[12pt,oneside]{memoir}
+% Build from this directory:
+% latexmk -pdf -interaction=nonstopmode -halt-on-error MgMapsStackAndMore.tex
+
+% Conventions of ClassifyingStack and RiemannRoch0915.
+\def\nsemestre{II}
+\def\nterm{October}
+\def\nyear{2026}
+\def\nprofesor{}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla{Curves and maps}
+\def\nsiglahead{From families to stacks}
+\def\nextra{Thesis study notes}
+\def\nlang{ENG}
+\let\footruleskip\relax
+\input{../../../headerVarillyDiff.tex}
+\author{Ignacio Rojas\\[0.4ex]ChatGPT (OpenAI)}
+
+\renewcommand{\CC}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\Mgn}{\overline{\mathcal M}_{g,n}}
+\renewcommand{\Maps}{\overline{\mathcal M}_{g,n}(X,\beta)}
+\DeclareMathOperator{\Iso}{Isom}
+\providecommand{\Proj}{}
+\renewcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\MCtag}[1]{\href{https://stacks.math.columbia.edu/tag/#1}{Tag~\texttt{#1}}}
+\newcommand{\MCcheckpoint}[1]{\par\smallskip{\raggedright\noindent\blu{\textbf{Checkpoint.}} #1\par}\smallskip}
+\newcommand{\MCsolution}[1]{\subsection*{Solution to Exercise~\ref{#1}}\label{sol:#1}}
+\counterwithin{Th}{chapter}
+\counterwithin{Prop}{chapter}
+\counterwithin{Lem}{chapter}
+\counterwithin{Cor}{chapter}
+\counterwithin{Def}{chapter}
+\counterwithin{Ex}{chapter}
+\counterwithin{Ej}{chapter}
+\setsecnumdepth{subsection}
+\settocdepth{section}
+\setlength{\emergencystretch}{2em}
+% Long diagrams and descent proofs need the full text width. The shared
+% header loads multicol, but these chapters deliberately stay one-column.
+\renewcommand{\bibsection}{\chapter*{References}\addcontentsline{toc}{chapter}{References}}
+\hypersetup{pdftitle={Stable curves and stable maps: from families to stacks},
+ pdfauthor={Ignacio Rojas; ChatGPT (OpenAI)},
+ pdfsubject={Fibered groupoids, isomorphism sheaves, effective descent, and moduli properties}}
+
+\begin{document}
+\maketitle
+\begin{center}
+\emph{Definitions, descent, and the geometric input behind the constructions}
+\par\bigskip
+\begin{minipage}{0.82\textwidth}
+\small\centering
+Developed from Ignacio Rojas's thesis questions, with exposition,
+source checking, and drafting by ChatGPT (OpenAI).
+The purpose is to make each categorical and gluing step usable before
+compressing it into the statement that a moduli problem is a stack.
+\end{minipage}
+\end{center}
+\clearpage
+\tableofcontents*
+\clearpage
+\input{chapter1-curves.tex}
+\input{chapter2-maps.tex}
+\input{chapter3-cusps.tex}
+\appendix
+\input{solutions.tex}
+\input{source-map.tex}
+\input{reading-audit.tex}
+\input{bibliography.tex}
+\end{document}

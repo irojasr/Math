@@ -1,0 +1,520 @@
+\chapter{\texorpdfstring{$\Maps$}{Stable maps} is a stack}\label{ch:maps}
+\label{maps:chapter}
+
+We now keep the target variety fixed and allow a pointed curve to map to it. The new datum is an actual morphism $f:C\to X$, not merely the image curve $f(C)$. Two maps with the same image can be different objects: a double cover of a line and an isomorphism onto that line have different degrees. The arrows must remember the maps as well as their sources.
+
+Throughout the stack proof, $X$ is a projective scheme of finite type over $\CC$, and $A$ is a chosen very ample line bundle on $X$. Smoothness of $X$ is not needed for this proof. Bases are arbitrary $\CC$-schemes, and covers are jointly surjective families of \'etale morphisms. For the general geometric properties below we impose the familiar, sufficient hypothesis that $X$ is a smooth projective variety over $\CC$. The structural curve morphism $C\to S$ is required to be of finite presentation.
+
+\section{The data of a stable map}
+
+\begin{Def}[The prescribed numerical class]\label{maps:class}
+Start with integral curves on $X$ and their integral linear combinations, called $1$-cycles. We want to record how such a cycle meets line bundles. Two $1$-cycles are numerically equivalent when they have the same degree against every line bundle on $X$. Denote the resulting group of integral numerical classes by $N_1(X)_{\mathbb Z}$. Fix a class $\beta$ in this group, and put $d=\beta\cdot A$.
+
+For a map from a proper curve $f:C\to X$, the condition ``class $\beta$'' means
+\[
+ \deg_C f^*L=\beta\cdot L\qquad\text{for every line bundle }L\text{ on }X.
+\]
+For a family we impose this equality on every geometric fiber, using the pullbacks of line bundles from $X$. Equivalently, we fix the functional $L\mapsto\deg f^*L$ on $\operatorname{Pic}(X)$.
+\end{Def}
+
+This convention makes sense over every $\CC$-scheme without assigning a topological fundamental class to its total space. It is the degree-functional convention of Behrend--Manin, \S2, following Definition~2.1, p.~12 of the arXiv version~\cite{BM}. Some references instead prescribe an integral singular homology class in $H_2(X(\CC),\mathbb Z)$. That can contain more information: we are explicitly using the numerical version here. For $X=\PP^2$, the class is simply the integer degree $d$, so the running example has exactly the usual meaning.
+
+Degrees of an invertible sheaf in a proper flat family of curves are locally constant. One way to compute them is
+\[
+ \deg L_s=\chi(C_s,L_s)-\chi(C_s,\mathcal O_{C_s}).
+\]
+Constancy of Euler characteristics in proper flat families explains both compatibility with base change and why a class condition survives descent. Later, on a finite type parameter scheme, it also identifies the fixed-class locus as a union of connected components. In that argument finitely many numerical generators suffice; alternatively, each of the finitely many connected components has a single degree functional.
+
+\begin{Def}[A family of stable maps]\label{maps:definition}
+Fix integers $g,n\geq0$. The starting data over a scheme $S$ are
+\[
+ \xi=(\pi:C\longrightarrow S,\ \sigma_1,\ldots,\sigma_n,\ f:C\longrightarrow X).
+\]
+They form a family of stable maps of genus $g$, with $n$ markings and class $\beta$, if the following conditions hold.
+\begin{enumerate}
+ \item The morphism $\pi$ is proper, flat, and of finite presentation. Its geometric fibers are connected, reduced, one-dimensional nodal curves of arithmetic genus $g$.
+ \item The $\sigma_a:S\to C$ are pairwise disjoint sections through the smooth locus of $\pi$.
+ \item The map $f$ is a $\CC$-morphism, and its restriction to every geometric fiber has numerical class $\beta$.
+ \item On each geometric fiber, consider the normalization $\widetilde E$ of an irreducible component $E$ that $f$ contracts to a point. If $\widetilde E$ has genus $0$, it must have at least three special points. If it has genus $1$, it must have at least one special point. A special point is a preimage of a node or a marked point; the two branches of a self-node count separately.
+\end{enumerate}
+There is no extra numerical restriction on a component of genus at least $2$.
+\end{Def}
+
+Here the source is allowed to have a rational component with fewer than three special points, provided the map is nonconstant on that component. Thus the source with its original markings need not be a stable pointed curve. We are directly defining the sources that occur in stable maps, without making their moduli problem a separate construction. The definitions are supported by Behrend--Manin, Definitions~3.2 and~3.4, pp.~13--15, and Fulton--Pandharipande, \S1.1, pp.~10--11~\cite{BM,FP}.
+
+Over a field of characteristic zero this stability condition is equivalent to finiteness of the automorphisms preserving the markings and $f$. On a contracted component it is exactly pointed-curve stability. On a noncontracted component, an automorphism preserving $f$ induces an automorphism of a finite extension of function fields, so there are only finitely many possibilities. There are also only finitely many permutations of components and branches. Conversely, a contracted rational component with at most two special points, or a contracted smooth elliptic component with no special point, has a positive-dimensional group of automorphisms preserving the map. This explains geometrically what the condition prevents.
+
+Unlike Chapter~1, we do not require $2g-2+n>0$ for all maps. When $\beta=0$, every component is contracted, so the definition does reduce to stable pointed curves and requires the stable range for any nonempty moduli problem. When $\beta\neq0$, $g=0,n=0$ is allowed. If no stable map has the specified class, the fibered category is empty over nonempty bases; this is permitted.
+
+\begin{Ex}[The first line map]\label{maps:first-line}
+Take $g=n=0$, $X=\PP^2$, and $\beta$ the class of a line. Over $\operatorname{Spec}\CC$ an object is
+\[
+ C=\PP^1,\qquad f([u:v])=[u:v:0].
+\]
+The source has no markings and is not a stable unpointed curve. Nevertheless the map is stable: its only component is not contracted. If $\alpha:C\to C$ satisfies $f\alpha=f$, then $\alpha$ is the identity because $f$ is a closed immersion. The extra datum $f$ has removed the automorphisms that made the unpointed source unstable.
+\end{Ex}
+
+\subsection{The line bundle that will make descent work}
+
+For a nodal family the relative dualizing sheaf $\omega_{C/S}$ is an invertible sheaf, compatible with base change. The marked sections define relative effective Cartier divisors. These facts let us construct a line bundle directly from the moduli data:
+\begin{equation}\label{maps:polarization}
+ \mathcal L_\xi=\omega_{C/S}(\sigma_1+\cdots+\sigma_n)\otimes f^*A^{\otimes3}.
+\end{equation}
+``Directly'' matters: no arbitrary choice of a polarization on $C$ has been added to the object. An isomorphism of stable maps automatically identifies these line bundles. For the dualizing-sheaf input see the technical theorem used in Chapter~1, or \MCtag{0E6R}; Fulton--Pandharipande state this ampleness criterion in \S1.1, p.~11~\cite{FP}.
+
+\begin{Lem}[Positivity and stable-map stability]\label{maps:ample}
+For a family satisfying the first three conditions of Definition~\ref{maps:definition}, the fourth condition is equivalent to relative ampleness of $\mathcal L_\xi$.
+\end{Lem}
+\begin{proof}
+We have a line bundle and must test its degree on the components of a geometric fiber. If $\widetilde E$ has genus $h$, has $r$ special points, and the degree of $f^*A$ on $E$ is $d_E$, then
+\[
+ \deg_E\mathcal L_\xi=2h-2+r+3d_E.
+\]
+This uses the normalization formula for the dualizing sheaf: each branch of a node contributes one to its degree. If $f$ contracts $E$, then $d_E=0$, and strict positivity is precisely the pointed-curve stability inequality. If $f$ does not contract $E$, very ampleness of $A$ gives $d_E\geq1$, so even the smallest possible value is $-2+3=1$.
+
+A line bundle on a proper reduced curve is ample exactly when its degree on every irreducible component is positive. We use this standard curve ampleness criterion, followed by the relative ampleness criterion for a proper finitely presented morphism: ampleness on the fiber extends to relative ampleness near that point of the base. These are the same ampleness inputs as in Chapter~1. They prove the forward implication. Conversely, relative ampleness gives positive degree on each contracted component, which forces the required special points.
+\end{proof}
+
+For the map in Example~\ref{maps:first-line}, $\mathcal L_\xi=\mathcal O_{\PP^1}(-2)\otimes\mathcal O_{\PP^1}(3)=\mathcal O_{\PP^1}(1)$. This small calculation is a preview of the general descent proof: the map to $X$ supplies positivity on components that the markings alone do not control.
+
+\begin{Ej}[Check the definition]\label{maps:ex-stability}
+Why is a constant map from an unmarked $\PP^1$ not stable? Why is a constant map from a smooth genus-two curve stable? Compute $\deg\mathcal L_\xi$ in the two cases.
+\end{Ej}
+
+\section{Steps 1--3: build the ordinary category}
+
+\subsection{Step 1: its objects}
+
+Let $\mathscr K$ initially denote an ordinary category that we are about to construct. An object is a scheme $S$ together with a family $\xi$ of Definition~\ref{maps:definition}. We can write it as $(S,C,\pi,\sigma_\bullet,f)$. The scheme $S$ is part of the object. A single geometric stable map and a one-parameter family are therefore different kinds of objects of the same total category.
+
+\begin{Ex}[A genuine family of line maps]\label{maps:family-lines}
+Let $B=(\PP^2)^\vee$, the projective plane whose points represent linear equations in the coordinates of $\PP^2$. Inside $\PP^2\times B$ take the incidence variety
+\[
+ \mathcal I=\{([x_0:x_1:x_2],[a_0:a_1:a_2]):a_0x_0+a_1x_1+a_2x_2=0\}.
+\]
+Projection $\pi:\mathcal I\to B$ is a $\PP^1$-bundle; the other projection $F:\mathcal I\to\PP^2$ restricts on a fiber to the inclusion of its line. Hence $(\mathcal I\to B,F)$ is an object of $\mathscr K$. It need not be a product family: the family is specified by its total space and morphisms, not by a list of unrelated fibers.
+\end{Ex}
+
+\subsection{Step 2: its arrows}
+
+Suppose our data are two objects
+\[
+ \xi=(C\xrightarrow{\pi}S,\sigma_\bullet,f),\qquad
+ \eta=(D\xrightarrow{\rho}T,\tau_\bullet,h).
+\]
+We want an arrow from $\xi$ to $\eta$ to say that $\xi$ is the family obtained from $\eta$ by changing the base. Thus an arrow is a pair $(u,a)$ of scheme morphisms
+\[
+ u:S\longrightarrow T,\qquad a:C\longrightarrow D
+\]
+such that
+\begin{equation}\label{maps:arrow-square}
+\begin{tikzcd}[column sep=large]
+ C\arrow[r,"a"]\arrow[d,"\pi"']&D\arrow[d,"\rho"]\arrow[dr,"h"]&\\
+ S\arrow[r,"u"']&T&X
+\end{tikzcd}
+\qquad
+ \rho a=u\pi,\quad a\sigma_j=\tau_j u,\quad ha=f,
+\end{equation}
+and the square on the left is cartesian. The arrow to $X$ from $C$ is the composite $ha=f$. Equivalently, the induced map
+\[
+ \widetilde a=(a,\pi):C\xrightarrow{\ \sim\ }D\times_T S
+\]
+is an isomorphism over $S$, taking the sections and map to $X$ to the pulled-back ones.
+
+This does not say that $a:C\to D$ itself is an isomorphism when $S\to T$ is not one. It says that $a$ becomes the comparison isomorphism with the correct base-changed family. An arbitrary map of pointed source curves would not have this meaning: it could contract components or change degrees. Such maps are not arrows of this moduli category.
+
+\begin{Ex}[Reparametrization versus changing the image]\label{maps:line-arrow}
+Let $f([u:v])=[u:v:0]$ and $h([u:v])=[v:u:0]$. The map $a([u:v])=[v:u]$ gives an arrow $(\operatorname{id},a)$ from $(\PP^1,f)$ to $(\PP^1,h)$ because $ha=f$. It is the unique such arrow. If instead $h$ parametrizes a different line, there is no arrow over $\operatorname{Spec}\CC$: equality $ha=f$ would force the two image lines to coincide.
+
+For families, a map $b:S\to B$ gives a line family $\mathcal I_S=\mathcal I\times_B S$. The pair consisting of $b$ and the projection $\mathcal I_S\to\mathcal I$ is an arrow to Example~\ref{maps:family-lines}. Its base need not be a point.
+\end{Ex}
+
+\subsection{Step 3: identities, composition, and axioms}
+
+The identity arrow of $\xi$ is $(\operatorname{id}_S,\operatorname{id}_C)$. Suppose $(u,a):\xi\to\eta$ and $(v,b):\eta\to\zeta$, where $\zeta=(E\to U,\upsilon_\bullet,k)$. Define
+\[
+ (v,b)\circ(u,a)=(vu,ba).
+\]
+We must check this is an allowed arrow. Commutativity over the base follows by composing the two commutative squares. The section equations give
+\[
+ ba\sigma_j=b\tau_j u=\upsilon_j vu,
+\]
+and the target-map equations give $kba=ha=f$. Finally, pasting cartesian squares gives a cartesian square. More explicitly,
+\[
+ C\simeq D\times_T S\simeq(E\times_U T)\times_T S\simeq E\times_U S.
+\]
+Thus composition is defined on the specified collection of arrows.
+
+Associativity is literal associativity of the pairs of scheme morphisms: both orders of threefold composition produce the same base map and the same total-space map. The identity laws follow from the identity laws for schemes. We have therefore constructed an ordinary category, before using the words ``fibered'' or ``stack.''
+
+\begin{Ej}[Check an arrow]\label{maps:ex-arrow}
+For the two parametrizations in Example~\ref{maps:line-arrow}, is the identity map of $\PP^1$ an arrow from $(\PP^1,f)$ to $(\PP^1,h)$? Which equation decides this? If $u:S\to T$ is not an isomorphism, must an arrow lying over $u$ be invertible in the total category?
+\end{Ej}
+
+\section{Steps 4--5: project to schemes and look at one fiber}
+
+\subsection{Step 4: the projection functor}
+
+Define
+\[
+ p:\mathscr K\longrightarrow\operatorname{Sch}_{\CC},\qquad
+ (S,C,\pi,\sigma_\bullet,f)\longmapsto S,\qquad (u,a)\longmapsto u.
+\]
+The identity and composition calculations give $p(\operatorname{id}_\xi)=\operatorname{id}_S$ and $p((v,b)(u,a))=vu=p(v,b)p(u,a)$. Thus $p$ is a functor, and $\mathscr K$ is a category over schemes. This is the functor called \texttt{Target} in your earlier terminology: it takes the target of the family morphism $\pi:C\to S$. Here the fixed target of the \emph{map} $f:C\to X$ is a different scheme. The projection sends an object to $S$, not to $X$.
+
+\subsection{Step 5: the fiber over $S$}
+
+Given a fixed scheme $S$, the fiber category $\mathscr K(S)$ consists of the families over $S$. Its arrows are only those arrows of the total category that project to $\operatorname{id}_S$. Thus an arrow in the fiber is an isomorphism $a:C\to D$ over $S$ with
+\[
+ a\sigma_j=\tau_j,\qquad ha=f.
+\]
+Taking the fiber does not discard automorphisms and does not replace each family by its isomorphism class. In particular, even when a fiber has only one isomorphism class of objects it might still contain nonidentity arrows. Our degree-one line map happens to have trivial automorphism group; higher-degree maps need not.
+
+\begin{Ex}[An automorphism that the category remembers]
+The map $\PP^1\to\PP^1$, $[u:v]\mapsto[u^2:v^2]$, is a stable map with no markings. The transformation $[u:v]\mapsto[-u:v]$ is a nonidentity automorphism preserving this map. In contrast, no nonidentity reparametrization preserves an embedding onto a line in $\PP^2$.
+\end{Ex}
+
+\section{Steps 6--9: pullback and the cartesian property}
+
+\subsection{Step 6: construct the pullback}
+
+We are given $\xi=(C\to S,\sigma_\bullet,f)$ and a base map $v:T\to S$. The required family over $T$ is
+\[
+ v^*\xi=(C_T=C\times_S T\longrightarrow T,\ \sigma_{1,T},\ldots,\sigma_{n,T},\ f_T),
+\]
+where
+\[
+ \sigma_{j,T}=(\sigma_jv,\operatorname{id}_T),\qquad
+ f_T=f\circ\operatorname{pr}_C.
+\]
+Properness, flatness, and finite presentation are preserved by base change. The pulled-back sections remain disjoint and smooth. A geometric fiber is a field extension of a geometric fiber of $C\to S$, so its genus, nodes, component degrees, and stability inequalities are preserved. Consequently this really is an object of $\mathscr K(T)$.
+
+The square and target-map compatibility give an arrow
+\[
+ (v,\operatorname{pr}_C):v^*\xi\longrightarrow\xi.
+\]
+The word ``pullback'' describes both the constructed family and this comparison arrow. It does not denote an inverse image of isomorphism classes.
+
+\begin{Ex}[Restricting the incidence family]
+Pulling $\mathcal I\to B$ back along the point $[0:0:1]\in B$ gives the line $x_2=0$ and its inclusion into $\PP^2$. Pulling back along
+\[
+ \mathbb A^1\longrightarrow B,\qquad t\longmapsto[-t:0:1]
+\]
+gives the family $x_2=t x_0$. Its fibers are distinct lines; its total space and map to $\PP^2$ keep track of how they vary.
+\end{Ex}
+
+\subsection{Step 7: verify the universal property}
+
+A cartesian arrow is characterized by a factorization problem. Given an arrow $q:\xi_T\to\xi$ lying over $v:T\to S$, it must have the following property: for any object $\zeta$ over $U$, any map $w:U\to T$, and any arrow $r:\zeta\to\xi$ over $vw$, there exists a unique arrow $\widetilde r:\zeta\to\xi_T$ over $w$ such that $q\widetilde r=r$. The base factorization $U\xrightarrow{w}T\xrightarrow{v}S$ is part of the given data.
+
+Apply this definition to $\xi_T=v^*\xi$. Write $\zeta=(E\xrightarrow{\lambda}U,\epsilon_\bullet,e)$ and write $b:E\to C$ for the total-space map of $r$. We must construct a map to $C\times_S T$. Its two required components are forced:
+\[
+ \widetilde b=(b,w\lambda):E\longrightarrow C\times_S T.
+\]
+They fit together because $\pi b=vw\lambda$. The ordinary universal property of the scheme fiber product gives existence and uniqueness of $\widetilde b$.
+
+There are still three moduli checks. First,
+\[
+ \widetilde b\epsilon_j=(b\epsilon_j,w)
+      =(\sigma_jvw,w)=\sigma_{j,T}w.
+\]
+Second, $f_T\widetilde b=fb=e$, so the arrow respects the fixed target. Third, because $r$ was an arrow, $E\simeq C\times_S U$; using $w$ we obtain
+\[
+ (C\times_S T)\times_T U\simeq C\times_S U\simeq E.
+\]
+Thus its square over $w$ is cartesian. The pair $(w,\widetilde b)$ is the required arrow, and no other one can have the same composite with $q$. This completes the categorical universal-property check, including the additional map to $X$.
+
+\begin{Ej}[Check the extra equation]\label{maps:ex-cartesian}
+In this factorization problem, why is it insufficient merely to construct a scheme morphism $\widetilde b:E\to C\times_S T$? Name the conditions still required for it to define an arrow of stable-map families, and verify the equation involving $X$.
+\end{Ej}
+
+\subsection{Step 8: the fibers are groupoids}
+
+An arrow $a:\xi\to\eta$ over $\operatorname{id}_S$ is an isomorphism of source schemes over $S$. Its inverse preserves the markings, since $a\sigma_j=\tau_j$ implies $a^{-1}\tau_j=\sigma_j$. It preserves the target maps, since $ha=f$ implies $fa^{-1}=h$. Therefore $a^{-1}$ is also an arrow in the fiber. Every arrow in $\mathscr K(S)$ is invertible: each fiber is a groupoid.
+
+This is a statement about arrows over a fixed base. For example, the arrow from one line fiber to the entire incidence family lies over $\operatorname{Spec}\CC\to B$ and is not invertible in the total category.
+
+\subsection{Step 9: the fibered-category conclusion}
+
+For every base map and object above its target we have constructed a cartesian lift, and the fibers are groupoids. Thus $p:\mathscr K\to\operatorname{Sch}_{\CC}$ is a category fibered in groupoids. In this particular category every arrow is cartesian, since by definition its source is isomorphic to the base change of its target; transporting the universal property across that isomorphism proves the assertion.
+
+Iterated pullbacks need not be literally equal as schemes. There is instead a canonical isomorphism $(C\times_S T)\times_T U\simeq C\times_S U$, compatible with sections and maps to $X$. This is why a category fibered in groupoids is the appropriate language for change of base. It records all these identifications without demanding artificial equalities of chosen fiber products.
+
+\section{Step 10: isomorphisms form a sheaf}
+
+Fantechi's Definition~4.3 requires two further statements, after the category fibered in groupoids has been constructed. The first is Definition~4.2: compatible local isomorphisms between two already existing global objects must come from a unique global isomorphism. The second, Definition~4.1, concerns constructing a global object from local objects and transition isomorphisms. We now check the first condition for maps, spelling out the target compatibility~\cite[\S4.2--4.3, Definitions~4.1--4.3]{Fantechi}.
+
+\subsection{What the sheaf assigns to a test scheme}
+
+Given two families over $S$,
+\[
+ \xi=(C\to S,\sigma_\bullet,f),\qquad
+ \eta=(D\to S,\tau_\bullet,h),
+\]
+define a presheaf on schemes over $S$ by
+\[
+ \underline{\operatorname{Isom}}_S(\xi,\eta)(T\to S)
+   =\{a:C_T\xrightarrow{\sim}D_T:\ a\sigma_{j,T}=\tau_{j,T},\ h_Ta=f_T\}.
+\]
+Restriction is base change. The sheaf condition says that an \'etale cover of any such $T$ detects equality of these isomorphisms and permits gluing compatible ones. It is enough to carry out the argument over a scheme called $S$, since the same argument can then be applied to every $T\to S$.
+
+\subsection{The given local arrows}
+
+Let $\{S_i\to S\}$ be an \'etale cover and write $S_{ij}=S_i\times_S S_j$. Suppose we have isomorphisms of stable maps
+\[
+ a_i:C_i=C\times_S S_i\xrightarrow{\sim}D_i=D\times_S S_i
+\]
+such that, after the canonical pullback identifications,
+\[
+ a_i|_{S_{ij}}=a_j|_{S_{ij}}.
+\]
+Each $a_i$ respects the markings and satisfies $h_i a_i=f_i$. We must construct an isomorphism $a:C\to D$ over $S$ with these restrictions, not simply a bijection between geometric fibers.
+
+\subsection{Glue the underlying morphism}
+
+The maps $C_i\to C$ form an \'etale cover, obtained by base change from $S_i\to S$. Compose $a_i$ with $D_i\to D$. These are compatible morphisms from the covering schemes $C_i$ to the scheme $D$. The representable functor $\operatorname{Hom}(-,D)$ is an \'etale sheaf: morphisms of schemes satisfy faithfully flat descent. Hence there is a unique scheme morphism $a:C\to D$ restricting to them. This is the morphism-gluing theorem of Chapter~1; a precise technical reference is \MCtag{023Q}.
+
+The equalities making $a$ a morphism over $S$ hold after the same cover, so they hold globally by the uniqueness part of morphism descent. This theorem also glues the $a_i^{-1}$ to a morphism $b:D\to C$. The composites $ba$ and $ab$ restrict to identity morphisms on the cover. Uniqueness gives $ba=\operatorname{id}_C$ and $ab=\operatorname{id}_D$. Thus $a$ is an isomorphism.
+
+\subsection{Check the markings and the target}
+
+For each $j$, the two morphisms $a\sigma_j,\tau_j:S\to D$ agree on every $S_i$, hence are equal. The new issue in the maps problem is the equality of the two morphisms
+\[
+ ha,\ f:C\longrightarrow X.
+\]
+Their restrictions to every $C_i$ agree because $a_i$ is a map isomorphism. Morphism descent, now with target $X$, implies $ha=f$. Therefore the glued scheme isomorphism is an isomorphism of stable maps. Any other candidate has the same underlying morphism after the cover, so must equal $a$. We have proved exactly existence and uniqueness required by the sheaf condition.
+
+\begin{Ex}[Compatible isomorphisms of line families]
+Suppose two line families over $S$ have locally chosen parametrizations $p_i:\PP^1_{S_i}\to C_i$ and $q_i:\PP^1_{S_i}\to D_i$. A local isomorphism is expressed in these coordinates by $q_i m_i p_i^{-1}$ for a projective linear change of parameter $m_i$. For it to be an arrow it must satisfy
+\[
+ h_i q_i m_i=f_i p_i.
+\]
+On overlaps the coordinate expressions may change, but the resulting morphisms $C_{ij}\to D_{ij}$ must agree. The sheaf proof glues these actual morphisms. It does not require the matrices for the $m_i$ to have identical entries in different trivializations. For a line embedded in $\PP^2$ the compatible map is forced by the embeddings whenever it exists.
+\end{Ex}
+
+\begin{Ej}[Why the target equation is essential]\label{maps:ex-isom}
+Suppose local isomorphisms of the source curves agree on overlaps but are not required to satisfy $h_i a_i=f_i$. What does morphism descent still give? Why does that result not prove the sheaf condition for isomorphisms of stable maps?
+\end{Ej}
+
+\section{Step 11: descent data for objects are effective}
+
+\subsection{The data and the goal}
+
+The previous proof began with two global families. We now start with no global family at all. Fantechi's descent datum supplies an \'etale cover $\{S_i\to S\}$, a family
+\[
+ \xi_i=(C_i\to S_i,\sigma_{1,i},\ldots,\sigma_{n,i},f_i:C_i\to X)
+\]
+on every member of the cover, and transition isomorphisms
+\[
+ \alpha_{ij}:C_i\times_{S_i}S_{ij}\xrightarrow{\sim}C_j\times_{S_j}S_{ij}
+\]
+of stable-map families over $S_{ij}$. In particular,
+\begin{equation}\label{maps:transition}
+ \alpha_{ij}\sigma_{a,i}=\sigma_{a,j},\qquad
+ f_j\alpha_{ij}=f_i.
+\end{equation}
+On $S_{ijk}$ we require the cocycle equation
+\begin{equation}\label{maps:cocycle}
+ \alpha_{ik}=\alpha_{jk}\circ\alpha_{ij}.
+\end{equation}
+Restrictions to overlaps in these equations are understood. The equation says that transporting a point, a section, or any other piece of structure from chart $i$ to chart $k$ directly agrees with transporting it through chart $j$. The isomorphism and cocycle requirements include identity on the diagonal and inverse transition maps; equivalently these follow by restricting the usual cocycle equations appropriately.
+
+Effectivity asks us to construct a family $\xi=(C\to S,\sigma_\bullet,f)$ and isomorphisms
+\[
+ \theta_i:C\times_S S_i\xrightarrow{\sim}C_i
+\]
+such that
+\[
+ \alpha_{ij}=\theta_j\theta_i^{-1}
+ \quad\text{over }S_{ij}.
+\]
+We need a scheme $C$, a flat proper family, markings, and a map $f$; after those constructions we must verify the prescribed class and stability. Merely asserting that the geometric fibers are familiar curves would not perform any of these tasks.
+
+\subsection{Why the underlying schemes can be descended}
+
+An arbitrary descent datum for schemes need not be effective as a scheme. Thus we use the same specific theorem as in Chapter~1: descent is effective for proper finitely presented schemes carrying relatively ample invertible sheaves with compatible descent isomorphisms. This is polarized effective descent. Vistoli, \S4.3.3, Theorem~4.38 and the discussion on pp.~96--103, develops the underlying faithfully flat descent argument; the relatively ample form is also SGA~1, Expos\'e~VIII, Proposition~7.8, as recorded in the source map~\cite{Vistoli,SGA1}.
+
+We now verify its hypotheses, rather than assuming that the curves already descend. On each $C_i$ form
+\[
+ \mathcal L_i=\omega_{C_i/S_i}(\sigma_{1,i}+\cdots+\sigma_{n,i})\otimes f_i^*A^{\otimes3}.
+\]
+By Lemma~\ref{maps:ample}, $\mathcal L_i$ is relatively ample. An isomorphism $\alpha_{ij}$ canonically identifies relative dualizing sheaves and marked divisors. The equality $f_j\alpha_{ij}=f_i$ identifies $\alpha_{ij}^*f_j^*A$ with $f_i^*A$. These identifications combine to give
+\[
+ \alpha_{ij}^*\mathcal L_j\simeq\mathcal L_i.
+\]
+They satisfy the cocycle condition: every factor is defined functorially from the maps and markings, and the $\alpha_{ij}$ satisfy~\eqref{maps:cocycle}. We have genuine compatible line-bundle isomorphisms, not only equal numerical degrees.
+
+All local curves are proper, flat, and finitely presented over their bases. The cover is \'etale, hence flat and locally of finite presentation. To apply a theorem stated for a faithfully flat quasi-compact morphism, work over an affine open of $S$. Refine the cover by affine opens in the $S_i$. Their images are open and cover the quasi-compact base, so finitely many suffice. The disjoint union of these finitely many affine schemes gives the required faithfully flat quasi-compact cover. After performing descent there, glue over the affine opens of $S$ using uniqueness of compatible descent isomorphisms. Thus arbitrary bases and arbitrary \'etale covering families cause no hidden quasi-compactness assumption.
+
+The theorem produces a scheme $C\to S$ with the desired $\theta_i$, and a descended relatively ample line bundle. Flatness, properness, and finite presentation descend under faithfully flat base change. The relative family therefore has precisely these properties. This use of an ample bundle is the substantive geometric difference between a purely formal cocycle and an effective scheme descent datum.
+
+For intuition behind the theorem, over a quasi-compact piece one takes sufficiently large compatible powers of the ample bundles, descends the modules of sections and their multiplication, and reconstructs the curve by relative $\Proj$ of the resulting graded algebra. The sheaf-descent and relative-$\Proj$ theorems are substantial inputs. We use the polarized descent theorem as a black box; the preceding argument verifies why this moduli datum lies in its domain of application.
+
+\subsection{Descend the marked sections}
+
+Use $\theta_i^{-1}$ to regard each $\sigma_{a,i}$ as a section of $C\times_S S_i\to S_i$. The first equality in~\eqref{maps:transition} says that these local sections agree on overlaps. Morphism descent now gives a unique map $\sigma_a:S\to C$. Its composite with $C\to S$ is the identity because this is true after pulling back to each $S_i$. Hence it is a section. Membership in the smooth locus and pairwise disjointness can be checked after a surjective \'etale base change, so the sections have the required properties.
+
+\subsection{Descend the maps to $X$}
+
+Through $\theta_i$, the morphisms $f_i$ become morphisms from the cover $C\times_S S_i$ of $C$ to $X$. The second equality in~\eqref{maps:transition} says exactly that these morphisms agree on their double overlaps. Morphism descent gives a unique
+\[
+ f:C\longrightarrow X.
+\]
+This step does not require $X$ to be smooth. The representable functor of a scheme is a sheaf, so morphisms to that scheme glue. Projectivity of $X$ entered earlier, to construct the compatible relatively ample $\mathcal L_i$ that guaranteed scheme effectivity.
+
+Notice the order: the local maps first supplied line bundles with descent identifications; after descending the polarized sources we glued the maps themselves. We have not assumed a global $f$ in order to construct the scheme on which $f$ will be defined.
+
+\subsection{Check the geometric conditions and the class}
+
+Given a geometric point $\bar s\to S$, choose a lift to a member of the \'etale cover, after an algebraically closed field extension if necessary. Pulling back $\theta_i$ identifies the resulting geometric fiber of $C\to S$ with that of $C_i\to S_i$, together with its markings and map. Hence it is connected, reduced, nodal, and of genus $g$. Each contracted component satisfies the required special-point inequality. These properties are preserved and detected by algebraically closed field extension.
+
+For every line bundle $L$ on $X$, the same comparison gives
+\[
+ \deg_{C_{\bar s}}f_{\bar s}^*L
+   =\deg_{(C_i)_{\bar s_i}}f_{i,\bar s_i}^*L
+   =\beta\cdot L.
+\]
+Thus the class is $\beta$. All defining conditions have now been checked, so the constructed tuple is an object of $\mathscr K(S)$. The maps $\theta_i$ are isomorphisms of stable maps and reproduce the prescribed transitions. This is effectivity in precisely Fantechi's sense.
+
+\begin{Ex}[A descent datum of line maps]\label{maps:line-descent}
+Take the incidence family over $B=(\PP^2)^\vee$. Over the standard affine opens $B_i$, its source $\PP^1$-bundle can be trivialized. In a chosen trivialization we have maps
+\[
+ F_i:\PP^1_{B_i}\longrightarrow\PP^2.
+\]
+On $B_{ij}$, let $\alpha_{ij}$ be the change from the $i$-parametrization to the $j$-parametrization. Then
+\[
+ F_j\alpha_{ij}=F_i,\qquad \alpha_{jk}\alpha_{ij}=\alpha_{ik}.
+\]
+These are the actual transition and cocycle equations for stable-map objects. Descent recovers the incidence family and its projection to $\PP^2$. We already know the answer in this example, which makes it a useful test of the definition. The proof above, unlike the example, applies when a global answer was not known in advance.
+
+One can see a nontrivial change of parameter even on a constant line family. Cover $\mathbb A^1$ by $U=D(t)$ and $V=D(t-1)$. On $U$ use $F_U([u:v])=[u:v:0]$; on $V$ use $F_V([u:v])=[v:u:0]$. On the overlap the transition is $[u:v]\mapsto[v:u]$. The equality $F_V\alpha_{UV}=F_U$ makes this a descent datum; forgetting that equality would lose the information needed to glue the map to $\PP^2$.
+\end{Ex}
+
+\begin{Ej}[Locate the hypotheses]\label{maps:ex-descent}
+In the effective-descent proof, where did projectivity of $X$ enter? Where did the cocycle condition enter? Where did we use compatibility with $f_i$? Explain why the stability of the underlying pointed curves from Chapter~1 cannot simply be assumed here.
+\end{Ej}
+
+\section{Step 12: the stack conclusion}
+
+\begin{Th}\label{maps:stack}
+Let $X$ be a projective scheme of finite type over $\CC$, let $g,n\geq0$, and prescribe a numerical curve class $\beta$ as in Definition~\ref{maps:class}. The category of stable-map families and cartesian, marking-preserving, map-preserving arrows is a stack on $\operatorname{Sch}_{\CC}$ for the \'etale topology. We denote it by
+\[
+ \overline{\mathcal M}_{g,n}(X,\beta).
+\]
+\end{Th}
+\begin{proof}
+Steps~1--9 construct a category fibered in groupoids. Step~10 proves that isomorphisms form a sheaf. Step~11 proves that every descent datum is effective. These are the two extra conditions in Fantechi's Definition~4.3. In particular the notation now refers to a stack, rather than to a hoped-for moduli space or a set of isomorphism classes.
+\end{proof}
+
+\section{Properties}
+\label{maps:properties}
+
+The stack proof is complete before the next propositions begin. Algebraicity asks for a scheme atlas; the Deligne--Mumford property asks for an \'etale atlas; properness controls extension across missing points of bases. None of these follows just from the sheaf and object-descent conditions. We use the conventions for algebraic, Artin, and Deligne--Mumford stacks explained in Chapter~1. In particular a Deligne--Mumford stack is an algebraic (Artin) stack with the stronger \'etale-atlas property.
+
+\begin{Prop}[Algebraicity and finite type]\label{maps:algebraic}
+For a smooth projective variety $X/\CC$, fixed integers $g,n\geq0$, and fixed numerical class $\beta$, the stack $\overline{\mathcal M}_{g,n}(X,\beta)$ is algebraic and of finite type over $\CC$. No stable-range inequality is required beyond the stability condition defining its objects. Empty cases are included.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Behrend--Manin, Theorem~3.14, p.~25, with the construction in \S4, p.~28, gives the algebraic finite type stack statement for smooth projective targets and the degree-functional notion of class~\cite{BM}. This is an early research construction. Their proof uses additional pointed curves. Fulton--Pandharipande, \S2.3, pp.~13--14, gives a more direct bounded Hilbert-scheme construction that we use to explain an atlas~\cite{FP}. Their primary output is a coarse moduli space, and \S1.2 explicitly leaves the stack interpretation to the reader. Consequently the quotient-stack identification below is our guided reconstruction from their parameter scheme, not a theorem we attribute verbatim to that exposition. We make no claim here to establish absolute historical priority.
+
+\noindent\textbf{Our guided proof.}
+Embed $X\hookrightarrow\PP^r$ using $A$. A stable map to $X$ becomes a stable map of degree $d=\beta\cdot A$ to $\PP^r$, with the same stability condition. We want one finite type scheme that parametrizes every such map after a choice of coordinates on its source. If the moduli problem is empty, the claim is immediate, so we may assume that maps exist.
+
+The boundedness input in Fulton--Pandharipande, \S2.3, says that an integer $q>0$ can be chosen depending only on $g,n,r,d$ so that, for every geometric stable map, $\mathcal L_\xi^{\otimes q}$ is very ample and has vanishing $H^1$. This is a substantial uniform theorem: ordinary ampleness for each individual curve is not enough to give one parameter space. Its numerical output is
+\[
+ e=q(2g-2+n+3d),\qquad N+1=e+1-g.
+\]
+Riemann--Roch gives $h^0(C,\mathcal L_\xi^{\otimes q})=N+1$. Cohomology and base change show that in families $E=\pi_*\mathcal L_\xi^{\otimes q}$ is a vector bundle of this rank and its formation commutes with base change. These are black-box inputs in this atlas construction.
+
+Locally choose projective coordinates on $E$. Evaluation embeds $C$ into $\PP^N_S$. Taking the graph of its map to $X\subset\PP^r$ gives
+\[
+ C\hookrightarrow\PP^N_S\times\PP^r_S.
+\]
+With respect to $\mathcal O(1,1)$, its Hilbert polynomial is
+\[
+ P(m)=(e+d)m+1-g.
+\]
+Fixing this polynomial places all these graphs on one projective Hilbert scheme. The marked points are added using the incidence subscheme of the Hilbert scheme times $(\PP^N\times\PP^r)^n$.
+
+We then impose the conditions defining the family: nodal connected fibers; distinct smooth markings; projection to $\PP^N$ an embedding given by the complete linear series; and the required relation between $\mathcal O(1)$ and $\mathcal L_\xi^{\otimes q}$. Fulton--Pandharipande, \S2.2, Proposition~1, and \S2.3, construct the relevant locally closed parameter scheme $J$. We take that parameter-scheme construction as a black box, including the assertion about its scheme structure. The equality of line bundles is imposed up to a line bundle pulled back from the base, which is exactly what projective coordinates allow.
+
+Requiring that the graph lie in $\PP^N\times X$ is a closed Hilbert-scheme condition. Finally retain the components of numerical class $\beta$. Fiberwise line-bundle degrees are locally constant, and this parameter scheme has only finitely many connected components. Hence this is an open and closed locus of a finite type scheme. Continue to denote the resulting scheme by $J$.
+
+The group $G=\PGL_{N+1}$ changes the projective coordinates on the source embedding. The original map to $X$ and its markings do not change as abstract moduli data. For an arbitrary family $\xi/S$, the scheme of projective frames of $E$ is a $G$-torsor $P\to S$, and the embedded family supplies a $G$-equivariant map $P\to J$. Conversely, a $G$-torsor and such an equivariant map give a family on the torsor whose transition isomorphisms satisfy descent. The stack proof already completed descends it to $S$. Both constructions preserve arrows and are inverse up to canonical isomorphism. Thus
+\[
+ \overline{\mathcal M}_{g,n}(X,\beta)\simeq[J/G].
+\]
+The brackets record a quotient \emph{stack}. They retain the stabilizers of points of $J$, which are exactly automorphisms of the corresponding stable maps.
+
+For a smooth algebraic group acting on a scheme, $J\to[J/G]$ is a smooth surjective atlas: after pulling back along the object $(P\to S,P\to J)$ it becomes the torsor $P\to S$. This is Fantechi's quotient-stack construction and Theorem~5.3~\cite{Fantechi}. Since $J$ and $G$ are finite type over $\CC$, the quotient stack is of finite type. The atlas has supplied the extra geometric structure that the word ``stack'' alone did not supply.
+
+\begin{Prop}[The Deligne--Mumford property and separatedness]\label{maps:dm}
+Under the hypotheses of Proposition~\ref{maps:algebraic}, the stack is Deligne--Mumford and separated. More precisely, its diagonal is representable, finite, and unramified.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Behrend--Manin, Proposition~4.1 and Lemma~4.2, p.~26, establish this diagonal statement by using additional intersections with general hyperplanes to compare map isomorphisms with isomorphisms of stable pointed curves~\cite{BM}. The argument below explains that method with explicit bookkeeping for permutations of the auxiliary markings. The criterion that an algebraic stack with unramified diagonal is Deligne--Mumford is an external general theorem about algebraic stacks, as in the references for Chapter~1.
+
+\noindent\textbf{Our guided proof.}
+Start with two stable-map families over $S$. Pulling the diagonal back by this pair gives their isomorphism sheaf. We must show this sheaf is represented by a finite unramified $S$-scheme; the sheaf condition alone did not say that.
+
+Work \'etale locally near a geometric point of $S$ and use $X\hookrightarrow\PP^r$. Choose sufficiently many general hyperplanes, at least three, avoiding the images of special points and of contracted components. Since the characteristic is zero, the maps on noncontracted components are generically separable; the hyperplanes can meet these maps transversely. Their inverse images are disjoint smooth points on the source fibers. After shrinking and an \'etale base change, these finite \'etale divisors split into labeled sections. Add them to the original markings of both source families.
+
+Each formerly unstable noncontracted rational component now has at least three extra points, and each noncontracted elliptic component has at least one. Contracted components were stable already. Thus the enlarged pointed sources are stable curves, so Chapter~1 applies to their isomorphism schemes.
+
+A map isomorphism preserves the inverse image of every chosen hyperplane as a divisor. It may permute the labels within that divisor. We must therefore allow finitely many permutations, rather than insisting that all map isomorphisms preserve one arbitrary labeling. For each such permutation, consider the isomorphism scheme of the two enlarged stable pointed curves with the corresponding reordered labels. Each is finite and unramified by the diagonal theorem for stable curves. Their finite disjoint union parametrizes all the possible underlying isomorphisms that could preserve the maps.
+
+Within that union impose $h\alpha=f$. It is a closed condition. Indeed the two morphisms to projective $X$ define two graphs in the relevant relative Hilbert scheme, and equality is the pullback of its closed diagonal; equivalently one uses the separatedness of the relative Hom-scheme. The representability of Hilbert/Hom functors in this projective setting is an external theorem already used for the atlas. The resulting closed subscheme is precisely the map-isomorphism sheaf. A closed subscheme of a finite unramified $S$-scheme is again finite and unramified. These properties and representability descend from the \'etale neighborhood.
+
+If the degree is zero, no auxiliary points are needed: the sources are themselves stable pointed curves, and the same closed compatibility condition cuts out the required isomorphisms. In every case we have proved the diagonal statement. Finiteness implies properness of the diagonal, which is the separatedness condition. Algebraicity plus an unramified diagonal gives the Deligne--Mumford property.
+
+The characteristic-zero hypothesis is meaningful here. For example, in characteristic $p$ the map $\PP^1\to\PP^1$, $[u:v]\mapsto[u^p:v^p]$, has nontrivial infinitesimal automorphisms: over $k[\epsilon]/(\epsilon^2)$, replacing $u$ by $u+\epsilon v$ leaves $u^p$ unchanged. Thus the unrestricted positive-characteristic analogue need not have unramified diagonal. Behrend--Manin's theorem includes a degree bound relative to the characteristic to exclude this issue. Our choice of $\CC$ avoids it.
+
+\begin{Prop}[Properness]\label{maps:proper}
+For $X$ smooth projective over $\CC$ and $g,n,\beta$ fixed as above, $\overline{\mathcal M}_{g,n}(X,\beta)$ is proper over $\CC$.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Behrend--Manin, Theorem~3.14 and Corollary~4.8, pp.~25 and~28, give properness of the stack; the latter refers to Pandharipande's preliminary notes for the extension step~\cite{BM}. We did not locate and verify that preliminary proof independently. Fulton--Pandharipande's later accessible exposition, \S4.2, Propositions~5 and~6, pp.~19--21, proves the relevant uniqueness and existence statements for families~\cite{FP}. Its strategy is semistable reduction together with extension of the map to a projective target. We use the stable-map extension theorem as a black box, rather than developing the separate constructions involved in proving it.
+
+\noindent\textbf{Our guided proof.}
+Properness asks whether a family over the generic point of a discrete valuation ring can acquire a limit. The stack version allows a finite extension of the fraction field and a dominating valuation ring; this allowance is needed for stable reduction. Existence of such a limit, uniqueness of isomorphisms between limits, and finite type together give the valuative criterion for a separated Deligne--Mumford stack.
+
+The needed black box is the following form of stable-map reduction: a stable map over the fraction field of a discrete valuation ring, with projective target, extends after a finite extension to a stable-map family over a dominating discrete valuation ring. Isomorphisms of generic-fiber stable maps extend uniquely between two such families. For the general statement we invoke Behrend--Manin's theorem; Fulton--Pandharipande give the geometric-curve version and its proof strategy. The reduction from that version to the usual valuative criterion in this finite type characteristic-zero setting is part of the general properness machinery, not a consequence of descent alone.
+
+Here is why the hypotheses match. Embed $X$ in $\PP^r$ and apply extension for maps to $\PP^r$. If a resulting family has generic map in $X$, its whole map lies in $X$. To see the scheme-theoretic assertion, let $\mathcal I_X$ be the ideal of $X$ and consider its image in the structure sheaf of the flat source over the valuation ring. That image vanishes on the generic fiber. A flat module over a discrete valuation ring has no nonzero element killed by a power of its uniformizer, so the image is zero. This is stronger than just saying that the special-fiber points lie in $X$.
+
+The class remains $\beta$ because degrees of pullbacks of line bundles are constant in the resulting proper flat family. The isomorphism uniqueness statement is also reflected in the finite diagonal established above. Finally, Proposition~\ref{maps:algebraic} provides finite type. Applying the valuative criterion gives properness.
+
+Projectivity, or an appropriate replacement theorem for a proper target, cannot simply be omitted from this proof. For a nonproper target properness already fails among constant maps: $\overline{\mathcal M}_{0,3}(\mathbb A^1,0)\simeq\mathbb A^1$. A constant map here means a three-pointed stable rational curve together with its chosen image point, which can escape to infinity. The example isolates why existence of a limit is additional geometry beyond the stack conditions.
+
+\begin{Prop}[A smooth stable-map stack, with an explicit hypothesis]\label{maps:lines-smooth}
+For $X=\PP^2_{\CC}$, $g=n=0$, and $\beta$ the class of a line, there is an equivalence of stacks
+\[
+ \overline{\mathcal M}_{0,0}(\PP^2,1)\simeq(\PP^2)^\vee.
+\]
+In particular this stable-map stack is a smooth proper scheme of dimension $2$.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+The description of degree-one maps by lines is elementary; our proof below verifies it on families, which is stronger than identifying geometric points. Fulton--Pandharipande, \S1.2, Theorem~2 and the subsequent stack comment, p.~12, and \S5.2, pp.~27--30, include smoothness in genus zero for projective-space targets~\cite{FP}. We use no general smoothness theorem to prove this particular proposition and make no originality claim for the elementary identification.
+
+\noindent\textbf{Our guided proof.}
+First examine a geometric object. Its genus-zero nodal source has a tree as dual graph, and every component has normalization $\PP^1$. Degree is nonnegative on each component, and total degree $1$ means that exactly one component is noncontracted. There can be no other components: a finite tree with more than one vertex has at least two leaves, at most one of which can be the noncontracted vertex. A contracted leaf would have one node and no markings, contradicting stability. Thus the source is a smooth $\PP^1$, and the degree-one map embeds it as a line.
+
+Now let the base be an arbitrary scheme $S$. Every geometric fiber of $\pi:C\to S$ is a smooth $\PP^1$, so the proper flat finitely presented family is smooth. Set $L=f^*\mathcal O_{\PP^2}(1)$. On every fiber it is $\mathcal O_{\PP^1}(1)$, with $h^0=2$ and $h^1=0$. Cohomology and base change give a rank-two vector bundle $E=\pi_*L$, compatible with base change. The evaluation $\pi^*E\to L$ is surjective by fiberwise generation and Nakayama's lemma, so it defines a map $e:C\to\PP_S(E)$, using the quotient convention for the projective bundle. We check that this is an isomorphism on the whole family, including over a nonreduced base. The map is proper and finitely presented; each of its geometric fibers over $S$ is the isomorphism $\PP^1\to\PP^1$ defined by the complete degree-one linear series. Thus it has finite fibers and is finite (\MCtag{02LS}, Lemma 37.44.1). The fiberwise flatness criterion makes $e$ flat: its source is flat and locally finitely presented over $S$, its target is locally of finite type over $S$, and its fiber maps are flat (\MCtag{039E}, Lemma 37.16.4). A finite flat finitely presented morphism is finite locally free (\MCtag{02K9}, Lemma 29.49.2). Its rank here is one, so the unit map $\mathcal O_{\PP(E)}\to e_*\mathcal O_C$ is a map of line bundles that is an isomorphism on each fiber, hence an isomorphism by Nakayama. Therefore $e$ is an isomorphism. These are scheme-theoretic fiber criteria, not an inference from a bijection of points alone.
+
+Pulling back the three coordinate sections of $\mathcal O_{\PP^2}(1)$ gives a surjective map
+\[
+ \mathcal O_S^{\oplus3}\longrightarrow E.
+\]
+It is surjective because it is surjective on every geometric fiber, followed by Nakayama's lemma locally on $S$. A rank-two quotient of this trivial rank-three bundle is exactly a morphism $S\to\operatorname{Gr}(2,3)=(\PP^2)^\vee$. The original curve and map are the pullback of the universal incidence line under this morphism.
+
+Conversely, a map $S\to(\PP^2)^\vee$ pulls back the incidence family to a stable-map family. These constructions commute with base change and are inverse up to canonical isomorphism. An automorphism over $S$ compatible with the inclusion in $\PP^2_S$ is the identity, because a closed immersion is a monomorphism. Thus the equivalence records arrows as well as objects; it is an equivalence of stacks, not just a bijection of closed points. Smoothness, properness, and dimension $2$ now follow from the corresponding properties of a projective plane.
+
+Stable-map stacks are not smooth in general, even for smooth projective targets. The smoothness assertion just proved has the explicit degree-one, genus-zero hypotheses in its statement. An accessible account of the failure in genus one is Battistella--Carocci--Manolache, \S8.3, equation~(8.2), p.~29~\cite{BCM}: near maps with a contracted elliptic component and one rational tail, local charts have equations $\xi y_1=\cdots=\xi y_r=0$ in a smooth ambient chart. Where $\xi=y_1=\cdots=y_r=0$, this local model has intersecting components and is singular. We cite that local-equation calculation as an external result; we do not derive it or use it in the stack proof. Their \S8.2, Example~8.4, p.~27, also illustrates different-dimensional components for genus-one degree-three maps to $\PP^2$. The dimension $2$ above is an ordinary actual dimension, obtained from an explicit scheme description.
+
+\begin{Ej}[Why lines have no hidden boundary]\label{maps:ex-tree}
+Explain why a genus-zero degree-one stable map to $\PP^2$ with no markings cannot have any contracted components. Why would the argument need to be reconsidered if markings were allowed?
+\end{Ej}

@@ -1,0 +1,240 @@
+% Descent tools used before the effective-descent proof in Chapter 1.
+\section{The geometric tool that makes object descent possible}
+\label{desc:tools}
+
+We now need a theorem that produces a scheme from local schemes.
+Before applying it to our curves, we explain its input: a line bundle
+that supplies compatible projective coordinates. Merely knowing that
+every local curve admits \emph{some} projective embedding does not supply
+compatible embeddings on overlaps. The particular line bundle below is
+determined by the pointed curve itself, so every transition isomorphism
+automatically acts on it.
+
+\begin{Def}[The line bundle supplied by a stable pointed family]
+\label{desc:canonical-bundle}
+Start with the family $(p:C\to S,\sigma_1,\ldots,\sigma_n)$ of
+Definition~\ref{def:stable-family}. Each marking has an image
+$D_a=\sigma_a(S)$ in $C$. We form
+\[
+ D=D_1+\cdots+D_n,
+ \qquad L_C=\omega_{C/S}(D)
+       =\omega_{C/S}\otimes\mathcal O_C(D).
+\]
+Here $\omega_{C/S}$ is the \emph{relative dualizing sheaf}: the line
+bundle playing the role of relative differential forms for a family
+whose fibers are allowed to have nodes. The notation $(D)$ means
+tensoring with the line bundle associated to the indicated divisor.
+\end{Def}
+
+This definition uses two results about families of schemes, which we
+state as external inputs. A section through the smooth locus of a
+separated family of curves is a relative effective Cartier divisor.
+Concretely, its image is locally cut out by one equation that is a
+non-zero-divisor, and this description remains a Cartier divisor after
+base change. One can check this in a relative smooth coordinate, where
+the section has equation $z=0$; the general statement follows by
+\'etale localization. See Stacks Project, Section 44.3,
+Lemma 44.3.1, and Section 31.23, Lemma 31.23.8
+\cite{Stacks}. Thus all the $\mathcal O_C(D_a)$ above are defined and
+commute with base change.
+
+The second input is the relative duality theorem in its curve form:
+if $p:C\to S$ is proper, flat, and finitely presented, with
+Gorenstein geometric fibers of pure dimension one, then
+$\omega_{C/S}$ is invertible and, for every $b:T\to S$, there is a
+canonical isomorphism
+\begin{equation}\label{desc:dualizing-basechange}
+ \operatorname{pr}_C^*\omega_{C/S}
+       \simeq \omega_{C\times_S T/T}.
+\end{equation}
+These isomorphisms respect further base change and isomorphisms of
+families. This is a theorem about proper flat families; it does not
+require us to know that our moduli category is algebraic. A precise
+curve formulation is Stacks Project, \MCtag{0E6R},
+Lemma 109.19.3, with its duality references in Section 109.19
+\cite{Stacks}. We use this duality statement as a black box.
+
+Why does it apply? A smooth curve has regular local rings; a node is
+locally a hypersurface singularity, with completed local ring
+$\overline{k}[[x,y]]/(xy)$. These rings are Gorenstein: their dualizing
+modules have rank one and are free. Consequently the geometric fibers
+in our definition satisfy the theorem. On the smooth locus,
+$\omega_{C/S}$ agrees with relative differentials. On a single nodal
+fiber its sections can be described on the normalization as
+differentials with at most simple poles over each node, with the two
+residues summing to zero. This explains why ordinary regular
+differentials on a smooth curve need a replacement at a node.
+
+\begin{Lem}[Functorial relative ampleness]
+\label{desc:ample-canonical}
+For a stable pointed family, $L_C=\omega_{C/S}(D)$ is relatively ample
+over $S$. It commutes canonically with arbitrary base change. A pointed
+isomorphism $a:C\xrightarrow{\sim}C'$ over $S$ therefore gives a
+canonical isomorphism $a^*L_{C'}\simeq L_C$, compatible with
+composition of pointed isomorphisms.
+\end{Lem}
+
+\noindent\emph{Verification.}
+The base-change assertion follows from
+\eqref{desc:dualizing-basechange} and from the relative Cartier divisor
+property of the sections. For ampleness, restrict to a geometric fiber
+and normalize any one of its irreducible components. If that
+normalization has genus $h$ and $r$ distinguished points, counting the
+branches of nodes and the markings, then
+\begin{equation}\label{eq:component-degree}
+ \deg L_C|_{\widetilde E}=2h-2+r>0
+\end{equation}
+by stability. Positivity on every component implies
+ampleness on the fiber. The precise curve criterion is Stacks Project,
+\MCtag{0B5Y}, Lemma 33.44.15; degrees are unchanged on normalization
+by Lemma 33.44.4. For a proper family, ampleness on a fiber implies
+relative ampleness on a neighborhood of its base point
+(\MCtag{0D2S}, Lemma 37.50.3). These neighborhoods cover $S$, which
+proves relative ampleness. The final assertion follows because an
+isomorphism carries each labelled section to the corresponding labelled
+section, and the duality identifications are functorial.\hfill$\square$
+
+In ordinary language, every stable pointed family comes with the
+\emph{same rule} for choosing an ample line bundle. We have not added a
+line bundle to the objects of $\Mgn$: we have constructed one from data
+already present. For a smooth unpointed genus-two curve $C$, this rule
+is simply $L_C=\omega_C$, of degree $2$. For a genus-two curve made from
+two smooth elliptic curves joined at one node, its degree on each
+component is $1$. The positivity check works on both components even
+though the curve is singular.
+
+\begin{Th}[Effective descent with a compatible ample line bundle]
+\label{desc:polarized-theorem}
+Let $\{S_i\to S\}$ be an \textup{\'etale} cover of a scheme.
+Suppose that for every $i$ we are given a proper, flat, finitely
+presented morphism $p_i:Y_i\to S_i$ and a relatively ample invertible
+sheaf $L_i$ on $Y_i$. Suppose also that there are isomorphisms
+\[
+ a_{ij}:Y_i|_{S_{ij}}\xrightarrow{\sim}Y_j|_{S_{ij}},
+ \qquad
+ \lambda_{ij}:a_{ij}^*(L_j|_{S_{ij}})
+                   \xrightarrow{\sim}L_i|_{S_{ij}},
+\]
+where $S_{ij}=S_i\times_S S_j$. Assume the scheme isomorphisms satisfy
+$a_{ik}=a_{jk}\circ a_{ij}$ on $S_{ijk}$, and the line-bundle
+isomorphisms satisfy
+\begin{equation}\label{desc:bundle-cocycle}
+ \lambda_{ik}=\lambda_{ij}\circ a_{ij}^*\lambda_{jk}
+ \quad\text{on }S_{ijk},
+\end{equation}
+using the canonical identifications of iterated pullbacks.
+Then there are a proper, flat, finitely presented scheme $Y\to S$, a
+relatively ample invertible sheaf $L$ on $Y$, and isomorphisms
+$(Y,L)|_{S_i}\simeq(Y_i,L_i)$ recovering the prescribed descent data.
+The same statement holds for fpqc covers.
+\end{Th}
+
+\noindent\textbf{Source and proof strategy.}
+The scheme-and-line-bundle effectivity theorem is SGA~1,
+Expos\'e VIII, Proposition 7.8, p.~174 of the recomposed edition
+\cite{SGA1}. Its argument descends a graded algebra and uses
+relative $\Proj$. Vistoli's later exposition \cite{Vistoli},
+Section 4.3.3, Theorem 4.38 and proof, pp.~96--103, gives the detailed
+version for a functorial ample bundle on a class of proper flat
+finitely presented families. His theorem applies this method to a
+whole moduli problem; the statement above isolates the descent datum
+that we need. Neither source says that arbitrary projective schemes
+descend effectively without compatible polarization data.
+
+\noindent\textbf{Our guided explanation of the construction.}
+The input is local spaces together with instructions for identifying
+them and their line bundles on overlaps. The output must be one
+scheme over $S$, with identifications that reproduce precisely those
+instructions. We describe the \emph{\'etale} case used in these notes.
+
+First work over an affine open of $S$. Refine the cover by affine open
+subschemes of its members. Because \'etale maps are open and $S$ is
+quasi-compact, finitely many of their images cover $S$. Their disjoint
+union $U$ is affine, and $U\to S$ is faithfully flat and
+quasi-compact. The map need not be finite: it is the \emph{list of
+affine covering schemes} that is finite. All the original data restrict
+to $U$ and $U\times_S U$. After carrying out descent there, the
+uniqueness of morphism descent identifies the answer with the data on
+every original $S_i$. Answers over different affine opens of $S$ glue
+by ordinary Zariski gluing. This reduction justifies using one uniform
+power of a line bundle in the following steps.
+
+\begin{enumerate}
+\item \emph{Turn the local families into closed subschemes of projective
+bundles.}
+Write $p_U:Y_U\to U$ and $L_U$ for the disjoint union of the refined
+data. Relative Serre vanishing and the relative very-ampleness theorem
+allow us to choose $m>0$ such that $L_U^{\otimes m}$ is relatively very
+ample and $H^j(Y_u,L_u^{\otimes m})=0$ for every $j>0$ on every fiber. Cohomology and
+base change then makes
+\[
+ E_U=(p_U)_*L_U^{\otimes m}
+\]
+a finite locally free sheaf, with formation commuting with base change.
+These are substantial scheme-theoretic inputs, not consequences of the
+stack axioms. The cohomology statement, including arbitrary bases, is
+Vistoli, Proposition 4.37, pp.~95--96; the passage to a sufficiently
+large power occurs in the proof of Theorem 4.38. The evaluation map
+$p_U^*E_U\to L_U^{\otimes m}$ gives a closed immersion
+\[
+ Y_U\hookrightarrow\PP_U(E_U)
+           :=\Proj_U\bigl(\operatorname{Sym}^{\bullet}E_U\bigr).
+\]
+Here relative $\Proj$ is the construction that turns a graded algebra
+over a base into a projective scheme over that base.
+
+\item \emph{Descend the projective coordinates.}
+The isomorphisms $a_{ij}$ and $\lambda_{ij}$ induce compatible
+isomorphisms between the pullbacks of $E_U$ on $U\times_S U$.
+Equation~\eqref{desc:bundle-cocycle} gives their cocycle condition.
+Faithfully flat descent for quasi-coherent modules now constructs a
+sheaf $E$ on $S$ whose pullback is $E_U$. Local freeness and finite rank
+can be checked faithfully flat locally, so $E$ is a vector bundle.
+We use Vistoli, Theorem 4.23, pp.~85--90, for this descent theorem.
+It is the algebraic input that replaces elementary gluing of vector
+bundles on open subsets.
+
+Thus the projective bundles are all pullbacks of the single scheme
+$\PP_S(E)$. Functoriality of evaluation ensures that the given
+isomorphisms identify the embedded copies of $Y_U$ in this common
+projective bundle. This is the step for which compatible line bundles
+were essential.
+
+\item \emph{Descend the equations.}
+Let $\mathcal I_U\subset\mathcal O_{\PP_U(E_U)}$ be the ideal sheaf
+of the embedded $Y_U$. The compatibility just checked gives this ideal
+sheaf a descent datum over the fpqc cover
+$\PP_U(E_U)\to\PP_S(E)$. Quasi-coherent descent constructs an ideal
+sheaf $\mathcal I\subset\mathcal O_{\PP_S(E)}$; both its inclusion
+and its closure under multiplication can be checked after the cover.
+Let $Y\subset\PP_S(E)$ be the closed subscheme cut out by
+$\mathcal I$. Formation of this closed subscheme commutes with flat
+base change, so $Y\times_S U\simeq Y_U$ with the \emph{specified}
+transition identifications. This is the projective-bundle form of the
+graded-algebra/$\Proj$ construction in SGA~1.
+
+\item \emph{Recover the line bundle and check the family.}
+Now that $Y$ exists, the $L_i$ are line bundles on a cover of $Y$ with
+compatible transition maps. Quasi-coherent descent constructs $L$;
+invertibility is checked on that cover. Properness, flatness, and finite
+presentation of $Y\to S$ follow from their fpqc locality on the base
+(Stacks Project, \MCtag{02L1}, \MCtag{02L2}, \MCtag{02L0},
+Lemmas 35.23.16, 35.23.17, 35.23.15). Relative ampleness of $L$
+can be checked on geometric fibers and then near each base point
+using the proper-family ampleness theorem above.
+\end{enumerate}
+
+This explains why the theorem returns a \emph{scheme}. It does not
+begin by assuming that the sheaf quotient of the $Y_i$ is a scheme.
+The vector bundle and the descended equations construct that scheme.
+The theorem has not yet supplied markings or a map to a target; we
+will descend those additional morphisms after applying it.
+
+\begin{Ej}\label{desc:exercise-polarization}
+Suppose the local pointed families have transition isomorphisms
+$a_{ij}$ satisfying the cocycle condition. Explain why choosing
+$L_i=\omega_{C_i/S_i}(\sum_a\sigma_{a,i})$ supplies the
+$\lambda_{ij}$ and equation~\eqref{desc:bundle-cocycle} without an
+additional choice. Why would choosing an unrelated ample line bundle
+on each $C_i$ not by itself do this?
+\end{Ej}

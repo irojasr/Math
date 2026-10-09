@@ -1,0 +1,561 @@
+\section{Properties}\label{sec:curve-properties}
+
+The stack proof gives an answer to a gluing question: compatible local
+families, and compatible local isomorphisms, come from global ones.
+We now ask geometric questions about that stack. These require additional
+theorems. Throughout this section $g,n\geq 0$, $2g-2+n>0$, and
+$\Mgn$ is the stack over $\CC$ just constructed.
+
+\subsection{What the geometric words ask us to construct}
+
+\begin{Def}[Representability and an atlas]
+Start with a morphism $F:\mathcal Y\to\mathcal Z$ of stacks. To test
+whether it is \emph{representable by algebraic spaces}, choose any scheme
+$S$ and any object $z\in\mathcal Z(S)$, equivalently a map
+$S\to\mathcal Z$, and form
+\[
+\begin{tikzcd}
+S\times_{\mathcal Z}\mathcal Y \arrow[r]\arrow[d]
+  & \mathcal Y\arrow[d,"F"]\\
+S\arrow[r,"z"] & \mathcal Z.
+\end{tikzcd}
+\]
+The requirement is that the fiber product be an algebraic space.
+An algebraic space is an \'etale sheaf which has a representable,
+surjective \'etale presentation
+by a scheme; it allows \'etale coordinate charts even when those charts
+do not glue to a scheme by open immersions. In the applications below
+these particular fiber products will actually be schemes.
+
+If $F$ is representable, saying that it is smooth, \'etale, or
+surjective means that the resulting maps of algebraic spaces to $S$
+have that property for every such test. An \emph{atlas} is a
+representable surjective map $U\to\mathcal Z$ from a scheme, with the
+specified smoothness or \'etaleness condition.
+\end{Def}
+
+For example, a map $U\to\Mgn$ is a family of stable pointed curves
+over $U$. Given another family $C/S$, a point of
+$S\times_{\Mgn}U$ consists of a parameter $u$ in $U$ and an
+\emph{isomorphism} from the curve selected by $u$ to the corresponding
+fiber of $C/S$. The isomorphism is part of the data. The fiber product
+does not merely record that two isomorphism classes agree.
+
+\begin{Def}[Algebraic, Artin, and Deligne--Mumford]
+Start with a stack $\mathcal Z$ on the \'etale site of schemes over
+$\CC$. In these notes, it is an \emph{algebraic stack}, also called
+an \emph{Artin stack}, if its diagonal is representable by algebraic
+spaces and it has a smooth atlas $U\to\mathcal Z$ from a scheme.
+It is a \emph{Deligne--Mumford stack} if it has an \'etale atlas.
+Thus every Deligne--Mumford stack is an algebraic stack in our
+convention, since \'etale morphisms are smooth.
+\end{Def}
+
+The diagonal has a concrete interpretation here. Pulling
+$\Delta:\Mgn\to\Mgn\times\Mgn$ back by two families $C/S,D/S$
+gives the sheaf $\Iso_S(C,D)$, with the markings understood.
+The earlier sheaf proof showed that this functor is a sheaf.
+Representability of the diagonal asks for more: this sheaf must
+itself be an algebraic space. An atlas asks for still more: enough
+families must be parametrized by schemes in a smooth or \'etale way.
+For these conventions and their relation, see Alper
+\cite[Definitions 4.1.3--4.1.6 and Theorem 4.2.1, pp.~105--106,
+118--119]{Alper}. Some older sources, including Deligne--Mumford,
+use ``algebraic stack'' for what we now call a Deligne--Mumford stack.
+
+\subsection{Algebraicity and finite type}
+
+\begin{Prop}\label{prop:curves-algebraic}
+The stack $\Mgn$ is algebraic and of finite type over $\CC$.
+Its diagonal is affine and of finite type. It has a smooth
+surjective atlas $H\to\Mgn$, where $H$ is a scheme of finite
+type parametrizing suitable embedded stable pointed curves.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Deligne--Mumford \cite[Section 1, pp.~77--78, and Proposition (5.1),
+p.~104]{DM} construct the unpointed stack using tricanonical Hilbert
+schemes. Knudsen \cite[Theorem 2.7, p.~179]{Knudsen} proves the
+pointed theorem over $\operatorname{Spec}\mathbb Z$, using the
+unpointed result and induction in the number of markings.
+We give a direct Hilbert-atlas argument for pointed stable curves.
+Its embedding bound is Alper
+\cite[Proposition 6.3.23, p.~231]{Alper}; its smooth-atlas proof is
+the embedding-lifting argument of
+\cite[Theorem 6.4.6, pp.~238--240]{Alper}, applied here directly
+ to our stable category. Although that theorem is written for a
+larger category of curves, we do not construct that larger stack.
+Our parameter scheme retains some extra choices of embedding;
+these choices are allowed in an atlas.
+
+\medskip
+\noindent\textbf{Our guided proof.}
+The data already available are arbitrary stable pointed families
+$(\pi:C\to S,\sigma_1,\ldots,\sigma_n)$. We must construct one
+scheme containing enough such families and show that its map to
+our stack is representable, smooth, and surjective.
+
+\smallskip
+\noindent\emph{Step 1: use a canonical line bundle to bound embeddings.}
+Put
+\[
+ L_C=\omega_{C/S}\Bigl(\sum_{a=1}^n\sigma_a\Bigr).
+\]
+We use the following \emph{external embedding theorem}: for a stable
+pointed family, $L_C^{\otimes3}$ is relatively very ample,
+$E_C=\pi_*L_C^{\otimes3}$ is locally free of rank $r=5g-5+3n$,
+and formation of this vector bundle commutes with arbitrary base
+change. These conclusions follow from the fiberwise vanishing and
+very ampleness theorem together with cohomology and base change;
+see Alper \cite[Exercise 6.3.18 and Proposition 6.3.23,
+pp.~230--231]{Alper}. The fiberwise unpointed theorem is proved in
+Deligne--Mumford \cite[Theorem (1.2) and its corollary,
+pp.~77--78]{DM}. We take the pointed very ampleness result as an
+input rather than redo its separation-of-points-and-tangents proof.
+
+The rank and Hilbert polynomial have a useful numerical explanation.
+On any geometric fiber, let $\ell=2g-2+n>0$. Then
+$\deg L_C=\ell$ and $\deg L_C^{\otimes3}=3\ell$. Vanishing of
+$H^1(C,L_C^{\otimes3})$ and Riemann--Roch give
+\[
+ r=3\ell+1-g=5g-5+3n,
+ \qquad P(m)=\chi(C,L_C^{\otimes3m})=3\ell m+1-g.
+\]
+These numbers depend only on $g,n$, not on the particular curve.
+The evaluation of sections gives a closed immersion
+$C\hookrightarrow\mathbb P_S(E_C)$, where our convention for
+$\mathbb P(E_C)$ parametrizes one-dimensional quotients of $E_C$.
+Locally on $S$, choosing a basis of $E_C$ identifies the ambient
+bundle with $\mathbb P^{r-1}_S$.
+
+\smallskip
+\noindent\emph{Step 2: represent the diagonal.}
+Take two stable pointed families $C/S,D/S$. After trivializing
+$E_C,E_D$ locally over $S$, their canonical embeddings place them
+in the same projective space. An isomorphism $C\to D$ induces an
+isomorphism of their canonical line bundles, hence a unique
+projective linear transformation of these complete embeddings.
+Conversely, a projective transformation carrying the embedded
+curve and every marking to the corresponding data restricts to
+an isomorphism of pointed families.
+
+Thus $\Iso_S(C,D)$ is locally represented by a closed subscheme
+of $\PGL_{r,S}$: the transformation must send one Hilbert point
+ to the other, and must send each marked point to its partner.
+Equality of Hilbert points is closed because the Hilbert scheme
+is separated; the point conditions are closed because projective
+space is separated. These are finitely presented conditions, since
+the Hilbert scheme and projective space are of finite presentation
+over $\CC$. The local
+representing schemes glue by descent for affine schemes, so
+$\Iso_S(C,D)$ is an affine scheme of finite presentation over $S$.
+This proves the claimed representability and finiteness of the
+diagonal. It also implies that a map from any scheme to our
+stack is representable: its test fiber products are obtained by
+base changing that diagonal. Notice how much stronger this is
+than merely saying that $\Iso_S(C,D)$ is a sheaf.
+
+\smallskip
+\noindent\emph{Step 3: choose a finite type parameter scheme.}
+The \emph{Hilbert scheme theorem} is an external input:
+closed subschemes of $\mathbb P^{r-1}_S$ flat and finitely presented
+over $S$, with fiber Hilbert polynomial $P$, are represented by a
+projective scheme $\operatorname{Hilb}^{P}(\mathbb P^{r-1}_{\CC})$.
+See Alper \cite[Theorem 2.1.2, p.~48]{Alper}.
+Adding $n$ points and requiring each to lie on the universal curve
+gives a closed incidence scheme in
+\[
+ \operatorname{Hilb}^{P}(\mathbb P^{r-1}_{\CC})
+                      \times(\mathbb P^{r-1}_{\CC})^n.
+\]
+Inside it, take the open locus $H$ where the pointed fibers are
+stable and $H^1(C_s,\mathcal O_{C_s}(1))=0$.
+Openness of stability is Alper
+\cite[Proposition 6.3.24, p.~232]{Alper}; the vanishing locus is
+open by upper semicontinuity of cohomology. Both are substantial
+standard inputs about projective flat families. The Hilbert
+polynomial already fixes the arithmetic genus to be $g$.
+Since the incidence scheme is of finite type over the noetherian
+field $\CC$, its open subscheme $H$ is of finite type.
+
+The universal family defines $a:H\to\Mgn$ by forgetting the
+embedding. It is representable by Step 2. It is surjective because
+any stable family is, locally on its base, embedded by $L_C^3$
+as in Step 1, and these embeddings satisfy the defining conditions
+of $H$. We deliberately allow other embeddings in $H$ as well;
+being an atlas does not require a unique embedding for each curve.
+
+\smallskip
+\noindent\emph{Step 4: why forgetting the embedding is smooth.}
+Smoothness says that an embedding can be chosen compatibly when a
+family undergoes a small infinitesimal variation. We apply the
+\emph{infinitesimal criterion for smoothness} to the representable
+map $a$, following Alper
+\cite[Theorem 4.7.1, pp.~144--145; proof of Theorem 6.4.6,
+pp.~238--240]{Alper}. The finite-presentation hypothesis of the
+criterion also holds. For a test family $C/S$, the scheme
+$S\times_{\Mgn}H$ is the isomorphism scheme between the two
+families over $S\times H$: the pullback of $C/S$ and the pullback
+of the universal family over $H$. Step 2 makes this scheme
+finitely presented over $S\times H$, and $S\times H$ is finitely
+presented over $S$. Thus $a$ is representable and locally of finite
+presentation before we use the lifting calculation.
+
+Let $A'\twoheadrightarrow A$ be a small extension of local Artinian
+$\CC$-algebras, with residue field $K$ and kernel $J$ killed by the
+maximal ideal of $A'$. We are given a stable pointed family $C'/A'$
+and an embedding of its restriction $C=C'\times_{A'}A$ in
+$\mathbb P^{r-1}_A$, representing a point of $H(A)$. We must lift
+that embedding to $C'$:
+\[
+\begin{tikzcd}
+ C\arrow[r,hook]\arrow[d,hook] & \mathbb P^{r-1}_A\arrow[d,hook]\\
+ C'\arrow[r,dashed,hook] & \mathbb P^{r-1}_{A'}.
+\end{tikzcd}
+\]
+The embedding on $C$ is given by $M=\mathcal O_C(1)$ and its
+$r$ coordinate sections.
+
+A line bundle on $C$ lifts to $C'$ because its lifting obstruction
+lies in $H^2(C_K,\mathcal O_{C_K}\otimes_KJ)=0$.
+This elementary line-bundle lifting theorem follows from
+$1+\mathcal I\to\mathcal O_{C'}^*\to\mathcal O_C^*$ for the
+square-zero ideal $\mathcal I$; see Alper
+\cite[Proposition C.2.11 and Remark C.2.12, p.~602]{Alper}.
+Choose a lift $M'$. The restriction sequence is
+\[
+ 0\longrightarrow M_K\otimes_KJ
+   \longrightarrow M'\longrightarrow M\longrightarrow0.
+\]
+The defining vanishing $H^1(C_K,M_K)=0$ implies that every
+coordinate section of $M$ lifts to $M'$. The lifted sections
+still generate $M'$ by Nakayama's lemma. They define a morphism
+$C'\to\mathbb P^{r-1}_{A'}$ lifting the given embedding.
+
+It is a closed immersion. Indeed it is proper, its only geometric
+fiber is a closed immersion and hence it is quasi-finite, so it
+is finite. The cokernel of the map from the ambient structure
+sheaf to its finite pushforward restricts to zero over $A$ and
+therefore vanishes by Nakayama's lemma. The resulting embedded
+family is flat over $A'$ because it is the given family $C'$.
+Its marked sections were already given and acquire their images
+under this embedding. Its special fiber lies in $H$, so the
+lift also lies in the open locus $H$. This completes the required
+lifting. The infinitesimal criterion now proves that $a$ is smooth.
+
+We have constructed a representable smooth surjective map from
+the scheme $H$ to $\Mgn$, and have represented the diagonal.
+These are exactly the requirements for algebraicity. Finally,
+finite type of $H$ proves that $\Mgn$ is quasi-compact and
+locally of finite type over $\CC$, which is the asserted finite
+type property.
+
+\begin{Ex}[Genus two and extra embedding choices]
+For $(g,n)=(2,0)$ we have $\ell=2$, $r=5$, and $P(m)=6m-1$.
+Every stable genus-two curve has a tricanonical embedding in
+$\mathbb P^4$. Thus the Hilbert scheme for that one polynomial
+already contains embeddings of every stable genus-two curve.
+The atlas retains choices of an embedding and coordinates;
+$\overline{\mathcal M}_2$ retains the abstract curve and its
+isomorphisms. Extra parameters in an atlas are harmless: a
+smooth atlas need not have relative dimension zero.
+\end{Ex}
+
+\subsection{Why the diagonal is unramified}
+
+\begin{Prop}\label{prop:curves-dm}
+Under the same hypotheses, $\Mgn$ is Deligne--Mumford.
+Every geometric stable pointed curve has a finite reduced
+automorphism group scheme.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Deligne--Mumford \cite[Lemma (1.4), pp.~80--81, Theorem (1.11),
+p.~84, and Proposition (5.1), p.~104]{DM} eliminate infinitesimal
+automorphisms and construct the unpointed Deligne--Mumford stack.
+Knudsen's pointed theorem is \cite[Theorem 2.7, p.~179]{Knudsen}.
+The pointed calculation is explained by Alper
+\cite[Proposition 6.3.26, pp.~232--235, and Theorem 6.4.16,
+p.~241]{Alper}. The key geometric fact is that every component of
+the normalization has enough special points to eliminate regular
+vector fields fixing those points.
+
+\medskip
+\noindent\textbf{Our guided proof.}
+We already have algebraicity. The additional construction we need
+is an \'etale atlas. We use the following \emph{Deligne--Mumford
+criterion} as an external theorem: an algebraic stack has an
+\'etale atlas if and only if its diagonal is unramified, equivalently
+if every geometric stabilizer is discrete and reduced. In our
+finite type situation these stabilizers will be finite.
+See Alper \cite[Theorem 4.6.4, p.~143]{Alper}.
+
+Fix an algebraically closed extension $K/\CC$ and a stable pointed
+curve $(C,p_1,\ldots,p_n)$ over $K$. An \emph{infinitesimal
+automorphism} starts with the constant family over
+$K[\epsilon]/(\epsilon^2)$ and is an automorphism that restricts
+to the identity when $\epsilon=0$. Locally on functions it has
+the form $a\mapsto a+\epsilon D(a)$, where the multiplication
+rule forces $D$ to be a derivation. Fixing a marked point forces
+the vector field $D$ to vanish there. Thus the tangent space of
+the automorphism scheme at its identity is
+\[
+ H^0\bigl(C,\mathcal Hom(\Omega_C,\mathcal O_C(-\sum p_a))\bigr).
+\]
+
+Let $\nu:\widetilde C\to C$ be the normalization. On a nodal
+curve a regular vector field lifts to the normalization and
+vanishes at each branch over every node. This can be checked
+locally in $K[[x,y]]/(xy)$ by applying a derivation to $xy=0$;
+see Alper \cite[Exercise 6.2.22, p.~221]{Alper}.
+Write $C_v$ for the smooth connected components of $\widetilde C$,
+$h_v$ for their genera, and $B_v$ for the marked points and
+branches of nodes on $C_v$. If $m_v=\deg B_v$, stability says
+\[
+                  2h_v-2+m_v>0.
+\]
+Consequently
+\[
+ \deg T_{C_v}(-B_v)=2-2h_v-m_v<0.
+\]
+A line bundle of negative degree on a smooth projective connected
+curve has no nonzero section. Every component vector field
+therefore vanishes, so the infinitesimal automorphism vanishes.
+
+The automorphism scheme is an affine group scheme of finite type
+by the preceding diagonal calculation. Its zero tangent space at
+the identity implies that the identity is an isolated reduced
+point: in its noetherian local ring the equality
+$\mathfrak m/\mathfrak m^2=0$ implies $\mathfrak m=0$ by
+Nakayama's lemma. Translation gives the same conclusion at every
+geometric point. A zero-dimensional reduced scheme of finite
+type over $K$ has finitely many points. Thus the stabilizer is
+finite and reduced, and the Deligne--Mumford criterion applies.
+
+In ordinary language, there can be discrete symmetries of the
+curve, but there is no continuously varying infinitesimal symmetry.
+For a genus-two hyperelliptic curve, the involution remains an
+automorphism; it does not prevent the stack from being
+Deligne--Mumford. It does prevent us from identifying that moduli
+problem with a scheme which has the same fiber groupoids.
+
+\begin{Ej}\label{ex:curve-dm}
+Check the three cases $h_v=0$, $h_v=1$, and $h_v\geq2$ in the
+inequality above. Why would a smooth unmarked elliptic curve fail
+this argument? Explain why ``finite automorphism groups'' and
+``trivial automorphism groups'' are different requirements.
+\end{Ej}
+
+\subsection{Properness and the meaning of a limit}
+
+\begin{Prop}\label{prop:curves-proper}
+The Deligne--Mumford stack $\Mgn$ is separated and proper over
+$\CC$.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Deligne--Mumford \cite[Section 2 and Theorem (5.2),
+pp.~104--105]{DM} prove the unpointed properness theorem using
+stable reduction and uniqueness of stable limits.
+Knudsen \cite[Theorem 2.7, p.~179]{Knudsen} proves the pointed
+version. A later detailed explanation in characteristic zero is
+Alper \cite[Theorem 6.5.1 and Section 6.5.1, pp.~242--247;
+Proposition 6.5.20 and Theorem 6.5.23, pp.~251--252]{Alper}.
+Alper's written uniqueness proof is unpointed; the marked
+extension is assigned in Exercise 6.5.22. We take the full pointed
+existence and uniqueness statements from the established pointed
+theorem as external inputs. We do not claim to have supplied a
+new proof of stable reduction here.
+
+\medskip
+\noindent\textbf{Our guided proof.}
+For an algebraic stack, \emph{separated} means that its diagonal
+is proper. In terms of curves this is a statement about extending
+\emph{isomorphisms} between families. \emph{Proper over $\CC$}
+means separated, of finite type, and universally closed over
+$\CC$. The last condition is a completeness condition: limits
+cannot escape after any change of base. To test it effectively we
+use the stack valuative criterion
+\cite[Theorem 4.8.7, pp.~149--150]{Alper}.
+
+Here is the data in that criterion. Let $R$ be a discrete valuation
+ring over $\CC$, let $K$ be its fraction field, and let
+$(C_K,p_1,\ldots,p_n)$ be a stable pointed curve over $K$.
+Think of $\operatorname{Spec}K$ as the punctured base and of
+the closed point of $\operatorname{Spec}R$ as the missing limit.
+The \emph{pointed stable reduction theorem} supplies, after a
+finite extension of the fraction field and a corresponding
+extension of discrete valuation rings $R\subset R'$, a stable
+pointed family $C'\to\operatorname{Spec}R'$ whose generic fiber
+is the prescribed base change of $C_K$.
+
+The second external input is \emph{uniqueness of stable limits}:
+if $C/R$ and $D/R$ are two stable pointed families, then every
+specified pointed isomorphism $C_K\to D_K$ extends to a unique
+pointed isomorphism $C\to D$. The word ``specified'' matters.
+An object may have automorphisms; uniqueness concerns extension
+of one given generic isomorphism, not uniqueness of all possible
+isomorphisms between two limits.
+
+Apply uniqueness to the valuative criterion for the representable
+diagonal. The diagonal is already affine and of finite type, hence
+quasi-compact and separated. The criterion proves that it is
+proper, so $\Mgn$ is separated. In particular its diagonal is
+finite, since an affine proper morphism is finite.
+Apply existence to the valuative criterion for the finite type
+stack $\Mgn\to\operatorname{Spec}\CC$. The permitted finite
+base extension in this criterion is exactly what stable reduction
+provides. The criterion proves universal closedness and hence
+properness. The hypotheses of the criterion have all been supplied:
+algebraicity, finite type, and quasi-separatedness came from the
+Hilbert presentation, and separatedness was just checked.
+Local noetherianness follows from finite type over $\CC$.
+
+Why does stable reduction involve geometry beyond descent?
+An \'etale cover sees every point of the base. The inclusion
+$\operatorname{Spec}K\hookrightarrow\operatorname{Spec}R$
+misses the closed point, so the stack condition cannot manufacture
+a curve over that point. Stable reduction is the theorem that
+does so, using the particular geometry of nodal stable curves.
+
+\begin{Ex}[A genus-two stable boundary point]
+Let $E_1,E_2$ be smooth elliptic curves and identify one point
+on each to form $C=E_1\cup_qE_2$. Its arithmetic genus is two,
+and each elliptic component has one node as a special point,
+so $C$ is stable. A smoothing of this node has local equation
+$xy=t$; the smooth fibers have genus two. The stable fiber at
+$t=0$ belongs to $\overline{\mathcal M}_2$, while it does not
+belong to the open smooth-curve stack $\mathcal M_2$.
+The deformation theorem below supplies such smoothings. Uniqueness
+of stable limits shows that this punctured family cannot instead
+acquire a smooth special fiber after finite base extension.
+This illustrates why $\mathcal M_2$ is not proper and why the
+bar in $\overline{\mathcal M}_2$ matters.
+\end{Ex}
+
+\subsection{Smoothness and actual dimension}
+
+\begin{Prop}\label{prop:curves-smooth}
+The stack $\Mgn$ is smooth over $\CC$ and has pure dimension
+$3g-3+n$.
+\end{Prop}
+
+\noindent\textbf{Original source and proof strategy.}
+Deligne--Mumford \cite[Lemmas (1.3)--(1.4), Proposition (1.5),
+pp.~79--82, and Theorem (5.2), pp.~104--105]{DM} analyze
+deformations of nodal curves and obtain the unpointed smoothness
+statement. Knudsen \cite[Theorem 2.7, p.~179]{Knudsen} gives the
+pointed theorem. Alper \cite[Propositions 6.3.26 and 6.3.28,
+pp.~232--235; Theorem 6.4.16, p.~241]{Alper} computes the
+pointed deformation spaces and their dimension in detail.
+We explain the count on the normalization and state the deformation
+theorem used to pass from that count to smoothness.
+
+\medskip
+\noindent\textbf{Our guided proof.}
+Smoothness of a Deligne--Mumford stack over $\CC$ can be tested
+on an \'etale atlas. Its dimension is the dimension of that atlas
+locally, because an \'etale map has relative dimension zero.
+To prove smoothness we use the infinitesimal lifting criterion:
+a small deformation over an Artinian base must lift when the base
+is enlarged by a square-zero ideal. A deformation of a pointed
+curve means a family together with an identification of its special
+fiber with that fixed pointed curve.
+
+Our \emph{external nodal deformation theorem} has two parts.
+First, deformations of a proper nodal curve with distinct smooth
+marked points have no obstruction to such infinitesimal lifting.
+Second, the vector space of first-order deformations fits in
+\begin{equation}\label{eq:curve-deformations}
+ 0\longrightarrow
+ \bigoplus_v H^1(C_v,T_{C_v}(-B_v))
+ \longrightarrow \operatorname{Def}(C,p_1,\ldots,p_n)
+ \longrightarrow \bigoplus_{q\text{ a node}} T_q
+ \longrightarrow0,
+\end{equation}
+where each $T_q$ is a one-dimensional smoothing space.
+Choosing local coordinates at the two branches identifies it
+with $K$, with deformation equation $xy=\epsilon a$.
+That identification depends on coordinates, but its dimension
+does not. The theorem is Alper's
+\cite[Propositions 6.3.26 and 6.3.28, pp.~232--235]{Alper}.
+The local calculation behind unobstructedness is that a node is
+a single equation $xy=0$ whose deformation parameter can be
+lifted, while a curve has no degree-two coherent cohomology to
+obstruct the global gluing. The theorem makes that local-to-global
+argument precise; we are not developing a general obstruction
+theory in these notes.
+
+The left side of \eqref{eq:curve-deformations} varies the smooth
+normalization components, with every marked point and every
+branch of a node remembered. Such variations keep the nodes
+unsmoothed. The right side allows one smoothing parameter for
+each node. Surjectivity says that these local smoothing parameters
+can be realized by a global first-order deformation.
+
+Let $V$ be the number of normalization components and let
+$\delta$ be the number of nodes. Riemann--Roch and the vanishing
+of $H^0(C_v,T_{C_v}(-B_v))$ proved above give
+\[
+ h^1(C_v,T_{C_v}(-B_v))=3h_v-3+m_v.
+\]
+There are $n$ marked points and two branches per node, so
+$\sum_vm_v=n+2\delta$. The normalization sequence for functions
+gives the genus formula
+\[
+                  g=\sum_vh_v+\delta-V+1.
+\]
+Taking dimensions in \eqref{eq:curve-deformations} now gives
+\begin{align*}
+ \dim\operatorname{Def}(C,p_1,\ldots,p_n)
+ &=\sum_v(3h_v-3+m_v)+\delta\\
+ &=3\sum_vh_v-3V+n+3\delta\\
+ &=3g-3+n.
+\end{align*}
+There are no infinitesimal automorphisms, by
+Proposition~\ref{prop:curves-dm}, so this is the tangent dimension
+on an \'etale chart, without any extra infinitesimal symmetry
+directions to remove. Unobstructedness and the infinitesimal
+lifting criterion show that the charts are smooth; the constant
+tangent dimension then proves the dimension assertion.
+
+\begin{Ex}[Checking the dimension at a nodal genus-two curve]
+For $C=E_1\cup_qE_2$, each normalization component is elliptic
+with one special point. It contributes
+$3\cdot1-3+1=1$ parameter. The node contributes one more.
+The total is $1+1+1=3$, just as at a smooth genus-two curve.
+The locus where this particular node remains unsmoothed has
+only the first two parameters. A singular member of the family
+does not force the moduli stack itself to be singular.
+\end{Ex}
+
+\begin{Ej}\label{ex:curve-dimension}
+Glue two copies of $\mathbb P^1$ along three distinct pairs of
+points, with no markings. Check stability and genus. Use
+\eqref{eq:curve-deformations} to count the dimension of its
+deformation space. Which parameters come from the components,
+and which come from the nodes?
+\end{Ej}
+
+\subsection{What depends on the hypotheses}
+
+All four propositions hold for every stable pair $g,n$ in the
+setup of this chapter. The historical theorems actually prove
+the corresponding proper smooth Deligne--Mumford statements over
+$\operatorname{Spec}\mathbb Z$; we used their base change to
+$\CC$, with the characteristic-zero expositions indicated.
+
+If $2g-2+n\leq0$, the stable pointed moduli problem as defined
+here has no geometric objects. One can still speak of its empty
+stack, but not of a nonempty smooth stack of dimension $3g-3+n$.
+If one instead drops stability while keeping those curves, the
+conclusions change: an unmarked $\mathbb P^1$ has the
+positive-dimensional group $\PGL_2$ of automorphisms, and an
+unmarked elliptic curve has translations. Thus the argument for
+the Deligne--Mumford property would fail.
+
+Finally, smoothness belongs to the \emph{stack}; it is not an
+automatic assertion about its coarse moduli space. Finite group
+quotients of smooth charts can be singular. We have not needed
+the existence or projectivity of a coarse moduli space for either
+the stack proof or the properties proved here.

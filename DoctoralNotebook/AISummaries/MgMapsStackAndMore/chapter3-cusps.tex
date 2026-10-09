@@ -1,0 +1,162 @@
+\chapter{Connection to the cuspidal thesis problem}\label{ch:cusps}
+
+The preceding chapters prove statements about the two specified
+nodal moduli problems. They also identify the work needed for a
+new moduli problem of maps whose source curves may have ordinary
+cusps. They do not construct such a moduli stack by replacing one
+word in a definition.
+
+\section{What transfers formally, and what needs geometry}
+
+An ordinary cusp over an algebraically closed field of characteristic
+zero has completed local ring
+\[
+                   k[[x,y]]/(y^2-x^3)=k[[t^2,t^3]].
+\]
+Unlike a node, it has one branch on normalization. The normalization
+parameterization is $x=t^2,y=t^3$. This local model specifies the
+allowed singularity; it does not specify a stability condition for
+an entire pointed curve or map.
+
+To begin the thesis construction, first write down the objects:
+proper flat finitely presented source families, allowed geometric
+fibers, distinct smooth labelled sections, a map to the fixed target,
+the meaning of $\beta$, and an explicit stability condition. We
+must know whether an elliptic subcurve, a contracted cuspidal
+component, or a rational component with too few attachments is
+allowed. None of those decisions is determined by the word ``cusp.''
+
+Once these data are chosen, the earlier work separates into the
+following tasks.
+
+\begin{enumerate}
+\item \emph{Formal category theory.}
+Use pairs $(u,h)$ with cartesian source squares, preservation of
+markings, and $f=g h$. Identities and composition have the same
+explicit formulas as before. The projection retains the parameter
+scheme. Its fibers are groupoids because the arrows over an identity
+are required to be isomorphisms. These checks need no new theorem
+about cusps.
+
+\item \emph{Base change of the proposed objects.}
+The cartesian-arrow calculation transfers once pulling back an object
+really stays inside the proposed class. Properness, flatness, and
+finite presentation already behave correctly. One must verify the
+geometric singularity and stability conditions over arbitrary
+geometric fibers and arbitrary base changes. A condition stated
+only for closed complex points is not yet enough to define our
+category over all schemes.
+
+\item \emph{The sheaf condition for isomorphisms.}
+The underlying morphism theorem is unchanged. Glue $h_i$, glue
+$h_i^{-1}$, and check the equations for the base, sections, and
+target map after the cover. Once objects are well defined, this
+part does not depend on a node having two branches. It also does
+not establish that the isomorphism sheaf is representable or
+unramified.
+
+\item \emph{Effective descent.}
+Here there is a real geometric input to supply. Nodes and ordinary
+cusps are hypersurface singularities, hence Gorenstein. For a proper
+flat finitely presented family with these geometric fibers, the
+relative-dualizing theorem used earlier therefore still supplies an
+invertible $\omega_{C/S}$ and its base-change identifications.
+Smooth markings still give relative Cartier divisors. The
+candidate bundle
+\[
+       \omega_{C/S}(\textstyle\sum\sigma_a)\otimes f^*A^{\otimes q}
+\]
+is consequently functorial for any fixed integer $q$.
+What needs a proof for the \emph{chosen} stability condition is its
+relative ampleness, or some other effective-descent mechanism.
+The nodal formula counting two node branches cannot simply be
+copied to a cusp. If a suitable functorial ample bundle is found,
+the same polarized descent theorem constructs the total space;
+the maps and sections then descend as before. The permitted
+singularities and the proposed stability condition must be
+recoverable after the chosen covers as well.
+
+\item \emph{Algebraicity and the Deligne--Mumford property.}
+These are further theorems. One needs a bounded embedding result
+and a representable parameter locus for the permitted cuspidal
+families and maps (or another algebraicity argument). One must
+prove representability of the diagonal and control infinitesimal
+automorphisms. Finiteness of automorphisms, and the role of
+characteristic zero, must be justified for the new stability
+condition. Canonical ampleness alone no longer gives the nodal
+argument; see the example below.
+
+\item \emph{Finite type, separatedness, and properness.}
+Finite type requires a uniform bound for the chosen discrete data.
+Separatedness requires uniqueness of an extension of an
+isomorphism. Properness requires existence of admissible limits
+after suitable finite base changes, with the desired stability
+condition, and compatibility with the target map. Ordinary stable
+reduction proves these statements for the nodal compactification;
+it is not a proof of them for a different cuspidal compactification.
+One must prove or locate the corresponding theorems for the exact
+new moduli problem.
+\end{enumerate}
+
+In particular, the geometry needed for object descent is different
+from the geometry needed for a finite-type atlas or for a unique
+limit. Keeping these obligations separate tells us which claim
+has actually been established at any point in the thesis.
+
+\section{A small warning supplied by an actual cusp}
+
+\begin{Ex}[Ample pointed dualizing bundle with infinitely many automorphisms]
+Consider the projective cuspidal cubic
+\[
+                  C=\{y^2z=x^3\}\subset\PP^2_{\CC},
+                  \qquad p=[0:1:0].
+\]
+The point $p$ is smooth and the cusp is $[0:0:1]$.
+The normalization is $\PP^1$. At the cusp, the quotient
+$\CC[[t]]/\CC[[t^2,t^3]]$ has dimension one, with basis
+the class of $t$. The normalization sequence therefore gives
+$\chi(\mathcal O_C)=\chi(\mathcal O_{\PP^1})-1=0$, so
+the arithmetic genus is one. As a hypersurface, $C$ is
+Gorenstein, and its dualizing sheaf is invertible. The general
+Gorenstein-curve formula
+$\deg\omega_C=2p_a(C)-2$, Stacks Project Lemma 53.8.3,
+\MCtag{0C19}, gives degree zero. Thus $\omega_C(p)$ has
+degree one and is ample, by the componentwise ampleness
+criterion \MCtag{0B5Y}. This calculation does not presume
+that the curve is nodal.
+
+Nevertheless, for every $\lambda\in\CC^*$,
+\[
+       [x:y:z]\longmapsto[\lambda^2x:\lambda^3y:z]
+\]
+preserves $C$ and fixes $p$. These are infinitely many distinct
+automorphisms, forming a positive-dimensional group. They also
+give nonzero infinitesimal automorphisms by allowing
+$\lambda=1+\epsilon$ with $\epsilon^2=0$.
+
+This object is not asserted to belong to any proposed
+pseudostable moduli problem. It shows concretely why the nodal
+equivalence between the stability inequalities, canonical
+ampleness, and finite automorphisms needs reconsideration when
+cusps are admitted. For a constant map $C\to X$, these
+automorphisms still preserve the map. For the inclusion
+$C\hookrightarrow\PP^2$, an automorphism preserving that
+inclusion must be the identity. The target map can change the
+automorphism calculation dramatically.
+\end{Ex}
+
+\begin{Ej}\label{ex:cusp-roadmap}
+Suppose you have proved a functorial ample-bundle theorem for
+your proposed cuspidal maps and that all defining conditions
+are local for \'etale covers. Which of Fantechi's two conditions
+can you now prove? Which further assertions are still required
+before calling the result a proper Deligne--Mumford stack?
+Use the cuspidal cubic to explain why the second question is
+not answered merely by ampleness.
+\end{Ej}
+
+The next thesis step is therefore to specify the exact cuspidal
+stability condition and test these obligations against it. These
+notes establish neither the intended pseudostable-map stack nor
+a virtual class for it. The later theories named in the project
+brief are deliberately left for subsequent notes.
