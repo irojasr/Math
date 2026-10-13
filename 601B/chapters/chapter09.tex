@@ -1,0 +1,2819 @@
+\chapter[Localization and Toric Riemann--Roch]
+{Localization and Toric\\ Riemann--Roch}
+\label{chap:localization-toric-rr}
+
+\begin{chapteroverview}
+Chapter~8 showed that the fan of a smooth complete toric variety
+determines its cohomology ring. We now ask what we can \emph{do} with
+that ring. The answer will be unexpectedly arithmetic: characteristic
+classes in cohomology compute Euler characteristics of line bundles,
+and on a projective toric variety those Euler characteristics become
+counts of lattice points.
+
+There is a second idea running through the chapter. Ordinary
+cohomology forgets the torus action, even though that action is the
+source of most of the geometry. Equivariant cohomology remembers it.
+For a smooth toric variety it has a strikingly combinatorial model as
+piecewise polynomial functions on the fan, and localization reduces
+global integrals to contributions from torus fixed points.
+
+The chapter follows the progression
+\[
+\boxed{
+\begin{gathered}
+\text{Chern character and Todd class}
+\longrightarrow
+\text{piecewise polynomial equivariant classes}
+\\[-1mm]
+\longrightarrow
+\text{fixed-point localization}
+\longrightarrow
+\text{toric Riemann--Roch and lattice points}.
+\end{gathered}}
+\]
+Throughout, varieties are defined over \(\CC\). Unless stated
+otherwise, the toric varieties in this chapter are smooth and complete.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The same toric data will now appear in three new roles.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Fan and polytope}
+&
+\textbf{Equivariant topology}
+&
+\textbf{Index theory}
+\\
+\midrule
+ray \(\rho\) and divisor \(D_\rho\)
+&
+degree-two class
+&
+factor in \(\operatorname{Td}(X)\)
+\\
+polynomial on each cone
+&
+equivariant cohomology class
+&
+fixed-point restriction
+\\
+maximal cone \(\sigma\)
+&
+torus fixed point \(x_\sigma\)
+&
+localization contribution
+\\
+lattice points of \(P_D\)
+&
+weights of global sections
+&
+Euler characteristic of \(\mathcal O(D)\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+On a smooth complete toric surface, the theory developed in this
+chapter will collapse to an especially concrete formula. For a divisor
+\(D\),
+\[
+\boxed{
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+1+\frac12 D\cdot(D-K_X).
+}
+\]
+Thus the intersection form recovered from the fan in the challenge at
+the end of Chapter~8 already contains enough information to compute
+Euler characteristics of every line bundle. The first section will
+derive this formula; the rest of the chapter will explain why the same
+phenomenon in every dimension can be localized at the fixed points and,
+for ample divisors, read as lattice-point counting.
+\end{surfacelaboratory}
+
+\section{Chern characters, Todd classes, and Riemann--Roch}
+\label{sec:chern-todd-hrr}
+\index{Chern class}
+\index{Chern character}
+\index{Todd class}
+\index{Hirzebruch--Riemann--Roch}
+
+The cohomology ring from Chapter~8 records intersections of divisor
+classes. Riemann--Roch asks us to package those classes in a slightly
+different way. Given a line bundle \(L\), we want to recover the
+alternating sum
+\[
+\chi(X,L)
+:=
+\sum_{i=0}^{\dim X}(-1)^i\dim_\CC H^i(X,L)
+\]
+from cohomological data on \(X\).
+
+Only three ingredients will be needed: Chern classes, the Chern
+character, and the Todd class. We introduce only the parts of their
+general theory that enter the toric calculation.
+
+\subsection{The tangent bundle from the boundary divisors}
+
+Let \(E\) be a complex vector bundle of rank \(r\). Its Chern classes
+are classes
+\[
+c_i(E)\in H^{2i}(X;\ZZ),
+\qquad
+c(E)=1+c_1(E)+\cdots+c_r(E).
+\]
+For us, the two essential rules are
+\[
+c(L)=1+c_1(L)
+\]
+for a line bundle \(L\), and the Whitney product formula
+\[
+c(E)=c(E')c(E'')
+\]
+for a short exact sequence
+\[
+0\longrightarrow E'
+\longrightarrow E
+\longrightarrow E''
+\longrightarrow0.
+\]
+If \(D\) is a Cartier divisor, then
+\[
+c_1\bigl(\mathcal O_X(D)\bigr)=[D].
+\]
+
+For a smooth toric variety, there is a generalized Euler sequence that
+plays the role of the familiar Euler sequence on projective space. If
+\(r=|\Sigma(1)|\) and \(n=\dim X_\Sigma\), its tangent-bundle form is
+\[
+0
+\longrightarrow
+\mathcal O_{X_\Sigma}^{\,r-n}
+\longrightarrow
+\bigoplus_{\rho\in\Sigma(1)}
+\mathcal O_{X_\Sigma}(D_\rho)
+\longrightarrow
+T_{X_\Sigma}
+\longrightarrow0.
+\]
+It is the dual of Cox--Little--Schenck, Theorem~8.1.6. We need only
+this consequence of the sequence here.
+
+The trivial bundle on the left has total Chern class \(1\), so the
+Whitney formula immediately makes the Chern classes combinatorial.
+
+\begin{proposition}[Chern class of a smooth toric variety]
+\label{prop:toric-total-chern-class}
+Let \(X_\Sigma\) be smooth and complete. Then
+\[
+\boxed{
+c(T_{X_\Sigma})
+=
+\prod_{\rho\in\Sigma(1)}\bigl(1+[D_\rho]\bigr).
+}
+\]
+In particular,
+\[
+c_1(T_{X_\Sigma})
+=
+\sum_\rho[D_\rho]
+=
+[-K_{X_\Sigma}],
+\]
+and, if \(n=\dim X_\Sigma\),
+\[
+c_n(T_{X_\Sigma})
+=
+|\Sigma(n)|[\mathrm{pt}].
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~13.1.2. Their
+Example~13.1.1 derives the same formula from the cotangent form of the
+generalized Euler sequence.
+
+\begin{proof}[Conceptual proof sketch]
+Apply the Whitney product formula to the tangent Euler sequence. Each
+summand \(\mathcal O(D_\rho)\) contributes \(1+[D_\rho]\), while the
+trivial bundle contributes nothing. The degree-two part of the product
+is \(\sum_\rho[D_\rho]=[-K_X]\).
+
+For the top class, expand the product in the cohomology ring from
+Chapter~8. A product of \(n\) distinct invariant-divisor classes is the
+class of a point precisely when the corresponding rays form a maximal
+cone, and is zero otherwise. Thus every maximal cone contributes one
+copy of \([\mathrm{pt}]\).
+\end{proof}
+
+The last statement reconnects immediately with Chapter~8:
+\[
+\int_X c_n(T_X)
+=
+|\Sigma(n)|
+=
+\chi_{\mathrm{top}}(X).
+\]
+The topological Euler characteristic counted fixed points. The
+holomorphic Euler characteristics we want next require a different
+combination of the same Chern data.
+
+\subsection{The Chern character is an exponential}
+
+For a line bundle there is almost nothing to remember.
+
+\begin{definition}[Chern character of a line bundle]
+\label{def:chern-character-line-bundle}
+Let \(L\) be a line bundle on a smooth complete variety. Its
+\emph{Chern character} is
+\[
+\ch(L)
+:=
+e^{c_1(L)}
+=
+1+c_1(L)+\frac{c_1(L)^2}{2!}
++\frac{c_1(L)^3}{3!}+\cdots
+\in H^*(X;\QQ).
+\]
+\end{definition}
+
+The apparent infinite series is actually finite on an
+\(n\)-dimensional variety: every term above cohomological degree
+\(2n\) vanishes. Thus, for \(L=\mathcal O_X(D)\),
+\[
+\boxed{
+\ch\bigl(\mathcal O_X(D)\bigr)=e^{[D]}.
+}
+\]
+The exponential is exactly the right operation because tensor product
+of line bundles becomes multiplication:
+\[
+\ch(L_1\otimes L_2)
+=
+\ch(L_1)\ch(L_2).
+\]
+
+\begin{remark}
+The denominators are the first reason rational cohomology naturally
+appears in Riemann--Roch. Nothing is being completed analytically:
+all power series in this chapter are truncated by dimension.
+\end{remark}
+
+\subsection{The Todd class is the correction factor}
+
+Suppose formally that the Chern classes of \(T_X\) factor as
+\[
+c(T_X)=\prod_{i=1}^n(1+\xi_i).
+\]
+The symbols \(\xi_i\) are called the \emph{Chern roots}. The splitting
+principle allows us to calculate with them as though the tangent bundle
+were a sum of line bundles. Define
+\[
+Q(x)
+:=
+\frac{x}{1-e^{-x}}
+=
+1+\frac{x}{2}+\frac{x^2}{12}
+-\frac{x^4}{720}+\cdots.
+\]
+
+\begin{definition}[Todd class]
+\label{def:todd-class}
+For a smooth complete \(n\)-fold \(X\), the \emph{Todd class} is
+\[
+\operatorname{Td}(X)
+:=
+\prod_{i=1}^n Q(\xi_i)
+=
+\prod_{i=1}^n
+\frac{\xi_i}{1-e^{-\xi_i}}
+\in H^*(X;\QQ).
+\]
+\end{definition}
+
+The first terms, written without Chern roots, are
+\[
+\operatorname{Td}(X)
+=
+1+\frac12c_1
++\frac1{12}(c_1^2+c_2)
++\frac1{24}c_1c_2+\cdots.
+\]
+As always, only terms through degree \(2\dim X\) matter.
+
+For a toric variety the formal Chern roots can disappear entirely.
+
+\begin{theorem}[The toric Todd class]
+\label{thm:toric-todd-class}
+Let \(X_\Sigma\) be a smooth complete toric variety. Then
+\[
+\boxed{
+\operatorname{Td}(X_\Sigma)
+=
+\prod_{\rho\in\Sigma(1)}
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+}
+\]
+The right-hand side is interpreted through the power series
+\(Q(x)\), so every factor has constant term \(1\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~13.1.6.
+
+\begin{proof}[Conceptual proof sketch]
+Characteristic classes defined by a power series are multiplicative
+for exact sequences. Apply this to the tangent Euler sequence. The
+trivial summands have Todd class \(1\), while
+\(\mathcal O(D_\rho)\) contributes
+\[
+Q([D_\rho])
+=
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+\]
+Multiplying over the rays gives the formula. Equivalently,
+\cref{prop:toric-total-chern-class} says that the divisor classes
+behave, for symmetric characteristic-class calculations, like a
+redundant list of Chern roots.
+\end{proof}
+
+This is the first major payoff of the toric boundary. A characteristic
+class of the tangent bundle has become a product indexed by the rays of
+the fan, and every factor lives in the cohomology ring we already know
+how to compute.
+
+\subsection{Hirzebruch--Riemann--Roch}
+
+We can now state the theorem that motivates the chapter. If
+\(\alpha\in H^*(X;\QQ)\) and \(\dim X=n\), write
+\[
+\int_X\alpha
+\]
+for evaluation of the degree-\(2n\) part of \(\alpha\) on the
+fundamental class of \(X\). In particular,
+\[
+\int_X[\mathrm{pt}]=1.
+\]
+
+\begin{theorem}[Hirzebruch--Riemann--Roch for toric line bundles]
+\label{thm:toric-hrr}
+Let \(X=X_\Sigma\) be a smooth complete toric variety and let \(L\) be
+a line bundle on \(X\). Then
+\[
+\boxed{
+\chi(X,L)
+=
+\int_X\ch(L)\operatorname{Td}(X).
+}
+\]
+For \(L=\mathcal O_X(D)\), this becomes
+\[
+\boxed{
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+\int_X
+e^{[D]}
+\prod_{\rho\in\Sigma(1)}
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+}
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The general HRR formula is equation~(13.0.1) in
+Cox--Little--Schenck. The line-bundle statement for smooth complete
+toric varieties is their Theorem~13.3.8, obtained from equivariant
+Riemann--Roch by taking the nonequivariant limit.
+
+\begin{proof}[Conceptual proof sketch]
+We will not reproduce the general proof of Riemann--Roch. Its message
+is that the Chern character converts the algebra of a line bundle into
+cohomology, while the Todd class corrects for the geometry of the
+tangent bundle. Their product has a top-degree component, and
+integration of that component recovers the alternating sum of sheaf
+cohomology dimensions.
+
+For toric varieties there is a more concrete mechanism behind this
+global statement. In Sections~9.2 and~9.3 we will retain the torus
+action in equivariant cohomology and then use localization to reduce an
+integral to fixed-point contributions. Taking the nonequivariant limit
+of that calculation is precisely the route used in CLS to prove the
+toric statement above.
+\end{proof}
+
+\paragraph{A four-step computation.}
+For a smooth complete toric variety, HRR has become a calculation in
+the ring from Section~8.4:
+\begin{enumerate}[label=\arabic*.,wide=0pt]
+\item write \([D]\) and the invariant classes \([D_\rho]\) in
+      \(H^*(X;\QQ)\);
+\item expand \(e^{[D]}\) only through degree \(2\dim X\);
+\item expand each Todd factor
+      \(1+\frac12[D_\rho]+\frac1{12}[D_\rho]^2+\cdots\);
+\item use the fan relations and keep only the top-degree coefficient.
+\end{enumerate}
+That coefficient is \(\chi(X,\mathcal O_X(D))\).
+
+\subsection{The first calculation: line bundles on
+\texorpdfstring{\(\PP^1\)}{P1}}
+
+Let \(H\in H^2(\PP^1;\ZZ)\) be the class of a point divisor. From
+Chapter~8,
+\[
+H^*(\PP^1;\ZZ)
+\simeq
+\frac{\ZZ[H]}{\langle H^2\rangle},
+\qquad
+\int_{\PP^1}H=1.
+\]
+There are two invariant divisors, both of class \(H\). Since
+\(H^2=0\), the Todd product truncates immediately:
+\[
+\operatorname{Td}(\PP^1)
+=
+\left(1+\frac12H\right)^2
+=
+1+H.
+\]
+For \(L=\mathcal O_{\PP^1}(d)\),
+\[
+\ch(L)=e^{dH}=1+dH.
+\]
+Therefore
+\[
+\begin{aligned}
+\chi\bigl(\PP^1,\mathcal O(d)\bigr)
+&=
+\int_{\PP^1}(1+dH)(1+H)\\
+&=
+\int_{\PP^1}(d+1)H
+=d+1.
+\end{aligned}
+\]
+
+Notice that HRR computes the \emph{Euler characteristic}, not merely
+the number of global sections. When \(d\ge0\), higher cohomology
+vanishes and this says
+\[
+h^0\bigl(\PP^1,\mathcal O(d)\bigr)=d+1.
+\]
+For \(d=-2\), however,
+\(\chi(\mathcal O(-2))=-1\): the negative sign records a nonzero
+\(H^1\), not a negative-dimensional space of sections.
+
+\subsection{Surfaces: Riemann--Roch becomes intersection theory}
+
+Let \(X\) be a smooth complete surface. Since \(c_1(T_X)=-K_X\),
+\[
+\operatorname{Td}(X)
+=
+1-\frac12K_X
++\frac1{12}(K_X^2+c_2(X)),
+\]
+while
+\[
+\ch\bigl(\mathcal O_X(D)\bigr)
+=
+1+D+\frac12D^2.
+\]
+Only cohomological degree four survives integration. HRR therefore
+gives
+\[
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+\frac12D\cdot(D-K_X)
++\frac1{12}\int_X(K_X^2+c_2(X)).
+\]
+Applying the same formula to \(D=0\) identifies the last term with
+\(\chi(X,\mathcal O_X)\). Hence
+\[
+\boxed{
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+\chi(X,\mathcal O_X)
++\frac12D\cdot(D-K_X).
+}
+\]
+This is the familiar surface Riemann--Roch formula. For a smooth
+complete toric variety,
+\[
+H^i(X,\mathcal O_X)=0\qquad(i>0),
+\]
+so \(\chi(X,\mathcal O_X)=1\). We recover the formula announced at
+the beginning of the chapter:
+\[
+\boxed{
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+1+\frac12D\cdot(D-K_X).
+}
+\]
+
+\noindent
+\textit{Reference.}
+The surface calculation is Cox--Little--Schenck,
+Example~13.1.7 and Exercise~13.1.2; see their equation~(13.1.7).
+
+\subsection{A triangle already knows Riemann--Roch}
+
+Take \(X=\PP^2\) and let \(H\) be the hyperplane class. We know
+\[
+H^*(\PP^2;\ZZ)
+\simeq
+\frac{\ZZ[H]}{\langle H^3\rangle},
+\qquad
+\int_{\PP^2}H^2=1.
+\]
+The three invariant divisors all represent \(H\), so
+\[
+\begin{aligned}
+\operatorname{Td}(\PP^2)
+&=
+\left(1+\frac12H+\frac1{12}H^2\right)^3\\
+&=
+1+\frac32H+H^2.
+\end{aligned}
+\]
+For \(L=\mathcal O_{\PP^2}(d)\),
+\[
+\ch(L)
+=
+1+dH+\frac{d^2}{2}H^2.
+\]
+Multiplying and taking the coefficient of \(H^2\),
+\[
+\begin{aligned}
+\chi\bigl(\PP^2,\mathcal O(d)\bigr)
+&=
+1+\frac32d+\frac12d^2\\
+&=
+\frac{(d+1)(d+2)}{2}.
+\end{aligned}
+\]
+For \(d\ge0\), higher cohomology vanishes, and the last number is
+also
+\[
+\#\bigl(d\Delta_2\cap\ZZ^2\bigr),
+\]
+the number of lattice points in the degree-\(d\) triangle. At the
+moment this is a familiar coincidence: monomials of degree \(d\)
+already explain the same count. By the end of the chapter, it will be
+the model for a general toric Riemann--Roch principle.
+
+\begin{dictionarytable}
+Section~8.4 turned fan data into a cohomology ring. The present section
+has added two universal operations inside that ring:
+\[
+[D]
+\longmapsto
+e^{[D]},
+\qquad
+\{[D_\rho]\}_\rho
+\longmapsto
+\prod_\rho
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+\]
+Their top-degree product is an integer: the Euler characteristic of a
+line bundle. What is still hidden is the torus action itself. The next
+section keeps that information and turns cohomology classes into
+polynomials living directly on the fan.
+\end{dictionarytable}
+
+\begin{guidingquestion}
+Ordinary cohomology has forgotten the torus action. Is there a version
+of cohomology in which a class can be read cone by cone from the fan,
+and whose restrictions to maximal cones remember the torus fixed
+points?
+\end{guidingquestion}
+
+\section{Equivariant cohomology and piecewise polynomials}
+\label{sec:equivariant-piecewise-polynomials}
+\index{equivariant cohomology}
+\index{Borel construction}
+\index{piecewise polynomial}
+\index{support function!as an equivariant class}
+
+There is a small paradox in the cohomology ring from Chapter~8. The
+torus action organizes nearly everything we do with a toric variety,
+yet the ordinary cohomology ring does not remember the action itself.
+Equivariant cohomology repairs this by keeping track of a space
+\emph{together with} its torus action.
+
+For the rest of this section we write
+\[
+K_N=\Hom_{\ZZ}(M,S^1)\simeq(S^1)^n
+\]
+for the compact torus from Section~8.1. The algebraic torus
+\(T_N\simeq(\CC^*)^n\) deformation retracts onto \(K_N\), so this is the
+same topological equivariant theory that Cox--Little--Schenck denote by
+\(H_T^*(-)\). We use rational coefficients in the main statements;
+for a smooth fan the same combinatorics also has an integral version.
+
+\subsection{The Borel construction: remembering the action}
+
+If a compact group \(K\) acts freely on a space \(X\), the quotient
+\(X/K\) is often the right space to study. A torus action on a toric
+variety is very far from free: fixed points are central to the story.
+The Borel construction replaces the action by an auxiliary free one.
+
+Choose a contractible space \(EK\) on which \(K\) acts freely, and put
+\[
+BK:=EK/K.
+\]
+The diagonal action on \(EK\times X\) is free, so we may form
+\[
+EK\times_KX:=(EK\times X)/K.
+\]
+
+\begin{definition}[Equivariant cohomology]
+\label{def:equivariant-cohomology}
+The \emph{\(K\)-equivariant cohomology} of a \(K\)-space \(X\) is
+\[
+H_K^*(X;\QQ)
+:=
+H^*(EK\times_KX;\QQ).
+\]
+\end{definition}
+
+\begin{agcheatsheet}
+For an algebraic geometer, the easiest way to remember equivariant
+cohomology is as a cohomology theory for a space \emph{together with an
+action}.  Write
+\[
+X_K:=EK\times_KX
+\]
+for the Borel construction, sometimes called the \emph{homotopy
+quotient}.  It is designed to satisfy the following basic tests.
+An equivariant map \(f:X\to Y\) induces a map \(X_K\to Y_K\), so
+\(H_K^*(-)\) is a contravariant functor on \(K\)-spaces, just as
+ordinary cohomology is a contravariant functor on spaces.
+
+\begin{enumerate}[label=\arabic*.,wide=0pt]
+\item \textbf{Free actions give ordinary quotients.}
+If \(K\) acts freely on \(X\), then
+\[
+X_K\simeq X/K,
+\qquad
+H_K^*(X)\simeq H^*(X/K).
+\]
+Thus equivariant cohomology really does extend the familiar operation
+of taking the cohomology of a geometric quotient.
+
+\item \textbf{A trivial action gives a tensor product.}
+If \(K\) acts trivially on \(X\), then
+\[
+X_K=BK\times X,
+\]
+so, over \(\QQ\), the K\"unneth theorem gives
+\[
+H_K^*(X;\QQ)
+\simeq
+H^*(X;\QQ)\otimes_\QQ H_K^*(\mathrm{pt};\QQ).
+\]
+The second factor is the extra cohomology contributed by the group.
+
+\item \textbf{Equivariant cohomology is a module over the cohomology
+of a point.}
+The projection \(X_K\to BK\) makes
+\[
+H_K^*(X;\QQ)
+\]
+an algebra, and in particular a module, over
+\[
+H_K^*(\mathrm{pt};\QQ)=H^*(BK;\QQ).
+\]
+For a torus this coefficient ring is a polynomial ring.  Its variables
+are the \emph{equivariant parameters} that keep track of the action.
+
+\item \textbf{There is a nonequivariant limit.}
+The fibration
+\[
+X\longrightarrow X_K\longrightarrow BK
+\]
+gives a forgetful map \(H_K^*(X)\to H^*(X)\).  Algebraically, forgetting
+the action means sending every positive-degree class in \(H^*(BK)\) to
+zero.  When \(X\) is \emph{equivariantly formal}---in particular, when
+\(H^{\mathrm{odd}}(X;\QQ)=0\)---this gives
+\[
+H^*(X;\QQ)
+\simeq
+H_K^*(X;\QQ)
+\otimes_{H^*(BK;\QQ)}\QQ,
+\]
+where \(H^*(BK;\QQ)\to\QQ\) kills all positive-degree elements.
+
+Smooth complete toric varieties are equivariantly formal.  In that
+case, as a module over \(H^*(BK;\QQ)\), one may think additively of
+\[
+H_K^*(X;\QQ)
+\simeq
+H^*(X;\QQ)\otimes_\QQ H^*(BK;\QQ).
+\]
+This module isomorphism is not canonical in general, and the tensor
+product formula should \emph{not} be taken as a property of every
+group action.
+\end{enumerate}
+
+These four tests are usually enough intuition for the calculations in
+this chapter: equivariant cohomology interpolates between the
+cohomology of a quotient and the ordinary cohomology of \(X\), while
+remembering the group action through the coefficient ring \(H^*(BK)\).
+\end{agcheatsheet}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~12.4.6. Their
+equations~(12.4.7)--(12.4.9) compute the coefficient ring for a torus.
+
+\begin{example}[The coefficient ring for \(S^1\)]
+\label{ex:bs1-equivariant-point}
+Let \(S^1\) act on the infinite-dimensional unit sphere
+\(S^\infty\subset\CC^\infty\) by scalar multiplication.  This action
+is free, and \(S^\infty\) is contractible, so one may take
+\[
+ES^1=S^\infty,
+\qquad
+BS^1=\PP^\infty,
+\]
+where \(\PP^\infty\) is the direct limit of the finite-dimensional
+projective spaces.  Since
+\[
+H^*(BS^1;\ZZ)\simeq\ZZ[t],
+\qquad
+t=c_1\bigl(\mathcal O_{\PP^\infty}(1)\bigr),
+\qquad
+\deg t=2,
+\]
+we obtain
+\[
+\boxed{H_{S^1}^*(\mathrm{pt};\ZZ)\simeq\ZZ[t].}
+\]
+The finite-dimensional approximations are already familiar to an
+algebraic geometer:
+\[
+S^{2r+1}/S^1=\PP^r.
+\]
+As \(r\) grows, their cohomology stabilizes in every fixed degree and
+produces the polynomial ring above.
+\end{example}
+
+\begin{example}[The algebraic torus]
+\label{ex:algebraic-torus-equivariant-point}
+Now let
+\[
+T_N=\Hom_\ZZ(M,\CC^*)\simeq(\CC^*)^n
+\]
+be the algebraic torus.  Over \(\CC\), it deformation retracts onto its
+maximal compact torus
+\[
+K_N=\Hom_\ZZ(M,S^1)\simeq(S^1)^n.
+\]
+Consequently their classifying spaces have the same homotopy type, and
+taking products of the preceding example gives
+\[
+BT_N\simeq BK_N\simeq(\PP^\infty)^n.
+\]
+
+More intrinsically, every character \(m\in M\) gives a homomorphism
+\(T_N\to\CC^*\), hence a map of classifying spaces to
+\(B\CC^*\simeq\PP^\infty\).  Pulling back the universal degree-two
+class identifies the character lattice with the degree-two part of the
+coefficient ring.  Thus
+\[
+\boxed{
+H_{T_N}^*(\mathrm{pt};\ZZ)
+\simeq
+H_{K_N}^*(\mathrm{pt};\ZZ)
+\simeq
+\operatorname{Sym}_{\ZZ}(M),
+}
+\]
+where elements of \(M\) have cohomological degree \(2\).  After
+tensoring with \(\QQ\), we will write
+\[
+S:=\operatorname{Sym}_{\QQ}(M_\QQ).
+\]
+If a basis \(m_1,\ldots,m_n\) of \(M\) is chosen, this simply reads
+\[
+S\simeq\QQ[t_1,\ldots,t_n],
+\qquad \deg t_i=2.
+\]
+The same approximation can be written entirely in algebraic geometry.
+After choosing coordinates on \(T_N\), let it act factor by factor on
+\[
+U_r:=\bigl(\AAA^{r+1}\setminus\{0\}\bigr)^n.
+\]
+The action is free and
+\[
+U_r/T_N\simeq(\PP^r)^n.
+\]
+As \(r\to\infty\), these quotients approximate \(BT_N\) in increasing
+cohomological degrees.  Thus the topological classifying space above
+is already visible through a familiar sequence of algebraic quotients.
+\end{example}
+
+Thus equivariant cohomology is not merely a graded \(\QQ\)-algebra: it
+is naturally an \(S\)-algebra. The extra variables in \(S\) are the
+parameters that remember the torus action.
+
+\begin{pauseandthink}
+Test the cheatsheet on \(S^1\) itself.  If \(S^1\) acts on itself by
+rotation, the action is free, so what is \(H_{S^1}^*(S^1;\QQ)\)?  What
+does it become if the action is trivial instead?  The underlying space
+has not changed; only the action has.  Where does equivariant
+cohomology record the difference?
+\end{pauseandthink}
+
+\subsection{What a toric equivariant class looks like}
+
+Now take a smooth complete fan \(\Sigma\subseteq N_\RR\). Every maximal
+cone \(\sigma\in\Sigma(n)\) corresponds to a torus fixed point
+\(x_\sigma\). Restriction to the fixed points gives a map
+\[
+H_{K_N}^*(X_\Sigma;\QQ)
+\longrightarrow
+\bigoplus_{\sigma\in\Sigma(n)}
+H_{K_N}^*(x_\sigma;\QQ)
+\simeq
+\bigoplus_{\sigma\in\Sigma(n)}S.
+\]
+So an equivariant class determines one polynomial \(f_\sigma\in S\)
+at each maximal cone. Those polynomials cannot be chosen
+independently: neighboring fixed points are joined by one-dimensional
+orbits, and this forces their polynomials to agree on the common face.
+
+This is exactly the gluing rule for piecewise polynomial functions.
+
+\begin{definition}[Piecewise polynomial functions on a fan]
+\label{def:piecewise-polynomial-fan}
+Let \(PP^*(\Sigma;\QQ)\) be the ring of functions
+\[
+f:|\Sigma|\longrightarrow\RR
+\]
+whose restriction to every cone is given by a polynomial with rational
+coefficients. Equivalently, for a complete fan it is the ring of collections
+\[
+\{f_\sigma\in S:\sigma\in\Sigma(n)\}
+\]
+such that
+\[
+f_\sigma|_{\sigma\cap\sigma'}
+=
+f_{\sigma'}|_{\sigma\cap\sigma'}
+\]
+for every pair of maximal cones. A polynomial of ordinary degree \(k\)
+is placed in cohomological degree \(2k\).
+\end{definition}
+
+For instance, degree-two equivariant classes correspond to rational
+functions that are linear on each cone. The integral classes recover
+precisely the integral support functions that first appeared in
+Chapter~4.
+
+\begin{theorem}[Equivariant cohomology is piecewise polynomial]
+\label{thm:equivariant-piecewise-polynomial}
+Let \(X_\Sigma\) be a smooth complete toric variety. Then restriction
+to the torus fixed points induces an isomorphism of \(S\)-algebras
+\[
+\boxed{
+H_{K_N}^*(X_\Sigma;\QQ)
+\simeq
+PP^*(\Sigma;\QQ).
+}
+\]
+The same ring also has the Stanley--Reisner presentation
+\[
+\boxed{
+H_{K_N}^*(X_\Sigma;\QQ)
+\simeq
+\frac{\QQ[x_\rho:\rho\in\Sigma(1)]}{I_\Sigma},
+\qquad
+\deg x_\rho=2.
+}
+\]
+Here \(x_\rho\) is the equivariant class of \(D_\rho\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The Stanley--Reisner presentation is Cox--Little--Schenck,
+Theorem~12.4.14. The piecewise-polynomial interpretation is the
+discussion following their exact sequence~(12.4.18); see especially
+Example~12.4.18 for \(\PP^2\). They explain immediately before that
+discussion that for a smooth fan the same argument may be carried out
+integrally.
+
+\begin{proof}[Conceptual proof sketch]
+On the affine chart \(U_\sigma\) of a maximal cone, the torus action
+equivariantly retracts onto the fixed point \(x_\sigma\). Thus an
+equivariant class restricts there to an element of
+\(H_{K_N}^*(x_\sigma)\simeq S\), giving the polynomial \(f_\sigma\).
+On an overlap, the two restrictions come from the same global class,
+so they agree on the common face.
+
+The nontrivial direction is that these compatibility conditions are
+enough. The Chang--Skjelbred exact sequence used in CLS says, in this
+toric setting, that equivariant cohomology is determined by the fixed
+points and the one-dimensional orbits joining them. Hence every
+compatible collection glues to an equivariant class. Describing the
+same gluing with one generator for each invariant divisor gives the
+Stanley--Reisner presentation: nonfaces give exactly the monomial
+relations in \(I_\Sigma\).
+\end{proof}
+
+This theorem explains something that was only foreshadowed in
+Section~8.4. Ordinary cohomology required \emph{two} ideals,
+\(I_\Sigma+J_\Sigma\). Equivariant cohomology requires only
+\(I_\Sigma\). The linear relations have not vanished; they have become
+the coefficient-ring variables that remember the action.
+
+There is one sign convention worth recording. With our convention
+\[
+\operatorname{div}(\character{m})
+=
+\sum_\rho\langle m,u_\rho\rangle D_\rho,
+\]
+the \(S\)-algebra structure on the Stanley--Reisner presentation sends
+\[
+m
+\longmapsto
+-\theta_m
+=
+-\sum_\rho\langle m,u_\rho\rangle x_\rho.
+\]
+This is Cox--Little--Schenck's convention and is compatible with the
+support-function convention from Chapter~4. The sign will disappear
+when we pass to ordinary cohomology.
+
+\subsection{The first picture: \texorpdfstring{\(\PP^1\)}{P1}}
+
+Let \(N=M=\ZZ\), and write \(t\) for the degree-two generator of
+\[
+S=\QQ[t].
+\]
+The fan of \(\PP^1\) has two maximal cones
+\[
+\sigma_+=\RR_{\ge0},
+\qquad
+\sigma_-=\RR_{\le0},
+\]
+meeting at the origin. A piecewise polynomial is therefore a pair
+\((f_+,f_-)\in S^2\) whose values agree at \(0\). Algebraically,
+\[
+f_+-f_-\in(t).
+\]
+Hence
+\[
+\boxed{
+H_{K_N}^*(\PP^1;\QQ)
+\simeq
+\bigl\{(f_+,f_-)\in\QQ[t]^2:
+f_+-f_-\in(t)\bigr\}.
+}
+\]
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[->,thick] (-4.2,0) -- (4.2,0);
+  \fill (0,0) circle (1.8pt);
+  \node[below=5pt] at (0,0) {$0$};
+  \node[above=7pt] at (-2.5,0) {$f_-(t)$};
+  \node[above=7pt] at (2.5,0) {$f_+(t)$};
+  \node[below=8pt] at (-2.5,0) {$\sigma_-$};
+  \node[below=8pt] at (2.5,0) {$\sigma_+$};
+  \node[align=center,DictionaryBlue] at (0,1.0)
+    {$f_+(0)=f_-(0)$\\[-1mm]
+     \scriptsize compatibility on the common face};
+\end{tikzpicture}
+\caption{An equivariant class on \(\PP^1\) is a polynomial on each
+ray of the fan, with the two polynomials agreeing where the rays meet.}
+\label{fig:p1-piecewise-polynomial}
+\end{figure}
+
+This description can be rewritten as a familiar quotient ring. Let
+\[
+\eta:=(0,t).
+\]
+Every compatible pair is uniquely \(a(t)(1,1)+b(t)\eta\), and
+\[
+\eta^2=t\eta.
+\]
+Therefore
+\[
+H_{K_N}^*(\PP^1;\QQ)
+\simeq
+\frac{\QQ[t,\eta]}{\langle\eta(\eta-t)\rangle}.
+\]
+The relation has not said that \(\eta\) is nilpotent: the parameter
+\(t\) records the torus weight. Nilpotence appears only after the torus
+parameters are forgotten.
+
+\subsection{Degree two: our old support functions return}
+
+The piecewise-polynomial theorem has a particularly satisfying degree-
+two interpretation. Let
+\[
+D=\sum_\rho a_\rho D_\rho
+\]
+be an invariant Cartier divisor with Cartier data
+\(\{m_\sigma\}\). Recall from Section~4.2 that its support function is
+\[
+\psi_D|_\sigma=\langle m_\sigma,-\rangle,
+\qquad
+\psi_D(u_\rho)=-a_\rho.
+\]
+
+The divisor also has an equivariant first Chern class
+\[
+[D]_{K_N}\in H_{K_N}^2(X_\Sigma;\QQ).
+\]
+At the fixed point \(x_\sigma\), its restriction is precisely the
+linear form \(m_\sigma\). Thus under
+\cref{thm:equivariant-piecewise-polynomial},
+\[
+\boxed{
+[D]_{K_N}
+\longleftrightarrow
+\psi_D.
+}
+\]
+
+\noindent
+\textit{Reference.}
+The equivariant divisor class and its restriction properties are
+Cox--Little--Schenck, Proposition~12.4.13. Combining that proposition
+with the Cartier data from their Theorem~4.2.8 gives the identification
+above.
+
+This is not a new analogy: it is the same object seen in two subjects.
+The linear piece \(m_\sigma\) that gives a local equation for the
+divisor is also the weight seen by equivariant cohomology at the fixed
+point \(x_\sigma\).
+
+\begin{threedictionaries}
+For an invariant Cartier divisor \(D\), the following data are three
+descriptions of the same local information.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebraic geometry}
+&
+\textbf{Fan}
+&
+\textbf{Equivariant topology}
+\\
+\midrule
+local equation \(\character{-m_\sigma}\)
+&
+linear piece \(\psi_D|_\sigma=m_\sigma\)
+&
+restriction \([D]_{K_N}|_{x_\sigma}=m_\sigma\)
+\\
+Cartier compatibility
+&
+pieces agree on faces
+&
+fixed-point restrictions glue
+\\
+principal character
+&
+global linear function
+&
+class from \(H^*(BK_N)\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection{Forgetting the action}
+
+The inclusion of a fiber
+\[
+X_\Sigma\hookrightarrow EK_N\times_{K_N}X_\Sigma
+\]
+induces the \emph{nonequivariant limit}
+\[
+H_{K_N}^*(X_\Sigma;\QQ)
+\longrightarrow
+H^*(X_\Sigma;\QQ).
+\]
+On the coefficient ring this is the augmentation
+\[
+S\longrightarrow\QQ,
+\qquad
+m\longmapsto0
+\quad(m\in M).
+\]
+For a smooth complete toric variety,
+\[
+\boxed{
+H^*(X_\Sigma;\QQ)
+\simeq
+H_{K_N}^*(X_\Sigma;\QQ)\otimes_S\QQ
+\simeq
+\frac{PP^*(\Sigma;\QQ)}{S_+\,PP^*(\Sigma;\QQ)},
+}
+\]
+where \(S_+\) is the ideal of positive-degree global polynomials.
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~12.4.7 and
+Corollary~12.4.8. Conceptually, the relevant Serre spectral sequence
+degenerates because a complete simplicial toric variety has no odd
+rational cohomology.
+
+In the Stanley--Reisner presentation, setting every \(m\in M\) to zero
+imposes
+\[
+\theta_m
+=
+\sum_\rho\langle m,u_\rho\rangle x_\rho
+=0.
+\]
+Thus the ideal \(J_\Sigma\) from Chapter~8 reappears automatically:
+\[
+\frac{\QQ[x_\rho]}{I_\Sigma}
+\quad\longrightarrow\quad
+\frac{\QQ[x_\rho]}{I_\Sigma+J_\Sigma}.
+\]
+In degree two, the same statement says
+\[
+\boxed{
+\text{piecewise linear functions}
+\big/
+\text{global linear functions}
+\;\simeq\;
+H^2(X_\Sigma;\QQ),
+}
+\]
+which is the support-function description of divisor classes in yet
+another guise.
+
+For \(\PP^1\), the calculation above makes this visible at once:
+\[
+\frac{\QQ[t,\eta]}{\langle\eta(\eta-t)\rangle}
+\otimes_{\QQ[t]}\QQ
+\simeq
+\frac{\QQ[\eta]}{\langle\eta^2\rangle}
+=
+H^*(\PP^1;\QQ).
+\]
+
+\begin{dictionarytable}
+The difference between the two cohomology rings can now be summarized
+without any new generators.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\bfseries\raggedright\arraybackslash}p{0.27\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+& \textbf{Equivariant} & \textbf{Ordinary} \\
+\midrule
+coefficient ring
+& \(S=\operatorname{Sym}_\QQ(M_\QQ)\)
+& \(\QQ\)
+\\
+fan presentation
+& \(\QQ[x_\rho]/I_\Sigma\)
+& \(\QQ[x_\rho]/(I_\Sigma+J_\Sigma)\)
+\\
+fan functions
+& piecewise polynomials
+& quotient by global positive-degree polynomials
+\\
+degree two
+& piecewise linear functions
+& piecewise linear modulo global linear
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{dictionarytable}
+
+\subsection{A full two-dimensional example: \texorpdfstring{\(\PP^2\)}{P2}}
+
+Let the rays of the fan of \(\PP^2\) be generated by
+\[
+u_0=(-1,-1),
+\qquad
+u_1=(1,0),
+\qquad
+u_2=(0,1),
+\]
+and let
+\[
+\sigma_0=\Cone{u_1,u_2},
+\qquad
+\sigma_1=\Cone{u_2,u_0},
+\qquad
+\sigma_2=\Cone{u_0,u_1}.
+\]
+Write \(S=\QQ[x,y]\), where \(x,y\) are the dual coordinates on
+\(N_\RR\).
+
+An equivariant class is a triple
+\[
+(f_0,f_1,f_2)\in S^3.
+\]
+The three common rays impose three congruences. Since \(x\) vanishes on
+\(\rho_2\), \(y\) on \(\rho_1\), and \(y-x\) on \(\rho_0\), we obtain
+\[
+\boxed{
+\begin{aligned}
+f_1-f_0&\in(x),\\
+f_2-f_0&\in(y),\\
+f_2-f_1&\in(y-x).
+\end{aligned}}
+\]
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (O) at (0,0);
+  \coordinate (U1) at (3.0,0);
+  \coordinate (U2) at (0,3.0);
+  \coordinate (U0) at (-2.25,-2.25);
+
+  \fill[DictionaryBlue!8] (O) -- (U1) -- (U2) -- cycle;
+  \fill[SurfaceGreen!10] (O) -- (U2) -- (U0) -- cycle;
+  \fill[WarningRed!7] (O) -- (U0) -- (U1) -- cycle;
+
+  \draw[->,thick] (O) -- (3.35,0) node[right] {$u_1$};
+  \draw[->,thick] (O) -- (0,3.35) node[above] {$u_2$};
+  \draw[->,thick] (O) -- (-2.55,-2.55) node[below left] {$u_0$};
+
+  \node at (1.05,1.05) {$f_0$};
+  \node at (-1.1,0.95) {$f_1$};
+  \node at (0.85,-1.15) {$f_2$};
+
+  \node[fill=white,inner sep=1.5pt] at (-0.78,-1.48) {\scriptsize \(y-x=0\)};
+  \node[fill=white,inner sep=1.5pt] at (1.55,-0.28) {\scriptsize \(y=0\)};
+  \node[fill=white,inner sep=1.5pt] at (-0.30,1.55) {\scriptsize \(x=0\)};
+\end{tikzpicture}
+\caption{Piecewise polynomial data on the fan of \(\PP^2\). Across
+each common ray, the difference of the adjacent polynomials is
+divisible by the linear form vanishing on that ray.}
+\label{fig:p2-piecewise-polynomial}
+\end{figure}
+
+Let us solve the compatibility conditions rather than merely state
+them. The first two give
+\[
+f_1=f_0+xg,
+\qquad
+f_2=f_0+yh
+\]
+for some \(g,h\in S\). The third condition says
+\[
+yh-xg\in(y-x).
+\]
+Setting \(y=x\) shows \(x(h-g)|_{y=x}=0\), hence
+\[
+h-g\in(y-x).
+\]
+Write \(h=g+(y-x)k\). Then
+\[
+\boxed{
+(f_0,f_1,f_2)
+=
+f_0(1,1,1)
++g(0,x,y)
++k(0,0,y(y-x)).
+}
+\]
+Thus \(H_{K_N}^*(\PP^2;\QQ)\) is a free \(S\)-module with one generator
+in cohomological degrees \(0,2,4\). This is the equivariant shadow of
+the three ordinary cohomology classes
+\[
+1,\ H,\ H^2
+\]
+that we used in Section~9.1.
+
+\noindent
+\textit{Reference.}
+This calculation is Cox--Little--Schenck, Example~12.4.18. We have
+spelled out the divisibility step because it is the simplest place to
+see fixed-point compatibility become an actual computation.
+
+\begin{warningbox}
+Taking the nonequivariant limit is a quotient of the
+\emph{piecewise-polynomial ring} by global positive-degree
+polynomials. It is not the operation of evaluating each fixed-point
+polynomial separately at \(x=y=0\). For example, the class
+\((0,x,y)\) above survives as the hyperplane class after the
+nonequivariant quotient even though all three displayed polynomials
+have zero constant term.
+\end{warningbox}
+
+We have now reached the form of equivariant cohomology needed for
+localization. A class is a compatible polynomial at every maximal
+cone, hence at every torus fixed point. The next question is whether a
+\emph{global integral} can also be reconstructed from these local
+restrictions.
+
+\begin{guidingquestion}
+If an equivariant class is determined by its values at the finitely
+many fixed points \(x_\sigma\), can integration over all of
+\(X_\Sigma\) also be expressed as a sum of fixed-point contributions?
+What must appear in the denominator to compensate for replacing an
+\(n\)-dimensional variety by isolated points?
+\end{guidingquestion}
+
+\section{Fixed points and Atiyah--Bott localization}
+\label{sec:fixed-points-localization}
+\index{Atiyah--Bott localization}
+\index{fixed point!localization}
+\index{tangent weight}
+\index{equivariant Euler class}
+\index{equivariant integration}
+
+Section~9.2 turned an equivariant cohomology class into a collection
+of polynomials
+\[
+\alpha
+\longleftrightarrow
+\bigl(\alpha|_{x_\sigma}\bigr)_{\sigma\in\Sigma(n)}
+\]
+indexed by the torus fixed points.  Localization says something much
+stronger: after allowing ourselves to divide by the torus weights,
+\emph{integration itself} can be carried out on this finite set.
+
+The denominator has a simple geometric meaning.  A point has lost all
+of the tangent directions of \(X\), so its contribution must be divided
+by the equivariant Euler class of those missing directions.  For a
+toric variety, those tangent directions are read directly from the
+maximal cone.
+
+\subsection{The tangent weights at a fixed point}
+
+Let \(\sigma\in\Sigma(n)\) be a maximal cone of a smooth fan and write
+\[
+\sigma=\Cone{u_{\sigma,1},\ldots,u_{\sigma,n}}.
+\]
+Smoothness says that the primitive ray generators
+\(u_{\sigma,1},\ldots,u_{\sigma,n}\) form a basis of \(N\).  Let
+\[
+m_{\sigma,1},\ldots,m_{\sigma,n}\in M
+\]
+be the dual basis.  Equivalently, these are the primitive generators of
+the dual cone \(\sigma^\vee\).
+
+The affine chart \(U_\sigma\) is isomorphic to \(\CC^n\), the point
+\(x_\sigma\) is its origin, and the characters determined by the
+\(m_{\sigma,i}\) describe the \(n\) coordinate directions.  Thus the
+fan does not merely tell us where the fixed points are: it tells us the
+torus representation on the tangent space at each one.
+
+\begin{proposition}[The equivariant Euler class at a toric fixed point]
+\label{prop:toric-fixed-point-euler-class}
+Let \(X_\Sigma\) be smooth and complete and let
+\(x_\sigma\in X_\Sigma^{K_N}\) correspond to a maximal cone
+\(\sigma\).  With the sign convention for equivariant divisor classes
+used in Section~9.2,
+\[
+\boxed{
+e_{K_N}(T_{x_\sigma}X_\Sigma)
+=
+(-1)^n\prod_{i=1}^n m_{\sigma,i}
+\in S=\operatorname{Sym}_\QQ(M_\QQ).
+}
+\]
+In particular, this class becomes invertible after we invert the
+nonzero linear forms in \(S\).
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the fixed-point calculation behind Cox--Little--Schenck,
+Lemma~13.3.5 and Proposition~13.3.6.  The interpretation of the
+denominator as an equivariant Euler class is made explicit immediately
+after their Theorem~13.3.7 and in Exercise~13.3.2.
+
+\begin{proof}[Conceptual proof sketch]
+The invariant divisors corresponding to the rays of \(\sigma\) meet
+transversely at \(x_\sigma\).  Their equivariant normal directions
+therefore give the \(n\) tangent directions at the fixed point.  The
+restriction calculation from Section~9.2 gives
+\[
+[D_{\rho_i}]_{K_N}|_{x_\sigma}=-m_{\sigma,i}.
+\]
+The equivariant Euler class is the product of these degree-two classes,
+which gives the displayed formula.  This is exactly where the factor
+\((-1)^n\) in our localization formula will come from.
+\end{proof}
+
+\begin{pauseandthink}
+There are two pieces of fan data at \(x_\sigma\): the value
+\(\alpha|_{x_\sigma}\), which Section~9.2 records as the polynomial on
+\(\sigma\), and the dual basis
+\(m_{\sigma,1},\ldots,m_{\sigma,n}\), which records the tangent
+directions.  Localization will use exactly these two pieces and no
+others.
+\end{pauseandthink}
+
+\subsection{Equivariant integration}
+
+Ordinary integration over a smooth complete \(n\)-fold is the
+pushforward to a point,
+\[
+\int_X:H^k(X;\QQ)\longrightarrow H^{k-2n}(\mathrm{pt};\QQ).
+\]
+There is an equivariant version of the same pushforward,
+\[
+\int_X^{K_N}:
+H_{K_N}^k(X;\QQ)
+\longrightarrow
+H_{K_N}^{k-2n}(\mathrm{pt};\QQ)=S^{k-2n}.
+\]
+It remembers the equivariant parameters rather than setting them equal
+to zero.  In top degree the answer lies in \(S^0=\QQ\), so for an
+equivariant lift of an ordinary top-degree class it agrees with the
+ordinary integral after forgetting the action.
+
+To state localization, let
+\[
+S_{\mathrm{loc}}
+:=
+S\bigl[\ell^{-1}:0\ne\ell\in M_\QQ\bigr]
+\subseteq\Frac(S).
+\]
+Thus we are allowed to divide by nonzero torus weights.
+
+\begin{theorem}[Atiyah--Bott localization]
+\label{thm:atiyah-bott-toric-localization}
+Let \(X_\Sigma\) be a smooth complete \(n\)-dimensional toric variety.
+For every \(\alpha\in H_{K_N}^*(X_\Sigma;\QQ)\),
+\[
+\boxed{
+\int_{X_\Sigma}^{K_N}\alpha
+=
+\sum_{\sigma\in\Sigma(n)}
+\frac{\alpha|_{x_\sigma}}
+{e_{K_N}(T_{x_\sigma}X_\Sigma)}
+=
+(-1)^n
+\sum_{\sigma\in\Sigma(n)}
+\frac{\alpha|_{x_\sigma}}
+{\prod_{i=1}^n m_{\sigma,i}}.
+}
+\]
+The equality is computed in \(S_{\mathrm{loc}}\), but the sum belongs
+to \(S\): all apparent poles cancel.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~13.3.7, which is the toric form of
+the Atiyah--Bott/Berline--Vergne localization formula.  The localization
+of the fixed-point restriction map used in the proof is their
+equation~(13.3.3), following the discussion of the localization theorem
+on p.~643.
+
+\begin{proof}[Conceptual proof sketch]
+Restriction to the fixed points gives
+\[
+H_{K_N}^*(X_\Sigma)
+\longrightarrow
+\bigoplus_{\sigma\in\Sigma(n)}S.
+\]
+Section~9.2 explained why its image consists of compatible polynomial
+data.  After the nonzero weights are inverted, the localization theorem
+says that this restriction map becomes an isomorphism.  In other
+words, the fixed points become a complete basis for equivariant
+cohomology once fractions in the weights are allowed.
+
+The class supported at \(x_\sigma\) has restriction
+\(e_{K_N}(T_{x_\sigma}X)\) at that fixed point and zero at the others.
+Dividing by the Euler class therefore normalizes it to have value one
+at \(x_\sigma\).  Decompose \(\alpha\) into these normalized fixed-point
+classes and push each one to a point.  The result is exactly the sum in
+the theorem.
+\end{proof}
+
+At first sight the formula looks perverse.  The left side is a
+polynomial, while the individual terms on the right are usually
+rational functions.  The cancellation of the denominators is not an
+accident: it is the algebraic shadow of the fact that the fixed-point
+data came from one global equivariant class.
+
+There is also a useful degree check.  If \(\deg\alpha<2n\), then the
+equivariant pushforward would have negative degree and hence must
+vanish.  Localization therefore manufactures nontrivial identities
+among rational functions of the torus weights.
+
+\subsection{The first localization calculation:
+\texorpdfstring{\(\PP^1\)}{P1}}
+
+Return to the notation of Section~9.2.  We have
+\[
+S=\QQ[t],
+\qquad
+\sigma_+=\RR_{\ge0},
+\qquad
+\sigma_-=\RR_{\le0},
+\]
+and an equivariant class is a pair
+\[
+(f_+,f_-),
+\qquad
+f_+-f_-\in(t).
+\]
+The dual primitive generators are
+\[
+m_+=t,
+\qquad
+m_-=-t.
+\]
+Since \(n=1\), Proposition~\ref{prop:toric-fixed-point-euler-class} gives
+\[
+e_{K_N}(T_{x_+}\PP^1)=-t,
+\qquad
+e_{K_N}(T_{x_-}\PP^1)=t.
+\]
+Therefore localization is simply
+\[
+\boxed{
+\int_{\PP^1}^{K_N}(f_+,f_-)
+=
+-\frac{f_+}{t}+\frac{f_-}{t}
+=
+\frac{f_--f_+}{t}.
+}
+\]
+The gluing condition \(f_+-f_-\in(t)\) is precisely what makes the
+answer a polynomial.
+
+For the unit class,
+\[
+\int_{\PP^1}^{K_N}1
+=
+-\frac1t+\frac1t
+=0,
+\]
+as it must by degree.  More interestingly, recall the equivariant
+divisor class
+\[
+\eta=(0,t),
+\qquad
+H_{K_N}^*(\PP^1;\QQ)
+\simeq
+\frac{\QQ[t,\eta]}{\langle\eta(\eta-t)\rangle}.
+\]
+Then
+\[
+\boxed{
+\int_{\PP^1}^{K_N}\eta
+=
+0+\frac{t}{t}
+=1.
+}
+\]
+After forgetting the equivariant parameter, \(\eta\) becomes the point
+class \(H\), and we recover the familiar identity
+\[
+\int_{\PP^1}H=1.
+\]
+
+This example is worth remembering as a miniature of the entire theory:
+two local rational expressions, each meaningless at \(t=0\) on its
+own, combine to give a perfectly regular global answer.
+
+\subsection{A two-dimensional calculation:
+\texorpdfstring{\(\PP^2\)}{P2}}
+
+Now use exactly the fan notation from the end of Section~9.2:
+\[
+u_0=(-1,-1),
+\qquad
+u_1=(1,0),
+\qquad
+u_2=(0,1),
+\]
+with maximal cones \(\sigma_0,\sigma_1,\sigma_2\) and
+\(S=\QQ[x,y]\).  Taking dual bases in the three cones gives the
+following fixed-point data.
+
+\begin{center}
+\small
+\begin{tabularx}{0.94\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.18\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Cone}
+&
+\textbf{Dual generators}
+&
+\textbf{Euler class}
+\\
+\midrule
+\(\sigma_0=\Cone{u_1,u_2}\)
+& \(x,\ y\)
+& \(xy\)
+\\
+\(\sigma_1=\Cone{u_2,u_0}\)
+& \(y-x,\ -x\)
+& \(x(x-y)\)
+\\
+\(\sigma_2=\Cone{u_0,u_1}\)
+& \(-y,\ x-y\)
+& \(y(y-x)\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Already the unit class produces an identity:
+\[
+\begin{aligned}
+\int_{\PP^2}^{K_N}1
+&=
+\frac1{xy}
++\frac1{x(x-y)}
++\frac1{y(y-x)}
+\\
+&=0.
+\end{aligned}
+\]
+Again this is forced by degree, but localization turns that simple
+topological fact into a cancellation among three rational functions.
+
+Now recall the degree-two class from the piecewise-polynomial
+calculation of Section~9.2,
+\[
+h_T=(0,x,y).
+\]
+Its nonequivariant limit is the hyperplane class \(H\).  Since
+\(h_T^2=(0,x^2,y^2)\), localization gives
+\[
+\begin{aligned}
+\int_{\PP^2}^{K_N}h_T^2
+&=
+\frac{0}{xy}
++\frac{x^2}{x(x-y)}
++\frac{y^2}{y(y-x)}
+\\
+&=
+\frac{x}{x-y}
++\frac{y}{y-x}
+=1.
+\end{aligned}
+\]
+Therefore, after taking the nonequivariant limit,
+\[
+\boxed{
+\int_{\PP^2}H^2=1.
+}
+\]
+
+Notice what we did \emph{not} do: we never multiplied divisor classes
+in the ordinary cohomology ring.  The same intersection number was
+recovered solely from the three fixed-point restrictions of an
+equivariant class and the tangent weights encoded by the fan.
+
+\begin{dictionarytable}
+Localization turns the fan description of Section~9.2 into an
+integration algorithm.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\bfseries\raggedright\arraybackslash}p{0.25\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+& \textbf{Global object} & \textbf{Fixed-point data} \\
+\midrule
+equivariant class
+& \(\alpha\in H_{K_N}^*(X_\Sigma)\)
+& polynomial \(\alpha|_{x_\sigma}\) on each maximal cone
+\\
+tangent geometry
+& \(TX_\Sigma\)
+& \(e_{K_N}(T_{x_\sigma}X)=(-1)^n\prod_i m_{\sigma,i}\)
+\\
+integration
+& \(\displaystyle\int_X^{K_N}\alpha\)
+& \(\displaystyle\sum_\sigma
+   \frac{\alpha|_{x_\sigma}}{e_{K_N}(T_{x_\sigma}X)}\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{dictionarytable}
+
+\subsection{Why this is exactly the tool Riemann--Roch needs}
+
+We can already see the shape of the next section.  Let
+\[
+D=\sum_\rho a_\rho D_\rho
+\]
+be an invariant Cartier divisor with Cartier data
+\(\{m_\sigma\}_{\sigma\in\Sigma(n)}\).  Section~9.2 identified the
+restriction of its equivariant divisor class as
+\[
+[D]_{K_N}|_{x_\sigma}=m_\sigma.
+\]
+Hence the equivariant Chern character restricts to
+\[
+\ch_{K_N}\bigl(\mathcal O(D)\bigr)|_{x_\sigma}
+=e^{m_\sigma}.
+\]
+
+At the same fixed point, the equivariant Chern roots of the tangent
+space are, in our convention,
+\[
+-m_{\sigma,1},\ldots,-m_{\sigma,n}.
+\]
+Consequently
+\[
+\frac{
+\operatorname{Td}_{K_N}(X)|_{x_\sigma}
+}{
+e_{K_N}(T_{x_\sigma}X)
+}
+=
+\prod_{i=1}^n
+\frac{1}{1-e^{m_{\sigma,i}}}.
+\]
+Putting the two restrictions into localization gives the formal
+fixed-point expression
+\[
+\boxed{
+\int_X^{K_N}
+\ch_{K_N}\bigl(\mathcal O(D)\bigr)
+\operatorname{Td}_{K_N}(X)
+=
+\sum_{\sigma\in\Sigma(n)}
+\frac{e^{m_\sigma}}
+{\prod_{i=1}^n(1-e^{m_{\sigma,i}})}.
+}
+\]
+Here the exponentials are interpreted in the completed equivariant
+cohomology ring; no analytic convergence is involved.
+
+\noindent
+\textit{Reference.}
+This is the local calculation used in Cox--Little--Schenck,
+Theorems~13.3.4 and~13.3.7, in their proof of equivariant
+Riemann--Roch.  We have isolated it here because it shows exactly why
+localization is the correct bridge between the fan and the
+Riemann--Roch integral.
+
+The remarkable feature is the denominator.  The Euler-class factor
+from localization cancels the numerator in the Todd factor, leaving
+\(1-e^{m_{\sigma,i}}\).  These are precisely the geometric-series
+denominators one expects when counting lattice points in a cone.  We
+will not develop Brion's theorem separately; in the next section we
+will use just this observation to reach the chapter's intended
+punchline.
+
+\begin{guidingquestion}
+The left side of the last formula is an equivariant characteristic
+class integral, while the right side resembles a sum of generating
+functions for lattice points near the vertices of a polytope.  Why
+should its nonequivariant limit be the Euler characteristic of
+\(\mathcal O(D)\), and when does that Euler characteristic equal
+\(\#(P_D\cap M)\)?
+\end{guidingquestion}
+
+\section{Toric Riemann--Roch and lattice points}
+\label{sec:toric-rr-lattice-points}
+\index{Riemann--Roch!toric}
+\index{lattice point!Riemann--Roch count}
+\index{equivariant Euler characteristic}
+\index{Ehrhart polynomial}
+
+We can now answer the guiding question with almost no new machinery.
+There are three quantities that have appeared at different moments in
+the notes:
+\[
+\chi\bigl(X,\mathcal O_X(D)\bigr),
+\qquad
+\int_X e^{[D]}\operatorname{Td}(X),
+\qquad
+\#(P_D\cap M).
+\]
+The first is sheaf cohomology, the second is topology, and the third is
+combinatorics.  For a nef toric divisor on a smooth complete toric
+variety, all three are the same number.
+
+The equality between the first two is Hirzebruch--Riemann--Roch.  To
+identify the first with the third, we need only recall two facts that
+we have already encountered in toric geometry: lattice points give a
+basis of global sections, and a nef toric divisor has no higher
+cohomology.
+
+\subsection{The equivariant Euler characteristic remembers the weights}
+
+Before forgetting the torus action, it is useful to keep track not
+only of the dimensions of the cohomology groups but also of their
+characters.  If a torus \(T_N\) acts on a line bundle \(L\), define
+formally
+\[
+\chi_{T_N}(X,L)
+=
+\sum_{i\geq0}(-1)^i\ch_{T_N}H^i(X,L).
+\]
+Thus the ordinary Euler characteristic remembers only the total
+dimension, while the equivariant Euler characteristic remembers the
+weight of every torus eigenspace.
+
+For an invariant divisor \(D\), the monomial basis of global sections
+is
+\[
+H^0\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\bigoplus_{m\in P_D\cap M}\CC\,\character{m}.
+\]
+If \(D\) is nef and \(X_\Sigma\) is complete, Demazure vanishing gives
+\[
+H^i\bigl(X_\Sigma,\mathcal O(D)\bigr)=0
+\qquad(i>0).
+\]
+Consequently the equivariant Euler characteristic becomes the finite
+character sum
+\[
+\boxed{
+\chi_{T_N}\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\sum_{m\in P_D\cap M}e^m.
+}
+\]
+Here \(e^m\) is notation for the character of weight \(m\), written in
+the exponential notation used by the equivariant Chern character.
+
+\noindent
+\textit{References.}
+The monomial basis of global sections is Cox--Little--Schenck,
+Proposition~4.3.3.  The higher-cohomology statement is their
+Theorem~9.2.3 (Demazure vanishing).  Completeness makes
+\(|\Sigma|=N_\RR\) convex, so the hypotheses of that theorem are
+automatic once \(D\) is nef.
+
+Now compare this finite sum with the expression at the end of
+Section~9.3.  Equivariant Riemann--Roch and localization give
+\[
+\chi_{T_N}\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\sum_{\sigma\in\Sigma(n)}
+\frac{e^{m_\sigma}}
+{\prod_{i=1}^n(1-e^{m_{\sigma,i}})}.
+\]
+Combining the two descriptions gives the striking identity
+\begin{equation}
+\boxed{
+\sum_{m\in P_D\cap M}e^m
+=
+\sum_{\sigma\in\Sigma(n)}
+\frac{e^{m_\sigma}}
+{\prod_{i=1}^n(1-e^{m_{\sigma,i}})}.
+}
+\label{eq:toric-rr-character-identity}
+\end{equation}
+
+When \(D\) is ample, each term on the right has a direct polyhedral
+meaning.  The Cartier datum \(m_\sigma\) is the vertex of \(P_D\)
+corresponding to the maximal cone \(\sigma\), and the vectors
+\(m_{\sigma,1},\ldots,m_{\sigma,n}\) generate the tangent cone of
+\(P_D\) at that vertex.  Formally expanding geometric series gives
+\[
+\frac{e^{m_\sigma}}
+{\prod_i(1-e^{m_{\sigma,i}})}
+=
+e^{m_\sigma}
+\prod_i\bigl(1+e^{m_{\sigma,i}}+e^{2m_{\sigma,i}}+\cdots\bigr).
+\]
+Thus a fixed-point contribution is the generating function of lattice
+points in the tangent cone at one vertex.  The infinite tails cancel
+when the vertex contributions are added, leaving the finite generating
+function of the polytope itself.
+
+\begin{pauseandthink}
+This is the precise bridge promised at the end of Section~9.3:
+\[
+\boxed{
+\begin{gathered}
+\text{torus fixed point}
+\longleftrightarrow
+\text{vertex of }P_D,
+\\[1mm]
+\text{tangent weights}
+\longleftrightarrow
+\text{edge directions at that vertex}.
+\end{gathered}
+}
+\]
+We are seeing one of Brion's identities, but we do not need a separate
+theory of rational generating functions here.  For us its role is to
+explain geometrically why the localization denominators look exactly
+like geometric-series denominators.
+\end{pauseandthink}
+
+\subsection{The one-dimensional identity in full}
+
+Let us watch the cancellation happen on \(\PP^1\).  Write the rays of
+the fan as
+\[
+\sigma_+=\RR_{\geq0},
+\qquad
+\sigma_-=\RR_{\leq0},
+\]
+and take
+\[
+D=dD_-,\qquad d\geq0,
+\]
+where \(D_-\) is the invariant divisor belonging to the ray generated
+by \(-1\).  The associated polytope is
+\[
+P_D=[0,d],
+\]
+and its Cartier data are
+\[
+m_+=0,
+\qquad
+m_-=dt.
+\]
+The primitive generators of the two dual cones are \(t\) and \(-t\),
+respectively.  Therefore the right side of
+\eqref{eq:toric-rr-character-identity} is
+\[
+\frac{1}{1-e^t}
++
+\frac{e^{dt}}{1-e^{-t}}.
+\]
+Put \(q=e^t\).  Then
+\[
+\begin{aligned}
+\frac{1}{1-q}
++
+\frac{q^d}{1-q^{-1}}
+&=
+\frac{1}{1-q}
+-
+\frac{q^{d+1}}{1-q}
+\\
+&=
+\frac{1-q^{d+1}}{1-q}
+\\
+&=
+1+q+\cdots+q^d.
+\end{aligned}
+\]
+In other words,
+\[
+\boxed{
+\frac{1}{1-e^t}
++
+\frac{e^{dt}}{1-e^{-t}}
+=
+1+e^t+\cdots+e^{dt}.
+}
+\]
+
+The left side is a sum of two infinite-cone contributions, one from
+each fixed point.  The right side contains exactly the \(d+1\) lattice
+points of the interval \([0,d]\).  Finally forgetting the torus action
+means sending every character to its dimension, or informally taking
+\(e^t\to1\).  Although the two fixed-point fractions individually have
+poles there, their sum has the perfectly regular limit
+\[
+\chi\bigl(\PP^1,\mathcal O(d)\bigr)=d+1.
+\]
+
+\noindent
+\textit{Reference.}
+This is the one-dimensional instance of the calculation in
+Cox--Little--Schenck, Example~13.3.9.  Their Theorem~13.3.4 gives the
+general fixed-point character decomposition.
+
+\subsection{The toric Riemann--Roch counting formula}
+
+We can now forget the equivariant parameters and state the numerical
+payoff of the chapter.
+
+\begin{theorem}[Toric Riemann--Roch as lattice-point counting]
+\label{thm:toric-rr-lattice-count}
+Let \(X_\Sigma\) be a smooth complete toric variety and let \(D\) be a
+nef invariant Cartier divisor.  Then
+\[
+\boxed{
+\#(P_D\cap M)
+=
+\chi\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\int_{X_\Sigma}
+e^{[D]}
+\prod_{\rho\in\Sigma(1)}
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+}
+\]
+In particular, the formula holds when \(D\) is ample.
+\end{theorem}
+
+\noindent
+\textit{References.}
+This is the direct combination of Cox--Little--Schenck,
+Proposition~4.3.3, Theorem~9.2.3, Theorem~13.1.6, and
+Theorem~13.3.8.  The last result is their toric
+Hirzebruch--Riemann--Roch theorem.
+
+\begin{proof}[Conceptual proof]
+Hirzebruch--Riemann--Roch gives
+\[
+\chi\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\int_{X_\Sigma}e^{[D]}\operatorname{Td}(X_\Sigma).
+\]
+The toric Euler sequence turns the Todd class into the displayed
+product over invariant divisors.  Since \(D\) is nef, Demazure
+vanishing kills every higher cohomology group, so
+\[
+\chi\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=h^0\bigl(X_\Sigma,\mathcal O(D)\bigr).
+\]
+Finally, the characters \(\character{m}\), for \(m\in P_D\cap M\),
+form a basis of global sections.  Hence
+\[
+h^0\bigl(X_\Sigma,\mathcal O(D)\bigr)=\#(P_D\cap M),
+\]
+as claimed.
+\end{proof}
+
+There is a useful distinction in the theorem.  Riemann--Roch itself
+always computes the Euler characteristic of a line bundle on our
+smooth complete toric variety.  The positivity hypothesis is used
+only in the second step, when we identify that alternating sum with
+\(h^0\) and hence with an honest lattice-point count.
+
+\begin{warningbox}
+Do not silently replace \(\chi(X,\mathcal O(D))\) by \(h^0(X,\mathcal
+O(D))\) for an arbitrary divisor.  For negative divisors the higher
+cohomology can be nonzero.  The example
+\(\chi(\PP^1,\mathcal O(-2))=-1\) from Section~9.1 is the simplest
+warning: an Euler characteristic can be negative, while a number of
+lattice points cannot.
+\end{warningbox}
+
+\subsection{A corner cut: two computations on
+\texorpdfstring{\(\Bl_p(\PP^2)\)}{Blp(P2)}}
+
+Let
+\[
+X=\Bl_p(\PP^2)
+\]
+at a torus fixed point, with the notation from Section~8.4.  Thus
+\[
+H^*(X;\ZZ)
+\simeq
+\frac{\ZZ[H,E]}{\langle HE,H^2+E^2\rangle},
+\qquad
+\int_XH^2=1,
+\]
+where \(H\) is the pullback of a line and \(E\) is the exceptional
+curve.  The canonical class is
+\[
+K_X=-3H+E.
+\]
+
+Take
+\[
+D=dH-mE,
+\qquad
+d\geq m\geq0.
+\]
+This divisor is nef.  In the ray notation from Section~8.4 it can be
+represented by
+\[
+D=dD_0-mD_E,
+\]
+so its polytope is cut out by
+\[
+x\geq0,
+\qquad
+y\geq0,
+\qquad
+m\leq x+y\leq d.
+\]
+It is the degree-\(d\) triangle with the corner
+\(x+y<m\) removed.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.86]
+  \fill[DictionaryBlue!10]
+    (1.6,0)--(5.0,0)--(0,5.0)--(0,1.6)--cycle;
+  \draw[thick,DictionaryBlue]
+    (1.6,0)--(5.0,0)--(0,5.0)--(0,1.6)--cycle;
+  \draw[dashed,PausePurple,thick] (0,0)--(1.6,0)--(0,1.6)--cycle;
+  \draw[->] (-0.25,0)--(5.65,0);
+  \draw[->] (0,-0.25)--(0,5.65);
+  \node[below] at (1.6,0) {$(m,0)$};
+  \node[below] at (5.0,0) {$(d,0)$};
+  \node[left] at (0,1.6) {$(0,m)$};
+  \node[left] at (0,5.0) {$(0,d)$};
+  \node[DictionaryBlue] at (2.65,2.25) {$P_D$};
+  \node[PausePurple,align=center] at (0.95,0.72)
+    {corner\\removed};
+\end{tikzpicture}
+\caption{The polytope of \(D=dH-mE\) is obtained from the degree-\(d\)
+triangle by cutting off the lattice corner of size \(m\).}
+\label{fig:blowup-rr-corner-cut}
+\end{figure}
+
+First compute by Riemann--Roch.  From the intersection relations,
+\[
+D^2=d^2-m^2,
+\]
+and
+\[
+\begin{aligned}
+D\cdot(D-K_X)
+&=(dH-mE)\bigl((d+3)H-(m+1)E\bigr)
+\\
+&=d(d+3)-m(m+1).
+\end{aligned}
+\]
+The surface formula from Section~9.1 therefore gives
+\[
+\begin{aligned}
+\chi\bigl(X,\mathcal O_X(dH-mE)\bigr)
+&=1+\frac12\bigl[d(d+3)-m(m+1)\bigr]
+\\
+&=
+\binom{d+2}{2}-\binom{m+1}{2}.
+\end{aligned}
+\]
+
+Now compute from the polygon.  The full degree-\(d\) triangle has
+\[
+\binom{d+2}{2}
+\]
+lattice points.  The discarded lattice points satisfy
+\(x,y\geq0\) and \(x+y<m\).  There are
+\[
+1+2+\cdots+m
+=
+\binom{m+1}{2}
+\]
+of them.  Hence
+\[
+\boxed{
+\#(P_D\cap M)
+=
+\binom{d+2}{2}-\binom{m+1}{2}
+=
+\chi\bigl(X,\mathcal O_X(dH-mE)\bigr).
+}
+\]
+
+The calculation has a familiar algebraic interpretation as well:
+sections of \(\mathcal O_{\PP^2}(d)\) are degree-\(d\) monomials, and
+passing to \(dH-mE\) imposes vanishing of order at least \(m\) at the
+blown-up point.  The monomials removed by that vanishing condition are
+exactly the lattice points in the cut-off corner.
+
+\begin{threedictionaries}
+The corner-cut calculation is the chapter in miniature.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebraic geometry}
+&
+\textbf{Topology}
+&
+\textbf{Polytope}
+\\
+\midrule
+\(\mathcal O_X(dH-mE)\)
+& \(dH-mE\in H^2(X)\)
+& \(m\leq x+y\leq d\)
+\\
+vanish to order \(m\)
+& exceptional class \(E^2=-1\)
+& cut off a corner of size \(m\)
+\\
+Euler characteristic
+& HRR integral
+& number of lattice points
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection{Dilating the polytope}
+
+There is one final consequence worth recording.  If \(D\) is ample
+and \(P=P_D\), then \(kD\) corresponds to the dilated polytope
+\(kP\).  Applying Theorem~\ref{thm:toric-rr-lattice-count} to every
+integer \(k\geq0\) gives
+\[
+\boxed{
+\#(kP\cap M)
+=
+\int_X e^{k[D]}\operatorname{Td}(X).
+}
+\]
+Because cohomology vanishes above degree \(2n\), the exponential on
+the right truncates.  The right side is therefore a polynomial in
+\(k\) of degree at most \(n\).  Thus, for the smooth lattice polytopes
+arising here, Riemann--Roch gives a geometric explanation for the
+polynomial behavior of lattice-point counts under dilation.
+
+We will not develop the general theory of Ehrhart polynomials or the
+volume-polynomial and Khovanskii--Pukhlikov refinements here.  The
+important lesson for these notes is already visible: characteristic
+classes convert the geometry of a toric variety into arithmetic data
+of its polytope.
+
+\begin{tcolorbox}[
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={The punchline},
+  fonttitle=\bfseries
+]
+For a smooth projective toric variety, the same integer can now be
+computed in three genuinely different ways:
+\[
+\boxed{
+\begin{aligned}
+\text{sheaf theory:}\quad
+&\chi\bigl(X,\mathcal O(D)\bigr),
+\\[1mm]
+\text{cohomology:}\quad
+&\int_X e^{[D]}\operatorname{Td}(X),
+\\[1mm]
+\text{combinatorics:}\quad
+&\#(P_D\cap M).
+\end{aligned}}
+\]
+Equivariant cohomology and localization explain why the bridge between
+the last two is controlled one fixed point---equivalently, one vertex
+of the polytope---at a time.
+\end{tcolorbox}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+Chapter~8 gave us the cohomology ring of a smooth complete toric
+variety.  The first lesson of this chapter was that this ring can be
+used to compute an algebro-geometric invariant.  For a line bundle
+\(L\) on a smooth complete variety, Hirzebruch--Riemann--Roch says
+\[
+\boxed{
+\chi(X,L)
+=
+\int_X\ch(L)\operatorname{Td}(X).
+}
+\]
+For \(L=\mathcal O_X(D)\), the Chern character is \(e^{[D]}\), while
+the generalized toric Euler sequence turns the Todd class into the
+explicit product
+\[
+\boxed{
+\operatorname{Td}(X_\Sigma)
+=
+\prod_{\rho\in\Sigma(1)}
+\frac{[D_\rho]}{1-e^{-[D_\rho]}}.
+}
+\]
+On a surface this recovers the particularly concrete formula
+\[
+\chi\bigl(X,\mathcal O_X(D)\bigr)
+=
+1+\frac12D\cdot(D-K_X).
+\]
+
+Equivariant cohomology then put the torus action back into the story.
+For the compact torus \(K_N\subset T_N\), its coefficient ring is
+\[
+H_{K_N}^*(\mathrm{pt};\QQ)
+\simeq
+\operatorname{Sym}_\QQ(M_\QQ)=:S,
+\]
+and a smooth complete toric variety is equivariantly formal.  Most
+importantly, its equivariant cohomology has a fan-theoretic model:
+\[
+\boxed{
+H_{K_N}^*(X_\Sigma;\QQ)
+\simeq
+PP^*(\Sigma;\QQ).
+}
+\]
+Thus an equivariant class is a polynomial on each cone, with the
+polynomials agreeing on common faces.  In degree two these are the
+piecewise linear functions already familiar from toric divisors.
+Forgetting the action amounts to setting the positive-degree elements
+of \(S\) equal to zero; this recovers ordinary cohomology.
+
+Localization showed why the piecewise-polynomial description is so
+powerful.  A maximal cone \(\sigma\) determines both a fixed point
+\(x_\sigma\) and the tangent weights
+\(m_{\sigma,1},\ldots,m_{\sigma,n}\).  After those weights are made
+invertible, integration becomes a finite sum:
+\[
+\boxed{
+\int_{X_\Sigma}^{K_N}\alpha
+=
+(-1)^n
+\sum_{\sigma\in\Sigma(n)}
+\frac{\alpha|_{x_\sigma}}
+     {\prod_i m_{\sigma,i}}.
+}
+\]
+The individual summands are rational functions, but the apparent
+poles cancel because the local data come from one global equivariant
+class.
+
+Finally, Riemann--Roch, positivity, and the monomial basis of toric
+sections brought the entire chapter back to the polytope.  If \(D\)
+is nef and Cartier, then Demazure vanishing gives
+\[
+\boxed{
+\chi\bigl(X_\Sigma,\mathcal O(D)\bigr)
+=
+\int_{X_\Sigma}e^{[D]}\operatorname{Td}(X_\Sigma)
+=
+\#(P_D\cap M).
+}
+\]
+Before forgetting the action, the same statement remembers each
+lattice point as a character, and localization decomposes the answer
+into one contribution from each vertex of the polytope.  The fan,
+equivariant topology, and lattice-point combinatorics are therefore
+not three parallel descriptions: they are three stages of one
+calculation.
+
+The challenge exercise reverses an argument we used earlier in the
+notes.  Chapter~7 invoked Pick's theorem to extract geometry from
+lattice polygons.  We now have enough machinery to derive Pick's
+theorem itself from toric Riemann--Roch.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let \(A\) and \(B\) be the two ruling classes on
+\(X=\PP^1\times\PP^1\), so that
+\[
+A^2=B^2=0,
+\qquad
+A\cdot B=1,
+\qquad
+K_X=-2A-2B.
+\]
+For \(D=aA+bB\), use surface Riemann--Roch to prove
+\[
+\chi\bigl(X,\mathcal O_X(a,b)\bigr)=(a+1)(b+1).
+\]
+When \(a,b\geq0\), recover the same number by counting lattice points
+in the rectangle \([0,a]\times[0,b]\).
+
+\item Let \(S,F\in H^2(\mathbb F_r;\ZZ)\) be the section and fiber
+classes from the Chapter~8 challenge, with
+\[
+S^2=-r,
+\qquad
+F^2=0,
+\qquad
+S\cdot F=1.
+\]
+Use the four invariant boundary divisors to show that
+\[
+K_{\mathbb F_r}=-2S-(r+2)F.
+\]
+Then compute \(\chi(\mathbb F_r,\mathcal O(aS+bF))\) directly from
+surface Riemann--Roch.  Which part of your answer remembers the
+integer \(r\), even though Chapter~8 showed that the abstract
+cohomology ring remembers only its parity?
+
+\item Let \(S^1\) act on \(S^3\subset\CC^2\) by scalar
+multiplication.  The action is free.  Use the Borel construction to
+compute
+\[
+H_{S^1}^*(S^3;\QQ).
+\]
+Now give the same underlying space the trivial \(S^1\)-action and
+compute its equivariant cohomology again.  Explain precisely where
+the two answers record the difference between the actions.
+
+\item Let \(T=(\CC^*)^2\) act in the standard way on
+\(X=\PP^1\times\PP^1\).  Without finding a presentation of the whole
+ring, use equivariant formality to determine the rank of
+\(H_T^*(X;\QQ)\) as a module over
+\[
+H_T^*(\mathrm{pt};\QQ)=\QQ[t_1,t_2].
+\]
+Then explain algebraically how setting \(t_1=t_2=0\) recovers a
+four-dimensional ordinary cohomology ring.  Why should this rank also
+equal the number of torus fixed points?
+
+\item Consider the fan of \(\PP^1\times\PP^1\) with rays generated by
+\[
+(1,0),\quad(0,1),\quad(-1,0),\quad(0,-1).
+\]
+Describe an element of \(PP^*(\Sigma;\QQ)\) as four polynomials, one
+on each quadrant, and write the compatibility condition across each
+ray.  Specialize your description to degree two and explain how the
+resulting piecewise linear functions recover torus-invariant Cartier
+divisor classes.  What changes after quotienting by global linear
+functions?
+
+\item On each factor of \(\PP^1\times\PP^1\), use the equivariant
+class \(\eta=(0,t)\) from Section~9.3.  Let \(\eta_1,\eta_2\) be its
+pullbacks from the two factors, with equivariant parameters
+\(t_1,t_2\).  Use the four fixed points and localization to prove
+\[
+\int_{\PP^1\times\PP^1}^{T}
+\eta_1\eta_2=1.
+\]
+Then use localization again and watch the two contributions in the
+other factor cancel to show
+\[
+\int_X^T\eta_1^2
+=
+\int_X^T\eta_2^2
+=0.
+\]
+Recover the ordinary intersection number
+\((A+B)^2=2\).
+
+\item For \(d\geq0\), apply Riemann--Roch on \(\PP^1\) to
+\(\mathcal O_{\PP^1}(-d-2)\).  Show that
+\[
+\chi\bigl(\PP^1,\mathcal O(-d-2)\bigr)=-d-1.
+\]
+Since this line bundle has no nonzero global sections, determine
+\(h^1(\PP^1,\mathcal O(-d-2))\).  Explain why this example shows that
+the nef hypothesis in the lattice-point version of toric
+Riemann--Roch cannot simply be discarded.
+
+\item Let a nef divisor on \(\mathbb F_r\) have polygon
+\[
+P=\Conv{(0,0),(a,0),(a+rb,b),(0,b)},
+\qquad a,b,r\geq0.
+\]
+Count its lattice points directly by slicing at integer heights
+\(y=0,1,\ldots,b\), and prove
+\[
+\#(P\cap M)
+=
+(a+1)(b+1)+\frac r2b(b+1).
+\]
+Now compute the area and the four lattice edge lengths of \(P\).
+Use the area/intersection and edge-length/intersection dictionaries
+from Chapter~5 together with surface Riemann--Roch to recover exactly
+the same answer.
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Riemann--Roch proves Pick's theorem.}
+
+\medskip
+
+Let \(P\subset M_\RR\simeq\RR^2\) be a two-dimensional lattice
+polygon.  Write
+\[
+A(P)=\operatorname{Area}(P),
+\qquad
+B(P)=|\partial P\cap M|,
+\qquad
+I(P)=|\operatorname{Int}(P)\cap M|.
+\]
+Pick's theorem is the identity
+\[
+\boxed{
+A(P)=I(P)+\frac12B(P)-1.
+}
+\]
+We used this formula in Chapter~7.  The goal of this challenge is to
+reverse the logic: derive it from the toric Riemann--Roch theorem of
+this chapter.  Begin with a smooth polygon, where every piece of the
+dictionary is already available, and then use a toric resolution to
+remove the smoothness assumption.
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{Turn the polygon into a line bundle.}
+
+First assume that \(P\) is smooth, let \(X=X_P\) be its smooth
+projective toric surface, and choose the ample torus-invariant divisor
+\(D\) with
+\[
+P_D=P.
+\]
+Explain why
+\[
+P_{kD}=kP
+\qquad(k\geq0)
+\]
+and why Theorem~\ref{thm:toric-rr-lattice-count} gives
+\[
+L_P(k):=\#(kP\cap M)
+=
+\chi\bigl(X,\mathcal O_X(kD)\bigr).
+\]
+
+\item \textbf{Write the surface Riemann--Roch polynomial.}
+
+Apply the surface formula from Section~9.1 to \(kD\).  Prove
+\[
+\boxed{
+L_P(k)
+=
+1+\frac12k^2D^2-\frac12k\,D\cdot K_X.
+}
+\]
+Why is the constant term equal to \(1\)?  Give both interpretations:
+\(L_P(0)=1\) on the polytope side, and
+\(\chi(X,\mathcal O_X)=1\) on the toric side.
+
+\item \textbf{Recognize the quadratic coefficient as area.}
+
+Use the area/self-intersection theorem from Chapter~5 to replace the
+self-intersection by
+\[
+D^2=2A(P).
+\]
+The preceding polynomial becomes
+\[
+L_P(k)
+=
+A(P)k^2-\frac12(D\cdot K_X)k+1.
+\]
+Notice that no interior lattice-point count has entered the argument.
+
+\item \textbf{Recognize the linear coefficient as boundary length.}
+
+Write the toric boundary as
+\[
+-K_X=\sum_{\rho\in\Sigma(1)}D_\rho.
+\]
+If \(F_\rho\) is the edge of \(P\) corresponding to \(\rho\), use
+the edge-length/intersection dictionary from Chapter~5 to show
+\[
+-D\cdot K_X
+=
+\sum_\rho D\cdot D_\rho
+=
+\sum_\rho\length_M(F_\rho).
+\]
+Now prove the elementary boundary identity
+\[
+\boxed{
+\sum_{\substack{F\preceq P\\ \dim F=1}}
+\length_M(F)=B(P).
+}
+\]
+Be careful about the vertices: summing \(|F\cap M|\) would count every
+vertex twice, whereas summing \(|F\cap M|-1\) counts the cyclic
+boundary exactly once.
+
+Conclude that
+\[
+\boxed{
+L_P(k)
+=
+A(P)k^2+\frac12B(P)k+1.
+}
+\]
+This is the Ehrhart polynomial of a smooth lattice polygon, obtained
+here from Riemann--Roch rather than from Ehrhart theory.
+
+\item \textbf{Set \(k=1\).}
+
+Since every lattice point of \(P\) is either interior or on the
+boundary,
+\[
+L_P(1)=I(P)+B(P).
+\]
+Substitute \(k=1\) into the Riemann--Roch polynomial and show
+\[
+I(P)+B(P)
+=
+A(P)+\frac12B(P)+1.
+\]
+Rearrange.  You have proved
+\[
+\boxed{
+A(P)=I(P)+\frac12B(P)-1,
+}
+\]
+Pick's theorem for smooth lattice polygons.
+
+\item \textbf{Recover the Chapter~7 anticanonical calculation.}
+
+Suppose \(P=P_{-K_X}\) is a smooth reflexive polygon.  Recall that
+the origin is its unique interior lattice point, so \(I(P)=1\).
+Use the formula you have just proved to recover
+\[
+2A(P)=B(P).
+\]
+Then use \((-K_X)^2=2A(P)\) to obtain
+\[
+\boxed{
+(-K_X)^2=B(P),
+}
+\]
+the degree formula used in Section~7.5.  Explain why the logical
+direction is now the reverse of the argument in Chapter~7.
+
+\item \textbf{Remove the smoothness assumption.}
+
+Now let \(P\) be an arbitrary two-dimensional lattice polygon.  Its
+normal fan \(\Sigma_P\) need not be smooth.  Choose a smooth complete
+refinement \(\widetilde\Sigma\) and let
+\[
+\pi:X_{\widetilde\Sigma}\longrightarrow X_{\Sigma_P}
+\]
+be the corresponding toric resolution.  If \(A_P\) is the ample
+Cartier divisor determined by \(P\) on \(X_{\Sigma_P}\), set
+\[
+D=\pi^*A_P.
+\]
+Use the pullback description of basepoint-free toric divisors from
+Chapter~5 to explain why \(D\) is nef and
+\[
+P_D=P.
+\]
+Thus Theorem~\ref{thm:toric-rr-lattice-count} still applies on the
+\emph{smooth} surface \(X_{\widetilde\Sigma}\).
+
+The new rays of \(\widetilde\Sigma\) correspond to curves contracted
+by \(\pi\), so \(D\) has intersection zero with those curves.  The
+uncontracted boundary curves correspond to the original edges of
+\(P\), and their intersections with \(D\) are the lattice lengths of
+those edges.  Deduce again that
+\[
+D^2=2A(P),
+\qquad
+-D\cdot K_{X_{\widetilde\Sigma}}=B(P).
+\]
+Repeat Hints 2--5 on the resolution and conclude that Pick's theorem
+holds for every lattice polygon.
+
+\item \textbf{One theorem, three languages.}
+
+Summarize the proof by completing the following dictionary in your
+own words:
+\[
+\boxed{
+\begin{gathered}
+D^2
+\longleftrightarrow
+2A(P),
+\qquad
+-D\cdot K_X
+\longleftrightarrow
+B(P),
+\qquad
+\chi(\mathcal O_X(D))
+\longleftrightarrow
+I(P)+B(P).
+\end{gathered}}
+\]
+Which input is topological, which is intersection-theoretic, and
+which is combinatorial?  Where, exactly, does positivity enter the
+proof?  Where, exactly, is smoothness used, and how did the resolution
+remove it?
+
+\end{enumerate}
+
+\begin{threedictionaries}
+The proof of Pick's theorem is the chapter's three-way dictionary in
+its most compact form.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Intersection theory}
+& \textbf{Riemann--Roch}
+& \textbf{Lattice polygon}
+\\
+\midrule
+\(D^2\)
+& quadratic coefficient
+& \(2\operatorname{Area}(P)\)
+\\
+\(-D\cdot K_X\)
+& linear coefficient
+& \(|\partial P\cap M|\)
+\\
+\(\chi(\mathcal O_X)\)
+& constant coefficient
+& \(1\)
+\\
+\(\chi(\mathcal O_X(D))\)
+& value at \(k=1\)
+& \(|P\cap M|\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+The proof explains why Pick's formula has exactly three terms.  On a
+surface, Riemann--Roch has a quadratic intersection term, a linear
+canonical term, and the constant \(\chi(\mathcal O_X)=1\); the toric
+dictionary turns them into area, boundary length, and \(1\).
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The Chern-class calculation for a smooth toric variety follows from
+the generalized Euler sequence; see Cox--Little--Schenck,
+Proposition~13.1.2.  Their Theorem~13.1.6 gives the product formula for
+the Todd class, and Example~13.1.7 gives the surface Riemann--Roch
+calculation used repeatedly in this chapter.  Hirzebruch--Riemann--
+Roch for line bundles on smooth complete toric varieties is stated in
+their Theorem~13.3.8.
+
+Our equivariant cohomology discussion follows Cox--Little--Schenck,
+\S12.4.  Definition~12.4.6 introduces the Borel construction,
+Proposition~12.4.7 and Corollary~12.4.8 describe the passage back to
+ordinary cohomology, and Theorem~12.4.14 gives the equivariant
+Stanley--Reisner presentation.  The piecewise-polynomial viewpoint is
+developed in the discussion surrounding their exact
+sequence~(12.4.18).  In degree two it recovers the support functions
+and Cartier data already used throughout these notes.
+
+The fixed-point formula in Section~9.3 is the toric form of the
+Atiyah--Bott/Berline--Vergne localization theorem.  In
+Cox--Little--Schenck, Lemma~13.3.5 and Proposition~13.3.6 compute the
+toric fixed-point weights, while Theorem~13.3.7 gives the localization
+formula itself.  Their Theorem~13.3.4 and Example~13.3.9 explain the
+equivariant Riemann--Roch character calculation that underlies our
+one-dimensional example.
+
+The final lattice-point formula combines three earlier results:
+global sections are indexed by \(P_D\cap M\) by
+Cox--Little--Schenck, Proposition~4.3.3; higher cohomology vanishes for
+nef toric divisors by their Theorem~9.2.3; and toric
+Hirzebruch--Riemann--Roch is Theorem~13.3.8.  The area and edge-length
+intersection formulas used in the challenge were proved earlier in
+Chapter~5 and correspond to Cox--Little--Schenck,
+Proposition~10.5.6 and Proposition~6.3.8, respectively.
+
+We have intentionally not developed the volume-polynomial,
+Khovanskii--Pukhlikov, or general Ehrhart-theoretic refinements of
+Chapter~13 of Cox--Little--Schenck.  The point here was narrower: to
+see equivariant cohomology and localization turn Riemann--Roch into a
+concrete toric computation, and then to watch that computation become
+lattice-point arithmetic.  The next chapter changes direction from
+invariants of a fixed toric variety to birational geometry: varying a
+Cox linearization will move us through the secondary fan and make
+contractions, flips, and the toric minimal model program visible.

@@ -1,0 +1,4184 @@
+\chapter[Divisors from Fans]
+{Divisors from Fans:\\ Rays, Characters, and\\ Piecewise-Linear Functions}
+\label{chap:divisors-from-fans}
+
+\begin{chapteroverview}
+The orbit--cone correspondence tells us that a ray
+\[
+\rho\in\Sigma(1)
+\]
+corresponds to a codimension-one torus orbit. Its closure is therefore
+an irreducible, torus-invariant prime divisor
+\[
+D_\rho=\overline{O(\rho)}.
+\]
+This is the first principle of the chapter:
+\[
+\boxed{\text{Rays record the irreducible components of the toric boundary.}}
+\]
+
+We will use the primitive ray generators \(u_\rho\) to measure zeros
+and poles of characters:
+\[
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho.
+\]
+These principal divisors provide the relations among the invariant
+prime divisors and lead to a combinatorial description of the divisor
+class group.
+
+Cartier divisors will then be described by one local character on
+each cone. Compatibility of those local equations is equivalent to
+piecewise linearity on the fan. Thus the chapter develops the passage
+\[
+\begin{array}{c}
+\text{rays and integral linear functions}
+\\[-1mm]
+\downarrow
+\\[-1mm]
+\text{prime divisors and local equations}
+\\[-1mm]
+\downarrow
+\\[-1mm]
+\text{divisor classes and support functions}.
+\end{array}
+\]
+
+\end{chapteroverview}
+
+\begin{threedictionaries}
+Divisors add codimension-one information to the three dictionaries.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+a valuation along \(D_\rho\)
+&
+order of zero or pole
+&
+the pairing with \(u_\rho\)
+\\[1mm]
+a principal divisor
+&
+relations among boundary components
+&
+an element \(m\in M\)
+\\[1mm]
+local monomial equations
+&
+a Cartier divisor
+&
+linear functions on cones
+\\[1mm]
+compatible local equations
+&
+a global divisor class
+&
+an integral piecewise-linear function
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+For a toric surface, every ray gives a torus-invariant curve and every
+two-dimensional cone gives a torus-fixed point.
+
+Throughout the chapter, we will repeatedly ask:
+\begin{itemize}
+\item Which boundary curve corresponds to each ray?
+\item Which curves meet?
+\item Which integer relations among the ray generators become linear
+equivalences among divisors?
+\item Which divisors admit compatible local equations?
+\end{itemize}
+\end{surfacelaboratory}
+
+\section{Rays become prime divisors}
+\label{sec:rays-become-prime-divisors}
+\index{ray!invariant divisor}
+\index{invariant prime divisor}
+\index{toric boundary}
+\index{boundary incidence}
+
+The previous chapter indexed every torus orbit by a cone:
+\[
+\sigma\in\Sigma
+\quad\longleftrightarrow\quad
+O(\sigma)\subseteq X_\Sigma,
+\]
+with
+\[
+\dim O(\sigma)
+=
+\rank N-\dim\sigma.
+\]
+We now focus on the cones of dimension one.
+
+\subsection{A brief divisor dictionary}
+
+\begin{agcheatsheet}
+Let \(X\) be an irreducible normal variety.
+
+A \emph{prime divisor} is an irreducible subvariety
+\[
+D\subseteq X
+\]
+of codimension one.
+
+A \emph{Weil divisor} is a finite formal sum
+\[
+D=\sum_i a_iD_i,
+\qquad
+a_i\in\ZZ,
+\]
+of prime divisors. The group of Weil divisors is denoted
+\[
+\Div(X).
+\]
+
+The divisor is \emph{effective}, written \(D\geq0\), if every
+\(a_i\geq0\). Its support is
+\[
+\Supp(D)
+=
+\bigcup_{a_i\neq0}D_i.
+\]
+
+At this stage, a Weil divisor should be viewed as codimension-one
+geometry with integer multiplicities. Zeros, poles, and linear
+equivalence will enter in the next section.
+\end{agcheatsheet}
+
+Normality is important because codimension-one subvarieties carry
+well-behaved orders of vanishing. Toric varieties constructed from
+fans are normal, so Weil divisors are available throughout this
+chapter.
+
+\subsection{One divisor for every ray}
+
+Let
+\[
+\rho\in\Sigma(1).
+\]
+The orbit--cone correspondence gives
+\[
+\dim O(\rho)
+=
+\rank N-1.
+\]
+Its closure is therefore irreducible and has codimension one.
+
+\begin{definition}
+\label{def:torus-invariant-prime-divisor}
+The \emph{torus-invariant prime divisor associated to \(\rho\)} is
+\[
+D_\rho
+=
+V(\rho)
+=
+\overline{O(\rho)}
+\subseteq X_\Sigma.
+\]
+\end{definition}
+
+The notation \(V(\rho)\) emphasizes orbit closure; the notation
+\(D_\rho\) emphasizes codimension one. We will use \(D_\rho\) from now
+on.
+
+\begin{theorem}[Rays and invariant prime divisors]
+\label{thm:rays-invariant-prime-divisors}
+The assignment
+\[
+\rho\longmapsto D_\rho
+\]
+is a bijection
+\[
+\Sigma(1)
+\longleftrightarrow
+\left\{
+\begin{array}{c}
+\text{torus-invariant}\\
+\text{prime divisors of }X_\Sigma
+\end{array}
+\right\}.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The notation \(D_\rho=\overline{O(\rho)}\) is introduced at the
+beginning of Cox--Little--Schenck, \S4.1. The characterization of all
+torus-invariant Weil divisors is Exercise~4.1.1 there.
+
+\begin{proof}
+Every \(D_\rho\) is irreducible because it is the closure of one
+orbit, and it has codimension one by the orbit-dimension formula. It
+is torus-invariant because the closure of a torus orbit is preserved
+by the torus action.
+
+Conversely, let \(D\subseteq X_\Sigma\) be a torus-invariant prime
+divisor. Since the torus acts transitively on itself, the intersection
+\[
+D\cap T
+\]
+is either empty or all of \(T\). It cannot be all of \(T\), because
+\(D\) is a proper closed subset. Hence
+\[
+D\subseteq X_\Sigma\setminus T.
+\]
+
+Every nonzero cone contains a ray. If
+\[
+\sigma\neq\{0\}
+\qquad\text{and}\qquad
+\rho\preceq\sigma,
+\]
+then the orbit--cone correspondence gives
+\[
+O(\sigma)\subseteq\overline{O(\rho)}=D_\rho.
+\]
+Therefore
+\[
+X_\Sigma\setminus T
+=
+\bigcup_{\rho\in\Sigma(1)}D_\rho.
+\]
+The irreducible divisor \(D\) must lie in one of these finitely many
+closed sets. Since \(D\) and \(D_\rho\) are both irreducible of
+codimension one, they are equal.
+\end{proof}
+
+Thus the fan lists every invariant codimension-one subvariety before
+we write a single equation.
+
+\subsection{The toric boundary}
+
+\begin{definition}
+The \emph{toric boundary} is the complement of the dense torus:
+\[
+\partial X_\Sigma
+=
+X_\Sigma\setminus T.
+\]
+As a reduced Weil divisor, it is
+\[
+\partial X_\Sigma
+=
+\sum_{\rho\in\Sigma(1)}D_\rho.
+\]
+\end{definition}
+
+The same symbol is traditionally used for the closed subset and for
+its associated reduced divisor; the intended meaning will be clear
+from context.
+
+\begin{example}[The boundary of \(\AAA^2\)]
+Let
+\[
+\AAA^2=\Spec\Bbbk[x,y],
+\]
+and let the rays of its first-quadrant fan be
+\[
+\rho_1=\Cone{e_1},
+\qquad
+\rho_2=\Cone{e_2}.
+\]
+The coordinate axes are precisely the corresponding invariant prime
+divisors:
+\[
+V(x)=D_{\rho_1},
+\qquad
+V(y)=D_{\rho_2}.
+\]
+Therefore, as a closed subset,
+\[
+\partial\AAA^2
+=
+V(x)\cup V(y),
+\]
+while as a reduced Weil divisor,
+\[
+\partial\AAA^2
+=
+D_{\rho_1}+D_{\rho_2}
+=
+V(x)+V(y).
+\]
+\end{example}
+
+For a complete toric variety, every direction has been filled in by
+the fan, but the toric boundary remains: completeness does not mean
+that the dense torus has no boundary. It means that every
+one-parameter direction approaches some boundary orbit.
+
+\begin{pauseandthink}
+The fan of \(\PP^1\) has two rays. Identify the corresponding prime
+divisors, remembering that prime divisors on a curve are points.
+
+What is the toric boundary of \(\PP^1\)?
+\end{pauseandthink}
+
+\subsection{The fan remembers incidence}
+
+The fan records not only the boundary components but also how they
+meet.
+
+\begin{proposition}[Boundary incidence]
+\label{prop:boundary-incidence}
+Let \(\rho_1,\ldots,\rho_s\in\Sigma(1)\). Then
+\[
+D_{\rho_1}\cap\cdots\cap D_{\rho_s}\neq\varnothing
+\]
+if and only if the rays \(\rho_1,\ldots,\rho_s\) are all contained in
+a cone of \(\Sigma\).
+
+For a toric surface, two distinct boundary curves meet if and only if
+their rays are adjacent. When they meet, their intersection is the
+torus-fixed point corresponding to the two-dimensional cone that they
+span.
+\end{proposition}
+
+\begin{proof}
+Suppose the rays lie in a cone \(\sigma\). Then
+\[
+\rho_i\preceq\sigma
+\]
+for every \(i\), so
+\[
+O(\sigma)\subseteq
+\overline{O(\rho_i)}
+=
+D_{\rho_i}.
+\]
+Thus the intersection is nonempty.
+
+Conversely, let \(p\) lie in the intersection. The point \(p\) lies
+in a unique orbit \(O(\sigma)\). Since
+\[
+O(\sigma)\subseteq D_{\rho_i},
+\]
+the orbit-closure relation implies
+\[
+\rho_i\preceq\sigma
+\]
+for every \(i\).
+
+On a surface, adjacent rays span a two-dimensional cone, whose orbit
+is one point. No larger cone exists, so this fixed point is the whole
+intersection.
+\end{proof}
+
+This proposition turns the cyclic ordering of rays in a surface fan
+into the incidence graph of its boundary curves.
+
+\subsection{The coordinate triangle in \texorpdfstring{\(\PP^2\)}{P2}}
+
+Let the rays of the fan of \(\PP^2\) be
+\[
+\rho_0=\Cone{-e_1-e_2},
+\qquad
+\rho_1=\Cone{e_1},
+\qquad
+\rho_2=\Cone{e_2}.
+\]
+The associated invariant divisors are the coordinate lines
+\[
+D_{\rho_i}
+=
+\{z_i=0\}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  % fan
+  \begin{scope}[xshift=-4.4cm]
+    \fill[DictionaryBlue!9]
+      (0,0)--(2.3,0)--(0,2.3)--cycle;
+    \fill[SurfaceGreen!9]
+      (0,0)--(0,2.3)--(-1.7,-1.7)--cycle;
+    \fill[ExampleGold!12]
+      (0,0)--(-1.7,-1.7)--(2.3,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.65,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.65);
+    \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.0,-2.0);
+
+    \node[DictionaryBlue,below] at (2.45,0) {\(\rho_1\)};
+    \node[SurfaceGreen,left] at (0,2.45) {\(\rho_2\)};
+    \node[ExampleGold,above left] at (-1.82,-1.82) {\(\rho_0\)};
+    \node[font=\bfseries] at (0.2,3.25) {rays of the fan};
+  \end{scope}
+
+  \node[font=\Large] at (0,0.4) {\(\longleftrightarrow\)};
+
+  % coordinate triangle
+  \begin{scope}[xshift=4.3cm]
+    \coordinate (p0) at (0,2.5);
+    \coordinate (p1) at (-2.35,-1.5);
+    \coordinate (p2) at (2.35,-1.5);
+
+    \draw[very thick,ExampleGold] (p1)--(p2);
+    \draw[very thick,DictionaryBlue] (p0)--(p2);
+    \draw[very thick,SurfaceGreen] (p0)--(p1);
+
+    \fill (p0) circle (2.2pt);
+    \fill (p1) circle (2.2pt);
+    \fill (p2) circle (2.2pt);
+
+    \node[above] at (p0) {\([1:0:0]\)};
+    \node[below left] at (p1) {\([0:1:0]\)};
+    \node[below right] at (p2) {\([0:0:1]\)};
+
+    \node[ExampleGold,below] at (0,-1.5)
+      {\(D_{\rho_0}=\{z_0=0\}\)};
+    \node[DictionaryBlue,rotate=-60] at (1.62,0.62)
+      {\(D_{\rho_1}=\{z_1=0\}\)};
+    \node[SurfaceGreen,rotate=60] at (-1.62,0.62)
+      {\(D_{\rho_2}=\{z_2=0\}\)};
+
+    \node[font=\bfseries] at (0,3.25)
+      {toric boundary of \(\PP^2\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The three rays of the fan correspond to the three coordinate
+lines in \(\PP^2\). Adjacent rays span maximal cones, just as pairs of
+coordinate lines meet at coordinate points. The triangle on the right
+is an incidence picture of the boundary.}
+\label{fig:p2-rays-coordinate-divisors}
+\end{figure}
+
+Thus
+\[
+\partial\PP^2
+=
+D_{\rho_0}+D_{\rho_1}+D_{\rho_2}.
+\]
+Every pair of rays spans a maximal cone, so every pair of coordinate
+lines meets. The three lines have no common point, matching the fact
+that no cone contains all three rays.
+
+\begin{surfacelaboratory}
+Read the boundary of \(\PP^2\) from
+\cref{fig:p2-rays-coordinate-divisors}.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Match each maximal cone with the coordinate point at which its
+two boundary divisors meet.
+
+\item Explain why
+\[
+D_{\rho_0}\cap D_{\rho_1}\cap D_{\rho_2}
+=
+\varnothing
+\]
+without using homogeneous coordinates.
+
+\item Remove the ray \(\rho_0\) and every cone containing it. Which
+toric open subset remains, and which coordinate boundary components
+does it contain?
+\end{enumerate}
+\end{surfacelaboratory}
+
+\subsection{A new ray creates the exceptional divisor}
+
+Consider again the fan of the blowup
+\[
+\pi:\Blp{\AAA^2}{0}\longrightarrow\AAA^2.
+\]
+It is obtained by inserting
+\[
+\rho_E=\Cone{e_1+e_2}
+\]
+between
+\[
+\rho_1=\Cone{e_1}
+\qquad\text{and}\qquad
+\rho_2=\Cone{e_2}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  % fan
+  \begin{scope}[xshift=-4.5cm]
+    \fill[DictionaryBlue!10]
+      (0,0)--(2.6,0)--(1.3,1.3)--cycle;
+    \fill[SurfaceGreen!10]
+      (0,0)--(1.3,1.3)--(0,2.6)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.9,0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}]
+      (0,0)--(2.25,2.25);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.9);
+
+    \node[DictionaryBlue,below] at (2.7,0) {\(\rho_1\)};
+    \node[PredictionTeal,above right] at (2.0,2.0) {\(\rho_E\)};
+    \node[SurfaceGreen,left] at (0,2.7) {\(\rho_2\)};
+    \node[font=\bfseries] at (1.0,3.4) {blowup fan};
+  \end{scope}
+
+  \node[font=\Large] at (0,0.5) {\(\longleftrightarrow\)};
+
+  % boundary incidence
+  \begin{scope}[xshift=4.4cm]
+    \draw[very thick,DictionaryBlue] (-2.6,-0.2)--(-0.65,-0.2);
+    \draw[very thick,PredictionTeal] (-0.65,-0.2) arc[start angle=180,end angle=0,
+      x radius=1.3,y radius=1.3];
+    \draw[very thick,SurfaceGreen] (1.95,-0.2)--(3.4,-0.2);
+
+    \fill (-0.65,-0.2) circle (2.2pt);
+    \fill (1.95,-0.2) circle (2.2pt);
+
+    \node[DictionaryBlue,below] at (-1.75,-0.2)
+      {\(D_{\rho_1}\)};
+    \node[PredictionTeal,above] at (0.65,1.15)
+      {\(E=D_{\rho_E}\simeq\PP^1\)};
+    \node[SurfaceGreen,below] at (2.7,-0.2)
+      {\(D_{\rho_2}\)};
+
+    \node[align=center] at (0.65,-1.5)
+      {the two strict transforms no longer meet;\\
+       each meets the exceptional divisor};
+    \node[font=\bfseries] at (0.45,3.4)
+      {boundary incidence};
+  \end{scope}
+\end{tikzpicture}
+\caption{The new ray of the blowup fan creates the exceptional
+divisor. The subdivision also changes incidence: the strict transforms
+of the coordinate axes are separated by \(E\).}
+\label{fig:blowup-rays-boundary-divisors}
+\end{figure}
+
+The old rays correspond to the strict transforms of the coordinate
+axes. The new ray corresponds to the exceptional curve
+\[
+E=D_{\rho_E}.
+\]
+Because \(\rho_E\) lies in two maximal cones, its star is the complete
+one-dimensional fan, so
+\[
+E\simeq\PP^1.
+\]
+
+The original rays \(\rho_1,\rho_2\) no longer span a cone. Hence
+\[
+D_{\rho_1}\cap D_{\rho_2}=\varnothing.
+\]
+Instead,
+\[
+D_{\rho_1}\cap E\neq\varnothing,
+\qquad
+E\cap D_{\rho_2}\neq\varnothing.
+\]
+
+\begin{pauseandthink}
+Compare the fans before and after the blowup.
+
+Which single combinatorial change simultaneously explains:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item the appearance of a new boundary curve;
+\item the appearance of one additional torus-fixed point;
+\item the separation of the strict transforms of the coordinate axes?
+\end{enumerate}
+\end{pauseandthink}
+
+The fan tells us which prime divisors exist, but not yet how to
+write equations for them or compare them.
+
+\begin{guidingquestion}
+How can the integer \(\langle m,u_\rho\rangle\) measure the order of
+vanishing or pole of \(\character{m}\) along \(D_\rho\)?
+\end{guidingquestion}
+
+\section{Characters and principal divisors}
+\label{sec:characters-principal-divisors}
+\index{principal divisor}
+\index{divisor of a character}
+\index{order of vanishing}
+\index{linear equivalence}
+
+A character
+\[
+\character{m}:T\longrightarrow\Gm,
+\qquad
+m\in M,
+\]
+is regular and nowhere zero on the dense torus. Since
+\[
+T\subseteq X_\Sigma
+\]
+is dense, \(\character{m}\) is a rational function on \(X_\Sigma\).
+
+It can acquire zeros and poles only when we approach the toric
+boundary. The primitive ray generators tell us exactly what happens.
+
+\subsection{The divisor of a character}
+
+\begin{agcheatsheet}
+Let \(X\) be a normal irreducible variety, let \(D\subseteq X\) be a
+prime divisor, and let
+\[
+f\in\Bbbk(X)^\times
+\]
+be a nonzero rational function.
+
+The local ring at the generic point of \(D\) is a discrete valuation
+ring. Consequently, near the generic point of \(D\), one can write
+\[
+f=\pi^\ell u,
+\]
+where \(\pi\) is a local equation for \(D\), \(u\) is a unit, and
+\(\ell\in\ZZ\). We define
+\[
+\ord_D(f)=\ell.
+\]
+
+Thus
+\[
+\begin{array}{c|c}
+\ord_D(f)>0 & f\text{ has a zero along }D,\\
+\ord_D(f)=0 & f\text{ is a unit at the generic point of }D,\\
+\ord_D(f)<0 & f\text{ has a pole along }D.
+\end{array}
+\]
+
+The \emph{principal divisor} of \(f\) is
+\[
+\operatorname{div}(f)
+=
+\sum_D\ord_D(f)D,
+\]
+where the sum runs over all prime divisors of \(X\). Only finitely
+many coefficients are nonzero.
+\end{agcheatsheet}
+
+The order is measured at the generic point of the divisor. A function
+may vanish at isolated points of \(D\) without vanishing
+\emph{along} \(D\).
+
+For a toric divisor \(D_\rho\), we abbreviate
+\[
+\ord_{D_\rho}(f)
+\]
+by
+\[
+\ord_\rho(f).
+\]
+
+\begin{proposition}[The order of a character]
+\label{prop:order-character-ray}
+Let \(\rho\in\Sigma(1)\) have primitive generator \(u_\rho\). Then,
+for every \(m\in M\),
+\[
+\ord_{D_\rho}(\character{m})
+=
+\langle m,u_\rho\rangle.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.1.1.
+
+\begin{proof}[Conceptual proof sketch]
+Because \(u_\rho\) is primitive, it can be completed to a basis of
+\(N\). In the resulting toric coordinates,
+\[
+U_\rho\simeq\AAA^1\times\Gm^{n-1},
+\qquad
+D_\rho\cap U_\rho=V(x_1).
+\]
+The character \(\character{m}\) is then \(x_1^{\langle
+m,u_\rho\rangle}\) times a unit along \(D_\rho\). Its order is
+therefore \(\langle m,u_\rho\rangle\).
+\end{proof}
+
+\begin{remark}[Why the primitive generator matters]
+The valuation \(\ord_{D_\rho}\) is normalized so that a local
+parameter has order one. If we replaced the primitive generator by
+\[
+v=k u_\rho,
+\qquad k>1,
+\]
+then
+\[
+\langle m,v\rangle
+=
+k\langle m,u_\rho\rangle,
+\]
+which would multiply every order by \(k\). The ray determines the
+divisor, but its \emph{primitive} lattice generator gives the correctly
+normalized valuation.
+\end{remark}
+
+The formula has a useful one-parameter interpretation. Along
+\(\oneps{u_\rho}\),
+\[
+\character{m}(\oneps{u_\rho}(t))
+=
+t^{\langle m,u_\rho\rangle}.
+\]
+The same integer therefore controls both the limit along the ray and
+the order along the corresponding divisor.
+
+\begin{theorem}[Principal divisor formula]
+\label{thm:principal-divisor-character}
+For every \(m\in M\),
+\[
+\boxed{
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho.
+}
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.1.2.
+
+\begin{pauseandthink}
+Fill in the proof. There are only two steps:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Explain why \(\operatorname{div}(\character{m})\) is supported
+on the toric boundary.
+\item Use \cref{prop:order-character-ray} to compute the coefficient
+of every \(D_\rho\).
+\end{enumerate}
+\end{pauseandthink}
+
+The signs have a direct geometric meaning:
+\[
+\begin{array}{c@{\qquad}c}
+\langle m,u_\rho\rangle>0
+&
+D_\rho\text{ occurs in the zero divisor},
+\\[1mm]
+\langle m,u_\rho\rangle=0
+&
+\character{m}\text{ is generically nonzero along }D_\rho,
+\\[1mm]
+\langle m,u_\rho\rangle<0
+&
+D_\rho\text{ occurs in the pole divisor}.
+\end{array}
+\]
+
+Thus a linear function on \(N_\RR\) becomes a signed collection of
+multiplicities on the boundary.
+
+\subsection{First examples}
+
+\begin{example}[Monomials on \(\AAA^2\)]
+Let
+\[
+\rho_1=\Cone{e_1},
+\qquad
+\rho_2=\Cone{e_2},
+\]
+so that
+\[
+D_{\rho_1}=V(x),
+\qquad
+D_{\rho_2}=V(y).
+\]
+For
+\[
+m=am_1+bm_2,
+\]
+we have
+\[
+\character{m}=x^ay^b
+\]
+as a rational function, and
+\[
+\operatorname{div}(x^ay^b)
+=
+aD_{\rho_1}+bD_{\rho_2}.
+\]
+
+In particular,
+\[
+\operatorname{div}(x)=D_{\rho_1},
+\qquad
+\operatorname{div}(y)=D_{\rho_2},
+\]
+while
+\[
+\operatorname{div}(x/y)
+=
+D_{\rho_1}-D_{\rho_2}.
+\]
+\end{example}
+
+\begin{example}[Zeros and poles on \(\PP^1\)]
+Let
+\[
+\rho_+=\RR_{\geq0},
+\qquad
+\rho_-=\RR_{\leq0},
+\]
+with primitive generators \(1\) and \(-1\). The character
+\[
+t=\character{1}
+\]
+satisfies
+\[
+\operatorname{div}(t)
+=
+D_{\rho_+}-D_{\rho_-}.
+\]
+Under the usual identification,
+\[
+D_{\rho_+}=\{0\},
+\qquad
+D_{\rho_-}=\{\infty\},
+\]
+so this is the familiar formula
+\[
+\operatorname{div}(t)
+=
+[0]-[\infty].
+\]
+\end{example}
+
+\subsection{The coordinate characters on \texorpdfstring{\(\PP^2\)}{P2}}
+
+Let
+\[
+u_{\rho_0}=-e_1-e_2,
+\qquad
+u_{\rho_1}=e_1,
+\qquad
+u_{\rho_2}=e_2.
+\]
+Write
+\[
+x=\character{m_1}=\frac{z_1}{z_0},
+\qquad
+y=\character{m_2}=\frac{z_2}{z_0}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % x
+  \begin{scope}[xshift=-4.4cm]
+    \fill[DictionaryBlue!8] (0,0)--(2.3,0)--(0,2.3)--cycle;
+    \fill[LightGray] (0,0)--(0,2.3)--(-1.7,-1.7)--cycle;
+    \fill[WarningRed!8] (0,0)--(-1.7,-1.7)--(2.3,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.65,0);
+    \draw[very thick,black!45,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.65);
+    \draw[very thick,WarningRed,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.0,-2.0);
+
+    \node[DictionaryBlue,below] at (2.45,0)
+      {\(\langle m_1,u_{\rho_1}\rangle=1\)};
+    \node[black!60,left] at (0,2.45)
+      {\(\langle m_1,u_{\rho_2}\rangle=0\)};
+    \node[WarningRed,above left] at (-1.8,-1.8)
+      {\(\langle m_1,u_{\rho_0}\rangle=-1\)};
+
+    \node[font=\bfseries] at (0.2,3.25)
+      {\(x=z_1/z_0\)};
+    \node[align=center] at (0.15,-2.75)
+      {\(\operatorname{div}(x)=D_{\rho_1}-D_{\rho_0}\)};
+  \end{scope}
+
+  % y
+  \begin{scope}[xshift=4.4cm]
+    \fill[LightGray] (0,0)--(2.3,0)--(0,2.3)--cycle;
+    \fill[SurfaceGreen!8] (0,0)--(0,2.3)--(-1.7,-1.7)--cycle;
+    \fill[WarningRed!8] (0,0)--(-1.7,-1.7)--(2.3,0)--cycle;
+
+    \draw[very thick,black!45,-{Latex[length=2.3mm]}]
+      (0,0)--(2.65,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.65);
+    \draw[very thick,WarningRed,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.0,-2.0);
+
+    \node[black!60,below] at (2.45,0)
+      {\(\langle m_2,u_{\rho_1}\rangle=0\)};
+    \node[SurfaceGreen,left] at (0,2.45)
+      {\(\langle m_2,u_{\rho_2}\rangle=1\)};
+    \node[WarningRed,above left] at (-1.8,-1.8)
+      {\(\langle m_2,u_{\rho_0}\rangle=-1\)};
+
+    \node[font=\bfseries] at (0.2,3.25)
+      {\(y=z_2/z_0\)};
+    \node[align=center] at (0.15,-2.75)
+      {\(\operatorname{div}(y)=D_{\rho_2}-D_{\rho_0}\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The coefficients in the divisor of a character are obtained
+by evaluating the corresponding linear function on the primitive ray
+generators. Positive coefficients record zeros, red negative
+coefficients record poles, and gray zero coefficients contribute
+nothing.}
+\label{fig:p2-character-divisors}
+\end{figure}
+
+The figure gives
+\[
+\operatorname{div}(x)
+=
+D_{\rho_1}-D_{\rho_0},
+\qquad
+\operatorname{div}(y)
+=
+D_{\rho_2}-D_{\rho_0}.
+\]
+More generally,
+\[
+\operatorname{div}(x^ay^b)
+=
+aD_{\rho_1}
++
+bD_{\rho_2}
+-
+(a+b)D_{\rho_0}.
+\]
+
+This agrees with homogeneous coordinates:
+\[
+x^ay^b
+=
+\frac{z_1^az_2^b}{z_0^{a+b}}.
+\]
+The numerator records the zeros, and the denominator records the
+poles.
+
+\subsection{Principal divisors and linear equivalence}
+
+\begin{definition}
+Two Weil divisors \(D,D'\) are \emph{linearly equivalent}, written
+\[
+D\sim D',
+\]
+if
+\[
+D-D'=\operatorname{div}(f)
+\]
+for some \(f\in\Bbbk(X)^\times\).
+
+A divisor of the form \(\operatorname{div}(f)\) is called
+\emph{principal}. Thus every principal divisor is linearly equivalent
+to zero.
+\end{definition}
+
+The character calculations on \(\PP^2\) imply
+\[
+D_{\rho_1}\sim D_{\rho_0},
+\qquad
+D_{\rho_2}\sim D_{\rho_0}.
+\]
+Hence the three coordinate lines are linearly equivalent.
+
+This is the first appearance of a general principle:
+\[
+\text{characters}
+\quad\leadsto\quad
+\text{relations among invariant divisors}.
+\]
+
+\begin{pauseandthink}
+Let
+\[
+m=2m_1-m_2.
+\]
+Use \cref{fig:p2-character-divisors}, or pair directly with the three
+ray generators, to compute
+\[
+\operatorname{div}(x^2/y).
+\]
+Which coordinate lines occur as zeros, and which occur as poles?
+\end{pauseandthink}
+
+\subsection{The blowup remembers total transforms}
+
+Let
+\[
+\pi:\Blp{\AAA^2}{0}\longrightarrow\AAA^2
+\]
+be the toric blowup. Its rays have primitive generators
+\[
+e_1,\qquad
+e_1+e_2,\qquad
+e_2.
+\]
+Write
+\[
+D_1=D_{\Cone{e_1}},
+\qquad
+E=D_{\Cone{e_1+e_2}},
+\qquad
+D_2=D_{\Cone{e_2}}.
+\]
+
+The pairing table is
+\[
+\begin{array}{c|ccc}
+&
+e_1
+&
+e_1+e_2
+&
+e_2
+\\
+\hline
+m_1
+&
+1&1&0
+\\
+m_2
+&
+0&1&1.
+\end{array}
+\]
+Therefore
+\[
+\operatorname{div}(x)
+=
+D_1+E,
+\qquad
+\operatorname{div}(y)
+=
+D_2+E.
+\]
+
+\begin{surfacelaboratory}
+Interpret these formulas geometrically.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Explain why \(D_1\) and \(D_2\) are the strict transforms of the
+coordinate axes.
+
+\item Explain why \(E\) appears in both
+\[
+\operatorname{div}(x)
+\qquad\text{and}\qquad
+\operatorname{div}(y).
+\]
+Relate this to the fact that both coordinate axes pass through the
+blown-up point.
+
+\item Compute
+\[
+\operatorname{div}(x/y).
+\]
+Why does the exceptional divisor cancel?
+
+\item Use the formulas to obtain the linear equivalences
+\[
+D_1\sim -E,
+\qquad
+D_2\sim -E
+\]
+on the noncomplete surface \(\Blp{\AAA^2}{0}\).
+\end{enumerate}
+\end{surfacelaboratory}
+
+\begin{warningbox}
+The equality
+\[
+\operatorname{div}(x)=D_1+E
+\]
+is an equality of divisors on the blowup. It should not be confused
+with the zero set of the function \(x\) on the original affine plane.
+
+The divisor on the blowup records the total transform: the strict
+transform \(D_1\) and the exceptional contribution \(E\).
+\end{warningbox}
+
+We now know the torus-invariant prime divisors and the relations among
+them produced by rational functions. The next step is to decide when
+two divisors should count as representing the same geometry.
+
+\begin{guidingquestion}
+Why might it be useful to regard two divisors as equivalent whenever
+their difference is the divisor of a rational function?
+
+What geometric information would you expect the quotient
+\[
+\Div(X_\Sigma)/
+\Prin(X_\Sigma)
+\]
+to retain, and what information would it deliberately forget?
+\end{guidingquestion}
+
+
+\section{Weil divisors and the divisor class group}
+\label{sec:weil-divisors-class-group}
+\index{Weil divisor}
+\index{divisor class group}
+\index{class-group sequence}
+\index{torsion!in the class group}
+
+The preceding sections produced two pieces of information:
+
+\[
+\rho\in\Sigma(1)
+\quad\longmapsto\quad
+D_\rho,
+\]
+and
+\[
+m\in M
+\quad\longmapsto\quad
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho.
+\]
+
+We now organize the invariant prime divisors modulo the relations
+coming from characters.
+
+\subsection{Invariant Weil divisors}
+
+\begin{definition}
+The group of \emph{torus-invariant Weil divisors} is
+\[
+\Div_T(X_\Sigma)
+=
+\bigoplus_{\rho\in\Sigma(1)}\ZZ D_\rho.
+\]
+Thus an invariant Weil divisor has the form
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho,
+\qquad
+a_\rho\in\ZZ.
+\]
+\end{definition}
+
+Since the divisors \(D_\rho\) are distinct prime divisors, they form a
+basis of this free abelian group. After ordering the rays, we may
+identify
+\[
+\Div_T(X_\Sigma)
+\simeq
+\ZZ^{\Sigma(1)}.
+\]
+
+\begin{definition}
+The \emph{divisor class group} is
+\[
+\Cl(X)
+=
+\Div(X)/
+\Prin(X),
+\]
+the group of Weil divisors modulo principal divisors.
+
+The class of a divisor \(D\) is denoted
+\[
+[D]\in\Cl(X).
+\]
+Thus
+\[
+[D]=[D']
+\quad\Longleftrightarrow\quad
+D\sim D'.
+\]
+\end{definition}
+
+At first sight, computing \(\Cl(X_\Sigma)\) seems to
+require all prime divisors of \(X_\Sigma\), not merely the invariant
+ones. The torus action makes the answer much simpler.
+
+\begin{theorem}[The class-group sequence]
+\label{thm:toric-class-group-sequence}
+There is an exact sequence
+\[
+M
+\xrightarrow{\;\operatorname{div}\;}
+\Div_T(X_\Sigma)
+\longrightarrow
+\Cl(X_\Sigma)
+\longrightarrow
+0,
+\]
+where
+\[
+m\longmapsto
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho,
+\]
+and the second map sends an invariant divisor to its divisor class.
+
+The first map is injective if and only if the primitive ray
+generators span \(N_\RR\). Equivalently, the sequence is short exact
+precisely when \(X_\Sigma\) has no torus factor.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~4.1.3.
+
+\begin{proof}[Conceptual proof sketch]
+The complement of the dense torus is the union of the invariant prime
+divisors:
+\[
+X_\Sigma\setminus T
+=
+\bigcup_{\rho\in\Sigma(1)}D_\rho.
+\]
+Since the coordinate ring
+\[
+\Bbbk[M]
+\]
+of the torus is a Laurent polynomial ring, it is a unique
+factorization domain and
+\[
+\Cl(T)=0.
+\]
+The localization sequence for divisor class groups therefore says
+that every divisor class on \(X_\Sigma\) has a representative
+supported on the boundary. This proves surjectivity:
+\[
+\Div_T(X_\Sigma)
+\twoheadrightarrow
+\Cl(X_\Sigma).
+\]
+
+Now suppose an invariant divisor is principal:
+\[
+D=\operatorname{div}(f).
+\]
+Its support misses the torus, so the restriction of \(f\) to \(T\)
+has neither zeros nor poles. The units of \(\Bbbk[M]\) are
+\[
+c\character{m},
+\qquad
+c\in\Bbbk^\times,\quad m\in M.
+\]
+Hence
+\[
+D=\operatorname{div}(\character{m}),
+\]
+which identifies the kernel.
+
+Finally,
+\[
+\operatorname{div}(\character{m})=0
+\]
+exactly when
+\[
+\langle m,u_\rho\rangle=0
+\qquad
+\text{for every }\rho.
+\]
+Thus the first map is injective exactly when the \(u_\rho\) span
+\(N_\RR\).
+\end{proof}
+
+The most striking part of the theorem is the surjectivity statement:
+
+\[
+\boxed{
+\text{Every Weil divisor class has a torus-invariant representative.}
+}
+\]
+
+A general divisor need not itself be invariant. It is only its class
+that can always be represented by a sum of boundary divisors.
+
+\begin{pauseandthink}
+Suppose \(\Sigma=\{\{0\}\}\) in a nonzero lattice \(N\). Then
+\[
+X_\Sigma=T_N.
+\]
+What are
+\[
+\Div_T(X_\Sigma)
+\qquad\text{and}\qquad
+\Cl(X_\Sigma)?
+\]
+Why is the map
+\[
+M\longrightarrow\Div_T(X_\Sigma)
+\]
+not injective?
+\end{pauseandthink}
+
+\subsection{A matrix for the class group}
+
+Choose a basis
+\[
+m_1,\ldots,m_n
+\]
+of \(M\), and order the rays
+\[
+\Sigma(1)=\{\rho_1,\ldots,\rho_r\}.
+\]
+Write the primitive generators as column vectors
+\[
+u_i=u_{\rho_i}\in\ZZ^n.
+\]
+
+Under the identifications
+\[
+M\simeq\ZZ^n,
+\qquad
+\Div_T(X_\Sigma)\simeq\ZZ^r,
+\]
+the divisor map is represented by the \(r\times n\) matrix
+\[
+A=
+\begin{pmatrix}
+---u_1^{\,T}---\\
+---u_2^{\,T}---\\
+\vdots\\
+---u_r^{\,T}---
+\end{pmatrix}.
+\]
+Indeed, its \(i\)-th entry is
+\[
+\langle m,u_i\rangle.
+\]
+Consequently,
+\[
+\Cl(X_\Sigma)
+\simeq
+\coker(A).
+\]
+
+\begin{observation}
+The Smith normal form of \(A\) separates the free and torsion parts of
+the class group. When the rays span \(N_\RR\),
+\[
+\rank\Cl(X_\Sigma)
+=
+|\Sigma(1)|-\rank N.
+\]
+Torsion can still occur: it measures a finite-index lattice
+phenomenon rather than a failure of the rays to span the real vector
+space.
+\end{observation}
+
+For hand calculations, it is often faster to write down the
+relations
+\[
+\sum_{\rho}
+\langle m_i,u_\rho\rangle[D_\rho]
+=
+0
+\]
+coming from a basis \(m_1,\ldots,m_n\) of \(M\).
+
+\subsection{Three familiar complete surfaces}
+
+\begin{example}[The projective plane]
+For \(\PP^2\), take
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_2=e_2.
+\]
+The characters \(m_1,m_2\) give the relations
+\[
+-D_0+D_1\sim0,
+\qquad
+-D_0+D_2\sim0.
+\]
+Thus
+\[
+[D_0]=[D_1]=[D_2].
+\]
+Writing their common class as \(H\), we obtain
+\[
+\Cl(\PP^2)
+\simeq
+\ZZ H.
+\]
+The three coordinate lines are different divisors but represent the
+same divisor class.
+\end{example}
+
+\begin{example}[The product \(\PP^1\times\PP^1\)]
+Order the rays
+\[
+e_1,\quad e_2,\quad -e_1,\quad -e_2,
+\]
+and denote the corresponding divisors by
+\[
+D_1,D_2,D_3,D_4.
+\]
+The two character relations are
+\[
+D_1-D_3\sim0,
+\qquad
+D_2-D_4\sim0.
+\]
+Hence
+\[
+\Cl(\PP^1\times\PP^1)
+\simeq
+\ZZ[D_1]\oplus\ZZ[D_2].
+\]
+
+The two generators have a geometric interpretation:
+\[
+[D_1]=[D_3]
+\]
+is the class of a fiber of one projection, while
+\[
+[D_2]=[D_4]
+\]
+is the class of a fiber of the other.
+\end{example}
+
+These two examples illustrate the rank count:
+\[
+3-2=1
+\quad\text{for }\PP^2,
+\qquad
+4-2=2
+\quad\text{for }\PP^1\times\PP^1.
+\]
+
+\subsection{The blowup of \texorpdfstring{\(\PP^2\)}{P2}}
+
+Blow up the fixed point corresponding to
+\[
+\Cone{e_1,e_2}.
+\]
+The resulting fan has primitive ray generators
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_E=e_1+e_2,
+\qquad
+u_2=e_2.
+\]
+Let the corresponding divisors be
+\[
+D_0,\qquad D_1,\qquad E,\qquad D_2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  \fill[DictionaryBlue!9]
+    (0,0)--(2.5,0)--(1.25,1.25)--cycle;
+  \fill[PredictionTeal!10]
+    (0,0)--(1.25,1.25)--(0,2.5)--cycle;
+  \fill[SurfaceGreen!9]
+    (0,0)--(0,2.5)--(-1.8,-1.8)--cycle;
+  \fill[ExampleGold!10]
+    (0,0)--(-1.8,-1.8)--(2.5,0)--cycle;
+
+  \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+    (0,0)--(2.85,0);
+  \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}]
+    (0,0)--(2.2,2.2);
+  \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+    (0,0)--(0,2.85);
+  \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+    (0,0)--(-2.1,-2.1);
+
+  \node[DictionaryBlue,below] at (2.65,0)
+    {\(D_1\sim H-E\)};
+  \node[PredictionTeal,above right] at (1.92,1.92)
+    {\(E\)};
+  \node[SurfaceGreen,left] at (0,2.65)
+    {\(D_2\sim H-E\)};
+  \node[ExampleGold,above left] at (-1.9,-1.9)
+    {\(D_0\sim H\)};
+
+  \node[align=center] at (0.5,3.6)
+    {one ray adds one generator\\
+     to the divisor class group};
+\end{tikzpicture}
+\caption{Divisor classes on \(\Bl_p(\PP^2)\). The new ray contributes
+the exceptional class \(E\); the two boundary lines through the
+blown-up point have class \(H-E\).}
+\label{fig:blowup-p2-divisor-classes}
+\end{figure}
+
+The character relations are
+\[
+-D_0+D_1+E\sim0,
+\qquad
+-D_0+E+D_2\sim0.
+\]
+Therefore
+\[
+[D_1]=[D_0]-[E],
+\qquad
+[D_2]=[D_0]-[E].
+\]
+If
+\[
+H=[D_0],
+\]
+then
+\[
+\Cl(\Blp{\PP^2}{p})
+\simeq
+\ZZ H\oplus\ZZ E.
+\]
+
+Geometrically, \(D_0\) is the strict transform of the coordinate line
+that misses the blown-up point, so its class is the pullback of a line.
+The divisors \(D_1,D_2\) are strict transforms of lines through the
+point, hence their class is
+\[
+H-E.
+\]
+
+\begin{surfacelaboratory}
+Use the fan and the principal-divisor formula to recover the class
+group of \(\Blp{\PP^2}{p}\).
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Write the \(4\times2\) matrix representing
+\[
+M\longrightarrow\Div_T(X).
+\]
+
+\item Verify directly that its cokernel is free of rank two.
+
+\item Explain why adding one ray to the fan of \(\PP^2\) increases the
+rank of the class group by one.
+
+\item Compare the relation
+\[
+[D_1]=H-E
+\]
+with the total-transform formula
+\[
+\pi^*L=\widetilde L+E
+\]
+for a line \(L\) through the blown-up point.
+\end{enumerate}
+\end{surfacelaboratory}
+
+\subsection{A singular comparison: torsion}
+
+Let
+\[
+X_n
+=
+\AAA^2/\tfrac1n(1,n-1)
+\]
+be the \(A_{n-1}\) cyclic quotient from the Chapter~3 challenge. Its
+fan consists of the first-quadrant cone in
+\[
+N
+=
+\ZZ^2+
+\ZZ\left(\frac1n(1,n-1)\right).
+\]
+The two primitive ray generators are still
+\[
+e_1,e_2,
+\]
+but they generate a sublattice
+\[
+\ZZ e_1+\ZZ e_2\subseteq N
+\]
+of index \(n\).
+
+The class-group matrix has full real rank, but its image is not
+saturated. Its Smith normal form gives
+\[
+\Cl(X_n)
+\simeq
+\ZZ/n\ZZ.
+\]
+
+Thus the class group detects the finite quotient hidden in the
+lattice. The contrast is worth remembering:
+
+\[
+\begin{array}{c|c}
+\text{extra rays}
+&
+\text{free divisor classes}
+\\
+\hline
+\text{finite-index lattice change}
+&
+\text{torsion divisor classes}.
+\end{array}
+\]
+
+\begin{pauseandthink}
+Why does the resolution fan of \(X_n\), which inserts \(n-1\) new
+rays and is smooth, have a torsion-free class group?
+
+Use only the facts that adjacent primitive generators form lattice
+bases and that the full collection of ray generators therefore spans
+\(N\) as an abelian group.
+\end{pauseandthink}
+
+The class group treats Weil divisors modulo rational equations. The
+next question is more local: when can a divisor itself be described
+by one equation on each affine chart?
+
+\begin{guidingquestion}
+For an invariant divisor
+\[
+D=\sum_\rho a_\rho D_\rho,
+\]
+when can we choose, on every \(U_\sigma\), a character whose divisor
+agrees with \(D\) along all rays of \(\sigma\)?
+\end{guidingquestion}
+
+
+\section{Cartier divisors and local equations}
+\label{sec:cartier-divisors-local-equations}
+\index{Cartier divisor}
+\index{Cartier data}
+\index{local equation!of a divisor}
+\index{Picard group}
+
+A Weil divisor records integer multiplicities along codimension-one
+subvarieties. A Cartier divisor asks for more: those multiplicities
+must arise from compatible local equations.
+
+\subsection{From multiplicities to local equations}
+
+\begin{agcheatsheet}
+Let \(X\) be an irreducible variety.
+
+A \emph{Cartier divisor} is described by an open cover
+\[
+X=\bigcup_i U_i
+\]
+and nonzero rational functions
+\[
+f_i\in\Bbbk(X)^\times
+\]
+such that
+\[
+f_i/f_j
+\]
+is regular and nowhere zero on every overlap \(U_i\cap U_j\).
+
+The function \(f_i\) is a \emph{local equation} for the divisor on
+\(U_i\). On a normal variety, the local equations determine a Weil
+divisor by
+\[
+D|_{U_i}=\operatorname{div}(f_i)|_{U_i}.
+\]
+
+Thus a Cartier divisor is a Weil divisor that is locally principal.
+A global principal divisor is the special case in which one rational
+function works on all of \(X\).
+\end{agcheatsheet}
+
+We will identify a Cartier divisor with its associated Weil divisor.
+In particular, an invariant Weil divisor
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+is Cartier precisely when it can be cut out locally by one rational
+function on each affine chart.
+
+The toric setting is especially rigid: invariant local equations can
+be chosen to be characters.
+
+\begin{proposition}[Invariant Cartier divisors on an affine chart]
+\label{prop:affine-invariant-cartier-principal}
+Let \(\sigma\subseteq N_\RR\) be a strongly convex rational
+polyhedral cone. Every torus-invariant Cartier divisor on
+\[
+U_\sigma
+\]
+is the divisor of a character. Consequently,
+\[
+\Pic(U_\sigma)=0.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.2.2.
+
+\begin{proof}[Conceptual proof sketch]
+The affine chart \(U_\sigma\) contains a unique closed torus orbit.
+Begin with a local equation near that orbit. Because the divisor is
+torus-invariant, translating the equation by the torus changes it only
+by a unit.
+
+The key step is to replace the local equation by one of its torus
+eigencomponents. Eigenfunctions for the torus action are characters,
+so one obtains a character having the same divisor near the closed
+orbit. Every invariant boundary divisor of \(U_\sigma\) meets that
+orbit, forcing equality of the two divisors on the entire affine
+chart.
+
+For a general, not necessarily effective, Cartier divisor, add a
+sufficiently positive principal character divisor, apply the effective
+case, and subtract it again.
+\end{proof}
+
+The technical point in this proposition is not that every Cartier
+divisor on an affine variety is principal—that statement is false in
+general. It is the combination of affineness and torus invariance that
+forces a character equation.
+
+\subsection{Cartier data on a fan}
+
+Let
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho.
+\]
+On the affine chart \(U_\sigma\), only the boundary divisors
+corresponding to rays of \(\sigma\) appear:
+\[
+D|_{U_\sigma}
+=
+\sum_{\rho\in\sigma(1)}a_\rho D_\rho.
+\]
+
+If this restriction is the divisor of \(\character{-m_\sigma}\), then
+the principal-divisor formula gives
+\[
+a_\rho
+=
+\langle -m_\sigma,u_\rho\rangle
+=
+-\langle m_\sigma,u_\rho\rangle.
+\]
+This explains the signs in the following criterion.
+
+\begin{theorem}[Toric Cartier criterion]
+\label{thm:toric-cartier-criterion}
+Let
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+be a torus-invariant Weil divisor. The following are equivalent:
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(D\) is Cartier.
+
+\item \(D|_{U_\sigma}\) is principal for every \(\sigma\in\Sigma\).
+
+\item For every \(\sigma\in\Sigma\), there exists
+\[
+m_\sigma\in M
+\]
+such that
+\[
+\langle m_\sigma,u_\rho\rangle=-a_\rho
+\qquad
+\text{for every }\rho\in\sigma(1).
+\]
+
+\item The condition in \textup{(c)} holds for every maximal cone of
+\(\Sigma\).
+\end{enumerate}
+
+When these conditions hold, the local equation on \(U_\sigma\) is
+\[
+\character{-m_\sigma}.
+\]
+Moreover:
+\[
+m_\sigma
+\text{ is unique modulo }
+M(\sigma):=\sigma^\perp\cap M,
+\]
+and whenever \(\tau\preceq\sigma\),
+\[
+m_\sigma\equiv m_\tau\pmod{M(\tau)}.
+\]
+The collection
+\[
+\{m_\sigma\}_{\sigma\in\Sigma}
+\]
+is called the \emph{Cartier data} of \(D\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~4.2.8.
+
+\begin{proof}
+A Cartier divisor restricts to an invariant Cartier divisor on every
+affine chart. By
+\cref{prop:affine-invariant-cartier-principal}, that restriction is
+the divisor of a character. The principal-divisor formula shows that
+the character can be written as \(\character{-m_\sigma}\) precisely
+when
+\[
+\langle m_\sigma,u_\rho\rangle=-a_\rho
+\]
+for all rays of \(\sigma\). This proves the equivalence of
+\textup{(a)}, \textup{(b)}, and \textup{(c)}.
+
+It is enough to work on maximal cones because their affine charts
+cover \(X_\Sigma\), and any character equation for a maximal cone
+restricts to every face.
+
+If \(m_\sigma\) and \(m'_\sigma\) give the same coefficients, then
+\[
+\langle m_\sigma-m'_\sigma,u_\rho\rangle=0
+\]
+on every ray of \(\sigma\), hence on all of \(\sigma\). Thus
+\[
+m_\sigma-m'_\sigma\in\sigma^\perp\cap M.
+\]
+The compatibility along faces follows by applying this uniqueness
+statement to the restricted divisor on \(U_\tau\).
+\end{proof}
+
+\begin{warningbox}
+The coefficient convention is
+\[
+D=\sum_\rho a_\rho D_\rho,
+\qquad
+\langle m_\sigma,u_\rho\rangle=-a_\rho,
+\]
+because the local equation is
+\[
+\character{-m_\sigma}.
+\]
+It is easy to lose this minus sign when passing between a divisor and
+its Cartier data.
+\end{warningbox}
+
+If \(\sigma\) is full-dimensional, then
+\[
+M(\sigma)=0,
+\]
+so \(m_\sigma\) is uniquely determined. For a lower-dimensional cone,
+one may add any character that is trivial on the subtorus directions
+seen by \(\sigma\).
+
+\begin{pauseandthink}
+Suppose \(\tau\) is a ray. Why can two different elements of \(M\)
+give the same local equation data along \(D_\tau\)?
+
+Describe the ambiguity geometrically using
+\[
+M(\tau)=\tau^\perp\cap M.
+\]
+\end{pauseandthink}
+
+\subsection{A coordinate line on \texorpdfstring{\(\PP^2\)}{P2}}
+
+Let the primitive ray generators be
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_2=e_2,
+\]
+and let
+\[
+D_0=\{z_0=0\}.
+\]
+The maximal cones are
+\[
+\sigma_0=\Cone{u_1,u_2},
+\qquad
+\sigma_1=\Cone{u_0,u_2},
+\qquad
+\sigma_2=\Cone{u_0,u_1}.
+\]
+
+For
+\[
+D_0=1D_0+0D_1+0D_2,
+\]
+the Cartier data and local equations are:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{0.92\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.18\linewidth}
+  >{\raggedright\arraybackslash}p{0.25\linewidth}
+  >{\raggedright\arraybackslash}p{0.22\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Chart}
+&
+\textbf{Rays in the cone}
+&
+\textbf{Cartier datum}
+&
+\textbf{Local equation}
+\\
+\midrule
+\(U_{\sigma_0}\)
+&
+\(u_1,u_2\)
+&
+\(m_{\sigma_0}=0\)
+&
+\(1\)
+\\
+\(U_{\sigma_1}\)
+&
+\(u_0,u_2\)
+&
+\(m_{\sigma_1}=m_1\)
+&
+\(\character{-m_1}=z_0/z_1\)
+\\
+\(U_{\sigma_2}\)
+&
+\(u_0,u_1\)
+&
+\(m_{\sigma_2}=m_2\)
+&
+\(\character{-m_2}=z_0/z_2\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+On \(U_{\sigma_0}\), the divisor \(D_0\) is absent, so the local
+equation is a unit. On the other two charts, the displayed ratios are
+the familiar equations of the coordinate line.
+
+On an overlap, the quotient of two local equations is a character
+whose pairing with every ray of the common face is zero. It is
+therefore a unit on that overlap.
+
+\begin{surfacelaboratory}
+Repeat the calculation for
+\[
+D_1=\{z_1=0\}.
+\]
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Find the three elements
+\[
+m_{\sigma_0},m_{\sigma_1},m_{\sigma_2}.
+\]
+
+\item Write the local equations in homogeneous coordinates.
+
+\item Verify explicitly that the ratios of the equations are units on
+the pairwise overlaps.
+\end{enumerate}
+\end{surfacelaboratory}
+
+\subsection{A Weil divisor that is not Cartier}
+
+Return to the cyclic quotient
+\[
+X_n
+=
+\AAA^2/\tfrac1n(1,n-1).
+\]
+Its cone is the first quadrant, but its character lattice is
+\[
+M
+=
+\left\{
+(a,b)\in\ZZ^2:
+a-b\equiv0\pmod n
+\right\}.
+\]
+Let \(D_1,D_2\) be the invariant prime divisors corresponding to the
+two coordinate rays.
+
+Since \(X_n\) is affine, an invariant Cartier divisor must be the
+divisor of a character. To have
+\[
+\operatorname{div}(\character{m})=D_1,
+\]
+we would need
+\[
+m=(1,0).
+\]
+But
+\[
+(1,0)\notin M
+\qquad
+(n>1),
+\]
+so \(D_1\) is not Cartier.
+
+On the other hand,
+\[
+(n,0)\in M,
+\]
+and
+\[
+\operatorname{div}(\character{(n,0)})
+=
+nD_1.
+\]
+Thus \(D_1\) is not Cartier, but a positive multiple of it is.
+
+\begin{definition}
+A Weil divisor \(D\) is \emph{\(\QQ\)-Cartier} if some positive
+integer multiple of \(D\) is Cartier.
+\end{definition}
+
+In this example, \(D_1\) is \(\QQ\)-Cartier of Cartier index \(n\).
+The same is true of \(D_2\).
+
+This gives a sharp distinction:
+\[
+\Pic(X_n)=0,
+\qquad
+\Cl(X_n)\simeq\ZZ/n\ZZ.
+\]
+The class group sees Weil divisors that do not admit local equations;
+the Picard group sees only Cartier classes.
+
+\subsection{The exceptional divisor on the blowup}
+
+Let
+\[
+X=\Blp{\PP^2}{p}
+\]
+with ray generators
+\[
+u_0=-e_1-e_2,\qquad
+u_1=e_1,\qquad
+u_E=e_1+e_2,\qquad
+u_2=e_2.
+\]
+We compute local equations for the exceptional divisor \(E=D_{\rho_E}\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.02]
+  \fill[DictionaryBlue!8]
+    (0,0)--(2.55,0)--(1.28,1.28)--cycle;
+  \fill[PredictionTeal!10]
+    (0,0)--(1.28,1.28)--(0,2.55)--cycle;
+  \fill[SurfaceGreen!8]
+    (0,0)--(0,2.55)--(-1.85,-1.85)--cycle;
+  \fill[ExampleGold!9]
+    (0,0)--(-1.85,-1.85)--(2.55,0)--cycle;
+
+  \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+    (0,0)--(2.9,0);
+  \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}]
+    (0,0)--(2.25,2.25);
+  \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+    (0,0)--(0,2.9);
+  \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+    (0,0)--(-2.15,-2.15);
+
+  \node[DictionaryBlue,below] at (2.68,0) {\(u_1\)};
+  \node[PredictionTeal,above right] at (2.0,2.0) {\(u_E\)};
+  \node[SurfaceGreen,left] at (0,2.68) {\(u_2\)};
+  \node[ExampleGold,above left] at (-1.95,-1.95) {\(u_0\)};
+
+  \node[fill=DictionaryBlue!12,rounded corners,inner sep=2pt]
+    at (1.75,0.48)
+    {\(\character{-m_\sigma}=y\)};
+  \node[fill=PredictionTeal!14,rounded corners,inner sep=2pt]
+    at (0.48,1.75)
+    {\(\character{-m_\sigma}=x\)};
+  \node[fill=SurfaceGreen!12,rounded corners,inner sep=2pt]
+    at (-0.55,0.85)
+    {\(\character{-m_\sigma}=1\)};
+  \node[fill=ExampleGold!14,rounded corners,inner sep=2pt]
+    at (0.5,-0.78)
+    {\(\character{-m_\sigma}=1\)};
+
+  \node[align=center] at (0.5,3.65)
+    {local equations for the exceptional divisor \(E\)};
+\end{tikzpicture}
+\caption{Cartier data for the exceptional divisor. On the two charts
+meeting \(E\), its local equations are \(y\) and \(x\); on the other
+two charts, \(E\) is absent and the equation is \(1\).}
+\label{fig:exceptional-divisor-cartier-data}
+\end{figure}
+
+For the four maximal cones, we may take
+\[
+\begin{array}{c|c|c}
+\text{maximal cone}
+&
+m_\sigma
+&
+\character{-m_\sigma}
+\\
+\hline
+\Cone{u_0,u_1}
+&
+0
+&
+1
+\\
+\Cone{u_1,u_E}
+&
+-m_2
+&
+y
+\\
+\Cone{u_E,u_2}
+&
+-m_1
+&
+x
+\\
+\Cone{u_2,u_0}
+&
+0
+&
+1.
+\end{array}
+\]
+Indeed, on the cone \(\Cone{u_1,u_E}\),
+\[
+\langle -m_2,u_1\rangle=0,
+\qquad
+\langle -m_2,u_E\rangle=-1,
+\]
+and similarly on \(\Cone{u_E,u_2}\).
+
+The two nontrivial equations agree up to a unit on their overlap:
+\[
+\frac{x}{y}
+\]
+is invertible there. This is the local-equation version of the gluing
+that produced the blowup.
+
+\begin{observation}
+The calculation succeeds because the primitive generators of each
+maximal cone form a lattice basis. Given arbitrary integer
+coefficients on the two rays, there is a unique integral linear
+function taking the required values.
+
+This is the local reason smooth toric varieties have no distinction
+between Weil and Cartier divisors. We will return to the precise
+criterion later in this chapter.
+\end{observation}
+
+\subsection{Cartier classes}
+
+Cartier divisors modulo principal divisors form the Picard group:
+\[
+\Pic(X)
+=
+\operatorname{CDiv}(X)/
+\Prin(X).
+\]
+Equivalently, this is the group of line bundles on \(X\); that
+interpretation will become more prominent in the next chapter.
+
+Every Cartier class on a toric variety has an invariant
+representative. Consequently, there is an exact sequence
+\[
+M
+\longrightarrow
+\operatorname{CDiv}_T(X_\Sigma)
+\longrightarrow
+\Pic(X_\Sigma)
+\longrightarrow
+0.
+\]
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~4.2.1.
+
+The difference between
+\[
+\Pic(X_\Sigma)
+\qquad\text{and}\qquad
+\Cl(X_\Sigma)
+\]
+measures the failure of Weil divisors to admit compatible local
+equations.
+
+The Cartier data are a collection of integral linear functions, one
+on each cone, compatible on common faces. There should be a more
+economical way to package them.
+
+\begin{guidingquestion}
+Can the collection
+\[
+\{m_\sigma\}_{\sigma\in\Sigma}
+\]
+be assembled into one function on \(|\Sigma|\) that is linear on each
+cone and remembers the coefficients of the divisor on every ray?
+\end{guidingquestion}
+
+
+\section{Support functions}
+\label{sec:support-functions}
+\index{support function}
+\index{piecewise-linear function}
+\index{linear equivalence!global linear function}
+
+The Cartier data
+\[
+\{m_\sigma\}_{\sigma\in\Sigma}
+\]
+assign one integral linear function to every cone. Compatibility says
+that these linear functions agree wherever the cones meet.
+
+This collection can therefore be viewed as one function on the entire
+support of the fan.
+
+\subsection{One function, linear on every cone}
+
+\begin{definition}
+\label{def:support-function}
+Let \(\Sigma\) be a fan in \(N_\RR\).
+
+A \emph{support function} is a function
+\[
+\psi:|\Sigma|\longrightarrow\RR
+\]
+whose restriction to every cone \(\sigma\in\Sigma\) is linear.
+
+The support function is \emph{integral} if
+\[
+\psi(|\Sigma|\cap N)\subseteq\ZZ.
+\]
+We write
+\[
+\operatorname{SF}(\Sigma)
+\]
+for the group of support functions and
+\[
+\operatorname{SF}(\Sigma,N)
+\]
+for the subgroup of integral support functions.
+\end{definition}
+
+Because adjacent linear pieces agree on their common face, a support
+function is automatically continuous. It is also homogeneous:
+\[
+\psi(tu)=t\psi(u)
+\qquad
+(t\geq0).
+\]
+Thus ``piecewise linear'' here means linear, rather than affine
+linear, on each cone.
+
+For a rational cone \(\sigma\), integrality is equivalent to the
+existence of some \(m_\sigma\in M\) such that
+\[
+\psi(u)=\langle m_\sigma,u\rangle
+\qquad
+(u\in\sigma).
+\]
+The element \(m_\sigma\) is determined only modulo
+\[
+M(\sigma)=\sigma^\perp\cap M,
+\]
+exactly as in the Cartier criterion.
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~4.2.11.
+
+\subsection{Cartier divisors and integral support functions}
+
+Let
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+be a torus-invariant Cartier divisor with Cartier data
+\[
+\{m_\sigma\}_{\sigma\in\Sigma}.
+\]
+Define
+\[
+\psi_D(u)
+=
+\langle m_\sigma,u\rangle
+\qquad
+\text{when }u\in\sigma.
+\]
+
+\begin{theorem}[The support-function dictionary]
+\label{thm:support-function-dictionary}
+The function \(\psi_D\) is a well-defined integral support function.
+Its values on the primitive ray generators recover the divisor:
+\[
+\psi_D(u_\rho)=-a_\rho,
+\]
+and hence
+\[
+\boxed{
+D
+=
+-\sum_{\rho\in\Sigma(1)}
+\psi_D(u_\rho)D_\rho.
+}
+\]
+
+Moreover, the assignment
+\[
+D\longmapsto\psi_D
+\]
+is an isomorphism of abelian groups
+\[
+\operatorname{CDiv}_T(X_\Sigma)
+\simeq
+\operatorname{SF}(\Sigma,N).
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~4.2.12.
+
+\begin{proof}
+If \(u\in\sigma\cap\sigma'\), compatibility of the Cartier data gives
+\[
+m_\sigma-m_{\sigma'}
+\in
+(\sigma\cap\sigma')^\perp\cap M.
+\]
+Therefore
+\[
+\langle m_\sigma,u\rangle
+=
+\langle m_{\sigma'},u\rangle,
+\]
+so \(\psi_D\) is well defined. It is integral and linear on each cone
+because every \(m_\sigma\) lies in \(M\).
+
+For a ray \(\rho\preceq\sigma\), the Cartier criterion gives
+\[
+\psi_D(u_\rho)
+=
+\langle m_\sigma,u_\rho\rangle
+=
+-a_\rho.
+\]
+Thus the ray values recover \(D\), proving injectivity.
+
+Conversely, let
+\[
+\psi\in\operatorname{SF}(\Sigma,N).
+\]
+On each cone, choose \(m_\sigma\in M\) with
+\[
+\psi|_\sigma=\langle m_\sigma,-\rangle.
+\]
+The pieces agree on common faces, so these \(m_\sigma\) are compatible
+Cartier data. The divisor
+\[
+D_\psi
+=
+-\sum_{\rho\in\Sigma(1)}
+\psi(u_\rho)D_\rho
+\]
+has support function \(\psi\). This proves surjectivity.
+\end{proof}
+
+The theorem compresses the Cartier criterion into a picture:
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+\text{local characters }m_\sigma
+&
+\text{linear pieces of }\psi_D
+\\[1mm]
+\langle m_\sigma,u_\rho\rangle=-a_\rho
+&
+\psi_D(u_\rho)=-a_\rho
+\\[1mm]
+\text{compatibility on overlaps}
+&
+\text{one well-defined function on }|\Sigma|.
+\end{array}
+\]
+
+\begin{warningbox}
+An arbitrary assignment of integers to the rays need not extend to a
+support function. On every cone, the assigned values must come from
+one linear function.
+
+This is exactly the obstruction to the corresponding invariant Weil
+divisor being Cartier.
+\end{warningbox}
+
+\subsection{The support function of a line in \texorpdfstring{\(\PP^2\)}{P2}}
+
+Consider
+\[
+D_0=\{z_0=0\}\subseteq\PP^2.
+\]
+With
+\[
+u_0=-e_1-e_2,\qquad
+u_1=e_1,\qquad
+u_2=e_2,
+\]
+the ray values are
+\[
+\psi_{D_0}(u_0)=-1,
+\qquad
+\psi_{D_0}(u_1)=0,
+\qquad
+\psi_{D_0}(u_2)=0.
+\]
+
+The Cartier data from the previous section give
+\[
+\psi_{D_0}(x,y)
+=
+\begin{cases}
+0,
+&
+(x,y)\in\Cone{e_1,e_2},
+\\[1mm]
+x,
+&
+(x,y)\in\Cone{-e_1-e_2,e_2},
+\\[1mm]
+y,
+&
+(x,y)\in\Cone{e_1,-e_1-e_2}.
+\end{cases}
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.88]
+  % Fan with values and formulas
+  \begin{scope}[xshift=-5.15cm,scale=0.82]
+    \fill[DictionaryBlue!9]
+      (0,0)--(2.5,0)--(0,2.5)--cycle;
+    \fill[SurfaceGreen!9]
+      (0,0)--(0,2.5)--(-1.85,-1.85)--cycle;
+    \fill[ExampleGold!11]
+      (0,0)--(-1.85,-1.85)--(2.5,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.85,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.85);
+    \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.15,-2.15);
+
+    \node[DictionaryBlue,below] at (2.62,0)
+      {\(\psi(u_1)=0\)};
+    \node[SurfaceGreen,left] at (0,2.62)
+      {\(\psi(u_2)=0\)};
+    \node[ExampleGold,above left] at (-1.95,-1.95)
+      {\(\psi(u_0)=-1\)};
+
+    \node[fill=DictionaryBlue!13,rounded corners,inner sep=2pt]
+      at (0.95,0.95) {\(\psi=0\)};
+    \node[fill=SurfaceGreen!13,rounded corners,inner sep=2pt]
+      at (-0.55,0.8) {\(\psi=x\)};
+    \node[fill=ExampleGold!15,rounded corners,inner sep=2pt]
+      at (0.75,-0.55) {\(\psi=y\)};
+
+    \node[font=\bfseries] at (0.3,3.55)
+      {values and linear pieces};
+  \end{scope}
+
+  % A clearer 3D graph of the PL function
+  \begin{scope}[
+    xshift=3.55cm,
+    scale=1.13,
+    x={(0.92cm,-0.28cm)},
+    y={(0.42cm,0.32cm)},
+    z={(0cm,0.86cm)}
+  ]
+    \coordinate (O) at (0,0,0);
+    \coordinate (A) at (2.7,0,0);
+    \coordinate (B) at (0,2.7,0);
+    \coordinate (Cbase) at (-1.8,-1.8,0);
+    \coordinate (C) at (-1.8,-1.8,-1.8);
+
+    % Coordinate axes and projected base fan
+    \draw[->,black!60] (O)--(3.25,0,0)
+      node[below right] {\(x\)};
+    \draw[->,black!60] (O)--(0,3.45,0)
+      node[above] {\(y\)};
+    \draw[->,black!60] (O)--(0,0,2.35)
+      node[right] {\(\psi\)};
+
+    \draw[black!35,dashed] (O)--(Cbase);
+    \draw[black!35,dotted] (Cbase)--(C);
+    \node[black!55,below left] at (Cbase)
+      {\(u_0\) in the base};
+
+    % Three planar facets of the graph
+    \filldraw[
+      fill=DictionaryBlue!18,
+      fill opacity=0.82,
+      draw=DictionaryBlue!85,
+      very thick
+    ] (O)--(A)--(B)--cycle;
+
+    \filldraw[
+      fill=SurfaceGreen!18,
+      fill opacity=0.82,
+      draw=SurfaceGreen!85,
+      very thick
+    ] (O)--(B)--(C)--cycle;
+
+    \filldraw[
+      fill=ExampleGold!22,
+      fill opacity=0.82,
+      draw=ExampleGold!90,
+      very thick
+    ] (O)--(C)--(A)--cycle;
+
+    % Grid lines make each facet visibly planar
+    \draw[DictionaryBlue!65]
+      (1.35,0,0)--(0,1.35,0);
+    \draw[DictionaryBlue!45]
+      (0.68,0,0)--(0,0.68,0);
+
+    \draw[SurfaceGreen!65]
+      (0,1.35,0)--(-0.9,-0.9,-0.9);
+    \draw[SurfaceGreen!45]
+      (0,0.68,0)--(-0.45,-0.45,-0.45);
+
+    \draw[ExampleGold!70]
+      (-0.9,-0.9,-0.9)--(1.35,0,0);
+    \draw[ExampleGold!50]
+      (-0.45,-0.45,-0.45)--(0.68,0,0);
+
+    % Lifted ray directions and labels
+    \fill (O) circle (1.7pt);
+    \fill (A) circle (1.7pt);
+    \fill (B) circle (1.7pt);
+    \fill (C) circle (1.7pt);
+
+    \node[below left] at (C) {\((u_0,-1)\)};
+
+    \node[
+      fill=DictionaryBlue!12,
+      rounded corners,
+      inner sep=2pt
+    ] at (0.9,0.9,0.08) {\(\psi=0\)};
+
+    \node[
+      fill=SurfaceGreen!12,
+      rounded corners,
+      inner sep=2pt
+    ] at (-0.62,0.3,-0.57) {\(\psi=x\)};
+
+    \node[
+      fill=ExampleGold!16,
+      rounded corners,
+      inner sep=2pt
+    ] at (0.35,-0.62,-0.57) {\(\psi=y\)};
+
+      \end{scope}
+\end{tikzpicture}
+\caption{The support function of the coordinate line \(D_0\). The
+right-hand panel shows a truncated portion of its graph in
+\(N_\RR\times\RR\). Its three facets lie in the planes
+\(\psi=0\), \(\psi=x\), and \(\psi=y\).}
+\label{fig:p2-support-function-line}
+\end{figure}
+
+The right-hand picture is the graph
+\[
+\Gamma_{\psi_{D_0}}
+=
+\{(u,\psi_{D_0}(u)):u\in N_\RR\}
+\subseteq
+N_\RR\times\RR.
+\]
+Only a bounded triangular portion of each unbounded planar piece is
+drawn. Over \(\Cone{u_1,u_2}\) the graph is horizontal; over
+\(\Cone{u_0,u_2}\) it lies in the plane \(\psi=x\); and over
+\(\Cone{u_1,u_0}\) it lies in the plane \(\psi=y\). The three planes
+meet along the lifted common rays.
+
+The bending of the graph records that \(D_0\) is not principal. A
+principal divisor would produce one global linear function, with no
+change of slope from cone to cone.
+
+\begin{pauseandthink}
+Use the ray values in
+\cref{fig:p2-support-function-line} to recover the divisor \(D_0\)
+from
+\[
+D=-\sum_\rho\psi_D(u_\rho)D_\rho.
+\]
+
+Then verify directly that the three displayed formulas agree on every
+common ray.
+\end{pauseandthink}
+
+\subsection{Linear equivalence means changing the global tilt}
+
+Let \(D\) be an invariant Cartier divisor and let \(m\in M\). Since
+\[
+\operatorname{div}(\character{m})
+=
+\sum_\rho\langle m,u_\rho\rangle D_\rho,
+\]
+we obtain
+\[
+\psi_{D+\operatorname{div}(\character{m})}(u)
+=
+\psi_D(u)-\langle m,u\rangle.
+\]
+
+Thus adding a principal divisor changes the support function by one
+global integral linear function. It does not alter how the linear
+pieces bend relative to one another.
+
+Consequently, the Picard group has the presentation
+\[
+M
+\longrightarrow
+\operatorname{SF}(\Sigma,N)
+\longrightarrow
+\Pic(X_\Sigma)
+\longrightarrow
+0,
+\]
+where
+\[
+m\longmapsto
+\bigl(u\longmapsto-\langle m,u\rangle\bigr).
+\]
+Equivalently,
+\[
+\Pic(X_\Sigma)
+\simeq
+\frac{\operatorname{SF}(\Sigma,N)}
+{\{\text{restrictions of global integral linear functions}\}}.
+\]
+
+\noindent
+\textit{Reference.}
+This is the support-function form of Cox--Little--Schenck,
+Theorem~4.2.1, following Theorem~4.2.12.
+
+\begin{example}[Why the coordinate lines of \(\PP^2\) are equivalent]
+Let \(\psi_0\) and \(\psi_1\) be the support functions of \(D_0\) and
+\(D_1\). Since
+\[
+D_1-D_0
+=
+\operatorname{div}(z_1/z_0)
+=
+\operatorname{div}(\character{m_1}),
+\]
+we have
+\[
+\psi_1(u)
+=
+\psi_0(u)-\langle m_1,u\rangle.
+\]
+Their graphs differ by a global tilt, so they represent the same
+Picard class.
+\end{example}
+
+This gives a useful geometric interpretation:
+\[
+\boxed{
+\text{a Cartier class remembers the bending of a support function,
+not its overall tilt.}
+}
+\]
+
+\subsection{Surface laboratory: the exceptional divisor}
+
+Let
+\[
+X=\Blp{\PP^2}{p}
+\]
+and use the rays
+\[
+u_0=-e_1-e_2,\qquad
+u_1=e_1,\qquad
+u_E=e_1+e_2,\qquad
+u_2=e_2.
+\]
+For the exceptional divisor \(E\), the support function satisfies
+\[
+\psi_E(u_E)=-1,
+\qquad
+\psi_E(u_0)=\psi_E(u_1)=\psi_E(u_2)=0.
+\]
+
+\begin{surfacelaboratory}
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Use the Cartier data from
+\cref{fig:exceptional-divisor-cartier-data} to show that
+\[
+\psi_E(x,y)
+=
+\begin{cases}
+0,
+&
+\Cone{u_0,u_1}\text{ and }\Cone{u_2,u_0},
+\\
+-y,
+&
+\Cone{u_1,u_E},
+\\
+-x,
+&
+\Cone{u_E,u_2}.
+\end{cases}
+\]
+
+\item Check that the four pieces agree on their common rays.
+
+\item Sketch the graph of \(\psi_E\). Where does it bend?
+
+\item Explain why the newly inserted ray is exactly where the support
+function acquires a new linear piece.
+
+\item Compute the support function of the invariant divisor
+\[
+D_0-E
+\]
+by subtracting support functions. Which Picard class does this divisor
+represent?
+\end{enumerate}
+\end{surfacelaboratory}
+
+\begin{observation}
+Support functions will return in the next chapter with additional
+shape conditions. Convexity and strict convexity will translate into
+global generation and ampleness, respectively, while the supporting
+inequalities
+\[
+\langle m,u_\rho\rangle\geq-\!a_\rho
+\]
+will cut out a polyhedron in \(M_\RR\).
+
+For now, the essential point is only the Cartier dictionary:
+integral piecewise-linear functions encode compatible local
+equations.
+\end{observation}
+
+A particularly important invariant divisor assigns the same
+coefficient to every boundary component. Its Cartier condition asks
+for all primitive ray generators of each cone to lie on a common
+integral affine hyperplane.
+
+\begin{guidingquestion}
+What geometric divisor has coefficient \(-1\) on every
+\(D_\rho\), and how does the existence of a support function with
+\[
+\psi(u_\rho)=1
+\]
+detect whether that divisor is Cartier?
+\end{guidingquestion}
+
+
+\section{The canonical divisor and singularity criteria}
+\label{sec:canonical-divisor-singularity-criteria}
+\index{canonical divisor!toric formula}
+\index{factorial toric variety}
+\index{Q-factorial toric variety}
+\index{Gorenstein cone}
+\index{Q-Gorenstein cone}
+\index{height-one criterion}
+
+The toric boundary is the reduced divisor
+\[
+\partial X_\Sigma
+=
+\sum_{\rho\in\Sigma(1)}D_\rho.
+\]
+The canonical divisor is its negative:
+\[
+K_{X_\Sigma}
+=
+-\partial X_\Sigma.
+\]
+
+This simple formula brings together every dictionary developed in the
+chapter. It also lets us recognize several singularity properties
+directly from the primitive ray generators.
+
+\subsection{The canonical divisor is minus the boundary}
+
+\begin{agcheatsheet}
+Let \(X\) be a smooth irreducible variety of dimension \(n\). A
+nonzero rational top differential form
+\[
+\omega
+\]
+has an order of vanishing along every prime divisor. Its divisor
+\[
+\operatorname{div}(\omega)
+\]
+is called a \emph{canonical divisor}.
+
+Different rational top forms differ by a nonzero rational function,
+so their divisors are linearly equivalent. Thus the canonical divisor
+class
+\[
+[K_X]
+\]
+is intrinsic even though a particular representative is not.
+
+For a normal variety, the smooth locus contains every codimension-one
+point. One may therefore compute the canonical divisor on the smooth
+locus and take the closures of its codimension-one components.
+\end{agcheatsheet}
+
+Choose a basis
+\[
+m_1,\ldots,m_n
+\]
+of \(M\), and write
+\[
+x_i=\character{m_i}.
+\]
+On the dense torus, consider the invariant logarithmic volume form
+\[
+\Omega_T
+=
+\frac{dx_1}{x_1}\wedge\cdots\wedge\frac{dx_n}{x_n}.
+\]
+
+\begin{theorem}[The canonical divisor of a toric variety]
+\label{thm:canonical-divisor-toric}
+For every normal toric variety \(X_\Sigma\),
+\[
+\boxed{
+K_{X_\Sigma}
+=
+-\sum_{\rho\in\Sigma(1)}D_\rho
+}
+\]
+is a torus-invariant canonical divisor. Equivalently,
+\[
+-K_{X_\Sigma}
+=
+\partial X_\Sigma.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~8.2.3.
+
+\begin{proof}
+The form \(\Omega_T\) is regular and nowhere zero on the dense torus,
+so any zeros or poles occur along the boundary.
+
+Fix a ray \(\rho\). Because its generator \(u_\rho\) is primitive, it
+extends to a basis
+\[
+u_\rho=e_1,e_2,\ldots,e_n
+\]
+of \(N\). Let \(m_1,\ldots,m_n\) now denote the dual basis. On the ray
+chart,
+\[
+U_\rho
+\simeq
+\AAA^1\times\Gm^{n-1},
+\]
+with
+\[
+D_\rho\cap U_\rho=V(x_1).
+\]
+Up to a nonzero constant, the invariant form becomes
+\[
+\Omega_T
+=
+\frac{dx_1}{x_1}\wedge
+\frac{dx_2}{x_2}\wedge\cdots\wedge
+\frac{dx_n}{x_n}.
+\]
+The factors \(x_2,\ldots,x_n\) are units along \(D_\rho\), while
+\(dx_1/x_1\) has a simple pole. Therefore
+\[
+\ord_{D_\rho}(\Omega_T)=-1.
+\]
+This holds for every ray, proving the formula.
+\end{proof}
+
+\begin{observation}
+The displayed divisor is one convenient canonical representative,
+not necessarily the divisor of the most familiar volume form.
+
+For example, on \(\AAA^2\),
+\[
+dx\wedge dy
+\]
+has divisor \(0\), while
+\[
+\frac{dx}{x}\wedge\frac{dy}{y}
+=
+\frac{1}{xy}\,dx\wedge dy
+\]
+has divisor
+\[
+-D_{\rho_1}-D_{\rho_2}.
+\]
+The two canonical divisors differ by
+\[
+\operatorname{div}(1/xy).
+\]
+\end{observation}
+
+\subsection{Canonical classes of familiar surfaces}
+
+The formula becomes especially transparent once the boundary classes
+are known.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{0.94\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.23\linewidth}
+  >{\raggedright\arraybackslash}p{0.36\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Surface}
+&
+\textbf{Boundary class}
+&
+\textbf{Canonical class}
+\\
+\midrule
+\(\PP^2\)
+&
+\(D_0+D_1+D_2\sim3H\)
+&
+\(K_{\PP^2}\sim-3H\)
+\\
+\(\PP^1\times\PP^1\)
+&
+\(2F_1+2F_2\)
+&
+\(K\sim-2F_1-2F_2\)
+\\
+\(\Blp{\PP^2}{p}\)
+&
+\(D_0+D_1+E+D_2\sim3H-E\)
+&
+\(K\sim-3H+E\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+For the blowup, recall
+\[
+[D_0]=H,
+\qquad
+[D_1]=[D_2]=H-E.
+\]
+Hence
+\[
+-K
+=
+D_0+D_1+E+D_2
+\sim
+H+(H-E)+E+(H-E)
+=
+3H-E.
+\]
+
+\begin{pauseandthink}
+Compute the canonical class of the Hirzebruch surface
+\(\mathbb F_r\) by summing its four invariant boundary divisors.
+
+At this stage, it is enough to express the answer using any two
+boundary divisor classes that generate
+\(\Cl(\mathbb F_r)\).
+\end{pauseandthink}
+
+\subsection{Factorial and \texorpdfstring{\(\QQ\)}{Q}-factorial toric varieties}
+
+\begin{definition}
+A normal variety is \emph{factorial} if every Weil divisor is Cartier.
+
+It is \emph{\(\Qfactorial\)} if every Weil divisor is \(\QCartier\);
+that is, every Weil divisor has a positive multiple that is Cartier.
+\end{definition}
+
+These conditions ask whether arbitrary codimension-one
+multiplicities admit integral or rational local equations.
+
+\begin{theorem}[Cartier properties and the fan]
+\label{thm:factorial-qfactorial-fan}
+Let \(X_\Sigma\) be a normal toric variety.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item The following are equivalent:
+\[
+X_\Sigma\text{ is smooth},
+\qquad
+X_\Sigma\text{ is factorial},
+\qquad
+\Pic(X_\Sigma)=\Cl(X_\Sigma).
+\]
+
+\item The following are equivalent:
+\[
+\Sigma\text{ is simplicial},
+\qquad
+X_\Sigma\text{ is }\Qfactorial,
+\qquad
+\Pic(X_\Sigma)
+\text{ has finite index in }
+\Cl(X_\Sigma).
+\]
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+These are Cox--Little--Schenck, Propositions~4.2.6 and~4.2.7.
+
+\begin{proof}[Conceptual proof sketch]
+Work on an affine chart
+\[
+U_\sigma
+\]
+with ray generators
+\[
+u_1,\ldots,u_s.
+\]
+Prescribing a boundary divisor means prescribing arbitrary integers
+\[
+a_1,\ldots,a_s.
+\]
+The Cartier criterion asks whether the linear system
+\[
+\langle m,u_i\rangle=-a_i
+\]
+has a solution \(m\in M\).
+
+It has an integral solution for every integer right-hand side exactly
+when the \(u_i\) extend to a lattice basis. This is the smoothness
+criterion.
+
+It has a rational solution for every rational right-hand side exactly
+when the \(u_i\) are linearly independent over \(\RR\). This says that
+\(\sigma\) is simplicial.
+
+Applying the local statement to every cone gives the theorem. The
+statements involving \(\Pic\) and
+\(\Cl\) merely rephrase whether all Weil classes are
+Cartier or become Cartier after multiplication.
+\end{proof}
+
+\begin{observation}
+Every strongly convex two-dimensional cone is simplicial. Therefore
+every normal toric surface is \(\Qfactorial\), even though it may be
+singular.
+
+Thus, for toric surfaces,
+\[
+\text{smooth}
+\Longleftrightarrow
+\text{factorial},
+\]
+but \(\Qfactorial\) is automatic.
+\end{observation}
+
+The cyclic quotient
+\[
+X_n=\AAA^2/\tfrac1n(1,n-1)
+\]
+is a good test case. For \(n>1\), it is singular and therefore not
+factorial. Its cone is simplicial, so it is nevertheless
+\(\Qfactorial\).
+
+\subsection{Gorenstein and \texorpdfstring{\(\QQ\)}{Q}-Gorenstein cones}
+
+\begin{definition}
+A normal variety is \emph{Gorenstein} if its canonical divisor is
+Cartier. It is \emph{\(\QGorenstein\)} if its canonical divisor is
+\(\QCartier\).
+\end{definition}
+
+Because
+\[
+K_{X_\Sigma}
+=
+-\sum_\rho D_\rho,
+\]
+its coefficient along every boundary divisor is \(-1\). The Cartier
+criterion therefore becomes a height-one condition.
+
+\begin{proposition}[The height-one criterion]
+\label{prop:gorenstein-height-one}
+Let \(X_\Sigma\) be a normal toric variety.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(X_\Sigma\) is Gorenstein if and only if, for every maximal
+cone \(\sigma\), there exists \(m_\sigma\in M\) such that
+\[
+\langle m_\sigma,u_\rho\rangle=1
+\qquad
+\text{for every }\rho\in\sigma(1).
+\]
+
+\item \(X_\Sigma\) is \(\QGorenstein\) if and only if the same
+condition holds with
+\[
+m_\sigma\in M_\QQ.
+\]
+\end{enumerate}
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~8.2.12; the Gorenstein
+terminology is Definition~8.2.14.
+
+The condition says that the primitive ray generators of each maximal
+cone lie on an affine hyperplane
+\[
+\{u\in N_\RR:\langle m_\sigma,u\rangle=1\}.
+\]
+The normal vector must be integral for Gorensteinness and merely
+rational for \(\QGorenstein\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.02]
+  % A_{n-1} cone
+  \begin{scope}[xshift=-4.5cm]
+    \fill[DictionaryBlue!9]
+      (0,0)--(3.0,0)--(0,3.0)--cycle;
+
+    \draw[very thick,-{Latex[length=2.3mm]}]
+      (0,0)--(3.25,0);
+    \draw[very thick,-{Latex[length=2.3mm]}]
+      (0,0)--(0,3.25);
+
+    \draw[very thick,PredictionTeal]
+      (0,3.0)--(3.0,0);
+
+    \foreach \i in {0,...,5} {
+      \fill[PredictionTeal]
+        ({3*\i/5},{3*(5-\i)/5}) circle (2.2pt);
+    }
+
+    \node[left] at (0,3.0) {\(u_0=e_2\)};
+    \node[below] at (3.0,0) {\(u_n=e_1\)};
+    \node[PredictionTeal,above right] at (1.65,1.65)
+      {\(x+y=1\)};
+    \node at (1.5,0.62)
+      {\(\langle(1,1),u_i\rangle=1\)};
+    \node[font=\bfseries] at (1.4,3.75)
+      {\(A_{n-1}\): integral height one};
+  \end{scope}
+
+  % Weighted projective singular cone
+  \begin{scope}[xshift=4.6cm]
+    \coordinate (O) at (0,0);
+    \coordinate (A) at (3.0,0);
+    \coordinate (B) at (-1.5,3.0);
+
+    \fill[ExampleGold!10] (O)--(A)--(B)--cycle;
+    \draw[very thick,-{Latex[length=2.3mm]}] (O)--(3.25,0);
+    \draw[very thick,-{Latex[length=2.3mm]}] (O)--(-1.65,3.3);
+    \draw[very thick,WarningRed] (A)--(B);
+
+    \fill[WarningRed] (A) circle (2.2pt);
+    \fill[WarningRed] (B) circle (2.2pt);
+
+    \node[below] at (A) {\((1,0)\)};
+    \node[above left] at (B) {\((-1,n)\)};
+    \node[WarningRed,rotate=-34] at (0.75,1.82)
+      {\(x+\frac{2}{n}y=1\)};
+    \node[align=center] at (0.65,0.5)
+      {integral normal only when\\ \(n\mid2\)};
+    \node[font=\bfseries] at (0.75,3.75)
+      {\(\PP(1,1,n)\): rational height one};
+  \end{scope}
+\end{tikzpicture}
+\caption{Gorensteinness is an integral height-one condition. For the
+\(A_{n-1}\) cone, the character \((1,1)\) is integral in the intrinsic
+character lattice. For the singular cone of \(\PP(1,1,n)\), the
+height-one functional is \((1,2/n)\), which is integral only for
+\(n=1,2\).}
+\label{fig:gorenstein-height-one}
+\end{figure}
+
+\subsection{Two singular comparisons}
+
+\begin{example}[The \(A_{n-1}\) singularity is Gorenstein]
+For
+\[
+X_n=\AAA^2/\tfrac1n(1,n-1),
+\]
+the character lattice is
+\[
+M
+=
+\{(a,b)\in\ZZ^2:a-b\equiv0\pmod n\}.
+\]
+The element
+\[
+m=(1,1)
+\]
+belongs to \(M\), and
+\[
+\langle m,e_1\rangle
+=
+\langle m,e_2\rangle
+=
+1.
+\]
+Hence \(X_n\) is Gorenstein.
+
+This recovers geometrically the special role of the equation
+\[
+uv-w^n=0.
+\]
+The singularity is not smooth for \(n>1\), but its canonical divisor
+is Cartier.
+
+Moreover, the rays in the resolution from the Chapter~3 challenge,
+\[
+u_i=
+\left(\frac{i}{n},\frac{n-i}{n}\right),
+\]
+all satisfy
+\[
+\langle(1,1),u_i\rangle=1.
+\]
+The new rays remain on the same height-one line.
+\end{example}
+
+\begin{observation}
+For the general quotient
+\[
+\AAA^2/\tfrac1n(1,q),
+\]
+the unique rational functional taking value \(1\) on \(e_1,e_2\) is
+\[
+m=(1,1).
+\]
+It lies in the intrinsic character lattice exactly when
+\[
+1+q\equiv0\pmod n.
+\]
+For \(1\leq q<n\), this means
+\[
+q=n-1.
+\]
+
+Thus the Gorenstein quotients in this family are precisely the
+\(A_{n-1}\) singularities. Every member of the family is
+\(\QGorenstein\), and its Gorenstein index is
+\[
+\frac{n}{\gcd(n,q+1)}.
+\]
+\end{observation}
+
+\begin{example}[The weighted projective plane]
+The fan of \(\PP(1,1,n)\) has a singular cone generated by
+\[
+u_0=(1,0),
+\qquad
+u_1=(-1,n).
+\]
+The height-one equations force
+\[
+m=\left(1,\frac{2}{n}\right).
+\]
+Therefore
+\[
+\PP(1,1,n)
+\text{ is Gorenstein}
+\quad\Longleftrightarrow\quad
+n\mid2.
+\]
+Hence the singular surface
+\[
+\PP(1,1,2)
+\]
+is Gorenstein, while \(\PP(1,1,n)\) is only \(\QGorenstein\) for
+\(n>2\).
+
+The fan is simplicial for every \(n\), so all these weighted
+projective planes are \(\Qfactorial\).
+\end{example}
+
+\subsection{A recognition table}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.22\linewidth}
+  >{\raggedright\arraybackslash}p{0.31\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Property}
+&
+\textbf{Divisor formulation}
+&
+\textbf{Fan formulation}
+\\
+\midrule
+smooth / factorial
+&
+every Weil divisor is Cartier
+&
+every cone is smooth
+\\
+\(\Qfactorial\)
+&
+every Weil divisor is \(\QCartier\)
+&
+every cone is simplicial
+\\
+Gorenstein
+&
+\(K_X\) is Cartier
+&
+each maximal cone has an integral height-one functional
+\\
+\(\QGorenstein\)
+&
+\(K_X\) is \(\QCartier\)
+&
+each maximal cone has a rational height-one functional
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The implications should not be confused:
+\[
+\text{smooth}
+\Longrightarrow
+\begin{cases}
+\text{factorial},\\
+\text{Gorenstein},\\
+\Qfactorial.
+\end{cases}
+\]
+But a singular toric variety may still be Gorenstein, \(\Qfactorial\),
+or both.
+
+The chapter has translated divisors into coefficients on rays,
+relations from characters, local linear equations, and support
+functions. The next step is to ask which characters become global
+sections.
+
+\begin{guidingquestion}
+Given
+\[
+D=\sum_\rho a_\rho D_\rho,
+\]
+why should the inequalities
+\[
+\langle m,u_\rho\rangle\geq-a_\rho
+\qquad
+\text{for every }\rho
+\]
+select exactly the characters \(\character{m}\) for which
+\[
+\operatorname{div}(\character{m})+D\geq0?
+\]
+
+What geometric object in \(M_\RR\) is cut out by these inequalities?
+\end{guidingquestion}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+The rays of a fan record the irreducible components of the toric
+boundary:
+\[
+\rho\in\Sigma(1)
+\quad\longleftrightarrow\quad
+D_\rho=\overline{O(\rho)}.
+\]
+Characters then measure zeros and poles along those components:
+\[
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho.
+\]
+
+From this formula, the chapter developed the sequence
+\[
+\boxed{
+\begin{aligned}
+\text{rays}
+&\longrightarrow
+\text{invariant prime divisors},
+\\
+\text{characters}
+&\longrightarrow
+\text{principal relations},
+\\
+\text{Cartier data}
+&\longrightarrow
+\text{compatible local equations},
+\\
+\text{support functions}
+&\longrightarrow
+\text{one piecewise-linear encoding}.
+\end{aligned}
+}
+\]
+
+The two basic divisor groups are organized by
+\[
+M
+\longrightarrow
+\Div_T(X_\Sigma)
+\longrightarrow
+\Cl(X_\Sigma)
+\longrightarrow0
+\]
+and
+\[
+M
+\longrightarrow
+\operatorname{SF}(\Sigma,N)
+\longrightarrow
+\Pic(X_\Sigma)
+\longrightarrow0.
+\]
+The difference between \(\Cl\) and
+\(\Pic\) measures the failure of Weil divisors to admit
+compatible local equations.
+
+Finally,
+\[
+K_{X_\Sigma}
+=
+-\sum_{\rho\in\Sigma(1)}D_\rho
+\]
+turned singularity properties into fan conditions:
+\[
+\begin{array}{c@{\quad\longleftrightarrow\quad}c}
+\text{factorial}
+&
+\text{smooth fan},
+\\
+\Qfactorial
+&
+\text{simplicial fan},
+\\
+\text{Gorenstein}
+&
+\text{integral height-one data},
+\\
+\QGorenstein
+&
+\text{rational height-one data}.
+\end{array}
+\]
+
+The next chapter begins with a divisor
+\[
+D=\sum_\rho a_\rho D_\rho
+\]
+and asks which characters satisfy
+\[
+\operatorname{div}(\character{m})+D\geq0.
+\]
+The answer will be encoded by lattice points in the polyhedron
+\[
+P_D
+=
+\left\{
+m\in M_\RR:
+\langle m,u_\rho\rangle\geq-a_\rho
+\text{ for every }\rho
+\right\}.
+\]
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let \(X=\PP^1\), with boundary divisors
+\[
+D_0=\{0\},
+\qquad
+D_\infty=\{\infty\}.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Use the character \(t\) to compute
+\[
+\Cl(\PP^1).
+\]
+\item Write Cartier data for \(D_0\) on the two affine charts.
+\item Determine the support function of \(D_0\).
+\item Recover
+\[
+K_{\PP^1}\sim-2[D_0].
+\]
+\end{enumerate}
+
+\item Let
+\[
+X=\AAA^1\times\Gm
+\]
+with its usual toric structure.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Describe its fan and its invariant prime divisors.
+\item Compute the map
+\[
+M\longrightarrow\Div_T(X).
+\]
+\item Determine \(\Cl(X)\).
+\item Find the kernel of the divisor map and explain it using the
+torus factor.
+\end{enumerate}
+
+\item For the fan of \(\PP^2\), let
+\[
+D=a_0D_0+a_1D_1+a_2D_2.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show directly that every such invariant Weil divisor is Cartier.
+\item Find Cartier data on the three maximal cones.
+\item Prove
+\[
+[D]=(a_0+a_1+a_2)H.
+\]
+\item Characterize the principal invariant divisors among these
+triples.
+\end{enumerate}
+
+\item For \(\PP^1\times\PP^1\), order the invariant boundary divisors
+cyclically as
+\[
+D_1,D_2,D_3,D_4.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Recover the two relations
+\[
+D_1\sim D_3,
+\qquad
+D_2\sim D_4.
+\]
+\item Compute the support function of \(D_1+D_2\).
+\item Express the canonical class in the basis
+\[
+[D_1],[D_2].
+\]
+\end{enumerate}
+
+\item Let \(\mathbb F_r\) have rays
+\[
+(1,0),\quad
+(0,1),\quad
+(-1,r),\quad
+(0,-1),
+\]
+with corresponding divisors
+\[
+D_1,D_2,D_3,D_4.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute the two principal relations among the \(D_i\).
+\item Determine \(\Cl(\mathbb F_r)\).
+\item Express \(K_{\mathbb F_r}\) using two chosen generators.
+\item Check that every invariant Weil divisor is Cartier.
+\end{enumerate}
+
+\item Consider the affine cone
+\[
+\sigma=\Cone{(1,0),(1,d)}
+\subseteq\RR^2,
+\qquad
+d\geq2,
+\]
+in the lattice \(\ZZ^2\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute \(\Cl(U_\sigma)\).
+\item Show that each invariant prime divisor is \(\QCartier\).
+\item Determine the smallest positive multiple of the divisor
+corresponding to \((1,0)\) that is Cartier.
+\item Decide when \(U_\sigma\) is Gorenstein.
+\end{enumerate}
+
+\item Assign integers
+\[
+c_0,c_1,c_2
+\]
+to the three rays of the fan of \(\PP^2\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that there is a unique support function taking those values
+on the rays.
+\item Write its three linear pieces explicitly.
+\item Which choice of \(c_i\) gives a global linear function?
+\item Translate your answer into a statement about principal
+divisors.
+\end{enumerate}
+
+\item Let \(\Sigma\) consist of the cone
+\[
+\Cone{e_1,e_2,e_3,e_1+e_2-e_3}
+\subseteq\RR^3
+\]
+and all its faces.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Explain why the maximal cone is not simplicial.
+\item Construct a Weil divisor whose coefficients on the four rays
+cannot arise from a rational linear function.
+\item Deduce that \(X_\Sigma\) is not \(\Qfactorial\).
+\end{enumerate}
+
+\item Let \(X=\PP(1,1,n)\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Use the fan to verify that \(X\) is \(\Qfactorial\).
+\item Compute the rational height-one functional on its singular cone.
+\item Determine the Cartier index of \(K_X\).
+\item Verify that \(X\) is Gorenstein precisely when \(n\mid2\).
+\end{enumerate}
+
+\item Let \(\Sigma'\) be a refinement of a fan \(\Sigma\), with the
+same support, and let
+\[
+\pi:X_{\Sigma'}\longrightarrow X_\Sigma
+\]
+be the induced proper birational toric morphism.
+Suppose \(D\) is a torus-invariant Cartier divisor on \(X_\Sigma\)
+with support function \(\psi_D\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Explain why the same function is a support function on
+\(\Sigma'\).
+\item Show that the corresponding divisor on \(X_{\Sigma'}\) is
+\(\pi^*D\).
+\item If \(\rho'\) is a new ray, determine its coefficient in
+\(\pi^*D\) from \(\psi_D(u_{\rho'})\).
+\end{enumerate}
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Divisors and the crepant resolution of an
+\(\boldsymbol{A_{n-1}}\) singularity.}
+
+\medskip
+
+Assume \(\Bbbk=\CC\), and consider
+\[
+X_n
+=
+\AAA^2/\tfrac1n(1,n-1)
+\simeq
+V(uv-w^n)\subseteq\AAA^3.
+\]
+Its fan consists of the first-quadrant cone
+\[
+\sigma=\Cone{e_2,e_1}
+\]
+in
+\[
+N
+=
+\ZZ^2+
+\ZZ\left(\frac1n(1,n-1)\right).
+\]
+The intrinsic character lattice is
+\[
+M
+=
+\left\{
+(a,b)\in\ZZ^2:
+a-b\equiv0\pmod n
+\right\}.
+\]
+
+As in the Chapter~3 challenge, define
+\[
+u_i
+=
+\left(\frac{i}{n},\frac{n-i}{n}\right),
+\qquad
+0\leq i\leq n.
+\]
+Thus
+\[
+u_0=e_2,
+\qquad
+u_n=e_1.
+\]
+Let \(\Sigma'\) be the smooth fan with maximal cones
+\[
+\sigma_i=\Cone{u_{i-1},u_i},
+\qquad
+1\leq i\leq n,
+\]
+and let
+\[
+\pi:Y=X_{\Sigma'}\longrightarrow X_n
+\]
+be the resulting resolution.
+
+Write
+\[
+D_0=V(\Cone{u_0}),
+\qquad
+D_n=V(\Cone{u_n}),
+\]
+for the strict transforms of the two original boundary divisors, and
+\[
+E_i=V(\Cone{u_i}),
+\qquad
+1\leq i\leq n-1,
+\]
+for the exceptional curves.
+
+The goal is to understand how divisor classes and canonical divisors
+behave under the resolution.
+
+\clearpage
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % singular cone
+  \begin{scope}[xshift=-4.7cm]
+    \fill[WarningRed!9]
+      (0,0)--(3.0,0)--(0,3.0)--cycle;
+    \draw[very thick,-{Latex[length=2.3mm]}]
+      (0,0)--(3.25,0);
+    \draw[very thick,-{Latex[length=2.3mm]}]
+      (0,0)--(0,3.25);
+    \draw[very thick,PredictionTeal]
+      (0,3.0)--(3.0,0);
+
+    \node[left] at (0,3.0) {\(u_0=e_2\)};
+    \node[below] at (3.0,0) {\(u_n=e_1\)};
+    \node[PredictionTeal,above right] at (1.55,1.55)
+      {\(\langle(1,1),u\rangle=1\)};
+    \node[font=\bfseries] at (1.45,3.75)
+      {the singular cone};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.8mm]}]
+    (-0.75,0.45)--(0.75,0.45);
+  \node[above] at (0,0.45) {refine};
+
+  % resolution fan and chain
+  \begin{scope}[xshift=4.6cm]
+    \draw[very thick,-{Latex[length=2.2mm]}]
+      (0,0)--(3.15,0);
+    \draw[very thick,-{Latex[length=2.2mm]}]
+      (0,0)--(0,3.15);
+
+    \foreach \i in {1,...,4} {
+      \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+        (0,0)--({3*\i/5},{3*(5-\i)/5});
+    }
+    \draw[very thick,PredictionTeal]
+      (0,3.0)--(3.0,0);
+
+    \node[left] at (0,3.0) {\(u_0\)};
+    \node[above left] at (0.6,2.4) {\(u_1\)};
+    \node[above] at (1.2,1.8) {\(u_2\)};
+    \node at (1.8,1.25) {\(\cdots\)};
+    \node[above right] at (2.4,0.6) {\(u_{n-1}\)};
+    \node[below] at (3.0,0) {\(u_n\)};
+
+    \node[font=\bfseries] at (1.5,3.75)
+      {all rays remain at height one};
+
+    \node[
+      draw=PredictionTeal,
+      rounded corners,
+      inner sep=2pt
+    ] (E1) at (0.15,-1.0) {\(E_1\)};
+    \node[
+      draw=PredictionTeal,
+      rounded corners,
+      inner sep=2pt
+    ] (E2) at (0.95,-1.0) {\(E_2\)};
+    \node at (1.75,-1.0) {\(\cdots\)};
+    \node[
+      draw=PredictionTeal,
+      rounded corners,
+      inner sep=2pt
+    ] (En) at (2.75,-1.0) {\(E_{n-1}\)};
+    \draw[thick] (E1)--(E2);
+    \draw[thick] (E2)--(1.48,-1.0);
+    \draw[thick] (2.05,-1.0)--(En);
+  \end{scope}
+\end{tikzpicture}
+\caption{The resolution inserts the intermediate lattice rays. Every
+ray lies on the same integral height-one line, which will force the
+resolution to preserve the canonical divisor.}
+\label{fig:challenge-crepant-an-resolution}
+\end{figure}
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{The class group of the singularity.}
+
+Let
+\[
+B_0=V(\Cone{u_0}),
+\qquad
+B_n=V(\Cone{u_n})
+\]
+be the invariant boundary divisors on \(X_n\). Show that
+\[
+m_0=(1,1),
+\qquad
+m_1=(n,0)
+\]
+form a basis of \(M\), and compute
+\[
+\operatorname{div}_{X_n}(\character{m_0})
+=
+B_0+B_n,
+\]
+\[
+\operatorname{div}_{X_n}(\character{m_1})
+=
+nB_n.
+\]
+Deduce that
+\[
+\Cl(X_n)
+\simeq
+\ZZ/n\ZZ,
+\]
+generated by \([B_n]\), with
+\[
+[B_0]=-[B_n].
+\]
+
+\item \textbf{The class group upstairs.}
+
+On \(Y\), write
+\[
+D_i=
+\begin{cases}
+D_0,&i=0,\\
+E_i,&1\leq i\leq n-1,\\
+D_n,&i=n.
+\end{cases}
+\]
+Verify
+\[
+\langle m_0,u_i\rangle=1,
+\qquad
+\langle m_1,u_i\rangle=i.
+\]
+Hence
+\[
+\operatorname{div}_Y(\character{m_0})
+=
+\sum_{i=0}^{n}D_i,
+\]
+and
+\[
+\operatorname{div}_Y(\character{m_1})
+=
+\sum_{i=0}^{n}iD_i.
+\]
+
+Use these two relations to show that
+\[
+\Cl(Y)
+\simeq
+\ZZ^{n-1}.
+\]
+Why is the answer torsion-free without performing a Smith normal form
+calculation?
+
+\item \textbf{What the exceptional curves generate.}
+
+Let \(L\subseteq\Cl(Y)\) be the subgroup generated by
+\[
+[E_1],\ldots,[E_{n-1}].
+\]
+Show that
+\[
+\Cl(Y)/L
+\simeq
+\ZZ/n\ZZ.
+\]
+Compare this quotient with \(\Cl(X_n)\).
+
+Explain informally why contracting the exceptional chain should
+recover the torsion class group of the singular surface.
+
+\item \textbf{Cartier data for one exceptional curve.}
+
+Fix \(1\leq i\leq n-1\). Since \(Y\) is smooth, \(E_i\) is Cartier.
+Show that the only maximal cones on which a nontrivial local equation
+is needed are
+\[
+\sigma_i=\Cone{u_{i-1},u_i},
+\qquad
+\sigma_{i+1}=\Cone{u_i,u_{i+1}}.
+\]
+
+Define
+\[
+m_i^-=(i-1-n,i-1),
+\qquad
+m_i^+=(n-i-1,-i-1).
+\]
+Verify that both belong to \(M\) and that
+\[
+\begin{array}{c|cc}
+&
+u_{i-1}
+&
+u_i
+\\
+\hline
+m_i^-
+&
+0
+&
+-1
+\end{array},
+\qquad
+\begin{array}{c|cc}
+&
+u_i
+&
+u_{i+1}
+\\
+\hline
+m_i^+
+&
+-1
+&
+0.
+\end{array}
+\]
+Conclude that Cartier data for \(E_i\) are
+\[
+m_{\sigma_i}=m_i^-,
+\qquad
+m_{\sigma_{i+1}}=m_i^+,
+\qquad
+m_\sigma=0
+\]
+on every other maximal cone.
+
+Write the corresponding local character equations and check their
+compatibility on overlaps.
+
+\item \textbf{Total transforms of the boundary.}
+
+Since
+\[
+nB_n
+=
+\operatorname{div}_{X_n}(\character{m_1}),
+\]
+pulling back this principal divisor gives
+\[
+\pi^*(nB_n)
+=
+\operatorname{div}_Y(\character{m_1}).
+\]
+Deduce
+\[
+\boxed{
+\pi^*(nB_n)
+=
+nD_n+\sum_{i=1}^{n-1}iE_i.
+}
+\]
+
+Similarly, use
+\[
+(0,n)=nm_0-m_1
+\]
+to show
+\[
+\boxed{
+\pi^*(nB_0)
+=
+nD_0+\sum_{i=1}^{n-1}(n-i)E_i.
+}
+\]
+
+How do the increasing and decreasing coefficients reflect the
+positions of the rays in the fan?
+
+\item \textbf{The canonical divisor downstairs.}
+
+Use the toric canonical-divisor formula to write
+\[
+K_{X_n}=-B_0-B_n.
+\]
+Show that
+\[
+K_{X_n}
+=
+\operatorname{div}_{X_n}(\character{-m_0}).
+\]
+Thus the canonical divisor is not merely Cartier: this chosen
+representative is principal.
+
+Relate this calculation to the fact that the two primitive ray
+generators lie on the integral height-one line
+\[
+\langle m_0,u\rangle=1.
+\]
+
+\item \textbf{The canonical divisor upstairs.}
+
+Since every ray of \(\Sigma'\) satisfies
+\[
+\langle m_0,u_i\rangle=1,
+\]
+show that
+\[
+K_Y
+=
+-\sum_{i=0}^{n}D_i
+=
+\operatorname{div}_Y(\character{-m_0}).
+\]
+Now use pullback of principal divisors to conclude
+\[
+\boxed{
+K_Y=\pi^*K_{X_n}.
+}
+\]
+
+A resolution satisfying this equality is called \emph{crepant}.
+Explain, using only the fan picture, why no exceptional divisor
+appears with a nonzero correction coefficient.
+
+\item \textbf{The support-function interpretation.}
+
+The support function of \(K_{X_n}\) is the global linear function
+\[
+\psi_K(u)=\langle m_0,u\rangle.
+\]
+Regard the same function on the refined fan \(\Sigma'\).
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item What coefficient does the pullback divisor assign to each new
+ray \(u_i\)?
+\item Why does this agree with the coefficient of \(E_i\) in \(K_Y\)?
+\item Explain why the equality
+\[
+K_Y=\pi^*K_{X_n}
+\]
+is equivalent to saying that every inserted ray remains at height
+one.
+\end{enumerate}
+
+\item \textbf{A concrete case.}
+
+Work out the case \(n=5\).
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Draw the six rays \(u_0,\ldots,u_5\).
+\item Write the two principal relations in
+\(\Div_T(Y)\).
+\item Compute Cartier data for \(E_2\).
+\item Write the total transforms of \(5B_0\) and \(5B_5\).
+\item Verify directly that
+\[
+K_Y=\pi^*K_{X_5}.
+\]
+\end{enumerate}
+
+\end{enumerate}
+
+\begin{tcolorbox}[
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={Beyond the \(A_{n-1}\) case},
+  fonttitle=\bfseries
+]
+For a general cyclic quotient
+\(\AAA^2/\tfrac1n(1,q)\), the canonical support function is rational
+and takes value \(1\) on the two original rays. A new primitive ray
+\(u\) contributes
+\[
+\langle m_K,u\rangle-1
+\]
+to the coefficient of its exceptional curve in
+\(K_Y-\pi^*K_X\).
+
+For \(A_{n-1}\), every inserted ray remains at height \(1\), so all
+these corrections vanish.
+\end{tcolorbox}
+
+\noindent
+\textit{Reference.}
+The divisor class sequence is Cox--Little--Schenck,
+Theorem~4.1.3, and support functions are developed in \S4.2.
+Canonical divisors and the height-one criterion are treated in
+\S8.2. The toric resolution of cyclic quotient surface singularities
+and its exceptional chain are developed in Chapter~10, especially
+\S\S10.2 and~10.4.
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The invariant divisor sequence, the Cartier criterion, and support
+functions follow Cox--Little--Schenck, Chapter~4. The formula
+\[
+K_{X_\Sigma}
+=
+-\sum_{\rho\in\Sigma(1)}D_\rho
+\]
+and the Gorenstein height-one criterion are developed in
+Cox--Little--Schenck, \S8.2.
+
+The chapter deliberately stops before global sections and positivity.
+Those topics require one further translation:
+\[
+\operatorname{div}(\character{m})+D\geq0
+\quad\Longleftrightarrow\quad
+\langle m,u_\rho\rangle\geq-a_\rho
+\text{ for every }\rho.
+\]
+Chapter~5 will turn these inequalities into polyhedra, interpret their
+lattice points as sections, and connect convex support functions to
+projective embeddings.
+
+The challenge exercise returns to the \(A_{n-1}\) resolution from
+Chapter~3. It illustrates the principle that a toric resolution is
+crepant precisely when the new rays remain on the canonical
+height-one hyperplane.

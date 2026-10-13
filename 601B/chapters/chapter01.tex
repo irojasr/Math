@@ -1,0 +1,4538 @@
+\chapter[Algebraic Tori and Their Representation Theory]
+{Algebraic Tori and Their\\ Representation Theory}
+\label{chap:algebraic-tori}
+
+\begin{chapteroverview}
+Why are monomials so central in toric geometry?
+
+The answer begins with representation theory. Algebraic tori are among
+the simplest algebraic groups, and their finite-dimensional
+representations are completely controlled by monomial functions. In
+this chapter we develop the basic language of characters,
+one-parameter subgroups, weights, and dual lattices. The examples of
+\(\Gm\), \(\Gm^2\), and the dense torus of \(\PP^2\) remain in the
+foreground throughout.
+
+Most structural results about representations are stated without
+proof. References and proofs may be supplied from standard texts on
+linear algebraic groups; our goal here is to establish the language
+and geometric intuition needed for toric varieties.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The central objects of the chapter already come in parallel families.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+the group algebra \(\Bbbk[M]\)
+&
+the algebraic torus \(T\)
+&
+the character lattice \(M\)
+\\[1mm]
+characters \(T\to\Gm\)
+&
+monomial functions on \(T\)
+&
+lattice points \(m\in M\)
+\\[1mm]
+one-parameter subgroups \(\Gm\to T\)
+&
+one-parameter motions and limits
+&
+lattice points \(u\in N\)
+\\[1mm]
+the composition
+\(\character{m}\circ\oneps{u}\)
+&
+the order of vanishing or pole at \(t=0\)
+&
+the pairing \(\pair{m}{u}\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\section{Why ``torus''?}
+\label{sec:why-torus}
+\index{torus!topological and algebraic}
+\index{algebraic torus}
+
+The word \emph{torus} comes to algebraic geometry from topology. A
+topologist begins with the circle
+\[
+S^1=\{z\in\CC:|z|=1\}
+\]
+and calls a product
+\[
+(S^1)^n
+\]
+an \(n\)-dimensional torus. When \(n=2\), this is the familiar surface
+of a doughnut; in higher dimensions, the product description is more
+useful than any attempted drawing.
+
+What does this have to do with the algebraic group
+\[
+\Gm=\Spec\Bbbk[x,x^{-1}]?
+\]
+The connection is easiest to see over \(\CC\).
+
+\subsection{From the circle to the punctured complex line}
+
+The complex points of \(\Gm\) are
+\[
+\Gm(\CC)=\CC^\times=\CC\setminus\{0\}.
+\]
+Every nonzero complex number has a polar decomposition
+\[
+z=r\,e^{i\theta},
+\qquad
+r>0.
+\]
+Thus, as a topological space,
+\[
+\CC^\times\simeq S^1\times\RR_{>0}.
+\]
+The second factor is contractible. We may continuously push every
+point radially toward the unit circle by
+\[
+H(z,s)
+=
+\left((1-s)+\frac{s}{|z|}\right)z,
+\qquad
+0\leq s\leq1.
+\]
+At \(s=0\), this is the identity; at \(s=1\), it sends
+\(z\) to \(z/|z|\in S^1\). In topological language,
+\(\CC^\times\) deformation retracts onto \(S^1\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.25]
+  \draw[->,black!55] (-2.6,0) -- (2.8,0)
+    node[right] {\(\operatorname{Re}\)};
+  \draw[->,black!55] (0,-2.35) -- (0,2.55)
+    node[above] {\(\operatorname{Im}\)};
+
+  \draw[very thick,PredictionTeal] (0,0) circle (1.35);
+  \node[PredictionTeal,above right] at (0.95,0.95) {\(S^1\)};
+
+  \fill[WarningRed] (0,0) circle (2.2pt);
+  \node[below right,WarningRed] at (0.05,-0.05) {removed point};
+
+  \foreach \ang/\rad in {18/2.15,55/1.85,125/2.05,205/1.95,310/2.20}{
+    \coordinate (P) at ({\rad*cos(\ang)},{\rad*sin(\ang)});
+    \coordinate (Q) at ({1.35*cos(\ang)},{1.35*sin(\ang)});
+    \fill[DictionaryBlue] (P) circle (1.8pt);
+    \draw[thick,-{Latex[length=2mm]},ExampleGold] (P) -- (Q);
+  }
+
+  \node[align=center] at (4.65,0.75)
+    {\(\displaystyle z\longmapsto \frac{z}{|z|}\)\\[1mm]
+     radial contraction};
+  \draw[very thick,-{Latex[length=2.5mm]},DictionaryBlue]
+    (2.55,0.35) -- (3.55,0.55);
+\end{tikzpicture}
+\caption{The punctured complex line retracts radially onto the unit
+circle. This topological circle is the compact core behind the name
+\(\Gm\).}
+\label{fig:gm-retracts-to-circle}
+\end{figure}
+
+Taking products gives
+\[
+(\CC^\times)^n
+\simeq
+(S^1)^n\times(\RR_{>0})^n,
+\]
+and therefore
+\[
+(\CC^\times)^n
+\quad\text{deformation retracts onto}\quad
+(S^1)^n.
+\]
+This is why \(\Gm^n\) is called an algebraic torus.
+
+\begin{warningbox}
+The complex algebraic torus \((\CC^\times)^n\) is not itself compact.
+It contains the compact topological torus \((S^1)^n\) as a deformation
+retract. The word ``torus'' records this topological relationship; it
+does not mean that the algebraic variety is literally a compact
+doughnut.
+\end{warningbox}
+
+\subsection{The algebraic definition}
+
+For most of this course, the base field \(\Bbbk\) is algebraically
+closed.
+
+\begin{definition}
+An \(n\)-dimensional algebraic torus over \(\Bbbk\) is an algebraic
+group isomorphic to
+\[
+\Gm^n.
+\]
+\end{definition}
+
+The word \emph{algebraic group} means that multiplication and inversion
+are given by morphisms of algebraic varieties. On points, the group law
+of \(\Gm^n\) is coordinatewise multiplication:
+\[
+(t_1,\ldots,t_n)(s_1,\ldots,s_n)
+=
+(t_1s_1,\ldots,t_ns_n),
+\]
+the identity is
+\[
+(1,\ldots,1),
+\]
+and inversion is
+\[
+(t_1,\ldots,t_n)^{-1}
+=
+(t_1^{-1},\ldots,t_n^{-1}).
+\]
+The coordinate ring
+\[
+\Bbbk[t_1^{\pm1},\ldots,t_n^{\pm1}]
+\]
+is exactly what allows these inverse coordinates to remain regular.
+
+\begin{observation}
+Over a field that is not algebraically closed, one distinguishes
+between \emph{split} tori, which are already isomorphic to
+\(\Gm^n\), and tori that become isomorphic to \(\Gm^n\) only after
+extending the base field. The distinction is important in arithmetic
+geometry, but it will not play a role in the main development of these
+notes.
+\end{observation}
+
+\subsection{Examples close to home}
+
+The first examples are already familiar.
+
+\begin{example}
+The one-dimensional torus is
+\[
+\Gm=\AAA^1\setminus\{0\}.
+\]
+As an affine variety,
+\[
+\Gm=\Spec\Bbbk[x,x^{-1}].
+\]
+\end{example}
+
+\begin{example}
+The dense open subset of \(\PP^2\) studied in
+\cref{sec:p2-dense-torus} is
+\[
+T
+=
+\{[x_0:x_1:x_2]:x_0x_1x_2\neq0\}
+\simeq\Gm^2.
+\]
+After normalizing \(x_0=1\), its group coordinates are
+\[
+\left(\frac{x_1}{x_0},\frac{x_2}{x_0}\right).
+\]
+Thus Chapter~0 did not merely exhibit an open subset isomorphic to
+\(\Gm^2\): it exhibited the algebraic torus that acts on all of
+\(\PP^2\).
+\end{example}
+
+\begin{example}
+The group of invertible diagonal \(n\times n\) matrices is an
+\(n\)-dimensional torus:
+\[
+\left\{
+\begin{pmatrix}
+t_1&&0\\
+&\ddots&\\
+0&&t_n
+\end{pmatrix}
+:
+t_i\in\Bbbk^\times
+\right\}
+\simeq
+\Gm^n.
+\]
+The determinant-one diagonal matrices form an
+\((n-1)\)-dimensional torus:
+\[
+\{(t_1,\ldots,t_n)\in\Gm^n:t_1\cdots t_n=1\}
+\simeq
+\Gm^{n-1}.
+\]
+For example, one may solve for \(t_n\) as
+\[
+t_n=(t_1\cdots t_{n-1})^{-1}.
+\]
+\end{example}
+
+\begin{pauseandthink}
+The affine line with addition,
+\[
+\Ga=(\AAA^1,+),
+\]
+is also a one-dimensional algebraic group. Could it be isomorphic to
+an algebraic torus? Try to approach the question both algebraically
+and, over \(\CC\), topologically.
+\end{pauseandthink}
+
+The algebraic answer is that \(\Ga\) is not isomorphic to \(\Gm\):
+its coordinate ring is \(\Bbbk[x]\), not
+\(\Bbbk[x,x^{-1}]\), and its group law is addition rather than
+multiplication. Over \(\CC\), the spaces are topologically different
+as well:
+\[
+\CC\quad\text{is contractible,}
+\qquad
+\CC^\times\quad\text{retracts onto }S^1.
+\]
+
+\subsection{Why monomials are waiting for us}
+
+The multiplication law on a torus strongly favors monomials. On
+\(\Gm\), the functions
+\[
+t\longmapsto t^m,
+\qquad
+m\in\ZZ,
+\]
+satisfy
+\[
+(ts)^m=t^ms^m.
+\]
+On \(\Gm^n\), the Laurent monomials
+\[
+t_1^{m_1}\cdots t_n^{m_n}
+\]
+have the same property:
+\[
+(t_1s_1)^{m_1}\cdots(t_ns_n)^{m_n}
+=
+\bigl(t_1^{m_1}\cdots t_n^{m_n}\bigr)
+\bigl(s_1^{m_1}\cdots s_n^{m_n}\bigr).
+\]
+
+\begin{prediction}
+Suppose
+\[
+f:\Gm^n\longrightarrow\Gm
+\]
+is both a regular map and a group homomorphism. What forms can such
+maps take? Explore the cases \(n=1\) and \(n=2\) first, and try to
+organize the examples you find.
+\end{prediction}
+
+The answer is yes. Such maps are called \emph{characters}, and their
+exponent vectors form a lattice. This simple fact is the entrance to
+the representation theory of algebraic tori and the explanation for
+the persistent appearance of monomials in Chapter~0.
+
+
+\section{The algebraic torus
+\texorpdfstring{\(\Gm^n\)}{Gm n}}
+\label{sec:algebraic-torus-gn}
+\index{algebraic torus}
+\index{Laurent polynomial}
+\index{group algebra}
+
+The notation
+\[
+\Gm^n
+\]
+is compact, but it hides several compatible structures. It is at once
+
+\[
+\text{an affine variety,}
+\qquad
+\text{an algebraic group,}
+\qquad
+\text{and a space carrying many monomial functions.}
+\]
+
+In this section we put these structures on the table. The point is not
+to introduce a large amount of machinery. It is to understand exactly
+why Laurent polynomials are the natural algebraic language of a torus.
+
+\subsection{Removing the coordinate hyperplanes}
+
+Begin with affine space
+\[
+\AAA^n=\Spec\Bbbk[x_1,\ldots,x_n].
+\]
+The algebraic torus is the open subset on which no coordinate vanishes:
+\[
+\Gm^n
+=
+\{(t_1,\ldots,t_n)\in\AAA^n:t_1\cdots t_n\neq0\}.
+\]
+Equivalently,
+\[
+\Gm^n
+=
+D(x_1\cdots x_n)
+=
+\AAA^n\setminus V(x_1\cdots x_n).
+\]
+Since
+\[
+V(x_1\cdots x_n)
+=
+V(x_1)\cup\cdots\cup V(x_n),
+\]
+we obtain \(\Gm^n\) by removing the \(n\) coordinate hyperplanes.
+
+For \(n=2\), this is the familiar picture
+\[
+\Gm^2
+=
+\AAA^2\setminus\bigl(V(x)\cup V(y)\bigr).
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  \fill[PastelYellow] (-2.7,-2.3) rectangle (2.7,2.3);
+
+  \draw[very thick,WarningRed] (-2.7,0) -- (2.7,0);
+  \draw[very thick,DictionaryBlue] (0,-2.3) -- (0,2.3);
+
+  \node[align=center] at (1.35,1.25)
+    {\(\displaystyle \Gm^2\)\\
+     \(x\neq0,\ y\neq0\)};
+
+  \node[below,WarningRed] at (1.75,-0.08)
+    {\(V(y)\)};
+  \node[rotate=90,above,DictionaryBlue] at (-0.08,1.55)
+    {\(V(x)\)};
+
+  \fill[black] (0,0) circle (1.8pt);
+\end{tikzpicture}
+\caption{The torus \(\Gm^2\) is obtained from \(\AAA^2\) by removing
+the two coordinate axes. The colored lines are not part of the torus.}
+\label{fig:gm2-complement-coordinate-axes}
+\end{figure}
+
+This description immediately explains why the coordinates \(x_i\)
+become invertible on the torus. None of them vanishes there, so each
+reciprocal
+\[
+x_i^{-1}
+\]
+is a regular function on \(\Gm^n\).
+
+\subsection{Laurent polynomials are the regular functions}
+
+The coordinate ring of \(\Gm^n\) is obtained by inverting the product
+\(x_1\cdots x_n\):
+\[
+\Bbbk[\Gm^n]
+=
+\Bbbk[x_1,\ldots,x_n]_{x_1\cdots x_n}.
+\]
+Since inverting the product makes every factor invertible, this ring is
+more familiarly written as
+\[
+\Bbbk[\Gm^n]
+=
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}].
+\]
+
+Its elements are Laurent polynomials:
+\[
+f
+=
+\sum_{m\in F} c_m x_1^{m_1}\cdots x_n^{m_n},
+\]
+where
+
+\[
+F\subseteq\ZZ^n
+\]
+is finite and the exponents \(m_i\) may be positive, zero, or negative.
+
+\begin{example}
+The function
+\[
+f(x,y)=x^{-2}y^3+4xy^{-1}-7
+\]
+is regular on \(\Gm^2\). It is not regular on all of \(\AAA^2\),
+because its negative exponents produce poles along the coordinate
+axes.
+\end{example}
+
+Thus passing from affine space to the torus has one simple algebraic
+effect:
+\[
+\begin{array}{c@{\qquad\rightsquigarrow\qquad}c}
+\AAA^n & \Gm^n\\[1mm]
+\Bbbk[x_1,\ldots,x_n]
+&
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}].
+\end{array}
+\]
+Removing the coordinate hyperplanes allows negative exponents.
+
+\begin{pauseandthink}
+Consider the Laurent monomial
+\[
+x_1^{-3}x_2^2.
+\]
+On which open subset of \(\AAA^2\) is it regular? What is the smallest
+standard principal open subset on which it becomes a regular function?
+\end{pauseandthink}
+
+Only the negative exponent creates a denominator. Hence the monomial
+is regular on
+\[
+D(x_1)=\{x_1\neq0\}.
+\]
+There is no need to remove \(V(x_2)\), because the positive power
+\(x_2^2\) is regular everywhere.
+
+\subsection{The group law is algebraic}
+
+On points, multiplication is coordinatewise:
+\[
+\mu:\Gm^n\times\Gm^n\longrightarrow\Gm^n,
+\]
+\[
+\mu\bigl((t_1,\ldots,t_n),(s_1,\ldots,s_n)\bigr)
+=
+(t_1s_1,\ldots,t_ns_n).
+\]
+The inverse map is
+\[
+\iota:\Gm^n\longrightarrow\Gm^n,
+\qquad
+(t_1,\ldots,t_n)
+\longmapsto
+(t_1^{-1},\ldots,t_n^{-1}),
+\]
+and the identity element is
+\[
+e=(1,\ldots,1).
+\]
+
+\begin{pauseandthink}
+Why are multiplication and inversion regular maps on \(\Gm^n\)?
+Write each output coordinate as a regular function on the source, and
+identify where the fact that the coordinates \(t_i\) are invertible is
+being used.
+\end{pauseandthink}
+
+Multiplication and inversion are regular because their coordinate
+functions are Laurent monomials.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  operation/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=3.45cm,
+    minimum height=1.35cm,
+    align=center
+  }
+]
+  \node[operation,fill=PastelYellow] (mult) at (-3.8,0)
+    {\textbf{Multiplication}\\[1mm]
+     \(\displaystyle
+     (t_i),(s_i)\longmapsto(t_is_i)\)};
+
+  \node[operation,fill=DictionaryBlue!8] (inv) at (0,0)
+    {\textbf{Inversion}\\[1mm]
+     \(\displaystyle
+     (t_i)\longmapsto(t_i^{-1})\)};
+
+  \node[operation,fill=SurfaceGreen!9] (id) at (3.8,0)
+    {\textbf{Identity}\\[1mm]
+     \(\displaystyle
+     e=(1,\ldots,1)\)};
+
+  \node[below=8mm,align=center] at (0,0)
+    {all formulas are built from Laurent monomials};
+\end{tikzpicture}
+\caption{The algebraic group structure of \(\Gm^n\). Laurent monomials
+make both multiplication and inversion regular.}
+\label{fig:gm-group-operations}
+\end{figure}
+
+There is an equivalent description on coordinate rings. A regular map
+of affine varieties produces a homomorphism of coordinate rings in the
+opposite direction. For multiplication, inversion, and the identity,
+the coordinate functions satisfy
+\[
+\begin{aligned}
+\mu^*(x_i)&=x_i\otimes x_i,\\
+\iota^*(x_i)&=x_i^{-1},\\
+e^*(x_i)&=1.
+\end{aligned}
+\]
+The first formula says that the \(i\)-th coordinate of a product is
+the product of the two \(i\)-th coordinates.
+
+\begin{observation}
+The three displayed formulas are the beginning of the Hopf algebra
+description of an algebraic group. We will not need that language in
+the main development. What matters here is the concrete principle:
+the group law on points becomes a rule for pulling back regular
+functions.
+\end{observation}
+
+\subsection{Maps into \texorpdfstring{\(\Gm\)}{Gm} and invertible functions}
+
+There is a useful general principle. Let \(X\) be an affine variety.
+A morphism
+\[
+f:X\longrightarrow\Gm
+\]
+is the same thing as an invertible regular function on \(X\).
+
+Indeed, the coordinate \(z\) on \(\Gm\) is invertible, so its pullback
+\[
+f^*(z)
+\]
+must be a unit in \(\Bbbk[X]\). Conversely, a unit
+\[
+g\in\Bbbk[X]^\times
+\]
+defines a morphism
+\[
+X\longrightarrow\Gm,
+\qquad
+p\longmapsto g(p).
+\]
+
+Specializing to \(X=\Gm^n\), maps
+\[
+\Gm^n\longrightarrow\Gm
+\]
+are therefore controlled by the units of the Laurent polynomial ring
+\[
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}].
+\]
+In the next section, we impose one additional condition: the map should
+respect multiplication. This will isolate the characters of the torus.
+
+\begin{prediction}
+Among all invertible Laurent polynomials, which ones should define
+group homomorphisms
+\[
+\Gm^n\longrightarrow\Gm?
+\]
+Try testing sums of monomials, scalar multiples of monomials, and pure
+Laurent monomials against the identity
+\[
+f(ts)=f(t)f(s).
+\]
+\end{prediction}
+
+\subsection{The dense torus of \texorpdfstring{\(\PP^2\)}{P2} revisited}
+
+The dense torus of \(\PP^2\) is
+\[
+T
+=
+\{[x_0:x_1:x_2]:x_0x_1x_2\neq0\}.
+\]
+On the chart \(U_0\), it has coordinates
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0},
+\]
+and hence
+\[
+\Bbbk[T]
+=
+\Bbbk[z_1^{\pm1},z_2^{\pm1}].
+\]
+
+The other projective charts give different Laurent coordinates on the
+same torus. On \(U_1\), for instance,
+\[
+w_0=\frac{x_0}{x_1}=z_1^{-1},
+\qquad
+w_2=\frac{x_2}{x_1}=z_1^{-1}z_2.
+\]
+Thus the change of coordinates is monomial:
+\[
+(z_1,z_2)
+\longmapsto
+(z_1^{-1},z_1^{-1}z_2).
+\]
+
+This is our first indication that the torus itself does not come with a
+preferred coordinate system. Different choices of coordinates are
+related by invertible monomial transformations. Later we will encode
+such changes by matrices in
+\[
+\operatorname{GL}(n,\ZZ).
+\]
+
+\begin{threedictionaries}
+The algebraic torus may be read in three compatible ways.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+Its coordinate ring is
+\[
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}].
+\]
+Regular functions are finite sums of Laurent monomials.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+It is the complement of the coordinate hyperplanes:
+\[
+\Gm^n
+=
+\AAA^n\setminus V(x_1\cdots x_n).
+\]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+Laurent monomials are indexed by exponent vectors
+\[
+m=(m_1,\ldots,m_n)\in\ZZ^n.
+\]
+\end{minipage}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Regular functions on a torus are sums of Laurent monomials. Which of
+these functions are compatible with the group law?
+\end{guidingquestion}
+
+
+\section{Monomials and characters}
+\label{sec:monomials-characters}
+\index{character}
+\index{monomial!as character}
+\index{representation!one-dimensional}
+
+At the end of the previous section, we asked which regular maps
+\[
+f:\Gm^n\longrightarrow\Gm
+\]
+are compatible with multiplication. There are many regular functions
+on a torus, but the group law is highly restrictive. It singles out
+the Laurent monomials.
+
+\subsection{Multiplicative regular functions}
+
+\begin{definition}
+A \emph{character} of an algebraic torus \(T\) is a morphism of
+algebraic groups
+\[
+\chi:T\longrightarrow\Gm.
+\]
+Thus \(\chi\) is a regular map satisfying
+\[
+\chi(ts)=\chi(t)\chi(s)
+\qquad
+\text{and}
+\qquad
+\chi(e)=1.
+\]
+\end{definition}
+
+For \(T=\Gm^n\), every exponent vector
+\[
+m=(m_1,\ldots,m_n)\in\ZZ^n
+\]
+defines a character
+\[
+\character{m}(t_1,\ldots,t_n)
+=
+t_1^{m_1}\cdots t_n^{m_n}.
+\]
+It will often be convenient to abbreviate this Laurent monomial as
+\[
+t^m.
+\]
+
+Negative exponents cause no problem: every coordinate \(t_i\) is
+invertible on the torus. Moreover,
+\[
+\character{m}(ts)
+=
+(t_1s_1)^{m_1}\cdots(t_ns_n)^{m_n}
+=
+\character{m}(t)\character{m}(s),
+\]
+so \(\character{m}\) is indeed a group homomorphism.
+
+\begin{example}
+On \(\Gm^2\), the exponent vector
+\[
+m=(2,-3)
+\]
+defines the character
+\[
+\character{(2,-3)}(t_1,t_2)
+=
+t_1^2t_2^{-3}.
+\]
+The vector \(m=(0,0)\) gives the constant character
+\[
+\character{0}=1.
+\]
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.0cm,
+    minimum height=1.45cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (lattice) at (-4.0,0)
+    {\(\displaystyle m=(m_1,\ldots,m_n)\)\\[1mm]
+     an integral exponent vector};
+
+  \node[mainbox,fill=PastelYellow] (monomial) at (0,0)
+    {\(\displaystyle t^m
+      =t_1^{m_1}\cdots t_n^{m_n}\)\\[1mm]
+     a Laurent monomial};
+
+  \node[mainbox,fill=SurfaceGreen!9] (character) at (4.0,0)
+    {\(\displaystyle \character{m}:\Gm^n\to\Gm\)\\[1mm]
+     a character};
+
+  \draw[very thick,-{Latex[length=2.4mm]},DictionaryBlue]
+    (lattice.east) -- (monomial.west);
+  \draw[very thick,-{Latex[length=2.4mm]},PredictionTeal]
+    (monomial.east) -- (character.west);
+\end{tikzpicture}
+\caption{For a split torus, an integral exponent vector, a Laurent
+monomial, and a character are three descriptions of the same object.}
+\label{fig:exponent-monomial-character}
+\end{figure}
+
+\subsection{There are no other characters}
+
+The examples above give every character of \(\Gm^n\).
+
+\begin{theorem}[Characters of a split torus]
+\label{thm:characters-split-torus}
+Every character
+\[
+\chi:\Gm^n\longrightarrow\Gm
+\]
+has the form
+\[
+\chi(t_1,\ldots,t_n)
+=
+t_1^{m_1}\cdots t_n^{m_n}
+\]
+for a unique vector
+\[
+m=(m_1,\ldots,m_n)\in\ZZ^n.
+\]
+\end{theorem}
+
+The statement follows from two elementary facts.
+
+First, a morphism
+\[
+\Gm^n\longrightarrow\Gm
+\]
+is an invertible regular function on \(\Gm^n\). The units in the
+Laurent polynomial ring are precisely
+\[
+c\,t_1^{m_1}\cdots t_n^{m_n},
+\qquad
+c\in\Bbbk^\times,\quad m_i\in\ZZ.
+\]
+Second, a group homomorphism must send the identity to the identity.
+Evaluating at
+\[
+e=(1,\ldots,1)
+\]
+forces
+\[
+c=1.
+\]
+Thus the multiplicative regular functions are exactly the pure Laurent
+monomials.
+
+\begin{observation}
+The description of the units in a Laurent polynomial ring is standard.
+One may prove it using the \(\ZZ^n\)-grading, or by comparing the
+extreme exponent vectors in a product. We will use the result freely;
+the Notes and references section lists standard sources for this
+background.
+\end{observation}
+
+\begin{pauseandthink}
+Why does a scalar multiple
+\[
+c\,t^m
+\qquad(c\in\Bbbk^\times)
+\]
+fail to be a character unless \(c=1\)? Can you see the obstruction
+both by evaluating at the identity and by testing the equation
+\[
+f(ts)=f(t)f(s)?
+\]
+\end{pauseandthink}
+
+Not every regular function is a character. For instance,
+\[
+t_1+t_2
+\]
+is a regular function on \(\Gm^2\), but it can vanish and therefore
+does not even define a map to \(\Gm\). A sum of several Laurent
+monomials usually loses the multiplicative behavior that characters
+require.
+
+\subsection{What the exponents record}
+
+Once coordinates have been chosen, the torus sits naturally inside
+affine space:
+\[
+\Gm^n
+=
+\AAA^n\setminus\bigl(H_1\cup\cdots\cup H_n\bigr),
+\qquad
+H_i=V(x_i).
+\]
+A character
+\[
+\character{m}
+=
+x_1^{m_1}\cdots x_n^{m_n}
+\]
+is a regular function on \(\Gm^n\), but it may have zeros or poles
+when regarded as a rational function on the surrounding affine space
+\(\AAA^n\).
+
+The exponent \(m_i\) records exactly what happens along the coordinate
+hyperplane \(H_i\):
+\[
+\ord_{H_i}(\character{m})=m_i.
+\]
+Thus
+\[
+\begin{array}{c|c}
+m_i>0
+&
+\character{m}\text{ vanishes to order }m_i\text{ along }H_i,
+\\
+m_i=0
+&
+\character{m}\text{ has neither a zero nor a pole along }H_i,
+\\
+m_i<0
+&
+\character{m}\text{ has a pole of order }-m_i\text{ along }H_i.
+\end{array}
+\]
+Equivalently, as a rational function on \(\AAA^n\),
+\[
+\operatorname{div}_{\AAA^n}(\character{m})
+=
+m_1H_1+\cdots+m_nH_n.
+\]
+
+This interpretation depends on the chosen coordinates: the affine
+space \(\AAA^n\) and its coordinate hyperplanes arise from the chosen
+identification \(T\simeq\Gm^n\). Later, when we work intrinsically,
+orders obtained by composing characters with one-parameter subgroups
+will be encoded by the pairing between the character and
+one-parameter subgroup lattices.
+
+\begin{example}
+Let
+\[
+\chi(t_1,t_2,t_3)=t_1^2t_2^{-1}t_3^4.
+\]
+As a rational function on \(\AAA^3\),
+\[
+\operatorname{div}_{\AAA^3}(\chi)
+=
+2H_1-H_2+4H_3.
+\]
+Thus \(\chi\) vanishes to order \(2\) along \(H_1\), has a simple pole
+along \(H_2\), and vanishes to order \(4\) along \(H_3\).
+\end{example}
+
+\begin{observation}
+For the coordinate one-parameter map
+\[
+\epsilon_i(s)
+=
+(1,\ldots,1,s,1,\ldots,1),
+\]
+one also has
+\[
+\character{m}\bigl(\epsilon_i(s)\bigr)=s^{m_i}.
+\]
+The same integer \(m_i\) therefore appears as an order at \(s=0\).
+This is a special coordinate case of the character--one-parameter
+subgroup pairing developed later in the chapter.
+\end{observation}
+
+\begin{prediction}
+Suppose no coordinates have been chosen on an abstract torus \(T\).
+How might one record all of its characters without first identifying
+\(T\) with \(\Gm^n\)? What algebraic structure should the collection
+of characters carry?
+\end{prediction}
+
+\subsection{Multiplying characters adds exponents}
+
+Characters can be multiplied pointwise:
+\[
+(\chi\psi)(t)=\chi(t)\psi(t).
+\]
+The product is again a character. For monomial characters,
+\[
+\character{m}\character{m'}
+=
+\character{m+m'}.
+\]
+Indeed,
+\[
+t^m t^{m'}
+=
+t^{m+m'}.
+\]
+Similarly,
+\[
+(\character{m})^{-1}
+=
+\character{-m},
+\]
+and the identity element is the constant character
+\[
+\character{0}=1.
+\]
+
+Consequently, the characters of \(\Gm^n\) form an abelian group under
+multiplication, and the exponent correspondence gives an isomorphism
+\[
+\ZZ^n
+\longrightarrow
+\Hom_{\mathrm{alg.grp}}(\Gm^n,\Gm),
+\qquad
+m\longmapsto\character{m}.
+\]
+Addition on the left corresponds to multiplication on the right.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  formula/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=3.25cm,
+    minimum height=1.2cm,
+    align=center
+  }
+]
+  \node[formula,fill=DictionaryBlue!8] (add) at (-3.6,0)
+    {\(\displaystyle m+m'\)\\
+     addition of exponent vectors};
+
+  \node[formula,fill=PastelYellow] (mult) at (3.6,0)
+    {\(\displaystyle
+      \character{m}\character{m'}\)\\
+     multiplication of characters};
+
+  \draw[very thick,<->,PredictionTeal]
+    (add) -- node[above,fill=white,inner sep=2pt]
+    {\(\displaystyle
+      \character{m+m'}=\character{m}\character{m'}\)}
+    (mult);
+\end{tikzpicture}
+\caption{The group law on characters becomes ordinary addition of
+exponent vectors.}
+\label{fig:add-exponents-multiply-characters}
+\end{figure}
+
+This group is traditionally denoted
+\[
+X^*(T)
+=
+\Hom_{\mathrm{alg.grp}}(T,\Gm).
+\]
+For \(T=\Gm^n\), the chosen coordinates identify it with \(\ZZ^n\).
+The next section studies this group intrinsically and explains why it
+should be regarded as a lattice.
+
+\subsection{Characters as one-dimensional representations}
+
+A character also determines an action of \(T\) on a one-dimensional
+vector space. If \(V=\Bbbk v\), define
+\[
+t\cdot v=\chi(t)v.
+\]
+The group law for the action is exactly the identity
+\[
+\chi(ts)=\chi(t)\chi(s).
+\]
+Conversely, every algebraic action of \(T\) on a one-dimensional
+vector space arises from a character.
+
+\begin{observation}
+This is the representation-theoretic reason for the word
+\emph{character}: characters are precisely the one-dimensional
+algebraic representations of \(T\). This use of the word differs from
+the character of a finite-dimensional representation defined as its
+trace. Both notions will coexist comfortably once weight-space
+decompositions enter the picture.
+\end{observation}
+
+\begin{example}
+Let \(T=\Gm^2\) act on the one-dimensional vector space
+\(V=\Bbbk v\) by
+\[
+(t_1,t_2)\cdot v=t_1^3t_2^{-2}v.
+\]
+Then \(V\) is a one-dimensional representation with character
+\[
+\character{(3,-2)}.
+\]
+\end{example}
+
+\begin{threedictionaries}
+A character is one object seen from three viewpoints.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+It is a group homomorphism
+\[
+\chi:T\to\Gm
+\]
+or, equivalently, a one-dimensional representation of \(T\).
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+It is a nowhere-vanishing regular function compatible with
+multiplication on the torus.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+After choosing torus coordinates, it is indexed by an exponent vector
+\[
+m\in\ZZ^n.
+\]
+\end{minipage}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+The identification \(X^*(\Gm^n)\simeq\ZZ^n\) used a chosen coordinate
+system. What remains of this description when the torus is presented
+without coordinates?
+\end{guidingquestion}
+
+
+\section{The character lattice}
+\label{sec:character-lattice}
+\index{character lattice}
+\index{lattice!character}
+\index{group algebra}
+
+For the coordinatized torus \(\Gm^n\), characters were indexed by
+vectors in \(\ZZ^n\). The coordinates made this description easy, but
+they also hid what was intrinsic. An abstract torus does not come with
+preferred functions
+\[
+t_1,\ldots,t_n.
+\]
+What it does come with is the collection of all its characters.
+
+\subsection{The intrinsic definition}
+
+\begin{definition}
+Let \(T\) be an algebraic torus. Its \emph{character group} is
+\[
+X^*(T)
+=
+\Hom_{\mathrm{alg.grp}}(T,\Gm).
+\]
+The group law is pointwise multiplication:
+\[
+(\chi\psi)(t)=\chi(t)\psi(t).
+\]
+\end{definition}
+
+The identity element is the constant character \(1\), and the inverse
+of \(\chi\) is the character
+\[
+\chi^{-1}:t\longmapsto\chi(t)^{-1}.
+\]
+Thus \(X^*(T)\) is an abelian group.
+
+For \(T=\Gm^n\), the classification of characters from
+\cref{thm:characters-split-torus} gives
+\[
+X^*(\Gm^n)\simeq\ZZ^n.
+\]
+Under this identification,
+\[
+m+m'
+\quad\longleftrightarrow\quad
+\character{m}\character{m'}.
+\]
+
+\begin{definition}
+A \emph{lattice} is a free abelian group of finite rank.
+\end{definition}
+
+\begin{theorem}
+If \(T\) is an \(n\)-dimensional algebraic torus, then
+\[
+M:=X^*(T)
+\]
+is a lattice of rank \(n\).
+\end{theorem}
+
+No preferred isomorphism
+\[
+M\simeq\ZZ^n
+\]
+is built into the torus. Such an isomorphism appears only after
+coordinates have been chosen.
+
+\begin{observation}
+Because our tori are split by definition, the theorem follows by
+choosing an isomorphism \(T\simeq\Gm^n\). The important point is not
+the existence of such an isomorphism, but the fact that the resulting
+lattice \(X^*(T)\) is intrinsic even though a basis is not.
+\end{observation}
+
+\subsection{Coordinates are bases of the character lattice}
+
+Suppose
+\[
+\varphi:T\overset{\sim}{\longrightarrow}\Gm^n
+\]
+is a choice of torus coordinates. Pulling back the coordinate
+characters on \(\Gm^n\) gives characters
+\[
+\chi_1,\ldots,\chi_n\in X^*(T).
+\]
+Every character of \(T\) can then be written uniquely as
+\[
+\chi_1^{m_1}\cdots\chi_n^{m_n},
+\qquad
+(m_1,\ldots,m_n)\in\ZZ^n.
+\]
+Thus \(\chi_1,\ldots,\chi_n\) form a basis of the lattice \(M\).
+
+Conversely, a basis
+\[
+\chi_1,\ldots,\chi_n
+\]
+of \(M\) defines a map
+\[
+T\longrightarrow\Gm^n,
+\qquad
+t\longmapsto
+\bigl(\chi_1(t),\ldots,\chi_n(t)\bigr),
+\]
+and this map is an isomorphism of algebraic tori.
+
+Therefore:
+\[
+\boxed{
+\text{choosing coordinates on }T
+\quad\Longleftrightarrow\quad
+\text{choosing a basis of }X^*(T).
+}
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.25cm,
+    minimum height=1.45cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=PastelYellow] (torus) at (-4.0,0)
+    {\textbf{Geometry}\\[1mm]
+     a coordinate system\\
+     \(T\simeq\Gm^n\)};
+
+  \node[mainbox,fill=DictionaryBlue!8] (basis) at (0,0)
+    {\textbf{Algebra}\\[1mm]
+     a basis\\
+     \(\chi_1,\ldots,\chi_n\) of \(X^*(T)\)};
+
+  \node[mainbox,fill=SurfaceGreen!9] (vectors) at (4.0,0)
+    {\textbf{Combinatorics}\\[1mm]
+     an identification\\
+     \(M\simeq\ZZ^n\)};
+
+  \draw[very thick,<->,ExampleGold]
+    (torus.east) -- (basis.west);
+  \draw[very thick,<->,PredictionTeal]
+    (basis.east) -- (vectors.west);
+\end{tikzpicture}
+\caption{Choosing coordinates on a torus is the same as choosing a
+basis of its character lattice. The lattice is intrinsic; the basis is
+not.}
+\label{fig:coordinates-basis-character-lattice}
+\end{figure}
+
+\begin{pauseandthink}
+A vector space does not come with a preferred basis. In what sense is
+the same true of a torus? Which formulas from the previous sections
+depended on a chosen basis of \(X^*(T)\), and which statements did
+not?
+\end{pauseandthink}
+
+\subsection{The coordinate ring as a group algebra}
+
+Let \(M\) be a lattice. Its \emph{group algebra} over \(\Bbbk\) is
+\[
+\Bbbk[M]
+=
+\bigoplus_{m\in M}\Bbbk\,\character{m},
+\]
+where the symbols \(\character{m}\) multiply according to
+\[
+\character{m}\character{m'}
+=
+\character{m+m'}.
+\]
+An element of \(\Bbbk[M]\) is a finite sum
+\[
+\sum_{m\in F} c_m\character{m},
+\qquad
+F\subseteq M\text{ finite}.
+\]
+
+For \(M=\ZZ^n\), choosing the standard basis identifies
+\[
+\Bbbk[M]
+\simeq
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}].
+\]
+The basis element \(\character{(m_1,\ldots,m_n)}\) becomes the Laurent
+monomial
+\[
+x_1^{m_1}\cdots x_n^{m_n}.
+\]
+
+For an arbitrary torus \(T\), evaluation of characters gives a
+canonical isomorphism
+\[
+\Bbbk[M]
+\overset{\sim}{\longrightarrow}
+\Bbbk[T],
+\qquad
+\character{m}\longmapsto
+\bigl(t\mapsto\character{m}(t)\bigr).
+\]
+Thus the coordinate ring of a torus is canonically the group algebra
+of its character lattice:
+\[
+\boxed{\Bbbk[T]\simeq\Bbbk[X^*(T)].}
+\]
+
+The word \emph{canonically} matters. The Laurent polynomial
+presentation
+\[
+\Bbbk[T]
+\simeq
+\Bbbk[x_1^{\pm1},\ldots,x_n^{\pm1}]
+\]
+depends on a basis of \(M\), but the group algebra
+\[
+\Bbbk[M]
+\]
+does not.
+
+\begin{example}
+Let \(T\subseteq\PP^2\) be the dense torus. On the chart \(U_0\), the
+coordinates
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}
+\]
+give a basis \(m_1,m_2\) of \(M=X^*(T)\).
+
+On \(U_1\), the torus coordinates are
+\[
+w_0=\frac{x_0}{x_1}=z_1^{-1},
+\qquad
+w_2=\frac{x_2}{x_1}=z_1^{-1}z_2.
+\]
+In the basis \(m_1,m_2\), these new coordinate characters have exponent
+vectors
+\[
+(-1,0)
+\qquad\text{and}\qquad
+(-1,1).
+\]
+They form another basis of the same lattice \(M\).
+
+Likewise, the coordinates on \(U_2\),
+\[
+r_0=\frac{x_0}{x_2}=z_2^{-1},
+\qquad
+r_1=\frac{x_1}{x_2}=z_1z_2^{-1},
+\]
+correspond to the basis vectors
+\[
+(0,-1)
+\qquad\text{and}\qquad
+(1,-1).
+\]
+The torus has not changed; only the chosen basis of its character
+lattice has changed.
+\end{example}
+
+\subsection{Morphisms reverse the direction on character lattices}
+
+Let
+\[
+\phi:T_1\longrightarrow T_2
+\]
+be a morphism of algebraic tori. Every character
+\[
+\chi:T_2\longrightarrow\Gm
+\]
+can be pulled back along \(\phi\):
+\[
+\phi^*(\chi)
+=
+\chi\circ\phi:T_1\longrightarrow\Gm.
+\]
+Thus \(\phi\) induces a homomorphism of lattices
+\[
+\phi^*:X^*(T_2)\longrightarrow X^*(T_1).
+\]
+
+Notice the reversal of direction:
+\[
+T_1\longrightarrow T_2
+\qquad\text{produces}\qquad
+X^*(T_2)\longrightarrow X^*(T_1).
+\]
+The character lattice is therefore a contravariant construction.
+
+\begin{example}
+Consider the diagonal embedding
+\[
+\delta:\Gm\longrightarrow\Gm^2,
+\qquad
+t\longmapsto(t,t).
+\]
+A character of \(\Gm^2\) has the form
+\[
+\character{(a,b)}(t_1,t_2)=t_1^at_2^b.
+\]
+Pulling it back gives
+\[
+\delta^*(\character{(a,b)})(t)
+=
+t^{a+b}.
+\]
+On lattices, the map is therefore
+\[
+\delta^*:\ZZ^2\longrightarrow\ZZ,
+\qquad
+(a,b)\longmapsto a+b.
+\]
+\end{example}
+
+\begin{pauseandthink}
+Why must the direction reverse? Start with a character on the target
+torus and ask where it can be evaluated after a point of the source
+torus has been mapped forward.
+\end{pauseandthink}
+
+\subsection{Passing to real vector spaces}
+
+Once the lattice \(M\) has been identified, we form the associated
+real vector space
+\[
+M_{\RR}
+=
+M\otimes_{\ZZ}\RR.
+\]
+If \(\rank M=n\), then
+\[
+M_{\RR}\simeq\RR^n,
+\]
+but again only after choosing a basis.
+
+The lattice points
+\[
+M\subseteq M_{\RR}
+\]
+index characters. Convex combinations of these points do not usually
+correspond to characters, but they allow us to build polytopes and
+polyhedra. This is why the character lattice is the natural home for
+the triangles and polytopes that appeared in Chapter~0.
+
+\begin{guidingquestion}
+The character lattice records maps \(T\to\Gm\). What should record maps
+in the opposite direction,
+\[
+\Gm\longrightarrow T?
+\]
+How might such maps interact with characters?
+\end{guidingquestion}
+
+\begin{threedictionaries}
+The character lattice packages the intrinsic algebra of a torus.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+\[
+\Bbbk[T]\simeq\Bbbk[M].
+\]
+Characters form a multiplicative basis of the coordinate ring.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+A basis of \(M\) is a coordinate system
+\[
+T\simeq\Gm^n.
+\]
+Different coordinates describe the same torus.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+\(M\) is a lattice, and
+\[
+M_{\RR}=M\otimes_{\ZZ}\RR
+\]
+is the space in which exponent polytopes live.
+\end{minipage}
+\end{threedictionaries}
+
+
+
+\section{One-parameter subgroups}
+\label{sec:one-parameter-subgroups}
+\index{one-parameter subgroup}
+\index{cocharacter lattice}
+\index{one-parameter subgroup lattice}
+\index{primitive lattice vector}
+
+Characters are morphisms
+\[
+T\longrightarrow\Gm.
+\]
+We now reverse the arrow and study morphisms
+\[
+\Gm\longrightarrow T.
+\]
+Geometrically, these maps are parameterized algebraic curves inside
+the torus: the parameter \(t\) ranges through \(\Gm\). Because the
+curve respects the group law, it is natural to think of it as an
+algebraic motion. When the torus sits inside a larger variety,
+following such a motion toward \(t=0\) often reveals a boundary point.
+
+\subsection{Turning the arrow around}
+
+\begin{definition}
+A \emph{one-parameter subgroup} of an algebraic torus \(T\) is a
+morphism of algebraic groups
+\[
+\lambda:\Gm\longrightarrow T.
+\]
+The collection of all one-parameter subgroups is denoted
+\[
+X_*(T)
+=
+\Hom_{\mathrm{alg.grp}}(\Gm,T).
+\]
+It is also called the \emph{cocharacter group} of \(T\).
+\end{definition}
+
+A one-parameter subgroup is therefore a very special parameterized
+curve in \(T\). It passes through the identity at \(t=1\), and its
+parameterization is compatible with multiplication:
+\[
+\lambda(tt')=\lambda(t)\lambda(t').
+\]
+Not every algebraic curve in \(T\) has this property.
+
+For the coordinatized torus \(T=\Gm^n\), every vector
+\[
+u=(u_1,\ldots,u_n)\in\ZZ^n
+\]
+defines a one-parameter subgroup
+\[
+\oneps{u}(t)
+=
+(t^{u_1},\ldots,t^{u_n}).
+\]
+Negative exponents are allowed because \(t\neq0\) on \(\Gm\).
+
+\begin{example}
+The vector
+\[
+u=(2,-1,3)
+\]
+defines
+\[
+\oneps{u}(t)
+=
+(t^2,t^{-1},t^3)
+\]
+in \(\Gm^3\).
+\end{example}
+
+The converse also holds.
+
+\begin{theorem}[One-parameter subgroups of a split torus]
+\label{thm:one-parameter-subgroups-split-torus}
+Every one-parameter subgroup
+\[
+\lambda:\Gm\longrightarrow\Gm^n
+\]
+has the form
+\[
+\lambda(t)
+=
+(t^{u_1},\ldots,t^{u_n})
+\]
+for a unique vector
+\[
+u=(u_1,\ldots,u_n)\in\ZZ^n.
+\]
+\end{theorem}
+
+Indeed, composing \(\lambda\) with each coordinate projection
+\[
+\Gm^n\longrightarrow\Gm
+\]
+produces a character of \(\Gm\), and every such character is a power
+\(t\mapsto t^{u_i}\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.1cm,
+    minimum height=1.45cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (vector) at (-4.0,0)
+    {\(\displaystyle u=(u_1,\ldots,u_n)\)\\[1mm]
+     an integral vector};
+
+  \node[mainbox,fill=PastelYellow] (formula) at (0,0)
+    {\(\displaystyle
+      (t^{u_1},\ldots,t^{u_n})\)\\[1mm]
+     a monomial motion};
+
+  \node[mainbox,fill=SurfaceGreen!9] (oneps) at (4.0,0)
+    {\(\displaystyle \oneps{u}:\Gm\to\Gm^n\)\\[1mm]
+     a one-parameter subgroup};
+
+  \draw[very thick,-{Latex[length=2.4mm]},DictionaryBlue]
+    (vector.east) -- (formula.west);
+  \draw[very thick,-{Latex[length=2.4mm]},PredictionTeal]
+    (formula.east) -- (oneps.west);
+\end{tikzpicture}
+\caption{After choosing coordinates, an integral vector and a
+one-parameter subgroup are two descriptions of the same object.}
+\label{fig:vector-monomial-one-parameter-subgroup}
+\end{figure}
+
+\subsection{The one-parameter subgroup lattice}
+
+One-parameter subgroups can be multiplied pointwise:
+\[
+(\lambda\lambda')(t)
+=
+\lambda(t)\lambda'(t).
+\]
+For a coordinatized torus,
+\[
+\oneps{u}(t)\oneps{u'}(t)
+=
+\oneps{u+u'}(t).
+\]
+The inverse of \(\oneps{u}\) is \(\oneps{-u}\), and the identity is the
+constant one-parameter subgroup
+\[
+\oneps{0}(t)=e.
+\]
+
+Thus \(X_*(T)\) is an abelian group.
+
+\begin{theorem}
+If \(T\) is an \(n\)-dimensional algebraic torus, then
+\[
+N:=X_*(T)
+\]
+is a lattice of rank \(n\).
+\end{theorem}
+
+For \(T=\Gm^n\), chosen coordinates give an identification
+\[
+N\simeq\ZZ^n.
+\]
+As with the character lattice, this identification depends on the
+choice of coordinates, while the lattice \(N\) itself is intrinsic.
+
+We will usually call \(N\) the \emph{one-parameter subgroup lattice}.
+The notation is chosen to match the standard conventions of toric
+geometry:
+\[
+M=X^*(T),
+\qquad
+N=X_*(T).
+\]
+
+\begin{observation}
+The word \emph{cocharacter} is common in the theory of algebraic
+groups. In toric geometry, the phrase \emph{one-parameter subgroup}
+often carries more geometric intuition, because the map
+\(\Gm\to T\) can be followed toward the boundary of a compactification.
+\end{observation}
+
+\subsection{One-parameter subgroups as motions}
+
+A one-parameter subgroup always passes through the identity:
+\[
+\lambda(1)=e.
+\]
+To obtain a motion through an arbitrary point \(p\in T\), translate
+the curve:
+\[
+t\longmapsto p\lambda(t).
+\]
+For \(T=\Gm^n\), if
+\[
+p=(a_1,\ldots,a_n)
+\]
+and
+\[
+\lambda=\oneps{u},
+\]
+then the translated motion is
+\[
+t\longmapsto
+(a_1t^{u_1},\ldots,a_ns^{u_n}).
+\]
+
+The image of \(\lambda\) remains inside \(T\) as long as \(t\neq0\).
+The interesting question is what happens as \(t\to0\). Since \(0\) is
+not a point of \(\Gm\), this is really a question about whether the map
+extends across \(t=0\) after \(T\) has been placed inside a larger
+variety.
+
+\begin{pauseandthink}
+Why is the phrase ``take the limit as \(t\to0\)'' not intrinsic to the
+torus \(T\) alone? What extra geometric object must be chosen before
+such a limit can be discussed?
+\end{pauseandthink}
+
+A torus contains no boundary point at which the motion could arrive.
+Limits become meaningful only after choosing an embedding
+\[
+T\subseteq X
+\]
+into a larger variety.
+
+\subsection{Limits in affine space}
+
+Consider the standard inclusion
+\[
+\Gm^n\subseteq\AAA^n.
+\]
+The one-parameter subgroup
+\[
+\oneps{u}(t)
+=
+(t^{u_1},\ldots,t^{u_n})
+\]
+extends to a morphism
+\[
+\AAA^1\longrightarrow\AAA^n
+\]
+if and only if
+\[
+u_i\geq0
+\qquad
+\text{for every }i.
+\]
+Indeed, a negative exponent produces a pole at \(t=0\).
+
+When all \(u_i\geq0\), the limit is obtained coordinate by coordinate:
+\[
+\lim_{t\to0}t^{u_i}
+=
+\begin{cases}
+1,&u_i=0,\\
+0,&u_i>0.
+\end{cases}
+\]
+Thus the vanishing pattern of the exponents determines the coordinate
+stratum reached by the motion.
+
+\begin{example}
+Inside \(\Gm^2\subseteq\AAA^2\), consider:
+\[
+\begin{aligned}
+\oneps{(2,1)}(t)&=(t^2,t),\\
+\oneps{(0,3)}(t)&=(1,t^3),\\
+\oneps{(-1,2)}(t)&=(t^{-1},t^2).
+\end{aligned}
+\]
+The first motion extends to \(t=0\) and reaches the origin. The second
+extends and reaches \((1,0)\). The third does not extend to
+\(\AAA^1\to\AAA^2\), because its first coordinate has a pole.
+\end{example}
+
+For a translated motion
+\[
+t\longmapsto(a_1t^{u_1},\ldots,a_ns^{u_n}),
+\]
+the same criterion applies. When \(u_i=0\), the \(i\)-th coordinate
+survives as \(a_i\); when \(u_i>0\), it tends to zero.
+
+\begin{example}
+Let \((a,b)\in\Gm^2\). The translated motion
+\[
+t\longmapsto(a,bs^3)
+\]
+approaches
+\[
+(a,0).
+\]
+As \(a\) varies, these motions reach every point of
+\[
+V(y)\setminus\{(0,0)\}.
+\]
+Thus one exponent vector describes a whole family of limits after
+translation.
+\end{example}
+
+\begin{pauseandthink}
+For \(u=(u_1,u_2)\), classify the limit of
+\[
+(a,b)\oneps{u}(t)
+=
+(as^{u_1},bs^{u_2})
+\]
+inside \(\AAA^2\), whenever the limit exists. Which choices of \(u\)
+reach the open torus orbit, an open coordinate axis, or the origin?
+\end{pauseandthink}
+
+The answer reproduces the orbit stratification of \(\AAA^2\):
+
+\[
+\begin{array}{c|c}
+\text{conditions on }u
+&
+\text{limit of }(a,b)\oneps{u}(t)
+\\
+\hline
+u_1=u_2=0
+&
+(a,b)\in\Gm^2
+\\
+u_1>0,\ u_2=0
+&
+(0,b)\in V(x)\setminus\{0\}
+\\
+u_1=0,\ u_2>0
+&
+(a,0)\in V(y)\setminus\{0\}
+\\
+u_1>0,\ u_2>0
+&
+(0,0).
+\end{array}
+\]
+
+\subsection{The same motion in a different compactification}
+
+A one-parameter subgroup that has no limit in \(\AAA^n\) may acquire a
+limit in another variety containing the same torus.
+
+For the dense torus of \(\PP^2\), write
+\[
+T
+=
+\{[1:t_1:t_2]:t_1,t_2\in\Bbbk^\times\}.
+\]
+The one-parameter subgroup determined by \(u=(u_1,u_2)\) traces
+\[
+t\longmapsto[1:t^{u_1}:t^{u_2}].
+\]
+Even when one of the exponents is negative, projective rescaling may
+produce a limit.
+
+Set
+\[
+c=\min\{0,u_1,u_2\}.
+\]
+Then
+\[
+[1:t^{u_1}:t^{u_2}]
+=
+[t^{-c}:t^{u_1-c}:t^{u_2-c}],
+\]
+and all three exponents on the right are nonnegative. As \(t\to0\),
+the coordinates whose original exponents attain the minimum survive.
+
+\begin{example}
+We obtain:
+\[
+\begin{aligned}
+u=(1,2)
+&\quad\Longrightarrow\quad
+[1:t:t^2]\longrightarrow[1:0:0]=p_0,
+\\
+u=(-1,0)
+&\quad\Longrightarrow\quad
+[1:t^{-1}:1]=[t:1:t]\longrightarrow[0:1:0]=p_1,
+\\
+u=(0,-1)
+&\quad\Longrightarrow\quad
+[1:1:t^{-1}]=[t:t:1]\longrightarrow[0:0:1]=p_2,
+\\
+u=(-1,-1)
+&\quad\Longrightarrow\quad
+[1:t^{-1}:t^{-1}]=[t:1:1]\longrightarrow[0:1:1].
+\end{aligned}
+\]
+The last limit lies in the one-dimensional orbit \(O_0\), rather than
+at a fixed point.
+\end{example}
+
+This is a first indication that different regions of
+\[
+N_{\RR}=N\otimes_{\ZZ}\RR
+\]
+should correspond to different boundary limits. Cones in
+\(N_{\RR}\) will eventually organize precisely this behavior.
+
+\begin{prediction}
+For the compactification \(T\subseteq\PP^2\), which vectors
+\(u\in N_{\RR}\) lead to the same limiting orbit? Try to divide the
+plane into regions according to the answer.
+\end{prediction}
+
+\subsection{Primitive one-parameter subgroups}
+
+A nonzero lattice vector \(u\in N\) is called \emph{primitive} if it
+is not a positive integer multiple of another lattice vector. Thus
+\[
+u=ku_0,\qquad k\geq1,
+\]
+with \(u_0\) primitive.
+
+The one-parameter subgroups
+\[
+\oneps{u}
+\qquad\text{and}\qquad
+\oneps{u_0}
+\]
+have the same image subgroup, but they parametrize it differently:
+\[
+\oneps{u}(t)
+=
+\oneps{u_0}(t^k).
+\]
+The primitive vector is therefore the most economical lattice
+generator of that one-dimensional direction.
+
+This distinction becomes important when rays appear. A ray contains
+many lattice points, but it has a unique primitive lattice generator.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[->,black!55] (-0.6,0) -- (6.2,0);
+  \draw[->,black!55] (0,-0.6) -- (0,4.5);
+
+  \draw[very thick,PredictionTeal,-{Latex[length=2.5mm]}]
+    (0,0) -- (5.4,3.6);
+
+  \foreach \x/\y/\lab in {
+    1.2/0.8/{u_0},
+    2.4/1.6/{2u_0},
+    3.6/2.4/{3u_0},
+    4.8/3.2/{4u_0}
+  }{
+    \fill[DictionaryBlue] (\x,\y) circle (2.2pt);
+    \node[above left] at (\x,\y) {\(\lab\)};
+  }
+
+  \node[below right,PredictionTeal] at (4.8,3.2)
+    {one ray, one primitive generator};
+\end{tikzpicture}
+\caption{All positive multiples of \(u_0\) lie on the same ray, but
+\(u_0\) is its unique primitive lattice generator.}
+\label{fig:primitive-generator-ray-preview}
+\end{figure}
+
+\subsection{Functoriality}
+
+Let
+\[
+\phi:T_1\longrightarrow T_2
+\]
+be a morphism of algebraic tori. A one-parameter subgroup of \(T_1\)
+can be followed by \(\phi\):
+\[
+\Gm\overset{\lambda}{\longrightarrow}T_1
+\overset{\phi}{\longrightarrow}T_2.
+\]
+Hence \(\phi\) induces a homomorphism
+\[
+\phi_*:X_*(T_1)\longrightarrow X_*(T_2),
+\qquad
+\lambda\longmapsto\phi\circ\lambda.
+\]
+
+This time the direction is preserved:
+\[
+T_1\longrightarrow T_2
+\qquad\text{produces}\qquad
+X_*(T_1)\longrightarrow X_*(T_2).
+\]
+
+\begin{example}
+Consider the multiplication map
+\[
+\mu:\Gm^2\longrightarrow\Gm,
+\qquad
+(t_1,t_2)\longmapsto t_1t_2.
+\]
+For \(u=(a,b)\in X_*(\Gm^2)\simeq\ZZ^2\),
+\[
+(\mu\circ\oneps{u})(t)
+=
+t^as^b
+=
+t^{a+b}.
+\]
+Thus
+\[
+\mu_*:\ZZ^2\longrightarrow\ZZ,
+\qquad
+(a,b)\longmapsto a+b.
+\]
+\end{example}
+
+Characters and one-parameter subgroups therefore behave in opposite
+ways under a torus morphism:
+\[
+\begin{array}{c@{\qquad}c}
+\textbf{characters}
+&
+\textbf{one-parameter subgroups}
+\\[1mm]
+\phi^*:X^*(T_2)\to X^*(T_1)
+&
+\phi_*:X_*(T_1)\to X_*(T_2)
+\\
+\text{pull back}
+&
+\text{push forward}.
+\end{array}
+\]
+
+\subsection{A first meeting between
+\texorpdfstring{\(M\)}{M} and \texorpdfstring{\(N\)}{N}}
+
+Take a character
+\[
+\chi:T\longrightarrow\Gm
+\]
+and a one-parameter subgroup
+\[
+\lambda:\Gm\longrightarrow T.
+\]
+Their composition is a character of \(\Gm\):
+\[
+\chi\circ\lambda:\Gm\longrightarrow\Gm.
+\]
+Therefore there is a unique integer \(r\) such that
+\[
+(\chi\circ\lambda)(t)=t^r.
+\]
+
+This integer has two equivalent interpretations:
+
+\[
+r
+=
+\text{the exponent of the character }\chi\circ\lambda
+=
+\ord_{t=0}(\chi\circ\lambda),
+\]
+where the second expression regards \(t^r\) as a rational function on
+\(\AAA^1\). A positive value gives a zero, a negative value gives a
+pole, and zero gives neither.
+
+For coordinatized tori, if
+\[
+\chi=\character{m},
+\qquad
+m=(m_1,\ldots,m_n),
+\]
+and
+\[
+\lambda=\oneps{u},
+\qquad
+u=(u_1,\ldots,u_n),
+\]
+then
+\[
+(\character{m}\circ\oneps{u})(t)
+=
+t^{m_1u_1+\cdots+m_nu_n}.
+\]
+
+The next section will isolate this integer as the natural pairing
+between the two lattices \(M\) and \(N\).
+
+\begin{threedictionaries}
+A one-parameter subgroup has three compatible interpretations.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+It is a homomorphism
+\[
+\lambda:\Gm\to T.
+\]
+Such maps form the lattice
+\[
+N=X_*(T).
+\]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+It is an algebraic motion inside \(T\). In a compactification, its
+closure may meet a boundary orbit.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+After choosing coordinates, it is an integral vector
+\[
+u\in\ZZ^n.
+\]
+Rays remember primitive directions.
+\end{minipage}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Why do characters and one-parameter subgroups form dual lattices, and
+what geometric information is measured by their pairing?
+\end{guidingquestion}
+
+
+\section{Dual lattices and the pairing}
+\label{sec:dual-lattices-pairing}
+\index{dual lattice}
+\index{lattice pairing}
+\index{order of vanishing}
+
+We now have two lattices attached to a torus:
+\[
+M=X^*(T)
+=
+\Hom_{\mathrm{alg.grp}}(T,\Gm)
+\]
+and
+\[
+N=X_*(T)
+=
+\Hom_{\mathrm{alg.grp}}(\Gm,T).
+\]
+The arrows point in opposite directions, so the two kinds of maps can
+be composed:
+\[
+\Gm
+\overset{\lambda}{\longrightarrow}
+T
+\overset{\chi}{\longrightarrow}
+\Gm.
+\]
+This composition is again a character of \(\Gm\), and therefore it is
+an integral power map. The exponent of that power is the basic
+numerical invariant connecting \(M\) and \(N\).
+
+\subsection{The pairing by composition}
+
+Let
+\[
+m\in M
+\qquad\text{and}\qquad
+u\in N.
+\]
+We write the corresponding character and one-parameter subgroup as
+\[
+\character{m}:T\longrightarrow\Gm,
+\qquad
+\oneps{u}:\Gm\longrightarrow T.
+\]
+Their composition is a character of \(\Gm\), so there is a unique
+integer \(\pair{m}{u}\) such that
+\[
+\character{m}\circ\oneps{u}(t)
+=
+t^{\pair{m}{u}}.
+\]
+
+\begin{definition}
+The integer
+\[
+\pair{m}{u}\in\ZZ
+\]
+is the \emph{pairing} of the character \(m\) with the one-parameter
+subgroup \(u\).
+\end{definition}
+
+The pairing may be read in several equivalent ways:
+\[
+\pair{m}{u}
+=
+\text{the exponent of }\character{m}\circ\oneps{u}
+=
+\ord_{t=0}\bigl(\character{m}\circ\oneps{u}\bigr).
+\]
+Thus
+
+\[
+\begin{array}{c|c}
+\pair{m}{u}>0
+&
+\character{m}\circ\oneps{u}
+\text{ has a zero of order }\pair{m}{u}\text{ at }0,
+\\
+\pair{m}{u}=0
+&
+\character{m}\circ\oneps{u}
+\text{ has neither a zero nor a pole at }0,
+\\
+\pair{m}{u}<0
+&
+\character{m}\circ\oneps{u}
+\text{ has a pole of order }-\pair{m}{u}\text{ at }0.
+\end{array}
+\]
+
+This is the intrinsic version of the coordinate calculation previewed
+in the previous section.
+
+\begin{example}
+Let \(T=\Gm^3\), and take
+\[
+m=(2,-1,4)\in M\simeq\ZZ^3,
+\qquad
+u=(-1,3,2)\in N\simeq\ZZ^3.
+\]
+Then
+\[
+\character{m}(t_1,t_2,t_3)
+=
+t_1^2t_2^{-1}t_3^4
+\]
+and
+\[
+\oneps{u}(t)
+=
+(t^{-1},t^3,t^2).
+\]
+Therefore
+\[
+\begin{aligned}
+\character{m}\bigl(\oneps{u}(t)\bigr)
+&=
+(t^{-1})^2(t^3)^{-1}(t^2)^4\\
+&=
+t^{-2-3+8}\\
+&=
+t^3.
+\end{aligned}
+\]
+Hence
+\[
+\pair{m}{u}=3.
+\]
+\end{example}
+
+\begin{pauseandthink}
+Compute \(\pair{m}{u}\) in the previous example without composing the
+maps explicitly. What familiar operation on the two coordinate
+vectors appears?
+\end{pauseandthink}
+
+After choosing dual coordinate bases, the pairing becomes the usual
+dot product:
+\[
+\boxed{
+\pair{m}{u}
+=
+m_1u_1+\cdots+m_nu_n.
+}
+\]
+The formula is convenient, but the pairing itself was defined without
+coordinates.
+
+\subsection{Why the pairing is bilinear}
+
+The pairing is additive in each variable:
+\[
+\pair{m+m'}{u}
+=
+\pair{m}{u}+\pair{m'}{u}
+\]
+and
+\[
+\pair{m}{u+u'}
+=
+\pair{m}{u}+\pair{m}{u'}.
+\]
+
+The first identity follows because multiplication of characters
+corresponds to addition in \(M\):
+\[
+\begin{aligned}
+\character{m+m'}\circ\oneps{u}
+&=
+(\character{m}\character{m'})\circ\oneps{u}\\
+&=
+(\character{m}\circ\oneps{u})
+(\character{m'}\circ\oneps{u})\\
+&=
+t^{\pair{m}{u}}
+t^{\pair{m'}{u}}.
+\end{aligned}
+\]
+The exponents add. The second identity follows similarly from
+\[
+\oneps{u+u'}(t)
+=
+\oneps{u}(t)\oneps{u'}(t).
+\]
+
+Thus we have a bilinear map of lattices
+\[
+\pair{\phantom{m}}{\phantom{u}}:
+M\times N\longrightarrow\ZZ.
+\]
+
+\begin{observation}
+The word \emph{bilinear} here means additive in each variable because
+\(M\) and \(N\) are abelian groups. After tensoring with \(\RR\), the
+same pairing becomes bilinear in the usual real-vector-space sense.
+\end{observation}
+
+\subsection{Perfect duality}
+
+Fix \(m\in M\). The rule
+\[
+u\longmapsto\pair{m}{u}
+\]
+is a homomorphism
+\[
+N\longrightarrow\ZZ.
+\]
+Therefore every character determines an element of the dual lattice
+\[
+N^\vee
+=
+\Hom_{\ZZ}(N,\ZZ).
+\]
+This gives a homomorphism
+\[
+M\longrightarrow N^\vee.
+\]
+
+Likewise, fixing \(u\in N\) gives a homomorphism
+\[
+M\longrightarrow\ZZ,
+\qquad
+m\longmapsto\pair{m}{u},
+\]
+and therefore a map
+\[
+N\longrightarrow M^\vee.
+\]
+
+\begin{theorem}[Duality of characters and one-parameter subgroups]
+\label{thm:character-oneps-duality}
+For an algebraic torus \(T\), the pairing is perfect. Equivalently,
+the natural maps
+\[
+M\overset{\sim}{\longrightarrow}
+\Hom_{\ZZ}(N,\ZZ)
+\]
+and
+\[
+N\overset{\sim}{\longrightarrow}
+\Hom_{\ZZ}(M,\ZZ)
+\]
+are isomorphisms.
+\end{theorem}
+
+Thus \(M\) and \(N\) are dual lattices:
+\[
+\boxed{
+M=N^\vee,
+\qquad
+N=M^\vee.
+}
+\]
+
+For \(T=\Gm^n\), this statement is visible in coordinates. Let
+\[
+e_1,\ldots,e_n
+\]
+be the coordinate character basis of \(M\), and let
+\[
+e_1^\vee,\ldots,e_n^\vee
+\]
+be the coordinate one-parameter subgroup basis of \(N\). Then
+\[
+\pair{e_i}{e_j^\vee}
+=
+\delta_{ij}.
+\]
+These are dual bases.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.35cm,
+    minimum height=1.55cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (M) at (-4.0,0)
+    {\(\displaystyle M=X^*(T)\)\\[1mm]
+     characters\\
+     \(T\to\Gm\)};
+
+  \node[mainbox,fill=PastelYellow] (Z) at (0,0)
+    {\(\displaystyle \pair{m}{u}\in\ZZ\)\\[1mm]
+     exponent of\\
+     \(\character{m}\circ\oneps{u}\)};
+
+  \node[mainbox,fill=SurfaceGreen!9] (N) at (4.0,0)
+    {\(\displaystyle N=X_*(T)\)\\[1mm]
+     one-parameter subgroups\\
+     \(\Gm\to T\)};
+
+  \draw[very thick,-{Latex[length=2.4mm]},DictionaryBlue]
+    (M.east) -- (Z.west);
+  \draw[very thick,-{Latex[length=2.4mm]},PredictionTeal]
+    (N.west) -- (Z.east);
+\end{tikzpicture}
+\caption{A character and a one-parameter subgroup compose to an
+integral power map on \(\Gm\). This composition produces the perfect
+pairing between \(M\) and \(N\).}
+\label{fig:character-oneps-pairing}
+\end{figure}
+
+\begin{pauseandthink}
+Suppose \(m\in M\) satisfies
+\[
+\pair{m}{u}=0
+\qquad
+\text{for every }u\in N.
+\]
+Why should \(m=0\)? Interpret this first in coordinates, and then in
+terms of the perfect-pairing theorem.
+\end{pauseandthink}
+
+\subsection{Real vector spaces and linear functions}
+
+Tensoring with \(\RR\) gives dual real vector spaces
+\[
+M_{\RR}=M\otimes_{\ZZ}\RR,
+\qquad
+N_{\RR}=N\otimes_{\ZZ}\RR.
+\]
+The integral pairing extends uniquely to a real bilinear pairing
+\[
+\pair{\phantom{m}}{\phantom{u}}:
+M_{\RR}\times N_{\RR}\longrightarrow\RR.
+\]
+Consequently,
+\[
+M_{\RR}\simeq N_{\RR}^{\vee},
+\qquad
+N_{\RR}\simeq M_{\RR}^{\vee}.
+\]
+
+A point \(m\in M_{\RR}\) may therefore be viewed as a linear function
+on \(N_{\RR}\):
+\[
+u\longmapsto\pair{m}{u}.
+\]
+Similarly, a point \(u\in N_{\RR}\) defines a linear function on
+\(M_{\RR}\).
+
+This is the reason inequalities in toric geometry naturally take the
+form
+\[
+\pair{m}{u}\geq c.
+\]
+The vector \(u\) determines a linear functional on \(M_{\RR}\), and
+the inequality cuts out a half-space.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[->,black!55] (-3.4,0) -- (3.6,0)
+    node[right] {\(N_{\RR}\)};
+  \draw[->,black!55] (0,-2.8) -- (0,3.0);
+
+  \draw[very thick,PredictionTeal]
+    (-2.8,-1.4) -- (2.8,1.4);
+  \node[PredictionTeal,above left] at (2.5,1.25)
+    {\(\pair{m}{u}=0\)};
+
+  \fill[DictionaryBlue] (1.1,2.2) circle (2.2pt);
+  \node[above right] at (1.1,2.2) {\(u_+\)};
+  \node[align=left] at (2.15,2.25)
+    {\(\pair{m}{u_+}>0\)};
+
+  \fill[WarningRed] (-1.1,-2.2) circle (2.2pt);
+  \node[below left] at (-1.1,-2.2) {\(u_-\)};
+  \node[align=right] at (-2.15,-2.25)
+    {\(\pair{m}{u_-}<0\)};
+
+  \node[align=center] at (-2.0,1.45)
+    {positive\\half-space};
+  \node[align=center] at (2.0,-1.45)
+    {negative\\half-space};
+\end{tikzpicture}
+\caption{A character \(m\in M_{\RR}\) acts as a linear function on
+\(N_{\RR}\). Its zero set is a hyperplane separating positive and
+negative regions.}
+\label{fig:character-linear-functional-on-N}
+\end{figure}
+
+\begin{observation}
+In dimension two, the zero set of a nonzero linear functional is a
+line through the origin. In higher dimensions it is a hyperplane.
+This linear-algebraic picture will organize cones, dual cones, and
+polyhedra throughout the course.
+\end{observation}
+
+\subsection{Orders along one-parameter motions}
+
+The pairing has a direct geometric meaning. Suppose \(T\) is embedded
+as a dense open subset of a variety \(X\), and suppose the
+one-parameter subgroup \(\oneps{u}\) extends to a map
+\[
+\overline{\oneps{u}}:\AAA^1\longrightarrow X.
+\]
+Then a character \(\character{m}\), viewed as a rational function on
+\(X\), pulls back to
+\[
+\overline{\oneps{u}}^{\,*}(\character{m})
+=
+t^{\pair{m}{u}}.
+\]
+Hence
+\[
+\pair{m}{u}
+=
+\ord_{t=0}
+\bigl(\overline{\oneps{u}}^{\,*}(\character{m})\bigr).
+\]
+
+This is different from the coordinate-hyperplane interpretation of an
+individual exponent \(m_i\). There, after choosing a specific
+compactification
+\[
+\Gm^n\subseteq\AAA^n,
+\]
+the integer \(m_i\) measures the order of \(\character{m}\) along the
+coordinate divisor \(V(x_i)\). Here, for an arbitrary one-parameter
+subgroup \(u\), the integer \(\pair{m}{u}\) measures the order seen
+along the motion determined by \(u\).
+
+The two viewpoints agree in the coordinate case. If
+\[
+u=e_i^\vee,
+\]
+then
+\[
+\pair{m}{e_i^\vee}=m_i.
+\]
+
+\begin{example}
+In \(T=\Gm^2\), let
+\[
+\character{m}(x,y)=x^2y^{-3}
+\]
+and let
+\[
+\oneps{u}(t)=(t^4,t).
+\]
+Then
+\[
+\pair{m}{u}
+=
+2\cdot4-3\cdot1
+=
+5.
+\]
+Along this motion,
+\[
+\character{m}(t^4,t)=t^5,
+\]
+so the character vanishes to order \(5\) at the limiting parameter
+\(t=0\).
+\end{example}
+
+\begin{prediction}
+Suppose a collection of characters
+\[
+\character{m_1},\ldots,\character{m_r}
+\]
+is evaluated along the same one-parameter subgroup \(u\). How might
+the numbers
+\[
+\pair{m_1}{u},\ldots,\pair{m_r}{u}
+\]
+help predict which monomials dominate, vanish, or survive as
+\(t\to0\)?
+\end{prediction}
+
+\subsection{Compatibility with torus morphisms}
+
+Let
+\[
+\phi:T_1\longrightarrow T_2
+\]
+be a morphism of algebraic tori. Recall that it induces
+\[
+\phi^*:M_2\longrightarrow M_1
+\]
+on character lattices and
+\[
+\phi_*:N_1\longrightarrow N_2
+\]
+on one-parameter subgroup lattices.
+
+These two maps are adjoint with respect to the pairings:
+\[
+\boxed{
+\pair{\phi^*(m)}{u}
+=
+\pair{m}{\phi_*(u)}.
+}
+\]
+Indeed, both sides are the exponent of the same composition:
+\[
+\Gm
+\overset{\oneps{u}}{\longrightarrow}
+T_1
+\overset{\phi}{\longrightarrow}
+T_2
+\overset{\character{m}}{\longrightarrow}
+\Gm.
+\]
+
+\begin{example}
+Let
+\[
+\phi:\Gm^2\longrightarrow\Gm^2,
+\qquad
+(t_1,t_2)\longmapsto(t_1^2t_2,t_1t_2^3).
+\]
+On character lattices,
+\[
+\phi^*(a,b)
+=
+(2a+b,a+3b).
+\]
+On one-parameter subgroup lattices,
+\[
+\phi_*(p,q)
+=
+(2p+q,p+3q).
+\]
+For
+\[
+m=(a,b),
+\qquad
+u=(p,q),
+\]
+one checks that
+\[
+\pair{\phi^*(m)}{u}
+=
+(2a+b)p+(a+3b)q
+\]
+and
+\[
+\pair{m}{\phi_*(u)}
+=
+a(2p+q)+b(p+3q),
+\]
+which are equal.
+\end{example}
+
+In this example, the numerical matrices representing \(\phi^*\) and
+\(\phi_*\) happen to agree because the matrix is symmetric. In
+general, the two matrices are transposes of one another once dual
+bases are fixed. We will return to this carefully in the next
+section.
+
+\begin{threedictionaries}
+The pairing is the bridge between the two lattices.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+Composition gives
+\[
+\character{m}\circ\oneps{u}
+=
+t^{\pair{m}{u}}.
+\]
+The pairing is bilinear and perfect.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+\(\pair{m}{u}\) is the order of vanishing or pole of a character along
+a one-parameter motion.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+\[
+M=N^\vee,
+\qquad
+N=M^\vee.
+\]
+Elements of one lattice are integral linear functions on the other.
+\end{minipage}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+How do the lattices, the pairing, and the formulas for torus morphisms
+change when we replace one basis by another?
+\end{guidingquestion}
+
+
+\section{Changing coordinates on a torus}
+\label{sec:changing-torus-coordinates}
+\index{change of lattice basis}
+\index{monomial automorphism}
+\index{general linear group over the integers}
+
+A torus does not come with preferred coordinates. Choosing coordinates
+means choosing a basis of its character lattice, and changing
+coordinates means replacing that basis by another one. The allowable
+changes are therefore controlled by
+\[
+\operatorname{GL}(n,\ZZ),
+\]
+the group of invertible \(n\times n\) integer matrices.
+
+This is an important difference between affine space and a torus.
+Coordinate changes on \(\AAA^n\) may involve many kinds of
+polynomials. Coordinate changes that preserve the algebraic group
+structure of \(\Gm^n\) are monomial.
+
+\subsection{From a new basis to new torus coordinates}
+
+Let \(T\) be an \(n\)-dimensional torus, and choose a basis
+\[
+m_1,\ldots,m_n
+\]
+of its character lattice \(M\). The corresponding torus coordinates
+are
+\[
+x_i=\character{m_i},
+\qquad
+i=1,\ldots,n.
+\]
+
+Now choose another basis
+\[
+m'_1,\ldots,m'_n.
+\]
+Write the new basis vectors in terms of the old basis:
+\[
+m'_j=\sum_{i=1}^n a_{ij}m_i.
+\]
+The coefficients form an integer matrix
+\[
+A=(a_{ij}).
+\]
+Because both collections are bases of the same lattice,
+\[
+A\in\operatorname{GL}(n,\ZZ).
+\]
+
+The new coordinate characters are
+\[
+x'_j
+=
+\character{m'_j}
+=
+\prod_{i=1}^n x_i^{a_{ij}}.
+\]
+Thus every change of basis gives an invertible monomial change of
+coordinates:
+\[
+(x_1,\ldots,x_n)
+\longmapsto
+(x'_1,\ldots,x'_n).
+\]
+
+\begin{example}
+Let \(T=\Gm^2\), and begin with the standard character basis
+\[
+m_1=(1,0),
+\qquad
+m_2=(0,1).
+\]
+Choose the new basis
+\[
+m'_1=-m_1,
+\qquad
+m'_2=-m_1+m_2.
+\]
+Its change-of-basis matrix is
+\[
+A=
+\begin{pmatrix}
+-1&-1\\
+0&1
+\end{pmatrix},
+\]
+whose columns record \(m'_1\) and \(m'_2\) in the old basis.
+
+If
+\[
+x=\character{m_1},
+\qquad
+y=\character{m_2},
+\]
+then
+\[
+x'=x^{-1},
+\qquad
+y'=x^{-1}y.
+\]
+These are exactly the coordinate changes that appeared between the
+charts \(U_0\) and \(U_1\) on the dense torus of \(\PP^2\).
+\end{example}
+
+\begin{pauseandthink}
+Why must the matrix \(A\) have determinant \(\pm1\), rather than merely
+a nonzero determinant? What would go wrong if the columns generated a
+proper finite-index sublattice of \(M\)?
+\end{pauseandthink}
+
+If \(|\det A|>1\), the new vectors do not form a lattice basis. The
+associated monomial map may still be a finite morphism of tori, but it
+is not an isomorphism.
+
+\subsection{Monomial automorphisms of a split torus}
+
+Let
+\[
+A=(a_{ij})\in\operatorname{GL}(n,\ZZ).
+\]
+It defines a map
+\[
+\Phi_A:\Gm^n\longrightarrow\Gm^n
+\]
+by
+\[
+\Phi_A(t_1,\ldots,t_n)
+=
+\left(
+\prod_{i=1}^n t_i^{a_{i1}},
+\ldots,
+\prod_{i=1}^n t_i^{a_{in}}
+\right).
+\]
+The columns of \(A\) contain the exponent vectors of the output
+coordinates.
+
+Because \(A^{-1}\) also has integer entries, the map
+\[
+\Phi_{A^{-1}}
+\]
+is again monomial and is inverse to \(\Phi_A\). Hence \(\Phi_A\) is an
+automorphism of algebraic tori.
+
+Conversely, every algebraic group automorphism of \(\Gm^n\) arises in
+this way. Therefore
+\[
+\Aut_{\mathrm{alg.grp}}(\Gm^n)
+\simeq
+\operatorname{GL}(n,\ZZ).
+\]
+
+\begin{observation}
+Translations
+\[
+t\longmapsto p\,t,
+\qquad
+p\in T,
+\]
+are automorphisms of the underlying variety, but they do not preserve
+the identity unless \(p=e\). They are therefore not automorphisms of
+the algebraic group. The group automorphisms are precisely the
+monomial coordinate changes coming from lattice automorphisms.
+\end{observation}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.35cm,
+    minimum height=1.55cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (matrix) at (-4.0,0)
+    {\(\displaystyle A\in\operatorname{GL}(n,\ZZ)\)\\[1mm]
+     a lattice automorphism};
+
+  \node[mainbox,fill=PastelYellow] (basis) at (0,0)
+    {a change of basis\\[1mm]
+     \(\displaystyle m'_j=\sum_i a_{ij}m_i\)};
+
+  \node[mainbox,fill=SurfaceGreen!9] (map) at (4.0,0)
+    {an invertible monomial map\\[1mm]
+     \(\displaystyle
+     x'_j=\prod_i x_i^{a_{ij}}\)};
+
+  \draw[very thick,<->,DictionaryBlue]
+    (matrix.east) -- (basis.west);
+  \draw[very thick,<->,PredictionTeal]
+    (basis.east) -- (map.west);
+\end{tikzpicture}
+\caption{Integer change-of-basis matrices, lattice automorphisms, and
+monomial automorphisms of a torus are three descriptions of the same
+operation.}
+\label{fig:glz-basis-monomial-automorphism}
+\end{figure}
+
+\subsection{What happens to the dual basis?}
+
+Let
+\[
+m_1,\ldots,m_n
+\]
+be a basis of \(M\), and let
+\[
+u_1,\ldots,u_n
+\]
+be the dual basis of \(N\):
+\[
+\pair{m_i}{u_j}=\delta_{ij}.
+\]
+Suppose the new character basis is given by
+\[
+m'_j=\sum_i a_{ij}m_i.
+\]
+Let
+\[
+u'_1,\ldots,u'_n
+\]
+be the basis of \(N\) dual to the \(m'_j\).
+
+In matrix notation, the new character basis is obtained from the old
+one by \(A\). The new one-parameter subgroup basis is obtained by
+\[
+A^{-T}=(A^{-1})^T.
+\]
+Indeed, if the columns of a matrix \(B\) record the \(u'_j\) in the old
+basis, the duality condition says
+\[
+A^TB=I,
+\]
+and therefore
+\[
+B=A^{-T}.
+\]
+
+Thus:
+
+\[
+\boxed{
+\text{characters change by }A,
+\qquad
+\text{one-parameter subgroups change by }A^{-T}.
+}
+\]
+
+\begin{example}
+For
+\[
+A=
+\begin{pmatrix}
+-1&-1\\
+0&1
+\end{pmatrix},
+\]
+one has
+\[
+A^{-1}=A
+\qquad\text{and}\qquad
+A^{-T}=
+\begin{pmatrix}
+-1&0\\
+-1&1
+\end{pmatrix}.
+\]
+Hence the basis of \(N\) dual to
+\[
+m'_1=-m_1,
+\qquad
+m'_2=-m_1+m_2
+\]
+is
+\[
+u'_1=-u_1-u_2,
+\qquad
+u'_2=u_2.
+\]
+A direct computation verifies
+\[
+\pair{m'_i}{u'_j}=\delta_{ij}.
+\]
+\end{example}
+
+\begin{pauseandthink}
+Why does the inverse transpose appear? Start with the requirement
+\[
+\pair{m'_i}{u'_j}=\delta_{ij}
+\]
+and translate it into a matrix equation.
+\end{pauseandthink}
+
+\subsection{Coordinates of vectors versus bases}
+
+There are two related matrix operations that are easy to confuse.
+
+First, the basis vectors themselves change:
+\[
+(m'_1,\ldots,m'_n)
+=
+(m_1,\ldots,m_n)A.
+\]
+Second, the coordinate column of a fixed element changes in the
+opposite direction.
+
+If
+\[
+m=\sum_i c_i m_i=\sum_j c'_j m'_j,
+\]
+then
+\[
+c=Ac',
+\qquad
+c'=A^{-1}c.
+\]
+Thus the basis changes by \(A\), while the coordinate column of a fixed
+character changes by \(A^{-1}\).
+
+Similarly, if
+\[
+u=\sum_i d_i u_i=\sum_j d'_j u'_j,
+\]
+then
+\[
+d=A^{-T}d',
+\qquad
+d'=A^Td.
+\]
+
+The pairing is unchanged:
+\[
+c^Td
+=
+(c')^Td'.
+\]
+Indeed,
+\[
+(Ac')^T(A^{-T}d')
+=
+(c')^Td'.
+\]
+
+\begin{warningbox}
+A matrix may describe either a change of basis or the coordinates of a
+linear map. Transposes and inverses depend on which convention is
+being used. In these notes, columns record images of basis vectors.
+Whenever a matrix formula matters, we will state the convention
+explicitly.
+\end{warningbox}
+
+\subsection{Matrices for morphisms of tori}
+
+Now let
+\[
+\phi:T_1\longrightarrow T_2
+\]
+be a morphism of tori. Choose bases
+\[
+m_1^{(1)},\ldots,m_r^{(1)}
+\]
+of \(M_1=X^*(T_1)\) and
+\[
+m_1^{(2)},\ldots,m_s^{(2)}
+\]
+of \(M_2=X^*(T_2)\).
+
+The pullback
+\[
+\phi^*:M_2\longrightarrow M_1
+\]
+is represented by an integer \(r\times s\) matrix
+\[
+B=(b_{ij}),
+\]
+defined by
+\[
+\phi^*(m_j^{(2)})
+=
+\sum_{i=1}^r b_{ij}m_i^{(1)}.
+\]
+Equivalently, if
+\[
+x_i=\character{m_i^{(1)}}
+\qquad\text{and}\qquad
+y_j=\character{m_j^{(2)}},
+\]
+then
+\[
+\phi^*(y_j)
+=
+\prod_{i=1}^r x_i^{b_{ij}}.
+\]
+On points, the torus morphism is therefore
+\[
+\phi(t_1,\ldots,t_r)
+=
+\left(
+\prod_i t_i^{b_{i1}},
+\ldots,
+\prod_i t_i^{b_{is}}
+\right).
+\]
+
+The induced map on one-parameter subgroup lattices,
+\[
+\phi_*:N_1\longrightarrow N_2,
+\]
+is represented in the dual bases by the transpose matrix
+\[
+B^T.
+\]
+This follows from the adjointness identity
+\[
+\pair{\phi^*(m)}{u}
+=
+\pair{m}{\phi_*(u)}.
+\]
+
+\begin{example}
+Consider
+\[
+\phi:\Gm^2\longrightarrow\Gm^2,
+\qquad
+(t_1,t_2)
+\longmapsto
+(t_1^2t_2,\ t_1t_2^3).
+\]
+The pullback of the two target coordinate characters is
+\[
+\phi^*(y_1)=x_1^2x_2,
+\qquad
+\phi^*(y_2)=x_1x_2^3.
+\]
+Thus
+\[
+B=
+\begin{pmatrix}
+2&1\\
+1&3
+\end{pmatrix}.
+\]
+In this example \(B=B^T\), so the same numerical matrix represents
+\(\phi^*\) and \(\phi_*\). This is accidental: the matrix happens to
+be symmetric.
+\end{example}
+
+\begin{example}
+Consider instead
+\[
+\psi:\Gm^2\longrightarrow\Gm^2,
+\qquad
+(t_1,t_2)
+\longmapsto
+(t_1^2t_2^3,\ t_1^{-1}t_2^4).
+\]
+Then
+\[
+B=
+\begin{pmatrix}
+2&-1\\
+3&4
+\end{pmatrix}
+\]
+represents
+\[
+\psi^*:M_2\longrightarrow M_1,
+\]
+while
+\[
+B^T=
+\begin{pmatrix}
+2&3\\
+-1&4
+\end{pmatrix}
+\]
+represents
+\[
+\psi_*:N_1\longrightarrow N_2.
+\]
+For \(u=(p,q)\in N_1\),
+\[
+\psi\bigl(\oneps{u}(t)\bigr)
+=
+\bigl(t^{2p+3q},t^{-p+4q}\bigr),
+\]
+which indeed has exponent vector
+\[
+B^T
+\begin{pmatrix}
+p\\q
+\end{pmatrix}.
+\]
+\end{example}
+
+\subsection{Isomorphisms, finite maps, and dimensions}
+
+The matrix description makes several basic properties visible.
+
+If \(B\) is square and
+\[
+\det B=\pm1,
+\]
+then \(B\in\operatorname{GL}(n,\ZZ)\), and the corresponding torus
+morphism is an isomorphism.
+
+If \(B\) is square and
+\[
+\det B\neq0
+\]
+but \(|\det B|>1\), then the map is finite and surjective but not an
+isomorphism. For example,
+\[
+\Gm\longrightarrow\Gm,
+\qquad
+t\longmapsto t^d
+\]
+corresponds to multiplication by \(d\) on the character lattice.
+
+Over an algebraically closed field whose characteristic does not
+divide \(d\), the kernel consists of the \(d\)-th roots of unity. In
+positive characteristic dividing \(d\), the scheme-theoretic kernel
+requires more care; we will not need that refinement here.
+
+When the source and target have different dimensions, the ranks of
+the lattice maps help describe kernels and images. We will use these
+ideas later, but the main lesson for now is simpler:
+
+\[
+\boxed{
+\text{morphisms of tori are encoded by homomorphisms of lattices.}
+}
+\]
+
+\begin{guidingquestion}
+Suppose a torus acts linearly on a finite-dimensional vector space.
+After choosing coordinates on the torus, its elements are tuples of
+nonzero scalars. What kind of basis of the vector space might make the
+action as simple as possible?
+\end{guidingquestion}
+
+\begin{threedictionaries}
+Changing coordinates on a torus is an integral operation.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+Torus morphisms pull back characters:
+\[
+\phi^*:M_2\to M_1.
+\]
+After choosing bases, this is an integer matrix.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+Automorphisms of \(\Gm^n\) preserving the identity are invertible
+monomial coordinate changes.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+Changes of lattice basis lie in
+\[
+\operatorname{GL}(n,\ZZ).
+\]
+The dual lattice changes by the inverse transpose.
+\end{minipage}
+\end{threedictionaries}
+
+
+
+\section{Representation theory in one page}
+\label{sec:torus-representation-theory}
+\index{representation!of a torus}
+\index{weight space}
+\index{weight-space decomposition}
+\index{invariant vector}
+
+Characters are the one-dimensional representations of a torus. The
+basic representation theory of tori says that every finite-dimensional
+representation is assembled from these one-dimensional pieces.
+
+This is the central structural fact of the chapter. We will state it
+without proof and focus on learning how to use it.
+
+\subsection{What is a representation?}
+
+Let \(V\) be a finite-dimensional vector space over \(\Bbbk\).
+
+\begin{definition}
+A \emph{finite-dimensional algebraic representation} of a torus \(T\)
+on \(V\) is a morphism of algebraic groups
+\[
+\rho:T\longrightarrow\operatorname{GL}(V).
+\]
+Equivalently, it is an algebraic action
+\[
+T\times V\longrightarrow V
+\]
+such that, for each \(t\in T\), the map
+\[
+v\longmapsto t\cdot v
+\]
+is linear.
+\end{definition}
+
+The adjective \emph{algebraic} matters. It requires the matrix entries of \(\rho(t)\) to be regular functions of \(t\), after bases are chosen.
+
+\begin{example}
+Let \(T=\Gm\) act on \(V=\Bbbk^2\) by
+\[
+t\cdot(x,y)=(t^2x,t^{-3}y).
+\]
+In the standard basis,
+\[
+\rho(t)
+=
+\begin{pmatrix}
+t^2&0\\
+0&t^{-3}
+\end{pmatrix}.
+\]
+The two coordinate lines are one-dimensional representations with
+characters \(t\mapsto t^2\) and \(t\mapsto t^{-3}\).
+\end{example}
+
+\begin{example}
+Let \(T=\Gm^2\) act on \(\Bbbk^3\) by
+\[
+(t_1,t_2)\cdot(x_0,x_1,x_2)
+=
+(x_0,t_1x_1,t_2x_2).
+\]
+The three coordinate lines transform by the characters
+\[
+1,\qquad t_1,\qquad t_2.
+\]
+Projectivizing this representation gives the torus action on
+\(\PP^2\) used throughout Chapter~0:
+\[
+(t_1,t_2)\cdot[x_0:x_1:x_2]
+=
+[x_0:t_1x_1:t_2x_2].
+\]
+\end{example}
+
+\subsection{Weight vectors and weight spaces}
+
+A character tells us how a torus may scale a single vector.
+
+\begin{definition}
+Let \(V\) be a representation of \(T\), and let \(m\in M=X^*(T)\).
+A nonzero vector \(v\in V\) is a \emph{weight vector of weight \(m\)}
+if
+\[
+t\cdot v=\character{m}(t)v
+\qquad
+\text{for every }t\in T.
+\]
+The corresponding \emph{weight space} is
+\[
+V_m
+=
+\{v\in V:t\cdot v=\character{m}(t)v
+\text{ for every }t\in T\}.
+\]
+\end{definition}
+
+The zero vector lies in every \(V_m\), but a nonzero vector cannot
+have two distinct weights.
+
+\begin{example}
+For the action
+\[
+t\cdot(x,y)=(t^2x,t^{-3}y)
+\]
+on \(\Bbbk^2\), let \(e_1,e_2\) be the standard basis. Then
+\[
+e_1\in V_2,
+\qquad
+e_2\in V_{-3},
+\]
+and
+\[
+V=V_2\oplus V_{-3}.
+\]
+The vector \(e_1+e_2\) is not a weight vector: its two components scale
+by different characters.
+\end{example}
+
+\begin{pauseandthink}
+For the action of \(\Gm\) on \(\Bbbk^3\) given by
+\[
+t\cdot(x,y,z)=(t^2x,t^2y,t^{-1}z),
+\]
+find all weight spaces. Which vectors are weight vectors, and which
+are not?
+\end{pauseandthink}
+
+Here
+\[
+V_2=\Span\{e_1,e_2\},
+\qquad
+V_{-1}=\Span\{e_3\}.
+\]
+Every nonzero vector in either of these subspaces is a weight vector.
+A vector having nonzero components in both subspaces is not.
+
+This example is worth remembering: a weight space need not be
+one-dimensional. A weight records how the torus acts, not the
+dimension of the subspace on which it acts that way.
+
+\subsection{The weight-space decomposition}
+
+The representation theory of a torus is governed by the following
+theorem.
+
+\begin{theorem}[Weight-space decomposition]
+\label{thm:torus-weight-decomposition}
+Let \(T\) be an algebraic torus, and let \(V\) be a finite-dimensional
+algebraic representation of \(T\). Then
+\[
+V
+=
+\bigoplus_{m\in M}V_m.
+\]
+Only finitely many of the weight spaces \(V_m\) are nonzero.
+\end{theorem}
+
+In other words, every vector can be written uniquely as a finite sum
+of weight vectors belonging to distinct weights.
+
+The finite set
+\[
+\operatorname{Wt}(V)
+=
+\{m\in M:V_m\neq0\}
+\]
+is called the \emph{set of weights} of the representation. The
+dimension
+\[
+\dim V_m
+\]
+is the \emph{multiplicity} of the weight \(m\).
+
+\begin{observation}
+After choosing a basis of each nonzero weight space, every matrix
+\(\rho(t)\) becomes diagonal:
+\[
+\rho(t)
+=
+\diag
+\bigl(
+\character{m_1}(t),\ldots,\character{m_r}(t)
+\bigr),
+\]
+where weights may be repeated according to their multiplicities.
+
+Thus a torus representation may be simultaneously diagonalized:
+one basis diagonalizes the action of every element of \(T\) at once.
+\end{observation}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  weightbox/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=2.55cm,
+    minimum height=1.25cm,
+    align=center,
+    inner sep=4pt
+  }
+]
+  \node at (0,1.75) {\(\displaystyle V=\bigoplus_{m\in\operatorname{Wt}(V)}V_m\)};
+
+  \node[weightbox,fill=DictionaryBlue!8] (v1) at (-4.2,0)
+    {\(V_{m_1}\)\\
+     \(t\cdot v=\character{m_1}(t)v\)};
+
+  \node[weightbox,fill=PastelYellow] (v2) at (-1.4,0)
+    {\(V_{m_2}\)\\
+     \(t\cdot v=\character{m_2}(t)v\)};
+
+  \node at (1.0,0) {\(\cdots\)};
+
+  \node[weightbox,fill=SurfaceGreen!9] (vr) at (3.5,0)
+    {\(V_{m_r}\)\\
+     \(t\cdot v=\character{m_r}(t)v\)};
+
+  \draw[thick,black!45]
+    (-5.25,-0.92) -- (4.55,-0.92);
+  \node[below=5pt,align=center] at (-0.35,-0.92)
+    {each summand is scaled by one character};
+\end{tikzpicture}
+\caption{A finite-dimensional representation of a torus decomposes
+into weight spaces indexed by characters.}
+\label{fig:torus-weight-space-decomposition}
+\end{figure}
+
+\begin{warningbox}
+The theorem does not say that every element of \(V\) is a weight
+vector. It says that every element is a sum of weight vectors. A vector
+is itself a weight vector only when all of its nonzero components lie
+in a single weight space.
+\end{warningbox}
+
+\subsection{Why the theorem is plausible}
+
+We will not prove the weight-space decomposition here, but it is useful
+to understand why one should expect it.
+
+For \(T=\Gm^n\), the operators \(\rho(t)\) commute with one another
+because \(T\) is abelian. More importantly, the algebraic nature of the
+action forces the matrix coefficients to be built from characters.
+The representation therefore separates into subspaces on which the
+torus acts through individual Laurent monomials.
+
+\begin{observation}
+Another viewpoint uses the coordinate ring
+\[
+\Bbbk[T]=\Bbbk[M].
+\]
+The action gives \(V\) the structure of a comodule over
+\(\Bbbk[M]\), and the basis elements \(\character{m}\) of the group
+algebra separate the representation into the spaces \(V_m\). This is
+the standard algebraic proof, but we will not need the comodule
+language later.
+\end{observation}
+
+\begin{observation}
+The weight-space decomposition holds for algebraic tori over an
+algebraically closed field in arbitrary characteristic. Standard
+references prove it as part of the representation theory of
+diagonalizable algebraic groups.
+\end{observation}
+
+\subsection{Invariant vectors}
+
+The zero element
+\[
+0\in M
+\]
+corresponds to the trivial character
+\[
+\character{0}=1.
+\]
+Its weight space is
+\[
+V_0
+=
+\{v\in V:t\cdot v=v\text{ for every }t\in T\}.
+\]
+This is precisely the subspace of \(T\)-invariant vectors, often
+written
+\[
+V^T.
+\]
+Thus
+\[
+V^T=V_0.
+\]
+
+\begin{example}
+For
+\[
+(t_1,t_2)\cdot(x_0,x_1,x_2)
+=
+(x_0,t_1x_1,t_2x_2),
+\]
+the invariant subspace is
+\[
+V^T=\Bbbk e_0.
+\]
+The other two coordinate lines have nonzero weights.
+\end{example}
+
+\begin{pauseandthink}
+Let \(\Gm\) act on \(\Bbbk[x,y]_d\) by
+\[
+(t\cdot f)(x,y)=f(t^{-1}x,ty).
+\]
+Determine the weight of each monomial
+\[
+x^{d-i}y^i.
+\]
+For which values of \(d\) does the representation contain a nonzero
+invariant vector?
+\end{pauseandthink}
+
+We have
+\[
+t\cdot x^{d-i}y^i
+=
+t^{-(d-i)}t^i x^{d-i}y^i
+=
+t^{2i-d}x^{d-i}y^i.
+\]
+Thus the weight is
+\[
+2i-d.
+\]
+A nonzero invariant monomial exists exactly when \(2i=d\), hence when
+\(d\) is even.
+
+\subsection{Equivariant linear maps preserve weights}
+
+Let \(V\) and \(W\) be representations of \(T\).
+
+\begin{definition}
+A linear map
+\[
+F:V\longrightarrow W
+\]
+is \emph{\(T\)-equivariant} if
+\[
+F(t\cdot v)=t\cdot F(v)
+\]
+for every \(t\in T\) and \(v\in V\).
+\end{definition}
+
+If \(v\in V_m\), then
+\[
+\begin{aligned}
+t\cdot F(v)
+&=
+F(t\cdot v)\\
+&=
+F(\character{m}(t)v)\\
+&=
+\character{m}(t)F(v).
+\end{aligned}
+\]
+Therefore
+\[
+F(V_m)\subseteq W_m.
+\]
+
+So an equivariant map acts weight by weight. In particular, if \(W_m=0\),
+then every equivariant map must vanish on \(V_m\).
+
+\begin{example}
+Suppose
+\[
+V=V_1\oplus V_3
+\qquad\text{and}\qquad
+W=W_1\oplus W_2
+\]
+are representations of \(\Gm\). A \(\Gm\)-equivariant map
+\[
+F:V\longrightarrow W
+\]
+may map \(V_1\) into \(W_1\), but it must vanish on \(V_3\), since
+\(W_3=0\).
+\end{example}
+
+This simple observation is extremely useful. It turns many questions
+about equivariant maps into separate linear-algebra problems on the
+individual weight spaces.
+
+\subsection{Subrepresentations and quotients}
+
+A subspace \(U\subseteq V\) is a \emph{subrepresentation} if it is
+preserved by \(T\). The weight decomposition restricts to
+\[
+U
+=
+\bigoplus_{m\in M}(U\cap V_m).
+\]
+Likewise, the quotient \(V/U\) inherits a representation, and its
+weights are obtained from the corresponding quotients of weight
+spaces.
+
+Thus the representation theory of a torus has no hidden interaction
+between distinct weights. Each weight may be studied independently.
+
+\begin{observation}
+This is one reason tori are among the simplest algebraic groups from
+the viewpoint of representation theory. Their finite-dimensional
+representations are controlled by:
+\[
+\text{a finite set of lattice points }m\in M
+\quad\text{and}\quad
+\text{their multiplicities }\dim V_m.
+\]
+\end{observation}
+
+\subsection{Weights as a finite configuration in a lattice}
+
+The set of weights
+\[
+\operatorname{Wt}(V)\subseteq M
+\]
+may be drawn as a finite configuration of lattice points in
+\(M_{\RR}\). Multiplicity may be recorded by labels, repeated points,
+or the dimensions of the associated weight spaces.
+
+\begin{example}
+Consider the representation of \(\Gm^2\) on \(\Bbbk^5\) with weights
+\[
+(0,0),\quad(1,0),\quad(1,0),\quad(0,1),\quad(2,-1).
+\]
+Then
+\[
+\operatorname{Wt}(V)
+=
+\{(0,0),(1,0),(0,1),(2,-1)\},
+\]
+with multiplicity \(2\) at \((1,0)\) and multiplicity \(1\) at each of
+the other weights.
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.15]
+  \draw[->,black!55] (-0.8,0) -- (3.3,0);
+  \draw[->,black!55] (0,-1.8) -- (0,2.2);
+
+  \foreach \x in {0,1,2,3}
+    \draw[black!20] (\x,-1.65) -- (\x,2.0);
+  \foreach \y in {-1,0,1,2}
+    \draw[black!20] (-0.65,\y) -- (3.1,\y);
+
+  \fill[DictionaryBlue] (0,0) circle (2.6pt);
+  \node[below left] at (0,0) {\((0,0)\)};
+
+  \fill[PredictionTeal] (1,0) circle (3.4pt);
+  \node[below] at (1,-0.12) {\((1,0)\)};
+  \node[above] at (1,0.12) {mult.\ \(2\)};
+
+  \fill[SurfaceGreen] (0,1) circle (2.6pt);
+  \node[above left] at (0,1) {\((0,1)\)};
+
+  \fill[ExampleGold] (2,-1) circle (2.6pt);
+  \node[below right] at (2,-1) {\((2,-1)\)};
+
+  \node[right] at (3.1,0) {\(M_{\RR}\)};
+\end{tikzpicture}
+\caption{A torus representation may be encoded by a finite set of
+weights in \(M\), together with their multiplicities.}
+\label{fig:finite-weight-configuration}
+\end{figure}
+
+This turns a representation into combinatorial data. Later, when a
+torus acts on spaces of sections, the weights will often be the lattice
+points of a polytope.
+
+\subsection{Operations on representations}
+
+The weight description makes standard constructions transparent.
+
+If
+\[
+V=\bigoplus_m V_m
+\qquad\text{and}\qquad
+W=\bigoplus_{m'}W_{m'},
+\]
+then
+\[
+(V\oplus W)_m
+=
+V_m\oplus W_m.
+\]
+
+For tensor products,
+\[
+v\in V_m,\quad w\in W_{m'}
+\quad\Longrightarrow\quad
+v\otimes w\in(V\otimes W)_{m+m'}.
+\]
+Thus weights add under tensor product.
+
+For dual representations,
+\[
+(V^\vee)_{-m}
+\simeq
+(V_m)^\vee.
+\]
+Thus weights change sign under duality.
+
+\begin{example}
+Let \(V\) and \(W\) be one-dimensional representations of weights
+\(m\) and \(m'\), respectively. Then
+\[
+V\otimes W
+\]
+has weight
+\[
+m+m',
+\]
+while \(V^\vee\) has weight
+\[
+-m.
+\]
+This is the representation-theoretic version of
+\[
+\character{m}\character{m'}=\character{m+m'}
+\qquad\text{and}\qquad
+(\character{m})^{-1}=\character{-m}.
+\]
+\end{example}
+
+\begin{prediction}
+A torus acts on the space
+\[
+H^0(\PP^2,\cO_{\PP^2}(d))
+\]
+of homogeneous degree-\(d\) polynomials. What should its weight vectors
+look like? How might the triangle \(d\Delta\cap M\) from Chapter~0
+reappear in this representation?
+\end{prediction}
+
+\subsection{The basic classification}
+
+The weight-space theorem may be summarized as a classification
+statement.
+
+\begin{theorem}[Classification of finite-dimensional torus
+representations]
+Up to isomorphism, a finite-dimensional representation of \(T\) is
+determined by the multiplicities
+\[
+a_m=\dim V_m,
+\qquad
+m\in M,
+\]
+where \(a_m\) is a nonnegative integer and only finitely many \(a_m\)
+are nonzero.
+
+Equivalently,
+\[
+V
+\simeq
+\bigoplus_{m\in M}
+\left(\Bbbk_m\right)^{\oplus a_m},
+\]
+where \(\Bbbk_m\) denotes the one-dimensional representation of
+weight \(m\).
+\end{theorem}
+
+No extension data are needed: the representation is the direct sum of
+its weight spaces.
+
+\begin{observation}
+Proofs of the weight-space theorem and this classification may be
+found in standard treatments of diagonalizable algebraic groups or
+linear algebraic groups; the Notes and references section lists the
+sources used here.
+\end{observation}
+
+\begin{threedictionaries}
+The representation theory of a torus is controlled by its character
+lattice.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+A representation decomposes as
+\[
+V=\bigoplus_{m\in M}V_m.
+\]
+Equivariant maps preserve each weight.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+After choosing a weight basis, the torus acts by diagonal matrices:
+each coordinate direction is scaled independently.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+A representation is encoded by finitely many lattice points
+\[
+m\in M
+\]
+and their multiplicities.
+\end{minipage}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+How do the monomials, exponent vectors, one-parameter limits, and
+lattice triangles of Chapter~0 fit into the character and weight
+language developed in this chapter?
+\end{guidingquestion}
+
+
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+\label{sec:why-torus-representation-matters}
+
+Chapter~0 already contained nearly every object introduced in this
+chapter. We first met them concretely in \(\PP^2\); we can now name
+them and place them in the two lattices attached to its dense torus.
+
+\subsection*{Pointers back to Chapter~0}
+
+\begin{enumerate}[label=\textbf{\arabic*.},wide=0pt]
+
+\item \textbf{Torus coordinates are bases of \(M\).}
+On the chart \(U_0\), the functions
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}
+\]
+are characters of the dense torus \(T\subseteq\PP^2\). Their lattice
+points form a basis of
+\[
+M=X^*(T).
+\]
+The Laurent coordinate changes between \(U_0,U_1,U_2\) are changes of
+basis in \(M\), hence are governed by
+\(\operatorname{GL}(2,\ZZ)\).
+
+\item \textbf{Exponent vectors are character lattice points.}
+A Laurent monomial
+\[
+z_1^az_2^b
+\]
+is the character \(\character{m}\) corresponding, in the chosen basis,
+to
+\[
+m=(a,b)\in M.
+\]
+Thus exponent vectors are coordinates for intrinsic characters.
+
+\item \textbf{Monomial sections form weight bases.}
+The degree-\(d\) monomials
+\[
+x_0^{d-a-b}x_1^ax_2^b,
+\qquad
+(a,b)\in d\Delta\cap M,
+\]
+form a weight basis of
+\[
+H^0\bigl(\PP^2,\cO_{\PP^2}(d)\bigr).
+\]
+Depending on the convention for the induced action on sections, the
+weights may be the exponent points or their negatives. The essential
+statement is unchanged: the lattice points of \(d\Delta\) index the
+monomial weight spaces.
+
+\item \textbf{Monomial curves are one-parameter subgroups.}
+The parameterized curves
+\[
+t\longmapsto(t^{u_1},t^{u_2})
+\]
+are the one-parameter subgroups
+\[
+\oneps{u}:\Gm\longrightarrow T,
+\qquad
+u=(u_1,u_2)\in N=X_*(T).
+\]
+Characters live in \(M\); algebraic motions live in the dual lattice
+\(N\).
+
+\item \textbf{The pairing records orders along motions.}
+For \(m\in M\) and \(u\in N\),
+\[
+\character{m}\bigl(\oneps{u}(t)\bigr)
+=
+t^{\pair{m}{u}}.
+\]
+Hence \(\pair{m}{u}\) is the order of vanishing or pole of the
+character along the one-parameter motion. This is the bridge between
+functions in \(M\) and directions in \(N\).
+
+\i
+
+tem \textbf{Fans organize boundary behavior.}
+For
+\[
+t\longmapsto[1:t^{u_1}:t^{u_2}]
+\]
+in \(\PP^2\), vectors \(u\) lying in the same cone of the fan produce
+compatible boundary limits. The rays
+\[
+(-1,-1),\qquad(1,0),\qquad(0,1)
+\]
+record the three torus-invariant boundary divisors, while the maximal
+cones correspond to the three torus-fixed points.
+
+The blowup of a fixed point inserts a new primitive ray. Thus the star
+subdivision from Chapter~0 may now be read as adding a new
+one-parameter direction, and geometrically as introducing the
+exceptional divisor.
+
+\end{enumerate}
+
+\begin{threedictionaries}
+The chapter may be summarized by one compact dictionary.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\Bbbk[T]=\Bbbk[M]\)
+&
+the torus \(T\)
+&
+the character lattice \(M\)
+\\[1mm]
+a character \(\character{m}\)
+&
+a monomial function or weight
+&
+a lattice point \(m\in M\)
+\\[1mm]
+a one-parameter subgroup \(\oneps{u}\)
+&
+a parameterized motion toward the boundary
+&
+a lattice point \(u\in N\)
+\\[1mm]
+\(\character{m}\circ\oneps{u}=t^{\pair{m}{u}}\)
+&
+order of vanishing or pole along the motion
+&
+the pairing \(M\times N\to\ZZ\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection*{The next construction}
+
+The next chapter begins with the observation that a cone
+\[
+\sigma\subseteq N_{\RR}
+\]
+specifies a collection of allowed one-parameter directions. The
+characters having no pole along any of them are precisely those
+\(m\in M\) satisfying
+\[
+\pair{m}{u}\geq0
+\qquad
+\text{for every }u\in\sigma.
+\]
+They form the semigroup
+\[
+\sigma^\vee\cap M,
+\]
+and its semigroup algebra
+\[
+\Bbbk[\sigma^\vee\cap M]
+\]
+will produce an affine variety containing \(T\).
+
+For the first quadrant in \(N_{\RR}\), this construction gives
+\[
+\sigma^\vee\cap M=\ZZ_{\geq0}^2,
+\qquad
+\Bbbk[\sigma^\vee\cap M]=\Bbbk[x,y],
+\]
+and therefore recovers \(\AAA^2\).
+
+\begin{guidingquestion}
+Given a cone of one-parameter directions in \(N_{\RR}\), what geometry
+is encoded by the algebra \(\Bbbk[\sigma^\vee\cap M]\)?
+\end{guidingquestion}
+
+
+\clearpage
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Determine all characters
+\[
+\chi:\Gm\longrightarrow\Gm.
+\]
+Then determine which regular maps of the form
+\[
+f(t)=c\,t^a
+\qquad
+(c\in\Bbbk^\times,\ a\in\ZZ)
+\]
+are characters. Explain the role of the identity element.
+
+\item Let \(T=\Gm^2\), with coordinate characters \(x\) and \(y\).
+For each of the following pairs, decide whether the two characters
+form a basis of \(M=X^*(T)\). When they do, write the corresponding
+invertible monomial change of coordinates.
+\[
+\begin{array}{lll}
+\text{(a)}&x^2y,\ xy,&
+\text{(b)}\ x^{-1},\ x^{-1}y,\\[1mm]
+\text{(c)}&x^2,\ y,&
+\text{(d)}\ xy,\ x^{-1}y.
+\end{array}
+\]
+
+\item Consider the one-parameter subgroup
+\[
+\oneps{u}(t)
+=
+(t^{u_1},t^{u_2},t^{u_3})
+\]
+of \(\Gm^3\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Determine when it extends to a morphism
+\[
+\AAA^1\longrightarrow\AAA^3.
+\]
+\item When it extends, describe its value at \(t=0\) in terms of the
+vanishing pattern of \(u_1,u_2,u_3\).
+\item Repeat the question for a translated curve
+\[
+t\longmapsto(a_1t^{u_1},a_2t^{u_2},a_3t^{u_3}),
+\qquad
+a_i\in\Bbbk^\times.
+\]
+\end{enumerate}
+
+\item Let
+\[
+m=(3,-2,1)\in M\simeq\ZZ^3,
+\qquad
+u=(-1,4,2)\in N\simeq\ZZ^3.
+\]
+Compute \(\pair{m}{u}\), and interpret the answer as the order of
+vanishing or pole of
+\[
+\character{m}\circ\oneps{u}
+\]
+at \(t=0\). Find a nonzero vector \(u'\in N\) satisfying
+\[
+\pair{m}{u'}=0.
+\]
+
+\item Let \(m_1,m_2\) be a basis of \(M\), with dual basis
+\(u_1,u_2\) of \(N\). Define
+\[
+m'_1=2m_1+m_2,
+\qquad
+m'_2=m_1+m_2.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify that \(m'_1,m'_2\) form a basis of \(M\).
+\item Compute the basis \(u'_1,u'_2\) of \(N\) dual to
+\(m'_1,m'_2\).
+\item Check directly that
+\[
+\pair{m'_i}{u'_j}=\delta_{ij}.
+\]
+\end{enumerate}
+
+\item Consider the torus morphism
+\[
+\phi:\Gm^2\longrightarrow\Gm^3,
+\qquad
+(t_1,t_2)
+\longmapsto
+(t_1^2t_2,\ t_1^{-1}t_2^3,\ t_1t_2^2).
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Write the matrix of
+\[
+\phi^*:M_{\Gm^3}\longrightarrow M_{\Gm^2}
+\]
+in the standard bases.
+\item Write the matrix of
+\[
+\phi_*:N_{\Gm^2}\longrightarrow N_{\Gm^3}.
+\]
+\item Verify
+\[
+\pair{\phi^*(m)}{u}
+=
+\pair{m}{\phi_*(u)}
+\]
+for a general \(m\in\ZZ^3\) and \(u\in\ZZ^2\).
+\end{enumerate}
+
+\item Let \(T=\Gm^2\) act on \(V=\Bbbk^5\) by
+\[
+(t_1,t_2)\cdot
+(v_1,v_2,v_3,v_4,v_5)
+=
+(t_1v_1,\ t_2v_2,\ t_1t_2v_3,\ t_1v_4,\ v_5).
+\]
+Determine every weight space, its weight, and its multiplicity.
+Describe the invariant subspace \(V^T\).
+
+\item Let
+\[
+V=V_{(1,0)}\oplus V_{(0,1)}\oplus V_{(1,1)}
+\]
+and
+\[
+W=W_{(1,0)}\oplus W_{(1,1)}
+\]
+be representations of \(T=\Gm^2\), with
+\[
+\dim V_{(1,0)}=2,\quad
+\dim V_{(0,1)}=1,\quad
+\dim V_{(1,1)}=3,
+\]
+and
+\[
+\dim W_{(1,0)}=1,\quad
+\dim W_{(1,1)}=2.
+\]
+Compute the dimension of the vector space
+\[
+\Hom_T(V,W)
+\]
+of \(T\)-equivariant linear maps.
+
+\item For the standard torus action on \(\PP^2\), list the monomial
+basis of
+\[
+H^0\bigl(\PP^2,\cO_{\PP^2}(3)\bigr)
+\]
+and label each monomial by its exponent point in \(3\Delta\cap M\).
+Using the standard pullback convention for the induced action on
+sections, also record its weight. Which section spans the invariant
+subspace?
+
+\item Let
+\[
+\sigma
+=
+\Cone{(1,0),(1,2)}
+\subseteq N_{\RR}\simeq\RR^2.
+\]
+Determine all
+\[
+m=(a,b)\in M\simeq\ZZ^2
+\]
+satisfying
+\[
+\pair{m}{u}\geq0
+\qquad
+\text{for every }u\in\sigma.
+\]
+Describe the semigroup \(\sigma^\vee\cap M\) by inequalities, and find
+a finite collection of lattice points that generates it additively.
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Projective limits, weights, and exposed faces.}
+
+\medskip
+
+Let \(T\) be an algebraic torus, and let
+\[
+V=\bigoplus_{m\in M}V_m
+\]
+be a finite-dimensional representation. Choose a nonzero vector
+\[
+v=\sum_{m\in S}v_m,
+\qquad
+0\neq v_m\in V_m,
+\]
+where \(S\subseteq M\) is the finite set of weights occurring in
+\(v\). The torus acts on the projective space \(\PP(V)\).
+
+Fix a one-parameter subgroup \(u\in N\). The goal is to determine
+\[
+\lim_{t\to0}\oneps{u}(t)\cdot[v]
+\]
+directly from the pairings
+\[
+\pair{m}{u},
+\qquad
+m\in S.
+\]
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item Show that
+\[
+\oneps{u}(t)\cdot v
+=
+\sum_{m\in S}t^{\pair{m}{u}}v_m.
+\]
+
+\item Let
+\[
+a=\min_{m\in S}\pair{m}{u}.
+\]
+Use projective rescaling by \(t^{-a}\) to show that the limit exists
+and equals
+\[
+\left[
+\sum_{\substack{m\in S\\
+\pair{m}{u}=a}}
+v_m
+\right].
+\]
+Explain why this vector is nonzero.
+
+\item Let
+\[
+P(v)=\Conv(S)\subseteq M_{\RR}
+\]
+be the convex hull of the weights occurring in \(v\). Show that the
+weights contributing to the limit are precisely the points of \(S\)
+lying on the face
+\[
+F_u
+=
+\left\{
+m\in P(v):
+\pair{m}{u}
+=
+\min_{m'\in P(v)}\pair{m'}{u}
+\right\}.
+\]
+This is the face of \(P(v)\) exposed by the linear functional
+\(m\mapsto\pair{m}{u}\).
+
+\item Explain why replacing \(u\) by another vector \(u'\) that exposes
+the same face produces a limit lying in the same projective weight
+subspace
+\[
+\PP\left(\bigoplus_{m\in F_u\cap S}V_m\right).
+\]
+
+\item Specialize to
+\[
+V=\Bbbk^3
+\]
+with the \(\Gm^2\)-action
+\[
+(t_1,t_2)\cdot(x_0,x_1,x_2)
+=
+(x_0,t_1x_1,t_2x_2).
+\]
+The weights are
+\[
+0,\qquad m_1,\qquad m_2.
+\]
+For a point
+\[
+[x_0:x_1:x_2]\in\PP^2,
+\]
+use the formula above to recover the one-parameter limits described in
+Chapter~0. Pay attention to the possibility that one or more
+coordinates vanish, since the set \(S\) depends on the point.
+
+\item Draw the weight triangle
+\[
+\Conv\{0,m_1,m_2\}\subseteq M_{\RR}.
+\]
+Partition \(N_{\RR}\) according to which face it exposes by taking the
+minimum of \(\pair{m}{u}\). Compare the resulting decomposition
+with the fan of \(\PP^2\).
+
+\item Formulate a general conjecture: given a finite weight polytope
+\(P\subseteq M_{\RR}\), how should the regions of vectors
+\(u\in N_{\RR}\) exposing a fixed face of \(P\) fit together? What
+familiar fan should they form?
+
+\end{enumerate}
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+This chapter is intended as a working introduction to the language of
+algebraic tori rather than a self-contained treatment of linear
+algebraic groups. The classification of characters and
+one-parameter subgroups, the perfect pairing between their lattices,
+and the weight-space decomposition of a finite-dimensional torus
+representation were stated with only brief indications of proof.
+
+For the toric-geometric viewpoint on lattices, characters,
+one-parameter subgroups, and group algebras, see the opening chapter
+of Cox--Little--Schenck, \emph{Toric Varieties}. Standard references
+for algebraic groups and the representation theory of tori include
+Humphreys, \emph{Linear Algebraic Groups}; Borel,
+\emph{Linear Algebraic Groups}; and Springer,
+\emph{Linear Algebraic Groups}. In those texts, tori are treated as
+examples of diagonalizable algebraic groups, and the weight-space
+decomposition appears as part of the general representation theory of
+diagonalizable groups.
+
+Over a non-algebraically closed field, one must distinguish split
+tori from tori that become split only after extending scalars. That
+arithmetic direction lies outside the main path of these notes.

@@ -1,0 +1,3185 @@
+\chapter[Projective Toric Varieties and Polytopes]
+{Projective Toric Varieties and\\ Polytopes}
+\label{chap:projective-toric-varieties-polytopes}
+
+\begin{chapteroverview}
+Chapter~4 translated codimension-one geometry into data on the rays of
+a fan. We now reverse the direction: the inequalities attached to a
+divisor carve out a region in the character space \(M_\RR\), and the
+lattice points in that region become global sections.
+
+The central construction is
+\[
+D=\sum_\rho a_\rho D_\rho
+\quad\longmapsto\quad
+P_D
+=
+\left\{
+ m\in M_\RR:
+ \langle m,u_\rho\rangle\geq-a_\rho
+ \text{ for every }\rho
+\right\}.
+\]
+It begins a new chain of translations:
+\[
+\boxed{
+\text{divisors}
+\longrightarrow
+\text{polyhedra and lattice points}
+\longrightarrow
+\text{linear systems and projective maps}.
+}
+\]
+
+Later in the chapter, convexity and strict convexity of support
+functions will detect basepoint freeness and ampleness. Normal fans
+will then explain how polytopes build projective toric varieties.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The three dictionaries now meet in the theory of sections.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+characters and monomial sections
+&
+line bundles and linear systems
+&
+lattice points in \(P_D\)
+\\
+section multiplication
+&
+projective maps
+&
+Minkowski addition
+\\
+graded section rings
+&
+projective embeddings
+&
+polytopes and normal fans
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+For a toric surface, every inequality cuts out a half-plane in
+\(M_\RR\). The polyhedron \(P_D\) can therefore be drawn explicitly.
+
+Under a toric blowup, the new ray contributes one new inequality. On
+the polytope side, this often cuts off a corner. We will repeatedly
+use this visible operation to interpret vanishing conditions,
+positivity, and projective maps on blown-up surfaces.
+\end{surfacelaboratory}
+
+% BEGIN INLINED: chapter05-section01-revised-v2.tex
+\section{Divisor polyhedra and global sections}
+\label{sec:divisor-polyhedra-global-sections}
+\index{divisor polyhedron}
+\index{global section!monomial basis}
+\index{lattice point!as a section}
+\index{corner cut!blowup}
+
+\begin{agcheatsheet}
+Let \(X\) be a normal irreducible variety and let \(D\) be a Weil
+divisor. The sheaf \(\mathcal O_X(D)\) is defined inside the constant
+sheaf of rational functions by
+\[
+\Gamma(U,\mathcal O_X(D))
+=
+\left\{
+ f\in\Bbbk(X)^\times:
+ \bigl(\operatorname{div}(f)+D\bigr)|_U\geq0
+\right\}
+\cup\{0\}.
+\]
+Thus
+\[
+H^0(X,\mathcal O_X(D))
+=
+\left\{
+ f\in\Bbbk(X)^\times:
+ \operatorname{div}(f)+D\geq0
+\right\}
+\cup\{0\}.
+\]
+
+The inequality has a concrete meaning. The rational function \(f\)
+may have poles, but along every prime divisor its pole order must be
+no larger than the multiplicity supplied by \(D\). Equivalently,
+after adding the zeros and poles of \(f\) to \(D\), the result must be
+effective.
+
+When \(D\) is Cartier, \(\mathcal O_X(D)\) is a line bundle and has a
+canonical rational section \(s_D\) with
+\[
+\operatorname{div}(s_D)=D.
+\]
+Multiplication by this section identifies rational functions with
+rational sections:
+\[
+f\longmapsto f s_D.
+\]
+Under this identification, \(f s_D\) is regular exactly when
+\[
+\operatorname{div}(f)+D\geq0.
+\]
+Hence the inequality is precisely the regularity condition for the
+corresponding section of the line bundle.
+
+For a non-Cartier Weil divisor on a normal variety, the same formula
+defines the associated rank-one reflexive sheaf.
+\end{agcheatsheet}
+
+Now let
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+be torus invariant. By the principal-divisor formula from
+\cref{thm:principal-divisor-character},
+\[
+\operatorname{div}(\character{m})+D
+=
+\sum_{\rho\in\Sigma(1)}
+\bigl(\langle m,u_\rho\rangle+a_\rho\bigr)D_\rho.
+\]
+Therefore
+\[
+\character{m}\in H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+\]
+precisely when
+\[
+\langle m,u_\rho\rangle\geq-a_\rho
+\qquad
+\text{for every }\rho\in\Sigma(1).
+\]
+When \(D\) is Cartier, this says equivalently that the rational
+section \(\character{m}s_D\) is regular. These inequalities cut out
+a polyhedron in \(M_\RR\).
+
+
+\subsection{The monomial basis theorem}
+
+\begin{proposition}[Global sections decompose into characters]
+\label{prop:global-sections-characters}
+Let
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+be a torus-invariant Weil divisor on \(X_\Sigma\). Then
+\[
+H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+=
+\bigoplus_{\operatorname{div}(\character{m})+D\geq0}
+\Bbbk\,\character{m}.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.3.2.
+
+\begin{proof}
+A global section \(f\) restricts to a regular function on the dense
+torus, because \(D\) has no support there. Hence
+\[
+f|_T\in\Bbbk[M].
+\]
+The space of global sections is stable under the torus action, while
+\(\Bbbk[M]\) has the character basis
+\[
+\{\character{m}:m\in M\}.
+\]
+Therefore the space of sections is the direct sum of the character
+weight spaces that it contains. Finally,
+\[
+\character{m}\in H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+\]
+if and only if
+\[
+\operatorname{div}(\character{m})+D\geq0.
+\]
+\end{proof}
+
+\begin{observation}
+The short representation-theoretic phrase ``weight-space
+decomposition'' is optional language for a simple fact: Laurent
+monomials form a basis of \(\Bbbk[M]\), and a torus-stable subspace is
+spanned by the monomials it contains.
+\end{observation}
+
+\begin{definition}[The polyhedron of a divisor]
+\label{def:divisor-polyhedron}
+For a torus-invariant Weil divisor
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho,
+\]
+define
+\[
+\boxed{
+P_D
+=
+\left\{
+ m\in M_\RR:
+ \langle m,u_\rho\rangle\geq-a_\rho
+ \text{ for every }\rho\in\Sigma(1)
+\right\}.
+}
+\]
+\end{definition}
+
+Each ray contributes one closed half-space. The coefficient \(a_\rho\)
+controls the position of its boundary hyperplane:
+\[
+\langle m,u_\rho\rangle=-a_\rho.
+\]
+Increasing \(a_\rho\) moves that wall outward and weakens the pole
+restriction along \(D_\rho\).
+
+\begin{theorem}[Lattice points are monomial sections]
+\label{thm:lattice-points-global-sections}
+For every torus-invariant Weil divisor \(D\),
+\[
+\boxed{
+H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+=
+\bigoplus_{m\in P_D\cap M}
+\Bbbk\,\character{m}.
+}
+\]
+In particular, whenever \(P_D\cap M\) is finite,
+\[
+h^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+=
+|P_D\cap M|.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.3.3.
+
+\begin{proof}
+By \cref{thm:principal-divisor-character},
+\[
+\operatorname{div}(\character{m})+D\geq0
+\]
+if and only if
+\[
+\langle m,u_\rho\rangle+a_\rho\geq0
+\]
+for every ray \(\rho\). This is exactly the condition
+\[
+m\in P_D\cap M.
+\]
+Now apply \cref{prop:global-sections-characters}.
+\end{proof}
+
+The theorem is the first major bridge of this chapter:
+\[
+\boxed{
+\text{global sections}
+\quad\longleftrightarrow\quad
+\text{lattice points in a polyhedron}.
+}
+\]
+
+\begin{example}[The simplex of sections on \(\PP^2\)]
+
+Let
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_2=e_2,
+\]
+and consider
+\[
+D=dD_0,
+\qquad
+d\geq0.
+\]
+For \(m=(a,b)\in M\simeq\ZZ^2\), the inequalities defining \(P_D\)
+are
+\[
+a\geq0,
+\qquad
+b\geq0,
+\qquad
+a+b\leq d.
+\]
+Hence
+\[
+P_D=d\Delta_2
+=
+\Conv\bigl((0,0),(d,0),(0,d)\bigr).
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.88]
+  % Fan
+  \begin{scope}[xshift=-4.6cm]
+    \fill[DictionaryBlue!9]
+      (0,0)--(2.5,0)--(0,2.5)--cycle;
+    \fill[SurfaceGreen!9]
+      (0,0)--(0,2.5)--(-1.8,-1.8)--cycle;
+    \fill[ExampleGold!10]
+      (0,0)--(-1.8,-1.8)--(2.5,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.85,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.85);
+    \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.1,-2.1);
+
+    \node[DictionaryBlue,below] at (2.6,0) {\(u_1=e_1\)};
+    \node[SurfaceGreen,left] at (0,2.6) {\(u_2=e_2\)};
+    \node[ExampleGold,above left] at (-1.9,-1.9)
+      {\(u_0=-e_1-e_2\)};
+
+    \node[fill=DictionaryBlue!12,rounded corners,inner sep=2pt]
+      at (1.0,0.82) {\(a\geq0\)};
+    \node[fill=SurfaceGreen!12,rounded corners,inner sep=2pt]
+      at (-0.55,0.85) {\(b\geq0\)};
+    \node[fill=ExampleGold!14,rounded corners,inner sep=2pt]
+      at (0.78,-0.55) {\(a+b\leq d\)};
+
+    \node[font=\bfseries] at (0.25,3.55)
+      {rays become inequalities};
+  \end{scope}
+
+  % Polytope d=3
+  \begin{scope}[xshift=4.55cm,scale=0.95]
+    \draw[->,black!65] (-0.25,0)--(3.7,0)
+      node[below] {\(a\)};
+    \draw[->,black!65] (0,-0.25)--(0,3.7)
+      node[left] {\(b\)};
+
+    \filldraw[
+      fill=PredictionTeal!13,
+      draw=PredictionTeal,
+      very thick
+    ] (0,0)--(3,0)--(0,3)--cycle;
+
+    \foreach \a in {0,...,3} {
+      \foreach \b in {0,...,3} {
+        \pgfmathtruncatemacro{\s}{\a+\b}
+        \ifnum\s<4
+          \fill (\a,\b) circle (2.2pt);
+        \fi
+      }
+    }
+
+    \node[below left] at (0,0) {\((0,0)\)};
+    \node[below] at (3,0) {\((d,0)\)};
+    \node[left] at (0,3) {\((0,d)\)};
+    \node[rotate=-45,PredictionTeal] at (1.85,1.55)
+      {\(a+b=d\)};
+    \node[font=\bfseries] at (1.45,4.05)
+      {\(P_{dD_0}=d\Delta_2\)};
+    \node[align=center] at (1.55,-0.85)
+      {lattice points for \(d=3\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{For \(D=dD_0\) on \(\PP^2\), each ray contributes one
+inequality. Their intersection is the dilated standard simplex, and
+its lattice points index the degree-\(d\) monomial sections.}
+\label{fig:p2-divisor-polytope-sections}
+\end{figure}
+
+The lattice point \((a,b)\) corresponds to
+\[
+\character{(a,b)}
+=
+\left(\frac{z_1}{z_0}\right)^a
+\left(\frac{z_2}{z_0}\right)^b.
+\]
+As a section of \(\mathcal O_{\PP^2}(dD_0)\), this becomes the
+homogeneous monomial
+\[
+z_0^{d-a-b}z_1^az_2^b.
+\]
+Thus
+\[
+H^0(\PP^2,\mathcal O_{\PP^2}(d))
+\]
+has the familiar basis of homogeneous degree-\(d\) monomials.
+
+\end{example}
+
+\begin{pauseandthink}
+Count the lattice points in \(d\Delta_2\) by grouping them according
+to the value of \(a+b\). Recover
+\[
+h^0(\PP^2,\mathcal O_{\PP^2}(d))
+=
+\binom{d+2}{2}.
+\]
+\end{pauseandthink}
+
+\subsection{Polyhedra need not be bounded}
+
+\begin{example}[The structure sheaf of \(\AAA^2\)]
+For the first-quadrant cone
+\[
+\sigma=\Cone{e_1,e_2},
+\]
+take \(D=0\). Then
+\[
+P_0
+=
+\left\{(a,b)\in\RR^2:a\geq0,\ b\geq0\right\}
+=
+\sigma^\vee.
+\]
+This polyhedron is unbounded, and
+\[
+P_0\cap M=\ZZ_{\geq0}^2.
+\]
+The lattice-point theorem gives
+\[
+H^0(\AAA^2,\mathcal O_{\AAA^2})
+=
+\bigoplus_{a,b\geq0}\Bbbk x^ay^b
+=
+\Bbbk[x,y].
+\]
+The infinitely many lattice points reflect the infinitely many
+regular functions on the affine plane.
+\end{example}
+
+For a general divisor, the recession cone of \(P_D\) is independent
+of the coefficients of \(D\):
+\[
+\operatorname{rec}(P_D)
+=
+\left\{
+ v\in M_\RR:
+ \langle v,u_\rho\rangle\geq0
+ \text{ for every }\rho
+\right\}.
+\]
+It records the directions in which the polyhedron can continue
+forever.
+
+\begin{proposition}[Complete fans give bounded section polyhedra]
+\label{prop:complete-fan-bounded-PD}
+If \(\Sigma\) is complete, then for every torus-invariant Weil divisor
+\(D\):
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(P_D\) is a polytope, possibly empty;
+\item \(H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))\) is finite
+dimensional;
+\item \(H^0(X_\Sigma,\mathcal O_{X_\Sigma})=\Bbbk\).
+\end{enumerate}
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~4.3.8.
+
+\begin{proof}[Conceptual proof sketch]
+A direction \(v\) lies in the recession cone of \(P_D\) precisely when
+\[
+\langle v,u_\rho\rangle\geq0
+\]
+for every ray. If the fan is complete, its cones fill all of
+\(N_\RR\), so the only linear functional nonnegative in every
+direction is \(v=0\). Hence \(P_D\) has no nonzero unbounded
+direction and is therefore bounded.
+
+A bounded polyhedron has finitely many lattice points, giving part
+\textup{(b)}. For \(D=0\), completeness forces
+\[
+P_0=\{0\},
+\]
+so the only global regular functions are constants.
+\end{proof}
+
+\subsection{Blowing up cuts off a corner}
+
+Let
+\[
+\pi:X=\Blp{\PP^2}{p}\longrightarrow\PP^2,
+\qquad
+p=[1:0:0],
+\]
+be the toric blowup. The fan has rays
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_E=e_1+e_2,
+\qquad
+u_2=e_2.
+\]
+Recall that
+\[
+[D_0]=H,
+\qquad
+[E]=E.
+\]
+For integers \(0\leq r\leq d\), choose the invariant representative
+\[
+D=dD_0-rE
+\]
+of the class \(dH-rE\). Its polytope is cut out by
+\[
+a\geq0,
+\qquad
+b\geq0,
+\qquad
+r\leq a+b\leq d.
+\]
+The new ray \(u_E=e_1+e_2\) contributes the new inequality
+\[
+a+b\geq r.
+\]
+
+\begin{prediction}
+Start with the simplex \(d\Delta_2\), whose lattice points represent
+all degree-\(d\) monomials in \(z_0,z_1,z_2\).
+
+Before looking at the next figure, predict which corner should be
+removed when we require the corresponding polynomial to vanish at
+\[
+p=[1:0:0]
+\]
+to order at least \(r\). Which exponent controls that order of
+vanishing?
+\end{prediction}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % Blowup fan
+  \begin{scope}[xshift=-4.6cm]
+    \fill[DictionaryBlue!8]
+      (0,0)--(2.5,0)--(1.25,1.25)--cycle;
+    \fill[PredictionTeal!10]
+      (0,0)--(1.25,1.25)--(0,2.5)--cycle;
+    \fill[SurfaceGreen!8]
+      (0,0)--(0,2.5)--(-1.8,-1.8)--cycle;
+    \fill[ExampleGold!9]
+      (0,0)--(-1.8,-1.8)--(2.5,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.85,0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}]
+      (0,0)--(2.1,2.1);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(0,2.85);
+    \draw[very thick,ExampleGold,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.1,-2.1);
+
+    \node[DictionaryBlue,below] at (2.62,0) {\(u_1\)};
+    \node[PredictionTeal,above right] at (1.88,1.88)
+      {\(u_E=e_1+e_2\)};
+    \node[SurfaceGreen,left] at (0,2.62) {\(u_2\)};
+    \node[ExampleGold,above left] at (-1.9,-1.9) {\(u_0\)};
+
+    \node[fill=PredictionTeal!14,rounded corners,inner sep=2pt]
+      at (1.0,0.72) {new wall: \(a+b\geq r\)};
+    \node[font=\bfseries] at (0.3,3.55)
+      {star subdivision};
+  \end{scope}
+
+  % Truncated triangle d=3 r=1
+  \begin{scope}[xshift=4.55cm,scale=0.95]
+    \draw[->,black!65] (-0.25,0)--(3.7,0)
+      node[below] {\(a\)};
+    \draw[->,black!65] (0,-0.25)--(0,3.7)
+      node[left] {\(b\)};
+
+    \fill[WarningRed!10]
+      (0,0)--(1,0)--(0,1)--cycle;
+    \draw[WarningRed,dashed,very thick]
+      (1,0)--(0,1);
+
+    \filldraw[
+      fill=PredictionTeal!13,
+      draw=PredictionTeal,
+      very thick
+    ] (1,0)--(3,0)--(0,3)--(0,1)--cycle;
+
+    \foreach \a in {0,...,3} {
+      \foreach \b in {0,...,3} {
+        \pgfmathtruncatemacro{\s}{\a+\b}
+        \ifnum\s<4
+          \ifnum\s>0
+            \fill (\a,\b) circle (2.2pt);
+          \fi
+        \fi
+      }
+    }
+
+    \draw[WarningRed,very thick] (0,0) circle (3pt);
+    \node[WarningRed,below left] at (0,0)
+      {removed};
+    \node[PredictionTeal,rotate=-45] at (0.58,0.72)
+      {\(a+b=r\)};
+    \node[PredictionTeal,rotate=-45] at (2.0,1.45)
+      {\(a+b=d\)};
+    \node[font=\bfseries] at (1.5,4.05)
+      {\(P_{dD_0-rE}\)};
+    \node[align=center] at (1.55,-0.85)
+      {shown for \(d=3\), \(r=1\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Blowing up the fixed point inserts the ray \(e_1+e_2\),
+and the coefficient \(-r\) of the exceptional divisor inserts the
+inequality \(a+b\geq r\). In the section polytope, this cuts off the
+corner corresponding to monomials that do not vanish sufficiently at
+the blown-up point.}
+\label{fig:blowup-truncated-section-polytope}
+\end{figure}
+
+The lattice point \((a,b)\) corresponds to
+\[
+z_0^{d-a-b}z_1^az_2^b.
+\]
+At the point \(p=[1:0:0]\), its order of vanishing is
+\[
+a+b.
+\]
+Consequently,
+\[
+H^0\bigl(X,\mathcal O_X(dH-rE)\bigr)
+\]
+has the monomial basis indexed by
+\[
+\left\{
+(a,b)\in\ZZ_{\geq0}^2:
+ r\leq a+b\leq d
+\right\}.
+\]
+The exceptional inequality is therefore the algebraic condition of
+vanishing to order at least \(r\) at the blown-up point.
+
+\begin{surfacelaboratory}
+For \(0\leq r\leq d\), use the truncated simplex to answer the
+following.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute
+\[
+h^0\bigl(X,\mathcal O_X(dH-rE)\bigr)
+\]
+by counting lattice points.
+
+\item Check that your answer equals
+\[
+\binom{d+2}{2}-\binom{r+1}{2}.
+\]
+
+\item Interpret the subtracted term as the number of independent
+conditions imposed by vanishing to order at least \(r\) at one point.
+
+\item Draw the polytopes for \(d=4\) and \(r=0,1,2,3,4\). What
+happens when \(r=d\)?
+\end{enumerate}
+\end{surfacelaboratory}
+
+\begin{guidingquestion}
+The polyhedron \(P_D\) tells us all global sections of
+\(\mathcal O_X(D)\). How can its shape tell whether, at every point of
+\(X_\Sigma\), at least one of those sections is nonzero?
+
+Equivalently, what condition on the support function \(\psi_D\) makes
+\(\mathcal O_X(D)\) generated by its global sections?
+\end{guidingquestion}
+% END INLINED: chapter05-section01-revised-v2.tex
+
+% BEGIN INLINED: chapter05-section02-projective-maps-v2.tex
+\section{Projective maps from lattice points}
+\label{sec:projective-maps-lattice-points}
+\index{projective toric variety}
+\index{projective map!from lattice points}
+\index{very ample divisor}
+\index{ample divisor}
+
+\begin{agcheatsheet}
+Let \(\mathcal L\) be a line bundle on a complete variety \(X\), and
+let
+\[
+V\subseteq H^0(X,\mathcal L)
+\]
+be a finite-dimensional space of global sections.
+
+If the sections in \(V\) have no common zero, then they define a
+morphism
+\[
+\phi_V:X\longrightarrow \PP(V^\vee).
+\]
+After choosing a basis \(s_0,\dots,s_r\) of \(V\), this map is given
+in a local trivialization of \(\mathcal L\) by
+\[
+x\longmapsto [s_0(x):\cdots:s_r(x)].
+\]
+Changing the trivialization multiplies all coordinates by the same
+nonzero scalar, so the point of projective space is well defined.
+
+When
+\[
+V=H^0(X,\mathcal L),
+\]
+this is the map associated to the \emph{complete linear system}.
+
+The line bundle \(\mathcal L\) is \emph{very ample} if its complete
+linear system gives a closed embedding into projective space. It is
+\emph{ample} if some positive tensor power
+\[
+\mathcal L^{\otimes k}
+\]
+is very ample.
+\end{agcheatsheet}
+
+Let \(X_\Sigma\) be a complete toric variety, and let
+\[
+D=\sum_{\rho\in\Sigma(1)} a_\rho D_\rho
+\]
+be a torus-invariant Cartier divisor. By \cref{thm:lattice-points-global-sections},
+its monomial sections are indexed by the lattice points of
+\[
+P_D=
+\left\{
+ m\in M_\RR:
+ \langle m,u_\rho\rangle\geq -a_\rho
+ \text{ for every }\rho
+\right\}.
+\]
+Write
+\[
+P_D\cap M=\{m_0,\dots,m_r\}.
+\]
+
+Each lattice point determines a global section
+\[
+s_i=\character{m_i}s_D,
+\]
+where \(s_D\) is the distinguished rational section from
+\cref{sec:divisor-polyhedra-global-sections}.
+
+\subsection{From sections to a projective map}
+
+If the sections \(s_0,\dots,s_r\) have no common zero, then they give
+a morphism
+\[
+\phi_D:X_\Sigma\longrightarrow \PP^r.
+\]
+On the dense torus, the section \(s_D\) is nowhere zero, so it can be
+cancelled from all homogeneous coordinates. Therefore
+\[
+\phi_D|_T(t)=
+[\character{m_0}(t):\cdots:\character{m_r}(t)].
+\]
+This is the most concrete bridge from lattice points to projective
+geometry: \emph{the exponents become homogeneous coordinates on the
+image}. 
+
+\begin{observation}
+If the whole polytope is translated by one lattice vector
+\(m\in M\), then every exponent becomes \(m_i+m\). On the torus, this
+multiplies every projective coordinate by the common factor
+\(\character{m}(t)\), so the projective map does not change.
+
+Thus the projective map depends only on the affine shape of the set of
+lattice points, not on its absolute position in \(M\).
+\end{observation}
+
+\begin{definition}
+When \(D\) is basepoint free, we write
+\[
+\phi_D:X_\Sigma\longrightarrow \PP^{|P_D\cap M|-1}
+\]
+for the morphism defined by the complete linear system
+\(|D|\).
+\end{definition}
+
+At this stage, the word ``basepoint free'' is just a condition saying
+that \(\phi_D\) is everywhere defined. The next section will explain
+how to detect that condition directly from the support function.
+
+\subsection{Any finite set of lattice points gives a projective toric variety}
+
+The same construction makes sense before a divisor enters the story.
+Let
+\[
+A=\{m_0,\dots,m_r\}\subseteq M
+\]
+be any finite set of lattice points. Define a map on the torus by
+\[
+\phi_A:T\longrightarrow \PP^r,
+\qquad
+\phi_A(t)=
+[\character{m_0}(t):\cdots:\character{m_r}(t)].
+\]
+
+\begin{proposition}[Projective toric varieties from lattice points]
+\label{prop:projective-toric-variety-from-lattice-points}
+Let
+\[
+Y_A=\overline{\phi_A(T)}\subseteq \PP^r.
+\]
+Then \(Y_A\) is a projective toric variety.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the construction in Cox--Little--Schenck, \S7.1.
+
+\begin{proof}[Conceptual proof sketch]
+Let the torus act on \(\PP^r\) diagonally by
+\[
+t\cdot[z_0:\cdots:z_r]
+=
+[\character{m_0}(t)z_0:\cdots:\character{m_r}(t)z_r].
+\]
+Then \(\phi_A(T)\) is precisely the orbit of the point
+\([
+1:\cdots:1
+]\).
+Its closure is therefore a projective variety containing a dense torus
+orbit, so it is a projective toric variety.
+\end{proof}
+
+This proposition says that \emph{projective toric varieties are born
+from finite sets of lattice points}. When \(A=P_D\cap M\), the image
+of \(\phi_D\) is exactly one such variety.
+
+\subsection{The first examples}
+
+\begin{example}[\(\PP^2\) and the Veronese picture]
+Let \(H=D_0\) on \(\PP^2\). From the \(\PP^2\) example in the previous section, the polytope of \(dH\) is
+\[
+P_{dH}=d\Delta_2,
+\]
+whose lattice points are the pairs \((a,b)\) with
+\[
+a,b\geq 0,
+\qquad
+a+b\leq d.
+\]
+The corresponding sections are the degree-\(d\) monomials
+\[
+x_1^ax_2^bx_0^{d-a-b},
+\]
+more conveniently written as
+\[
+x_0^{d-a-b}x_1^ax_2^b.
+\]
+For \(d=1\), the three lattice points of \(\Delta_2\) give the three
+homogeneous coordinates, and
+\[
+\phi_H:\PP^2\longrightarrow \PP^2
+\]
+is the identity map.
+
+For general \(d\), the lattice points of \(d\Delta_2\) give the
+\(d\)-th Veronese map
+\[
+\PP^2\longrightarrow \PP^{\binom{d+2}{2}-1}.
+\]
+Thus dilating the triangle produces the familiar projective embedding
+by degree-\(d\) plane curves.
+\end{example}
+
+\begin{example}[A blowup map from a truncated triangle]
+On
+\[
+X=\Blp{\PP^2}{p},
+\]
+consider
+\[
+D=2H-E.
+\]
+From \cref{fig:blowup-truncated-section-polytope},
+\[
+P_D=
+\left\{
+(a,b)\in\RR^2:
+ a,b\geq 0,
+ 1\leq a+b\leq 2
+\right\}.
+\]
+Its lattice points are
+\[
+(1,0),\ (2,0),\ (1,1),\ (0,2),\ (0,1).
+\]
+Hence the complete linear system of \(2H-E\) gives a map
+\[
+\phi_{2H-E}:X\longrightarrow \PP^4.
+\]
+On the torus, it is the monomial map
+\[
+(t_1,t_2)
+\longmapsto
+[t_1:t_1^2:t_1t_2:t_2^2:t_2].
+\]
+Compared with the full triangle for \(2H\), the missing lattice point
+\((0,0)\) reflects the vanishing condition imposed at the blown-up
+point.
+\end{example}
+
+\begin{pauseandthink}
+What happens if one starts with a finite subset
+\[
+A\subseteq M
+\]
+that is \emph{not} the whole set of lattice points of its convex hull?
+Do you expect the orbit closure \(Y_A\) to remember only the convex
+hull, or the actual chosen set \(A\)?
+\end{pauseandthink}
+
+\subsection{Very ample versus ample}
+
+The map \(\phi_D\) packages all sections of \(\mathcal O(D)\) at once.
+There are then three increasingly strong possibilities:
+
+\begin{itemize}
+\item The sections may fail to define a morphism everywhere. Then
+\(D\) is not basepoint free.
+
+\item The sections may define a morphism
+\[
+\phi_D:X_\Sigma\to \PP^r,
+\]
+but different points or tangent directions may still map together.
+
+\item The sections may give a closed embedding. Then \(D\) is very
+ample.
+\end{itemize}
+
+Ampleness means that this last outcome occurs after replacing \(D\) by
+a sufficiently large positive multiple.
+
+So the natural questions become:
+\begin{quote}
+Can we tell from the support function whether \(\phi_D\) is defined
+everywhere? Can we tell when it is an embedding, or becomes one after
+scaling?
+\end{quote}
+Those are precisely the positivity questions answered by convexity and
+strict convexity.
+
+\begin{guidingquestion}
+In \cref{lem:section-nonzero-fixed-point}, each maximal cone \(\sigma\)
+had a distinguished exponent \(m_\sigma\). Why should the condition
+\[
+m_\sigma\in P_D
+\]
+mean that the complete linear system has no basepoint at the fixed
+point \(x_\sigma\)?
+
+And if two neighboring maximal cones have the same distinguished
+exponent, what failure of separation should you expect for the map
+\(\phi_D\)?
+\end{guidingquestion}
+% END INLINED: chapter05-section02-projective-maps-v2.tex
+
+% BEGIN INLINED: chapter05-section03-convexity-positivity-v4.tex
+\section{Convexity and positivity}
+\label{sec:convexity-positivity}
+\index{basepoint-free divisor}
+\index{support function!convexity}
+\index{support function!strict convexity}
+\index{ampleness criterion}
+
+The previous section attached to a basepoint-free divisor a projective
+morphism
+\[
+\phi_D:X_\Sigma\longrightarrow \PP(H^0(X_\Sigma,\mathcal O(D))^\vee).
+\]
+We now ask how to recognize this situation directly from the fan.
+The answer is encoded by the support function. Convexity will tell us
+when the map is defined everywhere, and strict convexity will tell us
+when the associated projective geometry is positive enough to produce
+an embedding after taking multiples.
+
+\begin{agcheatsheet}
+Let \(\mathcal L\) be a line bundle on a complete variety \(X\).
+
+A point \(p\in X\) is a \emph{basepoint} of \(\mathcal L\) if every
+section in
+\[
+H^0(X,\mathcal L)
+\]
+vanishes at \(p\). Equivalently, the evaluation map
+\[
+H^0(X,\mathcal L)\longrightarrow \mathcal L|_p
+\]
+is zero.
+
+The line bundle is \emph{generated by global sections}, or
+\emph{basepoint free}, if it has no basepoints. This means that near
+every point one can find a global section that serves as a local
+frame.
+
+It is \emph{very ample} if the complete linear system gives a closed
+embedding into projective space. It is \emph{ample} if some positive
+tensor power is very ample.
+\end{agcheatsheet}
+
+Throughout this section, \(\Sigma\) is a complete fan and
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+is a torus-invariant Cartier divisor. Write
+\[
+\{m_\sigma\}_{\sigma\in\Sigma(n)}
+\]
+for its Cartier data and
+\[
+\psi_D:|\Sigma|\longrightarrow\RR
+\]
+for its support function.
+
+\subsection{The distinguished section on an affine chart}
+
+Let \(\sigma\in\Sigma(n)\). Since
+\[
+\langle m_\sigma,u_\rho\rangle=-a_\rho
+\qquad
+(\rho\in\sigma(1)),
+\]
+the rational function \(\character{m_\sigma}\) is a local frame of
+\(\mathcal O_{X_\Sigma}(D)\) on \(U_\sigma\). Indeed,
+\[
+\operatorname{div}(\character{m_\sigma})+D
+\]
+has coefficient zero along every boundary divisor that meets the
+closed orbit of \(U_\sigma\).
+
+For any lattice point \(m\in P_D\cap M\), the corresponding section
+can be written on this chart as
+\[
+\character{m}
+=
+\character{m-m_\sigma}\character{m_\sigma}.
+\]
+The first factor is regular on \(U_\sigma\), because
+\[
+m-m_\sigma\in\sigma^\vee.
+\]
+
+\begin{lemma}[The section that does not vanish at a fixed point]
+\label{lem:section-nonzero-fixed-point}
+Let \(x_\sigma=O(\sigma)\) be the torus fixed point corresponding to a
+maximal cone \(\sigma\). A monomial section \(\character{m}\), with
+\(m\in P_D\cap M\), is nonzero at \(x_\sigma\) if and only if
+\[
+m=m_\sigma.
+\]
+Consequently, \(x_\sigma\) is not a basepoint if and only if
+\[
+m_\sigma\in P_D.
+\]
+\end{lemma}
+
+\begin{proof}
+Relative to the local frame \(\character{m_\sigma}\), the section is
+the regular monomial
+\[
+\character{m-m_\sigma}\in\Bbbk[\sigma^\vee\cap M].
+\]
+At the distinguished point \(x_\sigma\), a monomial is nonzero only
+when its exponent lies in
+\[
+\sigma^\perp\cap M.
+\]
+Since \(\sigma\) is full dimensional, this group is zero. Hence the
+section is nonzero precisely when
+\[
+m-m_\sigma=0.
+\]
+\end{proof}
+
+This lemma gives a useful interpretation of the Cartier datum:
+\[
+\boxed{
+ m_\sigma
+ \text{ is the exponent of the monomial section that should
+ trivialize }\mathcal O(D)\text{ on }U_\sigma.
+}
+\]
+The only question is whether that exponent actually lies in \(P_D\),
+so that the local frame extends to a global section.
+
+\subsection{Convex support functions and global generation}
+
+\begin{definition}[Convexity in the toric convention]
+\label{def:toric-convex-support-function}
+The support function \(\psi_D\) is \emph{convex} if, for every maximal
+cone \(\sigma\),
+\[
+\psi_D(u)\leq\langle m_\sigma,u\rangle
+\qquad
+\text{for every }u\in N_\RR.
+\]
+Equivalently,
+\[
+\psi_D(u)
+=
+\min_{\sigma\in\Sigma(n)}
+\langle m_\sigma,u\rangle.
+\]
+\end{definition}
+
+Each linear piece agrees with \(\psi_D\) on its own cone. Convexity
+says that when this piece is extended across all of \(N_\RR\), the
+graph of \(\psi_D\) never rises above it.
+
+\begin{warningbox}
+Because \(\psi_D\) is written as a \emph{minimum} of linear
+functions, some books on convex analysis would call it concave or
+upper convex. We follow the standard toric convention used by
+Cox--Little--Schenck: this condition is called convex.
+\end{warningbox}
+
+\begin{theorem}[Basepoint freeness equals convexity]
+\label{thm:basepoint-free-convex}
+The following conditions are equivalent:
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(D\) is basepoint free.
+
+\item
+\[
+m_\sigma\in P_D
+\qquad
+\text{for every }\sigma\in\Sigma(n).
+\]
+
+\item
+\[
+\psi_D(u)
+=
+\min_{\sigma\in\Sigma(n)}
+\langle m_\sigma,u\rangle
+\qquad
+\text{for every }u\in N_\RR.
+\]
+
+\item The support function \(\psi_D\) is convex.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~6.1.7.
+
+\begin{proof}
+Suppose first that every \(m_\sigma\) lies in \(P_D\). By
+\cref{thm:lattice-points-global-sections},
+\(\character{m_\sigma}\) is a global section. It is a local frame on
+\(U_\sigma\), so these sections generate \(\mathcal O(D)\) on the
+affine cover
+\[
+X_\Sigma=\bigcup_{\sigma\in\Sigma(n)}U_\sigma.
+\]
+Thus \textup{(b)} implies \textup{(a)}.
+
+Conversely, suppose \(D\) is basepoint free. At the fixed point
+\(x_\sigma\), some global section is nonzero. Decomposing that section
+into its monomial weight components, at least one monomial section is
+nonzero there. By \cref{lem:section-nonzero-fixed-point}, its exponent
+must be \(m_\sigma\). Hence \(m_\sigma\in P_D\), proving
+\textup{(a)} implies \textup{(b)}.
+
+Now fix maximal cones \(\sigma,\tau\), and let \(u\in\tau\). If
+\(m_\sigma\in P_D\), then the inequalities defining \(P_D\) imply
+\[
+\langle m_\sigma,u\rangle
+\geq
+\langle m_\tau,u\rangle
+=
+\psi_D(u).
+\]
+Since equality holds when \(u\in\sigma\), this is equivalent to
+\[
+\psi_D(u)=\min_\sigma\langle m_\sigma,u\rangle.
+\]
+Thus \textup{(b)}, \textup{(c)}, and \textup{(d)} are equivalent.
+\end{proof}
+
+The theorem turns a local geometric question into the shape of one
+piecewise-linear function:
+\[
+\boxed{
+\mathcal O(D)\text{ is globally generated}
+\quad\Longleftrightarrow\quad
+\psi_D\text{ bends convexly across every wall.}
+}
+\]
+
+\begin{observation}
+There is also a numerical name for this condition. A Cartier divisor
+is \emph{nef} if
+\[
+D\cdot C\geq0
+\]
+for every complete curve \(C\). On a toric variety, a Cartier divisor
+is nef exactly when it is basepoint free; it is enough to test the
+torus-invariant complete curves.
+
+This is Cox--Little--Schenck, Theorem~6.3.12. No intersection theory
+is needed for the arguments in this section, so this terminology may
+be viewed as an optional preview.
+\end{observation}
+
+\subsection{Strict convexity and ampleness}
+
+Convexity allows two adjacent maximal cones to carry the same linear
+piece. Geometrically, the support function then fails to notice the
+wall between them, and the projective map from the previous section
+cannot separate the geometry on the two sides. Ampleness requires a
+genuine bend at every wall.
+
+\begin{definition}[Strict convexity]
+\label{def:strictly-convex-support-function}
+A convex support function \(\psi_D\) is \emph{strictly convex} if, for
+every maximal cone \(\sigma\),
+\[
+\psi_D(u)=\langle m_\sigma,u\rangle
+\quad\Longleftrightarrow\quad
+ u\in\sigma.
+\]
+Equivalently, neighboring maximal cones have different Cartier data:
+\[
+m_\sigma\neq m_{\sigma'}
+\]
+whenever \(\sigma\) and \(\sigma'\) meet along a wall.
+\end{definition}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  % Convex but not strict
+  \begin{scope}[xshift=-4.4cm]
+    \draw[->,black!60] (-2.85,0)--(2.85,0) node[below right] {slice};
+    \draw[->,black!60] (0,-1.55)--(0,2.15)
+      node[right] {\(\psi\)};
+
+    \foreach \x in {-1.2,0,1.2} {
+      \draw[black!35,dashed] (\x,-1.25)--(\x,1.85);
+      \node[black!55,below] at (\x,-1.25) {wall};
+    }
+
+    \draw[very thick,DictionaryBlue]
+      (-2.5,-0.9)--(-1.2,0.55)--(1.2,0.55)--(2.5,-0.9);
+
+    \node[fill=DictionaryBlue!10,rounded corners,inner sep=2pt]
+      at (0,1.25) {one linear piece crosses the middle wall};
+    \node[font=\bfseries] at (0,2.55)
+      {convex, not strict};
+    \node[align=center] at (0,-2.05)
+      {the map is defined,\\but one wall is invisible};
+  \end{scope}
+
+  % Strictly convex
+  \begin{scope}[xshift=4.4cm]
+    \draw[->,black!60] (-2.85,0)--(2.85,0) node[below right] {slice};
+    \draw[->,black!60] (0,-1.55)--(0,2.15)
+      node[right] {\(\psi\)};
+
+    \foreach \x in {-1.2,0,1.2} {
+      \draw[black!35,dashed] (\x,-1.25)--(\x,1.85);
+      \node[black!55,below] at (\x,-1.25) {wall};
+    }
+
+    \draw[very thick,PredictionTeal]
+      (-2.5,-0.95)--(-1.2,0.35)--(0,1.1)--(1.2,0.35)--(2.5,-0.95);
+
+    \node[fill=PredictionTeal!10,rounded corners,inner sep=2pt]
+      at (0,1.65) {a bend occurs at every wall};
+    \node[font=\bfseries] at (0,2.55)
+      {strictly convex};
+    \node[align=center] at (0,-2.05)
+      {each wall changes the slope,\\so no wall is forgotten};
+  \end{scope}
+\end{tikzpicture}
+\caption{A transverse slice through the graph of a support function.
+Both panels use the same three walls. On the left, the middle wall is
+invisible to the support function because one linear piece continues
+straight across it. On the right, the slope changes at every wall.}
+\label{fig:convex-versus-strict-support}
+\end{figure}
+
+\begin{theorem}[Ampleness equals strict convexity]
+\label{thm:ample-strictly-convex}
+Let \(D\) be a torus-invariant Cartier divisor on the complete toric
+variety \(X_\Sigma\). Then
+\[
+\boxed{
+D\text{ is ample}
+\quad\Longleftrightarrow\quad
+\psi_D\text{ is strictly convex}.
+}
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~6.1.14.
+
+\begin{proof}[Conceptual proof sketch]
+If a positive multiple of \(D\) gives an embedding, then the resulting
+projective map must separate the torus-invariant curve attached to
+any wall. If two neighboring maximal cones had the same Cartier
+datum, the corresponding support function would fail to bend at that
+wall, and the linear system would not detect that invariant curve.
+Thus ampleness forces a genuine change of slope everywhere.
+
+Conversely, strict convexity ensures that different maximal cones have
+different Cartier data, so the polytope has enough distinct vertices
+to encode the fan faithfully. The projective map attached to a large
+multiple of \(D\) then separates the toric strata, and one obtains a
+closed embedding. The complete proof is given in the cited theorem.
+\end{proof}
+
+\begin{corollary}[Projectivity criterion]
+\label{cor:projective-strict-support-function}
+A complete toric variety \(X_\Sigma\) is projective if and only if its
+fan admits an integral strictly convex support function.
+\end{corollary}
+
+This criterion is easy to state but powerful: completeness is visible
+from whether the cones cover \(N_\RR\), while projectivity requires a
+compatible strictly convex shape on those cones.
+
+\subsection{Surface laboratory: the positivity interval on a blowup}
+
+Let
+\[
+X=\Blp{\PP^2}{p}
+\]
+and consider
+\[
+D=dD_0-rE
+\]
+with \(d>0\) and \(0\leq r\leq d\). As in
+\cref{fig:blowup-truncated-section-polytope},
+\[
+P_D
+=
+\left\{
+(a,b)\in\RR^2:
+ a,b\geq0,\quad r\leq a+b\leq d
+\right\}.
+\]
+
+For the four maximal cones, the Cartier data are
+\[
+(0,d),
+\qquad
+(0,r),
+\qquad
+(r,0),
+\qquad
+(d,0).
+\]
+Each lies in \(P_D\), so \(D\) is basepoint free throughout the range
+\[
+0\leq r\leq d.
+\]
+They are distinct exactly when
+\[
+0<r<d.
+\]
+Therefore
+\[
+\boxed{
+ dH-rE\text{ is basepoint free for }0\leq r\leq d,
+ \qquad
+ dH-rE\text{ is ample for }0<r<d.
+}
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.82]
+  % 2H
+  \begin{scope}[xshift=-5.2cm]
+    \draw[->,black!60] (-0.35,0)--(2.65,0) node[below] {\(a\)};
+    \draw[->,black!60] (0,-0.35)--(0,2.65) node[left] {\(b\)};
+    \filldraw[fill=DictionaryBlue!13,draw=DictionaryBlue,very thick]
+      (0,0)--(2,0)--(0,2)--cycle;
+    \draw[WarningRed,dashed,very thick] (-0.3,0.3)--(0.3,-0.3);
+    \fill (0,0) circle (2.3pt);
+    \fill (2,0) circle (2.3pt);
+    \fill (0,2) circle (2.3pt);
+    \node[WarningRed,fill=white,inner sep=1pt,anchor=east] at (-0.08,0.78)
+      {redundant wall};
+    \draw[WarningRed,->,thick] (-0.14,0.67)--(-0.02,0.09);
+    \node[font=\bfseries] at (0.95,3.05) {\(2H\)};
+    \node[align=center,font=\small] at (0.95,-0.68)
+      {convex, not strict};
+  \end{scope}
+
+  % 2H-E
+  \begin{scope}
+    \draw[->,black!60] (-0.2,0)--(2.65,0) node[below] {\(a\)};
+    \draw[->,black!60] (0,-0.2)--(0,2.65) node[left] {\(b\)};
+    \filldraw[fill=PredictionTeal!14,draw=PredictionTeal,very thick]
+      (1,0)--(2,0)--(0,2)--(0,1)--cycle;
+    \foreach \p in {(1,0),(2,0),(0,2),(0,1)} {
+      \fill \p circle (2.3pt);
+    }
+    \draw[PredictionTeal,very thick]
+      (1,0)--(0,1)
+      node[midway,above,sloped,fill=white,inner sep=1pt,text=PredictionTeal,yshift=5pt]
+      {new active wall};
+    \node[font=\bfseries] at (0.95,3.05) {\(2H-E\)};
+    \node[align=center,font=\small] at (0.95,-0.68)
+      {strictly convex};
+  \end{scope}
+
+  % 2H-2E
+  \begin{scope}[xshift=5.2cm]
+    \draw[->,black!60] (-0.2,0)--(2.65,0) node[below] {\(a\)};
+    \draw[->,black!60] (0,-0.2)--(0,2.65) node[left] {\(b\)};
+    \draw[SurfaceGreen,very thick,line width=2.5pt]
+      (2,0)--(0,2)
+      node[midway,above,sloped,fill=white,inner sep=1pt,text=SurfaceGreen,yshift=5pt]
+      {\(a+b=2\)};
+    \fill (2,0) circle (2.3pt);
+    \fill (0,2) circle (2.3pt);
+    \node[font=\bfseries] at (0.95,3.05) {\(2H-2E\)};
+    \node[align=center,font=\small] at (0.95,-0.68)
+      {convex, not strict};
+  \end{scope}
+\end{tikzpicture}
+\caption{Positivity for divisors \(dH-rE\) on the blowup. For
+\(2H\), the exceptional wall is redundant. For \(2H-E\), the new wall
+is active and all four Cartier data are distinct. For \(2H-2E\), the
+polytope collapses to a segment.}
+\label{fig:blowup-convexity-positivity}
+\end{figure}
+
+The two boundary cases fail strict convexity for different visible
+reasons:
+
+\begin{itemize}
+\item When \(r=0\), the inequality from the exceptional ray is
+redundant. The support function does not bend along the newly inserted
+wall.
+
+\item When \(r=d\), the polytope loses dimension. The linear system
+remembers only the pencil of lines through the blown-up point.
+\end{itemize}
+
+\begin{pauseandthink}
+On \(\PP^1\times\PP^1\), show that the polytope of
+\(aF_1+bF_2\) is a rectangle with side lengths \(a\) and \(b\).
+Use its shape to determine when the divisor is basepoint free and when
+it is ample. What collapses when one coefficient is zero?
+\end{pauseandthink}
+
+For a basepoint-free divisor, the Cartier data lie in \(P_D\). When
+different maximal cones have the same Cartier datum, the polytope
+forgets the wall between them. Strict convexity is exactly the
+condition that no wall is forgotten.
+
+\begin{threedictionaries}
+At this point, the three descriptions of positivity line up.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\character{m_\sigma}\) extends to a global section
+&
+\(x_\sigma\) is not a basepoint
+&
+\(m_\sigma\in P_D\cap M\)
+\\[1mm]
+global sections generate \(\mathcal O(D)\)
+&
+\(\phi_D\) is defined everywhere
+&
+\(\psi_D\) is convex
+\\[1mm]
+sections of \(kD\) separate toric strata for \(k\gg0\)
+&
+\(D\) is ample
+&
+\(\psi_D\) is strictly convex
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\[
+\boxed{
+\text{convexity makes the map exist;\quad
+strict convexity makes it eventually embed.}
+}
+\]
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Given a polytope \(P\subseteq M_\RR\), how can one construct a fan in
+\(N_\RR\) from the directions in which each face of \(P\) is
+minimized?
+
+For a basepoint-free divisor \(D\), how does that fan compare with the
+original fan \(\Sigma\), and why does strict convexity force the two
+fans to agree?
+\end{guidingquestion}
+% END INLINED: chapter05-section03-convexity-positivity-v4.tex
+
+% BEGIN INLINED: chapter05-section04-complete.tex
+\section{Polytopes and normal fans}
+\label{sec:polytopes-normal-fans}
+\index{normal cone}
+\index{normal fan}
+\index{polytope!faces}
+\index{contraction!from a normal fan}
+
+A polytope does more than provide lattice points for projective
+coordinates. It also remembers a fan.
+
+The guiding idea is simple. Choose a direction
+\[
+u\in N_\RR.
+\]
+The linear function
+\[
+m\longmapsto\langle m,u\rangle
+\]
+reaches its minimum on a face of the polytope. Directions that select
+the same face form a cone. As the face changes, these cones fit
+together into the \emph{normal fan}.
+
+\subsection{Which face does a direction see?}
+
+Let \(P\subseteq M_\RR\) be a full-dimensional lattice polytope. For
+\(u\in N_\RR\), define the minimizing face
+\[
+\operatorname{face}_u(P)
+=
+\left\{
+ m\in P:
+ \langle m,u\rangle
+ =
+ \min_{p\in P}\langle p,u\rangle
+\right\}.
+\]
+
+The vector \(u\) should be thought of as an inward-pointing normal:
+it pushes a supporting hyperplane toward \(P\) until that hyperplane
+first meets the polytope.
+
+\begin{definition}[Normal cone]
+\label{def:normal-cone-face}
+Let \(Q\preceq P\) be a face. The \emph{normal cone} of \(P\) along
+\(Q\) is
+\[
+\sigma_Q
+=
+\left\{
+ u\in N_\RR:
+ Q\subseteq\operatorname{face}_u(P)
+\right\}.
+\]
+Equivalently, \(u\in\sigma_Q\) precisely when
+\[
+\langle q,u\rangle
+\leq
+\langle p,u\rangle
+\qquad
+\text{for every }q\in Q,
+p\in P.
+\]
+\end{definition}
+
+The relative interior has the sharper interpretation
+\[
+u\in\relint(\sigma_Q)
+\quad\Longleftrightarrow\quad
+\operatorname{face}_u(P)=Q.
+\]
+Thus the closed cone allows a larger minimizing face, while its
+relative interior remembers exactly \(Q\).
+
+Suppose the facets of \(P\) have equations
+\[
+P
+=
+\left\{
+ m\in M_\RR:
+ \langle m,u_F\rangle\geq-a_F
+ \text{ for every facet }F
+\right\},
+\]
+where \(u_F\in N\) is the primitive inward normal to \(F\). Then
+\[
+\boxed{
+\sigma_Q
+=
+\Cone{u_F:Q\subseteq F}.
+}
+\]
+In particular:
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+\text{facet }F
+&
+\text{ray }\Cone{u_F},
+\\[1mm]
+\text{vertex }v
+&
+\text{maximal cone generated by the normals at }v.
+\end{array}
+\]
+
+\subsection{The normal fan}
+
+\begin{theorem}[Faces assemble into a fan]
+\label{thm:normal-fan-polytope}
+Let \(P\subseteq M_\RR\) be a full-dimensional lattice polytope. Then
+\[
+\Sigma_P
+=
+\{\sigma_Q:Q\preceq P\}
+\]
+is a complete fan in \(N_\RR\), called the \emph{normal fan} of
+\(P\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~2.3.2; see also
+Proposition~6.2.3.
+
+\begin{proof}[Conceptual proof sketch]
+If \(Q\subseteq Q'\), then every supporting direction that minimizes
+on \(Q'\) also minimizes on \(Q\). Hence inclusions reverse:
+\[
+Q\subseteq Q'
+\quad\Longrightarrow\quad
+\sigma_{Q'}\preceq\sigma_Q.
+\]
+The faces of a normal cone therefore come from larger faces of the
+polytope.
+
+For two faces \(Q,Q'\), the intersection
+\[
+\sigma_Q\cap\sigma_{Q'}
+\]
+consists of directions minimizing on both. This is the normal cone of
+the smallest face containing \(Q\) and \(Q'\), so the intersection is
+a face of each cone.
+
+Finally, every \(u\in N_\RR\) minimizes somewhere on the compact
+polytope \(P\). Therefore \(u\) lies in the normal cone of its
+minimizing face, proving completeness.
+\end{proof}
+
+The face--cone correspondence reverses dimensions and inclusions:
+\[
+\boxed{
+\dim Q+\dim\sigma_Q=\dim P.
+}
+\]
+For a polygon, this gives the compact dictionary
+\[
+\begin{array}{c|c}
+\text{face of }P
+&
+\text{cone of }\Sigma_P
+\\
+\hline
+\text{vertex}
+&
+\text{two-dimensional cone}
+\\
+\text{edge}
+&
+\text{ray}
+\\
+P
+&
+\{0\}.
+\end{array}
+\]
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture}[scale=0.78]
+  % Polytope
+  \begin{scope}[xshift=-4.8cm]
+    \draw[->,black!55] (-0.3,0)--(3.1,0) node[below] {\(a\)};
+    \draw[->,black!55] (0,-0.3)--(0,3.1) node[left] {\(b\)};
+
+    \filldraw[fill=PredictionTeal!10,draw=black!75,very thick]
+      (1,0)--(2,0)--(0,2)--(0,1)--cycle;
+
+    \draw[very thick,SurfaceGreen]
+      (1,0)--(2,0)
+      node[midway,above=3pt,text=SurfaceGreen] {\(e_2\)};
+    \draw[very thick,ExampleGold]
+      (2,0)--(0,2)
+      node[midway,above=4pt,sloped,text=ExampleGold] {\(-e_1-e_2\)};
+    \draw[very thick,DictionaryBlue]
+      (0,2)--(0,1)
+      node[midway,left=5pt,text=DictionaryBlue] {\(e_1\)};
+    \draw[very thick,PredictionTeal]
+      (0,1)--(1,0)
+      node[midway,below=4pt,sloped,text=PredictionTeal] {\(e_1+e_2\)};
+
+    \foreach \p in {(1,0),(2,0),(0,2),(0,1)} {
+      \fill \p circle (2.2pt);
+    }
+
+    \node[font=\bfseries] at (1.1,3.55)
+      {the polytope \(P_{2H-E}\)};
+    \node[align=center,font=\small] at (1.1,-1.05)
+      {each edge contributes\\its inward normal};
+  \end{scope}
+
+  % Normal fan
+  \begin{scope}[xshift=4.6cm]
+    \fill[DictionaryBlue!9]
+      (0,0)--(2.6,0)--(1.75,1.75)--cycle;
+    \fill[PredictionTeal!9]
+      (0,0)--(1.75,1.75)--(0,2.6)--cycle;
+    \fill[SurfaceGreen!9]
+      (0,0)--(0,2.6)--(-1.85,-1.85)--cycle;
+    \fill[ExampleGold!10]
+      (0,0)--(-1.85,-1.85)--(2.6,0)--cycle;
+
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.2mm]}]
+      (0,0)--(2.95,0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(2.2,2.2);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.2mm]}]
+      (0,0)--(0,2.95);
+    \draw[very thick,ExampleGold,-{Latex[length=2.2mm]}]
+      (0,0)--(-2.15,-2.15);
+
+    \node[DictionaryBlue,below] at (2.7,0) {\(e_1\)};
+    \node[PredictionTeal,above right] at (1.95,1.95)
+      {\(e_1+e_2\)};
+    \node[SurfaceGreen,left] at (0,2.7) {\(e_2\)};
+    \node[ExampleGold,above left] at (-1.95,-1.95)
+      {\(-e_1-e_2\)};
+
+    \node[font=\bfseries] at (0.35,3.55)
+      {the normal fan \(\Sigma_P\)};
+    \node[align=center,font=\small] at (0.35,-2.75)
+      {the normals are reassembled\\at the origin};
+  \end{scope}
+\end{tikzpicture}
+\caption{The truncated triangle for \(2H-E\) and its normal fan. Each
+edge contributes its primitive inward normal. At a vertex, the normals
+of the two incident edges generate the corresponding maximal cone.}
+\label{fig:truncated-triangle-normal-fan}
+\end{figure}
+
+\begin{prediction}
+Before looking at the assembled fan, focus on the vertex \((1,0)\).
+Which two inward facet normals should generate its normal cone?
+
+Choose a vector in the interior of your predicted cone and determine
+where its linear function is minimized on \(P\). Then compare your
+answer with \cref{fig:truncated-triangle-normal-fan}.
+\end{prediction}
+
+\subsection{What changes the normal fan?}
+
+The normal fan records directions, not lengths or absolute position.
+Consequently:
+
+\begin{itemize}
+\item translating \(P\) by a vector does not change \(\Sigma_P\);
+
+\item multiplying \(P\) by a positive scalar does not change
+\(\Sigma_P\);
+
+\item changing an edge length without changing the directions of the
+facets often preserves the same normal fan.
+\end{itemize}
+
+For example, every axis-parallel rectangle has the normal fan of
+\[
+\PP^1\times\PP^1,
+\]
+and every positive dilation of the standard triangle has the normal
+fan of \(\PP^2\).
+
+The normal fan changes when a facet disappears, a new facet becomes
+active, or the polytope loses dimension. These are exactly the
+phenomena visible in \cref{fig:blowup-convexity-positivity}.
+
+\subsection{The normal fan of a divisor polytope}
+
+Let \(D\) be a basepoint-free torus-invariant Cartier divisor on a
+complete toric variety \(X_\Sigma\). Its Cartier data
+\[
+\{m_\sigma\}_{\sigma\in\Sigma(n)}
+\]
+lie in \(P_D\), and the distinct values among them are precisely the
+vertices of \(P_D\).
+
+\begin{theorem}[The fan remembered by a divisor]
+\label{thm:normal-fan-divisor-polytope}
+Let \(D\) be basepoint free. For every vertex \(v\) of \(P_D\), the
+corresponding maximal cone of the normal fan is
+\[
+\sigma_v
+=
+\bigcup_{\substack{\sigma\in\Sigma(n)\\m_\sigma=v}}
+\sigma.
+\]
+Consequently,
+\[
+\boxed{
+\Sigma\text{ refines }\Sigma_{P_D}.
+}
+\]
+In words: the normal fan of \(P_D\) is obtained by gluing together all
+maximal cones that carry the same Cartier datum.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~6.2.5.
+
+\begin{proof}[Conceptual proof sketch]
+For \(u\in\sigma\), convexity gives
+\[
+\psi_D(u)
+=
+\langle m_\sigma,u\rangle
+=
+\min_{m\in P_D}\langle m,u\rangle.
+\]
+Thus every direction in \(\sigma\) sees the Cartier datum
+\(m_\sigma\) as a minimizing vertex of \(P_D\). If several adjacent
+cones have the same datum, their union belongs to one normal cone.
+If the data differ, the minimizing vertex changes, so one has crossed
+a wall of the normal fan.
+\end{proof}
+
+Combining this theorem with strict convexity gives
+\[
+\boxed{
+\begin{aligned}
+D\text{ basepoint free}
+&\Longrightarrow
+\Sigma\text{ refines }\Sigma_{P_D},
+\\[1mm]
+D\text{ ample}
+&\Longleftrightarrow
+\Sigma=\Sigma_{P_D}.
+\end{aligned}
+}
+\]
+Strict convexity means that neighboring maximal cones never share the
+same Cartier datum, so no wall is glued away.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.83]
+  % 2H normal fan
+  \begin{scope}[xshift=-5.2cm]
+    \fill[DictionaryBlue!8] (0,0)--(2.2,0)--(0,2.2)--cycle;
+    \fill[SurfaceGreen!8] (0,0)--(0,2.2)--(-1.6,-1.6)--cycle;
+    \fill[ExampleGold!9] (0,0)--(-1.6,-1.6)--(2.2,0)--cycle;
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(2.55,0);
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(0,2.55);
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(-1.9,-1.9);
+    \draw[WarningRed,dashed,very thick,-{Latex[length=2mm]}]
+      (0,0)--(1.75,1.75);
+    \node[WarningRed,above right] at (1.5,1.5) {forgotten ray};
+    \node[font=\bfseries] at (0.25,3.05) {\(2H\)};
+    \node[align=center,font=\small] at (0.25,-2.45)
+      {normal fan of a triangle\\the exceptional wall is glued away};
+  \end{scope}
+
+  % 2H-E normal fan
+  \begin{scope}
+    \fill[DictionaryBlue!8]
+      (0,0)--(2.2,0)--(1.5,1.5)--cycle;
+    \fill[PredictionTeal!9]
+      (0,0)--(1.5,1.5)--(0,2.2)--cycle;
+    \fill[SurfaceGreen!8]
+      (0,0)--(0,2.2)--(-1.6,-1.6)--cycle;
+    \fill[ExampleGold!9]
+      (0,0)--(-1.6,-1.6)--(2.2,0)--cycle;
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(2.55,0);
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(1.9,1.9);
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(0,2.55);
+    \draw[very thick,-{Latex[length=2mm]}] (0,0)--(-1.9,-1.9);
+    \node[font=\bfseries] at (0.25,3.05) {\(2H-E\)};
+    \node[align=center,font=\small] at (0.25,-2.45)
+      {the normal fan equals\\the blowup fan};
+  \end{scope}
+
+  % 2H-2E generalized normal fan
+  \begin{scope}[xshift=5.2cm]
+    \fill[SurfaceGreen!10]
+      (-2.2,-2.2)--(2.2,2.2)--(2.2,-2.2)--cycle;
+    \fill[ExampleGold!10]
+      (-2.2,-2.2)--(2.2,2.2)--(-2.2,2.2)--cycle;
+    \draw[very thick,PredictionTeal]
+      (-2.35,-2.35)--(2.35,2.35);
+    \draw[->,black!55] (-2.6,0)--(2.6,0);
+    \draw[->,black!55] (0,-2.6)--(0,2.6);
+    \node[PredictionTeal,rotate=45,fill=white,inner sep=1pt]
+      at (1.25,1.4) {common lineality};
+    \node[font=\bfseries] at (0.25,3.05) {\(2H-2E\)};
+    \node[align=center,font=\small] at (0.25,-3.0)
+      {a segment gives two half-planes;\\after quotienting, the fan is that of \(\PP^1\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The normal fans associated to the three polytopes in
+\cref{fig:blowup-convexity-positivity}. A redundant inequality glues
+away the exceptional wall; an active facet remembers it; a
+one-dimensional polytope produces a degenerate normal fan with
+lineality.}
+\label{fig:three-normal-fans-blowup}
+\end{figure}
+
+\subsection{The morphism encoded by the normal fan}
+
+Because \(\Sigma\) refines \(\Sigma_{P_D}\), the identity on the
+lattice induces a proper toric morphism
+\[
+\pi_D:X_\Sigma\longrightarrow X_{\Sigma_{P_D}}.
+\]
+When \(P_D\) is lower dimensional, one first quotients by the common
+lineality space of its normal cones. The resulting toric variety has
+dimension \(\dim P_D\).
+
+\begin{theorem}[A basepoint-free divisor comes from an ample one]
+\label{thm:basepoint-free-pullback-ample}
+Let \(D\) be basepoint free on the complete toric variety
+\(X_\Sigma\). Then \(D\) is linearly equivalent to the pullback of an
+ample divisor on the projective toric variety associated to \(P_D\):
+\[
+D\sim\pi_D^*A_{P_D}.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~6.2.8.
+
+\begin{proof}[Conceptual proof sketch]
+The support function of \(D\) is
+\[
+\psi_D(u)
+=
+\min_{m\in P_D}\langle m,u\rangle.
+\]
+It is linear precisely on the cones of the normal fan of \(P_D\), so
+it descends from \(\Sigma\) to \(\Sigma_{P_D}\). On the normal fan it
+is strictly convex, hence defines an ample divisor \(A_{P_D}\). Pulling
+that support function back along the refinement recovers
+\(\psi_D\), and therefore recovers \(D\) up to linear equivalence.
+\end{proof}
+
+The three blowup examples now have a geometric interpretation:
+\[
+\begin{array}{c|c|c}
+D
+&
+\text{normal fan of }P_D
+&
+\text{behavior of the projective map}
+\\
+\hline
+2H
+&
+\text{fan of }\PP^2
+&
+\text{contracts the exceptional curve}
+\\
+2H-E
+&
+\text{fan of }\Blp{\PP^2}{p}
+&
+\text{forgets no toric wall}
+\\
+2H-2E
+&
+\text{fan of }\PP^1\text{ after quotient}
+&
+\text{records the pencil of lines through }p.
+\end{array}
+\]
+
+\begin{surfacelaboratory}
+Use \cref{fig:three-normal-fans-blowup} to explain the following maps.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Why does the map defined by \(2H\) factor through the blowdown
+\[
+\Blp{\PP^2}{p}\longrightarrow\PP^2?
+\]
+
+\item Why does \(2H-E\) retain the exceptional wall?
+
+\item Why does \(2H-2E\) have one-dimensional image, even though its
+complete linear system has three monomial sections?
+\end{enumerate}
+\end{surfacelaboratory}
+
+A full-dimensional polytope and its normal fan determine each other
+only up to changes of support numbers: many different polytopes can
+have the same normal fan. On a toric surface, varying these support
+numbers changes edge lengths while preserving the directions of the
+boundary divisors.
+
+\begin{guidingquestion}
+Given the rays
+\[
+u_1,\dots,u_r
+\]
+of a complete toric surface, which polygons have these vectors as
+primitive inward facet normals? How do their edge lengths and lattice
+points encode sections and intersection geometry?
+\end{guidingquestion}
+% END INLINED: chapter05-section04-complete.tex
+
+% BEGIN INLINED: chapter05-section05-complete.tex
+\section{Toric surfaces through their polygons}
+\label{sec:toric-surfaces-polygons}
+\index{toric surface!projectivity}
+\index{smooth polytope}
+\index{intersection number!edge length}
+\index{self-intersection!polytope area}
+\index{corner cut!toric blowup}
+
+In dimension two, the fan--polytope dictionary is especially complete.
+A polygon can be drawn, measured, and modified by hand, while still
+remembering the projective geometry of its toric surface.
+
+The key dimension-two fact is the following.
+
+\begin{theorem}[Every complete toric surface is projective]
+\label{thm:complete-toric-surface-projective}
+Every complete toric surface is projective. Equivalently, every
+complete fan in \(N_\RR\simeq\RR^2\) is the normal fan of a lattice
+polygon.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~6.3.25.
+
+\begin{proof}[Conceptual proof sketch]
+Let
+\[
+u_1,\ldots,u_s
+\]
+be primitive generators of the rays, listed cyclically. Because the
+fan is complete, the origin lies in the interior of their convex hull.
+Hence there is a relation
+\[
+\lambda_1u_1+\cdots+\lambda_su_s=0
+\]
+with every \(\lambda_i>0\). The relation can be chosen rational and
+then scaled so that all \(\lambda_i\) are positive integers.
+
+Rotate each vector \(u_i\) by ninety degrees, choosing the direction
+compatible with the cyclic ordering, and use the resulting vector of
+lattice length \(\lambda_i\) as the \(i\)-th edge of a polygon. The
+relation above says that the edge path closes. Its cyclic ordering
+makes the polygon convex, and its primitive inward facet normals are
+exactly the \(u_i\). Therefore its normal fan is the original fan.
+\end{proof}
+
+Thus every complete toric surface can be studied through many
+polygons: changing the support numbers changes the divisor while
+preserving the surface.
+
+\subsection{A four-polygon catalogue}
+
+The same familiar surfaces now appear as familiar shapes.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.72]
+  % P2
+  \begin{scope}[xshift=-6.1cm,yshift=2.45cm]
+    \draw[->,black!50] (-0.25,0)--(2.75,0);
+    \draw[->,black!50] (0,-0.25)--(0,2.75);
+    \filldraw[fill=DictionaryBlue!13,draw=DictionaryBlue,very thick]
+      (0,0)--(2.2,0)--(0,2.2)--cycle;
+    \node[font=\bfseries] at (1.05,3.05) {\(\PP^2\)};
+    \node[font=\small,align=center] at (1.05,-0.65)
+      {triangle\\\(P_{dH}=d\Delta_2\)};
+  \end{scope}
+
+  % P1xP1
+  \begin{scope}[xshift=0cm,yshift=2.45cm]
+    \draw[->,black!50] (-0.25,0)--(2.95,0);
+    \draw[->,black!50] (0,-0.25)--(0,2.75);
+    \filldraw[fill=SurfaceGreen!13,draw=SurfaceGreen,very thick]
+      (0,0)--(2.45,0)--(2.45,1.85)--(0,1.85)--cycle;
+    \node[font=\bfseries] at (1.2,3.05)
+      {\(\PP^1\times\PP^1\)};
+    \node[font=\small,align=center] at (1.2,-0.65)
+      {rectangle\\\(P_{aF_1+bF_2}\)};
+  \end{scope}
+
+  % Hirzebruch
+  \begin{scope}[xshift=-6.1cm,yshift=-3.45cm]
+    \draw[->,black!50] (-0.25,0)--(3.3,0);
+    \draw[->,black!50] (0,-0.25)--(0,2.75);
+    \filldraw[fill=ExampleGold!15,draw=ExampleGold,very thick]
+      (0,0)--(1.75,0)--(2.8,1.9)--(0,1.9)--cycle;
+    \node[font=\bfseries] at (1.35,3.05) {\(\mathbb F_r\)};
+    \node[font=\small,align=center] at (1.35,-0.65)
+      {trapezoid\\the slope records \(r\)};
+  \end{scope}
+
+  % blowup
+  \begin{scope}[xshift=0cm,yshift=-3.45cm]
+    \draw[->,black!50] (-0.25,0)--(2.95,0);
+    \draw[->,black!50] (0,-0.25)--(0,2.75);
+    \filldraw[fill=PredictionTeal!14,draw=PredictionTeal,very thick]
+      (0.72,0)--(2.35,0)--(0,2.35)--(0,0.72)--cycle;
+    \node[font=\bfseries] at (1.15,3.05)
+      {\(\Blp{\PP^2}{p}\)};
+    \node[font=\small,align=center] at (1.15,-0.65)
+      {truncated triangle\\\(P_{dH-\ell E}\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Four standard projective toric surfaces and characteristic
+shapes of their divisor polygons. The normal directions determine the
+surface; the edge positions and lengths record the chosen divisor.}
+\label{fig:four-toric-surface-polygons}
+\end{figure}
+
+For the Hirzebruch surface, use the ray generators
+\[
+u_1=e_1,
+\qquad
+u_2=e_2,
+\qquad
+u_3=-e_1+re_2,
+\qquad
+u_4=-e_2.
+\]
+The divisor
+\[
+D=aD_3+bD_4
+\]
+has polygon
+\[
+P_D
+=
+\left\{
+(x,y):
+0\leq y\leq b,
+\quad
+0\leq x\leq a+ry
+\right\},
+\]
+with vertices
+\[
+(0,0),
+\quad
+(a,0),
+\quad
+(a+rb,b),
+\quad
+(0,b).
+\]
+The parameter \(r\) is visible as the slope of the nonvertical side.
+
+\begin{pauseandthink}
+Starting only from this trapezoid, recover its four primitive inward
+facet normals. In what order do they appear in the fan of
+\(\mathbb F_r\)?
+\end{pauseandthink}
+
+\subsection{Smoothness is visible at the corners}
+
+Let \(P\) be a lattice polygon. At each vertex, two facets meet, with
+primitive inward normals \(u,v\in N\).
+
+\begin{proposition}[Smooth polygon criterion]
+\label{prop:smooth-polygon-criterion}
+The projective toric surface \(X_{\Sigma_P}\) is smooth if and only if,
+at every vertex of \(P\), the two primitive inward facet normals form
+a basis of \(N\):
+\[
+|\det(u,v)|=1.
+\]
+Equivalently, the primitive directions of the two edges leaving each
+vertex form a basis of \(M\).
+\end{proposition}
+
+\begin{proof}
+A vertex of \(P\) corresponds to a maximal cone of \(\Sigma_P\), and
+that cone is generated by the primitive inward normals of the two
+incident facets. Apply the smoothness criterion for affine toric
+charts.
+\end{proof}
+
+A lattice polygon satisfying this condition is often called a
+\emph{smooth} or \emph{Delzant} polygon.
+
+\begin{example}[A singular triangle]
+The triangle
+\[
+P=\Conv{(0,0),(n,0),(0,1)}
+\]
+has inward normals
+\[
+e_1,
+\qquad
+e_2,
+\qquad
+-e_1-ne_2.
+\]
+At one vertex, the determinant of the two incident normals has
+absolute value \(n\). Its normal fan therefore gives
+\(\PP(1,1,n)\), which is singular for \(n>1\).
+\end{example}
+
+\subsection{Edge lengths are intersection numbers}
+
+\begin{agcheatsheet}
+Let \(X\) be a smooth complete surface, let \(D\) be a Cartier
+divisor, and let \(C\subseteq X\) be an irreducible complete curve.
+The intersection number
+\[
+D\cdot C
+\]
+is the degree of the restricted line bundle
+\[
+\mathcal O_X(D)|_C.
+\]
+
+If \(D\) gives a projective embedding, then \(D\cdot C\) is the degree
+of the image of \(C\) with respect to a hyperplane. The
+self-intersection \(D^2\) is the degree of the embedded surface.
+\end{agcheatsheet}
+
+For an edge \(F\) of a lattice polygon, define its \emph{lattice
+length} by
+\[
+\length_M(F)
+=
+|F\cap M|-1.
+\]
+Equivalently, if its endpoints differ by \(\ell w\), where \(w\) is
+primitive, then \(\length_M(F)=\ell\).
+
+\begin{theorem}[The edge--intersection dictionary]
+\label{thm:edge-length-intersection}
+Let \(X_\Sigma\) be a smooth projective toric surface, and let \(D\)
+be an ample torus-invariant Cartier divisor. If \(F_\rho\) is the edge
+of \(P_D\) with primitive inward normal \(u_\rho\), then
+\[
+\boxed{
+D\cdot D_\rho
+=
+\length_M(F_\rho).
+}
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the surface interpretation of Cox--Little--Schenck,
+Proposition~6.3.8.
+
+\begin{proof}[Conceptual proof sketch]
+The invariant curve \(D_\rho\) is a copy of \(\PP^1\). The two
+vertices of \(F_\rho\) are the Cartier data of the two maximal cones
+adjacent to \(\rho\). Their difference lies in the rank-one lattice
+\[
+M\cap u_\rho^\perp
+\]
+and is \(\ell\) times its primitive generator, where
+\(\ell=\length_M(F_\rho)\). Proposition~6.3.8 computes the degree of
+\(\mathcal O(D)|_{D_\rho}\) from exactly this difference, giving
+\(D\cdot D_\rho=\ell\).
+\end{proof}
+
+For
+\[
+D=dH-\ell E
+\quad\text{on}\quad
+\Blp{\PP^2}{p},
+\]
+the four edge lengths of
+\[
+P_D=
+\{(a,b):a,b\geq0,\ \ell\leq a+b\leq d\}
+\]
+are
+\[
+d,
+\qquad
+d-\ell,
+\qquad
+d-\ell,
+\qquad\ell.
+\]
+They recover the intersections
+\[
+D\cdot H=d,
+\qquad
+D\cdot(H-E)=d-\ell,
+\qquad
+D\cdot E=\ell.
+\]
+Thus positivity on every invariant curve can literally be read as
+positivity of every edge length.
+
+\begin{surfacelaboratory}
+For the Hirzebruch trapezoid
+\[
+\Conv{(0,0),(a,0),(a+rb,b),(0,b)},
+\]
+compute the four lattice edge lengths. Match them with the four
+intersection numbers \(D\cdot D_i\).
+
+Which lengths vanish when \(a=0\) or \(b=0\), and which toric curves
+should the corresponding projective map contract?
+\end{surfacelaboratory}
+
+\subsection{Area is self-intersection}
+
+Normalize area so that a fundamental lattice parallelogram in
+\(M\) has area \(1\).
+
+\begin{theorem}[Area and self-intersection]
+\label{thm:polygon-area-self-intersection}
+Let \(D\) be a nef torus-invariant Cartier divisor on a smooth complete
+toric surface. Then
+\[
+\boxed{
+D^2=2\operatorname{Area}(P_D).
+}
+\]
+Moreover,
+\[
+-D\cdot K_X
+=
+|\partial P_D\cap M|.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~10.5.6; see also
+Theorem~13.4.1.
+
+\begin{proof}[Conceptual proof sketch]
+The number of sections of \(kD\) is
+\[
+|kP_D\cap M|.
+\]
+As \(k\) grows, the leading term of this lattice-point count is
+\[
+\operatorname{Area}(P_D)k^2.
+\]
+On the geometric side, the leading term of the Hilbert polynomial is
+\[
+\frac{D^2}{2}k^2.
+\]
+Comparing the leading coefficients gives the area formula. Comparing
+the linear coefficients gives the boundary formula.
+\end{proof}
+
+When \(P_D\) is two-dimensional, combining these identities with
+Pick's theorem,
+\[
+\operatorname{Area}(P)
+=
+|\operatorname{Int}(P)\cap M|
++
+\frac12|\partial P\cap M|-1,
+\]
+produces the surface Riemann--Roch count
+\[
+|P_D\cap M|
+=
+\frac{D^2-D\cdot K_X}{2}+1.
+\]
+In toric geometry, the lattice-point formula and the intersection
+formula are two views of the same polynomial.
+
+\begin{observation}
+For an ample divisor, the interior lattice points also have a direct
+divisor meaning. Since
+\[
+K_X=-\sum_\rho D_\rho,
+\]
+we have
+\[
+P_{D+K_X}\cap M
+=
+\operatorname{Int}(P_D)\cap M.
+\]
+Thus interior lattice points index the monomial sections of
+\(\mathcal O(D+K_X)\).
+\end{observation}
+
+\subsection{Blowing up cuts a corner}
+
+Suppose \(P\) is smooth at a vertex \(v\), and the two incident facets
+have primitive inward normals \(u\) and \(v'\). In suitable integral
+coordinates near that corner, the polygon is locally
+\[
+x\geq0,
+\qquad
+y\geq0.
+\]
+Cutting off a corner of lattice size \(\ell\) adds the inequality
+\[
+x+y\geq\ell.
+\]
+The new facet has primitive inward normal
+\[
+u+v'.
+\]
+This is precisely the star subdivision that performs the toric blowup
+of the corresponding fixed point.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % before
+  \begin{scope}[xshift=-4.0cm]
+    \draw[->,black!55] (-0.25,0)--(3.0,0) node[below] {\(x\)};
+    \draw[->,black!55] (0,-0.25)--(0,3.0) node[left] {\(y\)};
+    \fill[DictionaryBlue!11] (0,0)--(2.55,0)--(2.55,2.55)--(0,2.55)--cycle;
+    \draw[DictionaryBlue,very thick] (0,2.55)--(0,0)--(2.55,0);
+    \fill (0,0) circle (2.4pt);
+    \node[DictionaryBlue,left] at (0,1.35) {normal \(u\)};
+    \node[DictionaryBlue,below] at (1.35,0) {normal \(v'\)};
+    \node[font=\bfseries] at (1.1,3.45) {before the blowup};
+    \node[font=\small] at (1.1,-0.7) {one smooth vertex};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.8mm]}]
+    (-0.8,0.75)--(0.8,0.75);
+  \node[above] at (0,0.75) {cut the corner};
+
+  % after
+  \begin{scope}[xshift=4.0cm]
+    \draw[->,black!55] (-0.25,0)--(3.0,0) node[below] {\(x\)};
+    \draw[->,black!55] (0,-0.25)--(0,3.0) node[left] {\(y\)};
+    \fill[PredictionTeal!12]
+      (0,0.75)--(0.75,0)--(2.55,0)--(2.55,2.55)--(0,2.55)--cycle;
+    \draw[DictionaryBlue,very thick] (0,2.55)--(0,0.75);
+    \draw[PredictionTeal,very thick]
+      (0,0.75)--(0.75,0)
+      node[midway,below,sloped,text=PredictionTeal,yshift=-4pt]
+      {length \(\ell\)};
+    \draw[DictionaryBlue,very thick] (0.75,0)--(2.55,0);
+    \draw[PredictionTeal,->,thick]
+      (0.38,0.38)--(1.12,1.12)
+      node[above right,text=PredictionTeal,fill=white,inner sep=1pt]
+      {normal \(u+v'\)};
+    \node[font=\bfseries] at (1.1,3.45) {after the blowup};
+    \node[font=\small] at (1.1,-0.7)
+      {the new edge corresponds to \(E\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{At a smooth polygon corner, a toric blowup cuts off a
+triangle. The new edge has inward normal equal to the sum of the two
+old normals and corresponds to the exceptional divisor.}
+\label{fig:polygon-corner-cut-blowup}
+\end{figure}
+
+Conversely, when an edge shrinks to length zero, the corresponding ray
+disappears from the normal fan and the invariant curve is contracted.
+This is the polygon version of a toric blowdown.
+
+\begin{pauseandthink}
+Begin with the triangle \(d\Delta_2\). Cut all three corners by lattice
+sizes \(\ell_0,\ell_1,\ell_2\).
+
+Write the six inequalities of the resulting polygon. What numerical
+conditions must the \(\ell_i\) satisfy for all six edges to have
+positive length?
+\end{pauseandthink}
+
+\subsection{A surface-recognition workflow}
+
+For a lattice polygon \(P\), one can now read the associated surface
+and divisor in a consistent order:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{0.94\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.20\linewidth}
+  >{\raggedright\arraybackslash}p{0.32\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Look at}
+&
+\textbf{Combinatorial information}
+&
+\textbf{Geometric meaning}
+\\
+\midrule
+facet normals
+&
+normal fan
+&
+the toric surface
+\\
+corners
+&
+determinants of adjacent normals
+&
+smooth or quotient-singular fixed points
+\\
+edge lengths
+&
+lattice lengths
+&
+intersection with invariant curves
+\\
+area
+&
+normalized two-dimensional volume
+&
+self-intersection of the divisor
+\\
+lattice points
+&
+monomial exponents
+&
+global sections and projective coordinates
+\\
+corner cuts
+&
+new facets and new normals
+&
+toric blowups and exceptional curves
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+A polygon is therefore not merely a picture of a toric surface. It is
+a simultaneous record of its fan, an ample divisor, its sections, its
+projective map, and several intersection numbers.
+
+The next chapter will replace the single projective coordinate system
+coming from one divisor by a universal coordinate system with one
+variable for every ray.
+
+\begin{guidingquestion}
+Can one build one polynomial ring
+\[
+\Bbbk[x_\rho:\rho\in\Sigma(1)]
+\]
+whose variables record all invariant boundary divisors at once, and
+then recover \(X_\Sigma\) as a quotient of an open subset of affine
+space?
+\end{guidingquestion}
+% END INLINED: chapter05-section05-complete.tex
+
+% Chapter-end exercise: scaling, translation under principal divisors,
+% and the Minkowski inclusion P_D+P_E\subseteq P_{D+E}.
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+A torus-invariant divisor
+\[
+D=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho
+\]
+produces the polyhedron
+\[
+P_D
+=
+\left\{
+ m\in M_\RR:
+ \langle m,u_\rho\rangle\geq-a_\rho
+ \text{ for every }\rho
+\right\}.
+\]
+Its lattice points are precisely the exponents of its monomial global
+sections:
+\[
+H^0(X_\Sigma,\mathcal O(D))
+=
+\bigoplus_{m\in P_D\cap M}\Bbbk\character{m}.
+\]
+
+Those sections define projective maps. For a finite set
+\[
+A=\{m_0,\ldots,m_r\}\subseteq M,
+\]
+the monomial map
+\[
+t\longmapsto
+[\character{m_0}(t):\cdots:\character{m_r}(t)]
+\]
+produces a projective toric variety by taking the orbit closure.
+
+The support function then detects how much projective geometry the
+sections see:
+\[
+\boxed{
+\begin{aligned}
+\psi_D\text{ convex}
+&\Longleftrightarrow
+D\text{ is basepoint free},
+\\
+\psi_D\text{ strictly convex}
+&\Longleftrightarrow
+D\text{ is ample}.
+\end{aligned}
+}
+\]
+Equivalently, convexity makes the complete linear system define a
+morphism, while strict convexity makes a sufficiently large multiple
+give an embedding.
+
+A polytope remembers these bends through its normal fan. For a
+basepoint-free divisor,
+\[
+\Sigma\text{ refines }\Sigma_{P_D},
+\]
+and strict convexity is exactly the condition
+\[
+\Sigma=\Sigma_{P_D}.
+\]
+Thus an ample toric divisor is the same data as a lattice polytope
+whose normal fan is the fan of the variety.
+
+For surfaces, the dictionary becomes especially visible:
+\[
+\begin{array}{c@{\quad\longleftrightarrow\quad}c}
+\text{edge lengths of }P_D
+&
+D\cdot D_\rho,
+\\
+2\operatorname{Area}(P_D)
+&
+D^2,
+\\
+P_D\cap M
+&
+\text{global sections},
+\\
+\text{cutting a corner}
+&
+\text{a toric blowup}.
+\end{array}
+\]
+Every complete toric surface is projective. The challenge exercise
+shows that this phenomenon stops in dimension three.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let
+\[
+D=aF_1+bF_2
+\]
+on \(\PP^1\times\PP^1\), with \(a,b\geq0\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that \(P_D\) is a rectangle with side lengths \(a\) and
+\(b\).
+\item Count its lattice points and recover
+\[
+h^0(\PP^1\times\PP^1,\mathcal O(a,b))=(a+1)(b+1).
+\]
+\item Write the monomial map associated to the complete linear system.
+\item Determine when \(D\) is very ample and describe what the map does
+when one of \(a,b\) is zero.
+\end{enumerate}
+
+\item Let \(D,E\) be torus-invariant divisors and let \(m_0\in M\).
+Prove the following statements directly from the defining
+inequalities:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item
+\[
+P_{kD}=kP_D
+\qquad(k\in\ZZ_{>0}).
+\]
+\item
+\[
+P_{D+\operatorname{div}(\character{m_0})}
+=P_D-m_0.
+\]
+\item
+\[
+P_D+P_E\subseteq P_{D+E}.
+\]
+\end{enumerate}
+Interpret each statement using sections and projective maps.
+
+\item Let
+\[
+A=\{m_0,\ldots,m_r\}\subseteq M.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that translating every element of \(A\) by the same lattice
+vector does not change the monomial map to \(\PP^r\).
+\item Show that the kernel of
+\[
+\phi_A:T\longrightarrow\PP^r
+\]
+is determined by the subgroup generated by the differences
+\[
+m_i-m_0.
+\]
+\item Give a criterion for \(\phi_A|_T\) to be injective.
+\end{enumerate}
+
+\item On \(X=\Blp{\PP^2}{p}\), consider
+\[
+D=dH-rE,
+\qquad
+0\leq r\leq d.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Count the lattice points in
+\[
+P_D=\{(a,b):a,b\geq0,\ r\leq a+b\leq d\}.
+\]
+\item Recover the dimension of the space of degree-\(d\) plane curves
+vanishing to order at least \(r\) at \(p\).
+\item Determine when the complete linear system is basepoint free and
+when \(D\) is ample.
+\item Describe the maps arising in the boundary cases \(r=0\) and
+\(r=d\).
+\end{enumerate}
+
+\item Let
+\[
+P=\Conv\{(0,0),(b,0),(b+ra,a),(0,a)\},
+\qquad
+a,b>0,
+\]
+where \(r\geq0\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute the primitive inward normal to each edge.
+\item Show that the normal fan is the fan of the Hirzebruch surface
+\(\mathbb F_r\).
+\item Determine the lattice lengths of the four edges.
+\item Translate those lengths into intersection numbers of the
+corresponding ample divisor with the invariant curves.
+\end{enumerate}
+
+\item Let \(P\subseteq M_\RR\) be a full-dimensional lattice polygon.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that \(P\) is smooth exactly when the primitive inward
+normals to the two edges meeting at each vertex form a lattice basis of
+\(N\).
+\item Apply the test to the standard triangle, a rectangle, and the
+trapezoid from the previous exercise.
+\item Construct a lattice triangle whose normal fan gives
+\(\PP(1,1,n)\), and identify its singular corner.
+\end{enumerate}
+
+\item For \(D=2H-E\) on \(\Blp{\PP^2}{p}\):
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item List the five lattice points of \(P_D\).
+\item Write the associated monomial map on the dense torus.
+\item Compute the lattice lengths of the four edges and recover the
+intersection numbers of \(D\) with the four invariant curves.
+\item Compute \(D^2\) from the area of \(P_D\).
+\end{enumerate}
+
+\item Let \(P\) be a smooth lattice polygon, and let \(P'\) be obtained
+by cutting off a corner by a segment of lattice length \(r\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that the new inward normal is the sum of the two old inward
+normals.
+\item Interpret the operation as a toric blowup.
+\item Determine how the area changes.
+\item Compare the change in area with
+\[
+(\pi^*D-rE)^2=D^2-r^2.
+\]
+\end{enumerate}
+
+\item Use Pick's theorem to show that, for an ample divisor \(D\) on a
+smooth projective toric surface,
+\[
+h^0(X,\mathcal O(D))
+=
+\operatorname{Area}(P_D)
++\frac12\,|\partial P_D\cap M|
++1.
+\]
+Then rewrite the right-hand side using \(D^2\), \(D\cdot(-K_X)\), and
+\(\chi(\mathcal O_X)=1\).
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Complete but not projective: Fulton's toric threefold.}
+
+\medskip
+
+For toric surfaces, completeness forces projectivity. We now explore
+a smooth complete toric threefold for which no ample divisor exists.
+The obstruction will be a cycle of strict-convexity inequalities that
+cannot all hold simultaneously.
+
+Let
+\[
+N=\ZZ^3
+\]
+with standard basis \(e_1,e_2,e_3\), and define
+\[
+\begin{aligned}
+v_1&=-e_1,&
+ v_2&=-e_2,&
+ v_3&=-e_3,&
+ v_4&=e_1+e_2+e_3,
+\\
+v_5&=v_3+v_4=e_1+e_2,&
+ v_6&=v_1+v_4=e_2+e_3,&
+ v_7&=v_2+v_4=e_1+e_3.
+\end{aligned}
+\]
+Write
+\[
+\sigma_{ijk}=\Cone{v_i,v_j,v_k}.
+\]
+Consider the fan \(\Sigma\) whose maximal cones are
+\[
+\begin{aligned}
+&\sigma_{123},
+\\
+&\sigma_{126},\ \sigma_{267},\ \sigma_{467},
+\\
+&\sigma_{135},\ \sigma_{156},\ \sigma_{456},
+\\
+&\sigma_{237},\ \sigma_{357},\ \sigma_{457}.
+\end{aligned}
+\]
+Let
+\[
+X=X_\Sigma.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.86]
+  % Face 123
+  \begin{scope}[xshift=-3.7cm,yshift=2.35cm]
+    \coordinate (A) at (-1.15,0);
+    \coordinate (B) at (1.15,0);
+    \coordinate (C) at (0,1.85);
+    \filldraw[fill=DictionaryBlue!10,draw=DictionaryBlue,very thick]
+      (A)--(B)--(C)--cycle;
+    \node[below left] at (A) {\(v_1\)};
+    \node[below right] at (B) {\(v_2\)};
+    \node[above] at (C) {\(v_3\)};
+    \node[font=\bfseries] at (0,2.65) {face \(123\)};
+  \end{scope}
+
+  % Face 124
+  \begin{scope}[xshift=3.7cm,yshift=2.35cm]
+    \coordinate (A) at (-1.15,0);
+    \coordinate (B) at (1.15,0);
+    \coordinate (C) at (0,1.85);
+    \coordinate (P) at (-0.56,0.94);
+    \coordinate (Q) at (0.56,0.94);
+    \fill[PredictionTeal!7] (A)--(B)--(P)--cycle;
+    \fill[PredictionTeal!12] (B)--(P)--(Q)--cycle;
+    \fill[PredictionTeal!18] (C)--(P)--(Q)--cycle;
+    \draw[PredictionTeal,very thick]
+      (A)--(B)--(Q)--(C)--(P)--cycle;
+    \draw[PredictionTeal,very thick] (B)--(P)--(Q);
+    \fill[PredictionTeal] (P) circle (2pt);
+    \fill[PredictionTeal] (Q) circle (2pt);
+    \node[below left] at (A) {\(v_1\)};
+    \node[below right] at (B) {\(v_2\)};
+    \node[above] at (C) {\(v_4\)};
+    \node[left] at (P) {\(v_6\)};
+    \node[right] at (Q) {\(v_7\)};
+    \node[font=\bfseries] at (0,2.65) {face \(124\)};
+  \end{scope}
+
+  % Face 134
+  \begin{scope}[xshift=-3.7cm,yshift=-2.0cm]
+    \coordinate (A) at (-1.15,0);
+    \coordinate (B) at (1.15,0);
+    \coordinate (C) at (0,1.85);
+    \coordinate (P) at (-0.56,0.94);
+    \coordinate (Q) at (0.56,0.94);
+    \fill[SurfaceGreen!7] (A)--(B)--(Q)--cycle;
+    \fill[SurfaceGreen!12] (A)--(Q)--(P)--cycle;
+    \fill[SurfaceGreen!18] (C)--(P)--(Q)--cycle;
+    \draw[SurfaceGreen,very thick]
+      (A)--(B)--(Q)--(C)--(P)--cycle;
+    \draw[SurfaceGreen,very thick] (A)--(Q)--(P);
+    \fill[SurfaceGreen] (P) circle (2pt);
+    \fill[SurfaceGreen] (Q) circle (2pt);
+    \node[below left] at (A) {\(v_1\)};
+    \node[below right] at (B) {\(v_3\)};
+    \node[above] at (C) {\(v_4\)};
+    \node[left] at (P) {\(v_6\)};
+    \node[right] at (Q) {\(v_5\)};
+    \node[font=\bfseries] at (0,2.65) {face \(134\)};
+  \end{scope}
+
+  % Face 234
+  \begin{scope}[xshift=3.7cm,yshift=-2.0cm]
+    \coordinate (A) at (-1.15,0);
+    \coordinate (B) at (1.15,0);
+    \coordinate (C) at (0,1.85);
+    \coordinate (P) at (-0.56,0.94);
+    \coordinate (Q) at (0.56,0.94);
+    \fill[ExampleGold!8] (A)--(B)--(P)--cycle;
+    \fill[ExampleGold!13] (B)--(P)--(Q)--cycle;
+    \fill[ExampleGold!19] (C)--(P)--(Q)--cycle;
+    \draw[ExampleGold,very thick]
+      (A)--(B)--(Q)--(C)--(P)--cycle;
+    \draw[ExampleGold,very thick] (B)--(P)--(Q);
+    \fill[ExampleGold] (P) circle (2pt);
+    \fill[ExampleGold] (Q) circle (2pt);
+    \node[below left] at (A) {\(v_2\)};
+    \node[below right] at (B) {\(v_3\)};
+    \node[above] at (C) {\(v_4\)};
+    \node[left] at (P) {\(v_7\)};
+    \node[right] at (Q) {\(v_5\)};
+    \node[font=\bfseries] at (0,2.65) {face \(234\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The four three-dimensional cones of the fan of \(\PP^3\),
+shown through their triangular cross-sections. Three faces are
+subdivided by the new rays \(v_5,v_6,v_7\). The small triangles are
+exactly the maximal cones listed above.}
+\label{fig:fulton-nonprojective-threefold-fan}
+\end{figure}
+
+\clearpage
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{Begin with the fan of \(\PP^3\).}
+
+Show that
+\[
+v_1+v_2+v_3+v_4=0
+\]
+and that the cones generated by any three of
+\(v_1,v_2,v_3,v_4\) form the fan of \(\PP^3\).
+
+Verify that
+\[
+v_5\in\Cone{v_3,v_4},
+\qquad
+v_6\in\Cone{v_1,v_4},
+\qquad
+v_7\in\Cone{v_2,v_4}.
+\]
+Use \cref{fig:fulton-nonprojective-threefold-fan} to check that the
+listed cones subdivide the four maximal cones of the \(\PP^3\) fan.
+Conclude that
+\[
+|\Sigma|=N_\RR,
+\]
+so \(X\) is complete.
+
+\item \textbf{The example is smooth.}
+
+For every maximal cone \(\sigma_{ijk}\), compute
+\[
+\det(v_i,v_j,v_k).
+\]
+Show that each determinant is \(\pm1\). Hence every maximal cone is
+smooth and \(X\) is a smooth complete toric threefold.
+
+\item \textbf{Translate projectivity into a support-function problem.}
+
+Assume, for contradiction, that \(X\) is projective. Explain why there
+must exist an integral strictly convex support function
+\[
+\psi:N_\RR\longrightarrow\RR.
+\]
+Set
+\[
+h_i=\psi(v_i).
+\]
+
+If \(\tau\) is a maximal cone with linear piece \(m_\tau\), recall
+that strict convexity gives
+\[
+\langle m_\tau,u\rangle>\psi(u)
+\qquad
+\text{whenever }u\notin\tau.
+\]
+
+\item \textbf{The first incompatible inequality.}
+
+Check the vector relation
+\[
+v_1+v_7=e_3=v_2+v_6.
+\]
+The vector \(e_3\) lies in the common face
+\[
+\Cone{v_2,v_6}
+=
+\sigma_{126}\cap\sigma_{267}.
+\]
+Use the linear piece on \(\sigma_{267}\) to show
+\[
+\psi(e_3)>h_1+h_7,
+\]
+and use the linear piece on \(\sigma_{126}\) to show
+\[
+\psi(e_3)=h_2+h_6.
+\]
+Deduce
+\[
+\boxed{h_2+h_6>h_1+h_7.}
+\]
+
+\item \textbf{Complete the cycle.}
+
+Use the relations
+\[
+v_1+v_5=e_2=v_3+v_6
+\]
+and
+\[
+v_3+v_7=e_1=v_2+v_5
+\]
+together with the cones \(\sigma_{156}\) and \(\sigma_{357}\) to
+obtain
+\[
+\boxed{h_1+h_5>h_3+h_6}
+\]
+and
+\[
+\boxed{h_3+h_7>h_2+h_5.}
+\]
+
+\item \textbf{Add the inequalities.}
+
+Add the three boxed inequalities. Explain why the left- and right-hand
+sides contain exactly the same six terms. Conclude that no strictly
+convex support function can exist on \(\Sigma\).
+
+Therefore \(X\) has no ample divisor and is not projective.
+
+\item \textbf{Complete does not mean devoid of projective maps.}
+
+The fan \(\Sigma\) refines the fan of \(\PP^3\). Explain why this gives
+a proper birational toric morphism
+\[
+\pi:X\longrightarrow\PP^3.
+\]
+The pullback
+\[
+\pi^*\mathcal O_{\PP^3}(1)
+\]
+is basepoint free. Describe its support function on \(\Sigma\), and
+explain why it is convex but not strictly convex.
+
+Thus \(X\) has a nonconstant projective morphism even though \(X\)
+itself is not projective.
+
+\item \textbf{The missing polytope.}
+
+Suppose there were a lattice polytope \(P\subseteq M_\RR\) with
+\[
+\Sigma_P=\Sigma.
+\]
+What support function would \(P\) produce? Use the contradiction above
+to show that no such polytope exists.
+
+Compare this with the surface theorem that every complete toric
+surface fan is the normal fan of a lattice polygon. What genuinely new
+phenomenon appears in dimension three?
+
+\end{enumerate}
+
+\begin{tcolorbox}[
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={The lesson of the example},
+  fonttitle=\bfseries
+]
+Completeness asks only that the cones cover \(N_\RR\). Projectivity
+asks for a global convex shape whose normal cones are exactly those
+cones. In dimension three, a complete fan may contain a cyclic pattern
+of walls whose required bends are mutually incompatible.
+\end{tcolorbox}
+
+\noindent
+\textit{Reference.}
+This is the classical example in Fulton, \emph{Introduction to Toric
+Varieties}, \S3.4, p.~71. The strict-convexity contradiction is also
+written out in Nicolas Perrin's lecture notes, Proposition~4.8.2.
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The global-section formula and divisor polyhedra are developed in
+Cox--Little--Schenck, \S4.3. Convexity, basepoint freeness, ampleness,
+and normal fans are treated in Chapter~6. Projective toric varieties
+from finite sets of lattice points are developed in Chapter~7.
+Intersection numbers, volumes, and the surface polygon dictionary are
+treated in Chapters~10 and~13.
+
+The challenge exercise is Fulton's classical smooth complete
+nonprojective toric threefold. It marks the precise point at which the
+surface story stops generalizing: complete toric surfaces are
+projective, but a complete three-dimensional fan need not admit any
+strictly convex integral support function.
+
+The next chapter introduces the Cox ring
+\[
+S=\Bbbk[x_\rho:\rho\in\Sigma(1)],
+\]
+which places one homogeneous coordinate on every invariant boundary
+divisor and recovers the toric variety as a quotient of an open subset
+of affine space.

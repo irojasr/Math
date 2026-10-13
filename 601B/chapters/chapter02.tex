@@ -1,0 +1,4078 @@
+\chapter[Affine Toric Varieties]
+{Affine Toric Varieties:\\ Semigroups, Cones, and Limits}
+\label{chap:affine-toric-varieties}
+
+\begin{chapteroverview}
+Which monomial functions on a torus remain regular after we add a
+boundary?
+
+For the affine plane, the answer is familiar: the Laurent monomial
+\(x^ay^b\) extends precisely when \(a,b\geq0\). This chapter turns that
+example into a classification. Additive collections of characters
+produce semigroup algebras and affine varieties; normality turns those
+collections into the lattice points of rational polyhedral cones.
+
+The same variety then admits two dual descriptions:
+\[
+\begin{array}{c}
+\text{a cone in \(M_{\RR}\) records the characters that extend,}
+\\[1mm]
+\text{while a cone in \(N_{\RR}\) records the one-parameter
+subgroups whose limits exist.}
+\end{array}
+\]
+Our main goal is to understand both readings of
+\[
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+
+When a result has a lengthy or technical proof, we will give a precise
+reference to Cox--Little--Schenck and a conceptual proof sketch that
+isolates the driving idea and the logical flow.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+Affine toric geometry begins with one object viewed in three ways.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+a semigroup algebra \(\Bbbk[S]\)
+&
+an affine toric variety \(\Spec\Bbbk[S]\)
+&
+an additive semigroup \(S\subseteq M\)
+\\[1mm]
+regular characters
+&
+monomial functions extending to the boundary
+&
+lattice points in a cone in \(M_{\RR}\)
+\\[1mm]
+pullback along \(\oneps{u}\)
+&
+limits of one-parameter motions
+&
+a dual cone in \(N_{\RR}\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\section{From the affine plane to affine toric varieties}
+\label{sec:affine-plane-to-affine-toric-varieties}
+\index{affine toric variety}
+\index{dense torus}
+\index{character!extending to an affine variety}
+
+We begin where Chapter~0 began:
+\[
+\AAA^2=\Spec\Bbbk[x,y].
+\]
+The affine plane contains the torus
+\[
+T=\Gm^2
+=
+\{(x,y)\in\AAA^2:xy\neq0\}
+\]
+as a dense open subset. On \(T\), both \(x\) and \(y\) are invertible,
+so every Laurent monomial
+\[
+x^ay^b,
+\qquad
+(a,b)\in\ZZ^2,
+\]
+is a regular function. In the language of Chapter~1, these Laurent
+monomials are precisely the characters of \(T\):
+\[
+x^ay^b=\character{(a,b)}.
+\]
+
+But most of these characters do not remain regular on all of
+\(\AAA^2\). The function \(x^{-1}\), for instance, has a pole along
+the coordinate line \(V(x)\). Likewise, \(y^{-1}\) has a pole along
+\(V(y)\). The characters that do extend regularly are exactly
+\[
+x^ay^b,
+\qquad
+a,b\geq0.
+\]
+Thus
+\[
+\Bbbk[\AAA^2]
+=
+\Bbbk[x,y]
+=
+\bigoplus_{(a,b)\in\ZZ_{\geq0}^2}
+\Bbbk\,\character{(a,b)}.
+\]
+
+This gives us the question that drives the entire chapter:
+
+\begin{guidingquestion}
+Given a torus \(T\), which collections of characters can occur as the
+regular functions on an affine variety containing \(T\)?
+\end{guidingquestion}
+
+\subsection{Which characters extend?}
+
+For the affine plane, the answer is visible in the character lattice
+\[
+M\simeq\ZZ^2.
+\]
+The lattice point \((a,b)\) corresponds to the character \(x^ay^b\),
+and this character extends to \(\AAA^2\) exactly when
+\[
+(a,b)\in\ZZ_{\geq0}^2.
+\]
+The allowed exponent vectors form the lattice points of the first
+quadrant in \(M_{\RR}\).
+
+Two nearby examples help separate the roles of affine and invertible
+coordinates.
+
+\[
+\begin{array}{c|c|c}
+X
+&
+\Bbbk[X]
+&
+\text{characters that extend}
+\\
+\hline
+\Gm^2
+&
+\Bbbk[x^{\pm1},y^{\pm1}]
+&
+(a,b)\in\ZZ^2
+\\[1mm]
+\AAA^1\times\Gm
+&
+\Bbbk[x,y^{\pm1}]
+&
+a\geq0,\quad b\in\ZZ
+\\[1mm]
+\AAA^2
+&
+\Bbbk[x,y]
+&
+a\geq0,\quad b\geq0.
+\end{array}
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.82]
+  % Panel 1
+  \begin{scope}[xshift=-6.2cm]
+    \fill[DictionaryBlue!8] (-2.1,-2.1) rectangle (2.1,2.1);
+    \draw[->,black!55] (-2.25,0)--(2.35,0);
+    \draw[->,black!55] (0,-2.25)--(0,2.35);
+    \foreach \a in {-2,-1,0,1,2}{
+      \foreach \b in {-2,-1,0,1,2}{
+        \fill[DictionaryBlue] (\a,\b) circle (1.65pt);
+      }
+    }
+    \node[font=\bfseries] at (0,2.85) {\(\Gm^2\)};
+    \node[align=center] at (0,-2.85)
+      {all lattice points\\all Laurent monomials};
+  \end{scope}
+
+  % Panel 2
+  \begin{scope}
+    \fill[PastelYellow] (0,-2.1) rectangle (2.1,2.1);
+    \draw[->,black!55] (-2.25,0)--(2.35,0);
+    \draw[->,black!55] (0,-2.25)--(0,2.35);
+    \foreach \a in {0,1,2}{
+      \foreach \b in {-2,-1,0,1,2}{
+        \fill[ExampleGold] (\a,\b) circle (1.65pt);
+      }
+    }
+    \node[font=\bfseries] at (0,2.85) {\(\AAA^1\times\Gm\)};
+    \node[align=center] at (0,-2.85)
+      {\(a\geq0\), while \(b\)\\may have either sign};
+  \end{scope}
+
+  % Panel 3
+  \begin{scope}[xshift=6.2cm]
+    \fill[SurfaceGreen!10] (0,0) rectangle (2.1,2.1);
+    \draw[->,black!55] (-2.25,0)--(2.35,0);
+    \draw[->,black!55] (0,-2.25)--(0,2.35);
+    \foreach \a in {0,1,2}{
+      \foreach \b in {0,1,2}{
+        \fill[SurfaceGreen] (\a,\b) circle (1.65pt);
+      }
+    }
+    \node[font=\bfseries] at (0,2.85) {\(\AAA^2\)};
+    \node[align=center] at (0,-2.85)
+      {\(a,b\geq0\)\\ordinary monomials};
+  \end{scope}
+\end{tikzpicture}
+\caption{The lattice points indexing regular characters depend on
+which boundary directions have been added to the torus.}
+\label{fig:characters-extending-basic-affine-examples}
+\end{figure}
+
+\begin{pauseandthink}
+Consider
+\[
+X=\AAA^2\times\Gm
+\]
+with dense torus \(\Gm^3\). Which characters
+\[
+\character{(a,b,c)}=x^ay^bz^c
+\]
+extend regularly to \(X\)? Draw the corresponding lattice points in
+\(M_{\RR}\simeq\RR^3\).
+\end{pauseandthink}
+
+The pattern is already suggestive. Whenever two characters extend,
+their product extends as well:
+\[
+\character{m}\character{m'}
+=
+\character{m+m'}.
+\]
+The constant character \(\character{0}=1\) also extends. Therefore the
+set of extending characters is closed under addition and contains
+\(0\). In the next section, we will call such a collection a
+\emph{semigroup}.
+
+\subsection{The torus action on the affine plane}
+
+The dense torus does more than sit inside \(\AAA^2\). It acts on the
+whole affine plane by coordinatewise multiplication:
+\[
+(t_1,t_2)\cdot(x,y)
+=
+(t_1x,t_2y).
+\]
+On the open subset where \(xy\neq0\), this is simply the group law of
+\(T=\Gm^2\). Thus the multiplication action of the torus on itself
+extends across the coordinate axes.
+
+The coordinate axes record what has been added to the torus:
+\[
+\AAA^2
+=
+T
+\sqcup
+\bigl(V(x)\setminus\{(0,0)\}\bigr)
+\sqcup
+\bigl(V(y)\setminus\{(0,0)\}\bigr)
+\sqcup
+\{(0,0)\}.
+\]
+Each piece is a torus orbit. The two one-dimensional orbits are
+obtained by allowing one coordinate to vanish, and the origin is the
+unique fixed point.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  \draw[->,black!55] (-3.0,0)--(3.15,0) node[right] {\(x\)};
+  \draw[->,black!55] (0,-2.7)--(0,2.85) node[above] {\(y\)};
+
+  \draw[very thick,DictionaryBlue] (-2.8,0)--(-0.15,0);
+  \draw[very thick,DictionaryBlue] (0.15,0)--(2.8,0);
+  \draw[very thick,SurfaceGreen] (0,-2.5)--(0,-0.15);
+  \draw[very thick,SurfaceGreen] (0,0.15)--(0,2.5);
+  \fill[WarningRed] (0,0) circle (3pt);
+
+  \node[fill=PastelYellow,rounded corners,inner sep=4pt]
+    at (1.55,1.35) {\(T=\Gm^2\)};
+  \node[DictionaryBlue,below] at (1.65,-0.05)
+    {\(V(y)\setminus\{0\}\)};
+  \node[SurfaceGreen,left,rotate=90] at (-0.08,1.45)
+    {\(V(x)\setminus\{0\}\)};
+  \node[WarningRed,below left] at (-0.05,-0.05)
+    {\((0,0)\)};
+\end{tikzpicture}
+\caption{The affine plane consists of its dense torus, two
+one-dimensional boundary orbits, and one fixed point.}
+\label{fig:a2-torus-orbits-preview}
+\end{figure}
+
+The orbit decomposition will eventually be read directly from cones.
+For now, it simply illustrates the two features that matter:
+
+\[
+\boxed{
+\text{\(\AAA^2\) contains \(T\) densely, and the action of \(T\)
+extends to all of \(\AAA^2\).}
+}
+\]
+
+\subsection{The intrinsic definition}
+
+The affine plane suggests the general definition.
+
+\begin{definition}[Affine toric variety]
+\label{def:affine-toric-variety}
+An \emph{affine toric variety} is an irreducible affine variety \(X\)
+containing an algebraic torus \(T\) as a dense open subset such that
+the multiplication action
+\[
+T\times T\longrightarrow T
+\]
+extends to an algebraic action
+\[
+T\times X\longrightarrow X.
+\]
+The torus \(T\) is called the \emph{dense torus} or \emph{big torus}
+of \(X\).
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~1.1.3, with \(\CC\) replaced
+by our algebraically closed base field \(\Bbbk\).
+
+Each condition has a role.
+
+\begin{itemize}
+\item \textbf{Affine} means that \(X\) is determined by its coordinate
+ring:
+\[
+X=\Spec\Bbbk[X].
+\]
+
+\item \textbf{Irreducible} ensures that the dense torus lies in one
+geometric piece and that regular functions on \(X\) are determined by
+their restriction to \(T\).
+
+\item \textbf{Dense and open} means that \(X\) is obtained from \(T\)
+by adding boundary points, while retaining the torus as the generic
+part of the variety.
+
+\item \textbf{The action extends} means that the added boundary is
+compatible with the group structure of \(T\). This condition is what
+forces monomials and lattice combinatorics to control the geometry.
+\end{itemize}
+
+\begin{example}
+The torus \(T\) itself is an affine toric variety. Its boundary is
+empty, and
+\[
+\Bbbk[T]=\Bbbk[M].
+\]
+\end{example}
+
+\begin{example}
+Affine space \(\AAA^n\) is an affine toric variety with dense torus
+\[
+\Gm^n
+=
+\AAA^n\setminus V(x_1\cdots x_n).
+\]
+The action is coordinatewise multiplication, and
+\[
+\Bbbk[\AAA^n]
+=
+\bigoplus_{m\in\ZZ_{\geq0}^n}
+\Bbbk\,\character{m}.
+\]
+\end{example}
+
+\begin{example}
+More generally,
+\[
+\AAA^r\times\Gm^{n-r}
+\]
+is an affine toric variety with dense torus \(\Gm^n\). Its coordinate
+ring is
+\[
+\Bbbk[x_1,\ldots,x_r,
+x_{r+1}^{\pm1},\ldots,x_n^{\pm1}],
+\]
+and its extending characters are indexed by
+\[
+\ZZ_{\geq0}^r\times\ZZ^{n-r}\subseteq M.
+\]
+\end{example}
+
+\begin{warningbox}
+Normality is not part of \cref{def:affine-toric-variety}. In these
+notes, as in CLS Chapter~1, affine toric varieties may be nonnormal.
+The distinction is essential: later in this chapter, normality will be
+recognized combinatorially as a condition that fills in missing
+lattice points.
+
+Some authors build normality into the definition of a toric variety.
+Whenever conventions could matter, we will state them explicitly.
+\end{warningbox}
+
+\subsection{The coordinate-ring viewpoint}
+
+Let \(X\) be an affine toric variety with dense torus \(T\) and
+character lattice \(M\). Restricting regular functions from \(X\) to
+the dense open subset \(T\) gives an injective homomorphism
+\[
+\Bbbk[X]\hookrightarrow\Bbbk[T]=\Bbbk[M].
+\]
+It is injective because a regular function on an irreducible variety
+that vanishes on a dense open subset vanishes everywhere.
+
+Thus we may regard \(\Bbbk[X]\) as a subalgebra of the Laurent
+polynomial algebra \(\Bbbk[M]\). In concrete terms:
+
+\[
+\boxed{
+\Bbbk[X]
+=
+\{\text{regular functions on \(T\) that extend to \(X\)}\}.
+}
+\]
+
+The torus action places a strong restriction on this subalgebra. The
+representation theory of Chapter~1 suggests that it should decompose
+into character spaces. Consequently, the coordinate ring should be
+determined by the set
+\[
+S_X
+=
+\{m\in M:\character{m}\text{ extends regularly to }X\}.
+\]
+For \(\AAA^2\), this set is \(\ZZ_{\geq0}^2\).
+
+The precise theorem—that every affine toric coordinate ring is a
+semigroup algebra \(\Bbbk[S]\)—is Cox--Little--Schenck,
+Theorem~1.1.17. We will build and explain that equivalence in the next
+section rather than use it as a black box here.
+
+\begin{threedictionaries}
+The affine-plane example already contains the basic dictionary.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\Bbbk[X]\subseteq\Bbbk[M]\)
+&
+an affine variety \(X\) containing \(T\)
+&
+a collection of lattice points in \(M\)
+\\[1mm]
+characters that extend regularly
+&
+monomial functions without poles on the boundary
+&
+allowed exponent vectors
+\\[1mm]
+multiplication of characters
+&
+multiplication of regular functions
+&
+addition of lattice points
+\\[1mm]
+the \(M\)-grading of the coordinate ring
+&
+the action of the dense torus
+&
+weights indexed by \(M\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+How does an additive collection
+\[
+S\subseteq M
+\]
+produce an affine toric variety, a monomial parametrization, and a
+system of binomial equations?
+\end{guidingquestion}
+
+
+\section{Affine semigroups, monomial maps, and equations}
+\label{sec:affine-semigroups-monomial-maps}
+\index{affine semigroup}
+\index{semigroup algebra}
+\index{monomial map}
+\index{toric ideal}
+\index{binomial equation}
+
+Section~\ref{sec:affine-plane-to-affine-toric-varieties} suggested
+that an affine toric variety should be determined by the characters
+that extend regularly from its dense torus. Because products of
+extending characters still extend, their lattice points form an
+additive collection in the character lattice.
+
+We now make that idea precise.
+
+\subsection{Affine semigroups}
+
+Throughout this chapter,
+\[
+\NN=\{0,1,2,\ldots\}.
+\]
+
+\begin{definition}
+Let \(M\) be a lattice. An \emph{affine semigroup} is a finitely
+generated additive subsemigroup
+\[
+S\subseteq M
+\]
+containing \(0\).
+
+Equivalently, there are lattice points
+\[
+m_1,\ldots,m_r\in M
+\]
+such that
+\[
+S
+=
+\NN m_1+\cdots+\NN m_r.
+\]
+\end{definition}
+
+We often write
+\[
+S=\NN\mathcal A
+\qquad\text{for}\qquad
+\mathcal A=\{m_1,\ldots,m_r\}.
+\]
+
+The subgroup of \(M\) generated by \(S\) will be denoted
+\[
+\ZZ S
+=
+\left\{
+a_1m_1+\cdots+a_rm_r:
+a_i\in\ZZ
+\right\}.
+\]
+Although \(S\) remembers which nonnegative combinations are allowed,
+\(\ZZ S\) remembers the lattice of all differences between elements
+of \(S\).
+
+\begin{example}
+Inside \(M=\ZZ\), consider
+\[
+S=\NN\{2,3\}.
+\]
+Then
+\[
+S=\{0,2,3,4,5,\ldots\}.
+\]
+The integer \(1\) does not lie in \(S\), even though
+\[
+1=3-2\in\ZZ S.
+\]
+This missing lattice point will become important when we discuss
+normality.
+\end{example}
+
+\begin{pauseandthink}
+Find finite generating sets for the following affine semigroups:
+\[
+\ZZ_{\geq0}^2,
+\qquad
+2\ZZ_{\geq0},
+\qquad
+\{(a,b)\in\ZZ^2:a\geq0,\ a+b\geq0\}.
+\]
+A generating set need not be unique. Can one of your generating sets
+be made smaller?
+\end{pauseandthink}
+
+\subsection{The semigroup algebra}
+
+An affine semigroup can be turned directly into an algebra.
+
+\begin{definition}
+Let \(S\subseteq M\) be an affine semigroup. Its \emph{semigroup
+algebra} is
+\[
+\Bbbk[S]
+=
+\bigoplus_{m\in S}\Bbbk\,\character{m},
+\]
+with multiplication determined by
+\[
+\character{m}\character{m'}
+=
+\character{m+m'}.
+\]
+\end{definition}
+
+This notation treats the elements \(\character{m}\) as formal basis
+vectors. Since \(S\subseteq M\), we may also regard them as actual
+characters of the torus with character lattice \(M\). In that
+realization,
+\[
+\Bbbk[S]\subseteq\Bbbk[M].
+\]
+
+If
+\[
+S=\NN m_1+\cdots+\NN m_r,
+\]
+then
+\[
+\Bbbk[S]
+=
+\Bbbk[
+\character{m_1},\ldots,\character{m_r}
+].
+\]
+Thus finite generation of the semigroup gives finite generation of
+the algebra. The basic examples from the previous section become
+\[
+\begin{array}{c|c|c}
+S&\Bbbk[S]&\Spec\Bbbk[S]\\
+\hline
+\NN^n&\Bbbk[x_1,\ldots,x_n]&\AAA^n\\
+\ZZ_{\geq0}\times\ZZ&\Bbbk[x,y^{\pm1}]&\AAA^1\times\Gm\\
+\ZZ^n&\Bbbk[t_1^{\pm1},\ldots,t_n^{\pm1}]&\Gm^n.
+\end{array}
+\]
+
+The notation \(\Bbbk[S]\) encodes both the basis and the
+multiplication. Adding lattice points corresponds to multiplying
+monomials:
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+m+m'
+&
+\character{m}\character{m'}.
+\end{array}
+\]
+
+\subsection{From generators to a monomial map}
+
+Let
+\[
+S=\NN\mathcal A,
+\qquad
+\mathcal A=\{m_1,\ldots,m_r\}\subseteq M.
+\]
+The generators determine a monomial map
+\[
+\Phi_{\mathcal A}:T\longrightarrow\AAA^r
+\]
+defined by
+\[
+\Phi_{\mathcal A}(t)
+=
+\bigl(
+\character{m_1}(t),\ldots,\character{m_r}(t)
+\bigr).
+\]
+
+Every coordinate of the map is a character. We therefore obtain a
+parameterized subset of affine space using monomials alone.
+
+\begin{definition}
+The \emph{affine semigroup variety} associated to
+\(\mathcal A\) is the Zariski closure
+\[
+Y_{\mathcal A}
+=
+\overline{\Phi_{\mathcal A}(T)}
+\subseteq\AAA^r.
+\]
+\end{definition}
+
+The closure is necessary: the image of the torus has all coordinates
+nonzero, while the closure adds the boundary points obtained when
+some monomials approach zero.
+
+\begin{example}
+Take
+\[
+\mathcal A=\{(1,0),(1,1),(0,1)\}\subseteq\ZZ^2.
+\]
+The monomial map is
+\[
+\Phi_{\mathcal A}(s,t)
+=
+(s,st,t).
+\]
+Writing the coordinates of \(\AAA^3\) as \(x,z,y\), the image satisfies
+\[
+z=xy.
+\]
+Its closure is the surface
+\[
+Y_{\mathcal A}
+=
+V(z-xy)\subseteq\AAA^3,
+\]
+which is isomorphic to \(\AAA^2\). The extra generator \((1,1)\) did
+not change the abstract variety; it produced a redundant affine
+embedding.
+\end{example}
+
+\begin{proposition}
+\label{prop:semigroup-algebra-monomial-closure}
+Let
+\[
+S=\NN\mathcal A\subseteq M
+\]
+be an affine semigroup. Then:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(\Bbbk[S]\) is a finitely generated integral domain;
+\item \(\Spec\Bbbk[S]\) is an affine toric variety whose dense torus
+has character lattice \(\ZZ S\);
+\item there is a natural isomorphism
+\[
+\Spec\Bbbk[S]\simeq Y_{\mathcal A}.
+\]
+In particular,
+\[
+\dim\Spec\Bbbk[S]
+=
+\rank(\ZZ S).
+\]
+\end{enumerate}
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+Over \(\CC\), this combines Cox--Little--Schenck,
+Propositions~1.1.8 and~1.1.14. The same argument works over our
+algebraically closed base field \(\Bbbk\).
+
+\begin{proof}[Conceptual proof sketch]
+The generators \(m_1,\ldots,m_r\) give a homomorphism
+\[
+\pi:
+\Bbbk[x_1,\ldots,x_r]
+\longrightarrow
+\Bbbk[M],
+\qquad
+x_i\longmapsto\character{m_i}.
+\]
+Its image is exactly
+\[
+\Bbbk[
+\character{m_1},\ldots,\character{m_r}
+]
+=
+\Bbbk[S].
+\]
+On the geometric side, \(\pi\) is the pullback of the monomial map
+\(\Phi_{\mathcal A}\). Therefore the coordinate ring of the closure
+of its image is the image of \(\pi\), namely \(\Bbbk[S]\).
+
+The image of the torus is again a torus. Its character lattice is the
+subgroup generated by the characters used in the map, which is
+\(\ZZ S\). The closure is irreducible because it is the closure of an
+irreducible torus, and the torus action preserves the closure.
+
+To complete every detail, one checks that the ideal of the closure is
+\(\ker\pi\), verifies that the image torus is open in the closure, and
+identifies its character lattice through pullback.
+\end{proof}
+
+\begin{warningbox}
+The dense torus of \(\Spec\Bbbk[S]\) has character lattice
+\[
+\ZZ S,
+\]
+which may be smaller than the ambient lattice \(M\) in which \(S\) was
+first written.
+
+Thus the intrinsic lattice of the variety is not automatically the
+largest lattice visible in the notation. Working in the correct
+lattice will be essential when we discuss saturation and normality.
+\end{warningbox}
+
+\subsection{Relations among generators become equations}
+
+The monomial map gives a parametrization. To find equations for its
+closure, we look for additive relations among the generators
+\[
+m_1,\ldots,m_r.
+\]
+
+Define the lattice homomorphism
+\[
+\beta:\ZZ^r\longrightarrow M,
+\qquad
+e_i\longmapsto m_i,
+\]
+and let
+\[
+L=\ker\beta.
+\]
+An element
+\[
+\ell=(\ell_1,\ldots,\ell_r)\in L
+\]
+records an integral relation
+\[
+\ell_1m_1+\cdots+\ell_rm_r=0.
+\]
+
+Write
+\[
+\ell=\ell^+-\ell^-,
+\]
+where \(\ell^+,\ell^-\in\NN^r\) have disjoint supports. The relation
+\(\beta(\ell)=0\) becomes
+\[
+\sum_i\ell_i^+m_i
+=
+\sum_i\ell_i^-m_i.
+\]
+Consequently,
+\[
+x^{\ell^+}-x^{\ell^-}
+\]
+vanishes after the substitution
+\[
+x_i=\character{m_i}.
+\]
+
+\begin{example}
+For
+\[
+\mathcal A=\{(1,0),(1,1),(0,1)\},
+\]
+the relation
+\[
+(1,0)+(0,1)=(1,1)
+\]
+gives
+\[
+x_1x_3-x_2.
+\]
+This is the equation \(xy-z=0\) found above.
+\end{example}
+
+\begin{definition}
+The kernel
+\[
+I_{\mathcal A}
+=
+\ker\left(
+\Bbbk[x_1,\ldots,x_r]
+\longrightarrow
+\Bbbk[S]
+\right),
+\qquad
+x_i\longmapsto\character{m_i},
+\]
+is the \emph{toric ideal} associated to \(\mathcal A\).
+\end{definition}
+
+\begin{proposition}[Equations of a monomial image]
+\label{prop:toric-ideal-binomial-relations}
+With notation as above,
+\[
+I_{\mathcal A}
+=
+\left\langle
+x^{\ell^+}-x^{\ell^-}:
+\ell\in L
+\right\rangle.
+\]
+Equivalently, \(I_{\mathcal A}\) is generated by all binomials
+\[
+x^\alpha-x^\beta
+\]
+for which
+\[
+\sum_i\alpha_i m_i
+=
+\sum_i\beta_i m_i.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.1.9.
+
+\begin{proof}[Conceptual proof sketch]
+Every displayed binomial lies in the kernel because its two monomials
+are sent to the same character.
+
+For the reverse inclusion, take a polynomial relation among the
+monomials \(\character{m_i}\). After substitution, different terms can
+cancel only when they become the same character of the torus.
+Group together all terms with the same resulting exponent in \(M\).
+Within each group, subtract one chosen monomial from the others.
+Every such difference is one of the binomials above.
+
+A complete proof organizes this reduction using a monomial order, or
+equivalently decomposes the polynomial according to its \(M\)-degree.
+The driving idea is simply that distinct characters are linearly
+independent in \(\Bbbk[M]\).
+\end{proof}
+
+Thus additive relations in the lattice become binomial equations in
+affine space:
+\[
+\boxed{
+\text{same sum of exponent vectors}
+\quad\Longleftrightarrow\quad
+\text{same monomial after parametrization}.
+}
+\]
+
+\subsection{The cusp: the simplest missing exponent}
+
+Let
+\[
+S=\NN\{2,3\}\subseteq\ZZ.
+\]
+Then
+\[
+\Bbbk[S]
+=
+\Bbbk[t^2,t^3].
+\]
+The monomial map is
+\[
+\Phi_{\mathcal A}:\Gm\longrightarrow\AAA^2,
+\qquad
+t\longmapsto(t^2,t^3).
+\]
+
+Let the coordinates of \(\AAA^2\) be \(x,y\), corresponding to the
+generators \(2,3\). The relation
+\[
+3\cdot2=2\cdot3
+\]
+gives
+\[
+x^3-y^2.
+\]
+Hence
+\[
+\Bbbk[S]
+\simeq
+\Bbbk[x,y]/(x^3-y^2)
+\]
+and
+\[
+\Spec\Bbbk[S]
+\simeq
+V(x^3-y^2)\subseteq\AAA^2.
+\]
+
+This is the cuspidal cubic. It is an affine toric variety, even though
+it is not normal. The character \(t=\character{1}\) is regular on the
+normalization \(\AAA^1\), but it does not belong to
+\(\Bbbk[t^2,t^3]\).
+
+\begin{agcheatsheet}
+For an irreducible affine variety \(X=\Spec A\), being
+\emph{normal} means that \(A\) is integrally closed in its fraction
+field. Concretely, if \(f\in\Frac(A)\) satisfies a monic
+equation
+\[
+f^r+a_{r-1}f^{r-1}+\cdots+a_0=0,
+\qquad
+a_i\in A,
+\]
+then normality requires \(f\in A\).
+
+Normal varieties may still be singular, but they are regular in
+codimension one; consequently, their singularities can occur only in
+codimension at least two. Every irreducible variety \(X\) has a
+canonical normalization
+\[
+\nu:X^\nu\longrightarrow X,
+\]
+a finite birational morphism from a normal variety, unique up to
+unique isomorphism.
+
+For further reading, see Hartshorne, \emph{Algebraic Geometry},
+Exercise~I.3.17; the Stacks Project, Tags~031O and~0BXQ; and
+Cox--Little--Schenck, \S1.3.
+\end{agcheatsheet}
+
+\begin{pauseandthink}
+Why does
+\[
+t\notin\Bbbk[t^2,t^3]
+\]
+even though
+\[
+t=\frac{t^3}{t^2}
+\]
+belongs to the fraction field? Why does
+\[
+t^2\in\Bbbk[t^2,t^3]
+\]
+suggest that the missing exponent \(1\) should be relevant to
+normality?
+\end{pauseandthink}
+
+\subsection{A quadratic cone and the correct lattice}
+
+Consider
+\[
+\mathcal A
+=
+\{(2,0),(1,1),(0,2)\}
+\subseteq\ZZ^2
+\]
+and
+\[
+S=\NN\mathcal A.
+\]
+The monomial map
+\[
+\Gm^2\longrightarrow\AAA^3
+\]
+is
+\[
+(s,t)\longmapsto(s^2,st,t^2).
+\]
+Writing the coordinates of \(\AAA^3\) as \(a,b,c\), the relation
+\[
+(2,0)+(0,2)=2(1,1)
+\]
+gives
+\[
+ac-b^2=0.
+\]
+Therefore
+\[
+\Spec\Bbbk[S]
+\simeq
+V(ac-b^2)\subseteq\AAA^3.
+\]
+
+At first glance, \(S\) appears to omit many lattice points of the
+first quadrant, such as \((1,0)\). But the character lattice of the
+dense torus is not all of \(\ZZ^2\). It is
+\[
+\ZZ S
+=
+\{(a,b)\in\ZZ^2:a+b\text{ is even}\}.
+\]
+Inside this intrinsic lattice, the apparent gaps look very different.
+
+This example anticipates an important rule:
+
+\begin{center}
+\fbox{\parbox{0.86\linewidth}{\centering
+Questions about missing lattice points must be asked in the
+character lattice of the dense torus.
+}}
+\end{center}
+
+\subsection{Four equivalent descriptions}
+
+We can now state the basic classification of arbitrary affine toric
+varieties, before imposing normality.
+
+\begin{theorem}[Equivalent constructions of affine toric varieties]
+\label{thm:equivalent-affine-toric-constructions}
+Let \(X\) be an affine variety. The following are equivalent:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(X\) is an affine toric variety;
+\item \(X\simeq Y_{\mathcal A}\) for a finite set
+\(\mathcal A\) in a lattice;
+\item \(X\) is isomorphic to an affine variety defined by a toric
+ideal;
+\item
+\[
+X\simeq\Spec\Bbbk[S]
+\]
+for an affine semigroup \(S\).
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~1.1.17, adapted from \(\CC\) to
+our algebraically closed field \(\Bbbk\).
+
+\begin{proof}[Conceptual proof sketch]
+Starting with a finite set of lattice points, the monomial map,
+its binomial equations, and the semigroup algebra are three
+presentations of the same object:
+\[
+Y_{\mathcal A}
+\simeq
+\Spec\Bbbk[\NN\mathcal A].
+\]
+The preceding propositions establish these implications.
+
+The only genuinely new direction starts with an intrinsic affine
+toric variety \(X\). Since the dense torus \(T\) is open and dense,
+restriction embeds
+\[
+\Bbbk[X]\hookrightarrow\Bbbk[T]=\Bbbk[M].
+\]
+The extended torus action makes \(\Bbbk[X]\) stable under \(T\).
+The weight-space decomposition then says that this subalgebra is
+spanned by the characters it contains:
+\[
+\Bbbk[X]
+=
+\bigoplus_{\character{m}\in\Bbbk[X]}
+\Bbbk\,\character{m}.
+\]
+The set
+\[
+S_X
+=
+\{m\in M:\character{m}\in\Bbbk[X]\}
+\]
+is closed under addition because \(\Bbbk[X]\) is an algebra. Finally,
+finite generation of the coordinate ring implies that \(S_X\) is
+finitely generated. Hence
+\[
+\Bbbk[X]=\Bbbk[S_X].
+\]
+
+To complete the proof in detail, one verifies that a finite collection
+of algebra generators can be replaced by the finitely many characters
+appearing in their weight decompositions.
+\end{proof}
+
+The theorem says that we are free to move between four viewpoints:
+\[
+\begin{array}{c}
+\text{an intrinsic torus action},
+\\
+\text{a monomial parametrization},
+\\
+\text{binomial equations},
+\\
+\text{a semigroup algebra}.
+\end{array}
+\]
+
+\begin{guidingquestion}
+An affine semigroup \(S\) generates a real cone
+\[
+\Cone{S}\subseteq M_{\RR}.
+\]
+When can \(S\) be recovered as all lattice points of that cone, and
+what geometric property does this recovery encode?
+\end{guidingquestion}
+
+
+\section{Cones, saturation, and normality}
+\label{sec:cones-saturation-normality}
+\index{cone!rational polyhedral}
+\index{Gordan's lemma}
+\index{Hilbert basis}
+\index{saturation}
+\index{normality}
+\index{normalization}
+
+An affine semigroup
+\[
+S=\NN m_1+\cdots+\NN m_r\subseteq M
+\]
+contains discrete information: it records exactly which lattice points
+are allowed. If we permit nonnegative real coefficients instead, we
+obtain a continuous geometric object:
+\[
+\Cone{S}
+=
+\RR_{\geq0}m_1+\cdots+\RR_{\geq0}m_r
+\subseteq M_{\RR}.
+\]
+
+Passing from \(S\) to \(\Cone{S}\) remembers the directions in which
+the semigroup grows, but it may forget holes. The main question of
+this section is whether the original semigroup can be recovered from
+its cone:
+\[
+S\stackrel{?}{=}\Cone{S}\cap M.
+\]
+
+The answer is controlled simultaneously by a combinatorial condition
+on \(S\) and an algebraic condition on \(\Bbbk[S]\):
+\[
+\boxed{
+S\text{ has no hidden lattice-point holes}
+\quad\Longleftrightarrow\quad
+\Bbbk[S]\text{ is normal}.
+}
+\]
+
+\subsection{From a semigroup to a cone}
+
+\begin{definition}
+Let \(V\) be a finite-dimensional real vector space. A
+\emph{polyhedral cone} is a subset of the form
+\[
+C
+=
+\RR_{\geq0}v_1+\cdots+\RR_{\geq0}v_r
+\subseteq V
+\]
+for finitely many vectors \(v_1,\ldots,v_r\in V\).
+
+When \(V=M_{\RR}\) for a lattice \(M\), the cone is
+\emph{rational} if the generators may be chosen in \(M\).
+\end{definition}
+
+Thus the cone of every affine semigroup is a rational polyhedral
+cone.
+
+\begin{example}
+Let
+\[
+S
+=
+\NN(2,0)+\NN(0,1)+\NN(1,1)
+\subseteq\ZZ^2.
+\]
+Its cone is again the first quadrant:
+\[
+\Cone{S}
+=
+\RR_{\geq0}^2.
+\]
+However,
+\[
+(1,0)\notin S,
+\qquad
+2(1,0)=(2,0)\in S.
+\]
+Hence
+\[
+S\subsetneq\Cone{S}\cap\ZZ^2.
+\]
+The cone remembers the first quadrant but does not remember the
+missing point \((1,0)\).
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  \fill[PastelYellow] (0,0) rectangle (4.2,3.7);
+  \draw[->,black!55] (-0.45,0)--(5.4,0);
+  \draw[->,black!55] (0,-0.45)--(0,4.05);
+
+  \foreach \a in {0,...,4}{
+    \foreach \b in {0,...,3}{
+      \fill[black!20] (\a,\b) circle (1.6pt);
+    }
+  }
+
+  % Points generated by the semigroup in the displayed window.
+  \foreach \a/\b in {
+    0/0,2/0,4/0,
+    0/1,1/1,2/1,3/1,4/1,
+    0/2,1/2,2/2,3/2,4/2,
+    0/3,1/3,2/3,3/3,4/3
+  }{
+    \fill[DictionaryBlue] (\a,\b) circle (2.45pt);
+  }
+
+  \draw[WarningRed,very thick] (1,0) circle (5.2pt);
+  \node[WarningRed,below] at (1,-0.14)
+    {\((1,0)\) missing};
+
+  \draw[PredictionTeal,very thick,-{Latex[length=2.4mm]}]
+    (4.75,2.65)--(3.65,2.65);
+  \node[
+    fill=white,
+    draw=PredictionTeal,
+    rounded corners,
+    align=left,
+    text width=3.15cm,
+    anchor=west,
+    inner sep=5pt
+  ] at (4.82,2.65)
+    {\(\Cone{S}=\RR_{\geq0}^2\).\\
+     The cone contains every lattice point in the shaded first quadrant,\\
+     but \(S\) still misses \((1,0)\).};
+\end{tikzpicture}
+\caption{The semigroup generated by \((2,0),(0,1),(1,1)\) has the
+whole first quadrant as its cone, but it misses \((1,0)\).}
+\label{fig:semigroup-hole-first-quadrant}
+\end{figure}
+
+\begin{pauseandthink}
+For
+\[
+S=\NN\{2,3\}\subseteq\ZZ,
+\]
+determine \(\Cone{S}\), \(\Cone{S}\cap\ZZ\), and the lattice points
+missing from \(S\). Which of the missing points remain missing after
+multiplication by every positive integer?
+\end{pauseandthink}
+
+\subsection{A small amount of cone geometry}
+
+We record the pieces of cone language that will be used throughout
+the course.
+
+The \emph{span} of a cone \(C\) is the smallest linear subspace
+containing it:
+\[
+\Span_{\RR}(C)=C-C.
+\]
+Its dimension is the dimension of this span.
+
+A cone is \emph{strongly convex}, or \emph{pointed}, if it contains no
+nonzero linear subspace:
+\[
+C\cap(-C)=\{0\}.
+\]
+A cone that contains a line has directions in which one may move both
+forward and backward while remaining inside the cone.
+
+\begin{definition}
+Let \(C\subseteq M_{\RR}\) be a polyhedral cone. A \emph{face} of
+\(C\) is a subset
+\[
+F=C\cap H
+\]
+where \(H\) is a supporting hyperplane: \(C\) lies in one of the two
+closed half-spaces determined by \(H\).
+
+A one-dimensional face of a strongly convex cone is called a
+\emph{ray}. A codimension-one face is called a \emph{facet}.
+\end{definition}
+
+For a rational ray \(\rho\), the lattice points
+\[
+\rho\cap M
+\]
+are generated by a unique primitive lattice point. We call it the
+\emph{primitive ray generator}.
+
+\begin{observation}
+Faces will acquire algebraic and geometric meanings later:
+
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+\text{faces of a cone}
+&
+\text{localizations and torus orbits}.
+\end{array}
+\]
+
+For the moment, faces simply describe the boundary structure of a
+cone.
+\end{observation}
+
+\noindent
+\textit{Reference.}
+The basic cone terminology appears in Cox--Little--Schenck,
+Definitions~1.2.2, 1.2.5, and~1.2.14. Primitive ray generators are
+discussed immediately before Lemma~1.2.15.
+
+\subsection{Gordan's lemma}
+
+Starting with a finite set of lattice points always produces a
+finitely generated semigroup. The converse direction is less obvious:
+if we start with a rational cone and take \emph{all} of its lattice
+points, do we still obtain a finitely generated semigroup?
+
+\begin{theorem}[Gordan's lemma]
+\label{thm:gordans-lemma-character-cone}
+Let \(C\subseteq M_{\RR}\) be a rational polyhedral cone. Then
+\[
+C\cap M
+\]
+is a finitely generated semigroup.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.2.17, applied to a
+rational polyhedral cone in the character space \(M_{\RR}\).
+
+\begin{proof}[Conceptual proof sketch]
+Choose lattice generators
+\[
+v_1,\ldots,v_r\in M
+\]
+for \(C\). Every point of \(C\) is a nonnegative real combination
+\[
+a_1v_1+\cdots+a_rv_r.
+\]
+Split each coefficient into its integer and fractional parts:
+\[
+a_i=\lfloor a_i\rfloor+\delta_i,
+\qquad
+0\leq\delta_i<1.
+\]
+The integer parts produce a nonnegative integral combination of the
+\(v_i\). The fractional remainder lies in the bounded region
+\[
+K=
+\left\{
+\delta_1v_1+\cdots+\delta_rv_r:
+0\leq\delta_i<1
+\right\}.
+\]
+Since a bounded region contains only finitely many lattice points,
+\(K\cap M\) is finite. Every lattice point of \(C\) is therefore the
+sum of one of these finitely many remainder points and a nonnegative
+integral combination of the \(v_i\).
+
+To complete the proof, retain from \(K\cap M\) only the points that
+actually lie in \(C\), and add them to the original generators.
+\end{proof}
+
+The proof explains the finite generation geometrically:
+
+\begin{center}
+\fbox{\parbox{0.86\linewidth}{\centering
+Integer parts move along the cone generators, while only finitely
+many fractional remainders must be remembered.
+}}
+\end{center}
+
+\subsection{The Hilbert basis}
+
+When \(C\) is strongly convex, the semigroup \(C\cap M\) has a
+canonical minimal generating set.
+
+\begin{definition}
+Let \(S=C\cap M\), where \(C\) is strongly convex. A nonzero element
+\(m\in S\) is \emph{irreducible} if
+\[
+m=m'+m'',
+\qquad
+m',m''\in S,
+\]
+implies \(m'=0\) or \(m''=0\).
+
+The set of irreducible elements of \(S\) is called the
+\emph{Hilbert basis} of \(C\cap M\).
+\end{definition}
+
+\begin{proposition}
+\label{prop:hilbert-basis-cone}
+The Hilbert basis of \(C\cap M\) is finite, generates \(C\cap M\),
+and is its unique minimal generating set.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the character-space version of Cox--Little--Schenck,
+Proposition~1.2.23.
+
+\begin{proof}[Conceptual proof sketch]
+Gordan's lemma supplies some finite generating set. Any irreducible
+element must occur in every generating set, because it cannot be
+written as a sum of smaller nonzero semigroup elements. Conversely,
+repeatedly decompose any reducible element. Strong convexity provides
+a linear function that is strictly positive away from the origin, so
+this process cannot continue indefinitely. The resulting pieces are
+irreducible.
+
+Thus the irreducible elements generate and are forced to occur in
+every generating set.
+\end{proof}
+
+\begin{warningbox}
+The primitive ray generators of \(C\) need not generate the whole
+semigroup \(C\cap M\). A cone may have very few rays but require
+additional lattice points between them in its Hilbert basis.
+
+Cone generators and semigroup generators answer different questions.
+\end{warningbox}
+
+\subsection{Saturation fills the holes}
+
+We now give a name to the condition suggested by the cusp and by
+\cref{fig:semigroup-hole-first-quadrant}.
+
+\begin{definition}
+Let \(S\) be an affine semigroup, and let
+\[
+M_S=\ZZ S
+\]
+be its group of differences. The semigroup \(S\) is
+\emph{saturated} if
+\[
+m\in M_S,\quad k>0,\quad km\in S
+\qquad\Longrightarrow\qquad
+m\in S.
+\]
+\end{definition}
+
+The use of the intrinsic lattice \(M_S=\ZZ S\) is essential. A point
+outside \(M_S\) is not a character of the dense torus of
+\(\Spec\Bbbk[S]\), so it should not count as a missing character.
+
+\begin{example}
+The semigroup
+\[
+S=\NN\{2,3\}\subseteq\ZZ
+\]
+is not saturated because
+\[
+1\notin S,
+\qquad
+2\cdot1=2\in S.
+\]
+\end{example}
+
+\begin{example}
+For
+\[
+S=\NN(2,0)+\NN(0,1)+\NN(1,1)\subseteq\ZZ^2,
+\]
+we have
+\[
+\ZZ S=\ZZ^2.
+\]
+The point \((1,0)\) witnesses the failure of saturation:
+\[
+(1,0)\notin S,
+\qquad
+2(1,0)\in S.
+\]
+\end{example}
+
+\begin{proposition}[Saturation and lattice points]
+\label{prop:saturation-cone-lattice-points}
+Let \(S\) be an affine semigroup and set
+\[
+M_S=\ZZ S,
+\qquad
+C=\Cone{S}\subseteq(M_S)_{\RR}.
+\]
+Then
+\[
+S\text{ is saturated}
+\quad\Longleftrightarrow\quad
+S=C\cap M_S.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Exercise~1.3.4(a).
+
+\begin{proof}
+The inclusion
+\[
+S\subseteq C\cap M_S
+\]
+always holds.
+
+Suppose first that \(S\) is saturated, and let \(m\in C\cap M_S\).
+Because \(C\) is a rational cone generated by elements of \(S\), the
+point \(m\) can be expressed using nonnegative rational coefficients:
+\[
+m=q_1m_1+\cdots+q_rm_r,
+\qquad
+q_i\in\QQ_{\geq0}.
+\]
+Choose a positive integer \(k\) clearing all denominators. Then
+\[
+km\in S.
+\]
+Saturation gives \(m\in S\).
+
+Conversely, suppose
+\[
+S=C\cap M_S.
+\]
+If \(km\in S\) for \(m\in M_S\) and \(k>0\), then
+\[
+m=\frac1k(km)\in C.
+\]
+Hence
+\[
+m\in C\cap M_S=S.
+\]
+\end{proof}
+
+This proposition is the precise version of the slogan:
+
+\[
+\boxed{
+\text{saturation fills every lattice-point hole inside the cone.}
+}
+\]
+
+\subsection{Normality is saturation in algebraic form}
+
+Recall from the algebraic geometry cheatsheet in
+Section~\ref{sec:affine-semigroups-monomial-maps} that an affine
+domain \(A\) is normal when it is integrally closed in its fraction
+field.
+
+For semigroup algebras, integral closure has a direct combinatorial
+meaning.
+
+\begin{theorem}[Normality criterion for affine toric varieties]
+\label{thm:normality-saturation-cone}
+Let \(S\) be an affine semigroup, and let
+\[
+M_S=\ZZ S
+\]
+be its intrinsic lattice. Set
+\[
+C=\Cone{S}\subseteq (M_S)_{\RR}.
+\]
+The following are equivalent:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(\Spec\Bbbk[S]\) is normal;
+\item \(S\) is saturated in \(M_S\);
+\item
+\[
+S=C\cap M_S.
+\]
+\end{enumerate}
+
+Consequently, every normal affine toric variety arising from \(S\)
+has coordinate ring
+\[
+\Bbbk[C\cap M_S],
+\]
+where \(C=\Cone{S}\subseteq(M_S)_{\RR}\). More intrinsically, if an
+affine toric variety has dense-torus character lattice \(M_T\), then it
+has the form
+\[
+X_C
+=
+\Spec\Bbbk[C\cap M_T]
+\]
+for a full-dimensional rational polyhedral cone
+\(C\subseteq(M_T)_{\RR}\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the character-space formulation of
+Cox--Little--Schenck, Theorem~1.3.5.
+
+\begin{proof}[Conceptual proof sketch]
+The implication
+\[
+\text{normal}\Longrightarrow\text{saturated}
+\]
+contains the key algebraic idea. Suppose
+\[
+km\in S
+\]
+for some \(m\in M_S\) and \(k>0\). Since \(m\in\ZZ S\), the character
+\(\character{m}\) belongs to the fraction field of \(\Bbbk[S]\).
+Moreover, it satisfies the monic equation
+\[
+Z^k-\character{km}=0
+\]
+with coefficient \(\character{km}\in\Bbbk[S]\). Thus
+\(\character{m}\) is integral over \(\Bbbk[S]\). Normality forces
+\(\character{m}\in\Bbbk[S]\), so \(m\in S\).
+
+The equivalence between saturation and
+\[
+S=C\cap M_S
+\]
+is \cref{prop:saturation-cone-lattice-points}.
+
+For the remaining direction, let
+\[
+N_S=\Hom_{\ZZ}(M_S,\ZZ)
+\]
+be the lattice dual to \(M_S\), and write
+\[
+\sigma=C^\vee\subseteq (N_S)_{\RR}.
+\]
+Since \(C\) spans \((M_S)_{\RR}\), the cone \(\sigma\) is strongly
+convex.
+The algebra \(\Bbbk[C\cap M_S]\) may be recovered as an intersection of
+the algebras associated to the rays of \(\sigma\). After choosing a
+basis adapted to a primitive ray generator, each ray algebra becomes
+a polynomial ring in one variable with Laurent variables in the other
+directions:
+\[
+\Bbbk[x_1,x_2^{\pm1},\ldots,x_n^{\pm1}].
+\]
+These rings are normal, and an intersection of integrally closed
+domains inside a common fraction field is integrally closed.
+
+The technical part of the complete proof verifies the intersection
+description and the reduction to primitive ray generators.
+\end{proof}
+
+\begin{pauseandthink}
+Return to
+\[
+S=\NN(2,0)+\NN(0,1)+\NN(1,1).
+\]
+Determine its saturation. What is the normalization of
+\[
+\Spec\Bbbk[S]?
+\]
+Using
+\[
+a=x^2,\qquad b=y,\qquad c=xy,
+\]
+find an equation for the original affine semigroup variety and write
+the normalization map explicitly.
+\end{pauseandthink}
+
+Here
+\[
+\overline S=\ZZ_{\geq0}^2.
+\]
+The original algebra is
+\[
+\Bbbk[S]
+=
+\Bbbk[x^2,y,xy]
+\simeq
+\Bbbk[a,b,c]/(c^2-ab^2),
+\]
+while the saturated algebra is
+\[
+\Bbbk[\overline S]
+=
+\Bbbk[x,y].
+\]
+The normalization map is
+\[
+\AAA^2\longrightarrow V(c^2-ab^2)\subseteq\AAA^3,
+\qquad
+(x,y)\longmapsto(x^2,y,xy).
+\]
+
+\subsection{Normalization of an affine semigroup variety}
+
+The previous theorem identifies the ring that should normalize
+\(\Bbbk[S]\).
+
+\begin{proposition}[Normalization by filling the cone]
+\label{prop:normalization-semigroup-variety}
+Let \(S\) be an affine semigroup, set
+\[
+M_S=\ZZ S,
+\qquad
+C=\Cone{S}\subseteq(M_S)_{\RR},
+\]
+and write
+\[
+\overline S=C\cap M_S.
+\]
+Then the inclusion
+\[
+\Bbbk[S]\subseteq\Bbbk[\overline S]
+\]
+induces the normalization morphism
+\[
+\nu:
+\Spec\Bbbk[\overline S]
+\longrightarrow
+\Spec\Bbbk[S].
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the character-space form of Cox--Little--Schenck,
+Proposition~1.3.8.
+
+\begin{proof}[Conceptual proof sketch]
+By Gordan's lemma, \(\overline S=C\cap M_S\) is finitely generated.
+It is saturated, so \(\Bbbk[\overline S]\) is normal.
+
+For every \(m\in\overline S\), rationality of the cone implies that
+some positive multiple \(km\) lies in \(S\). Hence
+\[
+\character{m}
+\]
+satisfies
+\[
+Z^k-\character{km}=0
+\]
+and is integral over \(\Bbbk[S]\). Thus
+\(\Bbbk[\overline S]\) is integral, and therefore finite, over
+\(\Bbbk[S]\).
+
+Finally, \(S\) and \(\overline S\) generate the same group \(M_S\), so
+their semigroup algebras have the same fraction field. The induced
+morphism is therefore finite and birational, with normal source,
+which characterizes the normalization.
+\end{proof}
+
+For the cusp this recovers the normalization already anticipated:
+\[
+\Bbbk[t^2,t^3]\subseteq\Bbbk[t],
+\qquad
+t\longmapsto(t^2,t^3).
+\]
+
+Different semigroups can generate the same cone, so cones do not
+classify arbitrary affine toric varieties. If \(S_1\) and \(S_2\)
+generate the same cone and the same intrinsic lattice, then they have
+the same saturation and hence the same normalization.
+
+All intersections with the cone must be taken in
+\[
+M_S=\ZZ S,
+\]
+the character lattice of the dense torus determined by \(S\). Using a
+larger ambient lattice can create apparent holes that are not
+intrinsic to the variety.
+
+\begin{threedictionaries}
+Normality is the same phenomenon in three languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\Bbbk[S]\)
+&
+\(\Spec\Bbbk[S]\)
+&
+an affine semigroup \(S\subseteq M\), with \(M_S=\ZZ S\)
+\\[1mm]
+integral closure
+&
+normalization
+&
+fill lattice-point holes
+\\[1mm]
+\(\Bbbk[S]\) integrally closed
+&
+the affine toric variety is normal
+&
+\(S\) is saturated
+\\[1mm]
+\(\Bbbk[C\cap M_S]\)
+&
+a normal affine toric variety
+&
+all lattice points of a rational cone \(C\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+If a cone
+\[
+C\subseteq M_{\RR}
+\]
+records the characters that extend regularly, what does the dual cone
+in \(N_{\RR}\) record about one-parameter subgroups and their limits?
+\end{guidingquestion}
+
+
+\section{Dual cones and one-parameter subgroup limits}
+\label{sec:dual-cones-oneps-limits}
+\index{dual cone}
+\index{one-parameter subgroup!limit criterion}
+\index{strongly convex cone}
+
+The previous section described a normal affine toric variety by a cone
+\[
+C\subseteq M_{\RR}
+\]
+whose lattice points index the characters that extend regularly. We
+now turn this picture around.
+
+Fix a torus \(T\), with character and one-parameter subgroup lattices
+\[
+M=X^*(T),
+\qquad
+N=X_*(T),
+\]
+and perfect pairing
+\[
+\pair{\phantom{m}}{\phantom{u}}:
+M\times N\longrightarrow\ZZ.
+\]
+
+When a variety is first presented by an affine semigroup \(S\), the
+lattices in this section should be understood intrinsically:
+\[
+M=M_S=\ZZ S,
+\qquad
+N=N_S=\Hom_{\ZZ}(M_S,\ZZ).
+\]
+An ambient lattice containing \(S\) plays no role in the geometry of
+the dense torus unless it equals \(M_S\).
+
+\subsection{Dual cones}
+
+A vector \(u\in N_{\RR}\) defines a linear function on \(M_{\RR}\):
+\[
+m\longmapsto\pair{m}{u}.
+\]
+A cone in one of the two spaces therefore determines a cone in the
+other by requiring all these values to be nonnegative.
+
+\begin{definition}
+Let
+\[
+\sigma\subseteq N_{\RR}
+\]
+be a polyhedral cone. Its \emph{dual cone} is
+\[
+\sigma^\vee
+=
+\left\{
+m\in M_{\RR}:
+\pair{m}{u}\geq0
+\text{ for every }u\in\sigma
+\right\}.
+\]
+Likewise, for a cone \(C\subseteq M_{\RR}\), its dual is
+\[
+C^\vee
+=
+\left\{
+u\in N_{\RR}:
+\pair{m}{u}\geq0
+\text{ for every }m\in C
+\right\}.
+\]
+\end{definition}
+
+Thus \(\sigma^\vee\) consists of the linear functions on
+\(N_{\RR}\) that are nonnegative throughout \(\sigma\).
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~1.2.3.
+
+If
+\[
+\sigma=\Cone{u_1,\ldots,u_r},
+\]
+then it is enough to test the generators:
+\[
+\sigma^\vee
+=
+\left\{
+m\in M_{\RR}:
+\pair{m}{u_i}\geq0
+\text{ for }i=1,\ldots,r
+\right\}.
+\]
+Indeed, nonnegativity on the \(u_i\) implies nonnegativity on every
+nonnegative linear combination of them.
+
+\begin{example}
+Let
+\[
+\sigma
+=
+\Cone{(1,0),(1,2)}
+\subseteq N_{\RR}.
+\]
+Then
+\[
+\sigma^\vee
+=
+\left\{
+(a,b)\in M_{\RR}:
+a\geq0,\ a+2b\geq0
+\right\}.
+\]
+Its two rays are generated by
+\[
+(0,1)
+\qquad\text{and}\qquad
+(2,-1).
+\]
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  % N cone
+  \begin{scope}[xshift=-4.6cm]
+    \fill[SurfaceGreen!12]
+      (0,0)--(3.1,0)--(1.55,3.1)--cycle;
+    \draw[very thick,SurfaceGreen]
+      (0,0)--(3.1,0);
+    \draw[very thick,SurfaceGreen]
+      (0,0)--(1.55,3.1);
+    \draw[->,black!55] (-0.55,0)--(3.55,0);
+    \draw[->,black!55] (0,-1.1)--(0,3.5);
+    \draw[ray,->] (0,0)--(2.3,0);
+    \draw[ray,->] (0,0)--(1.15,2.3);
+    \node[below] at (2.35,0) {\((1,0)\)};
+    \node[right] at (1.15,2.3) {\((1,2)\)};
+    \node[font=\bfseries] at (1.1,3.75)
+      {\(\sigma\subseteq N_{\RR}\)};
+  \end{scope}
+
+  % M dual cone
+  \begin{scope}[xshift=4.3cm]
+    \fill[DictionaryBlue!10]
+      (0,0)--(0,3.1)--(3.2,-1.6)--cycle;
+    \draw[very thick,DictionaryBlue]
+      (0,0)--(0,3.1);
+    \draw[very thick,DictionaryBlue]
+      (0,0)--(3.2,-1.6);
+    \draw[->,black!55] (-0.55,0)--(3.55,0);
+    \draw[->,black!55] (0,-2.0)--(0,3.5);
+    \draw[ray,->] (0,0)--(0,2.4);
+    \draw[ray,->] (0,0)--(2.4,-1.2);
+    \node[left] at (0,2.4) {\((0,1)\)};
+    \node[above right] at (2.4,-1.2) {\((2,-1)\)};
+    \node[font=\bfseries] at (1.1,3.75)
+      {\(\sigma^\vee\subseteq M_{\RR}\)};
+  \end{scope}
+
+  \draw[very thick,<->,PredictionTeal]
+    (-0.65,1.25)--(0.35,1.25);
+  \node[PredictionTeal,above] at (-0.15,1.25)
+    {dual};
+\end{tikzpicture}
+\caption{The cone
+\(\sigma=\Cone{(1,0),(1,2)}\) and its dual
+\(\sigma^\vee=\Cone{(0,1),(2,-1)}\).}
+\label{fig:cone-and-dual-cone-example}
+\end{figure}
+
+\begin{proposition}[Biduality]
+\label{prop:biduality-polyhedral-cones}
+For every polyhedral cone,
+\[
+(\sigma^\vee)^\vee=\sigma.
+\]
+Moreover, the dual of a rational polyhedral cone is again rational
+polyhedral.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+The biduality statement is Cox--Little--Schenck,
+Proposition~1.2.4. Rationality of dual cones is recorded in the
+discussion following Definition~1.2.14.
+
+\begin{proof}[Conceptual proof sketch]
+Every \(u\in\sigma\) pairs nonnegatively with every
+\(m\in\sigma^\vee\), so
+\[
+\sigma\subseteq(\sigma^\vee)^\vee.
+\]
+For the reverse inclusion, a point outside a closed polyhedral cone
+can be separated from it by a linear functional. That functional is
+an element \(m\in\sigma^\vee\) that takes a negative value on the
+outside point. Hence that point cannot lie in the bidual.
+
+For a rational cone, the required supporting functionals may be
+chosen rational and then cleared of denominators to become lattice
+vectors.
+\end{proof}
+
+\begin{pauseandthink}
+Compute the duals of the following cones in \(N_{\RR}\simeq\RR^2\):
+\[
+\{0\},
+\qquad
+\Cone{(1,0)},
+\qquad
+\Cone{(1,0),(0,1)},
+\qquad
+\Cone{(1,0),(-1,0)}.
+\]
+What happens to the dimension of the dual when the original cone
+contains a line?
+\end{pauseandthink}
+
+\subsection{From a cone in \texorpdfstring{\(N_{\RR}\)}{N\_R} to an affine variety}
+
+Let
+\[
+\sigma\subseteq N_{\RR}
+\]
+be a strongly convex rational polyhedral cone. Define
+\[
+S_\sigma
+=
+\sigma^\vee\cap M
+\]
+and
+\[
+U_\sigma
+=
+\Spec\Bbbk[S_\sigma]
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+
+Gordan's lemma makes \(S_\sigma\) finitely generated. Because it
+contains every lattice point of the rational cone \(\sigma^\vee\), it
+is saturated. Therefore \(U_\sigma\) is normal.
+
+Strong convexity of \(\sigma\) ensures that
+\[
+\sigma^\vee
+\]
+spans \(M_{\RR}\). Consequently,
+\[
+\ZZ(\sigma^\vee\cap M)=M,
+\]
+so the dense torus of \(U_\sigma\) is the original torus \(T\).
+
+\begin{theorem}
+\label{thm:affine-toric-variety-from-N-cone}
+Let \(\sigma\subseteq N_{\RR}\) be a strongly convex rational
+polyhedral cone. Then
+\[
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M]
+\]
+is a normal affine toric variety with dense torus \(T\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The construction and dense-torus statement are
+Cox--Little--Schenck, Theorem~1.2.18 and Remark~1.2.19.
+Normality follows from Theorem~1.3.5.
+
+\begin{proof}[Conceptual proof sketch]
+Gordan's lemma supplies finite generation, so \(U_\sigma\) is an
+affine semigroup variety. The semigroup
+\(\sigma^\vee\cap M\) is saturated, hence its algebra is normal.
+Finally, strong convexity is dual to the condition that
+\(\sigma^\vee\) be full-dimensional, which guarantees that its lattice
+points generate the full character lattice \(M\).
+\end{proof}
+
+This construction translates the result of the previous section. If
+\[
+C\subseteq M_{\RR}
+\]
+is a full-dimensional rational polyhedral cone and
+\[
+X_C=\Spec\Bbbk[C\cap M],
+\]
+then
+\[
+\sigma=C^\vee\subseteq N_{\RR}
+\]
+is strongly convex and
+\[
+C=\sigma^\vee.
+\]
+Hence
+\[
+X_C=U_\sigma.
+\]
+
+The standard cones recover the basic affine toric varieties:
+\[
+\begin{array}{c|c|c}
+\sigma&\sigma^\vee\cap M&U_\sigma\\
+\hline
+\{0\}&M&T\\
+\Cone{(1,0)}\subseteq\RR^2
+&\{(a,b)\in\ZZ^2:a\geq0\}
+&\AAA^1\times\Gm\\
+\Cone{(1,0),(0,1)}
+&\ZZ_{\geq0}^2
+&\AAA^2.
+\end{array}
+\]
+The nonsmooth cone
+\[
+\Cone{(1,0),(1,2)}
+\]
+produces the normal quadratic cone
+\[
+V(AC-B^2)\subseteq\AAA^3,
+\]
+as computed in Section~\ref{sec:affine-semigroups-monomial-maps} and
+used again in the smoothness discussion of
+Section~\ref{sec:properties-affine-toric-varieties}.
+
+\subsection{What does it mean for a limit to exist?}
+
+For \(u\in N\), let
+\[
+\oneps{u}:\Gm\longrightarrow T
+\]
+be the corresponding one-parameter subgroup.
+
+When we write
+\[
+\lim_{t\to0}\oneps{u}(t)
+\quad\text{in }U_\sigma,
+\]
+we mean algebraically that the morphism \(\oneps{u}\) extends across
+the missing parameter value:
+\[
+\begin{tikzcd}[column sep=large]
+\Gm \arrow[r,"\oneps{u}"] \arrow[d,hook]
+&
+T \arrow[d,hook]
+\\
+\AAA^1 \arrow[r,dashed,"\overline{\oneps{u}}"']
+&
+U_\sigma.
+\end{tikzcd}
+\]
+The limit is then the point
+\[
+\overline{\oneps{u}}(0).
+\]
+
+Because \(U_\sigma\) is affine, the extension can be tested on its
+coordinate ring. For every
+\[
+m\in\sigma^\vee\cap M,
+\]
+we have
+\[
+(\oneps{u})^*(\character{m})
+=
+t^{\pair{m}{u}}.
+\]
+This Laurent monomial extends regularly to \(\AAA^1\) precisely when
+\[
+\pair{m}{u}\geq0.
+\]
+
+\subsection{The one-parameter subgroup limit criterion}
+
+We have reached the geometric reason for placing the defining cone in
+the one-parameter subgroup space.
+
+\begin{theorem}[One-parameter subgroup limit criterion]
+\label{thm:oneps-limit-criterion-affine}
+Let
+\[
+\sigma\subseteq N_{\RR}
+\]
+be a strongly convex rational polyhedral cone, and let \(u\in N\).
+Then
+\[
+u\in\sigma
+\quad\Longleftrightarrow\quad
+\oneps{u}:\Gm\longrightarrow T
+\text{ extends to a morphism }
+\AAA^1\longrightarrow U_\sigma.
+\]
+Equivalently,
+\[
+u\in\sigma
+\quad\Longleftrightarrow\quad
+\lim_{t\to0}\oneps{u}(t)
+\text{ exists in }U_\sigma.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~3.2.2. Although it appears
+there in the discussion of the orbit--cone correspondence, its proof
+uses only the affine coordinate ring
+\(\Bbbk[\sigma^\vee\cap M]\). The same algebraic proof works over our
+base field \(\Bbbk\).
+
+\begin{proof}
+A morphism
+\[
+\AAA^1\longrightarrow U_\sigma
+\]
+is equivalent to a \(\Bbbk\)-algebra homomorphism
+\[
+\Bbbk[\sigma^\vee\cap M]\longrightarrow\Bbbk[t].
+\]
+The pullback along \(\oneps{u}\) is already defined with values in
+\(\Bbbk[t,t^{-1}]\), and sends
+\[
+\character{m}\longmapsto t^{\pair{m}{u}}.
+\]
+It takes values in \(\Bbbk[t]\) exactly when
+\[
+\pair{m}{u}\geq0
+\qquad
+\text{for every }m\in\sigma^\vee\cap M.
+\]
+Since the lattice points generate the rational cone
+\(\sigma^\vee\), this is equivalent to
+\[
+u\in(\sigma^\vee)^\vee.
+\]
+By biduality,
+\[
+(\sigma^\vee)^\vee=\sigma.
+\]
+\end{proof}
+
+The theorem gives the promised second description of \(U_\sigma\):
+
+\[
+\boxed{
+\sigma\cap N
+=
+\left\{
+u\in N:
+\oneps{u}\text{ has a limit in }U_\sigma
+\text{ as }t\to0
+\right\}.
+}
+\]
+
+On the character side,
+\[
+\sigma^\vee\cap M
+=
+\left\{
+m\in M:
+\character{m}\text{ extends regularly to }U_\sigma
+\right\}.
+\]
+
+Thus the two cones encode two complementary extension problems:
+\[
+\begin{array}{c|c}
+\sigma^\vee\subseteq M_{\RR}
+&
+\sigma\subseteq N_{\RR}
+\\
+\hline
+\text{which functions extend}
+&
+\text{which motions acquire limits}.
+\end{array}
+\]
+
+\subsection{The limit point}
+
+Suppose \(u\in\sigma\cap N\). Evaluating the extended map at \(t=0\)
+gives the semigroup homomorphism
+\[
+\gamma_u:\sigma^\vee\cap M\longrightarrow\Bbbk
+\]
+defined by
+\[
+\gamma_u(m)
+=
+\begin{cases}
+1,&\pair{m}{u}=0,\\
+0,&\pair{m}{u}>0.
+\end{cases}
+\]
+This is the point
+\[
+\lim_{t\to0}\oneps{u}(t)\in U_\sigma.
+\]
+
+If \(u\) lies in the relative interior of \(\sigma\), then
+\[
+\pair{m}{u}=0
+\quad\Longleftrightarrow\quad
+m\in\sigma^\perp\cap M.
+\]
+The resulting point is called the \emph{distinguished point}
+\(\gamma_\sigma\) of \(U_\sigma\).
+
+More generally, let \(\tau\preceq\sigma\) be the smallest face
+containing \(u\). Then
+\[
+u\in\relint(\tau),
+\]
+and the limit depends only on \(\tau\):
+\[
+\gamma_u(m)
+=
+\begin{cases}
+1,&m\in\tau^\perp\cap M,\\
+0,&m\notin\tau^\perp.
+\end{cases}
+\]
+We will later interpret this point as the distinguished point
+associated to the face \(\tau\).
+
+\begin{example}
+Let
+\[
+U_\sigma=\AAA^2,
+\qquad
+\sigma=\RR_{\geq0}^2.
+\]
+For
+\[
+u=(a,b)\in\sigma\cap\ZZ^2,
+\]
+the one-parameter subgroup is
+\[
+\oneps{u}(t)=(t^a,t^b).
+\]
+Its limit is
+\[
+\begin{array}{c|c}
+(a,b)
+&
+\displaystyle\lim_{t\to0}(t^a,t^b)
+\\
+\hline
+a>0,\ b>0&(0,0),\\
+a>0,\ b=0&(0,1),\\
+a=0,\ b>0&(1,0),\\
+a=b=0&(1,1).
+\end{array}
+\]
+The four possibilities correspond to the relative interiors of the
+four faces of the first quadrant: the two-dimensional cone, its two
+rays, and the zero face.
+\end{example}
+
+\begin{surfacelaboratory}
+For \(\AAA^2\), a one-parameter subgroup by itself reaches one
+distinguished point on each orbit. Translating the motion by a torus
+point,
+\[
+t\longmapsto p\,\oneps{u}(t),
+\]
+moves that distinguished limit through the corresponding orbit.
+
+For example, if \(u=(1,0)\), then
+\[
+(a,b)\,(t,1)=(at,b)
+\longrightarrow(0,b).
+\]
+As \(b\) varies through \(\Bbbk^\times\), these limits fill the
+one-dimensional orbit
+\[
+V(x)\setminus\{(0,0)\}.
+\]
+\end{surfacelaboratory}
+
+\begin{pauseandthink}
+For
+\[
+\sigma=\Cone{(1,0),(1,2)}
+\]
+and \(u=(p,q)\in N=\ZZ^2\), use the inequalities defining \(\sigma\)
+to determine exactly when
+\[
+\lim_{t\to0}\oneps{u}(t)
+\]
+exists in
+\[
+U_\sigma\simeq V(AC-B^2).
+\]
+Then compute the pullbacks of \(A,B,C\) and determine the limit point
+when \(u\) lies:
+\[
+\text{(a) in }\relint(\sigma),\qquad
+\text{(b) on each ray of }\sigma.
+\]
+\end{pauseandthink}
+
+For a single affine variety, the cones
+\[
+\sigma\subseteq N_{\RR}
+\qquad\text{and}\qquad
+\sigma^\vee\subseteq M_{\RR}
+\]
+contain the same information. The advantage of \(\sigma\) is
+geometric: its lattice points are one-parameter motions, and its faces
+organize their limit points. This is why cones in \(N_{\RR}\) become
+the natural objects for gluing affine toric varieties.
+
+\begin{guidingquestion}
+Which geometric properties of \(U_\sigma\)—its units, torus factors,
+fixed points, smoothness, morphisms, and affine open subsets—can be
+read directly from the cone \(\sigma\)?
+\end{guidingquestion}
+
+
+\section{Properties of affine toric varieties}
+\label{sec:properties-affine-toric-varieties}
+\index{semigroup homomorphism}
+\index{torus factor}
+\index{fixed point!of an affine toric variety}
+\index{smoothness criterion!affine cone}
+\index{toric morphism}
+\index{face localization}
+
+We now know how to construct a normal affine toric variety from a
+strongly convex rational polyhedral cone:
+\[
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+The purpose of this section is to learn how much geometry can be read
+directly from \(\sigma\).
+
+Normality has already provided the first instance of this principle:
+\[
+U_\sigma\text{ is normal}
+\quad\Longleftrightarrow\quad
+\sigma^\vee\cap M\text{ contains every lattice point of }\sigma^\vee.
+\]
+We now add several more entries to the dictionary.
+
+\subsection{Points as semigroup homomorphisms}
+
+Let
+\[
+S\subseteq M
+\]
+be an affine semigroup. We regard \(\Bbbk\) as a multiplicative
+semigroup, including the absorbing element \(0\).
+
+\begin{proposition}[Points of an affine semigroup variety]
+\label{prop:points-semigroup-homomorphisms}
+For
+\[
+X_S=\Spec\Bbbk[S],
+\]
+there are natural correspondences among:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item points \(p\in X_S\);
+\item maximal ideals of \(\Bbbk[S]\);
+\item semigroup homomorphisms
+\[
+\gamma:S\longrightarrow\Bbbk.
+\]
+\end{enumerate}
+The homomorphism associated to \(p\) is
+\[
+\gamma_p(m)=\character{m}(p).
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.3.1.
+
+\begin{proof}
+A point \(p\) gives the evaluation homomorphism
+\[
+\operatorname{ev}_p:\Bbbk[S]\longrightarrow\Bbbk.
+\]
+Restricting it to the monomial basis gives
+\[
+\gamma_p(m)=\operatorname{ev}_p(\character{m}).
+\]
+Since
+\[
+\character{m+m'}
+=
+\character{m}\character{m'},
+\]
+the map \(\gamma_p\) is multiplicative.
+
+Conversely, a semigroup homomorphism \(\gamma:S\to\Bbbk\) extends
+linearly to
+\[
+\Bbbk[S]\longrightarrow\Bbbk,
+\qquad
+\sum_m c_m\character{m}
+\longmapsto
+\sum_m c_m\gamma(m).
+\]
+Multiplicativity of \(\gamma\) makes this a \(\Bbbk\)-algebra
+homomorphism, hence a point of \(\Spec\Bbbk[S]\).
+\end{proof}
+
+This description is especially effective because zeros are allowed.
+A value
+\[
+\gamma(m)=0
+\]
+records that the character \(\character{m}\) vanishes at the point.
+
+\begin{example}
+For
+\[
+\AAA^2
+=
+\Spec\Bbbk[\NN^2],
+\]
+a semigroup homomorphism
+\[
+\gamma:\NN^2\longrightarrow\Bbbk
+\]
+is determined by
+\[
+a=\gamma(1,0),
+\qquad
+b=\gamma(0,1).
+\]
+Indeed,
+\[
+\gamma(i,j)=a^ib^j.
+\]
+Thus semigroup homomorphisms \(\NN^2\to\Bbbk\) are exactly the points
+\[
+(a,b)\in\AAA^2.
+\]
+\end{example}
+
+The torus action also has an intrinsic semigroup description. If
+\(t\in T\) and \(p\leftrightarrow\gamma_p\), then
+\[
+t\cdot p
+\quad\longleftrightarrow\quad
+\bigl(m\longmapsto\character{m}(t)\gamma_p(m)\bigr).
+\]
+The nonzero factors \(\character{m}(t)\) rescale the values of
+\(\gamma_p\), but they do not change which values vanish.
+
+\begin{pauseandthink}
+A point \(p\in X_S\) belongs to the dense torus precisely when
+\[
+\gamma_p(m)\neq0
+\qquad
+\text{for every }m\in S.
+\]
+Explain why. Then identify the dense torus inside \(\AAA^2\) using
+semigroup homomorphisms \(\NN^2\to\Bbbk\).
+\end{pauseandthink}
+
+\subsection{Invertible characters and torus factors}
+
+A character \(\character{m}\) is invertible in
+\[
+\Bbbk[\sigma^\vee\cap M]
+\]
+exactly when both \(m\) and \(-m\) lie in \(\sigma^\vee\). This means
+\[
+\pair{m}{u}=0
+\qquad
+\text{for every }u\in\sigma.
+\]
+
+Define
+\[
+\sigma^\perp
+=
+\left\{
+m\in M_{\RR}:
+\pair{m}{u}=0
+\text{ for every }u\in\sigma
+\right\}.
+\]
+
+\begin{proposition}[Units]
+\label{prop:units-affine-toric-coordinate-ring}
+The units of the coordinate ring of \(U_\sigma\) are
+\[
+\Bbbk[U_\sigma]^\times
+=
+\left\{
+c\,\character{m}:
+c\in\Bbbk^\times,\ 
+m\in\sigma^\perp\cap M
+\right\}.
+\]
+\end{proposition}
+
+\begin{proof}[Conceptual proof sketch]
+Every displayed element is visibly invertible, with inverse
+\[
+c^{-1}\character{-m}.
+\]
+
+Conversely, suppose \(fg=1\). Pass from \(M\) to the quotient
+\[
+M/(\sigma^\perp\cap M).
+\]
+The image of \(\sigma^\vee\cap M\) in this quotient is pointed. Choose
+a linear functional that is strictly positive on every nonzero
+degree. Looking at the largest degree occurring in \(fg\) shows that
+both \(f\) and \(g\) must have only one degree in the quotient.
+Their remaining factors lie in the group algebra
+\(\Bbbk[\sigma^\perp\cap M]\), whose units are scalar multiples of
+characters.
+\end{proof}
+
+The orthogonal space \(\sigma^\perp\) therefore measures the
+directions in which the affine toric variety still behaves like a
+torus.
+
+Let
+\[
+N_\sigma
+=
+N\cap\Span_{\RR}(\sigma).
+\]
+This is a saturated sublattice of \(N\) of rank
+\[
+r=\dim\sigma.
+\]
+Choose a complementary lattice \(N'\) such that
+\[
+N=N_\sigma\oplus N'.
+\]
+The choice is generally not canonical.
+
+\begin{proposition}[Splitting off the torus factor]
+\label{prop:affine-toric-torus-factor}
+With notation as above,
+\[
+U_{\sigma,N}
+\simeq
+U_{\sigma,N_\sigma}\times T_{N'}.
+\]
+In particular,
+\[
+U_{\sigma,N}
+\simeq
+U_{\sigma,N_\sigma}\times\Gm^{\,\rank N-\dim\sigma}.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the decomposition in Cox--Little--Schenck,
+Equation~(1.3.2), in the discussion following Theorem~1.3.12.
+
+\begin{proof}[Conceptual proof sketch]
+Dualizing the decomposition
+\[
+N=N_\sigma\oplus N'
+\]
+gives
+\[
+M=M_\sigma\oplus M'.
+\]
+Since \(\sigma\) lies entirely in \((N_\sigma)_{\RR}\), its dual
+semigroup splits as
+\[
+\sigma^\vee\cap M
+=
+\bigl(\sigma^\vee\cap M_\sigma\bigr)\oplus M'.
+\]
+The corresponding semigroup algebra is therefore a tensor product:
+\[
+\Bbbk[\sigma^\vee\cap M]
+\simeq
+\Bbbk[\sigma^\vee\cap M_\sigma]\otimes_\Bbbk\Bbbk[M'].
+\]
+Taking spectra turns the tensor product into the displayed product of
+varieties.
+\end{proof}
+
+\begin{example}
+For the ray
+\[
+\sigma=\Cone{(1,0)}\subseteq\RR^2,
+\]
+we have
+\[
+U_\sigma\simeq\AAA^1\times\Gm.
+\]
+The character \(y\) lies in
+\(\sigma^\perp\cap M=\ZZ(0,1)\), so \(y\) is invertible. The
+\(\Gm\)-factor is visible both algebraically and geometrically.
+\end{example}
+
+\begin{threedictionaries}
+The directions perpendicular to \(\sigma\) describe the same feature
+in three languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+invertible characters
+\(\character{m}\)
+&
+torus directions that never meet a boundary
+&
+\(m\in\sigma^\perp\cap M\)
+\\[1mm]
+a Laurent polynomial factor
+\(\Bbbk[M']\)
+&
+a factor \(T_{N'}\)
+&
+a complementary lattice to
+\(N_\sigma\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection{Fixed points}
+
+A torus-fixed point must remain unchanged under every rescaling by
+the torus. In semigroup language this leaves only one possible
+candidate.
+
+\begin{definition}
+An affine semigroup \(S\) is \emph{pointed} if
+\[
+S\cap(-S)=\{0\}.
+\]
+Equivalently, \(0\) is the only invertible element of \(S\).
+\end{definition}
+
+\begin{proposition}[Fixed points]
+\label{prop:fixed-points-affine-toric}
+Let
+\[
+X_S=\Spec\Bbbk[S].
+\]
+The torus action on \(X_S\) has a fixed point if and only if \(S\) is
+pointed. When it exists, the fixed point is unique and is represented
+by
+\[
+\gamma_0(m)
+=
+\begin{cases}
+1,&m=0,\\
+0,&m\neq0.
+\end{cases}
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.3.2.
+
+\begin{proof}
+If \(p\leftrightarrow\gamma\) is fixed, then
+\[
+\character{m}(t)\gamma(m)=\gamma(m)
+\]
+for every \(t\in T\). For \(m\neq0\), one can choose \(t\) with
+\(\character{m}(t)\neq1\), so \(\gamma(m)=0\). Hence a fixed point, if
+it exists, must be \(\gamma_0\).
+
+The map \(\gamma_0\) is multiplicative exactly when two nonzero
+elements of \(S\) cannot add to \(0\). This is equivalent to
+\[
+S\cap(-S)=\{0\}.
+\]
+\end{proof}
+
+For the cone construction, pointedness has a simple geometric
+translation.
+
+\begin{corollary}
+\label{cor:fixed-point-full-dimensional-cone}
+Let
+\[
+\sigma\subseteq N_{\RR}
+\]
+be strongly convex. The torus action on \(U_\sigma\) has a fixed point
+if and only if
+\[
+\dim\sigma=\dim N_{\RR}.
+\]
+When it exists, it is the distinguished point
+\(\gamma_\sigma\) obtained as the limit of every one-parameter
+subgroup in \(\relint(\sigma)\).
+\end{corollary}
+
+\noindent
+\textit{Reference.}
+The fixed-point criterion is Cox--Little--Schenck,
+Corollary~1.3.3. The interpretation by one-parameter limits follows
+from \cref{thm:oneps-limit-criterion-affine}.
+
+\begin{proof}
+The semigroup
+\[
+\sigma^\vee\cap M
+\]
+is pointed precisely when
+\[
+\sigma^\perp=\{0\}.
+\]
+This is equivalent to \(\sigma\) spanning \(N_{\RR}\), or
+\[
+\dim\sigma=\dim N_{\RR}.
+\]
+\end{proof}
+
+\begin{example}
+The affine plane corresponds to the full-dimensional first quadrant,
+so it has one fixed point: the origin.
+
+The variety
+\[
+\AAA^1\times\Gm
+\]
+corresponds to a ray in \(\RR^2\). It has no fixed point because the
+\(\Gm\)-factor acts freely in its own direction.
+\end{example}
+
+\subsection{Smoothness}
+
+The singularities of \(U_\sigma\) are controlled by how the primitive
+ray generators of \(\sigma\) sit in the lattice.
+
+\begin{definition}
+A rational polyhedral cone
+\[
+\sigma\subseteq N_{\RR}
+\]
+is \emph{smooth} if its primitive ray generators form part of a basis
+of \(N\).
+\end{definition}
+
+For a full-dimensional cone, smoothness means that its primitive ray
+generators themselves form a basis of \(N\).
+
+\begin{theorem}[Smoothness criterion]
+\label{thm:smoothness-criterion-affine-toric}
+Let
+\[
+\sigma\subseteq N_{\RR}
+\]
+be a strongly convex rational polyhedral cone. Then
+\[
+U_\sigma\text{ is smooth}
+\quad\Longleftrightarrow\quad
+\sigma\text{ is smooth}.
+\]
+Consequently, every smooth affine toric variety is isomorphic to
+\[
+\AAA^r\times\Gm^{n-r}
+\]
+for suitable \(r\leq n\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~1.3.12, together with the product
+decomposition in Equation~(1.3.2).
+
+\begin{proof}[Conceptual proof sketch]
+If the primitive ray generators extend to a basis of \(N\), choose
+that basis. In the dual basis,
+\[
+\sigma^\vee\cap M
+\simeq
+\NN^r\oplus\ZZ^{n-r}.
+\]
+Hence
+\[
+U_\sigma
+\simeq
+\AAA^r\times\Gm^{n-r},
+\]
+which is smooth.
+
+For the converse, first split off the torus factor and reduce to a
+full-dimensional cone. Its distinguished fixed point has maximal
+ideal generated by the monomials corresponding to the Hilbert basis
+of \(\sigma^\vee\cap M\). Modulo the square of that ideal, those
+generators form a basis of the Zariski cotangent space. Smoothness
+forces the tangent-space dimension to equal \(\dim U_\sigma=n\).
+
+But every ray of \(\sigma^\vee\) contributes at least one Hilbert
+basis element, and a full-dimensional cone has at least \(n\) rays.
+Equality of dimensions forces exactly \(n\) rays and no additional
+Hilbert basis elements. Those primitive ray generators must then form
+a lattice basis. Dualizing shows that \(\sigma\) is smooth.
+
+The complete proof carefully identifies the tangent space and handles
+the reduction from a non-full-dimensional cone.
+\end{proof}
+
+\begin{example}
+The first quadrant
+\[
+\Cone{(1,0),(0,1)}
+\]
+is smooth, and its affine toric variety is \(\AAA^2\).
+\end{example}
+
+\begin{example}
+The cone
+\[
+\sigma=\Cone{(1,0),(1,2)}
+\]
+is not smooth because
+\[
+\det
+\begin{pmatrix}
+1&1\\
+0&2
+\end{pmatrix}
+=2.
+\]
+Its primitive ray generators span a sublattice of index \(2\), rather
+than a basis of \(\ZZ^2\). Correspondingly,
+\[
+U_\sigma\simeq V(AC-B^2)
+\]
+is singular at the origin.
+\end{example}
+
+\begin{surfacelaboratory}
+For a two-dimensional full-dimensional cone
+\[
+\sigma=\Cone{u_1,u_2},
+\]
+smoothness is equivalent to
+\[
+|\det(u_1,u_2)|=1.
+\]
+Thus the determinant measures how far the two primitive ray
+generators are from being a lattice basis.
+
+The value \(1\) gives a smooth affine plane chart. A value larger than
+\(1\) gives a toric surface singularity.
+\end{surfacelaboratory}
+
+\begin{pauseandthink}
+Determine which of the following cones in \(\ZZ^2\) are smooth:
+\[
+\Cone{(1,0),(0,1)},\qquad
+\Cone{(1,0),(1,3)},\qquad
+\Cone{(1,1),(-1,0)}.
+\]
+For each smooth cone, write the associated affine toric variety as
+\(\AAA^r\times\Gm^{2-r}\).
+\end{pauseandthink}
+
+\subsection{Toric morphisms}
+
+The morphisms compatible with torus actions are also controlled by
+lattice maps.
+
+\begin{definition}
+Let
+\[
+X_{S_1}=\Spec\Bbbk[S_1],
+\qquad
+X_{S_2}=\Spec\Bbbk[S_2].
+\]
+A morphism
+\[
+\phi:X_{S_1}\longrightarrow X_{S_2}
+\]
+is \emph{toric} if its pullback
+\[
+\phi^*:\Bbbk[S_2]\longrightarrow\Bbbk[S_1]
+\]
+is induced by a semigroup homomorphism
+\[
+\widehat\phi:S_2\longrightarrow S_1.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~1.3.13.
+
+Such a morphism restricts to a group homomorphism between the dense
+tori and is equivariant:
+\[
+\phi(t\cdot p)=\phi(t)\cdot\phi(p).
+\]
+Conversely, a morphism that maps the dense torus into the dense torus,
+restricts there to a group homomorphism, and respects the torus
+actions is toric.
+
+\noindent
+\textit{Reference.}
+These statements are Cox--Little--Schenck,
+Proposition~1.3.14.
+
+For normal affine toric varieties, the criterion becomes particularly
+simple.
+
+\begin{proposition}[Cone criterion for toric morphisms]
+\label{prop:cone-criterion-toric-morphism}
+Let
+\[
+\sigma_i\subseteq(N_i)_{\RR},
+\qquad
+i=1,2,
+\]
+be strongly convex rational polyhedral cones, and let
+\[
+F:N_1\longrightarrow N_2
+\]
+be a lattice homomorphism. The induced torus homomorphism
+\[
+T_{N_1}\longrightarrow T_{N_2}
+\]
+extends to a toric morphism
+\[
+U_{\sigma_1}\longrightarrow U_{\sigma_2}
+\]
+if and only if
+\[
+F_{\RR}(\sigma_1)\subseteq\sigma_2.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.3.15.
+
+\begin{proof}
+Let
+\[
+F^*:M_2\longrightarrow M_1
+\]
+be the dual map. The torus homomorphism extends precisely when the
+pullback of every regular character on \(U_{\sigma_2}\) remains
+regular on \(U_{\sigma_1}\):
+\[
+F^*(\sigma_2^\vee\cap M_2)
+\subseteq
+\sigma_1^\vee\cap M_1.
+\]
+
+Suppose first that
+\[
+F_{\RR}(\sigma_1)\subseteq\sigma_2.
+\]
+For \(m\in\sigma_2^\vee\) and \(u\in\sigma_1\),
+\[
+\pair{F^*(m)}{u}
+=
+\pair{m}{F(u)}
+\geq0.
+\]
+Thus
+\[
+F^*(m)\in\sigma_1^\vee.
+\]
+
+Conversely, suppose the pullback condition holds. By rationality, the
+lattice points of \(\sigma_2^\vee\) generate the cone. Hence for every
+\(u\in\sigma_1\) and every \(m\in\sigma_2^\vee\),
+\[
+\pair{m}{F(u)}
+=
+\pair{F^*(m)}{u}
+\geq0.
+\]
+Biduality gives
+\[
+F(u)\in(\sigma_2^\vee)^\vee=\sigma_2.
+\]
+\end{proof}
+
+\begin{example}
+Let
+\[
+F:\ZZ^2\longrightarrow\ZZ,
+\qquad
+(a,b)\longmapsto a+b.
+\]
+The first quadrant maps into the ray
+\[
+\RR_{\geq0}\subseteq\RR.
+\]
+Therefore \(F\) induces the toric morphism
+\[
+\AAA^2\longrightarrow\AAA^1,
+\qquad
+(x,y)\longmapsto xy.
+\]
+Indeed, the target character \(z\) pulls back to \(xy\).
+\end{example}
+
+\begin{prediction}
+Suppose two cones share a common face. The identity lattice map sends
+that face into each cone. What morphisms should this produce between
+the corresponding affine toric varieties, and what kind of subsets
+should their images be?
+\end{prediction}
+
+\subsection{Faces give affine open subsets}
+
+Let
+\[
+\tau\preceq\sigma
+\]
+be a face. There is a lattice point
+\[
+m\in\sigma^\vee\cap M
+\]
+such that
+\[
+\tau
+=
+\sigma\cap m^\perp
+=
+\{u\in\sigma:\pair{m}{u}=0\}.
+\]
+The character \(\character{m}\) is nonnegative along all directions
+of \(\sigma\), and it vanishes in order precisely zero along the
+directions of \(\tau\).
+
+\begin{proposition}[Face localization]
+\label{prop:face-localization-affine-toric}
+With notation as above,
+\[
+\Bbbk[\tau^\vee\cap M]
+=
+\Bbbk[\sigma^\vee\cap M]_{\character{m}}.
+\]
+Consequently,
+\[
+U_\tau
+\simeq
+(U_\sigma)_{\character{m}}
+=
+D(\character{m})
+\subseteq U_\sigma.
+\]
+Thus every face determines a torus-invariant affine open subset.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~1.3.16 and
+Equation~(1.3.4).
+
+\begin{proof}[Conceptual proof sketch]
+Localizing at \(\character{m}\) allows arbitrary negative powers of
+that character. On exponent vectors, this replaces the semigroup
+\[
+\sigma^\vee\cap M
+\]
+by
+\[
+(\sigma^\vee\cap M)+\ZZ(-m).
+\]
+The defining property
+\[
+\tau=\sigma\cap m^\perp
+\]
+implies that this enlarged semigroup is exactly
+\[
+\tau^\vee\cap M.
+\]
+Taking spectra identifies the localization with the principal open
+subset where \(\character{m}\neq0\).
+
+The only substantive verification is the equality of the two
+semigroups; geometrically, subtracting multiples of \(m\) removes the
+inequality transverse to the face while retaining all inequalities
+along \(\tau\).
+\end{proof}
+
+\begin{example}
+Let
+\[
+\sigma=\Cone{e_1,e_2}\subseteq\RR^2,
+\qquad
+U_\sigma=\AAA^2.
+\]
+For the face
+\[
+\tau=\Cone{e_1},
+\]
+take
+\[
+m=e_2^\vee.
+\]
+Then
+\[
+\character{m}=y,
+\]
+and
+\[
+U_\tau
+=
+D(y)
+=
+\Spec\Bbbk[x,y^{\pm1}]
+\simeq
+\AAA^1\times\Gm.
+\]
+\end{example}
+
+\begin{example}
+For the zero face
+\[
+\tau=\{0\},
+\]
+we may take
+\[
+m=e_1^\vee+e_2^\vee.
+\]
+Then
+\[
+D(\character{m})
+=
+D(xy)
+=
+\Gm^2,
+\]
+the dense torus of \(\AAA^2\).
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  % cone side
+  \begin{scope}[xshift=-4.3cm]
+    \fill[SurfaceGreen!10] (0,0)--(3.0,0)--(0,3.0)--cycle;
+    \draw[very thick,SurfaceGreen] (0,0)--(3.0,0);
+    \draw[very thick,SurfaceGreen] (0,0)--(0,3.0);
+    \draw[very thick,WarningRed] (0,0)--(3.0,0);
+    \node[font=\bfseries] at (1.25,3.5)
+      {\(\tau\preceq\sigma\)};
+    \node[WarningRed,below] at (1.8,0)
+      {\(\tau=\Cone{e_1}\)};
+    \node at (1.2,1.25) {\(\sigma\)};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.5mm]},PredictionTeal]
+    (-0.6,1.35)--(0.55,1.35);
+  \node[PredictionTeal,above] at (0,1.35)
+    {localize};
+
+  % variety side
+  \begin{scope}[xshift=4.2cm]
+    \draw[->,black!55] (-2.7,0)--(2.85,0);
+    \draw[->,black!55] (0,-2.4)--(0,2.55);
+    \draw[very thick,DictionaryBlue] (-2.5,0)--(2.5,0);
+    \draw[very thick,SurfaceGreen] (0,-2.2)--(0,2.2);
+    \draw[white,line width=5pt] (-2.5,0)--(2.5,0);
+    \draw[very thick,DictionaryBlue,dashed] (-2.5,0)--(2.5,0);
+    \node[font=\bfseries] at (0,3.0)
+      {\(D(y)\subseteq\AAA^2\)};
+    \node[align=center] at (1.35,1.15)
+      {\(y\neq0\)\\
+       \(\AAA^1\times\Gm\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The face \(\tau=\Cone{e_1}\) gives the affine open subset
+\(U_\tau=D(y)\subseteq U_\sigma=\AAA^2\).}
+\label{fig:face-gives-affine-open}
+\end{figure}
+
+Faces are therefore the combinatorial instructions for passing to
+torus-invariant affine open subsets. This is exactly the mechanism
+needed to glue affine toric varieties: when two cones meet in a common
+face, the corresponding affine varieties contain a common affine
+open subset.
+
+\begin{threedictionaries}
+The main properties of \(U_\sigma\) can now be read in three
+languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+semigroup maps
+\(\sigma^\vee\cap M\to\Bbbk\)
+&
+points of \(U_\sigma\)
+&
+multiplicative assignments to lattice points
+\\[1mm]
+units \(c\character{m}\)
+&
+torus factors
+&
+\(m\in\sigma^\perp\cap M\)
+\\[1mm]
+the maximal monomial ideal
+&
+the unique fixed point
+&
+\(\sigma\) is full-dimensional
+\\[1mm]
+a polynomial--Laurent coordinate ring
+&
+smoothness
+&
+primitive ray generators extend to a basis
+\\[1mm]
+pullback of characters
+&
+toric morphisms
+&
+\(F_{\RR}(\sigma_1)\subseteq\sigma_2\)
+\\[1mm]
+localization at \(\character{m}\)
+&
+a torus-invariant affine open subset
+&
+a face \(\tau=\sigma\cap m^\perp\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+How can we assemble the constructions and properties of this chapter
+into one classification dictionary, and what do the standard examples
+look like in all three languages?
+\end{guidingquestion}
+
+
+\section{The classification dictionary}
+\label{sec:classification-affine-toric-varieties}
+\index{classification!normal affine toric varieties}
+\index{affine toric variety!classification}
+
+We can now assemble the chapter into one statement. Fix an algebraic
+torus \(T\), with lattices
+\[
+M=X^*(T),
+\qquad
+N=X_*(T).
+\]
+
+\begin{theorem}[Classification of normal affine toric varieties]
+\label{thm:classification-normal-affine-toric-varieties}
+The following data determine one another:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item a normal affine toric variety \(X\) with dense torus \(T\);
+\item a saturated affine semigroup \(S\subseteq M\) satisfying
+\[
+\ZZ S=M;
+\]
+\item a full-dimensional rational polyhedral cone
+\[
+C\subseteq M_{\RR};
+\]
+\item a strongly convex rational polyhedral cone
+\[
+\sigma\subseteq N_{\RR}.
+\]
+\end{enumerate}
+The correspondences are
+\[
+S=C\cap M,
+\qquad
+C=\sigma^\vee,
+\qquad
+\sigma=C^\vee,
+\]
+and
+\[
+X
+\simeq
+\Spec\Bbbk[S]
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This combines Cox--Little--Schenck, Theorems~1.2.18 and~1.3.5.
+
+\begin{proof}[Conceptual proof sketch]
+Starting with \(\sigma\), Gordan's lemma makes
+\[
+S=\sigma^\vee\cap M
+\]
+finitely generated. It is saturated because it contains every lattice
+point of its cone, so \(\Bbbk[S]\) is normal. Strong convexity ensures
+that \(S\) generates \(M\), and therefore
+\[
+U_\sigma=\Spec\Bbbk[S]
+\]
+has dense torus \(T\).
+
+Conversely, the regular characters on a normal affine toric variety
+form a saturated affine semigroup \(S\subseteq M\). Hence
+\[
+S=\Cone{S}\cap M.
+\]
+Taking
+\[
+C=\Cone{S},
+\qquad
+\sigma=C^\vee
+\]
+recovers the variety. Biduality shows that no information is lost.
+\end{proof}
+
+\begin{warningbox}
+Without normality, the cone does not determine the variety: it forgets
+the holes of the semigroup. It determines only the normalization
+\[
+\Spec\Bbbk[\Cone{S}\cap M_S].
+\]
+\end{warningbox}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+Starting with the affine plane, we followed the chain
+\[
+\text{extending characters}
+\longrightarrow
+S\subseteq M
+\longrightarrow
+\Bbbk[S]
+\longrightarrow
+\Spec\Bbbk[S].
+\]
+For a general affine toric variety, the semigroup \(S\) is the
+discrete data that remembers every monomial allowed in the coordinate
+ring.
+
+Normality removes the holes:
+\[
+S\text{ saturated}
+\quad\Longleftrightarrow\quad
+S=\Cone{S}\cap M_S
+\quad\Longleftrightarrow\quad
+\Bbbk[S]\text{ normal}.
+\]
+At that point the cone contains all the information. Passing to the
+dual lattice gives the standard formula
+\[
+\boxed{
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+}
+\]
+
+The formula has two complementary readings:
+\[
+\boxed{
+\begin{aligned}
+m\in\sigma^\vee\cap M
+&\Longleftrightarrow
+\character{m}\text{ extends regularly to }U_\sigma,\\
+u\in\sigma\cap N
+&\Longleftrightarrow
+\oneps{u}\text{ extends across }t=0.
+\end{aligned}
+}
+\]
+Equivalently, the dual cone records regular functions, while the
+original cone records one-parameter motions whose limits exist.
+
+The cone also reads the basic geometry of \(U_\sigma\): orthogonal
+directions give torus factors, full dimension gives a fixed point,
+lattice bases give smoothness, linear maps give toric morphisms, and
+faces give affine open subsets.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    draw=black!55,
+    text width=3.25cm,
+    minimum height=1.55cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (N) at (-4.4,0)
+    {\(\displaystyle
+      \sigma\subseteq N_{\RR}\)\\[1mm]
+     one-parameter directions\\
+     whose limits exist};
+
+  \node[mainbox,fill=PastelYellow] (M) at (0,0)
+    {\(\displaystyle
+      \sigma^\vee\cap M\)\\[1mm]
+     characters\\
+     extending regularly};
+
+  \node[mainbox,fill=SurfaceGreen!9] (X) at (4.4,0)
+    {\(\displaystyle
+      U_\sigma=
+      \Spec\Bbbk[\sigma^\vee\cap M]\)\\[1mm]
+     normal affine\\
+     toric variety};
+
+  \draw[very thick,<->,PredictionTeal]
+    (N.east)--(M.west);
+  \draw[very thick,-{Latex[length=2.4mm]},DictionaryBlue]
+    (M.east)--(X.west);
+
+  \node[above=0.25cm of N] {motions};
+  \node[above=0.25cm of M] {functions};
+  \node[above=0.25cm of X] {geometry};
+\end{tikzpicture}
+\caption{The classification dictionary for normal affine toric
+varieties.}
+\label{fig:affine-toric-classification-dictionary}
+\end{figure}
+
+\begin{prediction}
+A single cone produces one affine toric variety. Suppose several cones
+meet along common faces. Since faces give common affine open subsets,
+how might the varieties \(U_\sigma\) be glued to produce nonaffine
+toric varieties?
+\end{prediction}
+
+\begin{guidingquestion}
+How can compatible cones be glued along their common faces to produce
+general normal toric varieties?
+\end{guidingquestion}
+
+\clearpage
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let
+\[
+S=\NN(2,0)+\NN(0,1)+\NN(1,1)\subseteq\ZZ^2.
+\]
+List all points of \(S\) of total degree at most \(4\), where total
+degree means the sum of the coordinates. Compute \(\ZZ S\) and
+\(\Cone{S}\).
+
+\item For each of the following affine semigroups, write down the
+semigroup algebra \(\Bbbk[S]\) in familiar coordinates and identify
+\(\Spec\Bbbk[S]\):
+\[
+\NN^2,\qquad
+\ZZ_{\geq0}\times\ZZ,\qquad
+\ZZ^2.
+\]
+
+\item Let
+\[
+\mathcal A=\{(1,0),(1,1),(0,1)\}\subseteq\ZZ^2.
+\]
+Write the monomial map
+\[
+\Phi_{\mathcal A}:\Gm^2\longrightarrow\AAA^3.
+\]
+Find a binomial equation for the closure of its image and identify the
+resulting affine toric variety.
+
+\item Let
+\[
+S=\NN\{2,3\}\subseteq\ZZ.
+\]
+Show that \(S\) is not saturated. Compute \(\Cone{S}\cap\ZZ\), the
+normalization of \(\Bbbk[S]\), and the normalization map of
+\(\Spec\Bbbk[S]\).
+
+\item Let
+\[
+S=\NN(2,0)+\NN(0,1)+\NN(1,1)\subseteq\ZZ^2.
+\]
+Show that
+\[
+S\subsetneq\Cone{S}\cap\ZZ^2.
+\]
+Find a point witnessing the failure of saturation, and compute the
+normalization of \(\Bbbk[S]\).
+
+\item Compute the dual cones of the following cones in \(\RR^2\):
+\[
+\Cone{(1,0)},\qquad
+\Cone{(1,0),(0,1)},\qquad
+\Cone{(1,0),(1,2)}.
+\]
+For each cone \(\sigma\), describe the semigroup
+\[
+\sigma^\vee\cap M.
+\]
+
+\item Let
+\[
+\sigma=\Cone{(1,0),(0,1)}\subseteq N_{\RR}\simeq\RR^2.
+\]
+For each lattice point
+\[
+u=(a,b)\in N,
+\]
+determine whether the limit
+\[
+\lim_{t\to0}\oneps{u}(t)
+\]
+exists in \(U_\sigma=\AAA^2\). When it exists, determine the limit
+point.
+
+\item Let
+\[
+\sigma=\Cone{(1,0),(1,2)}.
+\]
+Using the Hilbert basis of \(\sigma^\vee\cap M\), write the coordinate
+ring of \(U_\sigma\) as a quotient of a polynomial ring. Show that
+\(U_\sigma\) is normal but singular.
+
+\item For each of the following cones in \(\ZZ^2\), determine whether
+the associated affine toric variety is smooth:
+\[
+\Cone{(1,0),(0,1)},\qquad
+\Cone{(1,0),(1,3)},\qquad
+\Cone{(1,1),(-1,0)}.
+\]
+In the smooth cases, identify the variety as
+\[
+\AAA^2,\qquad
+\AAA^1\times\Gm,\qquad
+\text{or }\Gm^2.
+\]
+
+\item Let
+\[
+F:\ZZ^2\longrightarrow\ZZ,
+\qquad
+(a,b)\longmapsto a+b.
+\]
+Show that
+\[
+F_{\RR}\bigl(\Cone{(1,0),(0,1)}\bigr)\subseteq\RR_{\geq0},
+\]
+and use the cone criterion to produce a toric morphism
+\[
+\AAA^2\longrightarrow\AAA^1.
+\]
+Write the induced map on coordinate rings and the corresponding map of
+varieties.
+
+\item Let
+\[
+\sigma=\Cone{e_1,e_2}\subseteq\RR^2,
+\qquad
+\tau=\Cone{e_1}.
+\]
+Choose a lattice point \(m\in\sigma^\vee\cap M\) such that
+\[
+\tau=\sigma\cap m^\perp.
+\]
+Then verify directly that
+\[
+U_\tau
+\simeq
+D(\character{m})
+\subseteq
+U_\sigma.
+\]
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Cyclic quotient orbifolds and their coarse toric surfaces.}
+
+\medskip
+
+Assume that the characteristic of \(\Bbbk\) does not divide \(n\).
+Choose an integer \(q\) satisfying
+\[
+1\leq q<n,
+\qquad
+\gcd(q,n)=1,
+\]
+and let \(\mu_n\) act on \(\AAA^2\) by
+\[
+\zeta\cdot(x,y)
+=
+(\zeta x,\zeta^q y).
+\]
+
+We write
+\[
+\left[\AAA^2/\mu_n\right]
+\]
+for the resulting smooth toric orbifold, and
+\[
+X
+=
+\AAA^2/\mu_n
+=
+\Spec\Bbbk[x,y]^{\mu_n}
+\]
+for its coarse moduli space.
+
+No general theory of stacks is needed for this exercise. Think of
+\(\left[\AAA^2/\mu_n\right]\) as the affine plane together with its
+finite symmetry, and of \(X\) as the affine variety whose regular
+functions are precisely the invariant polynomials.
+
+The goal is to see that the orbifold and its coarse space use the
+same real cone but different lattices. The ordinary coordinates
+\(x,y\) will become \emph{orbifold pseudo-coordinates}: they are
+honest coordinates upstairs, but usually not regular functions on the
+coarse space.
+
+Let
+\[
+\widetilde T=\Gm^2,
+\qquad
+\widetilde M=X^*(\widetilde T)\simeq\ZZ^2,
+\qquad
+\widetilde N=X_*(\widetilde T)\simeq\ZZ^2,
+\]
+and let
+\[
+\sigma=\Cone{e_1,e_2}\subseteq\widetilde N_{\RR}.
+\]
+Thus
+\[
+\AAA^2=U_{\sigma,\widetilde N}.
+\]
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item Show that the inclusion
+\[
+\mu_n\hookrightarrow\widetilde T,
+\qquad
+\zeta\longmapsto(\zeta,\zeta^q),
+\]
+recovers the given action on \(\AAA^2\). Explain why the coordinate
+axes and the dense torus are preserved.
+
+\item A character
+\[
+\character{(a,b)}=x^ay^b
+\]
+of \(\widetilde T\) restricts to the character
+\[
+\zeta\longmapsto\zeta^{a+qb}
+\]
+of \(\mu_n\). Show that the characters descending to the quotient
+torus
+\[
+T=\widetilde T/\mu_n
+\]
+form the sublattice
+\[
+M
+=
+\left\{
+(a,b)\in\widetilde M:
+a+qb\equiv0\pmod n
+\right\}.
+\]
+Show that
+\[
+[\widetilde M:M]=n.
+\]
+
+\item Prove that
+\[
+\Bbbk[x,y]^{\mu_n}
+=
+\bigoplus_{\substack{a,b\geq0\\
+a+qb\equiv0\!\!\!\pmod n}}
+\Bbbk\,x^ay^b.
+\]
+Deduce that
+\[
+\Bbbk[x,y]^{\mu_n}
+=
+\Bbbk[\sigma^\vee\cap M].
+\]
+
+\item Let
+\[
+N=\Hom_{\ZZ}(M,\ZZ).
+\]
+Dualizing the finite-index inclusion
+\[
+M\subseteq\widetilde M
+\]
+produces a finite-index inclusion
+\[
+\widetilde N\subseteq N.
+\]
+Show that
+\[
+N
+=
+\widetilde N
++
+\ZZ\left(\frac1n(1,q)\right)
+\subseteq\widetilde N_{\QQ}.
+\]
+In particular,
+\[
+[N:\widetilde N]=n.
+\]
+
+\item Regard the same real cone
+\[
+\sigma=\Cone{e_1,e_2}
+\]
+inside
+\[
+N_{\RR}=\widetilde N_{\RR}.
+\]
+Show that the coarse moduli space is the affine toric variety
+\[
+X=U_{\sigma,N}
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+Explain why the inclusion of lattices
+\[
+\widetilde N\hookrightarrow N
+\]
+induces the quotient morphism
+\[
+\AAA^2=U_{\sigma,\widetilde N}
+\longrightarrow
+U_{\sigma,N}=X.
+\]
+
+\item The coordinate functions \(x\) and \(y\) correspond to the
+characters
+\[
+(1,0),(0,1)\in\widetilde M.
+\]
+Determine when either of these characters belongs to \(M\). Explain
+why \(x\) and \(y\) are generally not functions on the coarse space,
+even though invariant monomials in \(x\) and \(y\) are.
+
+Interpret \(x,y\) as orbifold pseudo-coordinates.
+
+\item Show that \(e_1,e_2\) are primitive lattice vectors in \(N\),
+but that they span the proper sublattice
+\[
+\widetilde N\subseteq N
+\]
+of index \(n\). Conclude from the smoothness criterion that, for
+\(n>1\),
+\[
+U_{\sigma,N}
+\]
+is singular at its torus-fixed point.
+
+Contrast this with the smooth orbifold
+\[
+[\AAA^2/\mu_n].
+\]
+The same real cone is smooth in the lattice \(\widetilde N\), but not
+in the larger lattice \(N\).
+
+\item Specialize to
+\[
+q=n-1,
+\]
+so that
+\[
+\zeta\cdot(x,y)=(\zeta x,\zeta^{-1}y).
+\]
+Show that every invariant monomial is generated by
+\[
+u=x^n,
+\qquad
+v=y^n,
+\qquad
+w=xy.
+\]
+Find the relation among \(u,v,w\), and conclude that
+\[
+X
+\simeq
+V(uv-w^n)\subseteq\AAA^3.
+\]
+
+This is the \(A_{n-1}\) surface singularity.
+
+\item Summarize the two toric descriptions:
+\[
+\AAA^2=U_{\sigma,\widetilde N},
+\qquad
+\AAA^2/\mu_n=U_{\sigma,N}.
+\]
+Explain in your own words how changing the lattice while keeping the
+same real cone turns genuine coordinates upstairs into orbifold
+pseudo-coordinates and creates a singular coarse moduli space.
+\end{enumerate}
+
+
+\clearpage
+
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+This chapter follows the first half of Cox--Little--Schenck,
+Chapters~1 and~3, with the emphasis shifted toward the three
+dictionaries:
+\[
+\text{algebra},\qquad
+\text{geometry},\qquad
+\text{combinatorics}.
+\]
+For the general theory of affine semigroups, Hilbert bases, and
+normality, standard complementary references include Bruns--Gubeladze,
+\emph{Polytopes, Rings, and K-Theory}, and Miller--Sturmfels,
+\emph{Combinatorial Commutative Algebra}.
+
+From the toric viewpoint, the central result is that normal affine
+toric varieties are classified by strongly convex rational polyhedral
+cones. The nonnormal examples in this chapter are included to show
+exactly where cones stop being enough and semigroups must take over.
+
+The next chapter globalizes this picture. Faces already provide common
+affine open subsets, so compatible cones can be glued. This leads from
+single cones to fans, and from affine toric varieties to general
+normal toric varieties.
