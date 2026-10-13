@@ -73,7 +73,7 @@
 % --- Source PDF page 1 ---
 
 \begin{center}
-{\LARGE\bfseries Stacks for Everybody (Notes)}
+{\LARGE\bfseries Stacks for Everybody (Notes)} (\red{here}\ref{here})
 \end{center}
 
 \vspace{1em}
@@ -94,7 +94,7 @@ I will try to explain the previous definitions so as to make them accessible to 
 
 \section{Introduction}
 
-Stacks (the french original name is \emph{champs} [4]) have been part of algebraic geometry for several decades now; algebraic stacks were introduced by Deligne and Mumford in [3] in order to study the moduli space of curves, and their definition was later generalized by Artin [1]. Since then, algebraic stacks have become a very useful tool for algebraic geometers, but still not a very popular one: possible reasons are the lack of references (see however the recent book of Laumon and Moret-Bailly [5]) and the long and technical definitions, which can discourage the newcomer.
+Stacks (the french original name is \emph{champs} \cite{4}) have been part of algebraic geometry for several decades now; algebraic stacks were introduced by Deligne and Mumford in \cite{3} in order to study the moduli space of curves, and their definition was later generalized by Artin \cite{1}. Since then, algebraic stacks have become a very useful tool for algebraic geometers, but still not a very popular one: possible reasons are the lack of references (see however the recent book of Laumon and Moret-Bailly \cite{5}) and the long and technical definitions, which can discourage the newcomer.
 
 The idea of this exposition is to alternate rigorous, general definitions with the study of one concrete example: the classifying stack parametrizing rank $r$ vector bundles. The ``everybody'' in the title means that you don't have to be an algebraic geometer: stacks, and even reasonable analogues of algebraic stacks, can be defined in the context of complex analytic spaces, manifolds (your favorite kind) and even topological spaces.
 
@@ -113,24 +113,24 @@ In this paper we will consider the category we work on as fixed, and when needed
 \subsection{Cartesian diagrams and fiber products}
 
 A commutative diagram
-$$
+\begin{equation}
 \begin{tikzcd}
 T' \arrow[r, "\bar{f}"] \arrow[d, "p'"'] & T \arrow[d, "p"] \\
 S' \arrow[r, "f"'] & S
 \end{tikzcd}
-\left(\iff \begin{tikzcd}
+\left(\text{equiv.}\quad\begin{tikzcd}
 S'\x_ST \arrow[r, "\bar{f}"] \arrow[d, "p'"'] & T \arrow[d, "p"] \\
 S' \arrow[r, "f"'] & S
 \end{tikzcd}\right)
-\eqno{(1)}
-$$
+\tag{1}\label{eq:cartesian-square}
+\end{equation}
 is called \emph{cartesian} if it induces all other commutative diagrams with the same lower-right corner; that is, for any other commutative diagram
 $$
 \begin{tikzcd}
 U \arrow[r, "g"] \arrow[d, "q"'] & T \arrow[d, "p"] \\
 S' \arrow[r, "f"'] & S
 \end{tikzcd}
-\left(\iff \begin{tikzcd}
+\left(\text{equiv.}\quad \begin{tikzcd}
 U \arrow[rdd, "q"', bend right] \arrow[rrd, "g", bend left] \arrow[rd, "\exists!h", dashed] &                                          &                  \\
                                                                                             & T' \arrow[d, "p'"'] \arrow[r, "\bar{f}"] & T \arrow[d, "p"] \\
                                                                                             & S' \arrow[r, "f"']                       & S               
@@ -144,7 +144,7 @@ A concrete way to construct a fiber product is to consider the morphism $(f, p)\
 
 \subsection{The \'etale topology}
 
-We will assume that the category $\mathfrak{S}$ we work with has a \emph{Grothendieck topology}, that is given a scheme $S$, it makes sense to say whether any given collection of morphisms $\{S_i \to S\}$ is an open covering. You can find a precise definition of Grothendieck topology in [2].
+We will assume that the category $\mathfrak{S}$ we work with has a \emph{Grothendieck topology}, that is given a scheme $S$, it makes sense to say whether any given collection of morphisms $\{S_i \to S\}$ is an open covering. You can find a precise definition of Grothendieck topology in \cite{2}.
 
 \begin{ptcb}
 What a category \(\cat{C}\) having a Grothendieck topology means is that the sentence \(\set{X_i\xrightarrow{\pi_i}X}_{i\in I}\) is an open cover of \(X\) makes sense.
@@ -181,6 +181,8 @@ The theorem then states:
 \begin{Qn}
     ¿Is it then the case that in the Zariski topology it is not possible to find such open sets \(U_1,U_2\)? If not, ¿what about the coarseness makes the theorem fail?
 \end{Qn}
+\tcbline
+\red{PENDING}
 \end{ptcb}
 
 \begin{ptcb}
@@ -201,7 +203,7 @@ Following this for a \(S_i\xrightarrow{\pi_i}S\) we have that for \(P\in S_i\),
 is an isomorphism. So, in terms of bundles over \(S_i\), \(TS_i\isom \pi_i^\ast TS\).
 \end{ptcb}
 
-Because of this, in the definition of algebraic stack one uses the \emph{\'etale topology}; that is, define an open covering to be a collection of \'etale morphisms $\{S_i \to S\}$ such that $\cup S_i \to S$ is surjective. We will use the following notational convention: if $\{S_i \to S\}$ is an open covering, we write \hlgreen{$S_{ij}$ for the fiber product $S_i \times_S S_j$} and analogously for $S_{ijk}$. For fixed $j$, $\{S_{ij} \to S_j\}$ is an open covering of $S_j$ because the property of \hlblue{being \'etale is invariant under base change}\passagemark\label{passage:ÉtaleInvarianceBaseChange}. If each $S_i \to S$ is an open embedding, then $S_{ij}$ is canonically isomorphic to $S_i \cap S_j$.
+Because of this, in the definition of algebraic stack one uses the \emph{\'etale topology}; that is, define an open covering to be a collection of \'etale morphisms $\{S_i \to S\}$ such that $\bigcup S_i \to S$ is surjective. We will use the following notational convention: if $\{S_i \to S\}$ is an open covering, we write \hlgreen{$S_{ij}$ for the fiber product $S_i \times_S S_j$} and analogously for $S_{ijk}$. For fixed $j$, $\{S_{ij} \to S_j\}$ is an open covering of $S_j$ because the property of \hlblue{being \'etale is invariant under base change}\passagemark\label{passage:ÉtaleInvarianceBaseChange}. If each $S_i \to S$ is an open embedding, then $S_{ij}$ is canonically isomorphic to $S_i \cap S_j$.
 
 \begin{ptcb}
     Let us unpack what the étale-ness under base change means. First, if we have a cover \(\set{S_i\to S}_{i\in I}\) and take the fiber product \(S_{ij}\) as in the diagram
@@ -219,28 +221,72 @@ S_j \arrow[r, "\pi_j"']                                               & S
 \subsection{Our guiding example: the category $V_r$}
 
 I assume you know what a vector bundle over a scheme is (remember, if you want you can read manifold wherever I write scheme), and what the pullback of a vector bundle is. To fix notation, if $E$ is a vector bundle over $S$, and $f\colon T \to S$ is a morphism of schemes, I will call a diagram
-$$
+\begin{equation}
 \begin{tikzcd}
 F \arrow[r, "\bar{f}"] \arrow[d] & E \arrow[d] \\
 T \arrow[r, "f"'] & S
 \end{tikzcd}
-\eqno{(2)}
-$$
+\tag{2}\label{eq:vector-bundle-pullback}
+\end{equation}
 a \emph{pullback diagram} if $F$ is a vector bundle over $T$, and the diagram makes $F$ into the pullback of $E$ via $f$ (hence, the diagram is cartesian and $\bar{f}$ induces a linear isomorphism on fibers). We will also say that $(F, \bar{f})$ is a pullback of $E$ via $f$.
 
 Pullback is essentially unique; that is, given another pullback $(F', \bar{f}')$, there exists a unique isomorphism $\alpha\colon F' \to F$ of vector bundles over $T$ such that $\bar{f}' = \bar{f} \circ \alpha$. This uniqueness depends on having fixed not only the bundle $F$ but also the morphism $\bar{f}$.
 
-We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles over schemes; its morphisms are pullback diagrams, i.e.\ diagram (2) defines a morphism from $F$ to $E$. You can figure out for yourself how composition of morphisms is defined. There is a natural forgetful functor from $V_r$ to $\mathfrak{S}$, which associates to every bundle its base scheme and to every pullback diagram (2) the morphism $f$ of the bases.
+We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles over schemes; its morphisms are pullback diagrams, i.e.\ diagram \eqref{eq:vector-bundle-pullback} defines a morphism from $F$ to $E$. You can figure out for yourself how composition of morphisms is defined. \hlgreen{There is a natural forgetful functor}\passagemark\label{passage:VecBdlsForgetfulFnc} from $V_r$ to $\mathfrak{S}$, which associates to every bundle its base scheme and to every pullback diagram \eqref{eq:vector-bundle-pullback} the morphism $f$ of the bases.
+
+\begin{ptcb}
+    The forgetful functor in question is the \emph{target} functor. If \((E,\pi:E\to S)\) is a vector bundle over a scheme \(S\), then 
+    \(T(E,\pi:E\to S)=S\).\par
+    If \(f=(g,h)\) is a morphism of vector bundles, then \(h\) is the corresponding morphism at the level of schemes. In this fashion, \(T(f)=h\).
+\end{ptcb}
 
 % --- Source PDF page 4 ---
 
 \subsection{Schemes as categories over $\mathfrak{S}$}
+\label{sec:schemes-over-base}
 
-A \emph{category over} $\mathfrak{S}$ is a category $X$ with a fixed covariant functor $\pi\colon X \to \mathfrak{S}$. We say that an object $E$ of $X$ is \emph{over} a scheme $S$, or \emph{lifts} $S$, or \emph{is a lifting} of $S$, if $\pi(E) = S$, and similarly for morphisms. If $S$ is a scheme, the \emph{fiber} of $X$ over $S$ is the subcategory of objects over $S$, and morphisms over the identity of $S$.
+\begin{nonum-Def}
+A \emph{category over} $\mathfrak{S}$ is a category $X$ with a fixed covariant functor $\pi\colon X \to \mathfrak{S}$. We say that an object $E$ of $X$ is \emph{over} a scheme $S$, or \emph{lifts} $S$, or \emph{is a lifting} of $S$, if $\pi(E) = S$, and similarly for morphisms.\par
+If $S$ is a scheme, \hlgreen{the \emph{fiber} of $X$ over $S$} is the \hlblue{subcategory of objects over $S$}\passagemark\label{passage:subcatObsOverS}, and morphisms over the identity of $S$.
+\end{nonum-Def}
 
+\begin{ptcb}
+    The \textbf{objects} of the fiber of \(X\) over \(S\) are 
+    \[
+    \Ob(X_S)=\set{A\in\Ob(X): F(A)=S}.
+    \]
+    This is, the objects of \(X\) which map to \(S\) through the functor \(F\).
+\end{ptcb}
+
+\begin{nonum-Ex}
 For instance, $V_r$ is a category over $\mathfrak{S}$; the fiber over $S$ is the category whose objects are vector bundles over $S$, and whose morphisms are the isomorphisms among them.
+\end{nonum-Ex}
 
-To a scheme $S$ we can associate a category $\mathfrak{S}/S$ (the category of $S$-schemes) over $\mathfrak{S}$ as follows: the objects are morphisms with target $S$ in $\mathfrak{S}$; a morphism from $f\colon T \to S$ to $f'\colon T' \to S$ is a $g\colon T \to T'$ such that $f = f' \circ g$; the projection functor sends the object $T \to S$ to $T$ and a morphism $g$ to itself.
+\begin{ptcb}
+    The target functor is a covariant functor from \(V_r\) to \(\cat{Sch}\) which makes vector bundles satisfy the required definition.\par
+    Pay attention as for \(f=(g,\id_S)\) to be a morphism of the fiber of \(S\) it must occur that the following diagram is cartesian
+    \[
+\begin{tikzcd}[column sep=1.5em]
+ E\arrow[dr,"\pi"'] \arrow[rr,"g"] && E'\arrow[dl,"\pi'"] \\
+& S  \\
+\end{tikzcd}
+\]
+In words, \(\pi\) is the base change of \(\pi'\) induced by \(\id_S\). To have all \(f\) be isomorphisms, we use the following diagram.
+\[
+\begin{tikzcd}
+E' \arrow[rrd, "\id_{E'}", bend left] \arrow[rdd, "\pi'"', bend right] \arrow[rd, "\exists!h",dashed] &                                  &              \\
+                                                                                               & E \arrow[d,"\pi"'] \arrow[r, "g"]       & E' \arrow[d,"\pi'"] \\
+                                                                                               & S \arrow[r, no head, Rightarrow] & S           
+\end{tikzcd}
+\]
+We apply the universal property of fibered products to \(E'\) with its own identity \(\id_{E'}\). By the universal property, as \(E=E'\x_SS\), there exists a unique \(h:E'\to E\) such that \(gh=\id_{E'}\) and \(\pi h=\pi'\).\par 
+Note then that 
+\[
+g(hg)=(gh)g=\id_{E'}g=g,\word{and}\pi(hg)=(\pi h)g=\pi'g=\pi
+\]
+where we have used the previous diagram's condition \(pi'g=pi\). Applying the universal property but now \(E\) on itself, we get the unique map \(\id_E\) which satisfies \(g\id_E=g\) and \(\pi\id_E=\pi\). We conclude that \(hg=\id_E\).
+\end{ptcb}
+To a scheme $S$ we can associate a category \hlpink{$\mathfrak{S}/S$ (the category of $S$-schemes) over $\mathfrak{S}$}\passagemark\label{passage:CategoryOfSSchemes} as follows: the objects are morphisms with target $S$ in $\mathfrak{S}$; a morphism from $f\colon T \to S$ to $f'\colon T' \to S$ is a $g\colon T \to T'$ such that $f = f' \circ g$; \hlblue{the projection functor sends the object $T \to S$ to $T$ and a morphism $g$ to itself}\passagemark\label{passage:GoverSImplicitFunctor}.
 
 Pictorially,
 $$
@@ -257,16 +303,191 @@ S \arrow[r, equal] & S
 \quad\text{commutes.}
 $$
 
+\begin{ptcb}
+    Regarding passages \ref{passage:subcatObsOverS} and \ref{passage:CategoryOfSSchemes}, we have two situations:
+    \begin{enumerate}
+        \item At first, if \(X\) is a category over \(\cat{Sch}\) via a functor \(F:X\to\cat{Sch}\), we have its subcategory \(X_S\) for \(S\) a scheme.
+        \item Next if \(S\) is a scheme, \(\cat{Sch}/S\) is the category of \(S\)-schemes.
+    \end{enumerate}
+    Their objects are defined differently:
+    \[
+    \Ob(X_S)\subseteq\Ob(X),\word{and}\Ob(\cat{Sch}/S)\subseteq\Mor(\cat{Sch}).
+    \]
+    Ambiguity could arise in the case that \(X=\cat{Sch}\) and \(F\) was an endofunctor. In this case:
+    \begin{Qn}
+        ¿What is the difference between these categories? ¿Can they be equal at some point?
+    \end{Qn}
+    Furthermore,
+    \begin{Qn}
+        ¿how is \(\cat{Sch}/S\) a category over \(\cat{Sch}\)?
+    \end{Qn}
+\tcbline
+Note that if \(F:\cat{Sch}\to\cat{Sch}\) is a functor then \(\cat{Sch}_S\)'s objects are schemes \(T\) with \(F(T)=S\) and maps between them are \(g:T\to T'\) such that \(F(g)=\id_S\). This depends on the choice of \(F\) and \(S\).\par
+On the other hand, for \(\cat{Sch}/S\) an object is \(f:T\to S\). So a map between objects \(f:T\to S\) and \(f':T'\to S\) is a map of schemes \(g:T\to T'\) such that \(f=f'g\). This situations are represented by diagrams:
+\[
+\begin{tikzcd}[column sep=1.5em]
+ T\arrow[dr,"F"'] \arrow[rr,"g"] && T'\arrow[dl,"F"] \\
+& S  \\
+\end{tikzcd}
+\quad
+\begin{tikzcd}[column sep=1.5em]
+ T\arrow[dr,"f"'] \arrow[rr,"g"] && T'\arrow[dl,"f'"] \\
+& S  \\
+\end{tikzcd}
+\]
+Note that the diagrams differ because on the left one, for \(\cat{Sch}_S\), the vertical arrows are \emph{functors}. For the right one, about \(\cat{Sch}/S\), we have morphisms of schemes.
+
+\begin{nonum-Ex}
+As a particular example take the identity functor. In this case \(\cat{Sch}_S\) is a category with one object \(S\) and one morphism \(\id_S\).\par
+Whereas in \(\cat{Sch}/S\) we have for example \(\emptyset\to S\) and \(\id_S\).
+\end{nonum-Ex}
+
+These categories can be isomorphic! In the case of a point \(p\), if the functor is the constant functor sending everything to \(p\) and \(\id_p\), then \(\cat{Sch}_p\isom\cat{Sch}/p\).
+
+\tcbline
+
+Finally the \emph{source} functor which takes \(f:T\to S\) to \(T\) and the maps at the level of \(T\) to those same maps, is the covariant functor making \(\cat{Sch}/S\) be a category over \(\cat{Sch}\).
+\end{ptcb}
+
+\begin{ptcb}
+    Please note that in passage \ref{passage:GoverSImplicitFunctor}, the \emph{source} functor is defined. Explicitly this projection functor is 
+    \[
+    \text{source}:\cat{Sch}/S\to\cat{Sch},\quad\begin{cases}
+        (f:T\to S)\mapsto T,\\
+        (g:T\to T',\text{ s.t. }f=f'g)\mapsto g:T\to T'.
+    \end{cases}
+    \]
+\end{ptcb}
+
 In the particular case where $S$ is a point $p$ (or a final object in the category $\mathfrak{S}$, if you find this clearer), the category $\mathfrak{S}/p$ is just the category $\mathfrak{S}$ itself, and the natural projection is the identity functor.
+
+\begin{ptcb}
+    \begin{nonum-Ej}
+    If \(F:\cat{Sch}\to\cat{Sch}\) is constant functor sending every scheme to a point \(P\), and every map to \(\id_P\), show that
+    \[
+    \cat{Sch}_p\isom\cat{Sch}/p.
+    \]
+    \end{nonum-Ej}
+\end{ptcb}
 
 \subsection{Morphisms of categories}
 
 A \emph{morphism} of categories over $\mathfrak{S}$ is a covariant functor commuting with the projection to $\mathfrak{S}$.
 
-Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S \to X$ a morphism of categories over $\mathfrak{S}$. To this morphism we can associate an object $E$ of $X$ over $S$, the image of $\id_S\colon S \to S$.
+\begin{ptcb}
+    Explicitly, if \((X,F),(Y,G)\) are categories over \(\cat{Sch}\), then a covariant functor \(H:X\to Y\) such that \(F=GH\) is a \emph{morphism} of categories over \(\cat{Sch}\).
+\end{ptcb}
 
-For instance, to every morphism $\mathfrak{S}/S \to V_r$ we can associate a vector bundle $E$ over $S$. Conversely, given the associated vector bundle $E$, a morphism $\mathfrak{S}/S \to V_r$ is determined by the datum, for every $T \to S$, of a vector bundle $F$ over $T$, together with a pullback diagram (2) (to prove this, use that every object $f\colon T \to S$ in $\mathfrak{S}/S$ has a unique morphism to $\id_S$, namely $f$ itself).
+Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S \to X$ a \hlgreen{morphism of categories over $\mathfrak{S}$} (\emph{i.e. a functor}). To this morphism \hlpink{we can associate}\passagemark\label{passage:morphOverCategories} an object $E$ of $X$ over $S$, the image of $\id_S\colon S \to S$.
 
+\begin{ptcb}
+    There's a couple of functors happening here, so let us write this as a diagram to understand where things are going:
+    \[
+        \begin{tikzcd}[column sep=large, row sep=large]
+        \cat{Sch}/S
+            \arrow[rr, "F"]
+            \arrow[dr, "\text{source}"']&
+        & X \arrow[dl, "\pi"] \\
+        & \cat{Sch}
+        \end{tikzcd}
+    \]
+    In essence, saying that \(F\) is a morphism of categories over \(\cat{Sch}\) means that \(\pi F=\text{source}\).\par
+    Let's rewrite this association idea. On \textbf{objects}, F acts as 
+    \[
+        (f:T\to S)\mapsto E_f\in\Ob(X)
+    \]
+    which means that \(\pi(E_f)\) is a scheme. For this diagram to commute it must occur that 
+    \[
+        \text{source}(f:T\to S)=\pi\left(F(f:T\to S)\right),\word{but}\text{source}(f:T\to S)=T.
+    \]
+    So we have \(E_f\) lies over \(T\).\par
+    The passage says that there exists a particular object \(E_\star\) which is \emph{over} \(S\) that can be associated to the functor \(F\). Given that, we have \(\pi(E_\star)=S\) and by commutativity of the diagram, it must be that 
+    \[
+        \text{source}(F^{-1}(E_\star))=S.
+    \]
+    In other words, \(F^{-1}(E_\star)\) [We're abusing the notation of \(F^{-1}\) here.] is an endomorphism of \(S\). It doesn't have to be the identity \(\id_S\) but for easiness, we pick that one.\par
+    In conclusion there is a correspondence:
+    \begingroup
+    % Let the braces grow with these stacked descriptions, locally.
+    \renewcommand{\Set}[1]{\left\{\,#1\,\right\}}
+    \begin{gather*}
+        \Set{\begin{gathered}
+            \text{Morphisms of categories}\\
+            \text{over }\cat{Sch}\text{ of the form}\\
+            F:\cat{Sch}/S\to X
+        \end{gathered}}
+        \longleftrightarrow
+        \Set{\begin{gathered}
+            \text{Objects }E\in\Ob(X)\\
+            \text{over }S
+        \end{gathered}}.\\
+    F\longleftrightarrow F(\id_S).
+    \end{gather*}
+    \endgroup
+\end{ptcb}
+
+\begin{nonum-Ex}
+    For instance, to every morphism $\mathfrak{S}/S \to V_r$ we can associate a vector bundle $E$ over $S$. Conversely, given the associated vector bundle $E$, a morphism $\mathfrak{S}/S \to V_r$ is determined by the datum, for every $T \to S$, of a vector bundle $F$ over $T$, together with a pullback diagram \eqref{eq:vector-bundle-pullback} (to prove this, use that every object $f\colon T \to S$ in $\mathfrak{S}/S$ has a unique morphism to $\id_S$, namely $f$ itself).
+\end{nonum-Ex}
+
+\begin{ptcb}
+    In the case of the category of rank-\(r\) vector bundles over \(\cat{Sch}\), \(V_r\), we have the diagram
+     \[
+        \begin{tikzcd}[column sep=large, row sep=large]
+        \cat{Sch}/S
+            \arrow[rr, "F"]
+            \arrow[dr, "\text{source}"']&
+        & V_r \arrow[dl, "\text{forgetful}"] \\
+        & \cat{Sch}
+        \end{tikzcd}
+    \]
+    where the forgetful functor mentioned in passage \ref{passage:VecBdlsForgetfulFnc} is the one between \(V_r\) and \(\cat{Sch}\). So, given a morphism \(F\), we have that 
+    \[
+    \begin{cases}
+        f:T\to S\mapsto (E_f\xrightarrow{\pi}T)\\
+        (g:T\to T',\text{ s.t. }f=f'g)\mapsto \text{pullback diagram:}
+    \end{cases}
+    \begin{tikzcd}
+        E_f \arrow[r, "h"] \arrow[d, "\pi"'] & E_{f'} \arrow[d, "\pi'"] \\
+        T \arrow[r, "g"']                    & T'                      
+    \end{tikzcd}    
+    \]
+    Note that indeed
+    \[
+    \begin{cases}
+        \text{forgetful}(F(f:T\to S))=T,\\
+        \text{source}(f:T\to S)=T.
+    \end{cases}
+    \]
+    This morphism \(F\) can be associated to the vector bundle 
+    \[
+        E\xrightarrow{\pi}S=F(\id_S:S\to S).
+    \]
+    As before, note the commutativity of the diagram:
+    \[
+    S=\text{source}(\id_S:S\to S)=\text{forgetful}(F(\id_S:S\to S))=\text{forgetful}(E\xrightarrow{\pi}S).
+    \]
+    For the converse, given a vector bundle \(E\xrightarrow{\pi}S\), we'd like to build a functor
+    \[
+    F_E:\cat{Sch}/S\to V_r
+    \]
+    whose associated bundle is \(E\). We define \(F_E\) as follows, on \textbf{objects} take the \emph{pullback} bundle
+    \[
+        (f:T\to S)\mapsto (f^\ast E\xrightarrow{f^\ast \pi} T).
+    \]
+    Note that at \(\id_S\) we recover the original bundle. For \textbf{morphisms} we (\emph{would like to}) have the following
+    \[
+    \begin{tikzcd}[column sep=1.5em]
+ T\arrow[dr,"f"'] \arrow[rr,"g"] && T'\arrow[dl,"f'"] \\
+& S  \\
+\end{tikzcd}\longrightarrow 
+\begin{tikzcd}
+        f^\ast E \arrow[r, "\exists?h", dashed] \arrow[d, "\pi"'] & (f')^\ast E \arrow[d, "\pi'"] \\
+        T \arrow[r, "g"']                    & T'                      
+    \end{tikzcd}  
+    \]
+    In other words, we'd like to have a map of bundles \(h: f^\ast E\to (f')^\ast E\) and make sure that \(f^*E\isom g^*\bigl((f')^*E\bigr)\) \red{WE ARE HERE}\passagemark\label{here}
+\end{ptcb}
 If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, then the associated object is a morphism $g\colon T \to S$, and $f$ is uniquely determined by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism.
 
 From now on we will use the same letter to indicate a scheme $S$ and the stack $\mathfrak{S}/S$.
@@ -293,7 +514,7 @@ The existence and uniqueness-up-to-isomorphism property for the pullback of vect
 A category $X$ over $\mathfrak{S}$ is called a \emph{category fibered in groupoids}, or \emph{groupoid fibration}, over $\mathfrak{S}$ if for any choice of a morphism of schemes $f\colon T \to S$ and of a lifting $E$ of $S$ to $X$, there exists a lifting $\bar{f}\colon F \to E$ of $f$ to $X$, and the lifting is unique up to unique isomorphism: i.e., for any other lifting $\bar{f}'\colon F' \to E$ there is a unique isomorphism $\alpha\colon F' \to F$ over $\id_T$ such that $\bar{f}' = \bar{f} \circ \alpha$.
 \end{Def}
 
-As a partial motivation for the name, note that any morphism of $X$ over an isomorphism of $\mathfrak{S}$ is also an isomorphism; in particular, for every scheme $S$, the \emph{fiber} of $X$ over $S$ defined in 3.2, is a groupoid, a category where all morphisms are isomorphisms.
+As a partial motivation for the name, note that any morphism of $X$ over an isomorphism of $\mathfrak{S}$ is also an isomorphism; in particular, for every scheme $S$, the \emph{fiber} of $X$ over $S$ defined in~\ref{sec:schemes-over-base}, is a groupoid, a category where all morphisms are isomorphisms.
 
 \section{Stacks}
 
@@ -301,7 +522,7 @@ As we saw, a category fibered in groupoids over $\mathfrak{S}$ is something that
 
 \subsection{Notational conventions}
 
-Let $X$ be a groupoid fibration over $\mathfrak{S}$. We assume that for every morphism $f\colon T \to S$, and every object $E$ over $S$, we have chosen one lifting $f_E\colon f^* E \to E$ of $f$ with target $E$. This can be achieved by direct construction, or by a suitable version of the axiom of choice. Note that it is not required, in this choice, that $g^*(f^* E) = (f \circ g)^* E$; the two are only canonically isomorphic. This choice of pullback is not logically necessary; it just makes it easier to write down the definition of stack (see also \S 6.3).
+Let $X$ be a groupoid fibration over $\mathfrak{S}$. We assume that for every morphism $f\colon T \to S$, and every object $E$ over $S$, we have chosen one lifting $f_E\colon f^* E \to E$ of $f$ with target $E$. This can be achieved by direct construction, or by a suitable version of the axiom of choice. Note that it is not required, in this choice, that $g^*(f^* E) = (f \circ g)^* E$; the two are only canonically isomorphic. This choice of pullback is not logically necessary; it just makes it easier to write down the definition of stack (see also \S~\ref{sec:strictly-speaking}).
 
 % --- Source PDF page 6 ---
 
@@ -353,7 +574,7 @@ Morphisms of stacks are defined to be morphisms of categories over $\mathfrak{S}
 The category $\mathfrak{S}/S$ is always fibered in groupoids over $\mathfrak{S}$, but not a priori a stack: this depends on the topology. It is true, and easy to prove, for each $\mathfrak{S}$ we mentioned (schemes, varieties, complex analytic spaces, manifolds, topological spaces, etc) with the usual topology. It is also true for schemes with the \'etale topology.
 
 \begin{Def}\label{def:4.4}
-A stack $X$ over $\mathfrak{S}$ is \emph{representable} if it is isomorphic to the stack $\mathfrak{S}/S$ induced by a scheme $S$ (see also \S 6.3).
+A stack $X$ over $\mathfrak{S}$ is \emph{representable} if it is isomorphic to the stack $\mathfrak{S}/S$ induced by a scheme $S$ (see also \S~\ref{sec:strictly-speaking}).
 \end{Def}
 
 Informally speaking, a representable morphism of stacks is one whose fibers are schemes.
@@ -362,7 +583,7 @@ Informally speaking, a representable morphism of stacks is one whose fibers are 
 A morphism $X \to Y$ of stacks is \emph{representable} if, for every morphism $S \to Y$ with $S$ (the stack associated to) a scheme, the fiber product $S \times_Y X$ is representable.
 \end{Def}
 
-Oops! I didn't tell you what the fiber product of stacks is, did I? Well, it was done on purpose. The definition can be found in the last section; think of it for the moment as enjoying a universal property analogous to the one we saw for schemes. The proof of the next lemma is in \S 6.2.
+Oops! I didn't tell you what the fiber product of stacks is, did I? Well, it was done on purpose. The definition can be found in the last section; think of it for the moment as enjoying a universal property analogous to the one we saw for schemes. The proof of the next lemma is in \S~\ref{sec:proof-frame-bundle}.
 
 \begin{Lem}\label{lem:4.6}
 Let $W$ be a vector space of dimension $r$. Define a morphism $p \to V_r$ (recall that $p$ is the category $\mathfrak{S}/p$) mapping every scheme $T$ to the trivial bundle $T \times W$, and every morphism to the obvious pullback diagram. Then for every scheme $S$ and every morphism $S \to V_r$ (with associated bundle $E$ on $S$), the fiber product $S \times_{V_r} p$ is a representable stack, isomorphic to the frame bundle of $E$. Hence, the morphism $p \to V_r$ is representable.
@@ -370,7 +591,7 @@ Let $W$ be a vector space of dimension $r$. Define a morphism $p \to V_r$ (recal
 
 \section{Algebraic Stacks and Groupoid Schemes}
 
-A property of morphisms of schemes is \emph{invariant under base change} if, for any cartesian diagram (1), if $p$ has the property then so has $p'$.
+A property of morphisms of schemes is \emph{invariant under base change} if, for any cartesian diagram \eqref{eq:cartesian-square}, if $p$ has the property then so has $p'$.
 
 \begin{Def}\label{def:5.1}
 Let $P$ be a property of morphisms of schemes which is invariant under base change. A representable morphism $X \to Y$ of stacks has property $P$ if, for every morphism $S \to Y$ with $S$ a scheme, the induced morphism of schemes $S \times_Y X \to S$ has $P$.
@@ -416,6 +637,7 @@ $$
 does not commute, but only \emph{2-commute}, that is the two composition morphisms $X \times_Y Z \to Y$ are not the same but only canonically 2-isomorphic. In analogy with the case of schemes, the diagram `induces' all other 2-commuting diagrams with the same lower right corner.
 
 \subsection{Outline of proof of Lemma \ref{lem:4.6}}
+\label{sec:proof-frame-bundle}
 
 Recall that the frame bundle $P$ of a vector bundle $E$ over $S$ has as fiber over $s \in S$ the set of possible bases for $E_s$. Fix a basis $B = (v_1, \dots, v_r)$ of $W$. For a scheme $T$, there is a natural bijection between pullback diagrams
 $$
@@ -447,6 +669,7 @@ we leave it to the reader to define the functor $Z \to P$ on morphisms and to ch
 % --- Source PDF page 10 ---
 
 \subsection{Strictly speaking}
+\label{sec:strictly-speaking}
 
 Definitions \ref{def:4.1} and \ref{def:4.2} implicitly assume that $(E \mid S_i) \mid S_{ij}$ is the same bundle as $(E \mid S_j) \mid S_{ij}$. This is not true, but each of them is canonically isomorphic to $E_{ij} \defeq E \mid S_{ij}$, and we have just omitted the canonical isomorphisms. Actually my favorite convention is that $f_E\colon f^* E \to E$ should mean \emph{any} lifting of $f$ with target $E$ (after all, they're all canonically isomorphic).
 
