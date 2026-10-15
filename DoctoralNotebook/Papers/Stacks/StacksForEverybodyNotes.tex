@@ -15,6 +15,17 @@
 \usepackage{mathtools}
 \usepackage{tikz-cd}
 
+% Use the same readable size for all commutative diagrams in these notes.
+\tikzcdset{
+  every diagram/.append style={
+    font=\large,
+    row sep=large,
+    column sep=large
+  },
+  labels={font=\normalsize},
+  arrows={line width=.6pt}
+}
+
 % Preserve the shared preamble's strike-through command when loading soul.
 \let\headerst\st
 \let\st\relax
@@ -190,10 +201,10 @@ The theorem then states:
     Referring to passage~\ref{passage:etale-differential}, if the open cover has differentials being isomorphisms, ¿does this mean something about the tangent spaces/bundles? ¿Are those isomorphic?
 \end{Qn}
 \tcbline
-Yes, from Milne's geometry notes says:
+Yes, Milne's \emph{Algebraic Geometry} notes \cite[Definition~5.44, p.~118]{notes:milne-ag} say:
 
 \begin{nonum-Def}
-A regular map \(\vf:V\to W\) smooth varieties is étale at a point \(P\in V\) if \((\dd\vf)_P:T_PV\to T_{\vf(P)}W\) is an isomorphism; \(\vf\) is étale if it is étale at all points of \(V\).
+A regular map \(\vf:V\to W\) smooth varieties is \term{étale} at a point \(P\in V\) if \((\dd\vf)_P:T_PV\to T_{\vf(P)}W\) is an isomorphism; \(\vf\) is étale if it is étale at all points of \(V\).
 \end{nonum-Def}
 
 Following this for a \(S_i\xrightarrow{\pi_i}S\) we have that for \(P\in S_i\),
@@ -230,9 +241,9 @@ T \arrow[r, "f"'] & S
 \end{equation}
 a \emph{pullback diagram} if $F$ is a vector bundle over $T$, and the diagram makes $F$ into the pullback of $E$ via $f$ (hence, the diagram is cartesian and $\bar{f}$ induces a linear isomorphism on fibers). We will also say that $(F, \bar{f})$ is a pullback of $E$ via $f$.
 
-Pullback is essentially unique; that is, given another pullback $(F', \bar{f}')$, there exists a unique isomorphism $\alpha\colon F' \to F$ of vector bundles over $T$ such that $\bar{f}' = \bar{f} \circ \alpha$. This uniqueness depends on having fixed not only the bundle $F$ but also the morphism $\bar{f}$.
+Pullback is essentially unique\phantomsection\label{para:vector-bundle-pullback-uniqueness}; that is, given another pullback $(F', \bar{f}')$, there exists a unique isomorphism $\alpha\colon F' \to F$ of vector bundles over $T$ such that $\bar{f}' = \bar{f} \circ \alpha$. This uniqueness depends on having fixed not only the bundle $F$ but also the morphism $\bar{f}$.
 
-We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles over schemes; its morphisms are pullback diagrams, i.e.\ diagram \eqref{eq:vector-bundle-pullback} defines a morphism from $F$ to $E$. You can figure out for yourself how composition of morphisms is defined. \hlgreen{There is a natural forgetful functor}\passagemark\label{passage:VecBdlsForgetfulFnc} from $V_r$ to $\mathfrak{S}$, which associates to every bundle its base scheme and to every pullback diagram \eqref{eq:vector-bundle-pullback} the morphism $f$ of the bases.
+We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles over schemes; its \hlgreen{morphisms are pullback diagrams}\passagemark\label{passage:morphismsArePullbacksInVr}, i.e.\ diagram \eqref{eq:vector-bundle-pullback} defines a morphism from $F$ to $E$. You can figure out for yourself how composition of morphisms is defined. \hlgreen{There is a natural forgetful functor}\passagemark\label{passage:VecBdlsForgetfulFnc} from $V_r$ to $\mathfrak{S}$, which associates to every bundle its base scheme and to every pullback diagram \eqref{eq:vector-bundle-pullback} the morphism $f$ of the bases.
 
 \begin{ptcb}
     The forgetful functor in question is the \emph{target} functor. If \((E,\pi:E\to S)\) is a vector bundle over a scheme \(S\), then 
@@ -245,8 +256,8 @@ We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles
 \subsection{Schemes as categories over $\mathfrak{S}$}
 \label{sec:schemes-over-base}
 
-\begin{nonum-Def}
-A \emph{category over} $\mathfrak{S}$ is a category $X$ with a fixed covariant functor $\pi\colon X \to \mathfrak{S}$. We say that an object $E$ of $X$ is \emph{over} a scheme $S$, or \emph{lifts} $S$, or \emph{is a lifting} of $S$, if $\pi(E) = S$, and similarly for morphisms.\par
+\begin{nonum-Def}\label{def-overcategory}
+A \term{category over $\mathfrak{S}$} is a category $X$ with a fixed covariant functor $\pi\colon X \to \mathfrak{S}$. We say that an object $E$ of $X$ is \emph{over} a scheme $S$, or \emph{lifts} $S$, or \emph{is a lifting} of $S$, if $\pi(E) = S$, and similarly for morphisms.\par
 If $S$ is a scheme, \hlgreen{the \emph{fiber} of $X$ over $S$} is the \hlblue{subcategory of objects over $S$}\passagemark\label{passage:subcatObsOverS}, and morphisms over the identity of $S$.
 \end{nonum-Def}
 
@@ -258,15 +269,15 @@ If $S$ is a scheme, \hlgreen{the \emph{fiber} of $X$ over $S$} is the \hlblue{su
     This is, the objects of \(X\) which map to \(S\) through the functor \(F\).
 \end{ptcb}
 
-\begin{nonum-Ex}
+\begin{nonum-Ex}\label{example-morphisms-are-isos-fibers-Vr}
 For instance, $V_r$ is a category over $\mathfrak{S}$; the fiber over $S$ is the category whose objects are vector bundles over $S$, and whose morphisms are the isomorphisms among them.
 \end{nonum-Ex}
 
 \begin{ptcb}
-    The target functor is a covariant functor from \(V_r\) to \(\cat{Sch}\) which makes vector bundles satisfy the required definition.\par
+    The target functor is a covariant functor from \(V_r\) to \(\Sch\) which makes vector bundles satisfy the required definition.\par
     Pay attention as for \(f=(g,\id_S)\) to be a morphism of the fiber of \(S\) it must occur that the following diagram is cartesian
     \[
-\begin{tikzcd}[column sep=1.5em]
+\begin{tikzcd}
  E\arrow[dr,"\pi"'] \arrow[rr,"g"] && E'\arrow[dl,"\pi'"] \\
 & S  \\
 \end{tikzcd}
@@ -286,6 +297,7 @@ g(hg)=(gh)g=\id_{E'}g=g,\word{and}\pi(hg)=(\pi h)g=\pi'g=\pi
 \]
 where we have used the previous diagram's condition \(pi'g=pi\). Applying the universal property but now \(E\) on itself, we get the unique map \(\id_E\) which satisfies \(g\id_E=g\) and \(\pi\id_E=\pi\). We conclude that \(hg=\id_E\).
 \end{ptcb}
+
 To a scheme $S$ we can associate a category \hlpink{$\mathfrak{S}/S$ (the category of $S$-schemes) over $\mathfrak{S}$}\passagemark\label{passage:CategoryOfSSchemes} as follows: the objects are morphisms with target $S$ in $\mathfrak{S}$; a morphism from $f\colon T \to S$ to $f'\colon T' \to S$ is a $g\colon T \to T'$ such that $f = f' \circ g$; \hlblue{the projection functor sends the object $T \to S$ to $T$ and a morphism $g$ to itself}\passagemark\label{passage:GoverSImplicitFunctor}.
 
 Pictorially,
@@ -306,53 +318,53 @@ $$
 \begin{ptcb}
     Regarding passages \ref{passage:subcatObsOverS} and \ref{passage:CategoryOfSSchemes}, we have two situations:
     \begin{enumerate}
-        \item At first, if \(X\) is a category over \(\cat{Sch}\) via a functor \(F:X\to\cat{Sch}\), we have its subcategory \(X_S\) for \(S\) a scheme.
-        \item Next if \(S\) is a scheme, \(\cat{Sch}/S\) is the category of \(S\)-schemes.
+        \item At first, if \(X\) is a category over \(\Sch\) via a functor \(F:X\to\Sch\), we have its subcategory \(X_S\) for \(S\) a scheme.
+        \item Next if \(S\) is a scheme, \(\Sch/S\) is the category of \(S\)-schemes.
     \end{enumerate}
     Their objects are defined differently:
     \[
-    \Ob(X_S)\subseteq\Ob(X),\word{and}\Ob(\cat{Sch}/S)\subseteq\Mor(\cat{Sch}).
+    \Ob(X_S)\subseteq\Ob(X),\word{and}\Ob(\Sch/S)\subseteq\Mor(\Sch).
     \]
-    Ambiguity could arise in the case that \(X=\cat{Sch}\) and \(F\) was an endofunctor. In this case:
+    Ambiguity could arise in the case that \(X=\Sch\) and \(F\) was an endofunctor. In this case:
     \begin{Qn}
         ¿What is the difference between these categories? ¿Can they be equal at some point?
     \end{Qn}
     Furthermore,
     \begin{Qn}
-        ¿how is \(\cat{Sch}/S\) a category over \(\cat{Sch}\)?
+        ¿how is \(\Sch/S\) a category over \(\Sch\)?
     \end{Qn}
 \tcbline
-Note that if \(F:\cat{Sch}\to\cat{Sch}\) is a functor then \(\cat{Sch}_S\)'s objects are schemes \(T\) with \(F(T)=S\) and maps between them are \(g:T\to T'\) such that \(F(g)=\id_S\). This depends on the choice of \(F\) and \(S\).\par
-On the other hand, for \(\cat{Sch}/S\) an object is \(f:T\to S\). So a map between objects \(f:T\to S\) and \(f':T'\to S\) is a map of schemes \(g:T\to T'\) such that \(f=f'g\). This situations are represented by diagrams:
+Note that if \(F:\Sch\to\Sch\) is a functor then \(\Sch_S\)'s objects are schemes \(T\) with \(F(T)=S\) and maps between them are \(g:T\to T'\) such that \(F(g)=\id_S\). This depends on the choice of \(F\) and \(S\).\par
+On the other hand, for \(\Sch/S\) an object is \(f:T\to S\). So a map between objects \(f:T\to S\) and \(f':T'\to S\) is a map of schemes \(g:T\to T'\) such that \(f=f'g\). This situations are represented by diagrams:
 \[
-\begin{tikzcd}[column sep=1.5em]
+\begin{tikzcd}
  T\arrow[dr,"F"'] \arrow[rr,"g"] && T'\arrow[dl,"F"] \\
 & S  \\
 \end{tikzcd}
 \quad
-\begin{tikzcd}[column sep=1.5em]
+\begin{tikzcd}
  T\arrow[dr,"f"'] \arrow[rr,"g"] && T'\arrow[dl,"f'"] \\
 & S  \\
 \end{tikzcd}
 \]
-Note that the diagrams differ because on the left one, for \(\cat{Sch}_S\), the vertical arrows are \emph{functors}. For the right one, about \(\cat{Sch}/S\), we have morphisms of schemes.
+Note that the diagrams differ because on the left one, for \(\Sch_S\), the vertical arrows are \emph{functors}. For the right one, about \(\Sch/S\), we have morphisms of schemes.
 
 \begin{nonum-Ex}
-As a particular example take the identity functor. In this case \(\cat{Sch}_S\) is a category with one object \(S\) and one morphism \(\id_S\).\par
-Whereas in \(\cat{Sch}/S\) we have for example \(\emptyset\to S\) and \(\id_S\).
+As a particular example take the identity functor. In this case \(\Sch_S\) is a category with one object \(S\) and one morphism \(\id_S\).\par
+Whereas in \(\Sch/S\) we have for example \(\emptyset\to S\) and \(\id_S\).
 \end{nonum-Ex}
 
-These categories can be isomorphic! In the case of a point \(p\), if the functor is the constant functor sending everything to \(p\) and \(\id_p\), then \(\cat{Sch}_p\isom\cat{Sch}/p\).
+These categories can be isomorphic! In the case of a point \(p\), if the functor is the constant functor sending everything to \(p\) and \(\id_p\), then \(\Sch_p\isom\Sch/p\).
 
 \tcbline
 
-Finally the \emph{source} functor which takes \(f:T\to S\) to \(T\) and the maps at the level of \(T\) to those same maps, is the covariant functor making \(\cat{Sch}/S\) be a category over \(\cat{Sch}\).
+Finally the \emph{source} functor which takes \(f:T\to S\) to \(T\) and the maps at the level of \(T\) to those same maps, is the covariant functor making \(\Sch/S\) be a category over \(\Sch\).
 \end{ptcb}
 
 \begin{ptcb}
-    Please note that in passage \ref{passage:GoverSImplicitFunctor}, the \emph{source} functor is defined. Explicitly this projection functor is 
+    Please note that in passage \ref{passage:GoverSImplicitFunctor}, the \emph{source} functor is defined; see also \cite{notes:stacks-slice}. Explicitly this projection functor is 
     \[
-    \text{source}:\cat{Sch}/S\to\cat{Sch},\quad\begin{cases}
+    \text{source}:\Sch/S\to\Sch,\quad\begin{cases}
         (f:T\to S)\mapsto T,\\
         (g:T\to T',\text{ s.t. }f=f'g)\mapsto g:T\to T'.
     \end{cases}
@@ -363,9 +375,9 @@ In the particular case where $S$ is a point $p$ (or a final object in the catego
 
 \begin{ptcb}
     \begin{nonum-Ej}
-    If \(F:\cat{Sch}\to\cat{Sch}\) is constant functor sending every scheme to a point \(P\), and every map to \(\id_P\), show that
+    If \(F:\Sch\to\Sch\) is constant functor sending every scheme to a point \(P\), and every map to \(\id_P\), show that
     \[
-    \cat{Sch}_p\isom\cat{Sch}/p.
+    \Sch_p\isom\Sch/p.
     \]
     \end{nonum-Ej}
 \end{ptcb}
@@ -375,7 +387,7 @@ In the particular case where $S$ is a point $p$ (or a final object in the catego
 A \emph{morphism} of categories over $\mathfrak{S}$ is a covariant functor commuting with the projection to $\mathfrak{S}$.
 
 \begin{ptcb}
-    Explicitly, if \((X,F),(Y,G)\) are categories over \(\cat{Sch}\), then a covariant functor \(H:X\to Y\) such that \(F=GH\) is a \emph{morphism} of categories over \(\cat{Sch}\).
+    Explicitly, if \((X,F),(Y,G)\) are categories over \(\Sch\), then a covariant functor \(H:X\to Y\) such that \(F=GH\) is a \emph{morphism} of categories over \(\Sch\) \cite[Definition~4.32.1]{notes:stacks-over-categories}.
 \end{ptcb}
 
 Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S \to X$ a \hlgreen{morphism of categories over $\mathfrak{S}$} (\emph{i.e. a functor}). To this morphism \hlpink{we can associate}\passagemark\label{passage:morphOverCategories} an object $E$ of $X$ over $S$, the image of $\id_S\colon S \to S$.
@@ -384,14 +396,14 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     There's a couple of functors happening here, so let us write this as a diagram to understand where things are going:
     \[
         \begin{tikzcd}[column sep=large, row sep=large]
-        \cat{Sch}/S
+        \Sch/S
             \arrow[rr, "F"]
             \arrow[dr, "\text{source}"']&
         & X \arrow[dl, "\pi"] \\
-        & \cat{Sch}
+        & \Sch
         \end{tikzcd}
     \]
-    In essence, saying that \(F\) is a morphism of categories over \(\cat{Sch}\) means that \(\pi F=\text{source}\).\par
+    In essence, saying that \(F\) is a morphism of categories over \(\Sch\) means that \(\pi F=\text{source}\).\par
     Let's rewrite this association idea. On \textbf{objects}, F acts as 
     \[
         (f:T\to S)\mapsto E_f\in\Ob(X)
@@ -413,8 +425,8 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     \begin{gather*}
         \Set{\begin{gathered}
             \text{Morphisms of categories}\\
-            \text{over }\cat{Sch}\text{ of the form}\\
-            F:\cat{Sch}/S\to X
+            \text{over }\Sch\text{ of the form}\\
+            F:\Sch/S\to X
         \end{gathered}}
         \longleftrightarrow
         \Set{\begin{gathered}
@@ -431,17 +443,17 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
 \end{nonum-Ex}
 
 \begin{ptcb}
-    In the case of the category of rank-\(r\) vector bundles over \(\cat{Sch}\), \(V_r\), we have the diagram
+    In the case of the category of rank-\(r\) vector bundles over \(\Sch\), \(V_r\), we have the diagram
      \[
         \begin{tikzcd}[column sep=large, row sep=large]
-        \cat{Sch}/S
+        \Sch/S
             \arrow[rr, "F"]
             \arrow[dr, "\text{source}"']&
         & V_r \arrow[dl, "\text{forgetful}"] \\
-        & \cat{Sch}
+        & \Sch
         \end{tikzcd}
     \]
-    where the forgetful functor mentioned in passage \ref{passage:VecBdlsForgetfulFnc} is the one between \(V_r\) and \(\cat{Sch}\). So, given a morphism \(F\), we have that 
+    where the forgetful functor mentioned in passage \ref{passage:VecBdlsForgetfulFnc} is the one between \(V_r\) and \(\Sch\). So, given a morphism \(F\), we have that 
     \[
     \begin{cases}
         f:T\to S\mapsto (E_f\xrightarrow{\pi}T)\\
@@ -469,7 +481,7 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     \]
     For the converse, given a vector bundle \(E\xrightarrow{\pi}S\), we'd like to build a functor
     \[
-    F_E:\cat{Sch}/S\to V_r
+    F_E:\Sch/S\to V_r
     \]
     whose associated bundle is \(E\). We define \(F_E\) as follows, on \textbf{objects} take the \emph{pullback} bundle
     \[
@@ -477,7 +489,7 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     \]
     Note that at \(\id_S\) we recover the original bundle. For \textbf{morphisms} we (\emph{would like to}) have the following
     \[
-    \begin{tikzcd}[column sep=1.5em]
+    \begin{tikzcd}
  T\arrow[dr,"f"'] \arrow[rr,"g"] && T'\arrow[dl,"f'"] \\
 & S  \\
 \end{tikzcd}\longrightarrow 
@@ -486,43 +498,395 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
         T \arrow[r, "g"']                    & T'                      
     \end{tikzcd}  
     \]
-    In other words, we'd like to have a map of bundles \(h: f^\ast E\to (f')^\ast E\) and make sure that \(f^*E\isom g^*\bigl((f')^*E\bigr)\) \red{WE ARE HERE}\passagemark\label{here}
+    In other words, we'd like to have a map of bundles \(h: f^\ast E\to (f')^\ast E\) and make sure that \(f^*E\isom g^*\bigl((f')^*E\bigr)\). The situation we have right now are both pullbacks and a missing map between the bundles \(h\):
+    % The bundle triangle above the triangle of base schemes.
+    \[
+    \begin{tikzpicture}[
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large}
+    ]
+        % The two triangles have the same shape, at different heights.
+        \node (Ef)  at (0,2)       {$f^*E$};
+        \node (Efp) at (2.6,3)     {$(f')^*E$};
+        \node (E)   at (4.9,1.5)   {$E$};
+        \node (T)   at (0,-1)      {$T$};
+        \node (Tp)  at (2.6,0)     {$T'$};
+        \node (S)   at (4.9,-1.5)  {$S$};
+    
+        \begin{scope}[every node/.append style={font=\normalsize}]
+        \draw (Ef)  -- node[left] {$f^*\pi$} (T);
+        \draw (Efp) -- node[pos=.70,right] {$(f')^*\pi$} (Tp);
+        \draw (E)   -- node[right] {$\pi$} (S);
+    
+        \draw (T)  -- node[above] {$g$} (Tp);
+        \draw (Tp) -- node[above right] {$f'$} (S);
+        \draw (T)  -- node[pos=.45,below] {$f$} (S);
+    
+        \draw[dashed] (Ef) -- node[above,yshift=.5em] {$\exists?h$} (Efp);
+        \draw (Efp) -- node[above right] {$q'$} (E);
+        % A small gap distinguishes crossing arrows from a vertex.
+        \draw[preaction={draw=white,line width=3pt,arrows=-}]
+            (Ef) -- node[pos=.30,below,yshift=-.5em] {$q$} (E);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    In order to remedy this, we just have to rearrange the diagram a bit to invoke the universal property of fibered products:
+    \[
+    \begin{tikzcd}
+        f^\ast E
+            \arrow[rrd, "q"{inner sep=1.5mm}, bend left]
+            \arrow[rdd, "g\circ f^\ast\pi"', bend right]
+            \arrow[rd, "\exists!h"{inner sep=1.5mm}, dashed]
+        & & \\
+        & (f')^\ast E
+            \arrow[d, "(f')^\ast\pi"']
+            \arrow[r, "q'"{inner sep=1.5mm}]
+        & E \arrow[d, "\pi"] \\
+        & T' \arrow[r, "f'"'] & S
+    \end{tikzcd}
+    \]
+    To apply this property we must check that 
+    \[
+    \pi q=f'\left(g(f^\ast\pi)\right),
+    \]
+    i.e. that \(f^\ast E\) is another object with morphisms to \(E\) and \(T\) which makes the diagram commute.\par
+    The desired property holds because in the front of the \emph{cheese-wedge} diagram, we have 
+    \[
+    \pi q=f(f^\ast\pi),
+    \]
+    and from the fact that \(g\) is a morphism over \(S\) we have \(f=f'g\). Thus 
+    \[
+    \pi q=f(f^\ast\pi)=f'g(f^\ast\pi)
+    \]
+    as desired, and thus, there exists a unique morphism \(h: f^\ast E\to (f')^\ast E\) over \(g\) as desired. 
 \end{ptcb}
-If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, then the associated object is a morphism $g\colon T \to S$, and $f$ is uniquely determined by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism.
 
-From now on we will use the same letter to indicate a scheme $S$ and the stack $\mathfrak{S}/S$.
+If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, \hlpink{then the associated object is a morphism $g\colon T \to S$}\passagemark\label{passage:MorphOfCatsOverGBothSchOverASch}, and $f$ is \hlpink{uniquely determined}\passagemark\label{passage:determinedUniquely} by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism.
+
+\begin{ptcb}
+    Let's unpack the idea of passage \ref{passage:MorphOfCatsOverGBothSchOverASch}. A morphism between these categories over \(\Sch\) is the diagram
+    \[
+        \begin{tikzcd}[column sep=large, row sep=large]
+        \Sch/T
+            \arrow[rr, "F"]
+            \arrow[dr, "\text{source}_T"']&
+        & \Sch/S \arrow[dl, "\text{source}_S"] \\
+        & \Sch
+        \end{tikzcd}
+    \]
+    where \(F\) acts on \textbf{objects} as
+    \[
+        (f:A\to T)\mapsto (h:B\to S)
+    \]
+    and as the diagram commutes, it must be the case that the scheme \(B\) is actually \(A\).\par
+    By the previous discussions, we can associate to \(F\) the object \(F(\id_T)\in\Sch/S\). This is a particular morphism \(g:T\to S\).
+    
+    \begin{Qn}
+        ¿How is it that \(F\) is uniquely determined by \(g\) as in passage \ref{passage:determinedUniquely} in this case?
+    \end{Qn}
+
+    \tcbline
+
+    In essence, this means that the action of \(F\) is now determined by the morphism \(g\). For \textbf{objects}, let
+    \[
+        (h:A\to S)=F(f:A\to T).
+    \]
+    We have the morphism in \(\cat{Sch/T}\) given by \(f\) itself, from \(f\) to \(\id_T\) which by \(F\) gets sent to the following diagram:
+    \[
+    \begin{tikzcd}
+        A\arrow[dr,"f"'] \arrow[rr,"f"] && T\arrow[dl,"\id_T"] \\
+        & T  \\
+    \end{tikzcd}
+    \xrightarrow{F}
+    \begin{tikzcd}
+        A\arrow[dr,"h"'] \arrow[rr,"f_?"] && T\arrow[dl,"g"] \\
+        & S  \\
+    \end{tikzcd}
+    \]
+    We don't know whether the map \(f_?\) is indeed \(f\) but it suffices to see this with the \(\text{source}\) functors.\par
+    The morphism at the level of \(\Sch/T\) in the left diagram is \((f,\id_T)\). Note that 
+    \[
+        f=\text{source}_T(f,\id_T)=\text{source}_S(F(f,\id_T))=\text{source}_S(f_?,\id_S)=f_?
+    \]
+    and then by commutativity of the second diagram \(h=gf\) so that \(h\) is completely determined by \(g\).\par
+    For \textbf{morphisms} of \(\Sch/T\) we have 
+    \[
+    \begin{tikzcd}
+        A\arrow[dr,"f"'] \arrow[rr,"\phi"] && A'\arrow[dl,"f'"] \\
+        & T  \\
+    \end{tikzcd}
+    \xrightarrow{F}
+    \begin{tikzcd}
+        A\arrow[dr,"g\circ f"'] \arrow[rr,"\phi_?"] && T\arrow[dl,"g\circ f'"] \\
+        & S  \\
+    \end{tikzcd}
+    \]
+    Note that via the source functors we have 
+    \[
+        \phi=\operatorname{source}_T((\phi,\mathrm{id}_T))=\text{source}_S(F(\phi,\id_T))=\text{source}_S(\phi_?,\id_S)=\phi_?\To \phi=\phi_?. 
+    \]
+    In conclusion \((\phi,\id_T)\) is mapped to \((\phi,\id_S)\) and it's determined by commutativity.
+    \tcbline 
+
+    And furthermore:
+    \begin{Qn}
+        ¿What if there were more morphisms than \(g\) between \(T\) and \(S\)?
+    \end{Qn}
+
+    In this case it would just occur that they each determine two different functors. 
+\end{ptcb}
+
+From now on we will use the same letter to indicate a scheme $S$ and the stack $\mathfrak{S}/S$. 
+
+\begin{ptcb}
+    The result that we have proven here is:
+    \begin{nonum-Th}
+        For any schemes \(S,T\) there exists a canonical bijection
+        \[
+            \Mor_{\Sch}(T,S)\isom\operatorname{Fun}_{/\Sch}(\Sch/T,\Sch/S)
+        \]
+        given by \(g\leftrightarrow F_g\). If \(g\) is given, then \(F_g\) is defined as
+        \[
+        \begin{cases}
+            F_g(f:A\to T)=(g\circ f:A\to S),\\
+            F_g((\phi,\mathrm{id}_T))=(\phi,\mathrm{id}_S).
+        \end{cases}
+        \]
+        While on the other hand \(g=F(\id_T)\).
+    \end{nonum-Th}
+    Here \(\operatorname{Fun}_{/\Sch}\) denotes the set of functors commuting with the source projections. The slice category and the construction of \(F_g\) are described in \cite{notes:stacks-slice}. The bijection is the representable case of the \emph{2-Yoneda lemma} \cite{notes:stacks-2-yoneda}.
+\end{ptcb}
 
 \subsection{2-morphisms and isomorphisms of categories}
 
+\begin{flushright}
+\begin{minipage}{0.72\linewidth}
+\raggedleft
+\itshape
+``I didn't invent categories to study functors; I invented them to study natural transformations.''\par
+\medskip
+{\normalfont\small --- Saunders Mac Lane}
+\end{minipage}
+\end{flushright}
+
 If $X$ and $Y$ are categories over $\mathfrak{S}$, and $f$, $g$ are morphisms from $X$ to $Y$, a \emph{2-morphism} $f \to g$ is a natural transformation over the identity functor on $\mathfrak{S}$.
+
+\begin{ptcb}
+    Diagramatically a 2-morphism of categories over \(\Sch\) looks like 
+    \[
+    \begin{tikzcd}[column sep=large, row sep=large]
+        X
+        \arrow[rr, bend left=30, "F"{name=F}]
+        \arrow[rr, bend right=30, "G"'{name=G}]
+        \arrow[dr, "\pi_X"']
+        && Y \arrow[dl, "\pi_Y"] \\
+        & \Sch
+        \arrow[Rightarrow, from=F, to=G, shorten <=2mm, shorten >=2mm, "\eta"]
+    \end{tikzcd}
+    \]
+    Component-by-component, a natural transformation is a family of morphisms in \((\eta_A)_{A\in\Ob(X)}\subseteq\Mor(Y)\) where
+    \(\eta_A:F(A)\to G(A)\) and such components satisfy 
+    \[
+        \eta_B\circ F(f)=G(f)\circ\eta_A,\word{for any}(f:A\to B)\in\Mor(X).
+    \]
+    \[
+    \begin{tikzcd}
+        A \arrow[d, "f"']
+        & F(A) \arrow[d, "F(f)"'] \arrow[r, blue!80, "\eta_A"]
+        & G(A) \arrow[d, "G(f)"] \\
+        B
+        & F(B) \arrow[r, blue!80, "\eta_B"']
+        & G(B)
+    \end{tikzcd}
+    \]
+\end{ptcb}
 
 % --- Source PDF page 5 ---
 
-Because of the existence of 2-morphisms, categories over $\mathfrak{S}$ form a 2-category, i.e., morphisms can be isomorphic without being equal; the situation is analogous to that of homotopy theory, where two continuous maps can be homotopic without being equal.
+Because of the existence of 2-morphisms, categories over $\mathfrak{S}$ form a \hlgreen{2-category}, i.e., morphisms can be isomorphic without being equal; the situation is analogous to that of homotopy theory, where two continuous maps can be homotopic without being equal.
 
+\begin{ptcb}
+    In a \emph{2-category}, there are objects, 1-morphisms between objects, and 2-morphisms between 1-morphisms with the same source and target. The two compositions of 2-morphisms satisfy the following \emph{interchange law}:\par
+    \[
+    \begin{tikzpicture}[x=1pt,y=1pt,font=\normalsize,
+        line width=.6pt,
+        arrows={-{Latex[length=1.8mm,width=1.2mm]}},
+        two cell/.style={double,double distance=.7pt,line width=.3pt,
+            arrows={-{Implies[length=2mm,width=1.6mm]}}},
+        pics/upper cell/.style={code={
+            \draw (3,7) .. controls (15,61) and (35,61) .. (47,7);
+            \draw[two cell] (25,43) -- (25,6);
+        }},
+        pics/lower cell/.style={code={
+            \draw (3,-7) .. controls (15,-61) and (35,-61) .. (47,-7);
+            \draw[two cell] (25,-6) -- (25,-43);
+        }}]
+        % Vertically compose two horizontally composed pairs.
+        \begin{scope}[shift={(0,16)}]
+            \foreach \x in {0,50,100} \fill (\x,0) circle[radius=2pt];
+            \foreach \x in {0,50} {
+                \draw (\x+5,0) -- (\x+45,0);
+                \pic at (\x,0) {upper cell};
+            }
+        \end{scope}
+        \node at (50,0) {$\circ_1$};
+        \begin{scope}[shift={(0,-16)}]
+            \foreach \x in {0,50,100} \fill (\x,0) circle[radius=2pt];
+            \foreach \x in {0,50} {
+                \draw (\x+5,0) -- (\x+45,0);
+                \pic at (\x,0) {lower cell};
+            }
+        \end{scope}
+        \node at (116,0) {$=$};
+        % The two pasted columns.
+        \begin{scope}[shift={(132,0)}]
+            \foreach \x in {0,50,100} \fill (\x,0) circle[radius=2pt];
+            \foreach \x in {0,50} {
+                \draw (\x+5,0) -- (\x+45,0);
+                \pic at (\x,0) {upper cell};
+                \pic at (\x,0) {lower cell};
+            }
+        \end{scope}
+        \node at (248,0) {$=$};
+        % Horizontally compose the two vertically composed pairs.
+        \foreach \x in {264,346} {
+            \begin{scope}[shift={(\x,0)}]
+                \fill (0,0) circle[radius=2pt];
+                \fill (50,0) circle[radius=2pt];
+                \draw (5,0) -- (45,0);
+                \pic {upper cell};
+                \pic {lower cell};
+            \end{scope}
+        }
+        \node at (330,0) {$\circ_0$};
+    \end{tikzpicture}
+    \]
+    The dots represent objects of the 2-category (here, categories over \(\Sch\)); the ordinary arrows represent 1-morphisms (functors), and the double arrows represent 2-morphisms (natural transformations).\par
+    Both operations compose \emph{2-morphisms}. The operation \(\circ_1\) is \emph{vertical composition}: it combines successive natural transformations between functors with the same domain and codomain. The operation \(\circ_0\) is \emph{horizontal composition}: it combines natural transformations between composable functors, producing a natural transformation between their composites.\par
+    The interchange law says that composing each row horizontally and then composing vertically gives the same result as composing each column vertically and then composing horizontally \cite{notes:stacks-interchange}.
+\end{ptcb}
+
+\begin{nonum-Ex}
 As an example, define $f\colon V_r \to V_r$ by associating to each vector bundle its dual. Then $f$ is a morphism of categories over $\mathfrak{S}$ and there is a 2-isomorphism between $f \circ f$ and the identity of $V_r$.
+\end{nonum-Ex}
 
-An \emph{isomorphism} of categories over $\mathfrak{S}$ is a morphism which is an equivalence of categories, that is it induces bijections on morphisms and is surjective on objects up to isomorphism. An isomorphism has an inverse up to 2-isomorphisms, although to prove this one may need some form of the axiom of choice.
+\iffalse
+\begin{ptcb}
+    Let's call \((\.)^\vee\) the dual functor. If \(\id_{V_r}\) is the identity functor, then the content of this comment is that there is an invertible natural transformation \(\eta:((\.)^\vee)^2\to\id_{V_r}\).
+\end{ptcb}
+\fi
 
-Let $G$ be an algebraic group (or a Lie group, or a topological group, as you prefer); we can make a category $BG$ over $\mathfrak{S}$ whose objects are principal $G$-bundles, and morphisms are pullback diagrams. We can define an isomorphism from $V_r$ to $BGL(r)$ by associating to each vector bundle its frame bundle.
+An \emph{isomorphism} of categories over $\mathfrak{S}$ is a morphism which is an \hlblue{equivalence of categories}\passagemark\label{EquivOfCategoriesRecall}, that is it induces bijections on morphisms and is surjective on objects up to isomorphism. An isomorphism has an inverse up to 2-isomorphisms, although to prove this one may need some form of the axiom of choice.
+
+\begin{ptcb}
+    Let's recall the definition of equivalence of categories as in passage \ref{EquivOfCategoriesRecall}:
+
+    \begin{nonum-Def}
+        Two categories \(X,Y\) are equivalent if there exist functors
+        \[
+        F:X\to Y,\quad G:Y\to X
+        \]
+        and natural isomorphisms \(\eps:FG\to\id_Y\) and \(\eta:\id_X\to GF\).
+    \end{nonum-Def}
+    The following criterion is equivalent to this definition:
+    \begin{nonum-Th}
+        A functor \(F:X\to Y\) is an equivalence of categories if and only if all three of the following conditions hold:
+        \begin{enumerate}
+            \item \emph{Full:} for every \(A,B\in\Ob(X)\), the induced map
+            \[
+                \Mor_X(A,B)\xrightarrow{F}\Mor_Y(F(A),F(B)),
+                \qquad f\mapsto F(f),
+            \]
+            is surjective.
+            \item \emph{Faithful:} for every \(A,B\in\Ob(X)\), the same induced map is injective.
+            \item \emph{Essentially surjective:} for every \(D\in\Ob(Y)\), there exists \(C\in\Ob(X)\) such that \(D\) is isomorphic to \(F(C)\) in \(Y\).
+        \end{enumerate}
+    \end{nonum-Th}
+    See \cite{notes:stacks-equivalence} for this criterion.
+\end{ptcb}
+
+Let $G$ be an algebraic group (or a Lie group, or a topological group, as you prefer); we can make a category $BG$ over $\mathfrak{S}$ whose objects are \hlpink{principal $G$-bundles}, and morphisms are pullback diagrams. We can define an isomorphism from $V_r$ to $BGL(r)$ by \hlblue{associating} to each vector bundle its \hlpink{frame bundle}\passagemark\label{passage:VrToBGLr}.
+
+\begin{ptcb}
+    Let's recall some definitions:
+    \begin{nonum-Def}
+        A \term{principal \(G\)-bundle} is a fiber bundle \(E\xrightarrow{\pi}B\) with a right action of \(G\) on \(E\) such that
+        \begin{enumerate}
+            \item The action of \(G\) on \(E\) is continuous and \(\pi(e\.g)=\pi(e)\).
+            \item There is an open cover \((U_i)_{i\in I}\) of \(B\) and for each \(i\) a \(G\)-equivariant homeomorphism
+            \[
+                \vf_i:\pi^{-1}(U_i)\xrightarrow{\sim} U_i\x G
+            \] 
+            such that the following diagram commutes
+            \[
+            \begin{tikzcd}
+                \pi^{-1}(U)\arrow[dr,"\pi"'] \arrow[rr,"\vf_i","\sim"'] && U_i\x G\arrow[dl,"\pr_1"] \\
+                & U_i  \\
+            \end{tikzcd}
+            \]
+        \end{enumerate}
+    \end{nonum-Def}
+    If the group is understood, it can be omitted from the name and the bundle is just called a \emph{principal bundle}.\par
+    These conditions imply that the action \(E\.G\) is free and \([e]\mapsto \pi(e)\) is a homeomorphism \(E/G\isom B\) as in \cite{notes:mitchell-principal}.\par
+    In the case of \(BG\) objects are now bundles \(E\to B\) over schemes with these additional conditions. In the particular case of \(B\rGL_r\), our objects are principal \(\rGL_r\)-bundles.
+    \begin{nonum-Def}
+        A \term{frame bundle} of a vector bundle \(E\xrightarrow{\pi} B\) is \(\text{Fr}(E)\xrightarrow{\pi_{\text{fr}}} B\) whose fibers are 
+        \[
+        \pi_{\text{fr}}^{-1}(b)=\set{\text{ordered bases of }\pi^{-1}(b)}.
+        \]
+    \end{nonum-Def}
+
+    \begin{Qn}
+        With this information, ¿how can we construct the isomorphism from passage \ref{passage:VrToBGLr}?
+    \end{Qn}
+    \tcbline
+    \red{PENDING}
+\end{ptcb}
 
 \subsection{A category fibered in groupoids}
 
 The existence and uniqueness-up-to-isomorphism property for the pullback of vector bundles can be restated in categorical language by saying that $V_r$ is a category fibered in groupoids over $\mathfrak{S}$.
 
 \begin{Def}\label{def:3.1}
-A category $X$ over $\mathfrak{S}$ is called a \emph{category fibered in groupoids}, or \emph{groupoid fibration}, over $\mathfrak{S}$ if for any choice of a morphism of schemes $f\colon T \to S$ and of a lifting $E$ of $S$ to $X$, there exists a lifting $\bar{f}\colon F \to E$ of $f$ to $X$, and the lifting is unique up to unique isomorphism: i.e., for any other lifting $\bar{f}'\colon F' \to E$ there is a unique isomorphism $\alpha\colon F' \to F$ over $\id_T$ such that $\bar{f}' = \bar{f} \circ \alpha$.
+A category $X$ over $\mathfrak{S}$ is called a \emph{category fibered in groupoids}, or \emph{groupoid fibration}, over $\mathfrak{S}$ if for any choice of a morphism of schemes $f\colon T \to S$ and of a lifting $E$ of $S$ to $X$, there exists a lifting $\bar{f}\colon F \to E$ of $f$ to $X$, and \hlgreen{the lifting is unique up to unique isomorphism}\passagemark\label{passage:LiftUniqueUpToUniqueIsom}: i.e., for any other lifting $\bar{f}'\colon F' \to E$ there is a unique isomorphism $\alpha\colon F' \to F$ over $\id_T$ such that $\bar{f}' = \bar{f} \circ \alpha$.
 \end{Def}
 
-As a partial motivation for the name, note that any morphism of $X$ over an isomorphism of $\mathfrak{S}$ is also an isomorphism; in particular, for every scheme $S$, the \emph{fiber} of $X$ over $S$ defined in~\ref{sec:schemes-over-base}, is a groupoid, a category where all morphisms are isomorphisms.
+As a partial motivation for the name, note that any morphism of $X$ over an isomorphism of $\mathfrak{S}$ is also an isomorphism; in particular, for every scheme $S$, the \hlblue{\emph{fiber} of $X$ over $S$ defined in~\ref{sec:schemes-over-base}, is a groupoid}, a category where all morphisms are isomorphisms.
 
+\begin{ptcb}
+    \begin{nonum-Rmk}
+        Importantly a category \(X\) over \(\Sch\) such that \(X_S\) is a groupoid for all \(S\in\Sch\) is not automatically a CFG. It still requires the fact that \(X\) is fibered over \(\Sch\).
+    \end{nonum-Rmk}
+    \begin{Def}
+        A \term{fibered category} over \(\Sch\) is a category over \(\Sch\) such that for every morphism \(f:T\to S\) and every object \(E\) over \(S\), there exists a cartesian lifting 
+        \[
+            f^\ast E\to E
+        \]
+        over \(f\). This is, it satisfies the universal property of pullbacks.
+    \end{Def}
+\end{ptcb}
+
+\begin{ptcb}
+    Formally we have the result:
+
+    \begin{nonum-Prop}
+    The category \(V_r\) is a CFG over \(\Sch\).
+    \end{nonum-Prop}
+
+    \begin{itemize}
+        \item The forgetful functor in passage~\ref{passage:VecBdlsForgetfulFnc} makes \(V_r\) a category over \(\Sch\). Uniqueness of pullback follows from the \hyperref[para:vector-bundle-pullback-uniqueness]{\underline{paragraph on uniqueness}}.
+        \item \(V_r\)'s morphisms are defined to be pullbacks as in passage \ref{passage:morphismsArePullbacksInVr}.
+        \item Example \ref{example-morphisms-are-isos-fibers-Vr} shows that \((V_r)_S\) is a groupoid for every scheme \(S\).
+    \end{itemize}
+\end{ptcb}
 \section{Stacks}
 
 As we saw, a category fibered in groupoids over $\mathfrak{S}$ is something that ``pulls back like bundles''. It is a stack if, moreover, it glues like bundles.
 
 \subsection{Notational conventions}
 
-Let $X$ be a groupoid fibration over $\mathfrak{S}$. We assume that for every morphism $f\colon T \to S$, and every object $E$ over $S$, we have chosen one lifting $f_E\colon f^* E \to E$ of $f$ with target $E$. This can be achieved by direct construction, or by a suitable version of the axiom of choice. Note that it is not required, in this choice, that $g^*(f^* E) = (f \circ g)^* E$; the two are only canonically isomorphic. This choice of pullback is not logically necessary; it just makes it easier to write down the definition of stack (see also \S~\ref{sec:strictly-speaking}).
+Let $X$ be a groupoid fibration over $\mathfrak{S}$. We assume that for every morphism $f\colon T \to S$, and every object $E$ over $S$, \hlblue{we have chosen one lifting $f_E\colon f^* E \to E$ of $f$ with target $E$}\passagemark\label{passage:uniqueLift}. This can be achieved by direct construction, or by a suitable version of the axiom of choice. Note that it is not required, in this choice, that $g^*(f^* E) = (f \circ g)^* E$; the two are only canonically isomorphic. This choice of pullback is not logically necessary; it just makes it easier to write down the definition of stack (see also \S~\ref{sec:strictly-speaking}).
 
 % --- Source PDF page 6 ---
 
@@ -535,13 +899,140 @@ f^*E \arrow[r, "f_E"'] & E
 $$
 commutes.
 
+\begin{ptcb}
+    The content of the previous comment is that given two objects over \(S\), \(E\) and \(E'\) we can build their pullbacks through \(f:T\to S\) to make them objects over \(T\). This is expressed in the diagram:
+    \[
+    \begin{tikzpicture}[
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large}
+    ]
+        % The two pullbacks and their targets lie above the base map.
+        \node (Ef)  at (0,2)       {$f^*E$};
+        \node (Efp) at (2.6,3)     {$f^*E'$};
+        \node (E)   at (2.8,1)     {$E$};
+        \node (Ep)  at (5.4,2)     {$E'$};
+        \node (T)   at (1.5,-.5)   {$T$};
+        \node (S)   at (4.3,-1.5)  {$S$};
+
+        \begin{scope}[every node/.append style={font=\normalsize}]
+        % These connectors indicate the action of the single functor
+        % \pi:X\to\Sch on objects, rather than morphisms inside X.
+        \draw (Ef)  -- node[pos=.6,left,xshift=-.3em] {$\pi$} (T);
+        \draw (Efp) -- node[pos=.72,right,xshift=.3em] {$\pi$} (T);
+        \draw (E)   -- node[pos=.55,left,xshift=-.3em] {$\pi$} (S);
+        \draw (Ep)  -- node[pos=.65,right,xshift=.3em] {$\pi$} (S);
+        \draw (T)   -- node[below,yshift=-.3em] {$f$} (S);
+
+        \draw[dashed] (Efp) -- node[above,yshift=.5em] {$\cong?$} (Ef);
+        \draw (Efp) -- node[above,yshift=.2em] {$f_{E'}$} (Ep);
+        \draw (Ep)  -- node[above,yshift=.3em] {$\alpha$} (E);
+        % A small gap distinguishes crossing arrows from a vertex.
+        \draw[preaction={draw=white,line width=3pt,arrows=-}]
+            (Ef) -- node[pos=.35,above,yshift=.2em] {$f_E$} (E);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    \begin{Qn}
+        ¿What is the relation between these pullbacks, \(f^\ast E, f^\ast E'\)?
+    \end{Qn}
+    The content of passage \ref{passage:LiftUniqueUpToUniqueIsom} gives us the existence and uniqueness of such an isomorphism. Note that we have two liftings of \(f:T\to S\)
+    \[
+        \begin{cases}
+        f_E:f^\ast E\to E,\\
+        \alpha\circ f_{E'}:f^\ast E'\to E.
+        \end{cases}
+    \]
+    where the second one lies over \(f:T\to S\) because
+    \[
+        \pi(\alpha\circ f_{E'})=\pi(\al)\circ\pi(f_{E'})=\id_S\circ f=f.
+    \]
+    Uniqueness of the lift guarantees that \(f^\ast E\isom f^\ast E'\). Let us then call the isomorphism \(f^\ast\alpha\).
+\end{ptcb}
 A further bit of convention: if the morphism $f\colon T \to S$ is clear from the context, we write $E \mid T$ or $E$ over $T$ instead of $f^* E$, and similarly for morphisms.
 
 \subsection{Descent data}
 
 Let $\{S_i \to S\}$ be an open covering of a scheme, and $E$ a vector bundle on $S$; let $E_i$ be a pullback of $E$ to $S_i$. We cannot reconstruct $E$ from knowing the $E_i$'s only; for instance, we may have different bundles which become trivial on the same open covering.
 
-However, the fact that $E_i$ is the pullback of $E$ means that we have induced isomorphisms $\alpha_{ij}\colon E_i \mid S_{ij} \to E_j \mid S_{ij}$, which satisfy the cocycle condition on $S_{ijk}$, and $E$ can be recovered up to isomorphism by knowing $E_i$ and $\alpha_{ij}$. This motivates the following:
+However, the fact that $E_i$ is the pullback of $E$ means that \hlblue{we have induced isomorphisms}\passagemark\label{passage:DDIsoms} $\alpha_{ij}\colon E_i \mid S_{ij} \to E_j \mid S_{ij}$, which satisfy the cocycle condition on $S_{ijk}$, and $E$ can be recovered up to isomorphism by knowing $E_i$ and $\alpha_{ij}$. 
+
+\begin{ptcb}
+    Hold on, let's unpack some stuff. First some notation:
+    \begin{itemize}
+        \item If the covering maps are \(u_i:S_i\to S\) then \(E_i=u_i^\ast E\) is a vector bundle on \(S_i\). This gives a projection map \(q_i:E_i=E\x_SS_i\to E\).
+        \item If we then have projections \(p_i:S_{ij}\to S_i\), the bundle \(E_i\mid S_{ij}\) is the pullback \(p_i^\ast E_i\). Similarly we get a projection \(r_i:E_i\mid S_{ij}\to E_i\).
+    \end{itemize}
+    The induced isomorphisms from passage \ref{passage:DDIsoms} are a manifestation of the unique lifting property as in the definition of CFG: passage \ref{passage:LiftUniqueUpToUniqueIsom}. Let's go slowly by considering the following diagram.
+    \[
+    \begin{tikzpicture}[
+        y=.86cm,
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large}
+    ]
+        % The floor is the cartesian square of base schemes.
+        \node (Si)  at (0,0)       {$S_i$};
+        \node (Sij) at (2.8,1.4)   {$S_{ij}$};
+        \node (Sj)  at (7,.6)      {$S_j$};
+        \node (S)   at (4.2,-.8)   {$S$};
+
+        % Splitting the vertex above S_ij gives a pentagonal top face.
+        \node (Ei)   at (0,4.7)    {$E_i$};
+        \node (Eiij) at (1.2,5.9)  {$E_i\mid S_{ij}$};
+        \node (Ejij) at (4.4,6.3)  {$E_j\mid S_{ij}$};
+        \node (Ej)   at (7,5.3)    {$E_j$};
+        \node (E)    at (4.2,3.9)  {$E$};
+
+        \begin{scope}[every node/.append style={font=\normalsize}]
+        % Rear edges of the floor and its composite diagonal.
+        \draw (Sij) -- node[above left] {$p_i$} (Si);
+        \draw (Sij) -- node[pos=.72,above] {$p_j$} (Sj);
+        \draw (Sij) -- node[pos=.55,left,xshift=-.2em] {$v$} (S);
+
+        % These are actual bundle projections, not applications of
+        % the forgetful functor V_r\to\Sch.
+        \draw (Eiij) -- node[pos=.65,left,xshift=-.3em]
+            {$p_i^*\pi_i$} (Sij);
+        \draw (Ejij) -- node[pos=.25,right,xshift=.3em]
+            {$p_j^*\pi_j$} (Sij);
+        \draw (Ei) -- node[left,xshift=-.3em] {$\pi_i$} (Si);
+        \draw (Ej) -- node[right,xshift=.3em] {$\pi_j$} (Sj);
+
+        % The triangular back face contains the comparison in question.
+        \draw[dashed] (Eiij) -- node[above,yshift=.5em]
+            {$\isom?$} (Ejij);
+        \draw (Eiij) -- node[left,xshift=-.25em,yshift=.4em] {$r_i$} (Ei);
+        \draw (Ejij) -- node[pos=.55,above right,xshift=.2em]
+            {$r_j$} (Ej);
+
+        % White gaps distinguish crossings from vertices.
+        \draw[preaction={draw=white,line width=3pt,arrows=-}]
+            (E) -- node[pos=.36,right,xshift=.3em] {$\pi$} (S);
+        \draw[preaction={draw=white,line width=3pt,arrows=-}]
+            (Ei) -- node[pos=.65,below,yshift=-.2em] {$q_i$} (E);
+        \draw[preaction={draw=white,line width=3pt,arrows=-}]
+            (Ej) -- node[below,yshift=-.2em] {$q_j$} (E);
+        \draw (Si) -- node[below,yshift=-.2em] {$u_i$} (S);
+        \draw (Sj) -- node[below,yshift=-.2em] {$u_j$} (S);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    Write \(\pi:E\to S\) for the bundle projection, with
+    \(\pi_i=u_i^*\pi\) and \(\pi_j=u_j^*\pi\). The map \(v:S_{ij}\to S\) is the composition \(u_ip_i=u_jp_j\).\par
+    Note then that both
+    \[
+        q_i\circ r_i:E_i|S_{ij}\longrightarrow E,
+        \qquad
+        q_j\circ r_j:E_j|S_{ij}\longrightarrow E,
+    \]
+    lie over \(v\). By uniqueness of lifting (passage \ref{passage:LiftUniqueUpToUniqueIsom}), there is an isomorphism \(E_i|S_{ij}\xrightarrow[\isom]{\alpha_{ij}}E_j|S_{ij}\). But even more, ¡these two are isomorphic to the pullback of \(E\) along \(v\)! In conclusion:
+    \[
+        E\mid S_{ij}\isom E_i\mid S_{ij}\isom E_j\mid S_{ij}.
+    \]
+\end{ptcb}
+
+This motivates the following:
 
 \begin{Def}\label{def:4.1}
 Let $X$ be a category fibered in groupoids over $\mathfrak{S}$. A \emph{descent datum for $X$ over a scheme $S$} is the following: an open covering $\{S_i \to S\}$; for every $i$, a lifting $E_i$ of $S_i$ to $X$; for every $i, j$ an isomorphism $\alpha_{ij}\colon E_i \mid S_{ij} \to E_j \mid S_{ij}$ in the fiber which satisfies the cocycle condition $\alpha_{ik} = \alpha_{jk} \circ \alpha_{ij}$ over $S_{ijk}$.
@@ -551,6 +1042,145 @@ The descent datum is said to be \emph{effective} if there exists a lifting $E$ o
 
 You can think of the covering $\{S_i\}$ as lying over $S$ (after all, it covers it); we have a collection of bundles above, and we `descend' them to a bundle over $S$.
 
+\begin{ptcb}
+    Following the definition \ref{def:4.1} of descent datum, what we have discussed is how:
+    \begin{itemize}
+        \item the family of pullbacks \((E_i\xrightarrow{\pi}S_i)_{i\in I}\) where \(E_i=f^\ast E_i\) is a lift of each \(S_i\) respectively, and
+        \item there's isomorphisms \( E_i\mid S_{ij}\isom E_j\mid S_{ij}\) in the fiber \((V_r)_{S_{ij}}\) satisfying cocycle condition.
+    \end{itemize}
+    In other words, we have seen an example of descent datum for \(V_r\) over \(S\). We also saw that it was effective by construction because \(E_i:=E\mid S_i\) in this case. (\red{And the other condition remains to be checked})\par
+    In general the situation for descent datum is the one of the following diagram:
+    \[
+    \begin{tikzpicture}[
+        y=.86cm,
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large},
+        projection/.style={densely dotted,draw=gray!75},
+        comparison/.style={draw=noteblue,line width=.8pt}
+    ]
+        % The covering and its overlap form the floor.
+        \node (Si)  at (0,0)       {$S_i$};
+        \node (Sij) at (2.8,1.4)   {$S_{ij}$};
+        \node (Sj)  at (7,.6)      {$S_j$};
+        \node (S)   at (4.2,-.8)   {$S$};
+
+        % Descent data supplies these local objects, with no global E.
+        \node (Ei)   at (0,4.7)    {$E_i$};
+        \node (Eiij) at (1.2,5.9)  {$E_i\mid S_{ij}$};
+        \node (Ejij) at (4.4,6.3)  {$E_j\mid S_{ij}$};
+        \node (Ej)   at (7,5.3)    {$E_j$};
+
+        \begin{scope}[every node/.append style={font=\normalsize}]
+        \draw (Sij) -- node[above left] {$p_i$} (Si);
+        \draw (Sij) -- node[pos=.72,above] {$p_j$} (Sj);
+        \draw (Sij) -- node[pos=.55,left,xshift=-.2em] {$v$} (S);
+
+        % Dotted connectors depict the action of the single functor pi.
+        \draw[projection] (Eiij) -- (Sij);
+        \draw[projection] (Ejij) -- (Sij);
+        \draw[projection] (Ei) -- (Si);
+        \draw[projection] (Ej) -- (Sj);
+
+        \draw (Eiij) --
+            node[left,xshift=-.25em,yshift=.4em] {$r_i$} (Ei);
+        \draw (Ejij) --
+            node[pos=.55,above right,xshift=.2em] {$r_j$} (Ej);
+        \draw[comparison] (Eiij) --
+            node[above,yshift=.4em] {$\alpha_{ij}$}
+            node[below,yshift=-.2em] {$\isom$} (Ejij);
+
+        \draw (Si) -- node[below,yshift=-.2em] {$u_i$} (S);
+        \draw (Sj) -- node[below,yshift=-.2em] {$u_j$} (S);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    Here we are missing the \emph{global} object \(E\) lying over \(S\). We do have the local \(E_i\)'s over \(S_i\)'s with pullbacks where the cocycle condition is satisfied.\par
+    Next, when the descent datum is \emph{effective}, the situation is the one of the following diagram:
+    \[
+    \begin{tikzpicture}[
+        y=.86cm,
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large},
+        projection/.style={densely dotted,draw=gray!75},
+        comparison/.style={draw=noteblue,line width=.8pt},
+        foreground/.style={preaction={draw=white,line width=3pt,arrows=-}}
+    ]
+        % The floor sits directly below the square of E-pullbacks:
+        % each base vertex is translated by (0,-4.4) from its lift.
+        \node (Si)  at (3,.45)     {$S_i$};
+        \node (Sij) at (5,2.1)     {$S_{ij}$};
+        \node (Sj)  at (8,.95)     {$S_j$};
+        \node (S)   at (6,-.7)     {$S$};
+
+        % The upper face separates the supplied local objects from
+        % the pullbacks of a global object realizing the descent datum.
+        \node (Ei)   at (0,6)       {$E_i$};
+        \node (Eiij) at (2,7.65)    {$E_i\mid S_{ij}$};
+        \node (Ejij) at (7,8.15)    {$E_j\mid S_{ij}$};
+        \node (Ej)   at (10,7)      {$E_j$};
+        \node (C)    at (5,6.5)     {$E\mid S_{ij}$};
+        \node (Bi)   at (3,4.85)    {$E\mid S_i$};
+        \node (Bj)   at (8,5.35)    {$E\mid S_j$};
+        \node (E)    at (6,3.7)     {$E$};
+
+        \begin{scope}[every node/.append style={font=\normalsize}]
+        \draw (Sij) -- node[above left] {$p_i$} (Si);
+        \draw (Sij) -- node[pos=.72,above] {$p_j$} (Sj);
+        \draw (Si) -- node[below,yshift=-.2em] {$u_i$} (S);
+        \draw (Sj) -- node[below,yshift=-.2em] {$u_j$} (S);
+
+        % Dotted connectors show the action of pi on objects.
+        \draw[projection] (Eiij) -- (Sij);
+        \draw[projection] (Ejij) -- (Sij);
+        \draw[projection] (C) -- (Sij);
+        \draw[projection] (Ei) -- (Si);
+        \draw[projection] (Bi) -- (Si);
+        \draw[projection] (Ej) -- (Sj);
+        \draw[projection] (Bj) -- (Sj);
+        \draw[projection,foreground] (E) -- (S);
+
+        % Existing pullback maps and the two newly named maps s_i,s_j.
+        \draw[foreground] (Eiij) --
+            node[left,xshift=-.25em,yshift=.4em] {$r_i$} (Ei);
+        \draw[foreground] (Ejij) --
+            node[pos=.55,above right,yshift=.2em] {$r_j$} (Ej);
+        \draw[foreground] (C) --
+            node[midway,above left,xshift=-.15em,yshift=.15em] {$s_i$} (Bi);
+        \draw[foreground] (C) --
+            node[midway,above right,xshift=.15em,yshift=.15em] {$s_j$} (Bj);
+        \draw[foreground] (Bi) --
+            node[pos=.45,below,yshift=-.2em] {$q_i$} (E);
+        \draw[foreground] (Bj) --
+            node[below,yshift=-.2em] {$q_j$} (E);
+
+        % Every blue arrow is labeled by its map and an isomorphism symbol.
+        \draw[foreground,comparison] (Eiij) --
+            node[above,yshift=.3em] {$\alpha_{ij}$}
+            node[below,yshift=-.2em] {$\isom$} (Ejij);
+        \draw[foreground,comparison] (C) --
+            node[pos=.3,above,yshift=.3em] {$\isom$}
+            node[pos=.55,below,yshift=-.2em] {$\alpha_i|_{S_{ij}}$} (Eiij);
+        \draw[foreground,comparison] (C) --
+            node[pos=.32,right,xshift=.8em,yshift=-.15em] {$\alpha_j|_{S_{ij}}$}
+            node[pos=.6,left,xshift=-.1em] {$\isom$} (Ejij);
+        \draw[foreground,comparison] (Bi) --
+            node[pos=.4,above,yshift=.25em] {$\alpha_i$}
+            node[pos=.55,below,yshift=-.2em] {$\isom$} (Ei);
+        \draw[foreground,comparison] (Bj) --
+            node[pos=.45,above,yshift=.25em] {$\alpha_j$}
+            node[pos=.4,below,yshift=-.2em] {$\isom$} (Ej);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    Here the blue arrows represent isomorphisms. The condition
+    \[
+    \alpha_{ij} = \alpha_j \mid S_{ij} \circ (\alpha_i \mid S_{ij})^{-1}
+    \]
+    is the condition that the backmost triangle commutes.
+   \red{ADD MORE COMMENTS}\label{here}
+\end{ptcb}
 \subsection{Definition of stack}
 
 Before giving the definition of stack, we must introduce another `technical' condition, the categorical expression of the fact that isomorphisms between bundles on the same scheme can be defined locally on an open covering and then glued in a unique way, once they agree on the overlaps.
@@ -709,5 +1339,43 @@ Universit\`a di Udine\\
 Viale delle Scienze, 206\\
 33100 Udine, Italy\\
 \emph{E-mail address:} \texttt{fantechi@dimi.uniud.it}
+
+% References added for these notes, with labels distinct from the article's.
+\begingroup
+\renewcommand{\bibname}{Notes Bibliography}
+\begin{thebibliography}{SP5}
+
+\bibitem[SP1]{notes:stacks-slice}
+The Stacks Project Authors, \emph{Categories}, Example~4.2.13 (categories of objects over an object).
+\href{https://stacks.math.columbia.edu/tag/001G}{Tag 001G}.
+
+\bibitem[SP2]{notes:stacks-over-categories}
+The Stacks Project Authors, \emph{Categories over categories}, Section~4.32.
+\href{https://stacks.math.columbia.edu/tag/02XG}{Tag 02XG}.
+
+\bibitem[SP3]{notes:stacks-2-yoneda}
+The Stacks Project Authors, \emph{2-Yoneda lemma}, Lemma~4.41.2.
+\href{https://stacks.math.columbia.edu/tag/004B}{Tag 004B}.
+
+\bibitem[SP4]{notes:stacks-equivalence}
+The Stacks Project Authors, \emph{Categories}, Lemma~4.2.19 (criterion for an equivalence of categories).
+\href{https://stacks.math.columbia.edu/tag/02C3}{Tag 02C3}.
+
+\bibitem[SP5]{notes:stacks-interchange}
+The Stacks Project Authors, \emph{Formal properties}, Lemma~4.28.2 (the interchange law).
+\href{https://stacks.math.columbia.edu/tag/003F}{Tag 003F}.
+
+\bibitem[M]{notes:milne-ag}
+J. S. Milne, \emph{Algebraic Geometry}, version~6.10, November~11, 2024.
+Definition~5.44, p.~118 (\'etale maps).
+\href{https://www.jmilne.org/math/CourseNotes/AG.pdf}{Online course notes}.
+
+\bibitem[Mit]{notes:mitchell-principal}
+Stephen A. Mitchell, \emph{Notes on principal bundles and classifying spaces}, June~2011.
+Section~2, p.~2 (principal bundles and equivariant local trivializations).
+\href{https://sites.math.washington.edu/~mitchell/Notes/prin.pdf}{Online notes}.
+
+\end{thebibliography}
+\endgroup
 
 \end{document}
