@@ -251,6 +251,104 @@ We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles
     If \(f=(g,h)\) is a morphism of vector bundles, then \(h\) is the corresponding morphism at the level of schemes. In this fashion, \(T(f)=h\).
 \end{ptcb}
 
+\subsection*{Our \emph{TRUE} guiding examples}
+
+\begin{ptcb}
+    \textbf{Category of Curves}:\par
+    This is the simplest of our guiding example. The category of \(\Curves\) is defined as follows~\cite{notes:stacks-curves}:
+    \begin{itemize}
+        \item Its \textbf{objects} are \emph{families of curves}, morphisms \(E\xrightarrow{\pi}S\) where \(S\) is a scheme, the total space \(E\) is an \emph{algebraic space} and \(\pi\) is flat, proper, of finite presentation and has relative dimension \(\leq 1\).
+        \item A \textbf{morphism} is a cartesian diagram
+        \[
+            \begin{tikzcd}
+            F \arrow[r, "\bar{f}"] \arrow[d] & E \arrow[d] \\
+            T \arrow[r, "f"'] & S
+            \end{tikzcd}
+        \]
+        In other words, \(F\isom E\x_ST\).
+    \end{itemize}
+    The forgetful functor sends a family to its base scheme and a cartesian diagram to its base map.
+\end{ptcb}
+
+\begin{ptcb}
+    \textbf{Prestable curves: \(\lie{M}_{g,n}\)}\red{RECHECK}\par
+    Changing the preceding example, we restrict the conditions to:
+    \begin{itemize}
+        \item curves with at most nodal singularities,
+        \item having a fixed genus, and
+        \item adding marks.
+    \end{itemize}
+    Please note~\cite{notes:stacks-prestable,notes:fantechi-gw}. Formally:
+    \begin{itemize}
+        \item \textbf{Object} are families of curves of genus \(g\) with \(n\) marks with at worst nodal singularities:
+        \[
+            \left(\pi:E\to S,(\sg_i)_{i=1}^n\right).
+        \]
+        Here \(E\) is an algebraic space,\(\pi\) is flat, proper, and of finite presentation.\par
+        Every geometric fiber \(E_{x}\) must be a connected, reduced curve of dimension \(1\), with at worst nodes (ordinary double points) and arithmetic genus \(g\).\par
+        The markings are sections \(\sigma_i:S\to E\), so \(\pi\circ\sigma_i=\id_S\), with pairwise disjoint images contained in the smooth locus of \(\pi\). Thus each geometric fiber has \(n\) distinct, labeled smooth marked points. The condition ``at worst nodes'' permits smooth fibers. It only requires that every singular point, if present, be a node. A prestable family may have both smooth fibers and fibers with nodes.
+        \item A \textbf{morphism} over \(f:T\to S\) is a cartesian square
+        \[
+            \begin{tikzcd}
+                C_T \arrow[r, "\bar f"] \arrow[d, "\pi_T"']
+                    & C \arrow[d, "\pi"] \\
+                T \arrow[r, "f"'] & S
+            \end{tikzcd}
+        \]
+        preserving every marking:
+        \[
+            \bar f\circ\sigma_{a,T}=\sigma_a\circ f,
+            \qquad a=1,\ldots,n.
+        \]
+        In particular, \(C_T\isom C\x_S T\), with the markings pulled back as well.
+    \end{itemize}
+    No stability condition is imposed in \(\lie{M}_{g,n}\).
+\end{ptcb}
+
+\begin{ptcb}
+    \textbf{Stable pointed curves: \(\ov{\mathcal{M}}_{g,n}\)}\red{RECHECK}\par
+    This is the full subcategory of \(\lie{M}_{g,n}\) consisting of stable pointed families~\cite{notes:fantechi-gw}.
+    \begin{itemize}
+        \item Its \textbf{objects} are the preceding pointed prestable families with the following additional condition on every geometric fiber. For each irreducible component \(D\) of its normalization, require
+        \[
+            2g(D)-2+m_D>0,
+        \]
+        where \(m_D\) counts the marked points and the inverse images of nodes lying on \(D\). These are the \emph{special points}; a node on a single irreducible component contributes two points on the normalization. Thus a component of normalization genus \(0\) needs at least three special points, and one of genus \(1\) needs at least one.
+        Equivalently, on each geometric fiber the line bundle
+        \[
+            \omega_{C_{\bar s}}\Bigl(\sum_{a=1}^n\sigma_a(\bar s)\Bigr)
+        \]
+        is ample. Here \(\omega\) is the dualizing line bundle of the nodal curve.
+        \item Its \textbf{morphisms} are exactly the cartesian, marking-preserving morphisms defined for \(\lie{M}_{g,n}\).
+    \end{itemize}
+    Over a nonempty base, stable pointed curves can exist only when \(2g-2+n>0\). In this range, \(\mathcal{M}_{g,n}\) denotes the subcategory with smooth fibers. We use \(\lie{M}_{g,n}\) for prestable curves, allowing nodes and unstable components.
+\end{ptcb}
+
+\begin{ptcb}
+    \textbf{Stable maps: \(\ov{\mathcal{M}}_{g,n}(X,\bt)\)}\red{RECHECK}\par
+    For this example, take base schemes locally of finite type over \(\bC\), fix a smooth projective complex variety \(X\), and fix a curve class
+    \(\bt\in H_2(X(\bC),\bZ)\)~\cite{notes:stablemaps-fp,notes:stablemaps-bm}.
+    \begin{itemize}
+        \item An \textbf{object} over \(S\) is a pointed prestable family of genus \(g\), together with a map to the fixed target:
+        \[
+            (\pi:C\to S;\sigma_1,\ldots,\sigma_n;\mu:C\to X).
+        \]
+        The map and markings must satisfy two conditions. First, for every complex point \(s\in S(\bC)\),
+        \[
+            (\mu_s)_*[C_s]=\bt.
+        \]
+        This is the pushforward of the fundamental curve class, including mapping multiplicities.
+        Second, on every geometric fiber, there are only finitely many automorphisms \(\varphi:C_{\bar s}\to C_{\bar s}\) fixing all marked points and satisfying \(\mu_{\bar s}\circ\varphi=\mu_{\bar s}\).
+        Equivalently, the inequality \(2g(D)-2+m_D>0\) is required for each component \(D\) of the normalized fiber that \(\mu_{\bar s}\) contracts to a point. The special points are counted as in the stable-curve example.
+        \item A \textbf{morphism} over \(f:T\to S\) is a cartesian square of families as above, preserving the markings and commuting with the maps to \(X\):
+        \[
+            \bar f\circ\sigma_{a,T}=\sigma_a\circ f,
+            \qquad \mu_T=\mu\circ\bar f.
+        \]
+    \end{itemize}
+    These are maps from individual pointed curves, varying in families. The source pointed curve need not be stable after its map is forgotten: for example, \(\id:\mathbb{P}^1\to\mathbb{P}^1\) with no markings is a stable map, although the unmarked source is an unstable curve. Consequently, we do not impose \(2g-2+n>0\) on stable maps.
+    The forgetful functor keeps the base \(S\) and the base map \(f\); in this example its target is the category of complex schemes locally of finite type.
+\end{ptcb}
 % --- Source PDF page 4 ---
 
 \subsection{Schemes as categories over $\mathfrak{S}$}
@@ -1043,12 +1141,16 @@ The descent datum is said to be \emph{effective} if there exists a lifting $E$ o
 You can think of the covering $\{S_i\}$ as lying over $S$ (after all, it covers it); we have a collection of bundles above, and we `descend' them to a bundle over $S$.
 
 \begin{ptcb}
-    Following the definition \ref{def:4.1} of descent datum, what we have discussed is how:
+    Following the definition \ref{def:4.1} of descent datum, what we have just discussed is how:
     \begin{itemize}
-        \item the family of pullbacks \((E_i\xrightarrow{\pi}S_i)_{i\in I}\) where \(E_i=f^\ast E_i\) is a lift of each \(S_i\) respectively, and
+        \item the family of pullbacks \((E_i\xrightarrow{\pi}S_i)_{i\in I}\) where \(E_i=u_i^\ast E\) is a lift of each \(S_i\) respectively, and
         \item there's isomorphisms \( E_i\mid S_{ij}\isom E_j\mid S_{ij}\) in the fiber \((V_r)_{S_{ij}}\) satisfying cocycle condition.
     \end{itemize}
-    In other words, we have seen an example of descent datum for \(V_r\) over \(S\). We also saw that it was effective by construction because \(E_i:=E\mid S_i\) in this case. (\red{And the other condition remains to be checked})\par
+    In other words, we have seen an example of descent datum for \(V_r\) over \(S\). We also saw that it was effective by construction because \(E_i:=E\mid S_i\) in this case. The condition that 
+    \[
+        \alpha_{ij} = \alpha_j \mid S_{ij} \circ (\alpha_i \mid S_{ij})^{-1}
+    \]
+    follows from how the maps are constructed in the example. This is justified by passage \ref{passage:DDIsoms}.\par
     In general the situation for descent datum is the one of the following diagram:
     \[
     \begin{tikzpicture}[
@@ -1095,7 +1197,7 @@ You can think of the covering $\{S_i\}$ as lying over $S$ (after all, it covers 
         \end{scope}
     \end{tikzpicture}
     \]
-    Here we are missing the \emph{global} object \(E\) lying over \(S\). We do have the local \(E_i\)'s over \(S_i\)'s with pullbacks where the cocycle condition is satisfied.\par
+    Here, the \emph{global} object \(E\) lying over \(S\) is absent because it is not part of the definition of descent datum. We do have the local \(E_i\)'s over \(S_i\)'s with pullbacks where the cocycle condition on maps is satisfied.\par
     Next, when the descent datum is \emph{effective}, the situation is the one of the following diagram:
     \[
     \begin{tikzpicture}[
@@ -1179,23 +1281,181 @@ You can think of the covering $\{S_i\}$ as lying over $S$ (after all, it covers 
     \alpha_{ij} = \alpha_j \mid S_{ij} \circ (\alpha_i \mid S_{ij})^{-1}
     \]
     is the condition that the backmost triangle commutes.
-   \red{ADD MORE COMMENTS}\label{here}
 \end{ptcb}
 \subsection{Definition of stack}
 
-Before giving the definition of stack, we must introduce another `technical' condition, the categorical expression of the fact that isomorphisms between bundles on the same scheme can be defined locally on an open covering and then glued in a unique way, once they agree on the overlaps.
+Before giving the definition of stack, we must introduce another `technical' condition, the categorical expression of the fact that \hlblue{isomorphisms between bundles on the same scheme can be defined locally on an open covering and then glued in a unique way, once they agree on the overlaps.}\passagemark\label{passage:VrSatsIsomsSheaf}
 
 \begin{Def}\label{def:4.2}
 Let $X$ be a category fibered in groupoids over $\mathfrak{S}$. We say that \emph{isomorphisms are a sheaf for $X$} if, for any scheme $S$ and any $E, E'$ in the fiber over $S$, for every open covering $\{S_i \to S\}$ of $S$, and for every collection of isomorphisms $\alpha_i\colon E \mid S_i \to E' \mid S_i$ in the fiber over $S_i$ such that $\alpha_i \mid S_{ij} = \alpha_j \mid S_{ij}$, there is a unique isomorphism $\alpha\colon E \to E'$ such that $\alpha \mid S_i = \alpha_i$.
 \end{Def}
 
+\begin{ptcb}
+    Let's again unpack what this condition means for a CFG \(X\) over \(\Sch\).
+    \begin{itemize}
+        \item We have two objects over \(S\): \(E\) and \(E'\).
+        \item For a covering \(\set{S_i\to S}\), we are given isomorphisms
+        \[
+            \al_i:E\mid S_i\to E'\mid S_i
+        \]
+        lying over \(\id_{S_i}\).
+    \end{itemize}
+    Suppose that these local isomorphisms agree on every overlap:
+    \[
+        \alpha_i\mid S_{ij}=\alpha_j\mid S_{ij}:
+        E\mid S_{ij}\longrightarrow E'\mid S_{ij}.
+    \]
+    If, for every choice of \(S\), \(E,E'\), covering, and compatible family \((\alpha_i)\), there is a \emph{unique} global isomorphism \(\al:E\to E'\) over \(\id_S\) with \(\alpha\mid S_i=\alpha_i\), then we say that \emph{isomorphisms are a sheaf} for \(X\).
+    Diagrammatically we have:
+    \[
+    \begin{tikzpicture}[
+        % Orthographic view from t(2,-3,1), with z pointing upward.
+        % Screen coordinates: ((3x+2y)/sqrt(13),(-2x+3y+13z)/sqrt(182)).
+        % The common physical scale is .8 cm per projected unit.
+        x={(.665640cm,-.118600cm)},
+        y={(.443760cm,.177900cm)},
+        z={(0cm,.770899cm)},
+        arrows={-{Latex[length=1.6mm]}},
+        line width=.6pt,
+        every node/.style={inner sep=2pt,font=\large},
+        projection/.style={densely dotted,draw=gray!75},
+        comparison/.style={draw=noteblue,line width=.8pt}
+    ]
+        \pgfdeclarelayer{isom-objects}
+        \pgfsetlayers{main,isom-objects}
+        % Object labels remain legible above intersecting arrows.
+        \begin{pgfonlayer}{isom-objects}
+        % A parallel scheme floor, centered below each E/E' pair.
+        \node[fill=white] (Si)  at (1.25,1.25,-3) {$S_i$};
+        \node[fill=white] (S)   at (10.25,1.25,-3) {$S$};
+        \node[fill=white] (Sij) at (1.25,10.25,-3) {$S_{ij}$};
+        \node[fill=white] (Sj)  at (10.25,10.25,-3) {$S_j$};
+
+        % The requested upper square: A, A+9i, A+9j, A+9i+9j.
+        \node[fill=white] (Bi) at (0,0,2) {$E\mid S_i$};
+        \node[fill=white] (E)  at (9,0,2) {$E$};
+        \node[fill=white] (A)  at (0,9,2) {$E\mid S_{ij}$};
+        \node[fill=white] (Bj) at (9,9,2) {$E\mid S_j$};
+        % Its primed copy is translated by (2.5,2.5,0) in the same plane.
+        \node[fill=white] (Bip) at (2.5,2.5,2) {$E'\mid S_i$};
+        \node[fill=white] (Ep)  at (11.5,2.5,2) {$E'$};
+        \node[fill=white] (Ap)  at (2.5,11.5,2) {$E'\mid S_{ij}$};
+        \node[fill=white] (Bjp) at (11.5,11.5,2) {$E'\mid S_j$};
+        \end{pgfonlayer}
+
+        \begin{scope}[every node/.append style={font=\normalsize,fill=white,inner sep=1pt}]
+        \draw (Sij) -- node[above left,xshift=-.15em,yshift=.1em] {$p_i$} (Si);
+        \draw (Sij) -- node[above,yshift=.25em] {$p_j$} (Sj);
+        \draw (Si) -- node[below,yshift=-.25em] {$u_i$} (S);
+        \draw (Sj) -- node[below right,xshift=.15em,yshift=-.1em] {$u_j$} (S);
+
+        % Dotted connectors indicate the projection functor on objects.
+        \draw[projection] (A) -- (Sij);
+        \draw[projection] (Ap) -- (Sij);
+        \draw[projection] (Bi) -- (Si);
+        \draw[projection] (Bip) -- (Si);
+        \draw[projection] (Bj) -- (Sj);
+        \draw[projection] (Bjp) -- (Sj);
+        \draw[projection] (E) -- (S);
+        \draw[projection] (Ep) -- (S);
+
+        % All black pullback maps are straight.
+        \draw (Ap) --
+            node[pos=.9,below right,xshift=.4em,yshift=-.1em] {$r_i'$} (Bip);
+        \draw (Ap) --
+            node[pos=.5,above,yshift=.3em] {$r_j'$} (Bjp);
+        \draw (Bip) --
+            node[pos=.65,above,yshift=.3em] {$q_i'$} (Ep);
+        \draw (Bjp) --
+            node[pos=.55,below right,xshift=.25em,yshift=-.2em] {$q_j'$} (Ep);
+        \draw (A) --
+            node[pos=.5,above left,xshift=-.25em,yshift=.2em] {$r_i$} (Bi);
+        \draw (A) --
+            node[pos=.6,below,yshift=-.3em] {$r_j$} (Bj);
+        \draw (Bi) --
+            node[pos=.5,below,yshift=-.3em] {$q_i$} (E);
+        \draw (Bj) --
+            node[pos=.55,above left,xshift=-.25em,yshift=.2em] {$q_j$} (E);
+
+        % The same overlap morphism is depicted twice, as a visible lens.
+        \draw[comparison] (A) to[bend left=50]
+            node[pos=.5,above,yshift=.3em]
+                {$\alpha_i|_{S_{ij}}\;\isom$} (Ap);
+        \draw[comparison] (A) to[bend right=50]
+            node[pos=.5,above,yshift=.25em]
+                {$\alpha_j|_{S_{ij}}\;\isom$} (Ap);
+        \node[fill=white,inner sep=1pt] at (1.25,10.25,2) {$=$};
+
+        \draw[comparison] (Bi) --
+            node[pos=.5,below,yshift=-.35em] {$\alpha_i\;\isom$} (Bip);
+        \draw[comparison] (Bj) --
+            node[pos=.5,above,yshift=.8em] {$\alpha_j\;\isom$} (Bjp);
+        % The dashed global isomorphism is supplied by the sheaf condition.
+        \draw[comparison,dashed] (E) --
+            node[pos=.5,below,yshift=-.35em] {$\alpha\;\isom?$} (Ep);
+        \end{scope}
+    \end{tikzpicture}
+    \]
+    Thus the solid blue arrows are given data. If isomorphisms are a sheaf for \(X\), the dashed arrow exists uniquely, lies over \(\id_S\), and pulls back to the prescribed local isomorphisms. As above, the equality on overlaps uses the canonical identifications of successive pullbacks.
+\end{ptcb}
+
+\begin{ptcb}
+    \begin{Qn}
+        ¿Have we proven or mentioned the condition that isomorphisms are a sheaf for \(V_r\)?
+    \end{Qn}
+        \tcbline 
+        The passage \ref{passage:VrSatsIsomsSheaf} actually states the condition that isomorphisms are a sheaf for vector bundles but without explicitly proving it. Let's take a look at it:
+        \begin{itemize}
+            \item When Fantechi states "\emph{isomorphisms between bundles on the same scheme can be defined locally on an open covering (...) they agree on the overlaps}", this is the part of the definition which says \emph{for every collection of isomorphisms} \[
+            (\alpha_i\colon E \mid S_i \to E' \mid S_i) \in\Mor(V_r)_{S_i} \word{such that} \alpha_i \mid S_{ij} = \alpha_j \mid S_{ij}.
+            \]
+            \item Then the phrase "\emph{and then glued in a unique way}" is the part which guarantees the existence of 
+            \[
+                \alpha\colon E \to E' \word{such that} \alpha \mid S_i = \alpha_i.
+            \]
+        \end{itemize}
+        If we were to prove this on our own, we would need to define the morphism \(\alpha\) based on the data we have.\par
+        The fact that \(\set{S_i\to S}\) is a (Zariski) open cover, gives us that \(S_i\hookto S\) is an open immersion. From this, we have the isomorphism
+        \[
+            q_i:E\mid S_i\xrightarrow{\isom}U_i=\pi^{-1}(S_i)\subseteq E.
+        \]
+        So for each \(i\in I\) we may define \(\al\) as 
+        \[
+            \alpha(x)\colon=q_i'\!\left(\alpha_i\!\left(q_i^{-1}(x)\right)\right),\qquad x\in U_i.
+        \]
+        The path taken is explained in the following diagram:
+        \[
+        \begin{tikzcd}[column sep=5em, row sep=3em]
+            E\mid S_i
+                \arrow[r, "\alpha_i", draw=noteblue, line width=.8pt]
+                \arrow[d, "q_i"']
+            & E'\mid S_i \arrow[d, "q_i'"] \\
+            E \arrow[r, dashed, "\alpha"'] & E'
+        \end{tikzcd}
+        \]
+        The fact that the local definitions agree means that if \(x\in U_i\cap U_j\), then 
+        \[
+            q_i'\!\left(\alpha_i\!\left(q_i^{-1}(x)\right)\right)=q_j'\!\left(\alpha_j\!\left(q_j^{-1}(x)\right)\right)
+        \]
+        so that \(\al\) won't be ill-defined.\par
+        The inverses of the \(\al_i\)'s also produces a similar morphism in direction \(E'\to E\). And finally, the pullbacks provide the uniqueness condition for \(\al\).
+        \begin{nonum-Rmk}
+            It must be observed that in the general case, \(q_i\)'s may not be isomorphisms onto the image. 
+        \end{nonum-Rmk}
+\end{ptcb}
 % --- Source PDF page 7 ---
 
 \begin{Def}\label{def:4.3}
 A \emph{stack} is a category fibered in groupoids over $\mathfrak{S}$ such that isomorphisms are a sheaf and every descent datum is effective.
 \end{Def}
 
-If $X$ is a stack, then for every descent datum as in Definition \ref{def:4.1}, the $(E, \alpha_i)$ whose existence follows by effectivity are essentially unique: i.e., for any other possibility $(E', \alpha'_i)$ there exists a unique isomorphism $\beta\colon E' \to E$ in the fiber such that $\alpha'_i = \alpha_i \circ \beta$.
+If $X$ is a stack, then for every descent datum as in Definition \ref{def:4.1}, the $(E, \alpha_i)$ whose existence \hlpink{follows by effectivity}\passagemark\label{passage:FollowsByEffectivity} are essentially unique: i.e., for any other possibility $(E', \alpha'_i)$ there exists a unique isomorphism $\beta\colon E' \to E$ in the fiber such that $\alpha'_i = \alpha_i \circ \beta$.
+
+\begin{ptcb}
+    \begin{Qn}
+        In the sense of passage \ref{passage:FollowsByEffectivity}, ¿is there a way to have effective descent data without actually having descent data? Or does the passage mean to say that if we have a global object from which we can construct the pullbacks and the isomorphisms, and we then verify the DD conditions, ¿is that a descent datum that follows from effectivity?
+    \end{Qn}
+\end{ptcb}
 
 Morphisms of stacks are defined to be morphisms of categories over $\mathfrak{S}$, and the same for 2-morphisms and isomorphisms.
 
@@ -1364,6 +1624,28 @@ The Stacks Project Authors, \emph{Categories}, Lemma~4.2.19 (criterion for an eq
 \bibitem[SP5]{notes:stacks-interchange}
 The Stacks Project Authors, \emph{Formal properties}, Lemma~4.28.2 (the interchange law).
 \href{https://stacks.math.columbia.edu/tag/003F}{Tag 003F}.
+
+\bibitem[SP6]{notes:stacks-curves}
+The Stacks Project Authors, \emph{The stack of curves}, Situation~99.15.1.
+\href{https://stacks.math.columbia.edu/tag/0D4Y}{Tag 0D4Y}.
+
+\bibitem[SP7]{notes:stacks-prestable}
+The Stacks Project Authors, \emph{Prestable curves}, Section~109.20.
+\href{https://stacks.math.columbia.edu/tag/0E6S}{Tag 0E6S}.
+
+\bibitem[Fan]{notes:fantechi-gw}
+Barbara Fantechi, \emph{Defining Gromov--Witten invariants}, Chennai Mathematical Institute, February--March~2016.
+PDF pp.~42--59 (prestable and stable pointed curves and their families).
+\href{https://www.cmi.ac.in/~mathsem/fantechi2016/chennai_2016_1.pdf}{Lecture slides}.
+
+\bibitem[FP]{notes:stablemaps-fp}
+William Fulton and Rahul Pandharipande, \emph{Notes on stable maps and quantum cohomology}, Section~1.1 (stable maps and families).
+\href{https://people.math.ethz.ch/~rahul/sm.pdf}{Authors' notes};
+\href{https://arxiv.org/abs/alg-geom/9608011}{arXiv:alg-geom/9608011}.
+
+\bibitem[BM]{notes:stablemaps-bm}
+Kai Behrend and Yuri Manin, \emph{Stacks of Stable Maps and Gromov--Witten Invariants}.
+\href{https://arxiv.org/abs/alg-geom/9506023}{arXiv:alg-geom/9506023}.
 
 \bibitem[M]{notes:milne-ag}
 J. S. Milne, \emph{Algebraic Geometry}, version~6.10, November~11, 2024.
