@@ -1,0 +1,3860 @@
+\chapter[Cox Coordinates and Quotient Constructions]
+{Cox Coordinates and Quotient\\ Constructions}
+\label{chap:cox-coordinates-quotients}
+
+\begin{chapteroverview}
+Projective space is built from homogeneous coordinates by deleting the
+origin and quotienting by one scalar action:
+\[
+\PP^n
+=
+\bigl(\AAA^{n+1}\setminus\{0\}\bigr)/\Gm.
+\]
+A toric variety admits a striking generalization of this construction.
+Every ray \(\rho\in\Sigma(1)\) contributes a coordinate \(x_\rho\), and
+the polynomial ring
+\[
+S_\Sigma=\Bbbk[x_\rho:\rho\in\Sigma(1)]
+\]
+is graded by the divisor class group:
+\[
+\deg(x_\rho)=[D_\rho]\in\Cl(X_\Sigma).
+\]
+The grading records the independent rescalings of the coordinates.
+After deleting a fan-determined exceptional set and quotienting by the
+corresponding diagonal group, we recover \(X_\Sigma\).
+
+The chapter builds toward
+\[
+\boxed{
+X_\Sigma
+\simeq
+\bigl(\AAA^{\Sigma(1)}\setminus Z(\Sigma)\bigr)/G,
+\qquad
+G=\Hom(\Cl(X_\Sigma),\Gm).
+}
+\]
+The quotient must be interpreted with care when the fan is not
+simplicial; we will make the distinction precise when it arises.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+Cox coordinates package the fan, the boundary, and a multigraded
+polynomial ring into one construction.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+variable \(x_\rho\)
+&
+invariant divisor \(D_\rho\)
+&
+ray \(\rho\)
+\\
+\(\Cl(X_\Sigma)\)-grading
+&
+independent coordinate rescalings
+&
+relations among ray generators
+\\
+irrelevant ideal
+&
+exceptional set to delete
+&
+collections of rays missing from cones
+\\
+homogeneous quotient
+&
+toric variety \(X_\Sigma\)
+&
+the fan \(\Sigma\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+The surface examples will keep the construction concrete:
+\[
+\PP^2,
+\qquad
+\PP^1\times\PP^1,
+\qquad
+\mathbb F_r,
+\qquad
+\Blp{\PP^2}{p}.
+\]
+Their Cox rings are polynomial rings with three or four variables, but
+the gradings and deleted coordinate loci differ. Those differences
+encode the divisor classes and the fan.
+\end{surfacelaboratory}
+
+% Section 6.1 is inlined below so this chapter file is self-contained.
+\section{Why homogeneous coordinates need a grading}
+\label{sec:why-homogeneous-coordinates-need-grading}
+\index{homogeneous coordinates!toric}
+\index{class-group grading}
+\index{Cox coordinate}
+
+The last chapter ended with a polynomial ring waiting in the wings:
+\[
+S=\Bbbk[x_\rho:\rho\in\Sigma(1)].
+\]
+There is one variable for every ray, hence one variable for every
+irreducible component \(D_\rho\) of the toric boundary. At first sight,
+this looks almost too easy. A polynomial ring is familiar; why should
+it contain the geometry of an arbitrary toric variety?
+
+The subtlety is not the ring itself. The subtlety is the word
+\emph{homogeneous}. For projective space, all coordinates may be
+rescaled by one common scalar, and ordinary degree records that one
+scaling direction. A general toric variety can have several
+independent scaling directions. Its homogeneous coordinates therefore
+need a grading by a group larger than \(\ZZ\).
+
+\begin{agcheatsheet}
+A point of projective space is an equivalence class
+\[
+[z_0:\cdots:z_n]
+=
+[\lambda z_0:\cdots:\lambda z_n],
+\qquad \lambda\in\Bbbk^\times.
+\]
+Equivalently,
+\[
+\PP^n
+=
+\bigl(\AAA^{n+1}\setminus\{0\}\bigr)/\Gm,
+\]
+where \(\Gm\) acts by simultaneous scalar multiplication.
+
+A polynomial equation
+\[
+f(z_0,\dots,z_n)=0
+\]
+is well defined on projective points only when replacing
+\((z_0,\dots,z_n)\) by \((\lambda z_0,\dots,\lambda z_n)\) multiplies
+\(f\) by one common power of \(\lambda\). This is exactly what happens
+when every monomial of \(f\) has the same total degree:
+\[
+f(\lambda z_0,\dots,\lambda z_n)
+=
+\lambda^d f(z_0,\dots,z_n).
+\]
+Thus ordinary homogeneity is the algebraic record of one scalar
+symmetry.
+\end{agcheatsheet}
+
+\subsection{One scaling direction: projective space}
+
+For \(\PP^2\), write homogeneous coordinates as
+\[
+[x_0:x_1:x_2].
+\]
+The triples
+\[
+(x_0,x_1,x_2)
+\qquad\text{and}\qquad
+(\lambda x_0,\lambda x_1,\lambda x_2)
+\]
+represent the same point. Therefore the three variables have the same
+weight:
+\[
+\deg(x_0)=\deg(x_1)=\deg(x_2)=1.
+\]
+A polynomial such as
+\[
+x_0x_1+x_2^2
+\]
+is homogeneous of degree \(2\), since both terms acquire the factor
+\(\lambda^2\). By contrast,
+\[
+x_0+x_1x_2
+\]
+is not homogeneous: its two terms acquire different powers of
+\(\lambda\), so its zero set is not preserved by rescaling.
+
+This familiar story can be read in divisor language. The three
+coordinate hyperplanes define linearly equivalent divisors:
+\[
+[D_0]=[D_1]=[D_2]=H\in\Cl(\PP^2).
+\]
+Thus the assignment
+\[
+\deg(x_i)=[D_i]
+\]
+recovers the ordinary grading after identifying \(\Cl(\PP^2)\simeq\ZZ\)
+with generator \(H\).
+
+\begin{pauseandthink}
+Explain directly from the fan of \(\PP^2\) why the three invariant
+boundary divisors have the same class. Which principal divisors give
+the two independent relations?
+\end{pauseandthink}
+
+\subsection{Two scaling directions: \texorpdfstring{\(\PP^1\times\PP^1\)}{P1 x P1}}
+
+Now consider
+\[
+\PP^1\times\PP^1.
+\]
+A point is written
+\[
+([x_0:x_1],[y_0:y_1]).
+\]
+There are two independent rescalings:
+\[
+(x_0,x_1;y_0,y_1)
+\sim
+(\lambda x_0,\lambda x_1;\mu y_0,\mu y_1),
+\qquad
+(\lambda,\mu)\in(\Bbbk^\times)^2.
+\]
+The \(x\)-coordinates respond only to \(\lambda\), while the
+\(y\)-coordinates respond only to \(\mu\). One integer can no longer
+record both behaviors. The natural grading is the bidegree
+\[
+\deg(x_0)=\deg(x_1)=(1,0),
+\qquad
+\deg(y_0)=\deg(y_1)=(0,1).
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  % P2 panel
+  \begin{scope}[xshift=-4.4cm]
+    \node[font=\bfseries] at (0,2.65) {one scaling direction};
+    \node[font=\bfseries] at (0,2.18) {\(\PP^2\)};
+
+    \draw[rounded corners,fill=DictionaryBlue!8,draw=DictionaryBlue,very thick]
+      (-2.15,-0.15) rectangle (2.15,1.35);
+    \node at (0,0.87) {\((x_0,x_1,x_2)\)};
+    \node[DictionaryBlue,font=\large] at (0,0.28)
+      {\(\lambda\cdot(x_0,x_1,x_2)\)};
+
+    \draw[->,very thick,DictionaryBlue]
+      (-2.55,0.6)--(-2.18,0.6);
+    \node[DictionaryBlue,left] at (-2.55,0.6) {\(\lambda\)};
+
+    \node[align=center] at (0,-0.72)
+      {all variables have\\the same degree};
+    \node[fill=DictionaryBlue!10,rounded corners,inner sep=3pt]
+      at (0,-1.58) {grading group \(\ZZ\)};
+  \end{scope}
+
+  % P1xP1 panel
+  \begin{scope}[xshift=4.4cm]
+    \node[font=\bfseries] at (0,2.65) {two scaling directions};
+    \node[font=\bfseries] at (0,2.18) {\(\PP^1\times\PP^1\)};
+
+    \draw[rounded corners,fill=PredictionTeal!8,draw=PredictionTeal,very thick]
+      (-2.35,0.62) rectangle (-0.15,1.35);
+    \draw[rounded corners,fill=ExampleGold!12,draw=ExampleGold,very thick]
+      (0.15,0.62) rectangle (2.35,1.35);
+    \node at (-1.25,0.98) {\((x_0,x_1)\)};
+    \node at (1.25,0.98) {\((y_0,y_1)\)};
+
+    \draw[->,very thick,PredictionTeal]
+      (-2.75,0.98)--(-2.38,0.98);
+    \node[PredictionTeal,left] at (-2.75,0.98) {\(\lambda\)};
+    \draw[->,very thick,ExampleGold]
+      (2.75,0.98)--(2.38,0.98);
+    \node[ExampleGold,right] at (2.75,0.98) {\(\mu\)};
+
+    \node[PredictionTeal] at (-1.25,0.18) {degree \((1,0)\)};
+    \node[ExampleGold] at (1.25,0.18) {degree \((0,1)\)};
+    \node[align=center] at (0,-0.72)
+      {the two coordinate blocks\\scale independently};
+    \node[fill=PredictionTeal!8,rounded corners,inner sep=3pt]
+      at (0,-1.58) {grading group \(\ZZ^2\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{A grading records how coordinate blocks transform under
+rescaling. Projective space has one common scaling direction;
+\(\PP^1\times\PP^1\) has two independent directions.}
+\label{fig:one-scaling-versus-two}
+\end{figure}
+
+The polynomial
+\[
+x_0y_0+x_1y_1
+\]
+has bidegree \((1,1)\). Under rescaling, both terms acquire the same
+factor:
+\[
+(\lambda x_0)(\mu y_0)+(\lambda x_1)(\mu y_1)
+=
+\lambda\mu(x_0y_0+x_1y_1).
+\]
+Its zero set is therefore well defined on \(\PP^1\times\PP^1\).
+
+By contrast, an ordinary total-degree grading would declare
+\[
+x_0+y_0
+\]
+to be homogeneous of degree \(1\). But
+\[
+x_0+y_0
+\longmapsto
+\lambda x_0+\mu y_0,
+\]
+and there is no common factor unless \(\lambda=\mu\). The equation
+\(x_0+y_0=0\) is not well defined on the product. Ordinary degree has
+forgotten which scaling acts on which coordinate.
+
+\begin{pauseandthink}
+Determine which of the following polynomials are bihomogeneous, and
+record their bidegrees when they are:
+\[
+x_0^2y_0+x_0x_1y_1,
+\qquad
+x_0y_0+x_1y_1^2,
+\qquad
+x_0x_1+y_0y_1.
+\]
+For each failure, identify the two monomials whose scaling behaviors
+do not match.
+\end{pauseandthink}
+
+The divisor class group explains the bidegree. If \(F_1\) and \(F_2\)
+are the two ruling classes, then
+\[
+\Cl(\PP^1\times\PP^1)
+\simeq
+\ZZ F_1\oplus\ZZ F_2,
+\]
+and the four invariant boundary divisors satisfy
+\[
+[D_{x_0}]=[D_{x_1}]=F_1,
+\qquad
+[D_{y_0}]=[D_{y_1}]=F_2.
+\]
+Hence the bidegree is again obtained by the rule
+\[
+\deg(x_\rho)=[D_\rho].
+\]
+
+\subsection{One variable for every boundary divisor}
+
+The examples suggest the general construction. Let \(X_\Sigma\) be a
+toric variety whose rays span \(N_\RR\); in particular, this holds for
+every complete toric variety. For each ray
+\[
+\rho\in\Sigma(1),
+\]
+introduce a variable \(x_\rho\). We want the equation
+\[
+x_\rho=0
+\]
+to remember the invariant prime divisor \(D_\rho\). More generally, a
+monomial
+\[
+x^a=\prod_{\rho\in\Sigma(1)}x_\rho^{a_\rho}
+\]
+records the effective invariant divisor
+\[
+D_a=\sum_{\rho\in\Sigma(1)}a_\rho D_\rho.
+\]
+
+This makes the correct notion of degree unavoidable:
+\[
+\boxed{
+\deg(x^a)
+=
+[D_a]
+=
+\left[\sum_{\rho}a_\rho D_\rho\right]
+\in\Cl(X_\Sigma).
+}
+\]
+In particular,
+\[
+\boxed{
+\deg(x_\rho)=[D_\rho].
+}
+\]
+
+The class group is not being added as decoration. It is precisely the
+group that remembers when two invariant divisors differ by a principal
+divisor. By \cref{thm:toric-class-group-sequence}, we have the exact
+sequence
+\[
+0\longrightarrow M
+\longrightarrow \ZZ^{\Sigma(1)}
+\stackrel{\deg}{\longrightarrow}\Cl(X_\Sigma)
+\longrightarrow0,
+\]
+where
+\[
+m\longmapsto
+\bigl(\langle m,u_\rho\rangle\bigr)_\rho
+\]
+and
+\[
+(a_\rho)_\rho
+\longmapsto
+\left[\sum_\rho a_\rho D_\rho\right].
+\]
+The first map records the principal-divisor relation
+\[
+\divchi{m}
+=
+\sum_\rho\langle m,u_\rho\rangle D_\rho.
+\]
+Thus two monomials \(x^a\) and \(x^b\) have the same degree exactly
+when
+\[
+\sum_\rho(a_\rho-b_\rho)D_\rho
+\]
+is principal.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=1.5cm]
+  \node[draw=DictionaryBlue,very thick,rounded corners,
+        fill=DictionaryBlue!8,minimum width=1.65cm,minimum height=1cm]
+    (ray) {ray \(\rho\)};
+  \node[draw=PredictionTeal,very thick,rounded corners,
+        fill=PredictionTeal!8,minimum width=1.95cm,minimum height=1cm,
+        right=of ray]
+    (var) {variable \(x_\rho\)};
+  \node[draw=ExampleGold,very thick,rounded corners,
+        fill=ExampleGold!12,minimum width=1.95cm,minimum height=1cm,
+        right=of var]
+    (div) {divisor \(D_\rho\)};
+  \node[draw=SurfaceGreen,very thick,rounded corners,
+        fill=SurfaceGreen!10,minimum width=2.15cm,minimum height=1cm,
+        right=of div]
+    (class) {degree \([D_\rho]\)};
+
+  \draw[->,very thick] (ray)--(var)
+    node[midway,above=7pt,font=\scriptsize,align=center]
+      {name a\\coordinate};
+  \draw[->,very thick] (var)--(div)
+    node[midway,above=7pt,font=\scriptsize,align=center]
+      {set it\\to zero};
+  \draw[->,very thick] (div)--(class)
+    node[midway,above=7pt,font=\scriptsize,align=center]
+      {pass to the\\divisor class};
+
+  \node[align=center,below=0.95cm of var,xshift=2.0cm]
+    {the fan supplies the variables;\\the class group supplies their degrees};
+\end{tikzpicture}
+\caption{The basic chain behind Cox coordinates. Each ray gives both a
+boundary divisor and a variable; the divisor class becomes the
+variable's degree.}
+\label{fig:ray-variable-divisor-degree}
+\end{figure}
+
+\begin{definition}[The class-group grading]
+\label{def:class-group-grading-preview}
+Let
+\[
+S_\Sigma=\Bbbk[x_\rho:\rho\in\Sigma(1)].
+\]
+Give \(S_\Sigma\) the \(\Cl(X_\Sigma)\)-grading determined by
+\[
+\deg(x_\rho)=[D_\rho].
+\]
+A polynomial is \emph{homogeneous of degree}
+\(\beta\in\Cl(X_\Sigma)\) if every monomial appearing in it has degree
+\(\beta\).
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is the grading introduced in Cox--Little--Schenck, \S5.2,
+``The Grading.'' Their exact sequence~(5.1.1) is the same class-group
+sequence used above.
+
+\begin{observation}
+There is optional representation-theoretic language for this picture.
+If an abelian group \(A\) grades a ring
+\[
+S=\bigoplus_{\alpha\in A}S_\alpha,
+\]
+then the group
+\[
+\Hom(A,\Gm)
+\]
+acts diagonally on \(\Spec(S)\), and the spaces \(S_\alpha\) are its
+weight spaces. In our setting,
+\[
+A=\Cl(X_\Sigma).
+\]
+Thus the class-group grading is the algebraic shadow of the rescalings
+that will eventually be quotiented out. No familiarity with weight
+spaces is needed: the concrete content is simply that all monomials of
+a homogeneous polynomial acquire the same common factor.
+\end{observation}
+
+\subsection{Surface laboratory: the blowup grading}
+
+Return to the toric blowup
+\[
+X=\Blp{\PP^2}{p}
+\]
+from Chapter~5. Its rays are generated by
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_E=e_1+e_2,
+\qquad
+u_2=e_2.
+\]
+Let the corresponding variables be
+\[
+x_0,x_1,x_E,x_2.
+\]
+The principal-divisor relations are
+\[
+-D_0+D_1+E\sim0,
+\qquad
+-D_0+E+D_2\sim0.
+\]
+Writing \(H=[D_0]\), we obtain
+\[
+[D_1]=[D_2]=H-E.
+\]
+Therefore the polynomial ring
+\[
+S_X=\Bbbk[x_0,x_1,x_E,x_2]
+\]
+has the \(\Cl(X)\simeq\ZZ H\oplus\ZZ E\) grading
+\[
+\deg(x_0)=H,
+\qquad
+\deg(x_1)=\deg(x_2)=H-E,
+\qquad
+\deg(x_E)=E.
+\]
+
+Now consider the divisor class \(2H-E\). The five monomials
+\[
+x_0x_1,
+\qquad
+x_0x_2,
+\qquad
+x_1^2x_E,
+\qquad
+x_1x_2x_E,
+\qquad
+x_2^2x_E
+\]
+all have degree \(2H-E\). They are the Cox-coordinate counterparts of
+the five lattice points in the truncated polygon \(P_{2H-E}\) from
+Chapter~5.
+
+This is our first glimpse of what the Cox ring will accomplish: one
+multigraded polynomial ring simultaneously contains the monomial
+sections of many divisor classes.
+
+\begin{prediction}
+For the divisor class \(dH-rE\), predict the exponents of a general
+monomial
+\[
+x_0^{a_0}x_1^{a_1}x_E^{a_E}x_2^{a_2}
+\]
+of degree \(dH-rE\). How should the resulting integer conditions be
+related to the inequalities
+\[
+a,b\geq0,
+\qquad
+r\leq a+b\leq d
+\]
+that define the section polytope \(P_{dH-rE}\)?
+\end{prediction}
+
+\begin{threedictionaries}
+The need for a class-group grading can now be read in all three
+languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+variable \(x_\rho\)
+&
+boundary divisor \(D_\rho\)
+&
+ray \(\rho\)
+\\
+monomial \(x^a\)
+&
+effective invariant divisor \(\sum a_\rho D_\rho\)
+&
+nonnegative exponent vector \(a\in\ZZ^{\Sigma(1)}\)
+\\
+degree in \(\Cl(X_\Sigma)\)
+&
+linear-equivalence class
+&
+exponent vectors modulo principal-divisor relations
+\\
+homogeneous polynomial
+&
+a scaling-invariant equation
+&
+monomials lying in one fiber of the degree map
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+The lesson is compact:
+\[
+\boxed{
+\begin{gathered}
+\text{one scaling direction gives ordinary degree;}\\
+\text{many scaling directions give the class-group grading.}
+\end{gathered}
+}
+\]
+
+\begin{guidingquestion}
+For a fixed divisor class \(\beta\in\Cl(X_\Sigma)\), what geometric
+object is represented by the homogeneous piece
+\[
+(S_\Sigma)_\beta?
+\]
+Can it be identified with the global sections of a divisor in the
+class \(\beta\), and how does multiplication in the polynomial ring
+encode multiplication of sections?
+\end{guidingquestion}
+\section{The Cox ring and its homogeneous pieces}
+\label{sec:cox-ring-homogeneous-pieces}
+\index{Cox ring}
+\index{homogeneous piece!of the Cox ring}
+\index{global section!inside the Cox ring}
+
+Section~6.1 explained why the variables of a toric homogeneous
+coordinate ring must be graded by \(\Cl(X_\Sigma)\). We now take the
+next step: instead of looking at one degree at a time, we place all
+divisor classes and all their monomial sections inside a single
+polynomial ring.
+
+Throughout this section, the rays of \(\Sigma\) span \(N_\RR\). This
+holds in particular when \(X_\Sigma\) is complete. Equivalently,
+\(X_\Sigma\) has no torus factor, and the map
+\[
+M\longrightarrow \ZZ^{\Sigma(1)},
+\qquad
+m\longmapsto
+\bigl(\langle m,u_\rho\rangle\bigr)_\rho
+\]
+is injective.
+
+\subsection{One polynomial ring for all divisor classes}
+
+\begin{definition}[The Cox ring]
+\label{def:toric-cox-ring}
+The \emph{Cox ring}, or \emph{total coordinate ring}, of
+\(X_\Sigma\) is the polynomial ring
+\[
+\operatorname{Cox}(X_\Sigma)
+=
+S_\Sigma
+=
+\Bbbk[x_\rho:\rho\in\Sigma(1)]
+\]
+with the \(\Cl(X_\Sigma)\)-grading determined by
+\[
+\deg(x_\rho)=[D_\rho].
+\]
+For \(\alpha\in\Cl(X_\Sigma)\), the homogeneous piece of degree
+\(\alpha\) is denoted
+\[
+(S_\Sigma)_\alpha.
+\]
+Thus
+\[
+S_\Sigma
+=
+\bigoplus_{\alpha\in\Cl(X_\Sigma)}
+(S_\Sigma)_\alpha,
+\qquad
+(S_\Sigma)_\alpha(S_\Sigma)_\beta
+\subseteq
+(S_\Sigma)_{\alpha+\beta}.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is the total coordinate ring and grading of
+Cox--Little--Schenck, \S5.2.
+
+The ring is polynomial, but its grading is geometric. A monomial
+\[
+x^a=\prod_\rho x_\rho^{a_\rho}
+\]
+represents the effective invariant divisor
+\[
+E_a=\sum_\rho a_\rho D_\rho,
+\]
+and its degree is precisely the divisor class
+\[
+\deg(x^a)=[E_a].
+\]
+Consequently,
+\[
+(S_\Sigma)_\alpha
+\]
+is spanned by the monomials whose effective invariant divisors lie in
+the class \(\alpha\).
+
+\begin{example}[The familiar graded pieces of \(\PP^2\)]
+For \(\PP^2\),
+\[
+S=\Bbbk[x_0,x_1,x_2],
+\qquad
+\deg(x_i)=H.
+\]
+After identifying \(\Cl(\PP^2)\simeq\ZZ H\), the homogeneous piece
+\(S_{dH}\) is the usual vector space of degree-\(d\) homogeneous
+polynomials. For example,
+\[
+S_{2H}
+=
+\Span_\Bbbk
+\{x_0^2,x_0x_1,x_0x_2,x_1^2,x_1x_2,x_2^2\}.
+\]
+Thus ordinary homogeneous coordinates are the rank-one instance of
+the Cox construction.
+\end{example}
+
+\begin{example}[Bihomogeneous pieces on \(\PP^1\times\PP^1\)]
+For
+\[
+S=\Bbbk[x_0,x_1,y_0,y_1]
+\]
+with
+\[
+\deg(x_i)=(1,0),
+\qquad
+\deg(y_j)=(0,1),
+\]
+the piece \(S_{(a,b)}\) is spanned by the bihomogeneous monomials
+\[
+x_0^i x_1^{a-i}y_0^j y_1^{b-j},
+\qquad
+0\leq i\leq a,
+\quad
+0\leq j\leq b.
+\]
+Hence
+\[
+\dim_\Bbbk S_{(a,b)}=(a+1)(b+1)
+\]
+when \(a,b\geq0\), while the piece is zero if either coordinate is
+negative.
+\end{example}
+
+These examples suggest that a homogeneous piece should be more than an
+abstract collection of polynomials: it should be the space of sections
+of the corresponding divisor class.
+
+\subsection{A degree fiber is a section polytope}
+
+Choose a torus-invariant Weil divisor
+\[
+D=\sum_{\rho\in\Sigma(1)}d_\rho D_\rho,
+\qquad
+\alpha=[D]\in\Cl(X_\Sigma).
+\]
+Recall from Chapter~5 that
+\[
+P_D
+=
+\left\{
+ m\in M_\RR:
+ \langle m,u_\rho\rangle+d_\rho\geq0
+ \text{ for every }\rho
+\right\}.
+\]
+For a lattice point \(m\in P_D\cap M\), define the monomial
+\[
+x^{\langle m,D\rangle}
+:=
+\prod_{\rho\in\Sigma(1)}
+ x_\rho^{\langle m,u_\rho\rangle+d_\rho}.
+\]
+The inequalities defining \(P_D\) guarantee that every exponent is
+nonnegative.
+
+\begin{lemma}[Homogenizing a character]
+\label{lem:homogenizing-character}
+For every \(m\in P_D\cap M\), the monomial
+\(x^{\langle m,D\rangle}\) has degree \([D]\).
+\end{lemma}
+
+\begin{proof}
+Its degree is
+\[
+\left[
+\sum_\rho
+\bigl(\langle m,u_\rho\rangle+d_\rho\bigr)D_\rho
+\right]
+=
+\left[D+\divchi{m}\right]
+=[D].
+\]
+The principal-divisor formula is the entire reason the degree does not
+change when the character \(\character m\) is homogenized.
+\end{proof}
+
+The exponent vector of this monomial is
+\[
+\bigl(\langle m,u_\rho\rangle+d_\rho\bigr)_\rho
+\in\ZZ_{\geq0}^{\Sigma(1)}.
+\]
+Thus the lattice points of \(P_D\) are converted into the nonnegative
+integer points lying over \([D]\) under the degree map.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % polytope side
+  \begin{scope}[xshift=-4.15cm]
+    \draw[->,black!60] (-0.25,0)--(2.55,0) node[below] {\(a\)};
+    \draw[->,black!60] (0,-0.25)--(0,2.55) node[left] {\(b\)};
+    \filldraw[fill=DictionaryBlue!12,draw=DictionaryBlue,very thick]
+      (1,0)--(2,0)--(0,2)--(0,1)--cycle;
+    \foreach \p in {(1,0),(2,0),(1,1),(0,2),(0,1)} {
+      \fill \p circle (2.3pt);
+    }
+    \node[font=\bfseries] at (1,3.0) {lattice points of \(P_{2H-E}\)};
+    \node[align=center,font=\small] at (1,-0.7)
+      {five points in a\\truncated triangle};
+  \end{scope}
+
+  % arrow
+  \draw[->,very thick,PredictionTeal]
+    (-1.35,1.22)--(1.25,1.22);
+  \node[PredictionTeal,fill=white,inner sep=2pt]
+    at (-0.05,1.62) {homogenize};
+  \node[font=\scriptsize,align=center]
+    at (-0.05,0.70)
+    {the same\\integer data};
+
+  % degree fiber side
+  \begin{scope}[xshift=4.15cm]
+    \draw[rounded corners,fill=PredictionTeal!8,
+          draw=PredictionTeal,very thick]
+      (-2.35,-0.18) rectangle (2.35,2.42);
+    \node[font=\bfseries] at (0,2.78)
+      {monomials of degree \(2H-E\)};
+    \node[align=left,font=\small] at (0,1.15) {$
+      \begin{aligned}
+      x_0x_1,\qquad &x_1^2x_E,\\
+      x_1x_2x_E,\qquad &x_2^2x_E,\\
+      &x_0x_2
+      \end{aligned}$};
+    \node[align=center,font=\small] at (0,-0.62)
+      {five nonnegative exponent vectors\\in one fiber of the degree map};
+  \end{scope}
+\end{tikzpicture}
+\caption{For \(D=2H-E\) on \(\Blp{\PP^2}{p}\), homogenization turns
+the five lattice points of \(P_D\) into the five monomials in the
+homogeneous piece \(S_{2H-E}\).}
+\label{fig:polytope-to-degree-fiber}
+\end{figure}
+
+\subsection{Homogeneous pieces are spaces of sections}
+
+\begin{theorem}[Sections inside the Cox ring]
+\label{thm:cox-piece-global-sections}
+Let \(D\) be a torus-invariant Weil divisor on a toric variety without
+torus factors, and set \(\alpha=[D]\). Then the assignment
+\[
+\character m
+\longmapsto
+x^{\langle m,D\rangle}
+\]
+induces an isomorphism
+\[
+\boxed{
+H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D))
+\simeq
+(S_\Sigma)_\alpha.
+}
+\]
+Under this isomorphism, the character basis indexed by
+\(P_D\cap M\) becomes the monomial basis of the homogeneous piece.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~5.4.1.
+
+\begin{proof}
+By \cref{thm:lattice-points-global-sections}, the left-hand side has
+basis
+\[
+\{\character m:m\in P_D\cap M\}.
+\]
+By \cref{lem:homogenizing-character}, each basis element maps to a
+monomial of degree \(\alpha\).
+
+Conversely, let
+\[
+x^a=\prod_\rho x_\rho^{a_\rho}
+\]
+be any monomial of degree \(\alpha\). Then
+\[
+\left[\sum_\rho a_\rho D_\rho\right]=[D],
+\]
+so the invariant divisor
+\[
+\sum_\rho a_\rho D_\rho-D
+\]
+is principal. Therefore it equals \(\divchi m\) for some \(m\in M\),
+and hence
+\[
+a_\rho=\langle m,u_\rho\rangle+d_\rho
+\qquad
+\text{for every }\rho.
+\]
+Because all \(a_\rho\geq0\), we have \(m\in P_D\cap M\). The
+assumption that the rays span \(N_\RR\) makes \(m\) unique. Thus the
+two monomial bases are in bijection.
+\end{proof}
+
+This theorem answers the guiding question from the previous section:
+\[
+\boxed{
+(S_\Sigma)_{[D]}
+\text{ is a canonical polynomial model for }
+H^0(X_\Sigma,\mathcal O(D)).
+}
+\]
+The explicit isomorphism depends on the chosen representative \(D\),
+but the homogeneous piece depends only on its class.
+
+\begin{warningbox}
+The notation \(S_{[D]}\) does not mean that every class has a
+nonzero homogeneous piece. It is possible that
+\[
+(S_\Sigma)_\alpha=0.
+\]
+Geometrically, this means that the class \(\alpha\) contains no
+effective torus-invariant divisor, equivalently that the corresponding
+section polyhedron has no lattice points.
+\end{warningbox}
+
+\subsection{Multiplication of sections becomes multiplication of monomials}
+
+Let \(D\) and \(E\) be torus-invariant divisors with classes
+\[
+\alpha=[D],
+\qquad
+\beta=[E].
+\]
+There is a natural multiplication map
+\[
+H^0(X_\Sigma,\mathcal O(D))
+\otimes
+H^0(X_\Sigma,\mathcal O(E))
+\longrightarrow
+H^0(X_\Sigma,\mathcal O(D+E)).
+\]
+On character sections,
+\[
+\character m\cdot\character{m'}
+=
+\character{m+m'}.
+\]
+The corresponding Cox monomials satisfy
+\[
+x^{\langle m,D\rangle}
+ x^{\langle m',E\rangle}
+=
+x^{\langle m+m',D+E\rangle}.
+\]
+Therefore the diagram
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+H^0(\mathcal O(D))\otimes H^0(\mathcal O(E))
+  \arrow[r]
+  \arrow[d,"\sim"']
+&
+H^0(\mathcal O(D+E))
+  \arrow[d,"\sim"]
+\\
+S_\alpha\otimes S_\beta
+  \arrow[r]
+&
+S_{\alpha+\beta}
+\end{tikzcd}
+\]
+commutes, where the bottom arrow is ordinary polynomial
+multiplication.
+
+This is why the direct sum over all divisor classes is so useful: the
+Cox ring does not merely list section spaces. It remembers how their
+sections multiply.
+
+\begin{observation}
+For a general normal variety, a Cox ring is often introduced as a
+direct sum of section spaces over divisor classes. In the toric case,
+\cref{thm:cox-piece-global-sections} identifies that direct sum with
+the exceptionally concrete polynomial ring
+\[
+\Bbbk[x_\rho:\rho\in\Sigma(1)].
+\]
+The absence of algebraic relations among the variables is a special
+feature of toric geometry: each variable independently records one
+boundary component.
+\end{observation}
+
+\subsection{Surface laboratory: solving the blowup prediction}
+
+For
+\[
+X=\Blp{\PP^2}{p},
+\]
+Section~6.1 found
+\[
+\deg(x_0)=H,
+\qquad
+\deg(x_1)=\deg(x_2)=H-E,
+\qquad
+\deg(x_E)=E.
+\]
+Consider a monomial
+\[
+x_0^{a_0}x_1^{a_1}x_E^{a_E}x_2^{a_2}.
+\]
+Its degree is
+\[
+(a_0+a_1+a_2)H
++
+(a_E-a_1-a_2)E.
+\]
+It has degree \(dH-rE\) precisely when
+\[
+a_0+a_1+a_2=d,
+\qquad
+ a_E-a_1-a_2=-r.
+\]
+Set
+\[
+a=a_1,
+\qquad
+b=a_2.
+\]
+Then
+\[
+a_0=d-a-b,
+\qquad
+ a_E=a+b-r.
+\]
+The requirement that all four exponents be nonnegative becomes
+\[
+a,b\geq0,
+\qquad
+r\leq a+b\leq d.
+\]
+These are exactly the inequalities defining \(P_{dH-rE}\). Thus the
+lattice point \((a,b)\) corresponds to the Cox monomial
+\[
+\boxed{
+x_0^{d-a-b}x_1^a x_E^{a+b-r}x_2^b.
+}
+\]
+
+The class-group grading and the section polytope are therefore two
+ways of organizing the same integer solutions:
+\[
+\boxed{
+P_{dH-rE}\cap M
+\longleftrightarrow
+\{\text{monomials of Cox degree }dH-rE\}.
+}
+\]
+
+\begin{pauseandthink}
+For \(D=3H-2E\), list the lattice points of \(P_D\) and the
+corresponding Cox monomials. Verify the degree of each monomial
+directly from the four variable degrees.
+\end{pauseandthink}
+
+\begin{threedictionaries}
+A homogeneous piece of the Cox ring is the same object viewed in three
+languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+homogeneous piece \(S_{[D]}\)
+&
+sections of \(\mathcal O(D)\)
+&
+lattice points of \(P_D\)
+\\
+monomial \(x^{\langle m,D\rangle}\)
+&
+character section \(\character m\)
+&
+exponent vector over the degree fiber
+\\
+product in the Cox ring
+&
+product of sections
+&
+addition of lattice points and exponent vectors
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+The Cox ring has now collected every section space into one
+multigraded polynomial ring. But this ring is the coordinate ring of
+the full affine space
+\[
+\AAA^{\Sigma(1)}=\Spec(S_\Sigma),
+\]
+and that affine space is too large. Some coordinate patterns do not
+represent any point of \(X_\Sigma\).
+
+\begin{guidingquestion}
+For projective space, the only forbidden coordinate pattern is
+\((0,\dots,0)\). For a general fan, which collections of Cox
+coordinates are forbidden to vanish simultaneously, and how can the
+cones of \(\Sigma\) encode them as the zero set of an ideal?
+\end{guidingquestion}
+\section{The irrelevant ideal and the exceptional set}
+\label{sec:irrelevant-ideal-exceptional-set}
+\index{irrelevant ideal}
+\index{exceptional set!Cox construction}
+\index{primitive collection}
+\index{Cox coordinate!vanishing test}
+
+The Cox ring remembers the rays of the fan and the linear-equivalence
+relations among their divisors. It does \emph{not} yet remember which
+collections of rays span cones. That missing incidence data is exactly
+what tells us which Cox coordinates are allowed to vanish together.
+
+For projective space, the answer is familiar: all homogeneous
+coordinates may vanish individually, but they may not vanish
+simultaneously. Thus one deletes the origin before quotienting. For a
+general toric variety, the forbidden locus can be a union of several
+coordinate subspaces. The fan determines precisely which ones.
+
+Throughout this section, write
+\[
+S_\Sigma=\Bbbk[x_\rho:\rho\in\Sigma(1)]
+\]
+and regard
+\[
+\AAA^{\Sigma(1)}=\Spec(S_\Sigma)
+\]
+as the affine space of Cox-coordinate tuples
+\[
+z=(z_\rho)_{\rho\in\Sigma(1)}.
+\]
+
+\subsection{The monomial attached to a cone}
+
+Let \(\sigma\in\Sigma\). Define
+\[
+\boxed{
+x^{\widehat\sigma}
+=
+\prod_{\rho\notin\sigma(1)}x_\rho.
+}
+\]
+The hat means that we multiply the variables whose rays are
+\emph{omitted} from \(\sigma\).
+
+The principal open set
+\[
+D(x^{\widehat\sigma})
+=
+\{z:x^{\widehat\sigma}(z)\neq0\}
+\]
+consists of those coordinate tuples for which
+\[
+z_\rho\neq0
+\qquad
+\text{whenever }\rho\notin\sigma(1).
+\]
+The coordinates indexed by rays inside \(\sigma\) may vanish; all the
+others must be invertible.
+
+\begin{pauseandthink}
+Suppose \(\sigma\) has rays \(\rho_1,\rho_2\) and the fan has five
+rays in total. Write \(x^{\widehat\sigma}\). Which two coordinates may
+vanish on \(D(x^{\widehat\sigma})\), and which three are forced to be
+nonzero?
+\end{pauseandthink}
+
+If \(\tau\preceq\sigma\), then \(\tau(1)\subseteq\sigma(1)\), so
+\[
+x^{\widehat\tau}
+\]
+is divisible by \(x^{\widehat\sigma}\). Consequently, the monomials
+coming from maximal cones already generate all the others.
+
+\begin{definition}[The irrelevant ideal]
+\label{def:irrelevant-ideal}
+The \emph{irrelevant ideal} of the fan \(\Sigma\) is
+\[
+\boxed{
+B(\Sigma)
+=
+\left\langle
+x^{\widehat\sigma}:\sigma\in\Sigma
+\right\rangle
+=
+\left\langle
+x^{\widehat\sigma}:\sigma\in\Sigma_{\max}
+\right\rangle
+\subseteq S_\Sigma.
+}
+\]
+Its zero set
+\[
+\boxed{
+Z(\Sigma)=V(B(\Sigma))
+\subseteq\AAA^{\Sigma(1)}
+}
+\]
+is called the \emph{exceptional set}.
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is the construction in Cox--Little--Schenck, \S5.1, under
+``The Exceptional Set.''
+
+The name ``irrelevant'' comes from projective algebraic geometry. It
+does not mean that the ideal is unimportant. Quite the opposite:
+\(B(\Sigma)\) is the part of the Cox construction that remembers how
+the rays are assembled into cones.
+
+Since the complement of the zero set of an ideal generated by
+\(f_1,\dots,f_s\) is the union of the principal opens \(D(f_i)\), we
+obtain
+\[
+\boxed{
+\AAA^{\Sigma(1)}\setminus Z(\Sigma)
+=
+\bigcup_{\sigma\in\Sigma_{\max}}
+D(x^{\widehat\sigma}).
+}
+\]
+Thus every maximal cone contributes one affine chart upstairs in Cox
+coordinate space. In the next section, quotienting this chart will
+recover the toric affine chart \(U_\sigma\).
+
+\subsection{Which coordinates are allowed to vanish together?}
+
+For a point \(z=(z_\rho)\in\AAA^{\Sigma(1)}\), define its
+\emph{zero-coordinate set}
+\[
+I(z)=\{\rho\in\Sigma(1):z_\rho=0\}.
+\]
+The fan gives a remarkably simple test for whether \(z\) survives the
+deletion of \(Z(\Sigma)\).
+
+\begin{proposition}[The cone test for Cox coordinates]
+\label{prop:cone-test-cox-coordinates}
+A point \(z\in\AAA^{\Sigma(1)}\) lies outside \(Z(\Sigma)\) if and
+only if there is a cone \(\sigma\in\Sigma\) such that
+\[
+\boxed{
+I(z)\subseteq\sigma(1).
+}
+\]
+In words: the coordinates that vanish must be indexed by rays that all
+fit inside one cone of the fan.
+\end{proposition}
+
+\begin{proof}
+The point \(z\) lies outside \(Z(\Sigma)\) exactly when
+\[
+x^{\widehat\sigma}(z)\neq0
+\]
+for at least one maximal cone \(\sigma\). This nonvanishing says that
+\(z_\rho\neq0\) for every \(\rho\notin\sigma(1)\). Equivalently, every
+ray whose coordinate vanishes belongs to \(\sigma(1)\), which is the
+condition
+\[
+I(z)\subseteq\sigma(1).
+\]
+\end{proof}
+
+This criterion makes the geometry of the deletion visible:
+\[
+\boxed{
+\text{a collection of coordinates may vanish together}
+\iff
+\text{their rays lie together in a cone.}
+}
+\]
+
+\begin{warningbox}
+The grading alone does not determine this condition. The grading knows
+the ray generators and their divisor-class relations. The irrelevant
+ideal additionally knows \emph{which subsets of rays span cones}.
+Thus two fans built from the same ray data can have the same Cox ring
+and grading but different irrelevant ideals.
+\end{warningbox}
+
+\subsection{Minimal forbidden collections}
+
+It is often inefficient to list every forbidden set of rays. Instead,
+we record the minimal ones.
+
+\begin{definition}[Primitive collection]
+\label{def:primitive-collection}
+A subset \(C\subseteq\Sigma(1)\) is a \emph{primitive collection} if
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item the rays in \(C\) are not all contained in any cone of
+\(\Sigma\);
+
+\item every proper subset of \(C\) is contained in the rays of some
+cone of \(\Sigma\).
+\end{enumerate}
+\end{definition}
+
+Thus a primitive collection is a minimal forbidden simultaneous
+vanishing pattern.
+
+\begin{proposition}[The exceptional set from primitive collections]
+\label{prop:exceptional-set-primitive-collections}
+The irreducible coordinate-subspace components of \(Z(\Sigma)\) are
+indexed by the primitive collections:
+\[
+\boxed{
+Z(\Sigma)
+=
+\bigcup_{C\text{ primitive}}
+V(x_\rho:\rho\in C).
+}
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~5.1.5 and
+Proposition~5.1.6.
+
+\begin{proof}[Conceptual proof sketch]
+If all coordinates indexed by a primitive collection \(C\) vanish,
+then their zero-coordinate set cannot lie in one cone. By
+\cref{prop:cone-test-cox-coordinates}, every such point belongs to
+\(Z(\Sigma)\).
+
+Conversely, take a forbidden zero-coordinate set. Since the fan is
+finite, it contains a minimal subset that still fails to lie in one
+cone. That minimal subset is a primitive collection. Hence every point
+of the exceptional set lies in one of the displayed coordinate
+subspaces.
+\end{proof}
+
+\subsection{Projective space: delete only the origin}
+
+For \(\PP^n\), the fan has rays
+\[
+\rho_0,\dots,\rho_n,
+\]
+and each maximal cone contains all but one of them. If \(\sigma_i\)
+is the maximal cone omitting \(\rho_i\), then
+\[
+x^{\widehat\sigma_i}=x_i.
+\]
+Therefore
+\[
+B(\Sigma)=\langle x_0,\dots,x_n\rangle,
+\qquad
+Z(\Sigma)=\{0\}.
+\]
+The Cox open set is exactly
+\[
+\AAA^{n+1}\setminus\{0\},
+\]
+recovering the familiar starting point for homogeneous coordinates on
+projective space.
+
+The unique primitive collection is the full set
+\[
+\{\rho_0,\dots,\rho_n\}.
+\]
+Any proper subset spans a cone, but all \(n+1\) rays do not.
+
+\subsection{Two independent projective factors}
+
+For \(\PP^1\times\PP^1\), use Cox coordinates
+\[
+(x_0,x_1;y_0,y_1),
+\]
+where \(x_0,x_1\) belong to the first factor and \(y_0,y_1\) to the
+second. A maximal cone contains one ray from each opposite pair. The
+four complementary monomials are
+\[
+x_0y_0,
+\qquad
+x_0y_1,
+\qquad
+x_1y_0,
+\qquad
+x_1y_1.
+\]
+Hence
+\[
+\begin{aligned}
+B(\Sigma)
+&=
+\langle x_0y_0,x_0y_1,x_1y_0,x_1y_1\rangle
+\\
+&=
+\langle x_0,x_1\rangle
+\cap
+\langle y_0,y_1\rangle,
+\end{aligned}
+\]
+and therefore
+\[
+\boxed{
+Z(\Sigma)
+=
+V(x_0,x_1)
+\cup
+V(y_0,y_1).
+}
+\]
+
+This is exactly the expected coordinate rule:
+\[
+(x_0,x_1)\neq(0,0)
+\qquad\text{and}\qquad
+(y_0,y_1)\neq(0,0).
+\]
+The two primitive collections are the two opposite pairs of rays.
+
+\begin{pauseandthink}
+Why is the origin not the only point that must be removed from
+\(\AAA^4\) in this example? Give a point other than the origin that
+cannot represent an element of \(\PP^1\times\PP^1\), and identify the
+primitive collection responsible for excluding it.
+\end{pauseandthink}
+
+\subsection{Surface laboratory: the blowup of \texorpdfstring{\(\PP^2\)}{P2}}
+
+For
+\[
+X=\Blp{\PP^2}{p},
+\]
+recall the cyclically ordered rays
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_E=e_1+e_2,
+\qquad
+u_2=e_2,
+\]
+with Cox variables
+\[
+x_0,x_1,x_E,x_2.
+\]
+The maximal cones and their complementary monomials are
+\[
+\begin{array}{c|c}
+\text{maximal cone}&x^{\widehat\sigma}\\
+\hline
+\Cone{u_0,u_1}&x_Ex_2\\
+\Cone{u_1,u_E}&x_0x_2\\
+\Cone{u_E,u_2}&x_0x_1\\
+\Cone{u_2,u_0}&x_1x_E
+\end{array}
+\]
+Consequently,
+\[
+\begin{aligned}
+B(\Sigma)
+&=
+\langle x_Ex_2,x_0x_2,x_0x_1,x_1x_E\rangle
+\\
+&=
+\langle x_0,x_E\rangle
+\cap
+\langle x_1,x_2\rangle,
+\end{aligned}
+\]
+so
+\[
+\boxed{
+Z(\Sigma)
+=
+V(x_0,x_E)
+\cup
+V(x_1,x_2).
+}
+\]
+The primitive collections are
+\[
+\{\rho_0,\rho_E\}
+\qquad\text{and}\qquad
+\{\rho_1,\rho_2\}.
+\]
+These are exactly the two pairs of rays that do not lie together in a
+cone.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  % Fan panel
+  \begin{scope}[xshift=-4.0cm]
+    \node[font=\bfseries] at (0,3.0) {the fan};
+
+    \fill[DictionaryBlue!8] (0,0)--(2.1,0)--(1.6,1.6)--cycle;
+    \fill[PredictionTeal!8] (0,0)--(1.6,1.6)--(0,2.1)--cycle;
+    \fill[ExampleGold!10] (0,0)--(0,2.1)--(-1.65,-1.65)--cycle;
+    \fill[SurfaceGreen!9] (0,0)--(-1.65,-1.65)--(2.1,0)--cycle;
+
+    \draw[->,very thick,DictionaryBlue] (0,0)--(2.3,0)
+      node[right] {\(u_1\;[x_1]\)};
+    \draw[->,very thick,PredictionTeal] (0,0)--(1.85,1.85)
+      node[above right] {\(u_E\;[x_E]\)};
+    \draw[->,very thick,ExampleGold] (0,0)--(0,2.35)
+      node[above] {\(u_2\;[x_2]\)};
+    \draw[->,very thick,SurfaceGreen] (0,0)--(-1.85,-1.85)
+      node[below left] {\(u_0\;[x_0]\)};
+    \fill (0,0) circle (1.8pt);
+
+    \draw[WarningRed,dashed,thick,bend left=15]
+      (-1.55,-1.55) to (1.45,1.45);
+    \draw[WarningRed,dashed,thick,bend right=20]
+      (2.0,0) to (0,2.0);
+    \node[WarningRed,align=center,font=\small] at (-0.25,-2.45)
+      {dashed pairs do not\\belong to one cone};
+  \end{scope}
+
+  % Exceptional set panel
+  \begin{scope}[xshift=4.1cm]
+    \node[font=\bfseries] at (0,3.0) {the forbidden coordinate planes};
+
+    \draw[rounded corners,fill=WarningRed!7,draw=WarningRed,very thick]
+      (-2.75,0.62) rectangle (2.75,2.05);
+    \node at (0,1.57) {\(V(x_0,x_E)\)};
+    \node[font=\scriptsize,align=center,text width=4.6cm] at (0,1.04)
+      {the non-cone pair \(\{\rho_0,\rho_E\}\) vanishes};
+
+    \node[WarningRed,font=\Large] at (0,0.22) {\(\cup\)};
+
+    \draw[rounded corners,fill=WarningRed!7,draw=WarningRed,very thick]
+      (-2.75,-1.57) rectangle (2.75,-0.14);
+    \node at (0,-0.62) {\(V(x_1,x_2)\)};
+    \node[font=\scriptsize,align=center,text width=4.6cm] at (0,-1.15)
+      {the non-cone pair \(\{\rho_1,\rho_2\}\) vanishes};
+
+    \node[align=center,font=\small] at (0,-2.28)
+      {outside these planes, the zero coordinates\\fit inside at least one cone};
+  \end{scope}
+\end{tikzpicture}
+\caption{For \(\Blp{\PP^2}{p}\), the fan has two primitive
+collections. Each gives one forbidden coordinate plane in Cox space.}
+\label{fig:blowup-irrelevant-exceptional-set}
+\end{figure}
+
+Notice how the blowup changes more than the grading. Inserting the ray
+\(\rho_E\) changes which rays are adjacent, hence changes which
+coordinate pairs may vanish simultaneously. The fan is now visible in
+the open subset
+\[
+\AAA^4\setminus Z(\Sigma).
+\]
+
+\begin{prediction}
+The open set \(D(x^{\widehat\sigma})\) has coordinate ring
+\[
+(S_\Sigma)_{x^{\widehat\sigma}},
+\]
+where every variable outside \(\sigma\) is invertible. Which monomials
+in this localization should be unchanged by all class-group
+rescalings? Predict why the degree-zero subring should be
+\[
+\Bbbk[\sigma^\vee\cap M],
+\]
+the coordinate ring of the affine toric chart \(U_\sigma\).
+\end{prediction}
+
+\begin{guidingquestion}
+We now have two ingredients:
+\[
+\AAA^{\Sigma(1)}\setminus Z(\Sigma)
+\qquad\text{and}\qquad
+G=\Hom(\Cl(X_\Sigma),\Gm).
+\]
+Why does quotienting each open set \(D(x^{\widehat\sigma})\) by the
+class-group rescalings recover \(U_\sigma\), and when are the fibers of
+the resulting map exactly the \(G\)-orbits?
+\end{guidingquestion}
+
+\section{The quotient construction}
+\label{sec:cox-quotient-construction}
+\index{Cox quotient}
+\index{rescaling group}
+\index{degree-zero localization}
+\index{quotient construction!Cox}
+
+The previous two sections produced the ingredients of a homogeneous
+coordinate construction:
+\[
+S_\Sigma=\Bbbk[x_\rho:\rho\in\Sigma(1)],
+\qquad
+\deg(x_\rho)=[D_\rho],
+\qquad
+\widehat X_\Sigma
+=
+\AAA^{\Sigma(1)}\setminus Z(\Sigma).
+\]
+The open set \(\widehat X_\Sigma\) remembers which coordinate patterns
+are allowed by the fan. What remains is to identify points that differ
+only by the rescalings encoded by the class-group grading.
+
+Throughout this section, the rays of \(\Sigma\) span \(N_\RR\), so
+\(X_\Sigma\) has no torus factor.
+
+\subsection{The rescaling group}
+
+The grading group itself determines the group that acts on Cox space.
+
+\begin{definition}[The Cox rescaling group]
+\label{def:cox-rescaling-group}
+Set
+\[
+G
+=
+\Hom_{\ZZ}(\Cl(X_\Sigma),\Gm).
+\]
+For \(g\in G\), the value \(g(\alpha)\in\Gm\) is defined for every
+class \(\alpha\in\Cl(X_\Sigma)\). The action on Cox coordinates is
+\[
+g\cdot(z_\rho)_\rho
+=
+\bigl(g([D_\rho])z_\rho\bigr)_\rho.
+\]
+\end{definition}
+
+Thus a coordinate is rescaled according to its degree. More generally,
+if \(f\in(S_\Sigma)_\alpha\) is homogeneous, then
+\[
+f(g\cdot z)=g(\alpha)f(z).
+\]
+In particular,
+\[
+\boxed{
+\text{the }G\text{-invariant elements of }S_\Sigma
+\text{ are precisely the elements of degree }0.
+}
+\]
+
+\begin{observation}
+If
+\[
+\Cl(X_\Sigma)\simeq\ZZ^r\oplus A_{\mathrm{tors}},
+\]
+then \(G\) is a product of \((\Gm)^r\) with a finite diagonalizable
+group. The technical name is a \emph{quasitorus}. When the class group
+is free, as in all of our smooth surface examples, \(G\) is an
+ordinary algebraic torus.
+\end{observation}
+
+Dualizing the class-group sequence
+\[
+0\longrightarrow M
+\longrightarrow\ZZ^{\Sigma(1)}
+\longrightarrow\Cl(X_\Sigma)
+\longrightarrow0
+\]
+gives an exact sequence of diagonalizable groups
+\[
+\boxed{
+1\longrightarrow G
+\longrightarrow(\Gm)^{\Sigma(1)}
+\longrightarrow T_N
+\longrightarrow1.
+}
+\]
+The middle group rescales every Cox coordinate independently. Its
+subgroup \(G\) consists exactly of the rescalings that disappear when
+we pass to the dense torus \(T_N\) of \(X_\Sigma\).
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, exact sequence~(5.1.2) and
+Lemma~5.1.1.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=0.55cm,every node/.style={font=\small}]
+  \node[draw=DictionaryBlue,very thick,rounded corners,
+        fill=DictionaryBlue!8,minimum width=2.25cm,minimum height=1.0cm,
+        align=center]
+    (grading) {class-group grading\\\(\deg(x_\rho)=[D_\rho]\)};
+
+  \node[draw=PredictionTeal,very thick,rounded corners,
+        fill=PredictionTeal!8,minimum width=2.3cm,minimum height=1.0cm,
+        align=center,right=of grading]
+    (group) {rescaling group\\\(G=\Hom(\Cl(X),\Gm)\)};
+
+  \node[draw=ExampleGold,very thick,rounded corners,
+        fill=ExampleGold!12,minimum width=2.25cm,minimum height=1.0cm,
+        align=center,right=of group]
+    (action) {diagonal action\\\(z_\rho\mapsto g([D_\rho])z_\rho\)};
+
+  \node[draw=SurfaceGreen,very thick,rounded corners,
+        fill=SurfaceGreen!10,minimum width=2.15cm,minimum height=1.0cm,
+        align=center,right=of action]
+    (invariants) {invariant functions\\degree \(0\)};
+
+  \draw[->,very thick] (grading)--(group);
+  \draw[->,very thick] (group)--(action);
+  \draw[->,very thick] (action)--(invariants);
+\end{tikzpicture}
+\caption{A grading and a diagonal group action are two descriptions of
+the same symmetry. Quotient functions are the homogeneous expressions
+whose total class-group degree is zero.}
+\label{fig:grading-group-action-invariants}
+\end{figure}
+
+\begin{agcheatsheet}
+Suppose an algebraic group \(G\) acts on an affine variety
+\(Y=\Spec(A)\). The invariant ring
+\[
+A^G=\{f\in A:g\cdot f=f\text{ for every }g\in G\}
+\]
+defines the affine quotient
+\[
+Y\mathbin{//}G=\Spec(A^G).
+\]
+The double slash reminds us that this construction is governed by
+invariant functions.
+
+A \emph{geometric quotient} has the stronger property that its fibers
+are exactly the \(G\)-orbits. A categorical or good quotient may put
+several orbits in one fiber; in that case the invariant functions
+cannot distinguish those orbits.
+
+For Cox coordinates, the local quotient rings will therefore be the
+degree-zero parts of suitable localizations of \(S_\Sigma\).
+\end{agcheatsheet}
+
+\subsection{Recovering one affine chart}
+
+Fix a cone \(\sigma\in\Sigma\). Recall the monomial
+\[
+x^{\widehat\sigma}
+=
+\prod_{\rho\notin\sigma(1)}x_\rho.
+\]
+The corresponding principal open subset is
+\[
+\widehat U_\sigma
+=
+D(x^{\widehat\sigma})
+\subseteq\widehat X_\Sigma.
+\]
+On this open set, every coordinate \(x_\rho\) with
+\(\rho\notin\sigma(1)\) is invertible. Its coordinate ring is
+\[
+\Bbbk[\widehat U_\sigma]
+=
+(S_\Sigma)_{x^{\widehat\sigma}}.
+\]
+
+The prediction at the end of the previous section is now the local
+heart of the quotient construction.
+
+\begin{theorem}[The degree-zero localization is the affine toric chart]
+\label{thm:degree-zero-localization-affine-chart}
+For every \(\sigma\in\Sigma\), there is a natural isomorphism
+\[
+\boxed{
+\left((S_\Sigma)_{x^{\widehat\sigma}}\right)_0
+\simeq
+\Bbbk[\sigma^\vee\cap M].
+}
+\]
+Equivalently,
+\[
+\widehat U_\sigma\mathbin{//}G
+\simeq
+U_\sigma.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the local invariant-ring computation~(5.1.4) in the proof of
+Cox--Little--Schenck, Theorem~5.1.11.
+
+\begin{proof}
+For \(m\in\sigma^\vee\cap M\), define
+\[
+\Phi_\sigma(\chi^m)
+=
+\prod_{\rho\in\Sigma(1)}
+ x_\rho^{\langle m,u_\rho\rangle}.
+\]
+When \(\rho\in\sigma(1)\), the exponent is nonnegative because
+\(m\in\sigma^\vee\). When \(\rho\notin\sigma(1)\), the exponent may
+be negative, but \(x_\rho\) is invertible in
+\((S_\Sigma)_{x^{\widehat\sigma}}\). Thus the expression is well
+defined.
+
+Its degree is zero, since its exponent vector is the principal-divisor
+vector
+\[
+\bigl(\langle m,u_\rho\rangle\bigr)_\rho
+\in\im(M\to\ZZ^{\Sigma(1)}).
+\]
+Hence \(\Phi_\sigma\) maps into the degree-zero subring.
+
+Conversely, consider a degree-zero Laurent monomial
+\[
+x^a=\prod_\rho x_\rho^{a_\rho}
+\in(S_\Sigma)_{x^{\widehat\sigma}}.
+\]
+We have \(a_\rho\geq0\) for \(\rho\in\sigma(1)\), since those
+variables were not inverted. Degree zero means that the exponent
+vector \(a\) lies in the kernel of
+\[
+\ZZ^{\Sigma(1)}\longrightarrow\Cl(X_\Sigma).
+\]
+By exactness, there is a unique \(m\in M\) such that
+\[
+a_\rho=\langle m,u_\rho\rangle
+\qquad\text{for every }\rho.
+\]
+The inequalities on the coordinates belonging to \(\sigma\) say
+precisely that \(m\in\sigma^\vee\). Therefore every degree-zero
+monomial is in the image of \(\Phi_\sigma\), and the same follows for
+linear combinations of such monomials.
+\end{proof}
+
+The formula is worth reading in both directions:
+\[
+\boxed{
+\chi^m
+\quad\longleftrightarrow\quad
+\prod_\rho x_\rho^{\langle m,u_\rho\rangle}.
+}
+\]
+A character on the toric chart becomes a degree-zero Laurent monomial
+in Cox coordinates. Negative exponents are allowed only on the
+coordinates that were declared nonzero on that chart.
+
+\begin{example}[The usual affine chart of projective space]
+For \(\PP^2\), let \(\sigma\) be the cone whose complementary ray
+corresponds to \(x_0\). Then
+\[
+\widehat U_\sigma=D(x_0),
+\qquad
+(S_{x_0})_0
+=
+\Bbbk\left[\frac{x_1}{x_0},\frac{x_2}{x_0}\right].
+\]
+Thus
+\[
+D(x_0)\mathbin{//}\Gm
+\simeq
+\AAA^2,
+\]
+which is the familiar projective chart \(x_0\neq0\).
+\end{example}
+
+\subsection{Gluing the local quotients}
+
+If \(\tau\preceq\sigma\), then
+\[
+\widehat U_\tau\subseteq\widehat U_\sigma.
+\]
+Algebraically, passing from \(\sigma\) to \(\tau\) inverts additional
+Cox variables. Under
+\cref{thm:degree-zero-localization-affine-chart}, this is exactly the
+usual localization
+\[
+\Bbbk[\sigma^\vee\cap M]
+\longrightarrow
+\Bbbk[\tau^\vee\cap M]
+\]
+that defines the open immersion \(U_\tau\hookrightarrow U_\sigma\).
+The local quotients therefore glue in precisely the same pattern as
+the affine toric charts.
+
+\begin{theorem}[The Cox quotient]
+\label{thm:cox-quotient-construction}
+Let \(X_\Sigma\) be a toric variety without torus factors. There is a
+surjective toric morphism
+\[
+\pi:\widehat X_\Sigma
+=
+\AAA^{\Sigma(1)}\setminus Z(\Sigma)
+\longrightarrow
+X_\Sigma
+\]
+that is constant on \(G\)-orbits, and
+\[
+\boxed{
+X_\Sigma
+\simeq
+\widehat X_\Sigma\mathbin{//}G.
+}
+\]
+Moreover, the quotient is geometric---its fibers are exactly the
+\(G\)-orbits---if and only if \(\Sigma\) is simplicial.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The construction of \(\pi\) is Cox--Little--Schenck,
+Proposition~5.1.9, and the quotient statement is their
+Theorem~5.1.11.
+
+\begin{proof}[Conceptual proof sketch]
+On every \(G\)-stable open set \(\widehat U_\sigma\), invariant
+functions are the degree-zero localized functions. By
+\cref{thm:degree-zero-localization-affine-chart}, their spectrum is
+\(U_\sigma\). These affine quotients agree on overlaps, so they glue
+to a global morphism
+\[
+\pi:\widehat X_\Sigma\to X_\Sigma.
+\]
+
+The remaining issue is orbit structure. If \(\sigma\) is simplicial,
+its ray generators are linearly independent over \(\RR\); this
+prevents a nontrivial one-parameter subgroup of \(G\) from moving an
+orbit toward a different orbit inside the same local fiber. Hence each
+fiber is one orbit. For a nonsimplicial cone, a linear dependence among
+its rays produces distinct orbits that invariant functions cannot
+separate.
+\end{proof}
+
+\begin{warningbox}
+The notation matters:
+\[
+X_\Sigma=\widehat X_\Sigma\mathbin{//}G
+\]
+is valid in general. Writing a single slash
+\[
+X_\Sigma=\widehat X_\Sigma/G
+\]
+as a literal orbit space is justified when \(\Sigma\) is simplicial.
+For a smooth fan the action is even free, so the quotient behaves like
+the most familiar projective-space construction.
+\end{warningbox}
+
+\subsection{Surface laboratory: one chart of the blowup}
+
+For
+\[
+X=\Blp{\PP^2}{p},
+\]
+use the basis
+\[
+L=H-E,
+\qquad
+E
+\]
+of \(\Cl(X)\). Then
+\[
+\deg(x_0)=L+E,
+\qquad
+\deg(x_1)=\deg(x_2)=L,
+\qquad
+\deg(x_E)=E.
+\]
+Consequently,
+\[
+G\simeq(\Gm)^2
+\]
+acts by
+\[
+(\lambda,\mu)\cdot(x_0,x_1,x_E,x_2)
+=
+(\lambda\mu x_0,\lambda x_1,\mu x_E,\lambda x_2).
+\]
+
+Consider the cone
+\[
+\sigma=\Cone{u_1,u_E}.
+\]
+The complementary variables are \(x_0,x_2\), so
+\[
+\widehat U_\sigma=D(x_0x_2).
+\]
+Two degree-zero functions are
+\[
+s=\frac{x_1}{x_2},
+\qquad
+ t=\frac{x_Ex_2}{x_0}.
+\]
+They are invariant under both \(\lambda\) and \(\mu\), and the local
+theorem gives
+\[
+\left((S_X)_{x_0x_2}\right)_0
+=
+\Bbbk[s,t].
+\]
+Hence
+\[
+\widehat U_\sigma\mathbin{//}(\Gm)^2
+\simeq
+\AAA^2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % Fan panel
+  \begin{scope}[xshift=-4.4cm]
+    \node[font=\bfseries] at (0,2.8) {choose a cone};
+
+    \fill[PredictionTeal!13]
+      (0,0)--(2.0,0)--(1.55,1.55)--cycle;
+    \draw[->,very thick,DictionaryBlue] (0,0)--(2.25,0)
+      node[right] {\(u_1\)};
+    \draw[->,very thick,PredictionTeal] (0,0)--(1.8,1.8)
+      node[above right] {\(u_E\)};
+    \draw[->,very thick,ExampleGold] (0,0)--(0,2.25)
+      node[above] {\(u_2\)};
+    \draw[->,very thick,SurfaceGreen] (0,0)--(-1.75,-1.75)
+      node[below left] {\(u_0\)};
+    \fill (0,0) circle (1.8pt);
+
+    \node[align=center,font=\small] at (0,-2.35)
+      {outside \(\sigma\): invert \(x_0,x_2\)};
+  \end{scope}
+
+  % Algebra panel
+  \begin{scope}[xshift=3.7cm]
+    \node[font=\bfseries] at (0.3,2.8) {take degree-zero functions};
+
+    \node[draw=DictionaryBlue,very thick,rounded corners,
+          fill=DictionaryBlue!8,minimum width=3.4cm,minimum height=0.9cm]
+      (loc) at (0.3,1.55) {\(D(x_0x_2)\)};
+
+    \node[draw=PredictionTeal,very thick,rounded corners,
+          fill=PredictionTeal!8,minimum width=3.4cm,minimum height=1.05cm,
+          align=center]
+      (inv) at (0.3,0.05)
+      {\(s=x_1/x_2\), \(t=x_Ex_2/x_0\)\\both have degree \(0\)};
+
+    \node[draw=SurfaceGreen,very thick,rounded corners,
+          fill=SurfaceGreen!10,minimum width=3.4cm,minimum height=0.9cm]
+      (aff) at (0.3,-1.55) {\(\Spec\Bbbk[s,t]=\AAA^2\)};
+
+    \draw[->,very thick] (loc)--(inv)
+      node[midway,right,font=\scriptsize] {quotient by \((\Gm)^2\)};
+    \draw[->,very thick] (inv)--(aff);
+  \end{scope}
+\end{tikzpicture}
+\caption{One Cox chart of the blowup. The variables outside the chosen
+cone are inverted, and the degree-zero Laurent monomials become the
+ordinary coordinates on the affine toric chart.}
+\label{fig:blowup-local-cox-quotient}
+\end{figure}
+
+The same calculation on the other three maximal cones gives four
+copies of \(\AAA^2\). Their degree-zero localizations glue according to
+the fan, recovering the blowup.
+
+\begin{pauseandthink}
+For \(\PP^1\times\PP^1\), use Cox coordinates
+\[
+(x_0,x_1,y_0,y_1)
+\]
+with bidegrees
+\[
+\deg(x_i)=(1,0),
+\qquad
+\deg(y_j)=(0,1).
+\]
+On the open set \(D(x_0y_0)\), find two degree-zero generators and
+show that the local quotient is \(\AAA^2\). How do your generators
+compare with the usual affine coordinates on the two factors?
+\end{pauseandthink}
+
+\begin{guidingquestion}
+The quotient construction is now formal. What does it look like in
+specific examples when we write down, side by side,
+\[
+\text{the grading},
+\qquad
+Z(\Sigma),
+\qquad
+G,
+\qquad
+\text{and the resulting quotient}?
+\]
+How can two polynomial rings with the same number of variables produce
+different toric varieties because their gradings or exceptional sets
+differ?
+\end{guidingquestion}
+
+\section{Four quotient constructions}
+\label{sec:four-cox-quotient-examples}
+\index{weight matrix}
+\index{projective space!Cox quotient}
+\index{Hirzebruch surface!Cox quotient}
+\index{blowup!Cox quotient}
+
+The quotient theorem becomes most useful when its ingredients are
+written next to one another:
+\[
+\text{Cox ring},
+\qquad
+\text{grading},
+\qquad
+\text{exceptional set},
+\qquad
+\text{group action}.
+\]
+The examples in this section all begin with a polynomial ring, but
+small changes in the grading and the deleted coordinate locus produce
+different varieties.
+
+\subsection{Weight matrices}
+
+Suppose for the moment that
+\[
+\Cl(X_\Sigma)\simeq\ZZ^k
+\]
+and choose a basis. If the rays are
+\(\rho_1,\dots,\rho_s\), write the degree of each Cox variable as a
+column vector. The resulting matrix
+\[
+Q=
+\begin{pmatrix}
+|&&|\\
+\deg(x_{\rho_1})&\cdots&\deg(x_{\rho_s})\\
+|&&|
+\end{pmatrix}
+\in\operatorname{Mat}_{k\times s}(\ZZ)
+\]
+is called a \emph{weight matrix} for the chosen basis.
+
+If
+\[
+g=(\lambda_1,\dots,\lambda_k)\in(\Gm)^k,
+\]
+and the \(j\)-th column of \(Q\) is
+\((q_{1j},\dots,q_{kj})^\mathsf{T}\), then
+\[
+g\cdot x_{\rho_j}
+=
+\lambda_1^{q_{1j}}\cdots\lambda_k^{q_{kj}}x_{\rho_j}.
+\]
+Thus the weight matrix turns the grading immediately into the diagonal
+action.
+
+\begin{warningbox}
+A weight matrix depends on the chosen basis of \(\Cl(X_\Sigma)\).
+Changing the basis changes the displayed matrix and the parameters
+used for \(G\), but not the quotient variety.
+\end{warningbox}
+
+\subsection{Projective space}
+
+For \(\PP^n\), the Cox ring is
+\[
+S=\Bbbk[x_0,\dots,x_n],
+\qquad
+\Cl(\PP^n)=\ZZ H,
+\]
+and every variable has degree \(H\). Thus
+\[
+Q_{\PP^n}
+=
+\begin{pmatrix}
+1&1&\cdots&1
+\end{pmatrix}.
+\]
+The irrelevant ideal is
+\[
+B(\Sigma)=\langle x_0,\dots,x_n\rangle,
+\]
+so the exceptional set is only the origin. The group
+\[
+G=\Gm
+\]
+acts by simultaneous scaling:
+\[
+\lambda\cdot(x_0,\dots,x_n)
+=
+(\lambda x_0,\dots,\lambda x_n).
+\]
+Therefore the Cox quotient is exactly the classical construction
+\[
+\boxed{
+\PP^n
+=
+\bigl(\AAA^{n+1}\setminus\{0\}\bigr)/\Gm.
+}
+\]
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Example~5.1.12.
+
+On the chart \(x_i\neq0\), the invariant functions are
+\[
+\frac{x_0}{x_i},\dots,
+\widehat{\frac{x_i}{x_i}},\dots,
+\frac{x_n}{x_i},
+\]
+recovering the usual affine chart \(\AAA^n\).
+
+\subsection{A product: \texorpdfstring{\(\PP^1\times\PP^1\)}{P1 x P1}}
+
+Write the Cox coordinates as
+\[
+(u_0,u_1,v_0,v_1).
+\]
+The class group and grading are
+\[
+\Cl(\PP^1\times\PP^1)
+\simeq
+\ZZ F_1\oplus\ZZ F_2,
+\]
+\[
+\deg(u_0)=\deg(u_1)=F_1,
+\qquad
+\deg(v_0)=\deg(v_1)=F_2.
+\]
+Hence
+\[
+Q_{\PP^1\times\PP^1}
+=
+\begin{pmatrix}
+1&1&0&0\\
+0&0&1&1
+\end{pmatrix}.
+\]
+
+The opposite pairs of rays are the primitive collections, so
+\[
+B(\Sigma)
+=
+\langle u_0,u_1\rangle
+\cap
+\langle v_0,v_1\rangle
+\]
+and
+\[
+Z(\Sigma)
+=
+V(u_0,u_1)
+\cup
+V(v_0,v_1).
+\]
+Thus an allowed point satisfies
+\[
+(u_0,u_1)\neq(0,0),
+\qquad
+(v_0,v_1)\neq(0,0).
+\]
+The group \((\Gm)^2\) acts by
+\[
+(\lambda,\mu)\cdot(u_0,u_1,v_0,v_1)
+=
+(\lambda u_0,\lambda u_1,
+ \mu v_0,\mu v_1).
+\]
+The two blocks are independently projectivized, giving
+\[
+\boxed{
+\PP^1\times\PP^1
+=
+\frac{
+\AAA^4\setminus
+\bigl(V(u_0,u_1)\cup V(v_0,v_1)\bigr)
+}{(\Gm)^2}.
+}
+\]
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Example~5.1.13.
+
+\begin{pauseandthink}
+On the open set \(D(u_0v_0)\), check that
+\[
+s=\frac{u_1}{u_0},
+\qquad
+t=\frac{v_1}{v_0}
+\]
+have degree zero. Explain why they give the usual affine coordinates
+on one product chart.
+\end{pauseandthink}
+
+\subsection{A twist: the Hirzebruch surface \texorpdfstring{\(\mathbb F_r\)}{F-r}}
+
+Recall the fan of \(\mathbb F_r\), with rays in cyclic order
+\[
+w_1=(1,0),
+\qquad
+w_2=(0,1),
+\qquad
+w_3=(-1,r),
+\qquad
+w_4=(0,-1).
+\]
+Use Cox coordinates
+\[
+(u_0,v_0,u_1,v_1)
+\]
+in the same cyclic order. The principal-divisor relations are
+\[
+D_1-D_3\sim0,
+\qquad
+D_2+rD_3-D_4\sim0.
+\]
+Set
+\[
+F=[D_1]=[D_3],
+\qquad
+S=[D_2].
+\]
+Then
+\[
+[D_4]=S+rF,
+\]
+so the Cox grading is
+\[
+\deg(u_0)=\deg(u_1)=F,
+\qquad
+\deg(v_0)=S,
+\qquad
+\deg(v_1)=S+rF.
+\]
+With respect to the ordered basis \((F,S)\),
+\[
+Q_{\mathbb F_r}
+=
+\begin{pmatrix}
+1&0&1&r\\
+0&1&0&1
+\end{pmatrix}.
+\]
+Consequently,
+\[
+(\lambda,\mu)\cdot(u_0,v_0,u_1,v_1)
+=
+(\lambda u_0,
+ \mu v_0,
+ \lambda u_1,
+ \lambda^r\mu v_1).
+\]
+
+The fan is still a four-cycle, so its primitive collections are the
+same opposite pairs as for \(\PP^1\times\PP^1\). Hence
+\[
+Z(\Sigma_r)
+=
+V(u_0,u_1)
+\cup
+V(v_0,v_1).
+\]
+We therefore obtain
+\[
+\boxed{
+\mathbb F_r
+=
+\frac{
+\AAA^4\setminus
+\bigl(V(u_0,u_1)\cup V(v_0,v_1)\bigr)
+}{(\Gm)^2},
+}
+\]
+but with the twisted action displayed above.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.94]
+  % Product panel
+  \begin{scope}[xshift=-4.35cm]
+    \node[font=\bfseries] at (0,2.65)
+      {\(\PP^1\times\PP^1\)};
+
+    \node[draw=DictionaryBlue,very thick,rounded corners,
+      fill=DictionaryBlue!8,minimum width=5.3cm,minimum height=0.8cm]
+      at (0,1.62)
+      {delete \(V(u_0,u_1)\cup V(v_0,v_1)\)};
+
+    \node[draw=PredictionTeal,very thick,rounded corners,
+      fill=PredictionTeal!8,minimum width=5.3cm,minimum height=1.05cm,
+      align=center]
+      at (0,0.25)
+      {\((\lambda,\mu)\):\\
+       \((u_0,u_1)\mapsto\lambda(u_0,u_1)\),\\[-1mm]
+       \((v_0,v_1)\mapsto\mu(v_0,v_1)\)};
+
+    \node[align=center,font=\small] at (0,-1.55)
+      {two independent\\untwisted scalings};
+  \end{scope}
+
+  % Hirzebruch panel
+  \begin{scope}[xshift=4.35cm]
+    \node[font=\bfseries] at (0,2.65)
+      {\(\mathbb F_r\)};
+
+    \node[draw=DictionaryBlue,very thick,rounded corners,
+      fill=DictionaryBlue!8,minimum width=5.3cm,minimum height=0.8cm]
+      at (0,1.62)
+      {delete \(V(u_0,u_1)\cup V(v_0,v_1)\)};
+
+    \node[draw=ExampleGold,very thick,rounded corners,
+      fill=ExampleGold!10,minimum width=5.3cm,minimum height=1.05cm,
+      align=center]
+      at (0,0.25)
+      {\((\lambda,\mu)\):\\
+       \((u_0,u_1)\mapsto\lambda(u_0,u_1)\),\\[-1mm]
+       \((v_0,v_1)\mapsto(\mu v_0,\lambda^r\mu v_1)\)};
+
+    \node[align=center,font=\small] at (0,-1.55)
+      {the same deleted set,\\but one coordinate twists by \(\lambda^r\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The product and the Hirzebruch surface use the same ambient
+space and the same exceptional set. The difference lies entirely in
+the grading, hence in the diagonal action.}
+\label{fig:product-versus-hirzebruch-cox-action}
+\end{figure}
+
+The quotient map to the base is visible immediately:
+\[
+\pi:\mathbb F_r\longrightarrow\PP^1,
+\qquad
+[u_0,v_0,u_1,v_1]
+\longmapsto
+[u_0:u_1].
+\]
+On the chart \(u_0\neq0\), use \(\lambda\) to set \(u_0=1\). The
+remaining pair of fiber coordinates is
+\[
+[v_0:u_0^{-r}v_1].
+\]
+On the chart \(u_1\neq0\), it is
+\[
+[v_0:u_1^{-r}v_1].
+\]
+On the overlap, these differ by the factor
+\[
+\left(\frac{u_1}{u_0}\right)^{-r}.
+\]
+The exponent \(r\) in the Cox action is therefore exactly the twisting
+seen when the two local product charts are glued.
+
+When \(r=0\), the twist disappears and
+\[
+\mathbb F_0\simeq\PP^1\times\PP^1.
+\]
+
+\begin{prediction}
+The exceptional set does not depend on \(r\), but the quotient variety
+does. Which part of the quotient data must therefore remember the
+self-intersection of the distinguished section of \(\mathbb F_r\)?
+\end{prediction}
+
+\subsection{The blowup of \texorpdfstring{\(\PP^2\)}{P2}}
+
+For
+\[
+X=\Blp{\PP^2}{p},
+\]
+use the basis
+\[
+L=H-E,
+\qquad E
+\]
+of \(\Cl(X)\). The degrees from
+\cref{sec:why-homogeneous-coordinates-need-grading} become
+\[
+\deg(x_0)=L+E,
+\qquad
+\deg(x_1)=\deg(x_2)=L,
+\qquad
+\deg(x_E)=E.
+\]
+In the coordinate order
+\[
+(x_0,x_1,x_E,x_2),
+\]
+the weight matrix is
+\[
+Q_X
+=
+\begin{pmatrix}
+1&1&0&1\\
+1&0&1&0
+\end{pmatrix}.
+\]
+Thus
+\[
+(\lambda,\mu)\cdot(x_0,x_1,x_E,x_2)
+=
+(\lambda\mu x_0,
+ \lambda x_1,
+ \mu x_E,
+ \lambda x_2).
+\]
+From \cref{sec:irrelevant-ideal-exceptional-set},
+\[
+Z(\Sigma)
+=
+V(x_0,x_E)
+\cup
+V(x_1,x_2).
+\]
+Hence
+\[
+\boxed{
+\Blp{\PP^2}{p}
+=
+\frac{
+\AAA^4\setminus
+\bigl(V(x_0,x_E)\cup V(x_1,x_2)\bigr)
+}{(\Gm)^2}.
+}
+\]
+
+This is the \(r=1\) Hirzebruch quotient in different names. Indeed,
+under the relabeling
+\[
+\begin{array}{c|cccc}
+\mathbb F_1&u_0&u_1&v_0&v_1\\
+\hline
+\Blp{\PP^2}{p}&x_1&x_2&x_E&x_0,
+\end{array}
+\]
+and the identification
+\[
+F=L,
+\qquad
+S=E,
+\]
+both the degree matrix and the exceptional set agree. Thus Cox
+coordinates make the isomorphism
+\[
+\boxed{
+\mathbb F_1\simeq\Blp{\PP^2}{p}
+}
+\]
+visible as a simple relabeling of variables and divisor classes.
+
+\begin{surfacelaboratory}
+The four examples can be compared at a glance:
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.16\linewidth}
+  >{\raggedright\arraybackslash}p{0.22\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}p{0.21\linewidth}@{}}
+\toprule
+\textbf{Variety}
+&
+\textbf{Cox group}
+&
+\textbf{Deleted locus}
+&
+\textbf{Decisive feature}
+\\
+\midrule
+\(\PP^n\)
+&
+\(\Gm\)
+&
+origin
+&
+one common scaling
+\\
+\(\PP^1\times\PP^1\)
+&
+\((\Gm)^2\)
+&
+\(V(u_0,u_1)\cup V(v_0,v_1)\)
+&
+two untwisted blocks
+\\
+\(\mathbb F_r\)
+&
+\((\Gm)^2\)
+&
+the same two planes
+&
+weight \(r\) twists one coordinate
+\\
+\(\Blp{\PP^2}{p}\)
+&
+\((\Gm)^2\)
+&
+\(V(x_0,x_E)\cup V(x_1,x_2)\)
+&
+new ray gives a new coordinate and class
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{surfacelaboratory}
+
+The examples support a useful slogan:
+\[
+\boxed{
+\begin{gathered}
+\text{The fan determines what must be deleted}\\
+\text{and how the remaining coordinates must be rescaled.}
+\end{gathered}
+}
+\]
+The irrelevant ideal remembers which rays fit into cones, while the
+class-group grading remembers the linear relations among those rays.
+Neither piece alone is enough.
+
+\begin{guidingquestion}
+All four fans in this section are smooth, so the Cox group acts freely
+on the Cox open set and the quotient is geometric. What changes when a
+cone is simplicial but not smooth, or when it is not simplicial at all?
+
+Should one expect finite stabilizers, positive-dimensional
+stabilizers, or fibers containing more than one orbit?
+\end{guidingquestion}
+\section{Singular and non-simplicial fans}
+\label{sec:singular-nonsimplicial-cox-quotients}
+\index{stabilizer!Cox action}
+\index{simplicial fan}
+\index{nonsimplicial fan}
+\index{cyclic quotient singularity}
+
+The examples in \cref{sec:four-cox-quotient-examples} were smooth.
+Their Cox groups acted freely on the Cox open set, so passing to the
+quotient simply identified points related by rescaling.
+
+For a singular toric variety, two new phenomena can occur:
+\[
+\text{a point may have a nontrivial stabilizer},
+\]
+and
+\[
+\text{one quotient fiber may contain several distinct orbits}.
+\]
+The fan determines exactly which phenomenon occurs. The decisive
+question is whether a cone is smooth, merely simplicial, or not
+simplicial at all.
+
+\subsection{Which rescalings fix a Cox point?}
+
+Let
+\[
+z=(z_\rho)_\rho\in\widehat X_\Sigma
+\]
+be a point of the Cox open set, and let
+\[
+J(z)=\{\rho\in\Sigma(1):z_\rho\neq0\}.
+\]
+The coordinates indexed by \(J(z)\) are the ones that constrain a
+rescaling: if \(z_\rho\neq0\), then a group element fixing \(z\) must
+act trivially on that coordinate.
+
+Set
+\[
+L(z)=
+\left\langle [D_\rho]:\rho\in J(z)\right\rangle
+\subseteq\Cl(X_\Sigma).
+\]
+
+\begin{proposition}[Stabilizers from surviving degrees]
+\label{prop:cox-stabilizer-degree-quotient}
+The stabilizer of \(z\) under the Cox group
+\[
+G=\Hom_{\ZZ}(\Cl(X_\Sigma),\Gm)
+\]
+is
+\[
+\boxed{
+G_z
+\simeq
+\Hom_{\ZZ}\bigl(\Cl(X_\Sigma)/L(z),\Gm\bigr).
+}
+\]
+\end{proposition}
+
+\begin{proof}
+An element \(g\in G\) fixes \(z\) precisely when
+\[
+g([D_\rho])z_\rho=z_\rho
+\]
+for every ray \(\rho\). When \(z_\rho=0\), this imposes no condition.
+When \(z_\rho\neq0\), it is equivalent to
+\[
+g([D_\rho])=1.
+\]
+Thus \(g\) fixes \(z\) exactly when it is trivial on the subgroup
+\(L(z)\). Such homomorphisms are precisely those that factor through
+\(\Cl(X_\Sigma)/L(z)\).
+\end{proof}
+
+The formula becomes especially geometric at one distinguished point
+for each cone. For \(\sigma\in\Sigma\), define
+\[
+z_\sigma=(z_\rho)_\rho,
+\qquad
+z_\rho=
+\begin{cases}
+0,&\rho\in\sigma(1),\\
+1,&\rho\notin\sigma(1).
+\end{cases}
+\]
+The zero coordinates fit inside \(\sigma\), so
+\(z_\sigma\in\widehat X_\Sigma\). Its image in \(X_\Sigma\) lies in
+the orbit \(O(\sigma)\).
+
+The boundary divisors \(D_\rho\) with \(\rho\notin\sigma(1)\) do not
+meet the affine chart \(U_\sigma\). Restriction therefore gives
+\[
+\Cl(U_\sigma)
+\simeq
+\frac{\Cl(X_\Sigma)}
+{\left\langle[D_\rho]:\rho\notin\sigma(1)\right\rangle}.
+\]
+This is the toric instance of the divisor-class restriction sequence
+of Cox--Little--Schenck, Theorem~4.0.20. Equivalently, one can apply
+\cref{thm:toric-class-group-sequence} directly to the affine fan of
+\(U_\sigma\).
+
+\begin{corollary}[The local class group is the stabilizer group]
+\label{cor:local-class-group-cox-stabilizer}
+For every cone \(\sigma\in\Sigma\),
+\[
+\boxed{
+G_{z_\sigma}
+\simeq
+\Hom_{\ZZ}\bigl(\Cl(U_\sigma),\Gm\bigr).
+}
+\]
+\end{corollary}
+
+This gives a useful interpretation of the local class group:
+\[
+\boxed{
+\Cl(U_\sigma)
+\text{ measures the rescaling symmetry left over above }O(\sigma).
+}
+\]
+
+\subsection{The smooth--simplicial--nonsimplicial trichotomy}
+
+Let \(\sigma(1)=\{\rho_1,\dots,\rho_s\}\), with primitive ray
+generators \(u_1,\dots,u_s\). The affine class-group sequence is
+\[
+M
+\longrightarrow
+\ZZ^s
+\longrightarrow
+\Cl(U_\sigma)
+\longrightarrow0,
+\qquad
+m\longmapsto
+\bigl(\langle m,u_1\rangle,\dots,
+      \langle m,u_s\rangle\bigr).
+\]
+The image has rank \(\dim\sigma\). Hence
+\[
+\rank\Cl(U_\sigma)
+=
+|\sigma(1)|-\dim\sigma.
+\]
+
+\begin{theorem}[Three quotient regimes]
+\label{thm:three-cox-stabilizer-regimes}
+For a cone \(\sigma\in\Sigma\), the following three cases occur.
+
+\begin{enumerate}[label=(\arabic*),wide=0pt]
+\item If \(\sigma\) is smooth, then
+\[
+\Cl(U_\sigma)=0,
+\qquad
+G_{z_\sigma}=\{1\}.
+\]
+The Cox action is free near the corresponding orbit.
+
+\item If \(\sigma\) is simplicial but not smooth, then
+\[
+\Cl(U_\sigma)
+\]
+is a nonzero finite group, and \(G_{z_\sigma}\) is finite. The quotient
+is geometric, but it has finite quotient singularities.
+
+\item If \(\sigma\) is not simplicial, then
+\[
+\rank\Cl(U_\sigma)>0,
+\]
+so \(G_{z_\sigma}\) contains a positive-dimensional torus. The Cox
+quotient is not geometric: invariant functions may identify several
+orbits in one fiber.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The geometric-quotient criterion is Cox--Little--Schenck,
+Theorem~5.1.11. The equivalence between simplicial fans and finite
+quotient singularities is their Theorem~3.1.19. The divisor-theoretic
+counterpart is \cref{thm:factorial-qfactorial-fan}.
+
+\begin{proof}
+The rank formula shows that \(\Cl(U_\sigma)\) is finite exactly when
+\[
+|\sigma(1)|=\dim\sigma,
+\]
+which is precisely the simplicial condition. If the cone is not
+simplicial, the local class group has positive rank, so its dual
+contains a positive-dimensional torus.
+
+When \(\sigma\) is simplicial, the group is trivial precisely when the
+map
+\[
+M\longrightarrow\ZZ^{\sigma(1)}
+\]
+is surjective. Dually, this says that the primitive ray generators
+form part of a lattice basis, which is exactly the smoothness
+condition. Now apply
+\cref{cor:local-class-group-cox-stabilizer} and the quotient theorem
+\cref{thm:cox-quotient-construction}.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=0.55cm,every node/.style={font=\small}]
+  \node[draw=SurfaceGreen,very thick,rounded corners,
+        fill=SurfaceGreen!9,text width=2.75cm,minimum height=0.9cm,
+        align=center]
+    (smooth) {smooth cone\\ray generators extend to a basis};
+  \node[draw=SurfaceGreen,very thick,rounded corners,
+        fill=SurfaceGreen!5,text width=2.75cm,minimum height=0.8cm,
+        align=center,below=of smooth]
+    (trivial) {trivial stabilizer\\free action};
+
+  \node[draw=ExampleGold,very thick,rounded corners,
+        fill=ExampleGold!12,text width=2.75cm,minimum height=0.9cm,
+        align=center,right=0.65cm of smooth]
+    (simplicial) {simplicial, not smooth\\independent over \(\RR\), not a basis};
+  \node[draw=ExampleGold,very thick,rounded corners,
+        fill=ExampleGold!7,text width=2.75cm,minimum height=0.8cm,
+        align=center,below=of simplicial]
+    (finite) {finite stabilizer\\geometric quotient};
+
+  \node[draw=WarningRed,very thick,rounded corners,
+        fill=WarningRed!7,text width=2.75cm,minimum height=0.9cm,
+        align=center,right=0.65cm of simplicial]
+    (nonsimplicial) {nonsimplicial cone\\more rays than its dimension};
+  \node[draw=WarningRed,very thick,rounded corners,
+        fill=WarningRed!4,text width=2.75cm,minimum height=0.8cm,
+        align=center,below=of nonsimplicial]
+    (positive) {positive-dimensional stabilizer\\several orbits may share a fiber};
+
+  \draw[->,very thick,SurfaceGreen] (smooth)--(trivial);
+  \draw[->,very thick,ExampleGold] (simplicial)--(finite);
+  \draw[->,very thick,WarningRed] (nonsimplicial)--(positive);
+\end{tikzpicture}
+\caption{The local geometry of a toric chart is reflected in the
+stabilizer of its distinguished Cox point.}
+\label{fig:three-cox-stabilizer-regimes}
+\end{figure}
+
+\subsection{Finite stabilizers: a cyclic quotient surface}
+
+Work over \(\Bbbk=\CC\), and let
+\[
+\sigma_d
+=
+\Cone{(d,-1),(0,1)}
+\subseteq\RR^2,
+\qquad d\geq2.
+\]
+The cone has two rays in dimension two, so it is simplicial. The
+determinant of its primitive generators has absolute value \(d\), so
+it is not smooth.
+
+Let the Cox variables be \(x_1,x_2\). Since the fan has a single
+maximal cone containing both rays,
+\[
+B(\Sigma)=\langle1\rangle,
+\qquad
+Z(\Sigma)=\varnothing.
+\]
+The class-group computation gives
+\[
+\Cl(U_{\sigma_d})\simeq\ZZ/d\ZZ,
+\qquad
+\deg(x_1)=\deg(x_2)=1\pmod d.
+\]
+Consequently,
+\[
+G=\Hom(\ZZ/d\ZZ,\Gm)=\mu_d,
+\]
+and a primitive \(d\)-th root of unity acts by
+\[
+\zeta\cdot(x_1,x_2)
+=
+(\zeta x_1,\zeta x_2).
+\]
+Thus
+\[
+\boxed{
+U_{\sigma_d}
+\simeq
+\AAA^2/\mu_d.
+}
+\]
+
+The invariant monomials are those whose total degree is divisible by
+\(d\). In particular, the invariant ring is generated by
+\[
+x_1^d,
+\quad
+x_1^{d-1}x_2,
+\quad\dots,\quad
+x_1x_2^{d-1},
+\quad
+x_2^d.
+\]
+This is the affine cone over the degree-\(d\) rational normal curve.
+For \(d=2\), setting
+\[
+A=x_1^2,
+\qquad
+B=x_1x_2,
+\qquad
+C=x_2^2
+\]
+gives
+\[
+\CC[x_1,x_2]^{\mu_2}
+\simeq
+\CC[A,B,C]/(AC-B^2).
+\]
+
+\noindent
+\textit{Reference.}
+The class-group calculation is Cox--Little--Schenck,
+Example~4.1.4.
+
+\begin{pauseandthink}
+Away from the origin, determine which points of \(\AAA^2\) have a
+nontrivial stabilizer under the scalar \(\mu_d\)-action. Why can the
+quotient still be geometric even though the action is not free?
+\end{pauseandthink}
+
+The quotient map remembers each finite orbit as one point. The
+singularity comes from the fact that the orbit of the origin has a
+nontrivial finite stabilizer, not from several different orbits being
+collapsed together.
+
+\subsection{Positive-dimensional stabilizers: the cone over a square}
+
+Now let \(N=\ZZ^3\), and consider the cone generated by
+\[
+\begin{aligned}
+u_1&=(0,0,1),&
+u_2&=(1,0,1),\\
+u_3&=(1,1,1),&
+u_4&=(0,1,1).
+\end{aligned}
+\]
+These four rays are the cone from the origin over the vertices of a
+unit square in the plane \(z=1\). The cone is three-dimensional but
+has four rays, so it is not simplicial. The relation
+\[
+u_1-u_2+u_3-u_4=0
+\]
+shows that
+\[
+\Cl(U_\sigma)\simeq\ZZ,
+\]
+with Cox degrees
+\[
+\deg(x_1)=\deg(x_3)=1,
+\qquad
+\deg(x_2)=\deg(x_4)=-1.
+\]
+Hence \(G=\Gm\) acts by
+\[
+\lambda\cdot(x_1,x_2,x_3,x_4)
+=
+(\lambda x_1,\lambda^{-1}x_2,
+ \lambda x_3,\lambda^{-1}x_4).
+\]
+Again the fan is affine with one maximal cone, so no locus is deleted:
+\[
+\widehat X_\Sigma=\AAA^4.
+\]
+
+The degree-zero invariant ring is generated by
+\[
+A=x_1x_2,
+\qquad
+B=x_1x_4,
+\qquad
+C=x_3x_2,
+\qquad
+D=x_3x_4.
+\]
+These generators satisfy one relation,
+\[
+AD=BC.
+\]
+Therefore
+\[
+\boxed{
+U_\sigma
+\simeq
+\AAA^4\mathbin{//}\Gm
+\simeq
+\Spec\frac{\Bbbk[A,B,C,D]}{(AD-BC)}.
+}
+\]
+This is the three-dimensional affine quadric cone.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % cone over square
+  \begin{scope}[xshift=-4.2cm]
+    \coordinate (O) at (0,-1.35);
+    \coordinate (P1) at (-1.45,0.3);
+    \coordinate (P2) at (0.2,0.72);
+    \coordinate (P3) at (1.5,0.12);
+    \coordinate (P4) at (-0.15,-0.3);
+
+    \fill[DictionaryBlue!9] (P1)--(P2)--(P3)--(P4)--cycle;
+    \draw[DictionaryBlue,very thick] (P1)--(P2)--(P3)--(P4)--cycle;
+    \foreach \P in {P1,P2,P3,P4} {
+      \draw[ray] (O)--(\P);
+      \fill (\P) circle (2pt);
+    }
+    \fill (O) circle (2pt);
+    \node[below] at (O) {
+      \(0\)};
+    \node[above left] at (P1) {\(u_1\)};
+    \node[above] at (P2) {\(u_2\)};
+    \node[above right] at (P3) {\(u_3\)};
+    \node[below left] at (P4) {\(u_4\)};
+    \node[font=\bfseries] at (0,1.55) {four rays in dimension three};
+    \node[align=center] at (0,-2.05)
+      {nonsimplicial cone\\over a square};
+  \end{scope}
+
+  % quotient map and fiber
+  \begin{scope}[xshift=4.2cm]
+    \node[draw=PredictionTeal,very thick,rounded corners,
+          fill=PredictionTeal!8,minimum width=3.1cm,minimum height=1.0cm,
+          align=center] (a4) at (0,0.75)
+      {\(\AAA^4\)\\weights \((1,-1,1,-1)\)};
+    \node[draw=WarningRed,very thick,rounded corners,
+          fill=WarningRed!6,minimum width=3.1cm,minimum height=1.0cm,
+          align=center] (quadric) at (0,-1.05)
+      {\(V(AD-BC)\subseteq\AAA^4\)\\three-dimensional quadric cone};
+    \draw[->,very thick] (a4)--node[right] {\(//\Gm\)} (quadric);
+  \end{scope}
+\end{tikzpicture}
+\caption{A non-simplicial cone produces a positive-dimensional
+stabilizer. The Cox quotient of \(\AAA^4\) is the affine quadric cone,
+and the fiber over its vertex is larger than one orbit.}
+\label{fig:nonsimplicial-square-cone-quotient}
+\end{figure}
+
+The failure of a geometric quotient can be seen directly. The vertex
+of the quadric cone is defined by
+\[
+A=B=C=D=0.
+\]
+Its inverse image is
+\[
+V(x_1,x_3)
+\cup
+V(x_2,x_4).
+\]
+For example, every point
+\[
+(x_1,0,x_3,0)\neq0
+\]
+maps to the vertex, but two such points need not lie in the same
+\(\Gm\)-orbit: the ratio \([x_1:x_3]\in\PP^1\) is unchanged by the
+action. Thus one quotient fiber contains a whole family of distinct
+orbits, together with the origin whose stabilizer is all of \(\Gm\).
+
+This is exactly what the double slash warns us about:
+\[
+\AAA^4\mathbin{//}\Gm
+\]
+is governed by invariant functions, and those functions cannot
+separate the different orbits in the vertex fiber.
+
+\begin{warningbox}
+Two uses of the word ``quotient'' must be kept separate.
+
+The \emph{Cox quotient}
+\[
+\widehat X_\Sigma\mathbin{//}G
+\]
+is a global presentation of every toric variety. The group \(G\) may
+have positive dimension even when the toric variety is smooth; for
+example, \(\PP^n\) is a quotient by \(\Gm\).
+
+A \emph{finite quotient singularity} is a local statement: near a
+singular point, the variety is locally a quotient of a smooth variety
+by a finite group. For toric varieties, this happens precisely for
+simplicial fans. What must be finite are the relevant point
+stabilizers, not necessarily the entire Cox group.
+\end{warningbox}
+
+\begin{threedictionaries}
+The singular quotient picture can now be read in three languages.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\Cl(U_\sigma)=0\)
+&
+trivial stabilizer; smooth chart
+&
+\(\sigma\) smooth
+\\
+\(\Cl(U_\sigma)\) finite
+&
+finite stabilizer; quotient singularity
+&
+\(\sigma\) simplicial
+\\
+\(\rank\Cl(U_\sigma)>0\)
+&
+positive-dimensional stabilizer; several orbits may share a fiber
+&
+\(\sigma\) nonsimplicial
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+The quotient construction began with a polynomial ring, a grading, and
+an irrelevant ideal. How much of the original fan can be recovered
+from those data alone?
+
+More specifically, if one changes the deleted locus while keeping the
+same graded polynomial ring and the same group action, what kinds of
+different toric quotients might appear?
+\end{guidingquestion}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+A fan \(\Sigma\) with rays spanning \(N_\RR\) produces the polynomial
+ring
+\[
+S_\Sigma=\Bbbk[x_\rho:\rho\in\Sigma(1)].
+\]
+The ring itself remembers only the rays. The class-group grading
+\[
+\deg(x_\rho)=[D_\rho]\in\Cl(X_\Sigma)
+\]
+records the relations among their primitive generators and turns
+ordinary homogeneity into a multigraded notion.
+
+For a torus-invariant divisor \(D\), the homogeneous piece of degree
+\([D]\) recovers its global sections:
+\[
+\boxed{
+(S_\Sigma)_{[D]}
+\simeq
+H^0(X_\Sigma,\mathcal O_{X_\Sigma}(D)).
+}
+\]
+The homogenization formula
+\[
+\character{m}
+\longmapsto
+\prod_\rho
+x_\rho^{\langle m,u_\rho\rangle+a_\rho},
+\qquad
+D=\sum_\rho a_\rho D_\rho,
+\]
+identifies a lattice point of \(P_D\) with a Cox monomial of degree
+\([D]\).
+
+The fan determines which coordinate patterns are allowed. Its
+irrelevant ideal is
+\[
+B(\Sigma)
+=
+\left\langle
+x^{\widehat\sigma}
+=
+\prod_{\rho\notin\sigma(1)}x_\rho:
+\sigma\in\Sigma_{\max}
+\right\rangle,
+\]
+and the exceptional set
+\[
+Z(\Sigma)=V(B(\Sigma))
+\]
+removes precisely the points whose zero coordinates do not fit inside
+one cone.
+
+The grading determines the rescaling group
+\[
+G=\Hom_{\ZZ}(\Cl(X_\Sigma),\Gm),
+\]
+and the toric variety is recovered as
+\[
+\boxed{
+X_\Sigma
+\simeq
+\bigl(\AAA^{\Sigma(1)}\setminus Z(\Sigma)\bigr)
+\mathbin{//}G.
+}
+\]
+Locally, the construction is the degree-zero identity
+\[
+\left((S_\Sigma)_{x^{\widehat\sigma}}\right)_0
+\simeq
+\Bbbk[\sigma^\vee\cap M].
+\]
+Thus Cox coordinates do not replace the affine toric charts; they
+place all of them inside one multigraded affine space.
+
+Finally, the stabilizers of the Cox action detect singularities. At
+the distinguished point associated to a cone \(\sigma\),
+\[
+G_{z_\sigma}
+\simeq
+\Hom_{\ZZ}(\Cl(U_\sigma),\Gm).
+\]
+Consequently,
+\[
+\begin{array}{c@{\qquad\Longleftrightarrow\qquad}c}
+\sigma\text{ smooth}
+&
+G_{z_\sigma}\text{ trivial},
+\\
+\sigma\text{ simplicial}
+&
+G_{z_\sigma}\text{ finite},
+\\
+\sigma\text{ nonsimplicial}
+&
+G_{z_\sigma}\text{ positive-dimensional}.
+\end{array}
+\]
+The challenge exercise uses the same quotient language to construct
+line bundles by adding one more coordinate.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item For \(\PP^n\), recover from the fan the sequence
+\[
+0\longrightarrow M
+\longrightarrow\ZZ^{n+1}
+\longrightarrow\ZZ
+\longrightarrow0.
+\]
+Show that every Cox variable has degree \(1\), that
+\[
+B(\Sigma)=\langle x_0,\ldots,x_n\rangle,
+\]
+and that the Cox quotient is the usual homogeneous-coordinate
+construction of projective space. Identify \(S_d\) with
+\(H^0(\PP^n,\mathcal O(d))\).
+
+\item For \(X=\PP^1\times\PP^1\), let
+\[
+S=\Bbbk[x_0,x_1,y_0,y_1]
+\]
+with the standard bidegree.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Determine all monomials of bidegree \((2,1)\).
+\item Recover
+\[
+h^0(X,\mathcal O(2,1))=6.
+\]
+\item Compute the irrelevant ideal and exceptional set.
+\item Verify on the chart \(x_0y_0\neq0\) that the degree-zero
+localized ring is a polynomial ring in two variables.
+\end{enumerate}
+
+\item Let \(X=\Blp{\PP^2}{p}\), with Cox degrees
+\[
+\deg(x_0)=H,
+\qquad
+\deg(x_1)=\deg(x_2)=H-E,
+\qquad
+\deg(x_E)=E.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Write the weight matrix for the action of \((\Gm)^2\).
+\item Compute all monomials of degree \(2H-E\).
+\item Recompute
+\[
+B(\Sigma)
+=
+\langle x_Ex_2,x_0x_2,x_0x_1,x_1x_E\rangle.
+\]
+\item On the open set \(D(x_0x_2)\), find two algebraically
+independent degree-zero Laurent monomials and recover an affine-plane
+chart.
+\end{enumerate}
+
+\item For the Hirzebruch surface \(\mathbb F_r\), use the quotient
+presentation from \cref{sec:four-cox-quotient-examples}.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Check directly that the two pairs of forbidden simultaneous
+vanishings are independent of \(r\).
+\item Show that the exponent \(r\) appears in the transition function
+between the two local product charts.
+\item Explain how the grading distinguishes \(\mathbb F_r\) from
+\(\PP^1\times\PP^1\), even though the ambient affine space and deleted
+locus are the same.
+\end{enumerate}
+
+\item Let \(\Sigma\) be a fan and let
+\[
+C=\{\rho_1,\ldots,\rho_s\}\subseteq\Sigma(1).
+\]
+Prove directly from \cref{prop:cone-test-cox-coordinates} that
+\[
+V(x_{\rho_1},\ldots,x_{\rho_s})\subseteq Z(\Sigma)
+\]
+if and only if \(C\) is contained in no cone of \(\Sigma\). Deduce the
+description of \(Z(\Sigma)\) as the union of the coordinate subspaces
+associated to primitive collections.
+
+\item Consider the simplicial cone
+\[
+\sigma_d=\Cone{de_1-e_2,e_2}\subseteq\RR^2.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute \(\Cl(U_{\sigma_d})\).
+\item Determine the corresponding finite Cox group.
+\item Compute its action on \(\AAA^2\).
+\item Explain why the quotient is geometric even though the origin
+has a nontrivial stabilizer.
+\end{enumerate}
+
+\item For the action
+\[
+\lambda\cdot(x_1,x_2,x_3,x_4)
+=
+(\lambda x_1,\lambda^{-1}x_2,
+ \lambda x_3,\lambda^{-1}x_4),
+\]
+show that the invariant ring is generated by
+\[
+A=x_1x_2,
+\quad
+B=x_1x_4,
+\quad
+C=x_3x_2,
+\quad
+D=x_3x_4
+\]
+with the single relation \(AD-BC=0\). Find two points in the fiber
+over the vertex that are not in the same orbit, and explain why this
+cannot happen for a geometric quotient.
+
+\item Let \(z\in\widehat X_\Sigma\), and let
+\[
+I(z)=\{\rho:z_\rho\neq0\}.
+\]
+Show that the stabilizer of \(z\) is the subgroup of \(G\) on which
+all characters \([D_\rho]\), \(\rho\in I(z)\), are trivial. Apply this
+to a distinguished point \(z_\sigma\) and recover
+\[
+G_{z_\sigma}
+\simeq
+\Hom(\Cl(U_\sigma),\Gm).
+\]
+
+\item In \(N=\ZZ^3\), let
+\[
+u_1=(1,0,1),\quad
+u_2=(0,1,1),\quad
+u_3=(-1,0,1),\quad
+u_4=(0,-1,1).
+\]
+The cone over the square with these vertices has two simplicial
+subdivisions:
+\[
+\Sigma_+
+=
+\{\Cone{u_1,u_2,u_3},\Cone{u_1,u_3,u_4}\}
+\]
+and
+\[
+\Sigma_-
+=
+\{\Cone{u_1,u_2,u_4},\Cone{u_2,u_3,u_4}\},
+\]
+together with all faces. Compare their Cox constructions.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Show that the polynomial ring, class-group grading, and group
+\(G\) are the same for both fans.
+\item Compute the two irrelevant ideals and show that they differ.
+\item Explain why the irrelevant ideal is essential for recovering the
+whole fan rather than only its rays.
+\end{enumerate}
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Line bundles as an extra Cox coordinate.}
+
+\medskip
+
+Let \(X=X_\Sigma\) be a smooth toric variety without torus factors.
+Write
+\[
+\widehat X
+=
+\AAA^{\Sigma(1)}\setminus Z(\Sigma),
+\qquad
+G=\Hom_{\ZZ}(\Cl(X),\Gm),
+\]
+and let
+\[
+\pi:\widehat X\longrightarrow X
+\]
+be the Cox quotient. Since \(X\) is smooth, the action of \(G\) on
+\(\widehat X\) is free.
+
+Every class \(\alpha\in\Cl(X)\) determines a character
+\[
+\chi_\alpha:G\longrightarrow\Gm,
+\qquad
+\chi_\alpha(g)=g(\alpha).
+\]
+Use this character to let \(G\) act on one extra affine coordinate:
+\[
+g\cdot(z,t)
+=
+\bigl(g\cdot z,\chi_\alpha(g)t\bigr),
+\qquad
+(z,t)\in\widehat X\times\AAA^1.
+\]
+The goal is to understand the quotient
+\[
+L_\alpha
+=
+(\widehat X\times\AAA^1)/G
+\]
+and to show that it is the total space of the line bundle represented
+by \(\alpha\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzcd}[column sep=large,row sep=large]
+\widehat X\times\AAA^1
+  \arrow[r,"{/G}"]
+  \arrow[d,"\operatorname{pr}_1"']
+&
+L_\alpha
+  \arrow[d]
+\\
+\widehat X
+  \arrow[r,"\pi"']
+&
+X
+\end{tikzcd}
+\caption{A character of the Cox group tells the extra coordinate how
+to rescale. Quotienting the trivial line over \(\widehat X\) then
+produces a line bundle over \(X\).}
+\label{fig:line-bundle-extra-cox-coordinate}
+\end{figure}
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{The quotient still lies over \(X\).}
+
+Show that the projection
+\[
+\operatorname{pr}_1:\widehat X\times\AAA^1\longrightarrow\widehat X
+\]
+is \(G\)-equivariant. Deduce a map
+\[
+p_\alpha:L_\alpha\longrightarrow X.
+\]
+Explain why the class of \((z,0)\) gives a zero section. Why should the
+fiber over \(\pi(z)\) be a one-dimensional vector space rather than a
+copy of \(\AAA^1\) with no preferred linear structure?
+
+\item \textbf{Calibrate the sign on \(\PP^1\).}
+
+For \(X=\PP^1\), we have
+\[
+\widehat X=\AAA^2\setminus\{0\},
+\qquad
+G=\Gm.
+\]
+For \(d\in\ZZ\), consider
+\[
+\lambda\cdot(x_0,x_1,t)
+=
+(\lambda x_0,\lambda x_1,\lambda^d t).
+\]
+On the chart \(x_i\neq0\), show that
+\[
+\tau_i=\frac{t}{x_i^d}
+\]
+is invariant. On the overlap, compute
+\[
+\tau_1
+=
+\left(\frac{x_0}{x_1}\right)^d\tau_0.
+\]
+Recognize the quotient as the total space of
+\[
+\mathcal O_{\PP^1}(d).
+\]
+
+\item \textbf{Build a local homogeneous unit.}
+
+Choose a torus-invariant divisor
+\[
+D=\sum_\rho a_\rho D_\rho
+\]
+with \([D]=\alpha\). Since \(X\) is smooth, \(D\) is Cartier. For a
+maximal cone \(\sigma\), let \(m_\sigma\in M\) be its Cartier datum,
+so
+\[
+\langle m_\sigma,u_\rho\rangle=-a_\rho
+\qquad
+(\rho\in\sigma(1)).
+\]
+On
+\[
+\widehat U_\sigma=D(x^{\widehat\sigma}),
+\]
+define the Laurent monomial
+\[
+q_\sigma
+=
+\prod_\rho
+x_\rho^{a_\rho+\langle m_\sigma,u_\rho\rangle}.
+\]
+Show that:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(q_\sigma\) has Cox degree \(\alpha\);
+\item its exponent is zero for every \(\rho\in\sigma(1)\);
+\item it is therefore an invertible function on
+\(\widehat U_\sigma\);
+\item it transforms by
+\[
+q_\sigma(g\cdot z)=\chi_\alpha(g)q_\sigma(z).
+\]
+\end{enumerate}
+
+\item \textbf{Trivialize the quotient locally.}
+
+On \(\widehat U_\sigma\times\AAA^1\), set
+\[
+\tau_\sigma=\frac{t}{q_\sigma}.
+\]
+Show that \(\tau_\sigma\) is \(G\)-invariant. Use it to construct an
+isomorphism
+\[
+p_\alpha^{-1}(U_\sigma)
+\simeq
+U_\sigma\times\AAA^1.
+\]
+Conclude that \(p_\alpha:L_\alpha\to X\) is a line bundle.
+
+\item \textbf{Read the transition functions.}
+
+On \(U_\sigma\cap U_\tau\), show that
+\[
+\tau_\tau
+=
+\frac{q_\sigma}{q_\tau}\tau_\sigma.
+\]
+Compute
+\[
+\frac{q_\sigma}{q_\tau}
+=
+\prod_\rho
+x_\rho^{\langle m_\sigma-m_\tau,u_\rho\rangle}.
+\]
+Use \cref{thm:degree-zero-localization-affine-chart} to identify this
+degree-zero Laurent monomial with the torus character
+\[
+\character{m_\sigma-m_\tau}.
+\]
+Compare with the transition functions of \(\mathcal O_X(D)\), and
+deduce
+\[
+\boxed{L_\alpha\simeq\mathcal O_X(D).}
+\]
+
+\item \textbf{Why only the grading matters.}
+
+Let
+\[
+a=(a_\rho)_\rho,
+\qquad
+b=(b_\rho)_\rho
+\]
+be two exponent vectors in \(\ZZ^{\Sigma(1)}\) with the same
+class-group degree. Show that
+\[
+a-b
+=
+\bigl(\langle m,u_\rho\rangle\bigr)_\rho
+\]
+for some \(m\in M\).
+
+The vectors \(a,b\) define characters of the large coordinate torus:
+\[
+\widetilde\chi_a((t_\rho)_\rho)
+=
+\prod_\rho t_\rho^{a_\rho},
+\qquad
+\widetilde\chi_b((t_\rho)_\rho)
+=
+\prod_\rho t_\rho^{b_\rho}.
+\]
+Show that their ratio factors through
+\[
+(\Gm)^{\Sigma(1)}\longrightarrow T_N.
+\]
+Since \(G\) is the kernel of this map, conclude that
+\[
+\widetilde\chi_a|_G
+=
+\widetilde\chi_b|_G.
+\]
+Thus two choices with the same Cox grading give the same action on the
+extra direction, hence isomorphic line bundles.
+
+Interpret this as the familiar statement
+\[
+D\sim D'
+\quad\Longrightarrow\quad
+\mathcal O_X(D)\simeq\mathcal O_X(D').
+\]
+
+\item \textbf{Tensor products add weights.}
+
+Construct natural isomorphisms
+\[
+L_\alpha\otimes L_\beta
+\simeq
+L_{\alpha+\beta},
+\qquad
+L_\alpha^\vee
+\simeq
+L_{-\alpha}.
+\]
+Explain why this is already visible from the action on the extra
+coordinate.
+
+\item \textbf{Homogeneous polynomials become sections.}
+
+Let \(f\in(S_\Sigma)_\alpha\). Then
+\[
+f(g\cdot z)=\chi_\alpha(g)f(z).
+\]
+Show that
+\[
+\pi(z)
+\longmapsto
+[z,f(z)]
+\]
+defines a global section of \(L_\alpha\). Use
+\cref{thm:cox-piece-global-sections} and the identification from Hint
+5 to recover
+\[
+(S_\Sigma)_\alpha
+\simeq
+H^0(X,L_\alpha).
+\]
+
+\item \textbf{The smooth conclusion: \(\Cl=\Pic\).}
+
+The construction gives a homomorphism
+\[
+\Phi:\Cl(X)\longrightarrow\Pic(X),
+\qquad
+\alpha\longmapsto[L_\alpha].
+\]
+Use the preceding hints to show that \(\Phi\) sends \([D]\) to
+\([\mathcal O_X(D)]\). Explain why smoothness implies that every Weil
+divisor is Cartier, and conclude that
+\[
+\boxed{
+\Cl(X)\simeq\Pic(X).
+}
+\]
+Where would this argument fail for a singular toric variety?
+
+\item \textbf{Return to the running blowup.}
+
+For
+\[
+X=\Blp{\PP^2}{p},
+\qquad
+\Cl(X)=\ZZ H\oplus\ZZ E,
+\]
+write \(g=(\lambda,\mu)\in(\Gm)^2\). The class
+\[
+\alpha=dH-rE
+\]
+gives the character
+\[
+\chi_\alpha(\lambda,\mu)=\lambda^d\mu^{-r}.
+\]
+Write the full action on
+\[
+\widehat X\times\AAA^1
+\]
+and describe the quotient line bundle. Explain how a Cox monomial of
+degree \(dH-rE\) becomes a section of this bundle. Compare your answer
+with the truncated polygon \(P_{dH-rE}\) from Chapter~5.
+
+\end{enumerate}
+
+\begin{tcolorbox}[
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={The lesson of the construction},
+  fonttitle=\bfseries
+]
+The Cox quotient does more than recover the base variety. Once
+\(\widehat X\to X\) is known, every character of the rescaling group
+tells one additional coordinate how to transform. The resulting
+associated line bundle depends only on the character---equivalently,
+only on the divisor class. For a smooth toric variety, all divisor
+classes are Cartier, so this construction realizes the entire Picard
+group:
+\[
+\Cl(X)=\Pic(X)=\Hom(G,\Gm).
+\]
+\end{tcolorbox}
+
+\noindent
+\textit{Reference.}
+See Cox--Little--Schenck, Lemma~5.1.1, Proposition~4.2.6, and
+\S14.1.
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The Cox quotient construction is developed in Cox--Little--Schenck,
+\S5.1. The class-group grading and homogeneous coordinate ring are
+treated in \S5.2, homogeneous ideals in \S5.3, and graded modules and
+sheaves in \S5.4. The local identity
+\[
+\left((S_\Sigma)_{x^{\widehat\sigma}}\right)_0
+\simeq
+\Bbbk[\sigma^\vee\cap M]
+\]
+is the algebraic core of the quotient construction.
+
+The relation between smoothness, factoriality, and
+\(\Pic(X_\Sigma)=\Cl(X_\Sigma)\) is developed in Chapter~4. The
+challenge exercise recasts that equality through associated bundles:
+for a free Cox quotient, characters of \(G\) produce line bundles on
+the quotient. This is also the basic linearization idea used in toric
+geometric invariant theory; see Cox--Little--Schenck, \S14.1.
+
+The phrase \emph{universal torsor} is often used for the free Cox
+quotient
+\[
+\widehat X_\Sigma\longrightarrow X_\Sigma
+\]
+of a smooth toric variety. No torsor formalism was needed here: the
+concrete content is the familiar associated-bundle construction
+\[
+(\widehat X_\Sigma\times\AAA^1)/G.
+\]
+
+Later chapters can use Cox coordinates not only to describe the
+ambient toric variety, but also to write and study subvarieties inside
+it by means of homogeneous equations.

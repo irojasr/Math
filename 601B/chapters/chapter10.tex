@@ -1,0 +1,3179 @@
+\chapter[VGIT and Toric Birational Geometry]
+{VGIT and Toric Birational\\ Geometry}
+\label{chap:vgit-toric-birational}
+
+\begin{chapteroverview}
+The preceding chapters asked what a fan can tell us about a fixed toric
+variety.  We now change the question: how can one toric variety change
+birationally into another?
+
+The Cox construction already contains the answer.  Fix an affine space
+with a diagonal action of a torus \(G\).  In Chapter~6 we deleted a
+fan-determined exceptional set and took a quotient.  Geometric invariant
+theory gives a more flexible version of the same construction: a
+character of \(G\) determines which points are allowed before we take the
+quotient.  As the character moves, the allowed set changes only when we
+cross certain walls.  The resulting chamber decomposition is the
+\emph{secondary fan}.
+
+Our goal in this final chapter is to make the progression
+\[
+\boxed{
+\begin{gathered}
+\text{Cox action and a character}
+\longrightarrow
+\text{GIT quotient}
+\longrightarrow
+\text{secondary fan}
+\\[-1mm]
+\longrightarrow
+\text{wall crossing and contractions}
+\longrightarrow
+\text{toric MMP}
+\end{gathered}}
+\]
+as concrete as possible.  We work over \(\CC\), and most examples begin
+with a smooth projective toric variety so that
+\(\Cl(X)=\Pic(X)\) is free and the Cox group is itself a torus.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The same data will be read in three languages throughout the chapter.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Cox coordinates}
+&
+\textbf{GIT}
+&
+\textbf{Birational geometry}
+\\
+\midrule
+class \(\theta\in\Cl(X)\)
+& character / linearization
+& choice of model and polarization
+\\
+homogeneous monomial
+& semi-invariant section
+& witness for semistability
+\\
+region of characters
+& constant semistable locus
+& one toric birational model
+\\
+wall
+& limiting quotient
+& contraction or flip
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+Our running two-dimensional example will be
+\[
+\mathbb F_1\simeq\Bl_p(\PP^2).
+\]
+Chapter~6 constructed it from \(\AAA^4\) by a \((\Gm)^2\)-action.  In
+this chapter we will \emph{keep that affine space and that action fixed}
+and vary only the character used to form the quotient.  One region of
+characters gives \(\mathbb F_1\); another gives \(\PP^2\); on the wall
+between them we will see the exceptional curve of the blowup contract.
+
+This is the surface model for the entire chapter.  In dimension three
+the same kind of wall crossing can also produce small contractions and
+flips, which have no surface analogue.
+\end{surfacelaboratory}
+
+\section{One Cox quotient, many linearizations}
+\label{sec:one-cox-many-linearizations}
+\index{geometric invariant theory}
+\index{linearization}
+\index{semistable point}
+\index{weight cone}
+\index{variation of GIT quotient}
+
+Recall the Cox construction for a smooth projective toric variety
+\(X_\Sigma\).  If the rays are
+\(\Sigma(1)=\{\rho_1,\dots,\rho_r\}\), then
+\[
+S=\CC[x_1,\dots,x_r]
+\]
+is graded by \(\Cl(X_\Sigma)\), with
+\[
+\deg(x_i)=[D_{\rho_i}].
+\]
+The Cox group
+\[
+G=\Hom\bigl(\Cl(X_\Sigma),\Gm\bigr)
+\]
+acts diagonally on \(\AAA^r\).  Chapter~6 then formed
+\[
+X_\Sigma
+\simeq
+\bigl(\AAA^r\setminus Z(\Sigma)\bigr)/G.
+\]
+
+There are three ingredients in this display:
+\[
+\boxed{
+\text{the affine space}
+\quad+\quad
+\text{the action of }G
+\quad+\quad
+\text{the open set we quotient}.}
+\]
+The first two are encoded by the Cox grading.  GIT will tell us how to
+produce the third from one additional choice: a character of \(G\).
+
+\begin{guidingquestion}
+What changes if we keep \(\AAA^r\) and the action of \(G\) fixed, but
+change the character used to form the quotient?
+\end{guidingquestion}
+
+\subsection{Why the affine quotient is not enough}
+
+If a reductive group \(G\) acts on an affine variety \(V\), the affine
+categorical quotient is
+\[
+V\mathbin{//}G=\Spec\bigl(\CC[V]^G\bigr).
+\]
+For Cox constructions this often forgets far too much.  The simplest
+example is already projective space: scalar multiplication by \(\Gm\)
+on \(\AAA^{n+1}\) has only constant polynomial invariants, and hence
+\[
+\AAA^{n+1}\mathbin{//}\Gm=\{\mathrm{pt}\}.
+\]
+But deleting the origin and remembering how functions \emph{transform},
+rather than insisting that they be invariant, recovers \(\PP^n\).
+
+This is the elementary idea behind the GIT linearization.  Let
+\[
+\widehat G=\Hom(G,\Gm)
+\]
+be the character group.  A character \(\chi\in\widehat G\) lifts the
+action on \(\AAA^r\) to the trivial line bundle by
+\[
+g\cdot(z,t)=\bigl(g\cdot z,\chi(g)t\bigr).
+\]
+Although the underlying line bundle is still trivial, its \(G\)-action
+is not.  The choice of \(\chi\) is called a \emph{linearization}.
+
+For the Cox group there is a canonical identification
+\[
+\boxed{
+\widehat G\simeq\Cl(X_\Sigma).}
+\]
+Thus a divisor class can be read as a character.  If
+\(\theta\in\Cl(X_\Sigma)\) and \(\chi_\theta\) is the corresponding
+character, then a Cox polynomial \(F\) of degree \(\theta\) satisfies
+\[
+F(g\cdot z)=\chi_\theta(g)F(z).
+\]
+Such an \(F\) is a \emph{semi-invariant} of weight \(\chi_\theta\).
+This is precisely the relation between the Cox grading and GIT used in
+Cox--Little--Schenck, Example~14.1.4.
+
+\begin{agcheatsheet}
+For the diagonal torus actions used in this chapter, it is enough to
+remember the following translation.
+\[
+\begin{array}{ccl}
+F\in S_{d\theta}
+&\Longleftrightarrow&
+F(gz)=\chi_\theta(g)^dF(z),
+\\[1mm]
+F(z)\neq0
+&\Longrightarrow&
+z\text{ is allowed by the linearization }\theta.
+\end{array}
+\]
+A point is semistable when \emph{some} positive multiple \(d\theta\)
+has such a homogeneous polynomial not vanishing there.  So in the Cox
+setting, semistability is a question about which homogeneous monomials
+can be nonzero at a point.
+\end{agcheatsheet}
+
+\subsection{Semistable points and the GIT quotient}
+
+We now make that rule precise.
+
+\begin{definition}[Semistability for a Cox linearization]
+\label{def:cox-git-semistable}
+Fix \(\theta\in\Cl(X_\Sigma)\).  A point \(z\in\AAA^r\) is
+\emph{semistable with respect to \(\theta\)} if there exist an integer
+\(d>0\) and a polynomial
+\[
+F\in S_{d\theta}
+\]
+such that \(F(z)\neq0\).  The semistable locus is denoted
+\((\AAA^r)^{ss}_\theta\).
+\end{definition}
+
+This is the toric form of Cox--Little--Schenck,
+Definition~14.1.6.  Their definition is phrased in terms of invariant
+sections of the linearized bundle; the Cox grading identifies those
+sections with the homogeneous pieces \(S_{d\theta}\).
+
+The quotient is built from all of these pieces at once.
+
+\begin{definition}[The toric GIT quotient]
+\label{def:toric-git-quotient}
+Set
+\[
+R_\theta
+=
+\bigoplus_{d\geq0}S_{d\theta}.
+\]
+The GIT quotient of \(\AAA^r\) by \(G\) with linearization \(\theta\)
+is
+\[
+\boxed{
+\AAA^r\mathbin{//}_\theta G
+:=
+\Proj(R_\theta).}
+\]
+Equivalently,
+\[
+\AAA^r\mathbin{//}_\theta G
+\simeq
+(\AAA^r)^{ss}_\theta\mathbin{//}G.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~14.1.11 and
+Proposition~14.1.12.
+
+The point of the construction is that \(G\) and its action have not
+changed.  Only \(\theta\) has changed, but \(\theta\) changes the graded
+ring \(R_\theta\) and the open set \((\AAA^r)^{ss}_\theta\).  The
+quotient can therefore change as well.
+
+For a diagonal torus action there is a remarkably efficient test for
+semistability.  Write the weight of the coordinate \(x_i\) as
+\[
+\beta_i=\deg(x_i)\in\widehat G,
+\]
+and tensor the character lattice with \(\RR\).
+
+\begin{proposition}[The weight-cone test]
+\label{prop:weight-cone-semistability}
+Let \(G\simeq(\Gm)^k\) act diagonally on \(\AAA^r\) with weights
+\(\beta_1,\dots,\beta_r\), and let \(\theta\in\widehat G\).  For
+\(z=(z_1,\dots,z_r)\), set
+\[
+I(z)=\{i:z_i\neq0\}.
+\]
+Then
+\[
+\boxed{
+z\in(\AAA^r)^{ss}_\theta
+\quad\Longleftrightarrow\quad
+\theta\in
+\Cone{\beta_i:i\in I(z)}
+\subseteq\widehat G_\RR.}
+\]
+\end{proposition}
+
+\begin{proof}
+Suppose first that \(z\) is semistable.  Some
+\(F\in S_{d\theta}\) does not vanish at \(z\).  At least one monomial
+\[
+x^a=x_1^{a_1}\cdots x_r^{a_r}
+\]
+appearing in \(F\) is nonzero at \(z\).  Hence \(a_i=0\) whenever
+\(z_i=0\), and homogeneity gives
+\[
+d\theta
+=
+\sum_{i\in I(z)}a_i\beta_i.
+\]
+After dividing by \(d\), the character \(\theta\) lies in the stated
+cone.
+
+Conversely, if \(\theta\) lies in this rational polyhedral cone, then
+after clearing denominators there are \(d>0\) and integers
+\(a_i\geq0\), supported on \(I(z)\), such that
+\[
+d\theta=\sum_i a_i\beta_i.
+\]
+The monomial \(x^a\in S_{d\theta}\) does not vanish at \(z\), so \(z\)
+is semistable.
+\end{proof}
+
+This test is the computational engine for variation of toric GIT.  The
+semistable locus can change only when \(\theta\) moves across one of the
+cones spanned by subsets of the weights.
+
+\begin{example}[Scalar multiplication revisited]
+Let \(G=\Gm\) act on \(\AAA^{n+1}\) with every coordinate of weight
+\(1\), and let \(\theta=d\in\widehat G\simeq\ZZ\).  The weight-cone
+test gives
+\[
+\begin{array}{c|c|c}
+d& (\AAA^{n+1})^{ss}_d&\AAA^{n+1}\mathbin{//}_d\Gm\\
+\hline
+d>0&\AAA^{n+1}\setminus\{0\}&\PP^n\\
+d=0&\AAA^{n+1}&\{\mathrm{pt}\}\\
+d<0&\varnothing&\varnothing.
+\end{array}
+\]
+Thus even the usual construction of projective space already exhibits
+the basic VGIT phenomenon: the quotient depends on the character, not
+only on the action.
+\end{example}
+
+\subsection{An ample class recovers the Cox quotient}
+
+The original Cox construction has not disappeared inside this larger
+family.  It is recovered by choosing a positive character.
+
+\begin{proposition}[Cox quotient as a GIT quotient]
+\label{prop:ample-character-recovers-cox}
+Let \(X_\Sigma\) be a smooth projective toric variety and let
+\(\theta\in\Cl(X_\Sigma)\) be ample.  Then
+\[
+\boxed{
+(\AAA^{\Sigma(1)})^{ss}_\theta
+=
+\AAA^{\Sigma(1)}\setminus Z(\Sigma),}
+\]
+and
+\[
+\AAA^{\Sigma(1)}\mathbin{//}_\theta G
+\simeq X_\Sigma.
+\]
+In this smooth case the semistable points are stable and the quotient
+is geometric.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+The equality of the semistable locus with the Cox open set is
+Cox--Little--Schenck, Proposition~14.1.9.  In their more general
+projective setting, the stable locus is obtained from the subfan of
+simplicial cones; for a smooth fan this is all of \(\Sigma\).
+
+This proposition changes the way we should think about Chapter~6.
+There we started from \(\Sigma\), built \(Z(\Sigma)\), and then took a
+quotient.  Now we can start from the diagonal Cox action and an ample
+class \(\theta\); semistability reconstructs the deleted set for us.
+Better still, \(\theta\) is free to move.
+
+\subsection{Surface laboratory: the same action gives
+\texorpdfstring{\(\mathbb F_1\)}{F1} and
+\texorpdfstring{\(\PP^2\)}{P2}}
+
+Return to the Cox action for
+\[
+X=\mathbb F_1\simeq\Bl_p(\PP^2)
+\]
+from Chapter~6.  With Cox coordinates
+\[
+(u_0,v_0,u_1,v_1)
+\]
+and the basis \((F,S)\) of \(\Cl(X)\simeq\ZZ^2\), the weights are
+\[
+\deg(u_0)=\deg(u_1)=F,
+\qquad
+\deg(v_0)=S,
+\qquad
+\deg(v_1)=F+S.
+\]
+Equivalently,
+\[
+(\lambda,\mu)\cdot(u_0,v_0,u_1,v_1)
+=
+(\lambda u_0,\mu v_0,\lambda u_1,\lambda\mu v_1).
+\]
+
+Now keep this action fixed and vary
+\[
+\theta=aF+bS\in\Cl(X)_\RR.
+\]
+The three distinct weight rays divide the positive quadrant into two
+regions.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.18]
+  \fill[DictionaryBlue!5] (0,0)--(4.3,0)--(0,4.3)--cycle;
+  \fill[PredictionTeal!12] (0,0)--(4.3,0)--(4.3,4.3)--cycle;
+  \fill[ExampleGold!12] (0,0)--(4.3,4.3)--(0,4.3)--cycle;
+
+  \draw[->,thick] (-0.2,0)--(4.75,0) node[right] {\(F\)};
+  \draw[->,thick] (0,-0.2)--(0,4.75) node[above] {\(S\)};
+  \draw[ray,very thick,DictionaryBlue] (0,0)--(4.25,4.25)
+    node[above right] {\(F+S\)};
+
+  \node[PredictionTeal!80!black,align=center] at (2.8,1.15)
+    {\(a>b>0\)\\\(\mathbb F_1\)};
+  \node[ExampleGold!90!black,align=center] at (1.15,2.8)
+    {\(b>a>0\)\\\(\PP^2\)};
+
+  \fill (3.7,0) circle (1.4pt);
+  \node[below] at (3.7,0) {weight \(F\)};
+  \fill (0,3.7) circle (1.4pt);
+  \node[left] at (0,3.7) {weight \(S\)};
+\end{tikzpicture}
+\caption{The character space for the \(\mathbb F_1\) Cox action.  The
+diagonal ray already predicts the wall between two generic GIT
+quotients.  Section~10.2 will turn this picture into the secondary fan.}
+\label{fig:f1-first-vgit-chambers}
+\end{figure}
+
+First suppose
+\[
+a>b>0.
+\]
+The character lies between the rays \(F\) and \(F+S\).  By the
+weight-cone test, a semistable point must have at least one of
+\(u_0,u_1\) nonzero and at least one of \(v_0,v_1\) nonzero.  Conversely
+those two conditions are sufficient.  Hence
+\[
+(\AAA^4)^{ss}_\theta
+=
+\AAA^4\setminus
+\bigl(V(u_0,u_1)\cup V(v_0,v_1)\bigr).
+\]
+This is exactly the Cox open set of \(\mathbb F_1\), so
+\[
+\boxed{
+\AAA^4\mathbin{//}_\theta(\Gm)^2\simeq\mathbb F_1
+\qquad(a>b>0).}
+\]
+In the blowup notation of Chapter~6, \(F=H-E\) and \(S=E\), so
+\[
+aF+bS=aH-(a-b)E.
+\]
+The inequalities \(a>b>0\) are exactly the familiar ample inequalities
+for the blowup.
+
+Now move \(\theta\) across the diagonal and suppose
+\[
+b>a>0.
+\]
+The weight-cone test gives a different open set:
+\[
+(\AAA^4)^{ss}_\theta
+=
+\{v_0\neq0\}
+\cap
+\{(u_0,u_1,v_1)\neq(0,0,0)\}.
+\]
+Indeed, the weight \(S\) is now indispensable: the cone generated by
+\(F\) and \(F+S\) lies on or below the diagonal.  Once \(v_0\neq0\),
+semistability requires one additional nonzero coordinate of positive
+\(F\)-weight.
+
+Use the \(\mu\)-action to set \(v_0=1\).  The residual \(\lambda\)-action
+on the remaining coordinates is
+\[
+\lambda\cdot(u_0,u_1,v_1)
+=(\lambda u_0,\lambda u_1,\lambda v_1).
+\]
+Therefore
+\[
+\boxed{
+\AAA^4\mathbin{//}_\theta(\Gm)^2\simeq\PP^2
+\qquad(b>a>0).}
+\]
+
+Nothing about \(\AAA^4\) changed.  Nothing about the
+\((\Gm)^2\)-action changed.  The character crossed one ray, the
+semistable locus changed, and the quotient changed from the blowup to
+the projective plane.
+
+\subsection{What lives on the wall?}
+
+The separating ray is
+\[
+\theta=F+S=H.
+\]
+Its degree-one semi-invariants are
+\[
+u_0v_0,
+\qquad
+u_1v_0,
+\qquad
+v_1.
+\]
+In fact every monomial of degree \(d(F+S)\) is a product of these
+three, so
+\[
+R_{F+S}
+\simeq
+\CC[u_0v_0,u_1v_0,v_1]
+\]
+with all three generators in degree one.  Consequently the wall
+quotient is again
+\[
+\AAA^4\mathbin{//}_{F+S}(\Gm)^2\simeq\PP^2.
+\]
+
+From the \(\mathbb F_1\)-side, the quotient map is visibly given by
+\[
+\mathbb F_1\longrightarrow\PP^2,
+\qquad
+[u_0,v_0,u_1,v_1]
+\longmapsto
+[u_0v_0:u_1v_0:v_1].
+\]
+On the divisor \(v_0=0\), every point is sent to
+\([0:0:1]\).  Under the Chapter~6 identification \(S=E\), this is the
+exceptional curve of \(\Bl_p(\PP^2)\).  We have therefore rediscovered
+the blowdown
+\[
+\boxed{
+\mathbb F_1\simeq\Bl_p(\PP^2)
+\longrightarrow
+\PP^2}
+\]
+by moving a character to a wall.
+
+\begin{pauseandthink}
+The equation \(a=b\) did not come from the fan of \(\mathbb F_1\) by
+inspection.  It came from the arrangement of the \emph{Cox weights} in
+\(\Cl(X)_\RR\).  Why should all characters with \(a>b>0\) give the same
+semistable locus?  Why should all characters with \(b>a>0\) do the
+same?  What finite collection of cones in character space organizes
+this behavior in general?
+\end{pauseandthink}
+
+
+The answer is the secondary fan.  Its chambers are precisely the
+regions on which the toric GIT quotient is constant in the appropriate
+sense.  The example above has already drawn the relevant part of that
+fan; the next section will construct it systematically and explain its
+relation with regular subdivisions and the secondary polytope.
+
+\section{The secondary fan and the secondary polytope}
+\label{sec:secondary-fan-polytope}
+\index{secondary fan}
+\index{GKZ fan|see{secondary fan}}
+\index{Gale duality}
+\index{regular triangulation}
+\index{secondary polytope}
+
+Section~\ref{sec:one-cox-many-linearizations} found a wall by hand.  The
+weights for the Cox action on \(\mathbb F_1\) were
+\[
+F,\qquad S,\qquad F,\qquad F+S,
+\]
+and the ray through \(F+S\) separated two regions with different
+quotients.  Nothing in that computation, however, explained why there
+should be only finitely many such regions or why they should fit
+together as a fan.
+
+The answer is remarkably rigid.  For a diagonal torus action, the
+weights themselves cut character space into a rational polyhedral fan.
+This is the \emph{secondary fan}, also called the \emph{GKZ
+decomposition}.  Its chambers record the generic GIT quotients, while
+its faces record the quotients that appear when the character becomes
+special.
+
+\begin{guidingquestion}
+How can we read \emph{all} toric GIT quotients of a fixed diagonal
+action from one finite combinatorial object?
+\end{guidingquestion}
+
+\subsection{From weight cones to chambers}
+
+Let
+\[
+G\simeq(\Gm)^k
+\]
+act diagonally on \(\AAA^r\) with weights
+\[
+\beta_1,\dots,\beta_r\in\widehat G,
+\]
+and set
+\[
+C_\beta
+=
+\Cone{\beta_1,\dots,\beta_r}
+\subseteq\widehat G_\RR.
+\]
+The weight-cone test of
+Proposition~\ref{prop:weight-cone-semistability} immediately shows that
+characters outside \(C_\beta\) have empty semistable locus.  Thus
+\(C_\beta\) is the region in character space where nonempty GIT
+quotients can occur.
+
+For a point \(z=(z_1,\dots,z_r)\), recall
+\[
+I(z)=\{i:z_i\neq0\}.
+\]
+It is useful to package exactly the weights visible at \(z\).
+
+\begin{definition}[Weight cone of a point]
+The \emph{weight cone} of \(z\in\AAA^r\) is
+\[
+\omega(z)
+=
+\Cone{\beta_i:i\in I(z)}
+\subseteq\widehat G_\RR.
+\]
+Thus
+\[
+z\in(\AAA^r)^{ss}_\theta
+\quad\Longleftrightarrow\quad
+\theta\in\omega(z).
+\]
+\end{definition}
+
+There are only finitely many possible cones \(\omega(z)\), since each is
+spanned by a subset of the finite set \(\{\beta_1,\dots,\beta_r\}\).
+For \(\theta\in C_\beta\), define
+\[
+\Gamma(\theta)
+=
+\bigcap_{\theta\in\omega(z)}\omega(z).
+\]
+In words: intersect every weight cone in which \(\theta\) lies.  The
+result is the smallest region that the semistability test can detect
+around \(\theta\).
+
+\begin{theorem}[The secondary fan]
+\label{thm:secondary-fan}
+The cones \(\Gamma(\theta)\), together with their faces, form a finite
+rational polyhedral fan
+\[
+\Sigma_{\mathrm{GKZ}}
+\quad\text{in}\quad
+\widehat G_\RR
+\]
+whose support is \(C_\beta\).  Moreover, if \(\theta\) and \(\theta'\)
+lie in the relative interior of the same cone, then
+\[
+(\AAA^r)^{ss}_\theta
+=
+(\AAA^r)^{ss}_{\theta'}
+\]
+and hence
+\[
+\AAA^r\mathbin{//}_\theta G
+\simeq
+\AAA^r\mathbin{//}_{\theta'}G.
+\]
+The maximal cones of \(\Sigma_{\mathrm{GKZ}}\) are called
+\emph{chambers}; their codimension-one faces are called \emph{walls}.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the diagonal-torus form of Cox--Little--Schenck,
+Theorem~14.4.7.  Their GKZ cones keep track simultaneously of the fan
+of the quotient and of coordinates that never vanish; the description
+above is the same chamber structure viewed directly through
+semistability.
+
+The theorem is substantial, but its basic mechanism is already visible
+from the weight-cone test.  For every point \(z\), the statement
+``\(z\) is semistable'' is the polyhedral condition
+\[
+\theta\in\omega(z).
+\]
+Since only finitely many \(\omega(z)\) occur, only finitely many
+semistability patterns can occur.  Passing from this finite collection
+of cones to their common chamber decomposition gives
+\(\Sigma_{\mathrm{GKZ}}\).  The content of the theorem is that these
+regions fit together with the face-to-face behavior required of a fan.
+
+\begin{agcheatsheet}
+For computations, one can think of the secondary fan as a
+\emph{master map of linearizations}:
+\[
+\boxed{
+\begin{array}{ccl}
+\theta\notin C_\beta
+&\Longrightarrow&
+\text{empty semistable locus},
+\\[1mm]
+\theta\text{ in a chamber}
+&\Longrightarrow&
+\text{one generic toric quotient},
+\\[1mm]
+\theta\text{ on a wall}
+&\Longrightarrow&
+\text{a limiting quotient},
+\\[1mm]
+\theta\text{ on a lower-dimensional face}
+&\Longrightarrow&
+\text{a still more special quotient}.
+\end{array}}
+\]
+The important point is not merely that the quotient is constant inside
+a chamber.  The \emph{way the chambers meet} records which models can
+be connected by varying the linearization.
+\end{agcheatsheet}
+
+\subsection{The \texorpdfstring{\(\mathbb F_1\)}{F1} picture really is a fan}
+
+Return to the action from the previous section.  The distinct weight
+rays are
+\[
+\RR_{\geq0}F,
+\qquad
+\RR_{\geq0}(F+S),
+\qquad
+\RR_{\geq0}S,
+\]
+and
+\[
+C_\beta=\Cone{F,S}.
+\]
+There are two two-dimensional GKZ chambers:
+\[
+\Gamma_{\mathbb F_1}
+=
+\Cone{F,F+S},
+\qquad
+\Gamma_{\PP^2}
+=
+\Cone{F+S,S}.
+\]
+Indeed, if \(\theta=aF+bS\), then
+\[
+\begin{array}{c|c|c}
+\text{location of }\theta
+&\text{semistable locus}
+&\text{quotient}
+\\
+\hline
+a>b>0
+&\AAA^4\setminus
+\bigl(V(u_0,u_1)\cup V(v_0,v_1)\bigr)
+&\mathbb F_1
+\\[1mm]
+a=b>0
+&\text{wall semistable locus}
+&\PP^2
+\\[1mm]
+b>a>0
+&\{v_0\neq0\}\cap
+\{(u_0,u_1,v_1)\neq(0,0,0)\}
+&\PP^2.
+\end{array}
+\]
+
+Thus Figure~\ref{fig:f1-first-vgit-chambers} was not just a helpful
+picture: it was the two-dimensional part of
+\(\Sigma_{\mathrm{GKZ}}\).  The common face
+\[
+\RR_{\geq0}(F+S)
+\]
+is the wall across which the exceptional curve of \(\mathbb F_1\) is
+contracted.
+
+There is a small subtlety worth remembering.  The chamber
+\(\Gamma_{\mathbb F_1}\) is literally
+\[
+\Nef(\mathbb F_1)
+=
+\Cone{H-E,H}
+=
+\Cone{F,F+S}.
+\]
+On the other side, however, the quotient is \(\PP^2\), whose Picard
+group has rank one even though \(\Gamma_{\PP^2}\) is two-dimensional.
+The reason is visible in the semistable locus: \(v_0\) is forced to be
+nonzero, so one Cox coordinate has disappeared from the quotient fan.
+The secondary fan remembers this extra GIT information.  We will return
+to the relation with nef cones in Section~10.4.
+
+\subsection{Where triangulations enter: Gale duality}
+
+So far the secondary fan lives in character space.  Its second life is
+as a space of \emph{regular triangulations}.  The bridge is Gale
+duality, the same linear algebra that relates Cox weights to ray
+generators.
+
+For the cleanest geometric picture, suppose that
+\[
+\nu_1,\dots,\nu_r\in N
+\]
+are distinct lattice points lying in an affine hyperplane
+\(H\subset N_\RR\) with \(0\notin H\), and that
+\[
+Q_\nu=\Conv(\nu_1,\dots,\nu_r)
+\]
+has full dimension in \(H\).  The map
+\[
+M\longrightarrow\ZZ^r,
+\qquad
+m\longmapsto
+\bigl(\langle m,\nu_1\rangle,\dots,
+      \langle m,\nu_r\rangle\bigr)
+\]
+has a free cokernel after making the usual lattice hypotheses.  Write
+that cokernel as \(\widehat G\).  After tensoring with \(\RR\), we have
+\[
+0\longrightarrow M_\RR
+\longrightarrow\RR^r
+\longrightarrow\widehat G_\RR
+\longrightarrow0.
+\]
+The images \(\beta_i\) of the standard basis vectors are precisely the
+Gale-dual weights.
+
+Now assign a height \(\omega_i\geq0\) to every \(\nu_i\) and form the
+lifted cone
+\[
+C_{\nu,\omega}
+=
+\Cone{(\nu_1,\omega_1),\dots,(\nu_r,\omega_r)}
+\subseteq N_\RR\times\RR.
+\]
+Project the lower faces back to \(N_\RR\).  Their cones give a
+subdivision \(\Sigma_\omega\) of \(C_\nu\).  Intersecting with the
+hyperplane \(H\) gives a subdivision of \(Q_\nu\).
+
+\begin{definition}[Regular triangulation]
+A triangulation \(\mathcal T\) of \(Q_\nu\), using vertices among the
+\(\nu_i\), is \emph{regular} (or \emph{coherent}) if it is obtained by
+this lifting-and-lower-hull construction for some choice of heights
+\(\omega=(\omega_1,\dots,\omega_r)\).
+\end{definition}
+
+This is Cox--Little--Schenck, Definition~15.2.8.  The construction
+explains why the height vector naturally lives in the same space as a
+GIT character.  If we change \(\omega\) by
+\[
+\omega_i
+\longmapsto
+\omega_i+\langle m,\nu_i\rangle,
+\]
+we have merely tilted the lifting by a linear function.  The regular
+subdivision does not change.  Hence the meaningful parameter is the
+class
+\[
+[\omega]\in
+\RR^r/M_\RR
+\simeq
+\widehat G_\RR.
+\]
+That quotient is exactly the character space in which the secondary
+fan lives.
+
+\begin{theorem}[Chambers and regular triangulations]
+\label{thm:gkz-chambers-triangulations}
+In the affine-hyperplane situation above, the chambers of
+\(\Sigma_{\mathrm{GKZ}}\) are in bijection with the regular
+triangulations of \(\nu\).  A character in a chamber determines the
+corresponding triangulation by the lower-hull construction.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~15.2.9.  We will use the
+theorem as a dictionary rather than reproduce its full proof: Gale
+duality identifies height vectors modulo linear functions with GIT
+characters, while strict convexity of the resulting piecewise linear
+function is exactly the condition that the projected lower hull be a
+triangulation.
+
+Thus, in this setting, the same chamber can be read in three ways:
+\[
+\boxed{
+\begin{gathered}
+\text{GIT chamber in }\widehat G_\RR
+\quad\longleftrightarrow\quad
+\text{regular triangulation of }Q_\nu
+\\[-1mm]
+\longleftrightarrow
+\text{simplicial fan of the corresponding toric quotient}.
+\end{gathered}}
+\]
+
+\subsection{The secondary polytope}
+
+There is now a beautiful dual way to package all the chambers at once.
+For a triangulation \(\mathcal T\), define its \emph{GKZ vector}
+\[
+\phi_{\mathcal T}
+=
+(\phi_1,\dots,\phi_r)\in\RR^r,
+\]
+where
+\[
+\phi_i
+=
+\sum_{\substack{\Delta\in\mathcal T\\ \nu_i\in\Delta}}
+\vol(\Delta).
+\]
+Here \(\Delta\) runs over the maximal simplices and
+\(\vol\) denotes
+normalized lattice volume in \(H\).  The classical GKZ secondary
+polytope is the convex hull of these vectors; equivalently, after
+passing to its natural affine span, it is a polytope dual to the
+secondary fan.
+
+\begin{theorem}[The secondary polytope]
+\label{thm:secondary-polytope}
+Under the affine-hyperplane hypotheses above, there is a full
+dimensional lattice polytope
+\[
+P_{\mathrm{GKZ}}\subseteq\widehat G_\RR^*
+\]
+whose normal fan is \(\Sigma_{\mathrm{GKZ}}\).  Its vertices are in
+bijection with regular triangulations of \(\nu\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+See Cox--Little--Schenck, Proposition~15.2.11, for the existence and
+normal-fan statement.  The vertex--triangulation correspondence is
+Corollary~15.2.12.  The GKZ-vector construction above gives the
+classical distinguished realization of the secondary polytope.  Our
+normal-fan convention may be replaced by the opposite convention if
+one uses upper rather than lower hulls; none of the chamber
+combinatorics changes.
+
+The word \emph{secondary} is now rather apt.  The original polytope
+\(Q_\nu\) lives in the lattice space and admits many triangulations.
+The secondary polytope lives in the dual parameter space and organizes
+\emph{the triangulations themselves}.
+
+\begin{center}
+\small
+\begin{tabular}{c|c}
+\textbf{Secondary polytope}
+&\textbf{Secondary fan / VGIT}
+\\
+\hline
+vertex
+&chamber / regular triangulation
+\\
+edge
+&wall between adjacent chambers
+\\
+higher-dimensional face
+&coarser regular subdivision
+\\
+normal cone to a face
+&characters producing that subdivision
+\end{tabular}
+\end{center}
+
+The reversal of dimensions is exactly what one expects from a normal
+fan: vertices of a polytope have full-dimensional normal cones, while
+edges correspond to codimension-one cones.  Thus a path from one
+vertex of \(P_{\mathrm{GKZ}}\) to a neighboring vertex is dual to
+crossing a wall in the VGIT fan.
+
+\subsection{A square: two triangulations and one wall}
+
+The smallest nontrivial secondary polytope can be computed completely
+by hand.  Take the four lattice points
+\[
+\nu_1=(0,0,1),\quad
+\nu_2=(1,0,1),\quad
+\nu_3=(1,1,1),\quad
+\nu_4=(0,1,1)
+\]
+in the affine plane \(z=1\).  Their convex hull is a square.  There are
+exactly two triangulations:
+\[
+\mathcal T_{13}
+=
+\{123,134\},
+\qquad
+\mathcal T_{24}
+=
+\{124,234\},
+\]
+according to which diagonal is chosen.
+
+The unique affine dependence is
+\[
+\nu_1-\nu_2+\nu_3-\nu_4=0.
+\]
+Consequently the one-dimensional quotient of height space is measured
+by
+\[
+\delta(\omega)
+=
+\omega_1+\omega_3-\omega_2-\omega_4.
+\]
+If \(\delta(\omega)<0\), the points \(\nu_1,\nu_3\) lie relatively
+lower and the lower hull produces \(\mathcal T_{13}\).  If
+\(\delta(\omega)>0\), it produces \(\mathcal T_{24}\).  When
+\(\delta(\omega)=0\), the four lifted points are coplanar and the
+projected lower face is the entire square: the diagonal disappears.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.02]
+  \coordinate (A1) at (0,0);
+  \coordinate (A2) at (2.2,0);
+  \coordinate (A3) at (2.2,2.2);
+  \coordinate (A4) at (0,2.2);
+  \fill[DictionaryBlue!7] (A1)--(A2)--(A3)--cycle;
+  \fill[PredictionTeal!9] (A1)--(A3)--(A4)--cycle;
+  \draw[thick] (A1)--(A2)--(A3)--(A4)--cycle;
+  \draw[very thick,DictionaryBlue] (A1)--(A3);
+  \node[below left] at (A1) {\(1\)};
+  \node[below right] at (A2) {\(2\)};
+  \node[above right] at (A3) {\(3\)};
+  \node[above left] at (A4) {\(4\)};
+  \node[align=center] at (1.1,-0.65)
+    {\(\mathcal T_{13}\)\\\(\delta<0\)};
+
+  \draw[very thick,ExampleGold!90!black] (3.45,1.1)--(5.95,1.1);
+  \fill[ExampleGold!90!black] (3.45,1.1) circle (2.2pt);
+  \fill[ExampleGold!90!black] (5.95,1.1) circle (2.2pt);
+  \node[above,align=center] at (4.70,1.1)
+    {secondary polytope\\\(P_{\mathrm{GKZ}}\)};
+  \node[below] at (3.45,1.0) {\(\phi_{13}\)};
+  \node[below] at (5.95,1.0) {\(\phi_{24}\)};
+
+  \coordinate (B1) at (7.2,0);
+  \coordinate (B2) at (9.4,0);
+  \coordinate (B3) at (9.4,2.2);
+  \coordinate (B4) at (7.2,2.2);
+  \fill[PredictionTeal!9] (B1)--(B2)--(B4)--cycle;
+  \fill[DictionaryBlue!7] (B2)--(B3)--(B4)--cycle;
+  \draw[thick] (B1)--(B2)--(B3)--(B4)--cycle;
+  \draw[very thick,DictionaryBlue] (B2)--(B4);
+  \node[below left] at (B1) {\(1\)};
+  \node[below right] at (B2) {\(2\)};
+  \node[above right] at (B3) {\(3\)};
+  \node[above left] at (B4) {\(4\)};
+  \node[align=center] at (8.3,-0.65)
+    {\(\mathcal T_{24}\)\\\(\delta>0\)};
+\end{tikzpicture}
+\caption{The square has two regular triangulations, hence its secondary
+polytope is a segment.  The wall \(\delta=0\) is the coarser
+subdivision consisting of the unsplit square.}
+\label{fig:square-secondary-polytope}
+\end{figure}
+
+Because each triangle has normalized area one, the two GKZ vectors are
+\[
+\phi_{13}=(2,1,2,1),
+\qquad
+\phi_{24}=(1,2,1,2).
+\]
+Thus
+\[
+P_{\mathrm{GKZ}}
+=
+\Conv(\phi_{13},\phi_{24})
+\]
+is a line segment.  Its normal fan is one-dimensional: it consists of
+two rays separated by the origin.  Those two chambers are exactly
+\[
+\delta<0
+\qquad\text{and}\qquad
+\delta>0,
+\]
+with the wall \(\delta=0\) between them.  If one defines normal cones
+using maximization rather than the lower-hull/minimization convention,
+the two ray labels are exchanged; the fan itself is unchanged.
+
+This tiny example contains the entire VGIT pattern.  A generic
+parameter chooses one triangulation.  Moving to the wall erases a
+diagonal and produces a coarser subdivision.  Crossing the wall inserts
+the other diagonal.  In higher dimension this elementary replacement
+is called a \emph{bistellar flip}; it is the combinatorial shadow of the
+birational transformations we will study next.
+
+\begin{pauseandthink}
+The secondary fan and the secondary polytope contain the same
+incidence data, but with dimensions reversed.  A chamber of the fan is
+dual to a vertex of the polytope, and a wall between two chambers is
+dual to an edge between two vertices.  Thus there are two equivalent
+ways to imagine varying a linearization: move \emph{through} the
+secondary fan, or move \emph{along edges} of the secondary polytope.
+Which picture makes a wall crossing easier to see?
+\end{pauseandthink}
+
+We are now ready to put geometry back into the picture.  A wall of the
+secondary fan tells us that two GIT chambers are adjacent; a flip of
+regular triangulations tells us how their combinatorics differ.  The
+next question is what the induced map between the corresponding toric
+varieties actually does.  In Section~10.3 we will see that, depending
+on the wall, it can contract a divisor, produce a small contraction and
+a flip, or lead to a fiber-type morphism.
+
+\section{Crossing a wall: contractions, flips, and fibrations}
+\label{sec:crossing-wall}
+\index{wall crossing}
+\index{contraction!divisorial}
+\index{contraction!small}
+\index{contraction!fiber type}
+\index{flip!toric}
+\index{flop!toric}
+
+The secondary fan tells us \emph{when} the quotient changes.  We now
+ask what the change means geometrically.  Let \(C_-\) and \(C_+\) be
+adjacent chambers, choose characters
+\[
+\theta_-\in\relint(C_-),
+\qquad
+\theta_+\in\relint(C_+),
+\]
+and let \(\theta_0\) lie in the relative interior of their common wall.
+Write
+\[
+X_-
+=
+\AAA^r\mathbin{//}_{\theta_-}G,
+\qquad
+X_0
+=
+\AAA^r\mathbin{//}_{\theta_0}G,
+\qquad
+X_+
+=
+\AAA^r\mathbin{//}_{\theta_+}G.
+\]
+Under the usual semiprojective hypotheses, variation of GIT produces
+projective toric morphisms
+\[
+\begin{tikzcd}[column sep=huge]
+X_-
+  \arrow[dr,"\pi_-"']
+  \arrow[rr,dashed,"\psi"]
+&&
+X_+
+  \arrow[dl,"\pi_+"]
+\\
+&X_0.&
+\end{tikzcd}
+\]
+The wall quotient \(X_0\) forgets just enough information that the two
+nearby models can map to it.  The dashed arrow is the induced
+birational map when both morphisms are birational.
+
+\begin{guidingquestion}
+Which subvarieties become invisible when a character reaches a wall,
+and how does the answer determine the birational transformation on the
+other side?
+\end{guidingquestion}
+
+\subsection{The three geometric possibilities}
+
+The geometry is controlled by the exceptional locus.  Recall that the
+exceptional locus of a birational morphism is the set on which it is
+not an isomorphism.
+
+\begin{definition}[Three types of contraction]
+Let \(\pi:X\to Y\) be a projective toric contraction with connected
+fibers.
+\begin{enumerate}
+\item It is of \emph{fiber type} if
+      \(\dim Y<\dim X\).
+\item It is \emph{divisorial} if it is birational and its exceptional
+      locus contains a divisor.
+\item It is \emph{small} if it is birational and its exceptional locus
+      has codimension at least two.
+\end{enumerate}
+If two small contractions
+\[
+X_-\longrightarrow X_0\longleftarrow X_+
+\]
+arise from the two sides of a wall, the birational map
+\(X_-\dashrightarrow X_+\) is an \emph{elementary flip}.  It is a
+\emph{flop} when the canonical divisor has degree zero on the curves
+contracted on either side.
+\end{definition}
+
+The adjective \emph{small} refers to the exceptional locus, not to the
+size of the fibers.  A small contraction may collapse curves, but it
+collapses no divisor.  Consequently it does not delete a ray from the
+fan: the fans on the two sides have the same rays and differ only in
+how those rays are assembled into cones.
+
+\begin{proposition}[Wall-crossing trichotomy]
+\label{prop:wall-crossing-trichotomy}
+Let \(X_\Sigma\) be a simplicial semiprojective toric variety, and let a
+codimension-one face of its nef chamber determine the wall morphism
+\[
+\pi:X_\Sigma\longrightarrow X_{\Sigma_0}.
+\]
+Exactly one of the following occurs:
+\[
+\begin{array}{c|c|c}
+\textbf{type}
+&\textbf{geometry of }\pi
+&\textbf{fan behavior}
+\\
+\hline
+\text{fiber type}
+&\dim X_{\Sigma_0}<\dim X_\Sigma
+&\Sigma_0\text{ is degenerate}
+\\
+\text{divisorial}
+&\pi\text{ contracts an invariant divisor}
+&\text{one ray is removed}
+\\
+\text{small}
+&\codim\Exc(\pi)\geq2
+&\Sigma(1)=\Sigma_0(1).
+\end{array}
+\]
+In the small case, a chamber on the other side supplies a second
+simplicial refinement \(\Sigma_+\) of \(\Sigma_0\) and hence an
+elementary flip
+\[
+X_\Sigma\dashrightarrow X_{\Sigma_+}.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+The classification by exceptional locus is
+Cox--Little--Schenck, Proposition~15.4.5.  The wall diagram and the
+description of the exceptional loci for a flipping wall are given in
+Theorem~15.3.13; see also Lemma~15.3.7.  We postpone the interpretation
+in terms of extremal rays of the Mori cone until Section~10.4.
+
+Here is the practical picture to retain.
+\[
+\boxed{
+\begin{array}{ccl}
+\text{a whole direction survives in every fiber}
+&\Longrightarrow&
+\text{fiber type},
+\\[1mm]
+\text{one Cox ray disappears}
+&\Longrightarrow&
+\text{divisorial contraction},
+\\[1mm]
+\text{the rays stay but the cones change}
+&\Longrightarrow&
+\text{flip or flop}.
+\end{array}}
+\]
+
+\subsection{Surface laboratory: the two boundary rays of
+\texorpdfstring{\(\Nef(\mathbb F_1)\)}{Nef(F1)}}
+
+The chamber for \(\mathbb F_1\) in Section~10.1 was
+\[
+\Cone{F,H},
+\qquad
+H=F+S,
+\]
+with interior classes
+\[
+\theta=aF+bS,
+\qquad
+a>b>0.
+\]
+Its two boundary rays have completely different meanings.  The ray
+through \(H\) gives the divisorial blowdown already seen in
+Section~10.1; the ray through \(F\) gives the ruling
+\(\mathbb F_1\to\PP^1\).
+
+\begin{example}[The wall \(H\): a divisorial contraction]
+At \(\theta=H=F+S\), the degree-one semi-invariants are
+\[
+u_0v_0,
+\qquad
+u_1v_0,
+\qquad
+v_1.
+\]
+They generate the section ring, so the wall quotient is
+\[
+\Proj(R_H)
+\simeq
+\PP^2.
+\]
+The induced morphism is
+\[
+\pi_H:\mathbb F_1\longrightarrow\PP^2,
+\qquad
+[u_0,v_0,u_1,v_1]
+\longmapsto
+[u_0v_0:u_1v_0:v_1].
+\]
+On the invariant divisor
+\[
+E=V(v_0),
+\]
+the first two coordinates vanish, so all of \(E\simeq\PP^1\) maps to
+\([0:0:1]\).  Away from \(E\), the map is an isomorphism onto
+\(\PP^2\setminus\{[0:0:1]\}\).  Thus
+\[
+\boxed{
+\pi_H:
+\Bl_p(\PP^2)\longrightarrow\PP^2
+\text{ contracts the divisor }E.}
+\]
+Combinatorially, crossing this wall removes the ray introduced by the
+star subdivision that created the blowup.
+\end{example}
+
+\begin{example}[The wall \(F\): a fiber-type contraction]
+Now move to the other boundary ray, \(\theta=F\).  The only monomials of
+degree \(dF\) are homogeneous polynomials in \(u_0,u_1\).  Therefore
+\[
+R_F
+=
+\bigoplus_{d\geq0}\CC[u_0,u_1]_d,
+\qquad
+\Proj(R_F)\simeq\PP^1.
+\]
+The morphism defined by this ring is
+\[
+\pi_F:\mathbb F_1\longrightarrow\PP^1,
+\qquad
+[u_0,v_0,u_1,v_1]
+\longmapsto
+[u_0:u_1].
+\]
+Fixing the point \([u_0:u_1]\) leaves the pair \((v_0,v_1)\), not both
+zero, modulo one scalar action.  Hence every fiber is a copy of
+\(\PP^1\).  We recover the Hirzebruch-surface ruling
+\[
+\boxed{
+\PP^1\longrightarrow\mathbb F_1
+\xrightarrow{\ \pi_F\ }\PP^1.}
+\]
+Nothing exceptional is confined to a proper subset of \(\mathbb F_1\):
+the dimension of the quotient itself drops from two to one.  This is
+the fiber-type case.
+\end{example}
+
+The intersection pairing gives a second way to recognize the two
+maps.  Since
+\[
+S^2=-1,
+\qquad
+F^2=0,
+\qquad
+S\cdot F=1,
+\]
+we have
+\[
+H\cdot S=(F+S)\cdot S=0,
+\qquad
+F\cdot F=0.
+\]
+The class \(H\) therefore forgets the exceptional curve \(S=E\), while
+the class \(F\) has degree zero along every fiber of the ruling.  The
+wall in divisor space and the curves contracted by its linear system
+are dual pieces of information.  Section~10.4 will turn this
+observation into the nef-cone/Mori-cone dictionary.
+
+\begin{center}
+\small
+\begin{tabular}{c|c|c|c}
+\textbf{wall class}
+&\textbf{target}
+&\textbf{contracted curves}
+&\textbf{type}
+\\
+\hline
+\(H=F+S\)
+&\(\PP^2\)
+&the single curve \(S=E\)
+&divisorial
+\\
+\(F\)
+&\(\PP^1\)
+&all fibers of the ruling
+&fiber type
+\end{tabular}
+\end{center}
+
+\subsection{Why a genuine flip first appears in dimension three}
+
+A proper birational morphism of normal surfaces cannot be small: every
+nontrivial exceptional component is a curve, and a curve on a surface
+has codimension one.  Thus a birational wall move between surfaces
+must contract a divisor.  To see a small contraction, and therefore a
+flip, we need dimension at least three.
+
+The square from Section~10.2 gives the smallest possible example.  Its
+ray generators satisfy the circuit relation
+\[
+\nu_1-\nu_2+\nu_3-\nu_4=0.
+\]
+The Gale-dual action is therefore the \(\Gm\)-action on \(\AAA^4\)
+with weights
+\[
+(1,-1,1,-1):
+\qquad
+\lambda\cdot(x_1,x_2,x_3,x_4)
+=
+(\lambda x_1,\lambda^{-1}x_2,
+ \lambda x_3,\lambda^{-1}x_4).
+\]
+There are two chambers, \(\theta>0\) and \(\theta<0\), separated by the
+wall \(\theta=0\).
+
+\begin{example}[The two chamber quotients]
+For \(\theta>0\), the weight-cone test says
+\[
+(\AAA^4)^{ss}_+
+=
+\{(x_1,x_3)\neq(0,0)\}.
+\]
+The positive-weight coordinates determine a point
+\([x_1:x_3]\in\PP^1\), while \(x_2,x_4\) have weight \(-1\).  Hence
+\[
+X_+
+=
+\AAA^4\mathbin{//}_{+}\Gm
+\simeq
+\operatorname{Tot}
+\bigl(\mathcal O_{\PP^1}(-1)^{\oplus2}\bigr).
+\]
+Similarly,
+\[
+(\AAA^4)^{ss}_-
+=
+\{(x_2,x_4)\neq(0,0)\},
+\qquad
+X_-
+\simeq
+\operatorname{Tot}
+\bigl(\mathcal O_{\PP^1}(-1)^{\oplus2}\bigr),
+\]
+where the base is now \([x_2:x_4]\).
+
+Both threefolds are abstractly total spaces of the same vector bundle,
+but their maps to the wall quotient will remember different
+\(\PP^1\)'s.  Under the sign convention of Section~10.2, \(X_+\)
+corresponds to the triangulation \(\mathcal T_{24}\), while \(X_-\)
+corresponds to \(\mathcal T_{13}\).
+\end{example}
+
+\begin{example}[The wall quotient is the quadric cone]
+At \(\theta=0\), all four coordinates are semistable and we take the
+affine quotient.  The invariant ring is generated by
+\[
+a=x_1x_2,
+\qquad
+b=x_1x_4,
+\qquad
+c=x_3x_2,
+\qquad
+d=x_3x_4.
+\]
+These generators satisfy one relation,
+\[
+ad-bc=0.
+\]
+Thus
+\[
+\boxed{
+X_0
+=
+\AAA^4\mathbin{//}_0\Gm
+\simeq
+Y:=V(ad-bc)\subseteq\AAA^4_{a,b,c,d}.}
+\]
+The hypersurface \(Y\) is three-dimensional and singular only at the
+origin.  It is the affine cone over the quadric surface
+\(\PP^1\times\PP^1\subseteq\PP^3\).
+\end{example}
+
+The four invariants define morphisms
+\[
+\begin{tikzcd}[column sep=huge]
+X_-
+  \arrow[dr,"\pi_-"']
+  \arrow[rr,dashed,"\text{flop}"]
+&&
+X_+
+  \arrow[dl,"\pi_+"]
+\\
+&Y=V(ad-bc).&
+\end{tikzcd}
+\]
+It is worth checking the fibers directly.  Regard a point of \(Y\) as
+the rank-at-most-one matrix
+\[
+\begin{pmatrix}
+a&b\\
+c&d
+\end{pmatrix}
+=
+\begin{pmatrix}x_1\\x_3\end{pmatrix}
+\begin{pmatrix}x_2&x_4\end{pmatrix}.
+\]
+Away from the zero matrix, both its column line and its row line are
+uniquely determined.  Therefore \(\pi_+\) and \(\pi_-\) are
+isomorphisms over \(Y\setminus\{0\}\).
+
+Over the origin, the answer changes.  In the positive chamber,
+\((x_1,x_3)\) cannot vanish, so the equations
+\[
+x_1x_2=x_1x_4=x_3x_2=x_3x_4=0
+\]
+force \(x_2=x_4=0\).  The remaining quotient is
+\[
+\pi_+^{-1}(0)
+=
+\{(x_1,x_3)\neq(0,0)\}/\Gm
+\simeq\PP^1.
+\]
+Similarly,
+\[
+\pi_-^{-1}(0)
+\simeq
+\{(x_2,x_4)\neq(0,0)\}/\Gm
+\simeq\PP^1.
+\]
+Each exceptional locus is a curve inside a threefold, hence has
+codimension two.  Both contractions are small: no divisor disappears.
+The birational map replaces the column-line \(\PP^1\) by the row-line
+\(\PP^1\).
+
+This is also exactly what happened to the square.  On one side we used
+the diagonal \(13\); on the other we used the diagonal \(24\); on the
+wall the diagonal disappeared.  The correspondence is
+\[
+\boxed{
+\begin{array}{ccc}
+\mathcal T_{13}
+&\longleftrightarrow&
+X_-
+\\
+\text{unsplit square}
+&\longleftrightarrow&
+Y
+\\
+\mathcal T_{24}
+&\longleftrightarrow&
+X_+.
+\end{array}}
+\]
+
+Finally, the exceptional curve in either resolution is the zero
+section of
+\(\mathcal O_{\PP^1}(-1)^{\oplus2}\), so its normal bundle is
+\[
+N_{\PP^1/X_\pm}
+\simeq
+\mathcal O_{\PP^1}(-1)\oplus
+\mathcal O_{\PP^1}(-1).
+\]
+Adjunction gives
+\[
+K_{X_\pm}|_{\PP^1}
+\simeq
+K_{\PP^1}\otimes
+\det(N_{\PP^1/X_\pm})^{-1}
+\simeq
+\mathcal O_{\PP^1}.
+\]
+Thus \(K_{X_\pm}\cdot\PP^1=0\).  The elementary flip is crepant, so it
+is in fact the standard threefold \emph{flop}.
+
+\begin{agcheatsheet}
+The terms \emph{flip} and \emph{flop} describe the same wall diagram
+with different canonical behavior.
+\[
+\begin{array}{c|c}
+\textbf{wall move}&\textbf{canonical degree on contracted curves}
+\\
+\hline
+\text{flip, with a chosen direction}
+&K\cdot C<0\text{ before and }K\cdot C'>0\text{ after}
+\\
+\text{flop}
+&K\cdot C=K\cdot C'=0.
+\end{array}
+\]
+In the toric setting, both are produced by replacing one simplicial
+subdivision of a nonsimplicial cone by the subdivision on the other
+side of its circuit relation.  The square relation has coefficient sum
+zero, which is the combinatorial shadow of the crepant condition.
+\end{agcheatsheet}
+
+\subsection{Reading a wall crossing in four steps}
+
+The examples suggest a workflow that applies well beyond them.
+\begin{enumerate}
+\item \textbf{Find the wall.}
+      Locate a codimension-one face of a GIT chamber in character
+      space.
+\item \textbf{Compute the wall ring.}
+      Determine the semi-invariants of degree \(d\theta_0\).  Form
+      \(\Proj(R_{\theta_0})\), or take the invariant ring when the
+      wall is \(\theta_0=0\).
+\item \textbf{Find the exceptional locus.}
+      Compare the chamber semistable locus with the wall semistable
+      locus and determine which orbit closures acquire the same image.
+\item \textbf{Classify the map.}
+      A dimension drop is fiber type; a contracted divisor is
+      divisorial; a codimension-at-least-two exceptional locus is
+      small, and the neighboring chamber supplies the flip.
+\end{enumerate}
+
+\begin{pauseandthink}
+In the \(\mathbb F_1\to\PP^2\) wall move, a ray disappears and the
+exceptional curve is a divisor.  In the resolved-conifold wall move,
+all four rays remain and only the triangulation changes.  Why do equal
+ray sets but different maximal cones force the induced birational map
+to be an isomorphism in codimension one?  Section~10.4 will identify
+the contracted curves canonically by dualizing this nef wall to an
+extremal ray of the Mori cone.
+\end{pauseandthink}
+
+\section{Extremal rays and contractions}
+\label{sec:extremal-rays-contractions}
+\index{Mori cone}
+\index{nef cone}
+\index{extremal ray}
+\index{wall relation}
+\index{extremal contraction}
+
+Section~\ref{sec:crossing-wall} classified a wall morphism by looking
+at its exceptional locus.  We now approach the same morphism from the
+opposite direction.  Instead of starting with the map and asking what
+it contracts, we start with the numerical classes of curves and ask
+which map they determine.
+
+The bridge is intersection theory.  A divisor on the boundary of the
+nef cone has degree zero on some curves.  Those curve classes lie on a
+face of the Mori cone.  In the toric setting, every nef divisor is
+basepoint free, so its sections produce a morphism that contracts
+exactly those curves.  Thus dual polyhedral cones turn a numerical
+vanishing condition into an honest geometric contraction.
+
+\begin{guidingquestion}
+How does a facet of the nef cone identify the curves contracted by a
+wall morphism, and how can those curve classes be computed directly
+from the fan?
+\end{guidingquestion}
+
+\subsection{Divisors and curves modulo numerical equivalence}
+
+Let \(X\) be a smooth projective variety.  Two Cartier divisors are
+\emph{numerically equivalent} if they have the same intersection
+number with every irreducible curve.  After tensoring with \(\RR\), the
+space of numerical divisor classes is
+\[
+N^1(X)_\RR
+=
+\bigl(\Pic(X)/{\equiv_{\mathrm{num}}}\bigr)\otimes_\ZZ\RR.
+\]
+Similarly, two real one-cycles are numerically equivalent if every
+Cartier divisor has the same degree on them.  The resulting space is
+\[
+N_1(X)_\RR
+=
+Z_1(X)_\RR/{\equiv_{\mathrm{num}}}.
+\]
+The definitions give a perfect pairing of finite-dimensional real
+vector spaces
+\[
+\boxed{
+N^1(X)_\RR\times N_1(X)_\RR
+\longrightarrow\RR,
+\qquad
+([D],[C])\longmapsto D\cdot C.}
+\]
+Their common dimension is the \emph{Picard number}
+\[
+\rho(X)=\dim N^1(X)_\RR=\dim N_1(X)_\RR.
+\]
+
+Inside the curve space, form the cone generated by effective curves.
+
+\begin{definition}[The Mori cone]
+The \emph{Mori cone}, or \emph{cone of curves}, is
+\[
+\overline{\NE}(X)
+=
+\overline{
+\Cone{[C]:C\subseteq X\text{ an irreducible curve}}}
+\subseteq N_1(X)_\RR.
+\]
+A one-dimensional face of \(\overline{\NE}(X)\) is an
+\emph{extremal ray}.
+\end{definition}
+
+The closure in this definition matters for general varieties.  For a
+projective toric variety the cone will be rational polyhedral and
+hence already closed.
+
+A divisor class is nef precisely when it has nonnegative degree on
+every curve.  Therefore
+\[
+\boxed{
+\Nef(X)
+=
+\overline{\NE}(X)^\vee
+=
+\{\alpha\in N^1(X)_\RR:
+  \alpha\cdot\gamma\geq0
+  \text{ for every }\gamma\in\overline{\NE}(X)\}.}
+\]
+This equality is not an analogy: the nef and Mori cones are literal
+dual cones under the intersection pairing.  In particular, a facet
+of one is perpendicular to an extremal ray of the other.
+
+\subsection{The toric cone theorem}
+
+Let \(X_\Sigma\) be an \(n\)-dimensional smooth projective toric
+variety.  A codimension-one cone
+\[
+\tau\in\Sigma(n-1)
+\]
+is traditionally called a \emph{wall of the fan}.  The orbit--cone
+correspondence gives
+\[
+C_\tau:=V(\tau),
+\qquad
+\dim C_\tau=n-(n-1)=1,
+\]
+so every fan wall produces a complete torus-invariant curve.
+
+These finitely many curves generate every numerical curve class that
+is effective.
+
+\begin{theorem}[The toric cone theorem]
+\label{thm:toric-cone-theorem}
+For a smooth projective toric variety \(X_\Sigma\),
+\[
+\boxed{
+\overline{\NE}(X_\Sigma)
+=
+\sum_{\tau\in\Sigma(n-1)}
+\RR_{\geq0}[V(\tau)].}
+\]
+Consequently \(\overline{\NE}(X_\Sigma)\) and
+\(\Nef(X_\Sigma)\) are dual strongly convex rational polyhedral
+cones of full dimension.  Every extremal ray is generated by the
+class of a torus-invariant curve.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The generation statement is Cox--Little--Schenck,
+Theorem~6.3.20, and the projective duality statement is
+Theorem~6.3.22.  Those results hold under weaker hypotheses than the
+smooth projective case used here.
+
+The theorem is the curve-side counterpart of a fact already used
+throughout the notes: a toric divisor is nef if and only if its support
+function is convex.  Convexity can be tested across the codimension-one
+walls of the fan, and crossing such a wall measures the intersection
+number with \(V(\tau)\).  Thus
+\[
+D\cdot V(\tau)\geq0
+\quad\text{for every }\tau\in\Sigma(n-1)
+\quad\Longleftrightarrow\quad
+D\text{ is nef}.
+\]
+Dualizing these finitely many inequalities gives the displayed
+description of the Mori cone.
+
+Two cautions are useful.
+First, every extremal ray is generated by an invariant curve, but an
+arbitrary invariant curve need not generate an extremal ray.  Several
+invariant curves may also be numerically equivalent and hence
+determine the same ray.  Second, the word ``wall'' now occurs in three
+closely related places.
+
+\begin{agcheatsheet}
+Keep the three walls distinct.
+\[
+\begin{array}{c|c|c}
+\textbf{wall}&\textbf{where it lives}&\textbf{what it determines}
+\\
+\hline
+\tau\in\Sigma(n-1)
+&\text{the fan in }N_\RR
+&\text{the invariant curve }V(\tau)
+\\
+\text{facet of }\Nef(X)
+&N^1(X)_\RR
+&\text{an extremal ray of }\overline{\NE}(X)
+\\
+\text{wall of }\Sigma_{\mathrm{GKZ}}
+&\text{character space}
+&\text{a limiting GIT quotient.}
+\end{array}
+\]
+For a Cox chamber with all rays present, the last two walls are the
+same wall under the identification of that chamber with the nef cone.
+The first wall supplies an invariant curve representing the dual
+extremal ray.
+\end{agcheatsheet}
+
+\subsection{Wall relations compute curve classes}
+
+The class \([V(\tau)]\) can be read from one local relation among ray
+generators.  Let
+\[
+\tau=\Cone{u_2,\dots,u_n}
+\]
+be a wall of a smooth complete fan, and write the two adjacent maximal
+cones as
+\[
+\sigma=\Cone{u_1,u_2,\dots,u_n},
+\qquad
+\sigma'=\Cone{u_2,\dots,u_n,u_{n+1}}.
+\]
+Smoothness gives a unique integral relation of the form
+\[
+\boxed{
+u_1+b_2u_2+\cdots+b_nu_n+u_{n+1}=0,}
+\qquad b_i\in\ZZ.
+\]
+This is the \emph{wall relation} of \(\tau\).
+
+\begin{proposition}[The wall relation as an intersection vector]
+\label{prop:wall-relation-intersections}
+Let \(C_\tau=V(\tau)\), and let \(D_i\) be the invariant divisor
+corresponding to the ray through \(u_i\).  Then
+\[
+D_1\cdot C_\tau=D_{n+1}\cdot C_\tau=1,
+\qquad
+D_i\cdot C_\tau=b_i
+\quad(2\leq i\leq n),
+\]
+and every other invariant divisor has intersection zero with
+\(C_\tau\).  Hence, for
+\(D=\sum_\rho a_\rho D_\rho\),
+\[
+\boxed{
+D\cdot C_\tau
+=
+a_1+b_2a_2+\cdots+b_na_n+a_{n+1}.}
+\]
+\end{proposition}
+
+\begin{proof}[Why this formula is natural]
+Intersecting a principal divisor with \(C_\tau\) gives zero.  Thus for
+every \(m\in M\),
+\[
+0
+=
+\operatorname{div}(\chi^m)\cdot C_\tau
+=
+\sum_\rho
+\langle m,u_\rho\rangle(D_\rho\cdot C_\tau).
+\]
+Equivalently,
+\[
+\sum_\rho(D_\rho\cdot C_\tau)u_\rho=0
+\]
+in \(N\).  The orbit--cone correspondence shows that only the rays in
+\(\sigma\cup\sigma'\) can contribute.  Moreover, \(D_1\) and
+\(D_{n+1}\) meet \(C_\tau\) transversely at its two torus-fixed
+points, so both intersections are one.  The unique wall relation then
+forces all the remaining coefficients.
+\end{proof}
+
+\noindent
+\textit{Reference.}
+This is the smooth case of Cox--Little--Schenck,
+Proposition~6.4.4; their formula includes the cone multiplicities
+needed in the simplicial singular case.  The interpretation of a
+numerical curve class as a relation among ray generators is
+Equation~(15.1.4).
+
+For a surface, this recovers a familiar calculation.  If the rays are
+cyclically ordered and
+\[
+u_{i-1}+u_{i+1}=a_i u_i,
+\]
+then the wall relation for the invariant curve \(D_i\) is
+\[
+u_{i-1}-a_i u_i+u_{i+1}=0.
+\]
+Proposition~\ref{prop:wall-relation-intersections} therefore gives
+\[
+D_i^2=-a_i.
+\]
+The surface self-intersection formula from Chapter~8 is thus the
+two-dimensional instance of the general wall-relation calculation.
+
+\subsection{A nef facet produces an extremal contraction}
+
+Let \(R\subseteq\overline{\NE}(X)\) be an extremal ray.  Its dual
+facet is
+\[
+F_R
+=
+\{\alpha\in\Nef(X):\alpha\cdot\gamma=0
+  \text{ for every }\gamma\in R\}.
+\]
+Choose a rational divisor class \([D]\) in the relative interior of
+\(F_R\), and replace it by a positive integral multiple.  Since \(D\)
+is nef and toric, it is basepoint free.  Its section ring therefore
+defines a morphism
+\[
+\varphi_D:X
+\longrightarrow
+X_D
+:=
+\Proj\!\left(
+\bigoplus_{k\geq0}H^0(X,\mathcal O_X(kD))
+\right).
+\]
+
+\begin{theorem}[Toric extremal contraction]
+\label{thm:toric-extremal-contraction}
+Let \(X_\Sigma\) be a smooth projective toric variety and let
+\(R\subseteq\overline{\NE}(X_\Sigma)\) be an extremal ray.  There is a
+projective toric morphism with connected fibers
+\[
+\varphi_R:X_\Sigma\longrightarrow X_0
+\]
+such that, for every irreducible curve \(C\subseteq X_\Sigma\),
+\[
+\boxed{
+\varphi_R(C)\text{ is a point}
+\quad\Longleftrightarrow\quad
+[C]\in R.}
+\]
+The morphism may be obtained from any integral nef class in the
+relative interior of the dual facet \(F_R\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the projective smooth case of Cox--Little--Schenck,
+Proposition~15.4.1, which treats simplicial semiprojective toric
+varieties.  The equivalence ``nef = basepoint free'' is
+Theorem~6.3.12.
+
+Here is the mechanism.  The morphism associated to a basepoint-free
+toric divisor factors \(D\), up to linear equivalence, as
+\[
+D\sim\varphi_D^*A
+\]
+for an ample divisor \(A\) on the image.  Therefore
+\[
+D\cdot C=0
+\quad\Longleftrightarrow\quad
+\varphi_D(C)\text{ is a point}.
+\]
+Because \([D]\) lies in the relative interior of \(F_R\), the only
+effective classes on which it vanishes are those in \(R\).  This proves
+the numerical characterization of the contracted curves.
+
+The same statement can be seen directly in the fan and polytope.  The
+normal fan of \(P_D\) is obtained by joining adjacent maximal cones
+whose Cartier data agree.  Across a fan wall
+\(\tau=\sigma\cap\sigma'\),
+\[
+m_\sigma=m_{\sigma'}
+\quad\Longleftrightarrow\quad
+D\cdot V(\tau)=0.
+\]
+Joining those cones makes \(V(\tau)\) invisible to the resulting
+toric morphism.  This is exactly the fan map constructed by the
+extremal contraction theorem.
+
+More generally, if \([D]\) lies in the relative interior of a
+lower-dimensional face \(F\subseteq\Nef(X)\), then it contracts the
+entire dual face
+\[
+F^\perp\cap\overline{\NE}(X).
+\]
+An \emph{elementary} contraction is the special case in which \(F\)
+is a facet and the dual face is one extremal ray.
+
+\subsection{Surface laboratory: the dual cones of
+\texorpdfstring{\(\mathbb F_1\)}{F1}}
+
+We can now recover both morphisms from Section~10.3 by one two-by-two
+intersection calculation.  Write
+\[
+\mathbb F_1=\Bl_p(\PP^2),
+\qquad
+E^2=-1,
+\qquad
+H^2=1,
+\qquad
+H\cdot E=0,
+\]
+and let
+\[
+F=H-E
+\]
+be the class of a fiber of the ruling.  To keep the two numerical
+spaces visually distinct, write
+\[
+e=[E]\in N_1(\mathbb F_1)_\RR,
+\qquad
+f=[F]\in N_1(\mathbb F_1)_\RR
+\]
+for the curve classes, while \(H,F\in N^1(\mathbb F_1)_\RR\) denote
+divisor classes.  Their pairing is
+\[
+\begin{array}{c|cc}
+&e=[E]&f=[F]
+\\
+\hline
+H&0&1
+\\
+F=H-E&1&0.
+\end{array}
+\]
+
+Every effective curve class is a nonnegative combination of \(e\) and
+\(f\), so
+\[
+\boxed{
+\overline{\NE}(\mathbb F_1)
+=
+\Cone{e,f}.}
+\]
+Indeed, if \(D=\alpha H+\beta F\), then the table gives
+\[
+D\cdot E=\beta,
+\qquad
+D\cdot F=\alpha.
+\]
+Hence
+\[
+\boxed{
+\Nef(\mathbb F_1)
+=
+\Cone{H,F},}
+\]
+and \(D\) is ample exactly when \(\alpha,\beta>0\).
+
+The two boundary rays of the nef cone are perpendicular to the two
+extremal rays of the Mori cone:
+\[
+\begin{array}{c|c|c|c}
+\textbf{nef facet}
+&\textbf{vanishing}
+&\textbf{dual extremal ray}
+&\textbf{contraction}
+\\
+\hline
+\RR_{\geq0}H
+&H\cdot E=0
+&\RR_{\geq0}e
+&\mathbb F_1\to\PP^2
+\\
+\RR_{\geq0}F
+&F\cdot F=0
+&\RR_{\geq0}f
+&\mathbb F_1\to\PP^1.
+\end{array}
+\]
+Thus the blowdown and the ruling are not two unrelated constructions.
+They are the extremal contractions belonging to the two edges of one
+nef cone.
+
+This also clarifies their different geometric types.  The ray
+\(\RR_{\geq0}e\) contains the class of a single irreducible curve,
+the exceptional section \(E\); contracting it is divisorial.  The ray
+\(\RR_{\geq0}f\) contains the class of every fiber in a moving family
+covering \(\mathbb F_1\); contracting all of them lowers dimension and
+is of fiber type.
+
+\begin{surfacelaboratory}
+The same computation works for every Hirzebruch surface.  If \(S\) is
+the section with \(S^2=-r\) and \(F\) is a fiber, then
+\[
+\overline{\NE}(\mathbb F_r)=\Cone{[S],[F]},
+\qquad
+\Nef(\mathbb F_r)=\Cone{F,S+rF}.
+\]
+Indeed, for \(D=aS+bF\),
+\[
+D\cdot F=a,
+\qquad
+D\cdot S=b-ar.
+\]
+The two inequalities \(a\geq0\) and \(b-ar\geq0\) cut out the nef
+cone.  When \(r=1\), the class \(S+F=H\) gives the blowdown.  When
+\(r>1\), the same nef boundary contracts the negative section to a
+singular torus-fixed point rather than to a smooth point.
+\end{surfacelaboratory}
+
+\subsection{The conifold relation revisited}
+
+The square example from Section~10.3 shows the same dictionary in
+dimension three.  On the side using the diagonal \(24\), the two
+maximal cones meet along
+\[
+\tau=\Cone{\nu_2,\nu_4},
+\]
+and the wall relation is
+\[
+\nu_1-\nu_2+\nu_3-\nu_4=0.
+\]
+For the exceptional curve \(C=V(\tau)\simeq\PP^1\),
+Proposition~\ref{prop:wall-relation-intersections} gives
+\[
+(D_1\cdot C,D_2\cdot C,D_3\cdot C,D_4\cdot C)
+=(1,-1,1,-1).
+\]
+The curve space is one-dimensional, so
+\[
+\overline{\NE}(X_+)=\RR_{\geq0}[C].
+\]
+Moving the linearization to the origin reaches the unique nef wall and
+contracts precisely this ray, producing the quadric cone
+\(Y=V(ad-bc)\).
+
+The wall relation also detects crepancy without using the normal bundle.
+Since
+\[
+K_{X_+}=-D_1-D_2-D_3-D_4,
+\]
+we obtain
+\[
+K_{X_+}\cdot C
+=
+-(1-1+1-1)
+=0.
+\]
+On the other resolution the relation, and hence the curve class, is
+reversed.  The canonical degree is still zero.  This is the numerical
+reason that the wall crossing is a flop.
+
+\subsection{Nef chambers inside the secondary fan}
+
+We can now close the circle begun in Section~10.2.  For a simplicial
+semiprojective toric quotient in which every Cox coordinate remains
+present, the corresponding GKZ cone is naturally identified with the
+nef cone of the quotient:
+\[
+\boxed{
+\Gamma_{\Sigma,\varnothing}
+\simeq
+\Nef(X_\Sigma).}
+\]
+This is Cox--Little--Schenck, Proposition~15.1.3.  Under this
+identification, the three constructions from this chapter line up:
+\[
+\begin{array}{c|c|c}
+\textbf{secondary fan}
+&\textbf{divisors and curves}
+&\textbf{geometry}
+\\
+\hline
+\text{chamber for }X_\Sigma
+&\Nef(X_\Sigma)
+&\text{one polarized toric model}
+\\
+\text{facet of the chamber}
+&R^\perp\cap\Nef(X_\Sigma)
+&\text{extremal contraction of }R
+\\
+\text{neighboring chamber}
+&\text{nef cone of the next model}
+&\text{flip or another birational model.}
+\end{array}
+\]
+
+This also explains the subtlety noticed for \(\mathbb F_1\) in
+Section~10.2.  Its chamber \(\Cone{F,H}\) is exactly
+\(\Nef(\mathbb F_1)\).  Across the \(H\)-wall, the coordinate \(v_0\)
+is forced to be nonzero and its ray disappears.  The adjacent
+two-dimensional GKZ chamber therefore contains an extra GIT direction;
+after removing that redundant direction, the quotient \(\PP^2\) has
+the expected one-dimensional nef cone.
+
+\begin{pauseandthink}
+Suppose \(K_X\) is not nef.  By duality there is an extremal ray
+\(R\subseteq\overline{\NE}(X)\) with
+\[
+K_X\cdot R<0.
+\]
+Theorem~\ref{thm:toric-extremal-contraction} now supplies a canonical
+next geometric move: contract \(R\), and flip if the contraction is
+small.  Repeating this choice is the minimal model program.  What does
+this algorithm look like as a path through the secondary fan, and
+where can it end for a projective toric variety?  Section~10.5 will
+assemble the final picture.
+\end{pauseandthink}
+
+\section{The toric minimal model program}
+\label{sec:toric-mmp}
+\index{minimal model program!toric}
+\index{Mori fiber space}
+\index{termination!toric flips}
+\index{canonical divisor!MMP direction}
+
+We now have all of the ingredients promised at the beginning of the
+chapter.  A Cox character chooses a GIT quotient, the secondary fan
+organizes those quotients into chambers, a chamber is the nef cone of
+one model, and a facet of that nef cone is dual to an extremal ray of
+curves.  The minimal model program adds one final instruction:
+\emph{among all extremal rays, move only in a direction on which the
+canonical divisor is negative.}
+
+We begin with a smooth projective toric variety, but we must immediately
+allow a slightly larger class of spaces.  A divisorial contraction or a
+flip can create singularities even when the starting variety is smooth.
+The natural setting is therefore a projective \(\QQ\)-factorial toric
+variety with terminal singularities.  For a toric variety,
+\(\QQ\)-factoriality is equivalent to the fan being simplicial.
+
+\begin{guidingquestion}
+How does the sign of \(K_X\cdot R\) orient the wall crossings in the
+secondary fan, why must the resulting process stop, and what geometric
+object is left at the end?
+\end{guidingquestion}
+
+\subsection{The algorithm: contract, flip, or stop}
+
+Let \(X\) be a projective \(\QQ\)-factorial toric variety with terminal
+singularities.  If \(K_X\) is not nef, the toric cone theorem supplies
+an extremal ray
+\[
+R\subseteq\overline{\NE}(X)
+\qquad\text{with}\qquad
+K_X\cdot R<0.
+\]
+The contraction theorem then gives a projective toric morphism with
+connected fibers
+\[
+\varphi_R:X\longrightarrow Y
+\]
+that contracts exactly the curves whose classes lie in \(R\).  There
+are three possibilities.
+
+\begin{enumerate}
+\item If \(\dim Y<\dim X\), then \(\varphi_R\) is of \emph{fiber type}.
+The process stops.
+
+\item If \(\varphi_R\) is birational and contracts a divisor, replace
+\(X\) by \(Y\) and continue.  This is a \emph{divisorial step}.
+
+\item If \(\varphi_R\) is birational but contracts no divisor, then it
+is small.  Replace \(X\) by the other side of the toric flip
+\[
+\begin{tikzcd}[column sep=huge]
+X \arrow[dr,"\varphi_R"']
+  \arrow[rr,dashed,"\psi"]
+&& X^+ \arrow[dl,"\varphi_R^+"]
+\\
+&Y.&
+\end{tikzcd}
+\]
+and continue on \(X^+\).
+\end{enumerate}
+
+In the last case the contracted curve class changes sign.  More
+precisely, if \(R^+\) is the extremal ray of \(X^+\) contracted by
+\(\varphi_R^+\), then
+\[
+K_X\cdot R<0
+\qquad\Longrightarrow\qquad
+K_{X^+}\cdot R^+>0.
+\]
+Thus a flip does not merely replace one triangulation by another: it
+turns a \(K\)-negative direction into a \(K\)-positive direction.
+
+\begin{definition}[Mori fiber space]
+A \emph{Mori fiber space} is a contraction
+\[
+f:X\longrightarrow Z
+\]
+with connected fibers such that
+\[
+\dim Z<\dim X,
+\qquad
+\rho(X)-\rho(Z)=1,
+\qquad
+-K_X\text{ is }f\text{-ample}.
+\]
+For a \(K_X\)-negative extremal contraction of fiber type, these
+conditions are automatic.
+\end{definition}
+
+If instead the process reaches a model \(X'\) for which \(K_{X'}\) is
+nef, then \(X'\) is called a \emph{minimal model}.  The general MMP has
+these two possible outcomes: a minimal model or a Mori fiber space.
+For projective toric varieties, however, there is a stronger conclusion.
+
+\begin{theorem}[The projective toric \(K\)-MMP]
+\label{thm:projective-toric-mmp}
+Starting from a positive-dimensional projective \(\QQ\)-factorial toric
+variety with terminal singularities, any sequence of \(K\)-negative
+divisorial contractions and flips terminates after finitely many steps
+in a Mori fiber space.
+\end{theorem}
+
+\begin{proof}[Why the two assertions hold]
+First, a positive-dimensional projective toric variety cannot have nef
+canonical divisor.  If \(A\) is ample and
+\(K_X=-\sum_{\rho}D_\rho\), then
+\[
+K_X\cdot A^{n-1}
+=
+-\sum_\rho D_\rho\cdot A^{n-1}<0,
+\]
+because every invariant prime divisor has positive intersection with
+\(A^{n-1}\).  Hence the algorithm cannot end with \(K_X\) nef; when it
+stops, it must stop at a fiber-type contraction.
+
+It remains to know that it stops.  Every divisorial step decreases the
+Picard number by one, so only finitely many divisorial steps can occur.
+Between them, flips preserve the set of rays of the fan, and there are
+only finitely many fans built from a fixed finite ray set.  Finiteness
+alone does not exclude a cycle, but \(K\)-negativity does.  On a common
+toric refinement of a \(K\)-negative flip, the pullbacks of the two
+canonical divisors differ by a nonzero effective exceptional divisor.
+Going around a cycle would therefore say that one fixed pullback of
+\(K\) equals itself plus a nonzero effective divisor, which is
+impossible.  Thus there is no infinite sequence of flips.
+\end{proof}
+
+\noindent
+\textit{Reference.}
+The toric procedure is Cox--Little--Schenck,
+Procedure~15.5.5.  Proposition~15.5.3 shows that \(K\)-negative
+divisorial contractions and flips preserve terminal singularities, and
+Theorem~15.5.10 proves termination of toric flips.  Their results are
+stated in the more general semiprojective and relative setting.
+
+\subsection{The MMP as a directed path through the secondary fan}
+
+The algorithm has a particularly concrete GIT interpretation.  Let
+\(A\) be an ample divisor on the current model and consider the segment
+in divisor-class space
+\[
+\theta(t)=(1-t)[A]+t[K_X],
+\qquad 0\leq t\leq1.
+\]
+It begins in the interior of \(\Nef(X)\).  Suppose it first reaches the
+boundary at \(t=t_0\), on the facet dual to an extremal ray \(R\).  Then
+\[
+0=\theta(t_0)\cdot R
+=(1-t_0)A\cdot R+t_0K_X\cdot R,
+\]
+and therefore
+\[
+\boxed{
+K_X\cdot R
+=
+-\frac{1-t_0}{t_0}\,A\cdot R<0.}
+\]
+So moving from an ample class toward the canonical class automatically
+selects a \(K\)-negative wall.
+
+What happens at that wall is exactly the trichotomy from
+Section~\ref{sec:crossing-wall}.
+
+\begin{agcheatsheet}
+\textbf{The toric MMP in the secondary fan.}
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.23\linewidth}
+  >{\raggedright\arraybackslash}p{0.28\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{wall reached}
+&\textbf{fan / GIT change}
+&\textbf{MMP instruction}
+\\
+\midrule
+flipping wall
+&replace one circuit triangulation by the other
+&cross to the adjacent nef chamber and continue
+\\
+divisorial wall
+&delete the ray of the exceptional divisor
+&lower the Picard number, then rebuild the chamber picture
+\\
+boundary of the effective region
+&the quotient becomes degenerate in one direction
+&take the fiber-type contraction and stop.
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{agcheatsheet}
+
+The word \emph{directed} is essential.  VGIT allows us to cross a wall
+in either direction.  The \(K\)-MMP allows only the direction for which
+the curves being removed have negative canonical degree.  It is this
+numerical sign that turns the secondary fan from a catalogue of models
+into an algorithm.
+
+\subsection{A complete run on \texorpdfstring{\(\mathbb F_1\)}{F1}}
+
+Return one last time to
+\[
+\mathbb F_1=\Bl_p(\PP^2).
+\]
+Use the curve classes
+\[
+e=[E],
+\qquad
+f=[F],
+\qquad
+\overline{\NE}(\mathbb F_1)=\Cone{e,f}
+\]
+from Section~\ref{sec:extremal-rays-contractions}.  Since
+\[
+K_{\mathbb F_1}=-3H+E=-2E-3F,
+\]
+we obtain
+\[
+K_{\mathbb F_1}\cdot E=-1,
+\qquad
+K_{\mathbb F_1}\cdot F=-2.
+\]
+Both extremal rays are \(K\)-negative, so the first MMP step is not
+unique.
+
+\[
+\begin{tikzcd}[column sep=huge,row sep=large]
+&\mathbb F_1
+  \arrow[dl,"\text{contract }E"']
+  \arrow[dr,"\text{ruling}"]
+&
+\\
+\PP^2 \arrow[d,"\text{to a point}"']
+&&\PP^1
+\\
+\{\mathrm{pt}\}&&
+\end{tikzcd}
+\]
+
+On the left branch, contracting \(e\) is the divisorial blowdown
+\[
+\mathbb F_1\longrightarrow\PP^2.
+\]
+The Mori cone of \(\PP^2\) has one ray, generated by the class \(\ell\)
+of a line, and
+\[
+K_{\PP^2}\cdot\ell=-3.
+\]
+Its extremal contraction is \(\PP^2\to\{\mathrm{pt}\}\), a Mori fiber
+space.
+
+On the right branch, choosing \(f\) gives the ruling immediately:
+\[
+\mathbb F_1\longrightarrow\PP^1.
+\]
+This is already a Mori fiber space, since its relative Picard number is
+one and
+\[
+-K_{\mathbb F_1}\cdot F=2>0.
+\]
+Thus one starting variety can have more than one valid MMP.  The two
+runs even end over bases of different dimensions.  The algorithm is
+finite and tightly constrained, but it is not canonical until the
+extremal ray is chosen.
+
+\begin{surfacelaboratory}
+The same calculation for \(\mathbb F_r\) exposes an important warning.
+If \(S^2=-r\) and \(F\) is a fiber, then
+\[
+K_{\mathbb F_r}=-2S-(r+2)F,
+\]
+so
+\[
+K_{\mathbb F_r}\cdot S=r-2,
+\qquad
+K_{\mathbb F_r}\cdot F=-2.
+\]
+Hence
+\[
+\begin{array}{c|c|c|c}
+r&K\cdot S&K\cdot F&\text{allowed first \(K\)-MMP step}
+\\
+\hline
+0&-2&-2&\text{either ruling}
+\\
+1&-1&-2&\text{blow down \(S\), or take the ruling}
+\\
+2&0&-2&\text{the ruling only}
+\\
+r\geq3&r-2>0&-2&\text{the ruling only.}
+\end{array}
+\]
+For \(r\geq2\), the negative section still spans an extremal ray of the
+Mori cone, but that ray is not \(K\)-negative.  In particular, on
+\(\mathbb F_2\) its contraction is \(K\)-trivial, not a step of the
+ordinary \(K\)-MMP.  A curve having negative self-intersection is not
+the same thing as its ray being \(K\)-negative.
+\end{surfacelaboratory}
+
+\subsection{Flips are directed; flops are not MMP steps}
+
+The sign test can also be read directly from a wall relation.  Suppose
+an invariant curve \(C\) is represented by
+\[
+\sum_i b_i u_i=0
+\]
+and the coefficients \(b_i\) are its intersections with the
+corresponding invariant divisors.  Since
+\(K_X=-\sum_iD_i\),
+\[
+\boxed{
+K_X\cdot C=-\sum_i b_i.}
+\]
+Thus the circuit itself tells us whether the associated wall crossing
+is permitted by the \(K\)-MMP:
+\[
+\sum_i b_i>0
+\quad\Longleftrightarrow\quad
+K_X\cdot C<0.
+\]
+If the contraction is small, crossing the wall reverses the circuit
+class.  The new exceptional curves consequently have positive
+canonical degree, which records the direction of the flip.
+
+Now compare the conifold wall from Sections~\ref{sec:crossing-wall}
+and~\ref{sec:extremal-rays-contractions}.  Its relation is
+\[
+\nu_1-\nu_2+\nu_3-\nu_4=0.
+\]
+The coefficient sum is zero, and hence
+\[
+K_X\cdot C=-(1-1+1-1)=0.
+\]
+The two small resolutions are related by a \emph{flop}, not by a
+\(K\)-negative flip.  VGIT sees the two neighboring chambers perfectly
+well, but the ordinary \(K\)-MMP does not prefer either direction.
+Flops belong to the comparison of minimal models, where the canonical
+class is numerically unchanged; they are adjacent to the MMP story,
+but they are not descent steps in the ordinary \(K\)-MMP.
+
+\subsection{The chapter's final dictionary}
+
+We can now read one geometric move in every language developed in the
+notes.  Begin with a toric variety \(X_\Sigma\) and a \(K\)-negative
+extremal ray \(R\).  Then
+\[
+\boxed{
+\begin{aligned}
+\text{fan:}\quad
+&\text{a wall relation represents }R,
+\\
+\text{intersection theory:}\quad
+&K_X\cdot R<0,
+\\
+\text{nef--Mori duality:}\quad
+&R^\perp\cap\Nef(X)\text{ is a facet},
+\\
+\text{Cox/GIT:}\quad
+&\text{the corresponding character reaches a wall},
+\\
+\text{secondary fan:}\quad
+&\text{cross, delete a ray, or reach the boundary},
+\\
+\text{birational geometry:}\quad
+&\text{flip, contract a divisor, or form a Mori fiber space.}
+\end{aligned}}
+\]
+
+This is the promised finale.  The Cox quotient from Chapter~6 did not
+merely construct one toric variety.  Once its character is allowed to
+move, it organizes a finite birational world:
+\[
+\boxed{
+\text{Cox quotient}
+\longrightarrow
+\text{secondary fan}
+\longrightarrow
+\text{wall crossing}
+\longrightarrow
+\text{toric MMP}.}
+\]
+
+\begin{pauseandthink}
+The two runs from \(\mathbb F_1\) show exactly where choice enters the
+MMP: both rays \(e\) and \(f\) are \(K\)-negative, and the canonical
+class does not choose between them.  What the theory guarantees is not
+a unique path, but a legal move at every stage and finite termination.
+
+To test whether you now own the full dictionary, start with a wall
+relation, compute its canonical degree, identify the dual nef facet,
+and predict whether the corresponding GIT wall gives a divisorial
+contraction, a flip, a flop, or a Mori fiber space.  The concluding
+exercises will ask you to carry out precisely this chain without being
+told which language to begin in.
+\end{pauseandthink}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+The chapter began by returning to the Cox construction and changing
+only one ingredient.  We fixed an affine space with a diagonal torus
+action, but allowed the character
+\[
+\theta\in\Hom(G,\Gm)_\RR
+\]
+to move.  The basic calculation was the weight-cone criterion
+\[
+\boxed{
+z\text{ is }\theta\text{-semistable}
+\quad\Longleftrightarrow\quad
+\theta\in
+\Cone{w_i:z_i\neq0}.}
+\]
+It turns semistability into convex geometry: a point survives exactly
+when the weights of its nonzero coordinates can support the chosen
+character.  For an ample Cox character this recovers the usual Cox
+open set, while other characters may produce different toric
+quotients from the same polynomial ring and the same group action.
+
+The regions on which the semistable locus remains constant assemble
+into the secondary, or GKZ, fan.  Its support is the effective weight
+cone, its maximal cones are GIT chambers, and its faces record limiting
+quotients.  Gale duality translates this chamber structure into
+regular subdivisions of a ray or point configuration.  In the
+affine-hyperplane setting, the same incidence data are encoded dually
+by the secondary polytope:
+\[
+\boxed{
+\begin{gathered}
+\text{GIT chamber}
+\longleftrightarrow
+\text{regular triangulation}
+\longleftrightarrow
+\text{vertex of }P_{\mathrm{GKZ}},
+\\
+\text{GIT wall}
+\longleftrightarrow
+\text{coarser regular subdivision}
+\longleftrightarrow
+\text{edge or higher face of }P_{\mathrm{GKZ}}.
+\end{gathered}}
+\]
+
+Crossing a wall put geometry back into this combinatorics.  A
+fiber-type wall lowers the dimension of the quotient; a divisorial
+wall removes a ray and contracts an invariant divisor; a small wall
+keeps the rays and changes how they are assembled into cones.  In the
+last case the two neighboring models are related by a flip, or by a
+flop when the contracted curves have canonical degree zero.  The two
+boundary rays of \(\Nef(\mathbb F_1)\) displayed the fiber-type and
+divisorial possibilities, while the two resolutions of the conifold
+displayed the first genuinely three-dimensional flop.
+
+The numerical meaning of a wall came from nef--Mori duality:
+\[
+\boxed{
+\Nef(X)=\overline{\NE}(X)^\vee.}
+\]
+For a projective toric variety, invariant curves generate the Mori
+cone.  A fan wall gives such a curve, its wall relation gives the
+intersection vector of that curve, and the perpendicular nef facet
+gives the morphism that contracts it.  Thus the three different walls
+used in the chapter---a codimension-one cone of the fan, a facet of the
+nef cone, and a wall of the GKZ fan---are three appearances of one
+numerical contraction.
+
+Finally, the canonical class oriented the chamber picture.  If a wall
+relation represents an invariant curve \(C\), then
+\[
+K_X\cdot C=-\sum_i(D_i\cdot C).
+\]
+The toric \(K\)-MMP repeatedly chooses a ray on which this number is
+negative and then contracts it, flips it, or stops at a Mori fiber
+space.  Divisorial steps decrease the Picard number, flips cannot cycle,
+and the process terminates.  Moreover, a positive-dimensional
+projective toric variety cannot have nef canonical divisor, so the
+absolute toric \(K\)-MMP ends with a Mori fiber space.  In the language
+of this chapter, it is a directed path through finitely many chambers.
+
+The exercises first test each part of this dictionary separately.  The
+challenge then asks you to reconstruct an entire toric flip from a
+single one-dimensional weight matrix.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let \(\Gm\) act on \(\AAA^3\) with coordinates \((x_0,x_1,y)\)
+and weights
+\[
+1,\qquad1,\qquad-1.
+\]
+Use the weight-cone criterion to determine the semistable loci for
+characters \(\theta>0\) and \(\theta<0\).  Show that the corresponding
+quotients are
+\[
+\operatorname{Tot}\bigl(\mathcal O_{\PP^1}(-1)\bigr)
+\qquad\text{and}\qquad
+\AAA^2,
+\]
+respectively.  Compute the invariant ring at \(\theta=0\), identify
+the wall quotient with \(\AAA^2\), and explain why the wall morphism
+from the positive chamber contracts the zero section of
+\(\mathcal O_{\PP^1}(-1)\).
+
+\item Return to the Cox weights of \(\mathbb F_1\),
+\[
+F,\qquad S,\qquad F,\qquad F+S.
+\]
+Starting only from these four weights, use the weight-cone criterion
+to recover the two chambers
+\[
+a>b>0,
+\qquad
+b>a>0
+\]
+for \(\theta=aF+bS\).  Determine which coordinate patterns are
+unstable in each chamber.  Then explain why the first quotient is
+\(\mathbb F_1\), the second is \(\PP^2\), and the common wall gives
+the blowdown of the exceptional curve.
+
+\item For the square configuration
+\[
+(0,0),\quad(1,0),\quad(1,1),\quad(0,1),
+\]
+write down its two triangulations.  Compute the GKZ vector of each
+triangulation using normalized lattice area, and verify that their
+convex hull is a segment.  Show directly that the normal fan of this
+segment has two chambers separated by one wall.  Which subdivision of
+the square corresponds to the wall itself?
+
+\item Consider the two circuit relations
+\[
+u_1+u_3=u_2+u_4
+\qquad\text{and}\qquad
+u_1+u_2+u_3=u_4+u_5.
+\]
+Regard their coefficients as intersection vectors of contracted
+curves.  Compute \(K_X\cdot C\) in each case.  Explain why the first
+relation is compatible with a flop, whereas the second has a preferred
+\(K\)-MMP direction.  What additional geometric information is needed
+to decide whether the second contraction is divisorial or small?
+
+\item Let \(X=\PP^1\times\PP^1\), with ruling curve classes
+\(f_1,f_2\) and divisor classes \(H_1,H_2\).  Use
+\[
+H_i\cdot f_j=\delta_{ij}
+\]
+to prove
+\[
+\overline{\NE}(X)=\Cone{f_1,f_2},
+\qquad
+\Nef(X)=\Cone{H_1,H_2}.
+\]
+Identify the extremal contraction determined by each nef boundary
+ray.  Since \(K_X=-2H_1-2H_2\), show that either contraction is a
+valid first and final step of the \(K\)-MMP.
+
+\item Use the standard fan of \(\PP^3\), whose rays are generated by
+\[
+e_1,\quad e_2,\quad e_3,\quad-e_1-e_2-e_3.
+\]
+Take the fan wall \(\tau=\Cone{e_1,e_2}\).  Write the wall relation
+using the two adjacent rays, and use it to compute the intersections
+of the invariant curve \(C_\tau\) with all four invariant divisors.
+Deduce
+\[
+-K_{\PP^3}\cdot C_\tau=4.
+\]
+Identify \(C_\tau\) geometrically and reconcile the answer with
+\(-K_{\PP^3}=4H\).
+
+\item On the Hirzebruch surface \(\mathbb F_r\), let \(S^2=-r\) and
+let \(F\) be a ruling fiber.  Starting from
+\[
+K_{\mathbb F_r}=-2S-(r+2)F,
+\]
+determine which extremal rays are \(K\)-negative for every
+\(r\geq0\).  Run every possible ordinary \(K\)-MMP beginning at
+\(\mathbb F_0\), \(\mathbb F_1\), and \(\mathbb F_2\).  Explain why
+the contraction of the negative section on \(\mathbb F_2\) belongs to
+the VGIT picture but not to the ordinary \(K\)-MMP.
+
+\item Let \(X\) be a positive-dimensional projective toric variety
+and let \(A\) be ample.  Use
+\[
+K_X=-\sum_{\rho}D_\rho
+\]
+to show
+\[
+K_X\cdot A^{n-1}<0.
+\]
+Why does this rule out \(K_X\) being nef?  Explain why an absolute
+toric \(K\)-MMP can therefore terminate only with a fiber-type
+contraction.  Finally, explain which part of the argument would have
+to change for a relative MMP over a nontrivial base.
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Build a toric flip from one line of weights.}
+
+\medskip
+
+Let \(G=\Gm\) act on
+\[
+\AAA^5=\Spec\CC[x_0,x_1,x_2,y_0,y_1]
+\]
+by
+\[
+\lambda\cdot(x_0,x_1,x_2,y_0,y_1)
+=
+(\lambda x_0,\lambda x_1,\lambda x_2,
+ \lambda^{-1}y_0,\lambda^{-1}y_1).
+\]
+Thus the weight matrix is the single row
+\[
+Q=\begin{pmatrix}1&1&1&-1&-1\end{pmatrix}.
+\]
+There are two nonzero chambers in
+\(\Hom(G,\Gm)_\RR\simeq\RR\).  The goal is to reconstruct the two
+quotients, their common wall contraction, and the direction of the
+resulting flip using only this row of weights.
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{Find the two semistable loci.}
+
+Apply the weight-cone criterion.  Prove that for \(\theta>0\),
+\[
+U_+
+=
+\{(x,y):(x_0,x_1,x_2)\neq(0,0,0)\},
+\]
+whereas for \(\theta<0\),
+\[
+U_-
+=
+\{(x,y):(y_0,y_1)\neq(0,0)\}.
+\]
+Draw the one-dimensional GKZ fan: two rays separated by the wall
+\(\theta=0\).  Which coordinate subspace is removed in each chamber?
+
+\item \textbf{Identify the chamber quotients.}
+
+For \(\theta>0\), the nonzero vector
+\(x=(x_0,x_1,x_2)\) determines a point of \(\PP^2\).  Check from the
+\(G\)-action that each \(y_j\) is a fiber coordinate of
+\(\mathcal O_{\PP^2}(-1)\).  Deduce
+\[
+\boxed{
+X_+:=U_+/G
+\simeq
+\operatorname{Tot}\!\left(
+\mathcal O_{\PP^2}(-1)^{\oplus2}\right).}
+\]
+Reverse the roles of \(x\) and \(y\) to prove
+\[
+\boxed{
+X_-:=U_-/G
+\simeq
+\operatorname{Tot}\!\left(
+\mathcal O_{\PP^1}(-1)^{\oplus3}\right).}
+\]
+In particular, both quotients are smooth fourfolds.
+
+\item \textbf{Compute the wall quotient.}
+
+At \(\theta=0\), the quotient is affine:
+\[
+X_0=\Spec\CC[x_0,x_1,x_2,y_0,y_1]^G.
+\]
+Show that the invariant ring is generated by the six quadratic
+monomials
+\[
+z_{ij}=x_i y_j,
+\qquad
+0\leq i\leq2,
+\quad
+0\leq j\leq1.
+\]
+Arrange them in a \(3\times2\) matrix \(Z=(z_{ij})\).  Prove that the
+relations are the \(2\times2\) minors of \(Z\), and conclude
+\[
+\boxed{
+X_0
+=
+\{Z\in\operatorname{Mat}_{3\times2}(\CC):
+  \rank(Z)\leq1\}.}
+\]
+Equivalently, \(X_0\) is the affine cone over the Segre embedding
+\(\PP^2\times\PP^1\subset\PP^5\).
+
+\item \textbf{Find the exceptional loci.}
+
+The invariant functions define morphisms
+\[
+\begin{tikzcd}[column sep=huge]
+X_+ \arrow[dr,"\pi_+"']
+&&
+X_- \arrow[dl,"\pi_-"]
+\\
+&X_0.&
+\end{tikzcd}
+\]
+Show that \(\pi_+\) contracts the zero section
+\(E_+\simeq\PP^2\) to the vertex of the cone and that \(\pi_-\)
+contracts the zero section \(E_-\simeq\PP^1\).  Prove that each map is
+an isomorphism away from its zero section.  Since
+\[
+\codim_{X_+}(E_+)=2,
+\qquad
+\codim_{X_-}(E_-)=3,
+\]
+deduce that both contractions are small.  Thus the induced map
+\[
+X_+\dashrightarrow X_-
+\]
+is an elementary toric flip in one of its two orientations.
+
+\item \textbf{Let the canonical class choose the orientation.}
+
+For a vector bundle \(p:E\to B\), use the tangent sequence of its
+total space to prove
+\[
+K_{\operatorname{Tot}(E)}
+\simeq
+p^*\!\left(K_B\otimes(\det E)^{-1}\right).
+\]
+Apply this formula to the two chamber quotients.  On \(X_+\), show
+\[
+K_{X_+}|_{E_+}
+\simeq
+\mathcal O_{\PP^2}(-1),
+\]
+so \(K_{X_+}\cdot L=-1\) for a line
+\(L\subset E_+\).  On \(X_-\), show
+\[
+K_{X_-}|_{E_-}
+\simeq
+\mathcal O_{\PP^1}(1),
+\]
+so \(K_{X_-}\cdot E_-=1\).  Conclude that
+\[
+\boxed{
+X_+\dashrightarrow X_-
+\text{ is directed from the \(K\)-negative side to the
+\(K\)-positive side}.}
+\]
+
+\item \textbf{Recover the sign from the circuit.}
+
+Let \(u_0,\ldots,u_4\) be the images of the standard basis of
+\(\ZZ^5\) in the quotient lattice determined by \(Q\).  Show that the
+unique circuit relation is
+\[
+u_0+u_1+u_2-u_3-u_4=0.
+\]
+Its coefficient sum is \(1\).  Use the wall-relation formula from
+Section~10.4 to recover
+\[
+K_{X_+}\cdot L=-1.
+\]
+Explain how the two subdivisions of this circuit keep the same rays
+but assemble them into different maximal cones, exactly as required
+for a small wall crossing.
+
+\item \textbf{Compare a flip with a flop.}
+
+Replace the weights by
+\[
+(1,1,-1,-1).
+\]
+Repeat the canonical-class calculation, or simply use the coefficient
+sum of the circuit relation, to show that the two chamber quotients
+are \(K\)-trivial over their common affine quotient.  Recover the
+resolved-conifold flop from Section~10.3.  Which single numerical
+feature of the weight row distinguishes the flop from the flip above?
+
+\item \textbf{Read the whole construction in six languages.}
+
+Summarize the example by completing the following chain without
+looking back at the preceding hints:
+\[
+\boxed{
+\begin{gathered}
+\text{weight row}
+\longrightarrow
+\text{semistable loci}
+\longrightarrow
+\text{two GKZ chambers}
+\\[-1mm]
+\longrightarrow
+\text{two circuit subdivisions}
+\longrightarrow
+\text{small contractions}
+\longrightarrow
+\text{\(K\)-directed flip}.
+\end{gathered}}
+\]
+At which arrow is convex geometry used?  Where does invariant theory
+enter?  Where is the orbit--cone dictionary hiding?  Which calculation
+turns an undirected VGIT wall crossing into an MMP step?
+
+\end{enumerate}
+
+\begin{threedictionaries}
+The entire flip can be recovered from the row
+\(Q=(1,1,1,-1,-1)\).
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Weights / fan}
+&\textbf{GIT quotient}
+&\textbf{Birational geometry}
+\\
+\midrule
+positive chamber
+&\(\operatorname{Tot}(\mathcal O_{\PP^2}(-1)^{\oplus2})\)
+&small \(K\)-negative contraction
+\\
+wall
+&cone over \(\PP^2\times\PP^1\)
+&common contraction target
+\\
+negative chamber
+&\(\operatorname{Tot}(\mathcal O_{\PP^1}(-1)^{\oplus3})\)
+&flipped, \(K\)-positive model
+\\
+coefficient sum \(1\)
+&unbalanced circuit
+&flip rather than flop
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+This example contains the whole chapter in miniature.  A grading
+produces a torus action; a character selects an open set; the chambers
+organize the possible quotients; a circuit describes the wall; and
+one canonical intersection number directs the birational move.
+
+\clearpage
+\section*{A final perspective}
+\addcontentsline{toc}{section}{A final perspective}
+\markboth{A final perspective}{A final perspective}
+
+These notes began with a strongly convex rational polyhedral cone.
+From its lattice points we built a semigroup algebra and an affine
+toric variety.  Gluing cones into a fan produced global varieties;
+support functions and polytopes produced divisors, line bundles, and
+projective embeddings; Cox coordinates replaced gluing by one
+multigraded quotient.  The compact torus then turned the polytope into
+an orbit space, the fan became a cohomology ring, and localization and
+Riemann--Roch turned characteristic classes into lattice-point counts.
+In this final chapter, varying the Cox character made the same data
+move through an entire birational world.
+
+The progression can be compressed into one last diagram:
+\[
+\boxed{
+\begin{gathered}
+\text{cone and semigroup}
+\longrightarrow
+\text{affine toric variety},
+\\
+\text{fan and support function}
+\longrightarrow
+\text{global variety and line bundle},
+\\
+\text{polytope and Cox grading}
+\longrightarrow
+\text{sections, topology, and quotients},
+\\
+\text{moving character}
+\longrightarrow
+\text{secondary fan and toric MMP}.
+\end{gathered}}
+\]
+
+What makes toric geometry unusually coherent is not merely that its
+objects admit pictures.  It is that the same finite combinatorial data
+can be read, without loss, in several mathematical languages.  A ray
+may be a divisor, a Cox variable, or a facet normal.  A wall may be an
+invariant curve, a nef equation, or a change of quotient.  A lattice
+point may be a character, a monomial section, or a contribution to an
+index.  Moving between these descriptions is the central skill the
+book has tried to develop.
+
+Toric varieties are therefore both a testing ground and a source of
+models.  They make singularities, resolutions, positivity,
+cohomology, localization, and the minimal model program explicit
+enough to compute, while retaining the structure of the general
+theories they illuminate.  The combinatorics does not replace the
+geometry.  It reveals how the geometry is organized.
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The GIT construction used in Section~10.1 is developed in
+Cox--Little--Schenck, \S14.1.  Proposition~14.1.9 identifies the
+semistable locus of an ample Cox character with the usual Cox open
+set.  Definition~14.1.11 and Proposition~14.1.12 give the
+section-ring construction of the GIT quotient; the weight-cone test
+used throughout the chapter is its direct monomial specialization,
+proved in Section~10.1.
+
+The GKZ decomposition of the effective cone is treated in
+Cox--Little--Schenck, \S14.4; Theorem~14.4.7 states that the GKZ cones
+form a fan and that the quotient is constant on the relative interior
+of each cone.  Regular triangulations and the secondary polytope are
+developed in their \S15.2.  We used Definition~15.2.8 and
+Proposition~15.2.9 for the passage between chambers and regular
+triangulations, and Proposition~15.2.11 together with
+Corollary~15.2.12 for the secondary polytope and its vertices.
+
+Our wall-crossing discussion follows Cox--Little--Schenck, \S15.3 and
+\S15.4.  Theorem~15.3.13 describes the birational maps attached to a
+flipping wall, Proposition~15.4.5 gives the fiber-type, divisorial, and
+small trichotomy, and Proposition~15.4.1 constructs the contraction
+dual to a nef facet.  The resolved conifold is the basic balanced
+circuit: its two triangulations give small crepant resolutions, so the
+wall crossing is a flop.
+
+The numerical input comes from the toric intersection theory of
+Cox--Little--Schenck, Chapter~6.  Theorems~6.3.20 and~6.3.22 give the
+generation of the Mori cone by invariant curves and its duality with
+the nef cone.  Proposition~6.4.4 computes the intersection vector of
+an invariant curve from its wall relation, and Theorem~6.3.12 supplies
+the crucial toric fact that nef divisors are basepoint free.
+
+The toric MMP appears in Cox--Little--Schenck, \S15.5.
+Procedure~15.5.5 gives the algorithm, Proposition~15.5.3 records
+preservation of terminal singularities under the relevant divisorial
+contractions and flips, and Theorem~15.5.10 proves termination of
+toric flips.  Our treatment concentrated on the absolute projective
+case; the same combinatorics also works in relative and
+semiprojective settings.
+
+The final challenge is the standard unbalanced circuit with weight row
+\((1,1,1,-1,-1)\).  Its wall quotient is the determinantal cone of
+rank-at-most-one \(3\times2\) matrices.  The two small resolutions have
+exceptional loci \(\PP^2\) and \(\PP^1\), and the unequal numbers of
+positive and negative weights make the canonical degree nonzero.  The
+balanced row \((1,1,-1,-1)\) instead gives the conifold flop.
+
+The notes have emphasized a single habit of thought: whenever a toric
+calculation appears in one language, look for its counterparts in the
+lattice, fan, polytope, divisor, Cox, topological, and birational
+languages.  That dictionary is more durable than any isolated formula,
+and it is the real conclusion of the book.

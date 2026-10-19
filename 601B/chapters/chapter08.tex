@@ -1,0 +1,2702 @@
+\chapter{Moment Polytopes and Topology}
+\label{chap:moment-polytopes-topology}
+
+\begin{chapteroverview}
+Until now, a lattice polytope has played several algebraic and
+combinatorial roles. Its lattice points indexed global sections, its
+normal fan constructed a projective toric variety, and its edges and
+area encoded intersection numbers on surfaces.
+
+Over \(\CC\), the same polytope acquires a new meaning: it is the image
+of a continuous map from the toric variety itself. The mechanism begins
+with the compact torus
+\[
+K_N\simeq(S^1)^n\subseteq T_N\simeq(\CC^*)^n.
+\]
+The compact torus changes the phases of monomial coordinates but not
+their absolute values. Normalized coordinate magnitudes therefore give
+convex coefficients, and the lattice weights of the coordinates combine
+to produce a point of the polytope.
+
+This chapter develops the progression
+\[
+\boxed{
+\begin{gathered}
+\text{moment map}
+\longrightarrow
+\text{polytope as orbit space}
+\longrightarrow
+\text{cells and Betti numbers}
+\\[-1mm]
+\longrightarrow
+\text{the cohomology ring from the fan}.
+\end{gathered}}
+\]
+Throughout the chapter, we set \(\Bbbk=\CC\) and use the classical
+topology.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The topology of a projective toric variety is governed by the same
+weights that defined its projective coordinates.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry and topology}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+monomial coordinates \(\character{m_i}\)
+&
+projective toric embedding
+&
+lattice weights \(m_i\in M\)
+\\
+coordinate phases
+&
+compact-torus orbits
+&
+directions that disappear under \(\mu\)
+\\
+normalized values \(\lvert z_i\rvert^2\)
+&
+moment map
+&
+convex coefficients
+\\
+torus-invariant divisors
+&
+degree-two cohomology classes
+&
+rays and Stanley--Reisner relations
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+For a projective toric surface, the moment image is a polygon. Over an
+interior point sits a two-dimensional compact torus; over an edge, one
+circle direction has collapsed; over a vertex, the entire compact torus
+has collapsed to a fixed point.
+
+A toric blowup cuts a corner from the moment polygon. Later in the
+chapter, the same corner cut will produce one new two-dimensional
+cohomology class and change the intersection form by adjoining an
+exceptional class of square \(-1\).
+\end{surfacelaboratory}
+
+\section{Compact torus actions and the moment map}
+\label{sec:compact-torus-moment-map}
+\index{compact torus}
+\index{moment map}
+\index{moment polytope}
+
+Throughout this chapter, we work over
+\[
+\Bbbk=\CC
+\]
+and use the classical topology on complex varieties. This change of
+field matters: an element of \(\CC^*\) has both a positive size and a
+phase, and the phase directions form a compact torus.
+
+\subsection{The compact torus inside the algebraic torus}
+
+Recall that
+\[
+T_N=\Hom_{\ZZ}(M,\CC^*).
+\]
+Let
+\[
+S^1=\{z\in\CC:\lvert z\rvert=1\}.
+\]
+The \emph{compact torus} associated to \(N\) is
+\[
+K_N:=\Hom_{\ZZ}(M,S^1)\subseteq T_N.
+\]
+After choosing a basis of \(M\), these groups become
+\[
+T_N\simeq(\CC^*)^n,
+\qquad
+K_N\simeq(S^1)^n.
+\]
+
+Every nonzero complex number has a unique polar decomposition
+\[
+z=\lvert z\rvert\frac{z}{\lvert z\rvert}.
+\]
+Taking the logarithm of its positive factor gives
+\[
+\CC^*\simeq\RR\times S^1,
+\qquad
+z\longmapsto
+\left(\log\lvert z\rvert,\frac{z}{\lvert z\rvert}\right).
+\]
+Applying \(\Hom_{\ZZ}(M,-)\) yields the intrinsic toric version.
+
+\begin{proposition}[Radial and angular directions]
+\label{prop:radial-angular-directions}
+There is an isomorphism of real Lie groups
+\[
+\boxed{T_N\simeq N_{\RR}\times K_N.}
+\]
+The first factor records absolute values of characters, while the second
+records their phases.
+\end{proposition}
+
+\begin{proof}
+For \(t\in T_N\), define
+\[
+\nu_t:M\longrightarrow\RR,
+\qquad
+m\longmapsto\log\lvert\character{m}(t)\rvert.
+\]
+Because absolute value turns products into products and logarithms turn
+products into sums, \(\nu_t\) is a homomorphism. Hence
+\[
+\nu_t\in\Hom_{\ZZ}(M,\RR)=N_{\RR}.
+\]
+The phase
+\[
+m\longmapsto
+\frac{\character{m}(t)}{\lvert\character{m}(t)\rvert}
+\]
+is an element of \(K_N\). These two assignments are inverse to the map
+obtained by multiplying radial and angular characters.
+\end{proof}
+
+\begin{observation}
+No background in Lie groups is needed here. The proposition is simply
+the coordinatewise statement
+\[
+(\CC^*)^n
+\simeq
+(\RR_{>0})^n\times(S^1)^n
+\simeq
+\RR^n\times(S^1)^n.
+\]
+The noncompact factor \(N_{\RR}\) moves toward and away from the toric
+boundary. The compact factor \(K_N\) rotates without changing any
+absolute value.
+\end{observation}
+
+\begin{pauseandthink}
+Let \(k\in K_N\). Why does
+\[
+\lvert\character{m}(k)\rvert=1
+\]
+for every \(m\in M\)? Explain why a formula involving only absolute
+values of projective coordinates should be constant on \(K_N\)-orbits.
+\end{pauseandthink}
+
+\subsection{A projective toric variety with weighted coordinates}
+
+Let
+\[
+A=\{m_0,\dots,m_r\}\subseteq M
+\]
+be a finite set of lattice points. As in Section~5.2,
+it defines a monomial map
+\[
+\varphi_A:T_N\longrightarrow\PP^r,
+\qquad
+t\longmapsto
+[\character{m_0}(t):\cdots:\character{m_r}(t)].
+\]
+Write
+\[
+X_A:=\overline{\varphi_A(T_N)}\subseteq\PP^r.
+\]
+The coordinates carry the weights \(m_0,\dots,m_r\). Accordingly,
+\(K_N\) acts on \(\PP^r\) by
+\[
+k\cdot[z_0:\cdots:z_r]
+=
+[\character{m_0}(k)z_0:\cdots:\character{m_r}(k)z_r].
+\]
+Since every factor \(\character{m_i}(k)\) has absolute value one, the
+action changes phases but not coordinate magnitudes.
+
+This suggests discarding the phases and retaining only the relative
+sizes
+\[
+\lvert z_0\rvert^2,\dots,\lvert z_r\rvert^2.
+\]
+Once normalized by their sum, these become coefficients of a convex
+combination of the weights \(m_i\).
+
+\begin{definition}[Projective moment map]
+\label{def:projective-moment-map}
+The \emph{moment map} associated to \(A\) is
+\[
+\mu_A:X_A\longrightarrow M_{\RR},
+\qquad
+\boxed{
+\mu_A([z_0:\cdots:z_r])
+=
+\frac{\sum_{i=0}^r\lvert z_i\rvert^2m_i}
+     {\sum_{i=0}^r\lvert z_i\rvert^2}.}
+\]
+\end{definition}
+
+\begin{proposition}[The first properties of the moment map]
+\label{prop:first-moment-map-properties}
+The map \(\mu_A\) is well defined, continuous, and invariant under the
+action of \(K_N\). Moreover,
+\[
+\mu_A(X_A)\subseteq\Conv(A).
+\]
+\end{proposition}
+
+\begin{proof}
+Multiplying all homogeneous coordinates by \(c\in\CC^*\) multiplies
+both the numerator and denominator by \(\lvert c\rvert^2\), so the
+quotient is unchanged. Thus the formula is well defined on projective
+space.
+
+For \(k\in K_N\),
+\[
+\lvert\character{m_i}(k)z_i\rvert^2=\lvert z_i\rvert^2,
+\]
+which proves invariance. Continuity is immediate. Finally, the numbers
+\[
+p_i=\frac{\lvert z_i\rvert^2}{\sum_j\lvert z_j\rvert^2}
+\]
+are nonnegative and satisfy \(\sum_i p_i=1\). Hence
+\[
+\mu_A([z])=\sum_i p_i m_i
+\]
+is a convex combination of the lattice points in \(A\).
+\end{proof}
+
+The important surprise is that the inclusion in
+\cref{prop:first-moment-map-properties} is an equality. Although
+\(X_A\) occupies only a small part of \(\PP^r\), it contains exactly
+the right points to fill the entire convex hull of its weights.
+
+For a projective toric variety \(X_P\), its \emph{positive real part}
+\((X_P)_{\geq0}\) is the closure of the points of the dense torus on
+which every character takes a positive real value. It is a concrete
+slice transverse to the compact-torus orbits.
+
+\begin{theorem}[The moment image is the polytope]
+\label{thm:moment-image-is-polytope}
+Let \(P\subseteq M_{\RR}\) be a full-dimensional lattice polytope, and
+assume the lattice points
+\[
+P\cap M=\{m_0,\dots,m_r\}
+\]
+define a projective embedding
+\[
+X_P\hookrightarrow\PP^r.
+\]
+Then the associated moment map satisfies
+\[
+\boxed{\mu_P(X_P)=P.}
+\]
+More precisely, \(\mu_P\) maps the positive real part of \(X_P\)
+homeomorphically onto \(P\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+Cox--Little--Schenck, Theorem~12.2.5 proves the homeomorphism for the
+algebraic moment map. Formula~(12.2.4) gives the squared-norm moment map
+used here, and Exercise~12.2.8 establishes the same conclusion for this
+version.
+
+\begin{proof}[Conceptual proof sketch]
+On the positive real part of the dense torus, write a point as
+\(\exp(u)\) with \(u\in N_{\RR}\). Then
+\[
+\lvert\character{m_i}(\exp(u))\rvert^2
+=
+\exp(2\langle m_i,u\rangle),
+\]
+so
+\[
+\mu_P(u)
+=
+\frac{\sum_i e^{2\langle m_i,u\rangle}m_i}
+     {\sum_i e^{2\langle m_i,u\rangle}}.
+\]
+This is the gradient, up to a factor of two, of the strictly convex
+function
+\[
+F(u)=\log\left(\sum_i e^{2\langle m_i,u\rangle}\right).
+\]
+Strict convexity makes the gradient injective. Convex duality shows
+that its image is the interior of \(P\).
+
+As \(u\) tends to infinity in a chosen direction, the exponential
+weights concentrate on the face where the corresponding linear
+functional is largest. Thus boundary directions in the torus land on
+faces of \(P\), and taking the closure fills all of \(P\).
+\end{proof}
+
+\begin{center}
+\fbox{\parbox{0.84\linewidth}{\centering
+The moment map converts \emph{relative coordinate magnitudes} into
+\emph{barycentric coordinates in a lattice polytope}.}}
+\end{center}
+
+\subsection{The interval inside \texorpdfstring{\(\PP^1\)}{P1}}
+
+\begin{example}[The moment map of \(\PP^1\)]
+\label{ex:moment-map-projective-line}
+Take
+\[
+A=\{0,1\}\subseteq\ZZ.
+\]
+Then \(X_A=\PP^1\), and
+\[
+\mu([z_0:z_1])
+=
+\frac{\lvert z_1\rvert^2}
+     {\lvert z_0\rvert^2+\lvert z_1\rvert^2}
+\in[0,1].
+\]
+Every \(s\in[0,1]\) occurs: one may take
+\[
+[z_0:z_1]=[\sqrt{1-s}:\sqrt{s}].
+\]
+The two endpoints come from the fixed points
+\[
+[1:0]
+\qquad\text{and}\qquad
+[0:1].
+\]
+All other values retain one circle of phase information.
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % The sphere model of P^1.
+  \begin{scope}[xshift=-3.7cm]
+    \node[font=\bfseries] at (0,2.2) {\(\PP^1\simeq S^2\)};
+    \draw[thick] (0,0) circle (1.45);
+    \draw[black!45] (-1.45,0) arc[start angle=180,end angle=360,
+      x radius=1.45,y radius=0.36];
+    \draw[black!30,dashed] (1.45,0) arc[start angle=0,end angle=180,
+      x radius=1.45,y radius=0.36];
+    \draw[black!35] (-1.19,0.82) arc[start angle=180,end angle=360,
+      x radius=1.19,y radius=0.24];
+    \draw[black!25,dashed] (1.19,0.82) arc[start angle=0,end angle=180,
+      x radius=1.19,y radius=0.24];
+    \draw[black!35] (-1.19,-0.82) arc[start angle=180,end angle=360,
+      x radius=1.19,y radius=0.24];
+    \draw[black!25,dashed] (1.19,-0.82) arc[start angle=0,end angle=180,
+      x radius=1.19,y radius=0.24];
+    \fill (0,1.45) circle (2pt);
+    \fill (0,-1.45) circle (2pt);
+    \node[align=center] at (0,-2.08)
+      {latitude circles are\\\(S^1\)-orbits};
+  \end{scope}
+
+  % Arrow.
+  \draw[-{Latex[length=3mm]},very thick,DictionaryBlue]
+    (-1.35,0)--(1.35,0) node[midway,above] {\(\mu\)};
+
+  % The moment interval.
+  \begin{scope}[xshift=3.7cm]
+    \node[font=\bfseries] at (0,2.2) {moment interval};
+    \draw[very thick,DictionaryBlue] (0,-1.45)--(0,1.45);
+    \foreach \y in {-1.45,-0.72,0,0.72,1.45}
+      \fill[DictionaryBlue] (0,\y) circle (2.1pt);
+    \node[right] at (0,1.45) {\(1\)};
+    \node[right] at (0,-1.45) {\(0\)};
+    \node[align=center] at (0,-2.08)
+      {endpoints are fixed;\\interior fibers are circles};
+  \end{scope}
+\end{tikzpicture}
+\caption{The moment map collapses each circle orbit in \(\PP^1\) to
+one point of the interval. Section~8.2 will show
+that this behavior is the model for every projective toric variety.}
+\label{fig:moment-map-projective-line}
+\end{figure}
+
+\subsection{Triangles, rectangles, and corner cuts}
+
+\begin{example}[The triangle of \(\PP^2\)]
+\label{ex:moment-triangle-projective-plane}
+For
+\[
+A=\{0,e_1,e_2\},
+\]
+the moment map is
+\[
+\mu([z_0:z_1:z_2])
+=
+\frac{\lvert z_1\rvert^2}{S}e_1
++
+\frac{\lvert z_2\rvert^2}{S}e_2,
+\qquad
+S=\lvert z_0\rvert^2+\lvert z_1\rvert^2+\lvert z_2\rvert^2.
+\]
+Thus its two coordinates are nonnegative and have sum at most one.
+The image is the standard triangle
+\[
+\Delta_2=\Conv(0,e_1,e_2).
+\]
+Conversely, a point \((a,b)\in\Delta_2\) is the image of
+\[
+[\sqrt{1-a-b}:\sqrt a:\sqrt b].
+\]
+So here the theorem is visible directly from barycentric coordinates.
+\end{example}
+
+\begin{example}[The rectangle of \(\PP^1\times\PP^1\)]
+\label{ex:moment-rectangle-product-lines}
+For the line bundle \(\cO(1,1)\), the moment map can be written without
+using Segre coordinates:
+\[
+\mu([x_0:x_1],[y_0:y_1])
+=
+\left(
+\frac{\lvert x_1\rvert^2}{\lvert x_0\rvert^2+\lvert x_1\rvert^2},
+\frac{\lvert y_1\rvert^2}{\lvert y_0\rvert^2+\lvert y_1\rvert^2}
+\right).
+\]
+Its image is the square \([0,1]^2\). More generally,
+\(\cO(a,b)\) gives a rectangle with side lengths \(a\) and \(b\).
+\end{example}
+
+\begin{example}[A blowup becomes a corner cut]
+\label{ex:moment-polygon-blowup-projective-plane}
+On
+\[
+X=\Bl_p(\PP^2),
+\]
+the divisor \(2H-E\) has section polytope
+\[
+P_{2H-E}
+=
+\{(a,b)\in\RR^2:a,b\geq0,\ 1\leq a+b\leq2\}.
+\]
+Its five lattice points give an embedding into \(\PP^4\), and
+\cref{thm:moment-image-is-polytope} says that the moment image is
+exactly this truncated triangle. The exceptional divisor is visible
+as the new edge created by cutting off the corner of the triangle for
+\(2H\).
+\end{example}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.88]
+  % P^2.
+  \begin{scope}[xshift=-4.6cm]
+    \node[font=\bfseries] at (1.15,2.55) {\(\PP^2\)};
+    \fill[DictionaryBlue!12] (0,0)--(2.1,0)--(0,2.1)--cycle;
+    \draw[polytope,DictionaryBlue] (0,0)--(2.1,0)--(0,2.1)--cycle;
+    \draw[->,black!35] (-0.22,0)--(2.55,0);
+    \draw[->,black!35] (0,-0.22)--(0,2.55);
+    \foreach \p in {(0,0),(2.1,0),(0,2.1)}
+      \fill \p circle (2.1pt);
+    \node at (1.05,-0.55) {triangle};
+  \end{scope}
+
+  % P^1 x P^1.
+  \begin{scope}[xshift=0cm]
+    \node[font=\bfseries] at (1.05,2.55) {\(\PP^1\times\PP^1\)};
+    \fill[PredictionTeal!12] (0,0) rectangle (2.1,2.1);
+    \draw[polytope,PredictionTeal] (0,0) rectangle (2.1,2.1);
+    \draw[->,black!35] (-0.22,0)--(2.55,0);
+    \draw[->,black!35] (0,-0.22)--(0,2.55);
+    \foreach \p in {(0,0),(2.1,0),(0,2.1),(2.1,2.1)}
+      \fill \p circle (2.1pt);
+    \node at (1.05,-0.55) {rectangle};
+  \end{scope}
+
+  % Blowup.
+  \begin{scope}[xshift=4.6cm]
+    \node[font=\bfseries] at (1.15,2.55) {\(\Bl_p(\PP^2)\)};
+    \fill[SurfaceGreen!12]
+      (0,0.63)--(0.63,0)--(2.1,0)--(0,2.1)--cycle;
+    \draw[polytope,SurfaceGreen]
+      (0,0.63)--(0.63,0)--(2.1,0)--(0,2.1)--cycle;
+    \draw[WarningRed,dashed] (0,0)--(0,0.63);
+    \draw[WarningRed,dashed] (0,0)--(0.63,0);
+    \draw[->,black!35] (-0.22,0)--(2.55,0);
+    \draw[->,black!35] (0,-0.22)--(0,2.55);
+    \foreach \p in {(0,0.63),(0.63,0),(2.1,0),(0,2.1)}
+      \fill \p circle (2.1pt);
+    \node[rotate=-45,SurfaceGreen,font=\small] at (0.52,0.52)
+      {new edge};
+    \node at (1.05,-0.55) {corner-cut polygon};
+  \end{scope}
+\end{tikzpicture}
+\caption{Moment images of three projective toric surfaces. The same
+polygons previously indexed sections and determined normal fans; over
+\(\CC\), they are also the actual images of continuous maps from the
+varieties.}
+\label{fig:moment-images-toric-surfaces}
+\end{figure}
+
+\begin{observation}[Dependence on the chosen line bundle]
+\label{obs:moment-map-depends-on-polarization}
+The moment polytope belongs to a polarized toric variety, not merely to
+the underlying variety. Translating every weight by \(m_0\in M\)
+changes the moment map by
+\[
+\mu_{A+m_0}=\mu_A+m_0,
+\]
+while replacing a line bundle by its \(d\)-th tensor power dilates the
+polytope:
+\[
+P\longmapsto dP.
+\]
+Thus the precise position and scale of the moment image depend on the
+chosen projective embedding. Its normal fan, and hence the underlying
+toric variety when the divisor is ample, does not change.
+\end{observation}
+
+\begin{observation}[Why symplectic geometers call this a moment map]
+\label{obs:symplectic-moment-map}
+The Fubini--Study form on projective space makes the compact torus
+action Hamiltonian, and the formula in
+\cref{def:projective-moment-map} is its symplectic moment map. We will
+not need the general language of symplectic forms or Hamiltonian vector
+fields. For us, the important facts are the explicit weighted-average
+formula, its invariance under \(K_N\), and its polytope image.
+\end{observation}
+
+\clearpage
+\subsection{What information has the map forgotten?}
+
+Because \(\mu_P\) is constant on compact-torus orbits, it factors
+through the quotient map:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_P \arrow[r,"\mu_P"] \arrow[d,two heads]
+  & P \\
+X_P/K_N \arrow[ur,dashed,"\overline{\mu}_P"'] & {}
+\end{tikzcd}
+\]
+The map \(\overline{\mu}_P\) is surjective by
+\cref{thm:moment-image-is-polytope}. What remains unclear is whether
+it is injective. The examples suggest that the only information
+forgotten by \(\mu_P\) is phase information, but the number of surviving
+phases changes along the boundary of \(P\).
+
+\begin{prediction}
+The map \(\mu_P\) is constant on every \(K_N\)-orbit. In the examples,
+its fibers seem to change dimension as the image point moves from the
+interior of \(P\) to an edge and then to a vertex. For a point in the
+relative interior of a codimension-\(k\) face, which \(k\) circle
+directions should collapse? Formulate a prediction for the dimension
+of the compact-torus orbit in that fiber.
+\end{prediction}
+
+\begin{guidingquestion}
+Does the moment map identify \emph{exactly} the points lying in the same
+compact-torus orbit? Equivalently, is the quotient space
+\[
+X_P/K_N
+\]
+actually homeomorphic to the polytope \(P\)?
+\end{guidingquestion}
+
+\section{The polytope as an orbit space}
+\label{sec:polytope-orbit-space}
+\index{orbit space!moment polytope}
+\index{moment map!fibers}
+\index{face stratum}
+\index{stabilizer!of a polytope face}
+
+The answer to the question at the end of the previous section is yes.
+The moment map forgets the angular coordinates, but it makes no
+additional identifications: two points have the same moment image
+precisely when they lie in the same compact-torus orbit.
+
+The shape of the fiber is not constant. Over the interior of the
+polytope it is the full compact torus \(K_N\). Each time the image
+reaches a new boundary direction, one or more circle directions become
+stabilizers and disappear from the orbit. Our first task is to match
+those disappearing directions with faces of the polytope.
+
+\subsection{Faces and torus strata}
+
+Let \(P\subseteq M_{\RR}\) be a full-dimensional lattice polytope whose
+lattice points define a projective toric embedding. For a face
+\[
+Q\preceq P,
+\]
+write \(\sigma_Q\) for its normal cone. Recall from Section~5.4 that
+\[
+\dim Q+\dim\sigma_Q=n.
+\]
+Since the fan of \(X_P\) is the normal fan \(\Sigma_P\), the
+orbit--cone correspondence attaches an algebraic torus orbit
+\[
+O_Q:=O(\sigma_Q)\subseteq X_P
+\]
+to the face \(Q\). Its dimension is
+\[
+\dim O_Q
+=n-\dim\sigma_Q
+=\dim Q.
+\]
+Thus the face--orbit correspondence preserves dimension, even though
+the intermediate passage from faces to normal cones reverses it.
+
+In the projective coordinates indexed by \(P\cap M\), the orbit
+\(O_Q\) has a particularly useful description:
+\[
+x=[z_m]_{m\in P\cap M}\in O_Q
+\quad\Longrightarrow\quad
+z_m\neq0
+\ \Longleftrightarrow\ 
+m\in Q\cap M.
+\]
+Coordinates whose weights lie outside \(Q\) vanish, while the
+coordinates indexed by lattice points of \(Q\) remain nonzero. The
+closure
+\[
+X_Q:=\overline{O_Q}
+\]
+is itself the projective toric variety associated to the face \(Q\).
+
+\begin{proposition}[The moment map respects face strata]
+\label{prop:moment-map-respects-face-strata}
+For every face \(Q\preceq P\),
+\[
+\boxed{
+\mu_P(X_Q)=Q,
+\qquad
+\mu_P(O_Q)=\relint(Q).
+}
+\]
+Equivalently,
+\[
+\mu_P^{-1}\bigl(\relint(Q)\bigr)=O_Q.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+The face-by-face argument in Cox--Little--Schenck,
+Theorem~12.2.5 proves the statement for the algebraic moment map;
+Exercise~12.2.8 gives the same result for the squared-norm moment map
+used here.
+
+\begin{proof}[Conceptual proof sketch]
+On \(X_Q\), precisely the coordinates with weights in \(Q\) can be
+nonzero, so the moment-map formula restricts to the moment map for
+\(Q\). Thus \(X_Q\) maps onto \(Q\). On the dense orbit \(O_Q\), every
+one of these coordinates is nonzero, so the resulting convex
+combination cannot lie in a proper face of \(Q\): equality in a
+supporting inequality would force all nonzero weights into that face.
+Hence \(O_Q\) maps onto \(\relint(Q)\), while its smaller
+orbit strata map to the boundary faces.
+\end{proof}
+
+The proposition gives the old orbit--face dictionary a new topological
+column. It also explains why the moment map knows exactly which
+algebraic torus orbit contains a point: one first finds the unique face
+whose relative interior contains its image.
+
+\subsection{The compact stabilizer of a face}
+
+The algebraic orbit \(O_Q\) is a complex torus of dimension \(\dim Q\).
+Its maximal compact subgroup will be the fiber of the moment map over
+\(\relint(Q)\).
+
+To describe it intrinsically, set
+\[
+N_{\sigma_Q}
+=N\cap\Span_{\RR}(\sigma_Q),
+\qquad
+N(\sigma_Q)=N/N_{\sigma_Q}.
+\]
+The character lattice of \(O_Q\) is
+\[
+\sigma_Q^\perp\cap M.
+\]
+Restriction of characters gives a surjective map of compact tori
+\[
+K_N
+\longrightarrow
+K_{N(\sigma_Q)}
+=\Hom_{\ZZ}(\sigma_Q^\perp\cap M,S^1).
+\]
+
+\begin{definition}[Compact stabilizer of a face]
+\label{def:compact-stabilizer-face}
+The \emph{compact stabilizer} associated to \(Q\) is
+\[
+K_Q
+:=
+\left\{
+k\in K_N:
+\character{m}(k)=1
+\text{ for every }m\in\sigma_Q^\perp\cap M
+\right\}.
+\]
+Equivalently, \(K_Q\) is the kernel in the exact sequence
+\[
+1\longrightarrow K_Q
+\longrightarrow K_N
+\longrightarrow K_{N(\sigma_Q)}
+\longrightarrow1.
+\]
+\end{definition}
+
+The lattice \(\sigma_Q^\perp\cap M\) has rank \(\dim Q\). Therefore
+\[
+\boxed{
+K_Q\simeq(S^1)^{\codim Q},
+\qquad
+K_N/K_Q\simeq(S^1)^{\dim Q}.
+}
+\]
+Every point of \(O_Q\) has stabilizer \(K_Q\) under the \(K_N\)-action.
+Indeed, the algebraic torus is abelian, so all points in one algebraic
+orbit have the same stabilizer, and the action on \(O_Q\) factors
+through its compact torus \(K_{N(\sigma_Q)}\).
+
+\noindent
+\textit{Reference.}
+This is the compact-torus form of Cox--Little--Schenck,
+Lemma~3.2.5 and Proposition~12.2.3(b).
+
+For a facet \(F\), the normal cone is the ray generated by its
+primitive inward normal \(u_F\). The subgroup \(K_F\) is the circle
+\[
+S^1\longrightarrow K_N,
+\qquad
+e^{i\theta}\longmapsto\exp(i\theta u_F).
+\]
+This is the precise meaning of the statement that the circle normal
+to a facet collapses along that facet.
+
+\begin{pauseandthink}
+Let \(P\) be a polygon and let \(v\) be a vertex where the two edges
+\(F_1\) and \(F_2\) meet. The stabilizers over the interiors of the
+edges are the circles generated by \(u_{F_1}\) and \(u_{F_2}\).
+
+What is the stabilizer over \(v\)? What dimension should the moment-map
+fiber over \(v\) have?
+\end{pauseandthink}
+
+\subsection{Every fiber is one compact-torus orbit}
+
+We can now state the central result. Its key input is the positive real
+part introduced in Section~8.1. It gives one canonical point over each
+point of \(P\); polar decomposition supplies all remaining points in
+the fiber.
+
+\begin{theorem}[Fibers of the moment map]
+\label{thm:moment-fibers-compact-orbits}
+Let \(p\in P\), and let \(Q\preceq P\) be the unique face satisfying
+\[
+p\in\relint(Q).
+\]
+Then the fiber of the moment map is a single compact-torus orbit:
+\[
+\boxed{
+\mu_P^{-1}(p)=K_N\cdot x_p
+\simeq K_N/K_Q
+\simeq(S^1)^{\dim Q},
+}
+\]
+where \(x_p\) is the unique point of the positive real part mapping to
+\(p\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~12.2.3(b), combined with
+Theorem~12.2.5 and Exercise~12.2.8.
+
+\begin{proof}[Conceptual proof sketch]
+The positive-part homeomorphism supplies the unique point \(x_p\) over
+\(p\) with no angular coordinates. Polar decomposition of
+\(O_Q\simeq(\CC^*)^{\dim Q}\) says that every other point over \(p\)
+is obtained by restoring those angular coordinates, hence lies in
+\(K_N\cdot x_p\). The stabilizer is \(K_Q\), so the fiber is
+\(K_N/K_Q\simeq(S^1)^{\dim Q}\).
+\end{proof}
+
+\begin{corollary}[The polytope is the orbit space]
+\label{cor:polytope-compact-orbit-space}
+The moment map induces a homeomorphism
+\[
+\boxed{
+\overline{\mu}_P:X_P/K_N\xrightarrow{\ \sim\ }P.
+}
+\]
+\end{corollary}
+
+\noindent
+\textit{Reference.}
+Cox--Little--Schenck, Proposition~12.2.3(a) identifies the compact-torus
+quotient with the nonnegative part; Theorem~12.2.5 and
+Exercise~12.2.8 identify that part with \(P\) via the moment map.
+
+\begin{proof}[Conceptual proof sketch]
+The preceding theorem says exactly that the fibers of \(\mu_P\) are
+the \(K_N\)-orbits. Thus \(\mu_P\) induces a continuous bijection
+\(X_P/K_N\to P\), which is a homeomorphism because the source is
+compact and the target is Hausdorff.
+\end{proof}
+
+\begin{threedictionaries}
+For a face \(Q\preceq P\) of codimension \(k\), let
+\(p\in\relint(Q)\). The three versions of the
+orbit--face dictionary are:
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Polytope}
+&
+\textbf{Algebraic geometry}
+&
+\textbf{Compact-torus topology}
+\\
+\midrule
+\(\operatorname{Int}(P)\)
+&
+dense orbit \(T_N\)
+&
+free orbit \(K_N\simeq(S^1)^n\)
+\\[1mm]
+facet \(F\)
+&
+dense orbit in the divisor \(D_F\)
+&
+one circle stabilizer; fiber \((S^1)^{n-1}\)
+\\[1mm]
+codimension-\(k\) face \(Q\)
+&
+codimension-\(k\) orbit closure \(X_Q\)
+&
+\(k\)-torus stabilizer; fiber \((S^1)^{n-k}\)
+\\[1mm]
+vertex \(v\)
+&
+torus-fixed point \(x_v\)
+&
+stabilizer \(K_N\); fiber is one point
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection{A toric surface over its polygon}
+
+When \(\dim X_P=2\), the theorem can be seen at a glance. The compact
+torus is
+\[
+K_N\simeq(S^1)^2.
+\]
+An interior point of the polygon has trivial stabilizer, so its fiber
+is a two-dimensional torus. Along the relative interior of an edge,
+one circle is a stabilizer and the fiber is the other circle. At a
+vertex, both circle directions stabilize the point, so the fiber has
+collapsed completely.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % Interior panel.
+  \begin{scope}[xshift=-4.7cm]
+    \node[font=\bfseries] at (1.35,4.05) {interior};
+    \draw[very thick,DictionaryBlue]
+      (1.35,3.05) ellipse [x radius=0.67,y radius=0.25];
+    \draw[very thick,DictionaryBlue]
+      (1.35,3.05) ellipse [x radius=0.25,y radius=0.67];
+    \node[right,DictionaryBlue] at (2.05,3.05) {\((S^1)^2\)};
+    \draw[-{Latex[length=2.5mm]},thick,black!55]
+      (1.35,2.35)--(1.35,1.65) node[midway,right] {\(\mu\)};
+    \fill[DictionaryBlue!12]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \draw[polytope,DictionaryBlue]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \fill[DictionaryBlue] (1.35,0.82) circle (2.7pt);
+  \end{scope}
+
+  % Edge panel.
+  \begin{scope}[xshift=0cm]
+    \node[font=\bfseries] at (1.35,4.05) {edge};
+    \draw[very thick,ExampleGold]
+      (1.35,3.05) circle (0.53);
+    \node[right,ExampleGold] at (1.98,3.05) {\(S^1\)};
+    \draw[-{Latex[length=2.5mm]},thick,black!55]
+      (1.35,2.35)--(1.35,1.65) node[midway,right] {\(\mu\)};
+    \fill[DictionaryBlue!8]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \draw[polytope,DictionaryBlue]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \fill[ExampleGold] (2.5,0.72) circle (2.7pt);
+  \end{scope}
+
+  % Vertex panel.
+  \begin{scope}[xshift=4.7cm]
+    \node[font=\bfseries] at (1.35,4.05) {vertex};
+    \fill[PausePurple] (1.35,3.05) circle (3.2pt);
+    \node[right,PausePurple] at (1.57,3.05) {point};
+    \draw[-{Latex[length=2.5mm]},thick,black!55]
+      (1.35,2.35)--(1.35,1.65) node[midway,right] {\(\mu\)};
+    \fill[DictionaryBlue!8]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \draw[polytope,DictionaryBlue]
+      (0,0)--(2.7,0)--(2.3,1.45)--(0.45,1.75)--cycle;
+    \fill[PausePurple] (0,0) circle (2.7pt);
+  \end{scope}
+\end{tikzpicture}
+\caption{The moment fibers of a toric surface. Two circle directions
+survive over the polygon interior, one survives over an edge, and none
+survive over a vertex. Thus the boundary records exactly where compact
+torus directions collapse.}
+\label{fig:toric-surface-over-moment-polygon}
+\end{figure}
+
+\begin{example}[Which circles collapse on a rectangle?]
+\label{ex:circle-collapse-product-lines}
+For \(X=\PP^1\times\PP^1\), write
+\[
+K_N=(S^1)_x\times(S^1)_y
+\]
+and use the square moment polytope \([0,1]^2\). The product formula from
+the rectangle example in Section~8.1 gives
+\[
+\mu^{-1}(s,t)
+=
+\mu_{\PP^1}^{-1}(s)\times\mu_{\PP^1}^{-1}(t).
+\]
+Consequently:
+\[
+\begin{array}{c|c|c}
+\textbf{position of }(s,t)
+&
+\textbf{stabilizer}
+&
+\textbf{fiber}
+\\
+\hline
+0<s<1,\ 0<t<1
+&
+\{1\}
+&
+(S^1)_x\times(S^1)_y
+\\
+s\in\{0,1\},\ 0<t<1
+&
+(S^1)_x
+&
+(S^1)_y
+\\
+0<s<1,\ t\in\{0,1\}
+&
+(S^1)_y
+&
+(S^1)_x
+\\
+s,t\in\{0,1\}
+&
+(S^1)_x\times(S^1)_y
+&
+\text{point}
+\end{array}
+\]
+The two vertical sides record the collapse of the \(x\)-circle, and
+the two horizontal sides record the collapse of the \(y\)-circle.
+At a corner both collapses occur simultaneously.
+\end{example}
+
+\subsection{Reconstructing the space from collapsing tori}
+
+Over the interior, the moment map is a genuine product. Indeed, the
+positive real slice and polar decomposition give
+\[
+\mu_P^{-1}(\operatorname{Int}P)
+\simeq
+\operatorname{Int}(P)\times K_N.
+\]
+The boundary prevents this product description from extending
+unchanged to all of \(P\): the subgroup \(K_Q\) must be collapsed over
+\(\relint(Q)\).
+
+This can be packaged as a global topological model. Let
+\[
+s:P\longrightarrow(X_P)_{\geq0}
+\]
+be the inverse of the positive-real-part homeomorphism. For
+\(p\in\relint(Q)\), impose the relation
+\[
+(p,k)\sim(p,k')
+\quad\Longleftrightarrow\quad
+k^{-1}k'\in K_Q.
+\]
+
+\begin{proposition}[The collapsing-torus model]
+\label{prop:collapsing-torus-model}
+The map
+\[
+P\times K_N\longrightarrow X_P,
+\qquad
+(p,k)\longmapsto k\cdot s(p),
+\]
+induces a homeomorphism
+\[
+\boxed{
+X_P\simeq(P\times K_N)/{\sim}.
+}
+\]
+Over \(\relint(Q)\), the relation collapses exactly the
+subtorus \(K_Q\).
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the topological model in Cox--Little--Schenck,
+equation~(12.2.7); its construction is Exercise~12.2.9.
+
+\begin{proof}[Conceptual proof sketch]
+The section \(s\) chooses the positive representative of each orbit,
+and polar decomposition restores an arbitrary angular part
+\(k\in K_N\). Over \(p\in\relint(Q)\), two angular parts
+give the same point precisely when they differ by the stabilizer
+\(K_Q\). This is exactly the relation \(\sim\); compactness then turns
+the resulting continuous bijection into a homeomorphism.
+\end{proof}
+
+This model makes the slogan ``the polytope is the orbit space'' more
+informative. The polytope specifies where the orbits live, while its
+face normals specify which circle subgroups collapse. The total space
+is obtained by starting with a full compact torus above the interior
+and performing the prescribed collapses along the boundary.
+
+\begin{warningbox}
+The homeomorphism
+\[
+X_P/K_N\simeq P
+\]
+does \emph{not} say that \(X_P\) is homeomorphic to \(P\). The left-hand
+side has already collapsed every compact-torus orbit. Nor does the
+underlying topological shape of \(P\) alone remember which circle
+subgroup collapses along each facet; that information comes from the
+lattice normals.
+\end{warningbox}
+
+\subsection{What changes in the singular case?}
+
+Neither Theorem~\ref{thm:moment-fibers-compact-orbits} nor
+Corollary~\ref{cor:polytope-compact-orbit-space} requires \(X_P\) to be smooth.
+For a singular projective toric variety, the orbit space is still the
+polytope, and the fiber over \(\relint(Q)\) is still the
+compact torus \(K_N/K_Q\).
+
+What can fail is the local topology of the total space near a collapsed
+fiber. For example, let \(P\) be a lattice polygon and let \(v\) be a
+vertex. Suppose the normal cone at \(v\) is generated by primitive rays
+\[
+\sigma_v=\Cone{u_1,u_2}.
+\]
+Then
+\[
+d=|\det(u_1,u_2)|
+\]
+measures the local lattice index. If \(d=1\), the affine chart at the
+fixed point is smooth and isomorphic to \(\CC^2\). If \(d>1\), the
+fixed point is a cyclic quotient singularity. In both cases the moment
+fiber over \(v\) is one point, and a neighborhood of \(v\) in the
+orbit space still looks like a corner of a polygon.
+
+Thus the orbit-space theorem records the stratification correctly but
+does not, by itself, guarantee smooth local models. Smoothness requires
+the familiar lattice-basis condition on every maximal cone.
+
+\begin{observation}[A triangle need not mean \(\PP^2\)]
+The moment polytope of a polarized weighted projective plane is also a
+triangle. Over its interior sit two-dimensional compact tori, over its
+edges sit circles, and over its vertices sit fixed points, exactly as
+for \(\PP^2\). A non-unimodular normal cone at one vertex nevertheless
+produces a quotient singularity there. The integral geometry of the
+triangle, not its shape as an unlabelled disk, detects the difference.
+\end{observation}
+
+\begin{prediction}
+Choose a generic vector \(u\in N_{\RR}\) and use it to define the height
+function
+\[
+h_u(m)=\langle m,u\rangle
+\]
+on \(P\). Orient every edge in the direction of increasing height.
+
+At a vertex \(v\), the fiber has collapsed to a fixed point \(x_v\).
+How might the one-parameter subgroup determined by \(u\) use the
+oriented edges at \(v\) to select a whole region of \(X_P\) flowing
+toward \(x_v\)? What should the dimension of that region be?
+\end{prediction}
+
+\begin{guidingquestion}
+Can a generic height function decompose a smooth projective toric
+variety into affine cells indexed by the vertices of \(P\), so that
+the Betti numbers can be read directly from the oriented polytope?
+\end{guidingquestion}
+
+\section{One-parameter flows, cells, and Betti numbers}
+\label{sec:one-parameter-flows-cells-betti}
+\index{one-parameter flow}
+\index{attracting cell}
+\index{cell decomposition!toric variety}
+\index{Betti number}
+\index{h-vector}
+
+The orbit-space picture tells us where the compact-torus directions
+collapse. We now let the noncompact part of the algebraic torus move
+points toward those collapsed fibers. A generic one-parameter subgroup
+will divide the whole variety into attracting regions, one for each
+torus fixed point. When the variety is smooth, these regions are affine
+spaces. Thus a height function on the polytope becomes a tool for
+computing topology.
+
+Throughout this section, \(P\subset M_{\RR}\) is a full-dimensional
+lattice polytope and \(X_P\) is smooth and projective of dimension \(n\).
+
+\subsection{One vector, two kinds of motion}
+
+Choose a lattice vector \(u\in N\). It defines a one-parameter subgroup
+\[
+\lambda_u:\CC^*\longrightarrow T_N,
+\qquad
+t\longmapsto\lambda_u(t),
+\]
+characterized by
+\[
+\chi^m(\lambda_u(t))=t^{\langle m,u\rangle}
+\qquad(m\in M).
+\]
+The same vector defines a linear height function
+\[
+h_u:P\longrightarrow\RR,
+\qquad
+h_u(m)=\langle m,u\rangle.
+\]
+
+We call \(u\) \emph{generic for \(P\)} if it is not perpendicular to
+any edge of \(P\). Equivalently, \(h_u\) takes distinct values at the
+two endpoints of every edge. For such a vector, orient each edge from
+lower height to higher height.
+
+\begin{observation}[The flow is visible on the polytope]
+On the dense torus, write a point as \(k\exp(-w)\), with
+\(k\in K_N\) and \(w\in N_{\RR}\). Multiplication by
+\(\lambda_u(t)\), for positive real \(t\), translates the real
+coordinate in the direction \(-\log(t)u\). Under the moment map, the
+resulting path moves monotonically in the direction of decreasing
+\(h_u\) as \(t\to0\). Its limiting vertex is the minimum of \(h_u\)
+on the appropriate face.
+\end{observation}
+
+The convention in this observation is worth remembering: the limit
+\(t\to0\) corresponds to movement toward \emph{smaller} height. Replacing
+\(u\) by \(-u\), or taking \(t\to\infty\), reverses every arrow and
+interchanges attracting and repelling sets.
+
+\subsection{Attracting sets at the fixed points}
+
+The vertices of \(P\) correspond to the torus fixed points of \(X_P\).
+Write \(x_v\) for the fixed point corresponding to a vertex \(v\). Its
+attracting set is
+\[
+C_v
+=
+\left\{
+x\in X_P:
+\lim_{t\to0}\lambda_u(t)\cdot x=x_v
+\right\}.
+\]
+
+To read its dimension, look only at the oriented edges incident to
+\(v\). Let
+\[
+d_u(v)
+=
+\#\{\text{edges directed away from }v\}.
+\]
+Thus \(d_u(v)\) is the number of edge directions along which height
+increases from \(v\).
+
+\begin{theorem}[Attracting cells from oriented edges]
+\label{thm:toric-attracting-cells}
+Let \(X_P\) be a smooth projective toric variety and let \(u\in N\) be
+generic for \(P\). Then
+\[
+X_P=\coprod_{v\in\operatorname{Vert}(P)}C_v,
+\qquad
+C_v\simeq\AAA^{d_u(v)}_{\CC}.
+\]
+Moreover, the cells can be ordered so that successive unions are
+closed. Consequently they give a CW decomposition with one real
+\(2d_u(v)\)-dimensional cell for each vertex \(v\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the toric form of the Bia\l ynicki--Birula decomposition.
+Cox--Little--Schenck do not formulate the decomposition in this
+language; their orbit filtration in \S12.3 gives the corresponding
+Betti-number count in Theorem~12.3.12. The local weight calculation
+uses the smooth affine charts described in \S3.3.
+
+\begin{proof}[Conceptual proof sketch]
+At a fixed point \(x_v\), smoothness identifies the invariant affine
+chart with \(\AAA^n\), one coordinate for each edge leaving \(v\). If
+the corresponding primitive edge direction is \(e\in M\), then
+\(\lambda_u(t)\) acts on that coordinate with weight
+\(\langle e,u\rangle\). A coordinate may be arbitrary when this weight
+is positive, since multiplication by \(t^{\langle e,u\rangle}\) sends
+it to zero as \(t\to0\); it must vanish when the weight is negative.
+Hence the attracting set is an affine coordinate subspace of dimension
+\(d_u(v)\). Projectivity orders these strata by height and makes their
+successive unions closed, producing the asserted cell decomposition.
+\end{proof}
+
+\begin{warningbox}
+The word \emph{generic} is essential. If \(u\) is perpendicular to an
+edge, the fixed locus of \(\lambda_u\) can contain a positive-dimensional
+toric subvariety rather than isolated fixed points. The resulting
+Bia\l ynicki--Birula strata are then affine bundles over fixed components,
+not necessarily affine spaces indexed by vertices.
+\end{warningbox}
+
+\subsection{Reading the cells from a polygon}
+
+For a toric surface, each vertex has two incident edges. After orienting
+them, its attracting cell has dimension \(0\), \(1\), or \(2\), according
+to whether zero, one, or two arrows leave the vertex.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0,
+  flowarrow/.style={-{Latex[length=2.5mm]},very thick,DictionaryBlue}]
+  \coordinate (a) at (0,0);
+  \coordinate (b) at (4.4,0.25);
+  \coordinate (c) at (5.15,2.65);
+  \coordinate (d) at (2.15,3.35);
+  \coordinate (e) at (-0.45,1.9);
+
+  \fill[DictionaryBlue!7] (a)--(b)--(c)--(d)--(e)--cycle;
+  \draw[polytope,black!60] (a)--(b)--(c)--(d)--(e)--cycle;
+
+  \draw[flowarrow] (a)--(b);
+  \draw[flowarrow] (b)--(c);
+  \draw[flowarrow] (e)--(d);
+  \draw[flowarrow] (d)--(c);
+  \draw[flowarrow] (a)--(e);
+
+  \fill[PausePurple] (a) circle (2.7pt)
+    node[below left] {\(\dim C_v=2\)};
+  \fill[PausePurple] (b) circle (2.7pt)
+    node[below right] {\(1\)};
+  \fill[PausePurple] (c) circle (2.7pt)
+    node[right] {\(0\)};
+  \fill[PausePurple] (d) circle (2.7pt)
+    node[above] {\(1\)};
+  \fill[PausePurple] (e) circle (2.7pt)
+    node[left] {\(1\)};
+
+  \draw[-{Latex[length=3mm]},thick,ExampleGold]
+    (0.55,-0.8)--(3.35,-0.8)
+    node[midway,below] {increasing \(h_u\)};
+\end{tikzpicture}
+\caption{A generic height orients the edges. The label at a vertex is
+the number of arrows leaving it, hence the complex dimension of its
+attracting cell. This pentagon gives one \(0\)-cell, three
+\(1\)-cells, and one \(2\)-cell.}
+\label{fig:oriented-polygon-attracting-cells}
+\end{figure}
+
+\begin{example}[The projective plane]
+For the standard triangle, a generic height orders the three vertices.
+At the minimum, both edges point outward; at the middle vertex, one
+points in and one points out; at the maximum, both point inward. Thus
+\[
+\PP^2
+=
+\AAA^2\sqcup\AAA^1\sqcup\AAA^0.
+\]
+The three cells have real dimensions \(4,2,0\), exactly as in the
+usual CW decomposition of projective space.
+\end{example}
+
+\begin{example}[The product of two projective lines]
+Choose a generic diagonal height on the square. The numbers of outgoing
+edges at its four vertices are
+\[
+2,\quad1,\quad1,\quad0.
+\]
+Therefore
+\[
+\PP^1\times\PP^1
+=
+\AAA^2\sqcup\AAA^1\sqcup\AAA^1\sqcup\AAA^0.
+\]
+The two one-dimensional cells already foreshadow the two independent
+degree-two classes coming from the two projections.
+\end{example}
+
+\begin{example}[Cutting off a corner]
+The moment polygon of \(\Bl_p(\PP^2)\) is obtained by cutting one corner
+off a triangle. A generic orientation of the resulting quadrilateral
+has outgoing-edge counts
+\[
+2,\quad1,\quad1,\quad0.
+\]
+Thus the blowup has the same number of cells in each dimension as
+\(\PP^1\times\PP^1\), even though the two toric surfaces have different
+intersection forms. Additive topology sees the extra degree-two class;
+the ring structure will distinguish how that class intersects itself.
+\end{example}
+
+\subsection{Odd cohomology vanishes}
+
+Because every cell has even real dimension, the cellular cochain
+complex has no groups in odd degree. There are also no differentials
+between even-dimensional cells: a cellular differential changes degree
+by one.
+
+\begin{corollary}[Betti numbers from the oriented polytope]
+\label{cor:betti-oriented-polytope}
+For a smooth projective toric variety,
+\[
+H^{2k+1}(X_P;\ZZ)=0
+\qquad\text{and}\qquad
+b_{2k}(X_P)=\#\{v\in\operatorname{Vert}(P):d_u(v)=k\}.
+\]
+In particular, the integral cohomology groups are free abelian and
+\[
+\chi(X_P)
+=|\operatorname{Vert}(P)|
+=|\Sigma(n)|.
+\]
+\end{corollary}
+
+\noindent
+\textit{Reference.}
+The vanishing of odd cohomology and the combinatorial formula for the
+even Betti numbers are Cox--Little--Schenck, Theorems~12.3.11
+and~12.3.12. The Euler-characteristic formula is Theorem~12.3.9.
+
+\begin{proof}[Conceptual proof sketch]
+Theorem~\ref{thm:toric-attracting-cells} supplies one even-dimensional
+cell for each vertex. Cellular cohomology therefore has no odd groups
+and no nonzero differentials. A cell \(C_v\simeq\CC^k\) contributes one
+generator in degree \(2k\). Summing the ranks gives one contribution per
+vertex, so the Euler characteristic is the number of vertices. Under
+the orbit--cone dictionary, vertices of \(P\) correspond to maximal
+cones of \(\Sigma\).
+\end{proof}
+
+\begin{observation}[Why the answer cannot depend on \(u\)]
+Changing the generic height may reverse some arrows and move cells from
+one fixed point to another, but Corollary~\ref{cor:betti-oriented-polytope}
+shows that the number of vertices with \(k\) outgoing edges is invariant.
+The individual cells depend on \(u\); their number in each dimension is
+a topological invariant of \(X_P\).
+\end{observation}
+
+\subsection{The \texorpdfstring{\(h\)}{h}-vector packages the count}
+
+The preceding examples suggest attaching a polynomial to a simple
+polytope by counting vertices according to the number of outgoing
+edges. This is one of the standard descriptions of the \(h\)-vector.
+
+\begin{definition}[The \(h\)-vector of a simple polytope]
+Let \(P\) be a simple \(n\)-polytope and choose a generic height
+function. Define
+\[
+h_k(P)=\#\{v\in\operatorname{Vert}(P):d_u(v)=k\},
+\qquad 0\leq k\leq n.
+\]
+The vector
+\[
+h(P)=(h_0,h_1,\ldots,h_n)
+\]
+is independent of the chosen generic height and is called the
+\emph{\(h\)-vector} of \(P\).
+\end{definition}
+
+For readers who prefer a definition using only face numbers, let
+\(f_i\) denote the number of \(i\)-dimensional faces of \(P\), with
+\(f_{-1}=1\). The same numbers are characterized by
+\[
+\sum_{k=0}^{n}h_k t^{n-k}
+=
+\sum_{i=0}^{n}f_{i-1}(t-1)^{n-i}.
+\]
+The oriented-vertex description explains geometrically why these
+apparently combinatorial coefficients must be nonnegative.
+
+\begin{theorem}[The \(h\)-vector is the Betti vector]
+\label{thm:h-vector-betti-vector}
+If \(P\) is a smooth lattice polytope, then
+\[
+\boxed{
+b_{2k}(X_P)=h_k(P),
+\qquad
+b_{2k+1}(X_P)=0.
+}
+\]
+Equivalently, the Poincar\'e polynomial is
+\[
+\operatorname{Poin}_{X_P}(q)
+=
+\sum_{k=0}^{n}h_k(P)q^{2k}.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is the smooth projective case of Cox--Little--Schenck,
+Theorem~12.3.12.
+
+\begin{proof}[Conceptual proof sketch]
+By definition, \(h_k(P)\) counts precisely the vertices whose attracting
+cells have complex dimension \(k\). The result is therefore a
+repackaging of Corollary~\ref{cor:betti-oriented-polytope}.
+\end{proof}
+
+Poincar\'e duality now translates into the symmetry
+\[
+h_k(P)=h_{n-k}(P).
+\]
+Thus the topology of \(X_P\) gives a geometric explanation for the
+Dehn--Sommerville symmetry of the \(h\)-vector in the smooth case.
+
+\begin{example}[Three familiar \(h\)-vectors]
+The cell counts above give
+\[
+\begin{array}{c|c|c}
+P & h(P) & \operatorname{Poin}_{X_P}(q)\\
+\hline
+\text{triangle} & (1,1,1) & 1+q^2+q^4\\
+\text{square} & (1,2,1) & 1+2q^2+q^4\\
+\text{corner-cut triangle} & (1,2,1) & 1+2q^2+q^4
+\end{array}
+\]
+The last two rows again show that Betti numbers are coarser than the
+toric or algebraic geometry.
+\end{example}
+
+\subsection{Toric surfaces and blowups}
+
+Every convex \(r\)-gon has one vertex with no outgoing edge, one vertex
+with two outgoing edges, and \(r-2\) vertices with one outgoing edge.
+Indeed, the first two are the maximum and minimum of a generic height;
+every other vertex has one neighbor above it and one below it.
+Therefore its \(h\)-vector is
+\[
+(1,r-2,1).
+\]
+
+\begin{corollary}[Betti numbers of a smooth complete toric surface]
+\label{cor:betti-smooth-toric-surface}
+Let \(X_\Sigma\) be a smooth complete toric surface and let
+\(r=|\Sigma(1)|\). Then
+\[
+b_0=b_4=1,
+\qquad
+b_2=r-2,
+\qquad
+b_1=b_3=0.
+\]
+Each toric blowup at a fixed point adds one ray to the fan and therefore
+increases \(b_2\) by one.
+\end{corollary}
+
+\begin{proof}[Conceptual proof sketch]
+A complete two-dimensional fan has as many rays as maximal cones, so
+its moment polygon has \(r\) vertices. The oriented polygon count gives
+one cell in complex dimensions \(0\) and \(2\), and \(r-2\) cells in
+complex dimension \(1\). A toric blowup star-subdivides one maximal cone,
+adding one ray and replacing one polygon vertex by an edge.
+\end{proof}
+
+\begin{example}[The first blowup of \(\PP^2\)]
+The fan of \(\PP^2\) has three rays, so \(b_2=1\). Blowing up a torus
+fixed point adds the exceptional ray and gives
+\[
+b_2(\Bl_p\PP^2)=4-2=2.
+\]
+One degree-two class is inherited from a line in \(\PP^2\), while the
+other is represented by the exceptional divisor. The cell decomposition
+detects that there are two classes, but it does not yet compute
+\(H^2=1\), \(E^2=-1\), or \(H\cdot E=0\). For those products we need the
+cohomology ring.
+\end{example}
+
+\begin{pauseandthink}
+Choose a generic height on each polygon below and verify the stated
+Betti numbers directly from the oriented edges.
+\begin{enumerate}
+\item A triangle gives \((b_0,b_2,b_4)=(1,1,1)\).
+\item A quadrilateral gives \((1,2,1)\).
+\item A hexagon gives \((1,4,1)\).
+\end{enumerate}
+Why can no choice of generic height change these counts?
+\end{pauseandthink}
+
+\begin{threedictionaries}
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}lXXX}
+\toprule
+& Polytope & One-parameter flow & Topology \\
+\midrule
+Indexing object
+& vertex \(v\)
+& fixed point \(x_v\)
+& cell \(C_v\)
+\\
+Local number
+& outgoing edges \(d_u(v)\)
+& positive weights at \(x_v\)
+& \(\dim_{\CC}C_v\)
+\\
+Global count
+& \(h_k(P)\)
+& fixed points with \(k\) positive weights
+& \(b_{2k}(X_P)\)
+\\
+Parity
+& ---
+& affine attracting spaces
+& \(H^{\mathrm{odd}}=0\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{prediction}
+The cell decomposition determines the additive groups
+\(H^*(X_P;\ZZ)\), but not their multiplication. The codimension-one
+cells suggest that degree-two cohomology should be generated by
+invariant divisors. Which two families of relations among those divisors
+should come from empty intersections and principal divisors?
+\end{prediction}
+
+\begin{guidingquestion}
+Can the fan recover not only the Betti numbers but the entire integral
+cohomology ring of a smooth complete toric variety?
+\end{guidingquestion}
+
+\section{The cohomology ring from the fan}
+\label{sec:cohomology-ring-from-fan}
+\index{cohomology ring!toric presentation}
+\index{Stanley--Reisner ideal}
+\index{Jurkiewicz--Danilov presentation}
+\index{intersection number!from cohomology}
+
+The cell decomposition from the previous section determines the
+additive groups
+\[
+H^k(X_\Sigma;\ZZ).
+\]
+It does not yet describe the cup product. Two smooth toric surfaces can
+have the same number of cells in every dimension while their
+degree-two classes multiply differently.
+
+The fan contains exactly the extra information we need. Its rays index
+the invariant divisors, its cones record which of those divisors meet,
+and its lattice vectors record the linear equivalences among them.
+Those two kinds of data become the two kinds of relations in the
+cohomology ring.
+
+\subsection{Invariant divisors as degree-two classes}
+
+Let \(X_\Sigma\) be a smooth complete toric variety. For every ray
+\(\rho\in\Sigma(1)\), let
+\[
+D_\rho=V(\rho)
+\]
+be the corresponding invariant prime divisor. Its cohomology class is
+\[
+x_\rho
+:=
+c_1\bigl(\mathcal O_{X_\Sigma}(D_\rho)\bigr)
+=
+\operatorname{PD}[D_\rho]
+\in H^2(X_\Sigma;\ZZ).
+\]
+Here \(\operatorname{PD}\) denotes Poincar\'e duality. Thus the symbol
+\([D_\rho]\), when used in cohomology, means the degree-two class
+Poincar\'e dual to the divisor rather than merely its class in
+\(\Pic(X_\Sigma)\).
+
+Cup product turns intersections into multiplication. If distinct rays
+\(\rho_1,\ldots,\rho_k\) span a cone \(\sigma\), smoothness implies
+that the corresponding boundary divisors meet transversely and
+\[
+x_{\rho_1}\cdots x_{\rho_k}
+=
+\operatorname{PD}[V(\sigma)].
+\]
+If the rays do not span a cone, the common intersection is empty and
+the product vanishes. This gives the first family of relations.
+
+\begin{definition}[The two fan ideals]
+\label{def:two-fan-ideals}
+Let
+\[
+S^{\mathrm{top}}_\Sigma
+=
+\ZZ[x_\rho:\rho\in\Sigma(1)],
+\qquad
+\deg x_\rho=2.
+\]
+
+The \emph{Stanley--Reisner ideal} is
+\[
+I_\Sigma
+=
+\left\langle
+x_{\rho_1}\cdots x_{\rho_k}:
+\rho_1,\ldots,\rho_k
+\text{ do not span a cone of }\Sigma
+\right\rangle,
+\]
+where the rays in each generator are distinct.
+
+For \(m\in M\), set
+\[
+\theta_m
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle x_\rho.
+\]
+The \emph{linear-relation ideal} is
+\[
+J_\Sigma
+=
+\langle\theta_m:m\in M\rangle.
+\]
+It is enough to use the elements \(\theta_{m_1},\ldots,
+\theta_{m_n}\) coming from a basis of \(M\).
+\end{definition}
+
+The second ideal is familiar from Chapter~4. Every character has
+principal divisor
+\[
+\operatorname{div}(\character{m})
+=
+\sum_{\rho\in\Sigma(1)}
+\langle m,u_\rho\rangle D_\rho.
+\]
+A principal divisor defines the trivial line bundle, so its first Chern
+class vanishes. Therefore
+\[
+\theta_m
+=
+\sum_\rho\langle m,u_\rho\rangle x_\rho
+=0
+\qquad\text{in }H^2(X_\Sigma;\ZZ).
+\]
+
+We have now found an evident graded ring homomorphism
+\[
+\Phi:
+\frac{\ZZ[x_\rho:\rho\in\Sigma(1)]}
+     {I_\Sigma+J_\Sigma}
+\longrightarrow
+H^*(X_\Sigma;\ZZ),
+\qquad
+x_\rho\longmapsto\operatorname{PD}[D_\rho].
+\]
+The remarkable statement is that there are no additional generators
+or relations.
+
+\begin{theorem}[Jurkiewicz--Danilov presentation]
+\label{thm:jurkiewicz-danilov-presentation}
+Let \(X_\Sigma\) be a smooth complete toric variety. Then
+\[
+\boxed{
+H^*(X_\Sigma;\ZZ)
+\simeq
+\frac{\ZZ[x_\rho:\rho\in\Sigma(1)]}
+     {I_\Sigma+J_\Sigma},
+\qquad
+\deg x_\rho=2.
+}
+\]
+Under this isomorphism, \(x_\rho\) is the cohomology class of the
+invariant divisor \(D_\rho\).
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~12.4.4, where it is called the
+Jurkiewicz--Danilov theorem. The rational presentation for complete
+simplicial toric varieties is their Theorem~12.4.1.
+
+\begin{proof}[Conceptual proof sketch]
+The divisor classes give a map from the polynomial ring to cohomology.
+Boundary incidence puts \(I_\Sigma\) in its kernel, and principal
+divisors put \(J_\Sigma\) in its kernel.
+
+The conceptual reason these are all the relations comes from
+equivariant cohomology. Before forgetting the compact-torus action, the
+equivariant cohomology ring is the Stanley--Reisner ring
+\[
+H^*_{K_N}(X_\Sigma;\ZZ)
+\simeq
+\frac{\ZZ[x_\rho]}{I_\Sigma}.
+\]
+The coefficient ring \(H^*(BK_N;\ZZ)\simeq\operatorname{Sym}_{\ZZ}(M)\)
+acts, with our principal-divisor convention, by sending
+\(m\in M\) to the linear form \(-\theta_m\). Passing
+from equivariant to ordinary cohomology sets all positive-degree
+classes from \(BK_N\) equal to zero, which imposes exactly the ideal
+\(J_\Sigma\).
+
+Smoothness and completeness ensure that this passage introduces no
+hidden integral torsion or extra relations. In the projective case,
+the even-dimensional cell decomposition from Section~8.3 is the
+geometric shadow of this freeness.
+\end{proof}
+
+\begin{warningbox}
+Both hypotheses matter. For a complete simplicial fan, the analogous
+presentation holds with rational coefficients, but integral
+cohomology can be subtler. For a nonsimplicial singular toric variety,
+ordinary cohomology need not be generated by divisor classes at all.
+The integral formula in
+\cref{thm:jurkiewicz-danilov-presentation} is the smooth complete
+statement.
+\end{warningbox}
+
+\subsection{Cox variables and cohomology variables}
+
+The polynomial ring in
+\cref{thm:jurkiewicz-danilov-presentation} looks deliberately similar
+to the Cox ring from Chapter~6. The variables have the same indexing
+set, but they play different roles.
+
+\begin{dictionarytable}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\bfseries\raggedright\arraybackslash}p{0.21\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+& \textbf{Cox construction} & \textbf{Cohomology ring} \\
+\midrule
+Coefficient ring
+& \(\CC\)
+& \(\ZZ\)
+\\
+Variable
+& coordinate \(z_\rho\) cutting out \(D_\rho\)
+& class \(x_\rho=\operatorname{PD}[D_\rho]\)
+\\
+Degree
+& \(\deg z_\rho=[D_\rho]\in\Cl(X_\Sigma)\)
+& \(\deg x_\rho=2\)
+\\
+Fan nonfaces
+& the irrelevant ideal records excluded coordinate strata
+& \(I_\Sigma\) kills empty divisor intersections
+\\
+Principal divisors
+& determine the class-group grading
+& generate the linear ideal \(J_\Sigma\)
+\\
+Final operation
+& remove \(V(B(\Sigma))\), then take a quotient
+& quotient the polynomial ring by \(I_\Sigma+J_\Sigma\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{dictionarytable}
+
+Thus the two rings are not the same ring in different notation. The
+Cox ring uses variables as coordinates before taking a geometric
+quotient. The cohomology ring uses variables as divisor classes after
+the variety has been constructed.
+
+\subsection{A four-step computation}
+
+For a smooth complete fan, the presentation can be calculated by a
+short procedure.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},wide=0pt]
+\item List the rays \(\rho\in\Sigma(1)\) and introduce one variable
+\(x_\rho\) for each.
+
+\item Find the minimal collections of rays that do not span cones.
+Their squarefree monomials generate \(I_\Sigma\).
+
+\item Choose a basis of \(M\). Pair its elements with the primitive
+ray generators to obtain generators of \(J_\Sigma\).
+
+\item Use the linear relations to eliminate variables. The remaining
+monomial relations reveal the cup products.
+\end{enumerate}
+
+We now carry out all four steps for the three running examples.
+
+\subsection{The projective plane}
+
+\begin{example}[The cohomology ring of \(\PP^2\)]
+\label{ex:cohomology-ring-projective-plane}
+Use the primitive ray generators
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_2=e_2.
+\]
+Every pair spans a cone, but the three rays together do not. Hence
+\[
+I_\Sigma=\langle x_0x_1x_2\rangle.
+\]
+
+For the dual basis \(m_1,m_2\) of \(M\), the two principal-divisor
+relations are
+\[
+-x_0+x_1=0,
+\qquad
+-x_0+x_2=0.
+\]
+Therefore
+\[
+J_\Sigma
+=
+\langle x_1-x_0,\ x_2-x_0\rangle.
+\]
+If \(H\) denotes the common class of the three coordinate lines, then
+\[
+x_0=x_1=x_2=H.
+\]
+The Stanley--Reisner relation becomes \(H^3=0\), and the theorem gives
+\[
+\boxed{
+H^*(\PP^2;\ZZ)
+\simeq
+\frac{\ZZ[H]}{\langle H^3\rangle},
+\qquad
+\deg H=2.
+}
+\]
+As an abelian group, the ring has basis
+\[
+1,\quad H,\quad H^2,
+\]
+in degrees \(0,2,4\). The product \(H^2\) is the class of the
+intersection point of two distinct coordinate lines.
+\end{example}
+
+\subsection{The product of two projective lines}
+
+\begin{example}[The cohomology ring of \(\PP^1\times\PP^1\)]
+\label{ex:cohomology-ring-product-lines}
+Order the rays cyclically as
+\[
+u_1=e_1,
+\qquad
+u_2=e_2,
+\qquad
+u_3=-e_1,
+\qquad
+u_4=-e_2.
+\]
+The opposite pairs do not span cones, while every adjacent pair does.
+Thus
+\[
+I_\Sigma
+=
+\langle x_1x_3,\ x_2x_4\rangle.
+\]
+The character relations are
+\[
+x_1-x_3=0,
+\qquad
+x_2-x_4=0,
+\]
+so
+\[
+J_\Sigma
+=
+\langle x_1-x_3,\ x_2-x_4\rangle.
+\]
+
+Set
+\[
+A=x_1=x_3,
+\qquad
+B=x_2=x_4.
+\]
+Geometrically, \(A\) and \(B\) are the classes of fibers of the two
+projections. The two nonface relations become
+\[
+A^2=0,
+\qquad
+B^2=0.
+\]
+Consequently,
+\[
+\boxed{
+H^*(\PP^1\times\PP^1;\ZZ)
+\simeq
+\frac{\ZZ[A,B]}{\langle A^2,B^2\rangle},
+\qquad
+\deg A=\deg B=2.
+}
+\]
+An additive basis is
+\[
+1,\quad A,\quad B,\quad AB.
+\]
+The top class \(AB\) is represented by the fixed point where one
+fiber from each ruling meets. The equations \(A^2=B^2=0\) say that two
+distinct fibers from the same ruling are disjoint.
+\end{example}
+
+\subsection{The blowup of the projective plane}
+
+\begin{example}[The cohomology ring of \(\Bl_p(\PP^2)\)]
+\label{ex:cohomology-ring-blowup-projective-plane}
+Blow up the fixed point corresponding to \(\Cone{e_1,e_2}\). As in
+Chapters~4 and~5, order the rays cyclically as
+\[
+u_0=-e_1-e_2,
+\qquad
+u_1=e_1,
+\qquad
+u_E=e_1+e_2,
+\qquad
+u_2=e_2.
+\]
+The two nonadjacent pairs are
+\[
+\{\rho_0,\rho_E\}
+\qquad\text{and}\qquad
+\{\rho_1,\rho_2\}.
+\]
+Therefore
+\[
+I_\Sigma
+=
+\langle x_0x_E,\ x_1x_2\rangle.
+\]
+
+Pairing the ray generators with the dual basis of \(M\) gives
+\[
+-x_0+x_1+x_E=0,
+\qquad
+-x_0+x_E+x_2=0.
+\]
+Hence
+\[
+J_\Sigma
+=
+\langle-x_0+x_1+x_E,\ -x_0+x_E+x_2\rangle.
+\]
+Before eliminating variables, the theorem reads
+\[
+H^*(\Bl_p(\PP^2);\ZZ)
+\simeq
+\frac{\ZZ[x_0,x_1,x_E,x_2]}
+{\langle
+x_0x_E,\ x_1x_2,\
+-x_0+x_1+x_E,\ -x_0+x_E+x_2
+\rangle}.
+\]
+
+Now put
+\[
+H=x_0,
+\qquad
+E=x_E.
+\]
+The linear relations say
+\[
+x_1=x_2=H-E.
+\]
+The two Stanley--Reisner relations become
+\[
+HE=0,
+\qquad
+(H-E)^2=0.
+\]
+Since \(HE=0\), the second equation is equivalent to
+\[
+H^2+E^2=0.
+\]
+We obtain the two useful forms of the answer
+\[
+\boxed{
+H^*(\Bl_p(\PP^2);\ZZ)
+\simeq
+\frac{\ZZ[H,E]}{\langle HE,(H-E)^2\rangle}
+\simeq
+\frac{\ZZ[H,E]}{\langle HE,H^2+E^2\rangle},
+\quad
+\deg H=\deg E=2.
+}
+\]
+
+The classes have their familiar meanings. The divisor \(D_0\) misses
+the blown-up point, so \(H\) is the pullback of the line class. The new
+divisor is the exceptional curve \(E\), while
+\[
+x_1=x_2=H-E
+\]
+are the classes of the strict transforms of the two coordinate lines
+through the blown-up point.
+
+An additive basis is
+\[
+1,\quad H,\quad E,\quad H^2.
+\]
+Indeed, \(E^2=-H^2\), and every product of three positive-degree
+generators vanishes. The class \(H^2=x_0x_1\) is represented by a
+torus fixed point.
+\end{example}
+
+\begin{surfacelaboratory}
+The square and the corner-cut triangle gave the same Betti numbers:
+\[
+b_0=b_4=1,
+\qquad
+b_2=2.
+\]
+Their cohomology rings are nevertheless different.
+
+On \(\PP^1\times\PP^1\), every degree-two class has the form
+\(aA+bB\), and
+\[
+(aA+bB)^2=2ab\,AB.
+\]
+Thus every square is an even multiple of the top-degree generator. On
+\(\Bl_p(\PP^2)\), however,
+\[
+E^2=-H^2,
+\]
+an odd multiple of a top-degree generator. Hence the two integral
+cohomology rings cannot be isomorphic as graded rings.
+
+Additive topology counts the two degree-two classes. Multiplication
+remembers the parity of their intersection form.
+\end{surfacelaboratory}
+
+\subsection{From ring products to intersection numbers}
+
+If \(X_\Sigma\) has complex dimension \(n\), then
+\[
+H^{2n}(X_\Sigma;\ZZ)\simeq\ZZ.
+\]
+After multiplying \(n\) divisor classes, evaluation on the fundamental
+class produces an integer:
+\[
+\int_{X_\Sigma}
+x_{\rho_1}\cdots x_{\rho_n}
+\in\ZZ.
+\]
+This is the intersection number
+\[
+D_{\rho_1}\cdots D_{\rho_n}.
+\]
+For a smooth maximal cone
+\(\sigma=\Cone{u_{\rho_1},\ldots,u_{\rho_n}}\), the corresponding
+divisors meet transversely at one fixed point, so
+\[
+\int_{X_\Sigma}x_{\rho_1}\cdots x_{\rho_n}=1.
+\]
+In the surface examples, this normalizes
+\[
+\int_{\PP^2}H^2=1,
+\qquad
+\int_{\PP^1\times\PP^1}AB=1,
+\qquad
+\int_{\Bl_p(\PP^2)}H^2=1.
+\]
+
+\begin{threedictionaries}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Fan}
+& \textbf{Divisor geometry}
+& \textbf{Cohomology ring}
+\\
+\midrule
+rays not contained in a cone
+& empty common intersection
+& monomial in \(I_\Sigma\)
+\\
+character pairing with ray generators
+& principal divisor
+& linear form in \(J_\Sigma\)
+\\
+smooth maximal cone
+& transverse fixed point
+& top product equal to the point class
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{prediction}
+Let the rays of a smooth complete toric surface be ordered cyclically,
+and let \(x_i=[D_i]\). The Stanley--Reisner relations immediately give
+\[
+x_ix_j=0
+\]
+for nonadjacent rays, while adjacent rays give the point class. The
+only products still to determine are the self-intersections
+\[
+x_i^2.
+\]
+How should the lattice relation among
+\(u_{i-1},u_i,u_{i+1}\) determine this square?
+\end{prediction}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+Over \(\CC\), the algebraic torus contains its compact part
+\[
+K_N\simeq(S^1)^n\subseteq T_N\simeq(\CC^*)^n.
+\]
+For a projective toric embedding with lattice weights
+\(A=\{m_0,\ldots,m_r\}\), normalized squared coordinate magnitudes
+produce the moment map
+\[
+\mu_A([z_0:\cdots:z_r])
+=
+\frac{\sum_i|z_i|^2m_i}{\sum_i|z_i|^2}.
+\]
+Its coefficients form a convex combination, and the positive real
+part of the toric variety shows that every point of the convex hull is
+attained:
+\[
+\boxed{\mu_A(X_A)=\Conv(A).}
+\]
+
+The moment map does more than record an image. Its fibers are exactly
+the compact-torus orbits. If \(p\in\relint(Q)\) for a
+face \(Q\preceq P\), then
+\[
+\mu_P^{-1}(p)
+\simeq K_N/K_Q
+\simeq(S^1)^{\dim Q},
+\]
+where the stabilizer \(K_Q\) has dimension \(\codim Q\). Consequently,
+\[
+\boxed{X_P/K_N\simeq P.}
+\]
+The polytope is therefore a stratified orbit space: full compact tori
+sit over its interior, circle directions collapse along facets, and
+the whole compact torus collapses over a vertex.
+
+A generic vector \(u\in N_\RR\) turns this orbit picture into a cell
+decomposition. The height function
+\[
+h_u(m)=\langle m,u\rangle
+\]
+orients every edge of \(P\), and the fixed point over a vertex \(v\)
+has an attracting cell
+\[
+C_v\simeq\CC^{d_u(v)},
+\]
+where \(d_u(v)\) is the number of edges leaving \(v\). All cells have
+even real dimension, so
+\[
+H^{2k+1}(X_P;\ZZ)=0,
+\qquad
+b_{2k}(X_P)=h_k(P).
+\]
+In particular,
+\[
+\chi(X_P)=|\operatorname{Vert}(P)|=|\Sigma(n)|.
+\]
+For a smooth complete toric surface with \(s\) rays this specializes to
+\[
+b_0=b_4=1,
+\qquad
+b_2=s-2,
+\qquad
+b_1=b_3=0.
+\]
+
+Finally, the fan recovers not only the additive groups but their
+multiplication. The invariant divisors generate integral cohomology,
+and the two familiar families of toric relations give the complete
+presentation
+\[
+\boxed{
+H^*(X_\Sigma;\ZZ)
+\simeq
+\frac{\ZZ[x_\rho:\rho\in\Sigma(1)]}
+     {I_\Sigma+J_\Sigma},
+\qquad
+\deg x_\rho=2.
+}
+\]
+The Stanley--Reisner ideal \(I_\Sigma\) records empty intersections,
+while \(J_\Sigma\) records principal divisors. Thus the same fan data
+now govern three layers of topology:
+\[
+\boxed{
+\begin{gathered}
+\text{faces and compact-torus fibers},
+\qquad
+\text{cells and Betti numbers},
+\\[-1mm]
+\text{divisor intersections and the cohomology ring}.
+\end{gathered}}
+\]
+The challenge exercise completes the surface story by extracting the
+entire intersection form from a cyclic fan and asking how much of the
+Hirzebruch parameter survives after the toric structure is forgotten.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item For \(\PP^1\), use the weights \(0,1\in\ZZ\) and show that
+\[
+\mu([z_0:z_1])
+=
+\frac{|z_1|^2}{|z_0|^2+|z_1|^2}
+\in[0,1].
+\]
+Describe the fiber over an interior point and the fibers over the two
+endpoints. Write down an explicit representative in the nonnegative
+real part over each \(t\in[0,1]\).
+
+\item For \(\PP^2\), take the weights
+\[
+(0,0),\qquad(1,0),\qquad(0,1).
+\]
+Write the moment map in homogeneous coordinates. For points in the
+interior of the triangle, in the relative interior of an edge, and at
+a vertex, determine:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item which homogeneous coordinates are nonzero;
+\item the compact stabilizer;
+\item the dimension of the moment-map fiber.
+\end{enumerate}
+
+\item Regard \(\PP^1\times\PP^1\) as the toric variety of the square
+\([0,1]^2\). Prove directly from the product formula that
+\[
+\mu_{\PP^1\times\PP^1}
+=
+(\mu_{\PP^1},\mu_{\PP^1}).
+\]
+Choose a path from the square's interior to a vertex that first meets
+an edge. Describe, in order, which circle directions collapse along
+the path.
+
+\item Let \(Q\preceq P\) have codimension \(k\). Using the exact
+sequence defining \(K_Q\), show that
+\[
+\dim K_Q=k,
+\qquad
+\dim(K_N/K_Q)=n-k=\dim Q.
+\]
+Explain why the dimensions of the moment fibers decrease precisely
+when the image crosses into a proper face.
+
+\item Compute the \(h\)-vector in each of the following two ways:
+first by orienting edges with a convenient generic height, and then by
+using the face-number identity from Section~8.3.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item the \(n\)-simplex;
+\item the \(n\)-cube.
+\end{enumerate}
+Deduce the Betti numbers of \(\PP^n\) and \((\PP^1)^n\).
+
+\item Let \(P\) be a smooth lattice hexagon. Choose a generic height
+and prove that its outgoing-edge counts are
+\[
+2,\quad1,\quad1,\quad1,\quad1,\quad0
+\]
+in some order. Determine the integral cohomology groups of \(X_P\)
+as abelian groups and compute its Euler characteristic. How do these
+answers change after one toric blowup at a fixed point?
+
+\item Use the standard fan of \(\PP^n\) to compute \(I_\Sigma\) and
+\(J_\Sigma\). Recover
+\[
+H^*(\PP^n;\ZZ)
+\simeq
+\frac{\ZZ[H]}{\langle H^{n+1}\rangle},
+\qquad
+\deg H=2.
+\]
+Identify geometrically the class \(H^k\).
+
+\item Compute the cohomology ring of \(\PP^1\times\PP^2\) directly
+from the product fan. Show that
+\[
+H^*(\PP^1\times\PP^2;\ZZ)
+\simeq
+\frac{\ZZ[A,B]}{\langle A^2,B^3\rangle},
+\]
+and list an additive basis. Verify that its ranks agree with the
+\(h\)-vector of the triangular prism.
+
+\item The square and a corner-cut triangle both have \(h\)-vector
+\((1,2,1)\). Explain why their associated smooth toric surfaces have
+isomorphic cohomology groups as graded abelian groups but nonisomorphic
+integral cohomology rings. Formulate the extra information supplied by
+the cup product in terms of self-intersection numbers.
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Toric surfaces and how much topology remembers.}
+
+\medskip
+
+Let \(X_\Sigma\) be a smooth complete toric surface. Order the rays of
+its fan counterclockwise,
+\[
+\rho_1,\ldots,\rho_s,
+\]
+write \(u_i\in N\) for the primitive generator of \(\rho_i\), and let
+\[
+D_i=V(\rho_i),
+\qquad
+x_i=[D_i]\in H^2(X_\Sigma;\ZZ).
+\]
+Indices are taken cyclically. Smoothness implies that each consecutive
+pair \((u_i,u_{i+1})\) is an oriented lattice basis. Consequently,
+for every \(i\) there is a unique integer \(a_i\) such that
+\[
+\boxed{u_{i-1}+u_{i+1}=a_i u_i.}
+\]
+
+The first goal is to recover the complete intersection matrix of the
+invariant curves from these relations. The second is to apply the
+result to the Hirzebruch surfaces and determine exactly how much of the
+parameter \(r\) survives in integral cohomology.
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item \textbf{Distinct invariant curves.}
+
+Use the orbit--cone correspondence to show that
+\[
+D_i\cdot D_j
+=
+\begin{cases}
+1,& \rho_i\text{ and }\rho_j\text{ are adjacent},\\
+0,& \rho_i\text{ and }\rho_j\text{ are not adjacent}.
+\end{cases}
+\]
+For adjacent rays, explain why smoothness makes the intersection at the
+corresponding fixed point transverse. Translate both cases into
+products of the classes \(x_i\) in the Jurkiewicz--Danilov
+presentation.
+
+\item \textbf{Self-intersection from three rays.}
+
+Choose \(m_i\in M\) dual to the second vector in the ordered basis
+\((u_{i-1},u_i)\), so that
+\[
+\langle m_i,u_{i-1}\rangle=0,
+\qquad
+\langle m_i,u_i\rangle=1.
+\]
+Pair the relation
+\[
+u_{i-1}+u_{i+1}=a_i u_i
+\]
+with \(m_i\), and then multiply the principal-divisor relation
+\[
+\sum_j\langle m_i,u_j\rangle x_j=0
+\]
+by \(x_i\). Use the nonadjacent Stanley--Reisner relations to make all
+but two terms vanish. Prove
+\[
+\boxed{D_i^2=x_i^2=-a_i.}
+\]
+Conclude that the cyclic list of primitive ray generators determines
+the entire intersection matrix of the invariant curves.
+
+\item \textbf{Four surface checks.}
+
+Apply the formula to the following cyclic fans.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item For \(\PP^2\), use
+\[
+(1,0),\quad(0,1),\quad(-1,-1)
+\]
+and show that each invariant line has square \(1\).
+
+\item For \(\PP^1\times\PP^1\), use
+\[
+(1,0),\quad(0,1),\quad(-1,0),\quad(0,-1)
+\]
+and show that all four invariant fibers have square \(0\).
+
+\item For \(\Bl_p(\PP^2)\), use
+\[
+(-1,-1),\quad(1,0),\quad(1,1),\quad(0,1).
+\]
+Identify \(H=D_{(-1,-1)}\) and \(E=D_{(1,1)}\), and recover
+\[
+H^2=1,
+\qquad
+E^2=-1,
+\qquad
+H\cdot E=0.
+\]
+
+\item For the Hirzebruch surface \(\mathbb F_r\), \(r\geq0\), use
+\[
+u_1=(1,0),\quad
+u_2=(0,1),\quad
+u_3=(-1,r),\quad
+u_4=(0,-1).
+\]
+Show that
+\[
+D_1^2=D_3^2=0,
+\qquad
+D_2^2=-r,
+\qquad
+D_4^2=r.
+\]
+\end{enumerate}
+
+\item \textbf{The cohomology ring of \(\mathbb F_r\).}
+
+Introduce variables \(x_1,\ldots,x_4\) for the four rays. Show that
+\[
+I_\Sigma=\langle x_1x_3,x_2x_4\rangle
+\]
+and that the character relations are
+\[
+x_1-x_3=0,
+\qquad
+x_2+rx_3-x_4=0.
+\]
+Set
+\[
+F=x_1=x_3,
+\qquad
+S=x_2,
+\qquad
+x_4=S+rF.
+\]
+Deduce
+\[
+\boxed{
+H^*(\mathbb F_r;\ZZ)
+\simeq
+\frac{\ZZ[S,F]}{\langle F^2,S^2+rSF\rangle},
+\qquad
+\deg S=\deg F=2.
+}
+\]
+Normalize the point class by \(S\cdot F=1\), and reconcile the ring
+relations with
+\[
+F^2=0,
+\qquad
+S^2=-r.
+\]
+
+\item \textbf{Changing basis: the even case.}
+
+Suppose \(r=2k\) and define
+\[
+S'=S+kF.
+\]
+Compute \((S')^2\) and \(S'F\). Show that the basis \((S',F)\) has
+the same intersection form as the two ruling classes on
+\(\mathbb F_0\simeq\PP^1\times\PP^1\). Construct an explicit graded
+ring isomorphism
+\[
+H^*(\mathbb F_{2k};\ZZ)
+\simeq
+H^*(\mathbb F_0;\ZZ).
+\]
+
+\item \textbf{Changing basis: the odd case.}
+
+Suppose \(r=2k+1\) and again set \(S'=S+kF\). Show that
+\[
+(S')^2=-S'F,
+\qquad
+F^2=0.
+\]
+Construct an explicit graded ring isomorphism
+\[
+H^*(\mathbb F_{2k+1};\ZZ)
+\simeq
+H^*(\mathbb F_1;\ZZ).
+\]
+
+\item \textbf{Why parity cannot disappear.}
+
+For \(\alpha=aS+bF\in H^2(\mathbb F_r;\ZZ)\), prove
+\[
+\alpha^2
+=
+(-ra^2+2ab)[\mathrm{pt}].
+\]
+Show that when \(r\) is even, every degree-two integral class has even
+self-intersection, whereas when \(r\) is odd, some integral class has
+odd self-intersection. Deduce the complete classification
+\[
+\boxed{
+H^*(\mathbb F_r;\ZZ)
+\simeq
+H^*(\mathbb F_t;\ZZ)
+\quad\Longleftrightarrow\quad
+r\equiv t\pmod2.
+}
+\]
+
+\item \textbf{Fan, ring, and polygon.}
+
+On \(\PP^1\times\PP^1\), let \(A\) and \(B\) be the two ruling
+classes. Compute \(A\cdot B\) in three ways:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item from adjacency of the corresponding rays;
+\item from multiplication in
+\(\ZZ[A,B]/\langle A^2,B^2\rangle\);
+\item from polygon geometry.
+\end{enumerate}
+For the last method, take \(P_A\) and \(P_B\) to be unit lattice
+segments in the two coordinate directions. Use
+\[
+P_{A+B}=P_A+P_B
+\]
+and polarize the identity \(D^2=2\operatorname{Area}(P_D)\) to obtain
+\[
+D\cdot E
+=
+\operatorname{Area}(P_D+P_E)
+-\operatorname{Area}(P_D)
+-\operatorname{Area}(P_E)
+\]
+for nef divisors in this setting. Verify that the unit square gives
+\(A\cdot B=1\).
+
+Finally, explain why the area formula cannot be applied directly to
+the exceptional curve \(E\) on \(\Bl_p(\PP^2)\), even though the fan
+and cohomology-ring calculations still give \(E^2=-1\).
+
+\end{enumerate}
+
+\begin{threedictionaries}
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Fan}
+& \textbf{Cohomology ring}
+& \textbf{Polygon geometry}
+\\
+\midrule
+adjacent rays
+& product is the point class
+& transverse boundary meeting
+\\
+three-ray relation
+& self-intersection \(D_i^2=-a_i\)
+& change of neighboring edge directions
+\\
+principal divisors
+& integral change of basis
+& translate supporting inequalities
+\\
+Minkowski sum
+& polarized cup product
+& mixed area
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+The fans distinguish every \(\mathbb F_r\), but their integral
+cohomology rings distinguish only even from odd. Which information in
+the parameter \(r\) belongs to the chosen toric structure, which is
+visible to algebraic geometry, and which survives in the topology of
+the underlying manifold?
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The projective moment map, the nonnegative part of a toric variety,
+and the compact-torus quotient are developed in
+Cox--Little--Schenck, \S12.2. In particular, Proposition~12.2.3,
+Theorem~12.2.5, and Exercises~12.2.8--12.2.9 give the ingredients used
+in Sections~8.1 and~8.2.
+
+The orbit filtration, Euler characteristic, vanishing of odd
+cohomology, and the \(h\)-vector formula appear in
+Cox--Little--Schenck, \S12.3; see especially
+Theorems~12.3.9, 12.3.11, and~12.3.12. The attracting-cell language
+used here is the toric form of the Bia\l ynicki--Birula decomposition.
+
+Cox--Little--Schenck, Theorem~12.4.4, gives the integral
+cohomology-ring presentation for smooth complete toric varieties; this
+is the Jurkiewicz--Danilov theorem. The rational version for complete
+simplicial toric varieties is Theorem~12.4.1. Our treatment emphasizes
+the parallel between the Stanley--Reisner and principal-divisor
+relations in cohomology and their earlier roles in the Cox
+construction.
+
+The surface calculation in the challenge is a direct application of
+that presentation. The identity
+\[
+u_{i-1}+u_{i+1}=a_i u_i
+\quad\Longrightarrow\quad
+D_i^2=-a_i
+\]
+turns a cyclic fan into its intersection matrix. For Hirzebruch
+surfaces, an integral change of basis removes all information except
+the parity of \(r\) from the cohomology ring. The fan retains the full
+integer because it remembers the distinguished torus action and its
+invariant boundary, not merely the topology of the underlying
+four-manifold.

@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+    arrows={-{Latex[length=1.6mm]}},
+    line width=.6pt,
+    every node/.style={inner sep=2pt,font=\large},
+    projection/.style={densely dotted,draw=gray!75},
+    comparison/.style={draw=noteblue,line width=.8pt},
+    foreground/.style={preaction={draw=white,line width=3pt,arrows=-}}
+]
+    % The three objects all belong to the fiber over S_ijk.
+    \node (Ei) at (0,3.8)    {$E_i\mid S_{ijk}$};
+    \node (Ej) at (4.4,4.8)  {$E_j\mid S_{ijk}$};
+    \node (Ek) at (7.1,2.9)  {$E_k\mid S_{ijk}$};
+    \node (S)  at (3.7,-.2)  {$S_{ijk}$};
+
+    % Dotted connectors indicate the projection functor on objects.
+    \draw[projection] (Ei) -- (S);
+    \draw[projection] (Ej) -- (S);
+    \draw[projection] (Ek) -- (S);
+
+    \begin{scope}[every node/.append style={font=\normalsize}]
+    \draw[comparison] (Ei) --
+        node[above,yshift=.3em] {$\alpha_{ij}|_{S_{ijk}}$}
+        node[below,yshift=-.2em] {$\isom$} (Ej);
+    \draw[comparison] (Ej) --
+        node[above right,xshift=.2em,yshift=.15em]
+            {$\alpha_{jk}|_{S_{ijk}}$}
+        node[below left,xshift=-.1em] {$\isom$} (Ek);
+    % The direct map agrees with the composite through E_j|S_ijk.
+    \draw[foreground,comparison] (Ei) --
+        node[pos=.45,below,yshift=-.35em] {$\alpha_{ik}|_{S_{ijk}}$}
+        node[pos=.45,above,yshift=.2em] {$\isom$} (Ek);
+    \end{scope}
+\end{tikzpicture}

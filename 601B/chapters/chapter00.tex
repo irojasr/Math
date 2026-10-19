@@ -1,0 +1,3798 @@
+\chapter{\texorpdfstring{\(\PP^2\) Reloaded}{P2 Reloaded}}
+\label{chap:p2-reloaded}
+
+\begin{chapteroverview}
+In this chapter we revisit the projective plane from three perspectives:
+its affine charts and homogeneous coordinate ring, its torus action,
+and the combinatorics of a lattice triangle and its normal fan. We also see for
+the first time that monomial sections of the line bundles
+\(\cO_{\PP^2}(d)\) are indexed by the lattice points of a dilated
+triangle. The goal is not yet to develop the general theory, but to
+encounter its central correspondences in a familiar example.
+\end{chapteroverview}
+
+% Suggested learning goals:
+% By the end of the chapter, students should be able to:
+% 1. identify the dense torus in A^2 and P^2;
+% 2. describe its characters and one-parameter subgroups;
+% 3. recover the first-quadrant cone from extension properties;
+% 4. describe the torus-orbit decomposition of P^2;
+% 5. match degree-d monomials with lattice points in d Delta;
+% 6. draw the fan of P^2;
+% 7. recognize a toric blowup as a star subdivision.
+
+\section{The affine model: \texorpdfstring{\(\AAA^2\)}{A2}}
+\label{sec:p2-affine-model}
+\index{affine plane}
+\index{coordinate strata}
+
+Our first example is the affine plane. Fix a field \(\Bbbk\), and write
+\[
+\AAA^2=\Spec \Bbbk[x,y].
+\]
+The symbols \(x\) and \(y\) are coordinate functions. Once they have
+been chosen, every \(\Bbbk\)-point \(p\) determines a pair
+\[
+\bigl(x(p),y(p)\bigr)\in\Bbbk^2,
+\]
+and this gives the familiar identification
+\[
+\AAA^2(\Bbbk)\simeq\Bbbk^2.
+\]
+The notation \(\AAA^2\), however, remembers more than the set
+\(\Bbbk^2\): it remembers which functions are polynomial and which
+subsets are cut out by polynomial equations. This extra structure is
+the algebraic geometry of the affine plane.
+
+\begin{guidingquestion}
+When \(\Bbbk=\CC\), what is the difference between
+\(\AAA^2_{\CC}\) and \(\CC^2\)?
+\end{guidingquestion}
+
+Their sets of complex points are naturally identified. The notation
+\(\CC^2\), however, often asks us to remember its structure as a
+complex vector space or a complex manifold, together with the
+Euclidean topology and holomorphic functions. The notation
+\(\AAA^2_{\CC}\) asks us instead to remember the Zariski topology and
+the polynomial functions. The points are the same; the chosen
+geometric structure is different.
+
+\subsection{The coordinate strata}
+
+The coordinates \(x\) and \(y\) single out the two coordinate axes,
+\[
+V(x)=\{x=0\},
+\qquad
+V(y)=\{y=0\},
+\]
+and their intersection, the origin
+\[
+0=V(x,y).
+\]
+According to which coordinates vanish, the affine plane breaks into
+four disjoint pieces:
+\[
+\AAA^2
+=
+T
+\sqcup
+\bigl(V(x)\setminus\{0\}\bigr)
+\sqcup
+\bigl(V(y)\setminus\{0\}\bigr)
+\sqcup
+\{0\},
+\]
+where
+\[
+T
+=
+\AAA^2\setminus V(xy)
+=
+\{(a,b):a\neq0,\ b\neq0\}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  \fill[DictionaryBlue!8] (-3,-2.3) rectangle (3,2.3);
+  \draw[thick] (-3,0) -- (3,0);
+  \draw[thick] (0,-2.3) -- (0,2.3);
+  \fill (0,0) circle (1.6pt);
+
+  \node at (1.55,1.25) {$T$};
+  \node at (-1.55,1.25) {$T$};
+  \node at (-1.55,-1.25) {$T$};
+  \node at (1.55,-1.25) {$T$};
+
+  \node[above] at (2.15,0) {$V(y)\setminus\{0\}$};
+  \node[rotate=90,above] at (0,1.15) {$V(x)\setminus\{0\}$};
+  \node[below left] at (0,0) {$0$};
+\end{tikzpicture}
+\caption{A schematic real-coordinate picture of the four strata of
+\(\AAA^2\). The shading represents the open set \(T\); over a general
+field, the picture should be read combinatorially rather than
+literally.}
+\label{fig:a2-strata}
+\end{figure}
+
+On \(T\), both coordinate functions are nonzero and hence invertible.
+Its coordinate ring is therefore
+\[
+\Bbbk[T]=\Bbbk[x^{\pm1},y^{\pm1}],
+\]
+so
+\[
+T\simeq\Gm^2.
+\]
+We call \(T\) the \emph{dense torus} of \(\AAA^2\). It is open because
+it is the complement of \(V(xy)\), and it is dense because
+\(\AAA^2\) is irreducible and \(T\) is nonempty.
+
+The name ``torus'' reflects the coordinatewise multiplication law
+\[
+(t_1,t_2)(s_1,s_2)=(t_1s_1,t_2s_2).
+\]
+Using this law, \(T\) acts on the whole affine plane by rescaling:
+\[
+(t_1,t_2)\cdot(a,b)=(t_1a,t_2b).
+\]
+The four pieces above are exactly the four orbits of this action.
+The open set \(T\) is the largest orbit; each punctured coordinate
+axis is a one-dimensional orbit; and the origin is fixed. Thus the
+boundary of the torus already comes naturally organized into strata.
+
+\subsection{Monomial functions and lattice points}
+
+The polynomial functions most naturally adapted to coordinatewise
+rescaling are the monomials
+\[
+x^a y^b,
+\qquad
+a,b\in\ZZ_{\geq0}.
+\]
+Every such monomial is regular on \(\AAA^2\), and none vanishes at a
+point of \(T\). Its two exponents provide a compact combinatorial
+label, so we record the monomial \(x^ay^b\) by the lattice point
+\[
+(a,b)\in M:=\ZZ^2.
+\]
+
+The monomials in \(\Bbbk[x,y]\) occupy precisely the lattice points in
+the nonnegative quadrant:
+\[
+\ZZ_{\geq0}^2\subseteq M_{\RR}\simeq\RR^2.
+\]
+The corresponding real cone is
+\[
+\sigma^\vee=\RR_{\geq0}^2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  \fill[SurfaceGreen!10] (0,0) rectangle (3.5,3.5);
+  \draw[->] (-0.2,0) -- (3.9,0) node[right] {$a$};
+  \draw[->] (0,-0.2) -- (0,3.9) node[above] {$b$};
+
+  \foreach \i in {0,1,2,3}
+    \foreach \j in {0,1,2,3}
+      \fill (\i,\j) circle (1.2pt);
+
+  \draw[ray] (0,0) -- (3.6,0);
+  \draw[ray] (0,0) -- (0,3.6);
+
+  \node at (2.65,3.0) {$\sigma^\vee$};
+  \node[below right] at (0,0) {$1$};
+  \node[below] at (1,0) {$x$};
+  \node[left] at (0,1) {$y$};
+  \node[above right] at (2,1) {$x^2y$};
+  \node[above right] at (1,2) {$xy^2$};
+\end{tikzpicture}
+\caption{The lattice point \((a,b)\) labels the monomial \(x^ay^b\).
+The lattice points of \(\sigma^\vee\) are exactly the monomials regular
+on \(\AAA^2\).}
+\label{fig:a2-monomials-cone}
+\end{figure}
+
+The significance of the quadrant becomes clearer if we begin on the
+dense torus. Since \(x\) and \(y\) are invertible on \(T\), every
+Laurent monomial
+\[
+x^a y^b,
+\qquad
+(a,b)\in\ZZ^2,
+\]
+is regular there. Such a Laurent monomial extends across the boundary
+to a regular function on all of \(\AAA^2\) precisely when
+\[
+a\geq0
+\qquad\text{and}\qquad
+b\geq0.
+\]
+Indeed, a negative exponent of \(x\) produces a pole along \(V(x)\),
+and a negative exponent of \(y\) produces a pole along \(V(y)\).
+
+This gives a useful way to recover the affine plane from its dense
+torus: retain exactly those Laurent monomials whose exponent vectors
+lie in \(\sigma^\vee\). In symbols,
+\[
+\Bbbk[x,y]
+=
+\bigoplus_{(a,b)\in\sigma^\vee\cap M}
+\Bbbk\,x^ay^b.
+\]
+The cone is therefore not merely a picture attached to the coordinate
+ring; it records exactly which monomial functions survive when the
+boundary is added.
+
+\begin{observation}
+In the representation theory of algebraic tori, a Laurent monomial
+\(x^ay^b\) is called a \emph{character} of \(T\), and \(M\) is called
+the \emph{character lattice}. No representation theory is required
+for the discussion here. For now, \(M\) may simply be regarded as the
+lattice indexing Laurent monomials on \(T\).
+\end{observation}
+
+\subsection{Approaching the boundary along monomial curves}
+
+There is another first quadrant, obtained by looking at simple curves
+in the torus rather than functions on it. For an integer pair
+\((u,v)\in\ZZ^2\), consider
+\[
+\Gm\longrightarrow T,
+\qquad
+t\longmapsto(t^u,t^v).
+\]
+We ask whether this curve acquires a value at \(t=0\). Algebraically,
+this means asking whether the map extends to a morphism
+\[
+\AAA^1\longrightarrow\AAA^2.
+\]
+
+The extension exists exactly when
+\[
+u\geq0
+\qquad\text{and}\qquad
+v\geq0.
+\]
+If both exponents are nonnegative, the two coordinates \(t^u\) and
+\(t^v\) are polynomial functions of \(t\). If either exponent is
+negative, the corresponding coordinate has a pole at \(t=0\).
+
+The position of \((u,v)\) in the quadrant determines where the
+extended curve meets the boundary:
+\[
+\begin{array}{c|c}
+\text{position of }(u,v) & \text{value at }t=0\\
+\hline
+u>0,\ v>0 & (0,0)\\
+u>0,\ v=0 & (0,1)\in V(x)\setminus\{0\}\\
+u=0,\ v>0 & (1,0)\in V(y)\setminus\{0\}\\
+u=v=0 & (1,1)\in T.
+\end{array}
+\]
+Thus the relative interior of the two-dimensional quadrant points
+toward the origin, the relative interior of each ray points toward
+one of the punctured coordinate axes, and the zero-dimensional face
+points toward the torus itself.
+
+The particular points \((0,1)\), \((1,0)\), and \((1,1)\) arise
+because our curve begins at the identity of the torus. More generally,
+for \((c_1,c_2)\in T\), consider the translated curve
+\[
+t\longmapsto(c_1t^u,c_2t^v).
+\]
+If \(u>0\) and \(v=0\), its value at \(0\) is \((0,c_2)\), and every
+point of \(V(x)\setminus\{0\}\) occurs in this way. Similarly, the
+other ray produces all of \(V(y)\setminus\{0\}\). The interior always
+produces the origin. In this precise sense, the faces of the quadrant
+encode the four strata of \(\AAA^2\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1]
+  \fill[ExampleGold!10] (0,0) rectangle (3.7,3.7);
+  \draw[->] (-0.2,0) -- (4.1,0) node[right] {$u$};
+  \draw[->] (0,-0.2) -- (0,4.1) node[above] {$v$};
+  \draw[ray] (0,0) -- (3.8,0);
+  \draw[ray] (0,0) -- (0,3.8);
+
+  \draw[thick,->] (0,0) -- (2.7,1.9);
+  \node[above right,align=left] at (2.55,2.0)
+    {interior\\[-1mm]\(\leadsto\{0\}\)};
+
+  \node[below,align=center] at (2.15,0)
+    {ray\\[-1mm]\(\leadsto V(x)\setminus\{0\}\)};
+  \node[rotate=90,above,align=center] at (0,1.85)
+    {ray \(\leadsto V(y)\setminus\{0\}\)};
+
+  \fill (0,0) circle (1.5pt);
+  \node[below left,align=right] at (0,0)
+    {zero face\\[-1mm]\(\leadsto T\)};
+\end{tikzpicture}
+\caption{Faces of the cone of extendable monomial curves correspond to
+the torus-orbit strata of \(\AAA^2\). The arrows indicate the exponent
+vectors \((u,v)\), not paths in the affine plane.}
+\label{fig:a2-limit-cone}
+\end{figure}
+
+The exponent vectors of the extendable curves form the cone
+\[
+\sigma=\RR_{\geq0}^2\subseteq N_{\RR},
+\qquad
+N:=\ZZ^2.
+\]
+Although \(\sigma\) and \(\sigma^\vee\) are both drawn as first
+quadrants in our chosen coordinates, they answer different questions:
+\(\sigma^\vee\) records monomial functions that extend to
+\(\AAA^2\), while \(\sigma\) records monomial curves that extend to
+\(\AAA^2\).
+
+The connection between the two is visible in one calculation. Evaluate
+the monomial \(x^ay^b\) along the curve \(t\mapsto(t^u,t^v)\):
+\[
+x^ay^b(t^u,t^v)=t^{au+bv}.
+\]
+The integer \(au+bv\) records the behavior of the function along the
+curve. A positive value means that it vanishes at \(t=0\), a zero
+value means that it remains nonzero, and a negative value means that
+it has a pole.
+
+\begin{observation}
+The curves \(t\mapsto(t^u,t^v)\) are called
+\emph{one-parameter subgroups} of \(T\), and \(N\) is called the
+\emph{lattice of one-parameter subgroups}. The integer \(au+bv\) is
+written
+\[
+\pair{(a,b)}{(u,v)}.
+\]
+This is the natural pairing between the two exponent lattices \(M\)
+and \(N\). The terminology is useful, but the essential content is
+the elementary identity
+\[
+x^ay^b(t^u,t^v)=t^{au+bv}.
+\]
+\end{observation}
+
+We can now state the duality precisely:
+\[
+\sigma^\vee
+=
+\left\{
+m\in M_{\RR}:
+\pair{m}{n}\geq0
+\text{ for every }n\in\sigma
+\right\}.
+\]
+Indeed, a monomial indexed by \(m\) extends across every monomial curve
+indexed by \(\sigma\) exactly when all of these pairings are
+nonnegative. The two cones look alike in the chosen coordinates, but
+they live in paired vector spaces and encode complementary aspects of
+the affine plane.
+
+\begin{threedictionaries}
+For the affine plane, our first dictionary is
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X}
+\textbf{Algebra} & \textbf{Geometry} & \textbf{Combinatorics}\\
+\hline
+\(x^ay^b\in\Bbbk[x,y]\) &
+a monomial extending across the boundary &
+\((a,b)\in\sigma^\vee\cap M\)
+\\[2mm]
+\(t\mapsto(t^u,t^v)\) &
+a curve acquiring a boundary value &
+\((u,v)\in\sigma\cap N\)
+\\[2mm]
+\(x^ay^b(t^u,t^v)=t^{au+bv}\) &
+order along the curve &
+\(\pair{(a,b)}{(u,v)}=au+bv\).
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+
+\section{What we already know about
+\texorpdfstring{\(\PP^2\)}{P2}}
+\label{sec:p2-review}
+\index{projective plane}
+\index{homogeneous coordinates}
+\index{coordinate triangle}
+
+We now pass from the affine plane to the projective plane. The point of
+this review is not merely to repeat definitions we already know.
+Instead, we isolate a few familiar features of \(\PP^2\) that will
+soon acquire a toric interpretation: its three affine charts, its
+homogeneous coordinates, and the triangle formed by the coordinate
+lines.
+
+\subsection{Lines through the origin}
+
+For the moment, think of the \(\Bbbk\)-points of \(\PP^2\) as
+one-dimensional linear subspaces of \(\Bbbk^3\). A nonzero vector
+\[
+(x_0,x_1,x_2)\in\Bbbk^3
+\]
+determines the line that it spans, and multiplying the vector by a
+nonzero scalar does not change that line. Thus
+\[
+\PP^2(\Bbbk)
+=
+\frac{\Bbbk^3\setminus\{0\}}{\Bbbk^\times}.
+\]
+We write the equivalence class of \((x_0,x_1,x_2)\) as
+\[
+[x_0:x_1:x_2].
+\]
+These are the \emph{homogeneous coordinates} on \(\PP^2\). By
+definition,
+\[
+[x_0:x_1:x_2]
+=
+[\lambda x_0:\lambda x_1:\lambda x_2]
+\qquad
+\text{for every }\lambda\in\Bbbk^\times,
+\]
+and the triple \((0,0,0)\) is not permitted.
+
+A projective point therefore records a direction in \(\Bbbk^3\), rather
+than a vector with a specified size. One may choose a convenient
+representative of the direction, but there is usually no preferred
+representative valid for every point at once.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % In this two-dimensional schematic, the horizontal coordinate
+  % represents x_0 and all remaining directions are compressed into
+  % the vertical coordinate.
+  \coordinate (O) at (0,0);
+
+  \fill[PastelYellow] (4,-2.0) rectangle (4.35,2.0);
+  \draw[thick,ExampleGold] (4,-2.0) -- (4,2.0);
+  \node[above,ExampleGold!70!black] at (4.15,2.0)
+    {\(\Pi_0=\{x_0=1\}\)};
+
+  \draw[thick,DictionaryBlue] (O) -- (4,-1.25);
+  \draw[thick,SurfaceGreen] (O) -- (4,0.15);
+  \draw[thick,ExampleGold] (O) -- (4,1.35);
+
+  \fill[DictionaryBlue] (4,-1.25) circle (1.8pt);
+  \fill[SurfaceGreen] (4,0.15) circle (1.8pt);
+  \fill[ExampleGold] (4,1.35) circle (1.8pt);
+
+  \draw[very thick,WarningRed] (0,-1.75) -- (0,1.75);
+  \node[left,align=right,WarningRed] at (-0.15,1.25)
+    {directions with\\\(x_0=0\)};
+
+  \fill (O) circle (1.8pt);
+  \node[below left] at (O) {\(0\)};
+
+  \draw[->,black!55] (0,-2.25) -- (4.8,-2.25)
+    node[right] {\(x_0\)};
+\end{tikzpicture}
+\caption{Projectivization in a two-dimensional schematic. A line
+through the origin with \(x_0\neq0\) meets the normalization slice
+\(\Pi_0=\{x_0=1\}\) exactly once. A direction contained in
+\(\{x_0=0\}\) never meets that slice.}
+\label{fig:p2-lines-through-origin}
+\end{figure}
+
+\subsection{The standard affine charts}
+
+Suppose first that \(x_0\neq0\). We may rescale the homogeneous
+coordinates by \(x_0^{-1}\) and write the point uniquely in the form
+\[
+[1:z_1:z_2],
+\qquad
+z_1=\frac{x_1}{x_0},
+\quad
+z_2=\frac{x_2}{x_0}.
+\]
+This identifies the open subset
+\[
+U_0=\{[x_0:x_1:x_2]\in\PP^2:x_0\neq0\}
+\]
+with the affine plane:
+\[
+\begin{aligned}
+\phi_0:U_0&\longrightarrow\AAA^2,\\
+[x_0:x_1:x_2]
+&\longmapsto
+\left(\frac{x_1}{x_0},\frac{x_2}{x_0}\right).
+\end{aligned}
+\]
+The inverse map is
+\[
+(a,b)\longmapsto[1:a:b].
+\]
+
+There is nothing special about \(x_0\). Repeating the construction
+with the other two coordinates gives
+\[
+U_i=\{x_i\neq0\}\simeq\AAA^2,
+\qquad
+i=0,1,2.
+\]
+Every projective point has at least one nonzero coordinate, so
+\[
+\PP^2=U_0\cup U_1\cup U_2.
+\]
+Thus \(\PP^2\) is covered by three copies of the affine plane.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.98]
+  \coordinate (p0) at (-1.7,3.05);
+  \coordinate (p1) at (-4.35,0);
+  \coordinate (p2) at (0.95,0);
+
+  \fill[PastelYellow] (p0) -- (p1) -- (p2) -- cycle;
+
+  \draw[very thick,SurfaceGreen] (p0) -- (p1);
+  \draw[very thick,DictionaryBlue] (p0) -- (p2);
+  \draw[very thick,WarningRed] (p1) -- (p2);
+
+  \fill[ExampleGold] (p0) circle (2.2pt);
+  \fill[DictionaryBlue] (p1) circle (2.2pt);
+  \fill[SurfaceGreen] (p2) circle (2.2pt);
+
+  \node[above] at (p0) {\(p_0=[1:0:0]\)};
+  \node[below left] at (p1) {\(p_1=[0:1:0]\)};
+  \node[below right] at (p2) {\(p_2=[0:0:1]\)};
+
+  \node[fill=white,rounded corners,inner sep=4pt,align=center]
+    at (-1.7,1.35)
+    {\(U_0=\PP^2\setminus D_0\)\\[-1mm]
+     \(\simeq\AAA^2\)};
+
+  % Legend placed to the right, away from the triangle.
+  \node[anchor=west,font=\small] at (2.0,2.35) {coordinate lines};
+
+  \draw[very thick,WarningRed] (2.0,1.75) -- (2.65,1.75);
+  \node[anchor=west] at (2.82,1.75) {\(D_0=\{x_0=0\}\)};
+
+  \draw[very thick,DictionaryBlue] (2.0,1.05) -- (2.65,1.05);
+  \node[anchor=west] at (2.82,1.05) {\(D_1=\{x_1=0\}\)};
+
+  \draw[very thick,SurfaceGreen] (2.0,0.35) -- (2.65,0.35);
+  \node[anchor=west] at (2.82,0.35) {\(D_2=\{x_2=0\}\)};
+\end{tikzpicture}
+\caption{The coordinate triangle. The three colors distinguish the
+coordinate lines. In this schematic, the pale yellow region indicates
+the chart \(U_0\), obtained by removing the red side \(D_0\).}
+\label{fig:p2-coordinate-triangle-preview}
+\end{figure}
+
+The complement of \(U_0\) is the projective line
+\[
+D_0=\{x_0=0\}\simeq\PP^1.
+\]
+Relative to the chart \(U_0\), this is the \emph{line at infinity}.
+Hence one may think schematically of
+\[
+\PP^2
+=
+\AAA^2\ \sqcup\ \PP^1,
+\]
+where the affine plane is \(U_0\) and the projective line is \(D_0\).
+This description depends on the choice of \(x_0\): choosing another
+chart produces another affine plane and another line at infinity.
+
+\subsection{Changing affine coordinates}
+
+The affine charts overlap, and their coordinates are related by
+explicit formulas. On \(U_0\), write
+\[
+[x_0:x_1:x_2]=[1:z_1:z_2].
+\]
+On \(U_1\), write the same point as
+\[
+[x_0:x_1:x_2]=[w_0:1:w_2].
+\]
+A point lies in \(U_0\cap U_1\) exactly when \(z_1\neq0\). To pass
+from the \(U_0\)-coordinates to the \(U_1\)-coordinates, we simply
+renormalize so that the second homogeneous coordinate becomes \(1\):
+\[
+[1:z_1:z_2]
+=
+\left[\frac1{z_1}:1:\frac{z_2}{z_1}\right].
+\]
+Thus the transition map is
+\[
+(z_1,z_2)
+\longmapsto
+\left(
+\frac1{z_1},
+\frac{z_2}{z_1}
+\right).
+\]
+The inverse is obtained by the same kind of renormalization:
+\[
+(w_0,w_2)
+\longmapsto
+\left(
+\frac1{w_0},
+\frac{w_2}{w_0}
+\right).
+\]
+
+This simple calculation contains an important lesson about projective
+space. Each chart has two ordinary
+coordinates, but no single pair of affine coordinates works
+everywhere. On overlaps, the coordinates are related by rational
+expressions whose denominators are nonzero precisely where the two
+charts meet.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  source/.style={
+    rounded corners,
+    draw=black!60,
+    fill=black!3,
+    minimum width=3.4cm,
+    minimum height=1.0cm,
+    align=center
+  },
+  chartzero/.style={
+    rounded corners,
+    draw=ExampleGold!80!black,
+    fill=PastelYellow,
+    minimum width=3.35cm,
+    minimum height=1.45cm,
+    align=center
+  },
+  chartone/.style={
+    rounded corners,
+    draw=DictionaryBlue,
+    fill=DictionaryBlue!7,
+    minimum width=3.35cm,
+    minimum height=1.45cm,
+    align=center
+  },
+  charttwo/.style={
+    rounded corners,
+    draw=SurfaceGreen,
+    fill=SurfaceGreen!8,
+    minimum width=3.35cm,
+    minimum height=1.45cm,
+    align=center
+  }
+]
+  \node[source] (p) at (0,3.0)
+    {\(\displaystyle [x_0:x_1:x_2]\)};
+
+  \node[chartzero] (U0) at (-4.0,0)
+    {\textcolor{ExampleGold!80!black}{\(x_0\neq0\): divide by \(x_0\)}\\[1mm]
+     \(\displaystyle \left[1:\frac{x_1}{x_0}:\frac{x_2}{x_0}\right]\)};
+
+  \node[chartone] (U1) at (0,0)
+    {\textcolor{DictionaryBlue}{\(x_1\neq0\): divide by \(x_1\)}\\[1mm]
+     \(\displaystyle \left[\frac{x_0}{x_1}:1:\frac{x_2}{x_1}\right]\)};
+
+  \node[charttwo] (U2) at (4.0,0)
+    {\textcolor{SurfaceGreen}{\(x_2\neq0\): divide by \(x_2\)}\\[1mm]
+     \(\displaystyle \left[\frac{x_0}{x_2}:\frac{x_1}{x_2}:1\right]\)};
+
+  \draw[thick,-{Latex[length=2.2mm]},ExampleGold!80!black]
+    (p) -- (U0);
+  \draw[thick,-{Latex[length=2.2mm]},DictionaryBlue]
+    (p) -- (U1);
+  \draw[thick,-{Latex[length=2.2mm]},SurfaceGreen]
+    (p) -- (U2);
+\end{tikzpicture}
+\caption{The three affine charts arise from the same operation:
+choose a nonzero homogeneous coordinate and normalize it to \(1\).
+Transition maps are obtained by normalizing the same point in a
+different way.}
+\label{fig:p2-chart-transitions}
+\end{figure}
+
+\subsection{Homogeneous equations}
+
+Because homogeneous coordinates are defined only up to a common
+nonzero scalar, not every polynomial expression gives a well-defined
+condition on projective points. The appropriate equations are
+homogeneous polynomials.
+
+A polynomial \(F(x_0,x_1,x_2)\) is homogeneous of degree \(d\) if
+\[
+F(\lambda x_0,\lambda x_1,\lambda x_2)
+=
+\lambda^dF(x_0,x_1,x_2)
+\]
+for every scalar \(\lambda\). It follows that
+\[
+F(x_0,x_1,x_2)=0
+\]
+is independent of the chosen representative of
+\([x_0:x_1:x_2]\). For example, a homogeneous linear equation cuts
+out a projective line, while a homogeneous quadratic equation cuts
+out a projective conic.
+
+The polynomial ring
+\[
+S=\Bbbk[x_0,x_1,x_2]
+\]
+is naturally graded by total degree:
+\[
+S=\bigoplus_{d\geq0}S_d,
+\]
+where \(S_d\) is the vector space of homogeneous polynomials of degree
+\(d\). This is the \emph{homogeneous coordinate ring} of \(\PP^2\).
+The grading is essential: it records how an expression changes when
+the homogeneous coordinates are simultaneously rescaled.
+
+\begin{observation}
+The phrase ``coordinate ring'' is being used differently here than it
+was for \(\AAA^2\). The ring \(\Bbbk[x,y]\) is the ring of global
+regular functions on \(\AAA^2\). By contrast,
+\(\Bbbk[x_0,x_1,x_2]\) is not the ring of global regular functions on
+\(\PP^2\); its grading encodes projective equations and, later,
+sections of line bundles. This distinction is one reason homogeneous
+coordinates are richer than ordinary affine coordinates.
+\end{observation}
+
+\subsection{The coordinate triangle}
+
+The three homogeneous coordinate functions define three projective
+lines
+\[
+D_0=V(x_0),
+\qquad
+D_1=V(x_1),
+\qquad
+D_2=V(x_2).
+\]
+We call their union
+\[
+D_0\cup D_1\cup D_2
+=
+V(x_0x_1x_2)
+\]
+the \emph{coordinate triangle}. Its vertices are the three coordinate
+points
+\[
+p_0=[1:0:0],
+\qquad
+p_1=[0:1:0],
+\qquad
+p_2=[0:0:1].
+\]
+More precisely,
+\[
+p_0=D_1\cap D_2,
+\qquad
+p_1=D_0\cap D_2,
+\qquad
+p_2=D_0\cap D_1.
+\]
+There is no common intersection of all three coordinate lines, because
+\([0:0:0]\) is not a projective point.
+
+The coordinate triangle organizes \(\PP^2\) according to which
+homogeneous coordinates vanish:
+\[
+\begin{array}{c|c}
+\text{vanishing pattern} & \text{resulting piece}\\
+\hline
+x_0x_1x_2\neq0
+  & \text{one open piece}\\
+\text{exactly one }x_i=0
+  & \text{three punctured coordinate lines}\\
+\text{exactly two }x_i=0
+  & \text{the three coordinate points}.
+\end{array}
+\]
+Thus the coordinate decomposition of \(\PP^2\) has seven pieces. In
+the next section, we will see that these are not merely convenient
+subsets: they are the natural strata for a two-dimensional torus
+action.
+
+\begin{guidingquestion}
+What remains after the coordinate triangle
+\(V(x_0x_1x_2)\) is removed from \(\PP^2\), and how is it related to
+the dense torus in \(\AAA^2\)?
+\end{guidingquestion}
+
+
+\section{The dense torus in
+\texorpdfstring{\(\PP^2\)}{P2}}
+\label{sec:p2-dense-torus}
+\index{torus!dense torus}
+\index{torus action!on the projective plane}
+\index{projective plane!dense torus}
+
+At the end of the previous section, we decomposed \(\PP^2\) according
+to which homogeneous coordinates vanish. The largest piece is the one
+on which no coordinate vanishes:
+\[
+T
+=
+\PP^2\setminus V(x_0x_1x_2)
+=
+\bigl\{[x_0:x_1:x_2]:x_0x_1x_2\neq0\bigr\}.
+\]
+We now take a closer look at this open set. It will play the same role
+in \(\PP^2\) that \(\Gm^2\) played inside \(\AAA^2\).
+
+Throughout this chapter, the phrase \emph{coordinate triangle} means
+the union
+\[
+D_0\cup D_1\cup D_2
+=
+V(x_0x_1x_2)
+\]
+of the three coordinate lines. We are not asserting that this union is
+a triangle in any Euclidean metric on \(\PP^2\). The terminology is
+combinatorial: the three lines meet pairwise in three points, producing
+the incidence pattern of three sides and three vertices.
+
+\subsection{Removing the coordinate triangle}
+
+The condition \(x_0x_1x_2\neq0\) means that all three homogeneous
+coordinates are nonzero. In particular, every point of \(T\) lies in
+the chart \(U_0\). After dividing by \(x_0\), it has a unique
+representative
+\[
+[1:z_1:z_2]
+\qquad\text{with}\qquad
+z_1,z_2\in\Bbbk^\times.
+\]
+Therefore the map
+\[
+\begin{aligned}
+T&\longrightarrow\Gm^2,\\
+[x_0:x_1:x_2]
+&\longmapsto
+\left(\frac{x_1}{x_0},\frac{x_2}{x_0}\right)
+\end{aligned}
+\]
+is an isomorphism, with inverse
+\[
+(z_1,z_2)\longmapsto[1:z_1:z_2].
+\]
+Thus
+\[
+T\simeq\Gm^2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (p0) at (0,3.35);
+  \coordinate (p1) at (-3.15,0);
+  \coordinate (p2) at (3.15,0);
+
+  \fill[DictionaryBlue!10] (p0) -- (p1) -- (p2) -- cycle;
+
+  % Colored boundary.
+  \draw[very thick,SurfaceGreen] (p0) -- (p1);
+  \draw[very thick,ExampleGold] (p0) -- (p2);
+  \draw[very thick,WarningRed] (p1) -- (p2);
+
+  % Open torus region.
+  \fill[PastelYellow,opacity=0.95]
+    (-0.15,2.55) -- (-2.15,0.42) -- (2.15,0.42) -- (0.15,2.55) -- cycle;
+  \node[align=center] at (0,1.45)
+    {\(\displaystyle T=\{x_0x_1x_2\neq0\}\)\\[1mm]
+     \(\displaystyle \simeq\Gm^2\)};
+
+  \fill[DictionaryBlue] (p0) circle (2pt);
+  \fill[SurfaceGreen] (p1) circle (2pt);
+  \fill[ExampleGold] (p2) circle (2pt);
+
+  \node[above] at (p0) {\(p_0\)};
+  \node[below left] at (p1) {\(p_1\)};
+  \node[below right] at (p2) {\(p_2\)};
+
+  \begin{scope}[yshift=-0.85cm]
+    \draw[very thick,WarningRed] (-3.0,0) -- (-2.45,0);
+    \node[right] at (-2.38,0) {\(D_0\)};
+
+    \draw[very thick,ExampleGold] (-0.55,0) -- (0,0);
+    \node[right] at (0.07,0) {\(D_1\)};
+
+    \draw[very thick,SurfaceGreen] (1.75,0) -- (2.30,0);
+    \node[right] at (2.37,0) {\(D_2\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The dense torus is what remains after the three coordinate
+lines are removed. The drawing is only a combinatorial model: the
+``triangle'' means the union \(D_0\cup D_1\cup D_2\), not a Euclidean
+triangle sitting inside \(\PP^2\). The yellow region represents the
+single open set on which all three coordinates are nonzero.}
+\label{fig:p2-dense-torus-region}
+\end{figure}
+
+This description also explains why the word \emph{dense} is
+appropriate. The complement of \(T\) is the union of the three
+coordinate lines---what we are calling the coordinate triangle---and
+this union is a proper closed subset of \(\PP^2\). Since \(\PP^2\) is
+irreducible, every nonempty open subset is dense.
+
+\begin{guidingquestion}
+Why do three nonzero homogeneous coordinates produce only a
+two-dimensional torus?
+\end{guidingquestion}
+
+The answer is that homogeneous coordinates contain one redundant
+degree of freedom. A triple
+\[
+(x_0,x_1,x_2)\in(\Bbbk^\times)^3
+\]
+and its scalar multiple
+\[
+(\lambda x_0,\lambda x_1,\lambda x_2)
+\]
+represent the same projective point. Dividing by the common scalar
+leaves two independent ratios. On \(U_0\), those ratios are
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={
+    rounded corners,
+    minimum height=1.25cm,
+    minimum width=3.2cm,
+    align=center,
+    draw=black!60
+  }
+]
+  \node[box,fill=DictionaryBlue!8] (left) at (-3.8,0)
+    {\(\displaystyle [x_0:x_1:x_2]\in T\)\\
+     \(x_0x_1x_2\neq0\)};
+
+  \node[box,fill=PastelYellow] (middle) at (0,0)
+    {\(\displaystyle
+      [1:x_1/x_0:x_2/x_0]\)\\
+     normalize \(x_0\) to \(1\)};
+
+  \node[box,fill=SurfaceGreen!9] (right) at (3.8,0)
+    {\(\displaystyle
+      (z_1,z_2)\in\Gm^2\)};
+
+  \draw[thick,-{Latex[length=2.2mm]},DictionaryBlue]
+    (left) -- (middle);
+
+  \draw[thick,-{Latex[length=2.2mm]},SurfaceGreen]
+    (middle) -- (right);
+
+  \draw[thick,-{Latex[length=2.2mm]},ExampleGold]
+    (right.south) to[out=-110,in=-70]
+    node[below=2mm,fill=white,inner sep=2pt]
+    {\(\displaystyle (z_1,z_2)\longmapsto[1:z_1:z_2]\)}
+    (left.south);
+\end{tikzpicture}
+\caption{The identification \(T\simeq\Gm^2\). Moving from left to
+right means normalizing \(x_0\) to \(1\) and retaining the two
+independent ratios.}
+\label{fig:p2-torus-identification}
+\end{figure}
+
+\subsection{Multiplication inside the open set}
+
+The identification \(T\simeq\Gm^2\) transports the usual
+coordinatewise multiplication on \(\Gm^2\) to \(T\). In normalized
+coordinates,
+\[
+[1:z_1:z_2]\cdot[1:w_1:w_2]
+=
+[1:z_1w_1:z_2w_2].
+\]
+The identity element is
+\[
+e=[1:1:1],
+\]
+and
+\[
+[1:z_1:z_2]^{-1}
+=
+[1:z_1^{-1}:z_2^{-1}].
+\]
+So the open subset \(T\) is not merely isomorphic to a torus as a
+variety: it carries a natural algebraic group structure.
+
+There is also a symmetric way to write this multiplication without
+choosing \(x_0\) as the preferred coordinate. If
+\[
+p=[x_0:x_1:x_2],
+\qquad
+q=[y_0:y_1:y_2]
+\]
+belong to \(T\), define
+\[
+p\cdot q
+=
+[x_0y_0:x_1y_1:x_2y_2].
+\]
+This is well defined. Indeed, rescaling \(p\) or \(q\) only rescales
+all three products by a common nonzero scalar. The identity for this
+description is again \([1:1:1]\).
+
+\begin{observation}
+A more representation-theoretic description is
+\[
+T\simeq\Gm^3/\Gm,
+\]
+where the copy of \(\Gm\) in the denominator is embedded diagonally:
+\[
+\lambda\longmapsto(\lambda,\lambda,\lambda).
+\]
+This says exactly that three nonzero coordinates are being considered
+up to simultaneous rescaling. Nothing in this chapter requires the
+language of quotient groups; the two affine ratios
+\(x_1/x_0\) and \(x_2/x_0\) contain the same information.
+\end{observation}
+
+\subsection{Letting the torus move the whole projective plane}
+
+The multiplication on \(T\) extends to an action on all of
+\(\PP^2\). Using the coordinates \(T\simeq\Gm^2\), define
+\[
+(t_1,t_2)\cdot[x_0:x_1:x_2]
+=
+[x_0:t_1x_1:t_2x_2].
+\]
+This formula makes sense even when some of the \(x_i\) vanish. It is
+also compatible with projective scaling: replacing
+\([x_0:x_1:x_2]\) by
+\([\lambda x_0:\lambda x_1:\lambda x_2]\) changes the output by the
+same common scalar \(\lambda\).
+
+On the open set \(T\), this action is simply multiplication. Indeed,
+\[
+(t_1,t_2)\cdot[1:z_1:z_2]
+=
+[1:t_1z_1:t_2z_2].
+\]
+In particular, every point of \(T\) can be moved to every other point
+of \(T\). Given
+\[
+[1:z_1:z_2],
+\qquad
+[1:w_1:w_2]\in T,
+\]
+the unique torus element carrying the first point to the second is
+\[
+\left(\frac{w_1}{z_1},\frac{w_2}{z_2}\right).
+\]
+Thus \(T\) is a single orbit for the action.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  pointbox/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=3.35cm,
+    minimum height=1.15cm,
+    align=center
+  }
+]
+  \node[pointbox,fill=DictionaryBlue!8] (p) at (-3.9,0)
+    {\(\displaystyle p=[1:z_1:z_2]\)};
+
+  \node[pointbox,fill=PastelYellow] (t) at (0,1.85)
+    {\(\displaystyle t=(t_1,t_2)\in T\)};
+
+  \node[pointbox,fill=SurfaceGreen!9] (q) at (3.9,0)
+    {\(\displaystyle t\cdot p
+      =[1:t_1z_1:t_2z_2]\)};
+
+  \draw[very thick,-{Latex[length=2.4mm]},ExampleGold]
+    (p) -- node[above=2mm,fill=white,inner sep=2pt]
+    {\(\displaystyle \cdot\,(t_1,t_2)\)}
+    (q);
+
+  \draw[thick,-{Latex[length=2mm]},DictionaryBlue]
+    (t) -- (0,0.62);
+\end{tikzpicture}
+\caption{The torus action on its open orbit is coordinatewise
+multiplication. The same formula continues to make sense on the
+coordinate lines and coordinate points.}
+\label{fig:p2-torus-action}
+\end{figure}
+
+The action preserves each coordinate line. For example, if \(x_1=0\),
+then
+\[
+(t_1,t_2)\cdot[x_0:0:x_2]
+=
+[x_0:0:t_2x_2],
+\]
+so the second coordinate remains zero. The three coordinate points
+are fixed:
+\[
+(t_1,t_2)\cdot p_i=p_i
+\qquad
+(i=0,1,2).
+\]
+The complete orbit decomposition appears in
+\cref{sec:p2-orbits}. For now, the essential picture is that the torus
+moves freely through the large open set, while the coordinate triangle
+records the ways in which the orbit can degenerate.
+
+\subsection{The affine torus reappears in every chart}
+
+Although we used \(U_0\) to identify \(T\) with \(\Gm^2\), the same
+open torus appears in every standard affine chart. In \(U_1\), it is
+described by
+\[
+\frac{x_0}{x_1}\neq0,
+\qquad
+\frac{x_2}{x_1}\neq0,
+\]
+and in \(U_2\) by
+\[
+\frac{x_0}{x_2}\neq0,
+\qquad
+\frac{x_1}{x_2}\neq0.
+\]
+Thus each chart contains the same open torus, but uses a different
+pair of coordinates on it.
+
+On \(U_0\cap T\), write
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}.
+\]
+On \(U_1\cap T\), write
+\[
+w_0=\frac{x_0}{x_1},
+\qquad
+w_2=\frac{x_2}{x_1}.
+\]
+Then
+\[
+w_0=z_1^{-1},
+\qquad
+w_2=z_1^{-1}z_2.
+\]
+Notice that the change of coordinates is expressed entirely using
+Laurent monomials. This is our first hint that monomials are not an
+artifact of one chosen affine chart: they are the natural coordinate
+changes on the torus itself.
+
+\begin{threedictionaries}
+The dense open set of \(\PP^2\) may be read in three parallel ways.
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X}
+\textbf{Algebra} & \textbf{Geometry} & \textbf{Combinatorics}\\
+\hline
+\(\Bbbk[z_1^{\pm1},z_2^{\pm1}]\) &
+\(T=\PP^2\setminus V(x_0x_1x_2)\) &
+two independent exponent directions
+\\[2mm]
+Laurent monomial coordinate changes &
+the same torus inside all three affine charts &
+integral changes of lattice coordinates
+\\[2mm]
+coordinatewise multiplication &
+a torus action on \(\PP^2\) &
+rescaling in two independent directions.
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+The action fixes the three coordinate points and preserves each
+coordinate line. What are the remaining orbits on the coordinate
+triangle?
+\end{guidingquestion}
+
+
+\section{Monomials, triangles, and global sections}
+\label{sec:p2-characters-sections}
+\index{monomial}
+\index{global section}
+\index{lattice point!and monomial sections}
+\index{polytope!triangle of monomials}
+
+We have now met two kinds of coordinate-like objects on \(\PP^2\).
+Homogeneous coordinates
+\[
+[x_0:x_1:x_2]
+\]
+treat the three coordinate directions symmetrically, while affine
+coordinates such as
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}
+\]
+describe one chart at a time.
+
+The qualifier ``coordinate-like'' matters. The symbols
+\([x_0:x_1:x_2]\) are not coordinates in the ordinary affine sense,
+because the triple is not uniquely determined by the point:
+\[
+[x_0:x_1:x_2]
+=
+[\lambda x_0:\lambda x_1:\lambda x_2]
+\qquad
+(\lambda\in\Bbbk^\times).
+\]
+Homogeneous coordinates are therefore redundant labels for projective
+points rather than genuine globally defined coordinate functions. By
+contrast, once a chart \(U_i\) has been chosen and \(x_i\) normalized
+to \(1\), the resulting ratios are honest affine coordinates on that
+chart.
+
+In this section, monomials will provide the bridge between these two
+descriptions.
+
+The reward will be our first compact polyhedral picture of a genuinely
+global object: the global sections of \(\cO_{\PP^2}(d)\) will be
+indexed by the lattice points in a triangle of side length \(d\).
+
+\subsection{Why homogeneous polynomials are not ordinary functions}
+
+Let
+\[
+F(x_0,x_1,x_2)
+\]
+be a homogeneous polynomial of degree \(d\). If we replace a
+representative \((x_0,x_1,x_2)\) of a projective point by the scalar
+multiple
+\[
+(\lambda x_0,\lambda x_1,\lambda x_2),
+\]
+then
+\[
+F(\lambda x_0,\lambda x_1,\lambda x_2)
+=
+\lambda^dF(x_0,x_1,x_2).
+\]
+Unless \(d=0\), the value of \(F\) therefore depends on the chosen
+representative. A homogeneous polynomial of positive degree is not an
+ordinary function on \(\PP^2\).
+
+The failure is not arbitrary: changing the representative always
+changes the value by the same power \(\lambda^d\). Rather than
+discarding homogeneous polynomials, we package this predictable
+scaling into a geometric object called the line bundle
+\(\cO_{\PP^2}(d)\).
+
+There is an intuitive way to see what this means. On the chart
+\(U_0=\{x_0\neq0\}\), divide by \(x_0^d\):
+\[
+\frac{F(x_0,x_1,x_2)}{x_0^d}
+=
+F\left(1,\frac{x_1}{x_0},\frac{x_2}{x_0}\right).
+\]
+This is an honest polynomial function in the affine coordinates
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}.
+\]
+Likewise, on \(U_1\) and \(U_2\), the expressions
+\[
+\frac{F}{x_1^d}
+\qquad\text{and}\qquad
+\frac{F}{x_2^d}
+\]
+are regular functions.
+
+These three local functions do not agree literally on the overlaps.
+Instead, they differ by the predictable factors obtained by changing
+which homogeneous coordinate has been normalized to \(1\). For
+example, on \(U_0\cap U_1\),
+\[
+\frac{F}{x_0^d}
+=
+\left(\frac{x_1}{x_0}\right)^d
+\frac{F}{x_1^d}.
+\]
+This controlled compatibility is precisely what it means for \(F\) to
+define a global section of \(\cO_{\PP^2}(d)\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  localbox/.style={
+    rounded corners,
+    minimum width=3.25cm,
+    minimum height=1.35cm,
+    align=center,
+    draw=black!55
+  },
+  relationbox/.style={
+    rounded corners,
+    minimum width=8.7cm,
+    minimum height=1.05cm,
+    align=center,
+    draw=ExampleGold!75!black,
+    fill=ExampleGold!7
+  }
+]
+  \node[localbox,fill=PastelYellow] (U0) at (-4.0,0.7)
+    {\(\displaystyle U_0\)\\[1mm]
+     \(\displaystyle F_0=\frac{F}{x_0^d}
+       =F(1,z_1,z_2)\)};
+
+  \node[localbox,fill=DictionaryBlue!8] (U1) at (0,0.7)
+    {\(\displaystyle U_1\)\\[1mm]
+     \(\displaystyle F_1=\frac{F}{x_1^d}\)};
+
+  \node[localbox,fill=SurfaceGreen!9] (U2) at (4.0,0.7)
+    {\(\displaystyle U_2\)\\[1mm]
+     \(\displaystyle F_2=\frac{F}{x_2^d}\)};
+
+  \node[relationbox] at (0,-1.15)
+    {\(\displaystyle
+      F_0=\left(\frac{x_1}{x_0}\right)^dF_1
+      \quad\text{on }U_0\cap U_1,
+      \qquad
+      F_1=\left(\frac{x_2}{x_1}\right)^dF_2
+      \quad\text{on }U_1\cap U_2.\)};
+\end{tikzpicture}
+\caption{A homogeneous polynomial of degree \(d\) becomes an ordinary
+function after one coordinate is normalized. The lower box records
+how the local functions agree on overlaps.}
+\label{fig:p2-local-sections}
+\end{figure}
+
+\begin{observation}
+The line bundle \(\cO_{\PP^2}(d)\) is the device that remembers these
+transition factors. No general theory of line bundles is needed at
+this stage. For this chapter, one may safely think of a global section
+of \(\cO_{\PP^2}(d)\) as a homogeneous polynomial of degree \(d\),
+viewed through its compatible local expressions on the three affine
+charts.
+\end{observation}
+
+For \(d\geq0\), we therefore have
+\[
+\Hzero{\PP^2}{\cO_{\PP^2}(d)}
+\simeq
+\Bbbk[x_0,x_1,x_2]_d,
+\]
+where the right-hand side denotes the vector space of homogeneous
+polynomials of degree \(d\).
+
+\subsection{The monomial basis}
+
+A homogeneous monomial of degree \(d\) has the form
+\[
+x_0^{a_0}x_1^{a_1}x_2^{a_2},
+\]
+where
+\[
+a_0,a_1,a_2\in\ZZ_{\geq0},
+\qquad
+a_0+a_1+a_2=d.
+\]
+Thus the monomial basis of
+\(\Hzero{\PP^2}{\cO_{\PP^2}(d)}\) is indexed by the nonnegative
+integer solutions of one linear equation.
+
+There are three exponents but only two independent choices. Set
+\[
+a=a_1,
+\qquad
+b=a_2.
+\]
+Then
+\[
+a_0=d-a-b,
+\]
+and the conditions \(a_0,a_1,a_2\geq0\) become
+\[
+a\geq0,
+\qquad
+b\geq0,
+\qquad
+a+b\leq d.
+\]
+The monomial may therefore be written as
+\[
+x_0^{d-a-b}x_1^ax_2^b.
+\]
+
+On the chart \(U_0\), after dividing by \(x_0^d\), this section becomes
+\[
+\frac{x_0^{d-a-b}x_1^ax_2^b}{x_0^d}
+=
+\left(\frac{x_1}{x_0}\right)^a
+\left(\frac{x_2}{x_0}\right)^b
+=
+z_1^az_2^b.
+\]
+This formula is the key point: a homogeneous monomial on projective
+space becomes an ordinary monomial on the affine chart.
+
+\begin{guidingquestion}
+Which monomials \(z_1^az_2^b\) can arise from degree-\(d\)
+homogeneous monomials?
+\end{guidingquestion}
+
+The answer is encoded by the three inequalities
+\[
+a\geq0,
+\qquad
+b\geq0,
+\qquad
+a+b\leq d.
+\]
+These are exactly the inequalities cutting out a triangle.
+
+\subsection{The triangle of degree-\texorpdfstring{\(d\)}{d} monomials}
+
+Let
+\[
+\Delta
+=
+\Conv\{(0,0),(1,0),(0,1)\}
+\subseteq M_{\RR}.
+\]
+Its \(d\)-fold dilation is
+\[
+d\Delta
+=
+\Conv\{(0,0),(d,0),(0,d)\}.
+\]
+The lattice points in \(d\Delta\) are precisely the pairs
+\[
+(a,b)\in\ZZ^2
+\]
+satisfying
+\[
+a\geq0,
+\qquad
+b\geq0,
+\qquad
+a+b\leq d.
+\]
+Hence we obtain the correspondence
+\[
+x_0^{d-a-b}x_1^ax_2^b
+\longleftrightarrow
+(a,b)\in d\Delta\cap M.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  \begin{scope}[xshift=-5.0cm]
+    \fill[PastelYellow] (0,0) -- (2.2,0) -- (0,2.2) -- cycle;
+    \draw[thick] (0,0) -- (2.2,0) -- (0,2.2) -- cycle;
+    \foreach \p in {(0,0),(2.2,0),(0,2.2)}
+      \fill[DictionaryBlue] \p circle (2pt);
+    \node[below] at (1.1,-0.25) {\(d=1\)};
+  \end{scope}
+
+  \begin{scope}[xshift=-1.1cm]
+    \fill[DictionaryBlue!7] (0,0) -- (2.8,0) -- (0,2.8) -- cycle;
+    \draw[thick] (0,0) -- (2.8,0) -- (0,2.8) -- cycle;
+    \foreach \i in {0,1,2}
+      \foreach \j in {0,...,\numexpr2-\i\relax}
+        \fill[ExampleGold] ({1.4*\i},{1.4*\j}) circle (1.8pt);
+    \node[below] at (1.4,-0.25) {\(d=2\)};
+  \end{scope}
+
+  \begin{scope}[xshift=3.6cm]
+    \fill[SurfaceGreen!8] (0,0) -- (3.3,0) -- (0,3.3) -- cycle;
+    \draw[thick] (0,0) -- (3.3,0) -- (0,3.3) -- cycle;
+    \foreach \i in {0,1,2,3}
+      \foreach \j in {0,...,\numexpr3-\i\relax}
+        \fill[SurfaceGreen] ({1.1*\i},{1.1*\j}) circle (1.7pt);
+    \node[below] at (1.65,-0.25) {\(d=3\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The lattice points of \(d\Delta\) index the degree-\(d\)
+monomials. Increasing \(d\) dilates the triangle and creates more
+global sections.}
+\label{fig:p2-dilated-triangles}
+\end{figure}
+
+For \(d=2\), the six lattice points correspond to the six monomials
+\[
+x_0^2,\quad
+x_0x_1,\quad
+x_1^2,\quad
+x_0x_2,\quad
+x_1x_2,\quad
+x_2^2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.25]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,4);
+
+  \fill[PastelYellow] (A) -- (B) -- (C) -- cycle;
+  \draw[very thick,SurfaceGreen] (A) -- (B);
+  \draw[very thick,WarningRed] (B) -- (C);
+  \draw[very thick,ExampleGold] (C) -- (A);
+
+  \fill[DictionaryBlue] (0,0) circle (1.9pt);
+  \node[below left] at (0,0) {\(x_0^2\)};
+
+  \fill[DictionaryBlue] (2,0) circle (1.9pt);
+  \node[below] at (2,0) {\(x_0x_1\)};
+
+  \fill[DictionaryBlue] (4,0) circle (1.9pt);
+  \node[below right] at (4,0) {\(x_1^2\)};
+
+  \fill[DictionaryBlue] (0,2) circle (1.9pt);
+  \node[left] at (0,2) {\(x_0x_2\)};
+
+  \fill[DictionaryBlue] (2,2) circle (1.9pt);
+  \node[above right] at (2,2) {\(x_1x_2\)};
+
+  \fill[DictionaryBlue] (0,4) circle (1.9pt);
+  \node[above left] at (0,4) {\(x_2^2\)};
+
+  % The three colored edges are explained immediately below the figure.
+
+\end{tikzpicture}
+\caption{The degree-two triangle. The six lattice points label the six
+quadratic monomials. The three edge colors match the three coordinate
+lines \(D_0,D_1,D_2\).}
+\label{fig:p2-degree-two-monomials}
+\end{figure}
+
+The colors on the three edges match the coordinate triangle from the
+previous sections:
+\[
+\begin{array}{c|c|c}
+\text{edge of }d\Delta
+&
+\text{missing factor}
+&
+\text{coordinate line}
+\\
+\hline
+a+b=d & x_0 & D_0=\{x_0=0\}\\
+a=0 & x_1 & D_1=\{x_1=0\}\\
+b=0 & x_2 & D_2=\{x_2=0\}.
+\end{array}
+\]
+For example, a lattice point on the edge \(a+b=d\) labels a monomial
+with exponent \(a_0=0\), so that monomial is not divisible by \(x_0\).
+A lattice point in the interior has
+\[
+a_0>0,\qquad a_1>0,\qquad a_2>0,
+\]
+so the corresponding monomial is divisible by all three homogeneous
+coordinates.
+
+This is our first glimpse of a general principle: the faces of a
+polytope record how sections interact with the boundary of a toric
+variety.
+
+\subsection{Counting sections by counting lattice points}
+
+The triangle also computes the dimension of the space of global
+sections. In the horizontal row with fixed exponent \(b\), the
+possible values of \(a\) are
+\[
+0,1,\ldots,d-b,
+\]
+so that row contains \(d-b+1\) lattice points. Summing over
+\(b=0,\ldots,d\), we find
+\[
+\#(d\Delta\cap M)
+=
+1+2+\cdots+(d+1)
+=
+\frac{(d+1)(d+2)}{2}.
+\]
+Therefore
+\[
+\dim_{\Bbbk}
+\Hzero{\PP^2}{\cO_{\PP^2}(d)}
+=
+\frac{(d+1)(d+2)}{2}
+=
+\binom{d+2}{2}.
+\]
+
+This familiar dimension formula is now visible in a picture: it is
+simply the number of lattice points in a dilated triangle.
+
+\begin{observation}
+Under the torus action
+\[
+(t_1,t_2)\cdot[x_0:x_1:x_2]
+=
+[x_0:t_1x_1:t_2x_2],
+\]
+the monomial section
+\[
+x_0^{d-a-b}x_1^ax_2^b
+\]
+is rescaled by
+\[
+t_1^at_2^b.
+\]
+In representation-theoretic language, it is a torus
+\emph{eigensection} of weight \((a,b)\). No representation theory is
+needed to use the correspondence: the lattice point \((a,b)\) simply
+records how the monomial changes under coordinatewise rescaling.
+\end{observation}
+
+\begin{threedictionaries}
+For the line bundle \(\cO_{\PP^2}(d)\), the three viewpoints meet in
+one picture.
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X|
+  >{\centering\arraybackslash}X}
+\textbf{Algebra} & \textbf{Geometry} & \textbf{Combinatorics}\\
+\hline
+\(\Bbbk[x_0,x_1,x_2]_d\) &
+\(\Hzero{\PP^2}{\cO_{\PP^2}(d)}\) &
+\(d\Delta\cap M\)
+\\[2mm]
+\(x_0^{d-a-b}x_1^ax_2^b\) &
+a monomial section &
+\((a,b)\)
+\\[2mm]
+absence of the factor \(x_i\) &
+restriction not identically zero on \(D_i\) &
+a lattice point on the corresponding edge.
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+The vertices, edges, and interior of the triangle distinguish different
+kinds of monomial sections. Do the vertices, edges, and interior also
+know something about the torus orbits in \(\PP^2\)?
+\end{guidingquestion}
+
+
+\section{Orbits and coordinate strata}
+\label{sec:p2-orbits}
+\index{torus orbit}
+\index{fixed point!torus-fixed}
+\index{orbit closure}
+
+The torus action
+\[
+(t_1,t_2)\cdot[x_0:x_1:x_2]
+=
+[x_0:t_1x_1:t_2x_2]
+\]
+has a simple but powerful feature: it can rescale a nonzero coordinate,
+but it can never turn a zero coordinate into a nonzero one, or vice
+versa. Thus the pattern of vanishing coordinates is constant along
+every orbit.
+
+For \(\PP^2\), there are only seven possible nonempty vanishing
+patterns:
+\[
+\begin{array}{c}
+\text{no coordinate vanishes},\\
+\text{exactly one coordinate vanishes},\\
+\text{exactly two coordinates vanish}.
+\end{array}
+\]
+In fact, each such pattern determines exactly one torus orbit. This
+gives a decomposition of \(\PP^2\) into seven pieces.
+
+\begin{guidingquestion}
+Why should the vanishing pattern determine the entire orbit, rather
+than merely a union of several orbits?
+\end{guidingquestion}
+
+The reason is that the torus has enough freedom to change all the
+nonzero coordinates relative to one another. Let us work through the
+three cases.
+
+\subsection{The open orbit}
+
+If no coordinate vanishes, the point belongs to
+\[
+T
+=
+\{[x_0:x_1:x_2]:x_0x_1x_2\neq0\}.
+\]
+We already know that \(T\) is a single orbit. Indeed, after
+normalizing \(x_0=1\), any point has the form
+\[
+[1:z_1:z_2],
+\qquad
+z_1,z_2\in\Bbbk^\times,
+\]
+and
+\[
+(z_1^{-1},z_2^{-1})\cdot[1:z_1:z_2]
+=
+[1:1:1].
+\]
+Thus every point of \(T\) can be moved to the identity
+\([1:1:1]\).
+
+This orbit has dimension \(2\), the same as \(\PP^2\), and it is open
+and dense.
+
+\subsection{The three one-dimensional orbits}
+
+Suppose exactly one homogeneous coordinate vanishes. For example,
+consider the coordinate line
+\[
+D_0=\{x_0=0\}.
+\]
+Removing its two coordinate points leaves
+\[
+O_0
+=
+D_0\setminus\{p_1,p_2\}
+=
+\{[0:x_1:x_2]:x_1x_2\neq0\}.
+\]
+Every point of \(O_0\) may be written uniquely as
+\[
+[0:1:z],
+\qquad
+z\in\Bbbk^\times.
+\]
+The torus action becomes
+\[
+(t_1,t_2)\cdot[0:1:z]
+=
+[0:t_1:t_2z]
+=
+\left[0:1:\frac{t_2}{t_1}z\right].
+\]
+By choosing the ratio \(t_2/t_1\), we may move any point of \(O_0\)
+to any other. Hence \(O_0\) is a single orbit.
+
+Exactly the same argument applies to the other two coordinate lines:
+\[
+\begin{aligned}
+O_1
+&=
+D_1\setminus\{p_0,p_2\}
+=
+\{[x_0:0:x_2]:x_0x_2\neq0\},
+\\
+O_2
+&=
+D_2\setminus\{p_0,p_1\}
+=
+\{[x_0:x_1:0]:x_0x_1\neq0\}.
+\end{aligned}
+\]
+Each \(O_i\) is isomorphic to \(\Gm\), and each is a
+one-dimensional torus orbit.
+
+\begin{observation}
+The torus \(T\simeq\Gm^2\) acts transitively on \(O_i\simeq\Gm\), but
+not freely: one direction of the two-dimensional torus acts
+trivially. For instance, on \(O_0\), only the ratio \(t_2/t_1\)
+matters. The diagonal subgroup
+\[
+\{(t,t):t\in\Gm\}
+\]
+fixes every point of \(O_0\). This explains geometrically why the
+orbit has dimension \(1\) rather than \(2\).
+\end{observation}
+
+\subsection{The three fixed points}
+
+If exactly two coordinates vanish, the point must be one of
+\[
+p_0=[1:0:0],
+\qquad
+p_1=[0:1:0],
+\qquad
+p_2=[0:0:1].
+\]
+Each is fixed by the entire torus. For example,
+\[
+(t_1,t_2)\cdot[1:0:0]
+=
+[1:0:0].
+\]
+Thus each coordinate point is a zero-dimensional orbit.
+
+We have proved the orbit decomposition
+\[
+\PP^2
+=
+T
+\sqcup O_0\sqcup O_1\sqcup O_2
+\sqcup\{p_0\}\sqcup\{p_1\}\sqcup\{p_2\}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+  \coordinate (p0) at (0,3.4);
+  \coordinate (p1) at (-3.2,0);
+  \coordinate (p2) at (3.2,0);
+
+  % Open orbit.
+  \fill[PastelYellow]
+    (0,2.75) -- (-2.35,0.42) -- (2.35,0.42) -- cycle;
+  \node[align=center] at (0,1.45)
+    {\(\displaystyle T\)\\[-1mm]
+     \(2\)-dimensional orbit};
+
+  % One-dimensional orbits.
+  \draw[very thick,SurfaceGreen] (p0) -- (p1);
+  \draw[very thick,ExampleGold] (p0) -- (p2);
+  \draw[very thick,WarningRed] (p1) -- (p2);
+
+  \node[rotate=47,fill=white,rounded corners,inner sep=2pt,
+        text=SurfaceGreen!65!black]
+    at (-1.55,1.75) {\(O_2\)};
+  \node[rotate=-47,fill=white,rounded corners,inner sep=2pt,
+        text=ExampleGold!75!black]
+    at (1.55,1.75) {\(O_1\)};
+  \node[fill=white,rounded corners,inner sep=2pt,text=WarningRed]
+    at (0,0) {\(O_0\)};
+
+  % Fixed points.
+  \fill[DictionaryBlue] (p0) circle (2.4pt);
+  \fill[DictionaryBlue] (p1) circle (2.4pt);
+  \fill[DictionaryBlue] (p2) circle (2.4pt);
+
+  \node[above] at (p0) {\(p_0\)};
+  \node[below left] at (p1) {\(p_1\)};
+  \node[below right] at (p2) {\(p_2\)};
+\end{tikzpicture}
+\caption{The seven torus orbits of \(\PP^2\): one open
+two-dimensional orbit, three one-dimensional orbits, and three fixed
+points. As before, the triangular drawing is a combinatorial model of
+the coordinate-line incidence pattern.}
+\label{fig:p2-seven-orbits}
+\end{figure}
+
+\subsection{Orbit closures}
+
+The orbits do not sit independently inside \(\PP^2\). Their closures
+remember how one stratum can degenerate into another.
+
+The closure of the open orbit is all of \(\PP^2\):
+\[
+\overline{T}=\PP^2.
+\]
+The closure of a one-dimensional orbit is the corresponding coordinate
+line:
+\[
+\overline{O_i}=D_i.
+\]
+For example,
+\[
+\overline{O_0}
+=
+D_0
+=
+O_0\sqcup\{p_1,p_2\}.
+\]
+Finally, each fixed point is already closed:
+\[
+\overline{\{p_i\}}=\{p_i\}.
+\]
+
+These relations may be displayed in a small incidence diagram.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  orbit/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=1.35cm,
+    minimum height=0.75cm,
+    align=center
+  }
+]
+  \node[orbit,fill=PastelYellow] (T) at (0,3.2) {\(T\)};
+
+  \node[orbit,fill=WarningRed!7] (O0) at (-3,1.55) {\(O_0\)};
+  \node[orbit,fill=ExampleGold!8] (O1) at (0,1.55) {\(O_1\)};
+  \node[orbit,fill=SurfaceGreen!8] (O2) at (3,1.55) {\(O_2\)};
+
+  \node[orbit,fill=DictionaryBlue!8] (p0) at (-3,-0.15) {\(p_0\)};
+  \node[orbit,fill=DictionaryBlue!8] (p1) at (0,-0.15) {\(p_1\)};
+  \node[orbit,fill=DictionaryBlue!8] (p2) at (3,-0.15) {\(p_2\)};
+
+  \draw[thick] (T) -- (O0);
+  \draw[thick] (T) -- (O1);
+  \draw[thick] (T) -- (O2);
+
+  % O0 closure contains p1,p2
+  \draw[thick,WarningRed] (O0) -- (p1);
+  \draw[thick,WarningRed] (O0) -- (p2);
+
+  % O1 closure contains p0,p2
+  \draw[thick,ExampleGold] (O1) -- (p0);
+  \draw[thick,ExampleGold] (O1) -- (p2);
+
+  % O2 closure contains p0,p1
+  \draw[thick,SurfaceGreen] (O2) -- (p0);
+  \draw[thick,SurfaceGreen] (O2) -- (p1);
+\end{tikzpicture}
+\caption{The orbit-closure relations. A downward path means that the
+lower orbit lies in the closure of the upper one.}
+\label{fig:p2-orbit-closure-poset}
+\end{figure}
+
+There is also a direct way to see these degenerations, but in
+projective space one must remember that a limit may become visible
+only after changing the homogeneous representative.
+
+For \((u,v)\in\ZZ^2\), consider the one-parameter motion
+\[
+\lambda^{(u,v)}(t)=(t^u,t^v)\in T.
+\]
+Acting on the identity point \(e=[1:1:1]\) gives
+\[
+\gamma_{u,v}(t)
+=
+\lambda^{(u,v)}(t)\cdot e
+=
+[1:t^u:t^v].
+\]
+The exponents \(u\) and \(v\) are allowed to be negative. Although an
+individual coordinate may then have a pole at \(t=0\), the
+\emph{projective point} can still have a limit, because we may rescale
+all three homogeneous coordinates by the same power of \(t\).
+
+Set
+\[
+m=\min\{0,u,v\}.
+\]
+For \(t\neq0\), we may rewrite the same projective point as
+\[
+\gamma_{u,v}(t)
+=
+[t^{-m}:t^{u-m}:t^{v-m}].
+\]
+All three exponents are now nonnegative, and at least one is zero.
+Consequently, the limit is obtained by keeping precisely those
+coordinates whose original exponent attains the minimum of
+\(\{0,u,v\}\).
+
+This rule reaches strata that are invisible in the affine chart
+\(U_0\). For example,
+\[
+\begin{aligned}
+\lambda^{(1,1)}(t)\cdot e
+&=[1:t:t]
+  \longrightarrow [1:0:0]=p_0,
+\\
+\lambda^{(-1,0)}(t)\cdot e
+&=[1:t^{-1}:1]
+ =[t:1:t]
+  \longrightarrow [0:1:0]=p_1,
+\\
+\lambda^{(0,-1)}(t)\cdot e
+&=[1:1:t^{-1}]
+ =[t:t:1]
+  \longrightarrow [0:0:1]=p_2.
+\end{aligned}
+\]
+The second and third limits land naturally in the charts \(U_1\) and
+\(U_2\), respectively.
+
+The same idea reaches distinguished points on the
+one-dimensional orbits:
+\[
+\begin{aligned}
+\lambda^{(-1,-1)}(t)\cdot e
+&=[1:t^{-1}:t^{-1}]
+ =[t:1:1]
+  \longrightarrow [0:1:1]\in O_0,
+\\
+\lambda^{(1,0)}(t)\cdot e
+&=[1:t:1]
+  \longrightarrow [1:0:1]\in O_1,
+\\
+\lambda^{(0,1)}(t)\cdot e
+&=[1:1:t]
+  \longrightarrow [1:1:0]\in O_2.
+\end{aligned}
+\]
+
+More generally, begin at an arbitrary point
+\[
+q=[1:c_1:c_2]\in T.
+\]
+If \(u=v<0\), then
+\[
+\lambda^{(u,u)}(t)\cdot q
+=
+[1:c_1t^u:c_2t^u]
+=
+[t^{-u}:c_1:c_2]
+\longrightarrow
+[0:c_1:c_2]\in O_0.
+\]
+As \(c_1\) and \(c_2\) vary, every point of \(O_0\) occurs in this
+way. Analogous choices produce every point of \(O_1\) and \(O_2\).
+
+Thus the limit is governed not by whether \(u\) and \(v\) are
+nonnegative in one chosen chart, but by which of the three numbers
+\[
+0,\qquad u,\qquad v
+\]
+are minimal. A unique minimum produces a fixed point; a minimum
+attained twice produces a one-dimensional orbit; and equality of all
+three exponents leaves us in the open orbit. This is the projective
+counterpart of the limit behavior we saw in \(\AAA^2\).
+
+\subsection{Two triangles, two different meanings}
+
+At this point, two triangular objects have appeared:
+
+\begin{enumerate}
+\item the \emph{coordinate triangle}
+\[
+D_0\cup D_1\cup D_2\subseteq\PP^2,
+\]
+which is the union of three projective lines;
+
+\item the \emph{lattice triangle}
+\[
+\Delta
+=
+\Conv\{(0,0),(1,0),(0,1)\}
+\subseteq M_{\RR},
+\]
+which is an actual Euclidean triangle in a real vector space.
+\end{enumerate}
+
+These should not be confused. The first is a reducible algebraic curve
+inside \(\PP^2\); the second is a convex polygon in \(M_{\RR}\).
+Nevertheless, they encode the same incidence pattern, and this is one
+of the central miracles of toric geometry.
+
+The face structure of \(\Delta\) matches the orbit structure of
+\(\PP^2\):
+\[
+\begin{array}{c|c|c}
+\text{face of }\Delta
+&
+\text{torus orbit in }\PP^2
+&
+\text{dimension}
+\\
+\hline
+\Delta
+&
+T
+&
+2
+\\
+\text{an edge}
+&
+O_i
+&
+1
+\\
+\text{a vertex}
+&
+p_i
+&
+0.
+\end{array}
+\]
+Here the whole triangle \(\Delta\), regarded as its unique
+two-dimensional face, corresponds to the open orbit. The edges
+correspond to the punctured coordinate lines, and the vertices
+correspond to the fixed points.
+
+To make the bijection completely explicit, regard \(\Delta\) as a
+cell complex whose cells are the relative interiors of its faces.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Cell of \(\Delta\)}
+&
+\textbf{Closed face}
+&
+\textbf{Orbit}
+&
+\textbf{Representative}
+\\
+\midrule
+\(\relint(\Delta)\)
+&
+\(\Delta\)
+&
+\(T\)
+&
+\([1:1:1]\)
+\\[1mm]
+\(\{a,b>0,\ a+b=1\}\)
+&
+\(F_0=\{a+b=1\}\)
+&
+\(O_0\)
+&
+\([0:1:1]\)
+\\[1mm]
+\(\{a=0,\ 0<b<1\}\)
+&
+\(F_1=\{a=0\}\)
+&
+\(O_1\)
+&
+\([1:0:1]\)
+\\[1mm]
+\(\{b=0,\ 0<a<1\}\)
+&
+\(F_2=\{b=0\}\)
+&
+\(O_2\)
+&
+\([1:1:0]\)
+\\[1mm]
+\(\{(0,0)\}\)
+&
+\(\{(0,0)\}\)
+&
+\(\{p_0\}\)
+&
+\([1:0:0]\)
+\\[1mm]
+\(\{(1,0)\}\)
+&
+\(\{(1,0)\}\)
+&
+\(\{p_1\}\)
+&
+\([0:1:0]\)
+\\[1mm]
+\(\{(0,1)\}\)
+&
+\(\{(0,1)\}\)
+&
+\(\{p_2\}\)
+&
+\([0:0:1]\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Passing from a cell to its closed face corresponds geometrically to
+passing from an orbit to its orbit closure:
+\[
+F_0\longleftrightarrow D_0,\qquad
+F_1\longleftrightarrow D_1,\qquad
+F_2\longleftrightarrow D_2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.92]
+  % Coordinate triangle/orbits.
+  \begin{scope}[xshift=-4.6cm]
+    \coordinate (P0) at (0,3.0);
+    \coordinate (P1) at (-2.7,0);
+    \coordinate (P2) at (2.7,0);
+
+    \fill[PastelYellow] (0,2.35) -- (-1.95,0.38) -- (1.95,0.38) -- cycle;
+    \draw[very thick,SurfaceGreen] (P0) -- (P1);
+    \draw[very thick,ExampleGold] (P0) -- (P2);
+    \draw[very thick,WarningRed] (P1) -- (P2);
+
+    \fill[DictionaryBlue] (P0) circle (2.2pt);
+    \fill[DictionaryBlue] (P1) circle (2.2pt);
+    \fill[DictionaryBlue] (P2) circle (2.2pt);
+
+    \node at (0,1.25) {\(T\)};
+    \node[below] at (0,-0.45) {orbits in \(\PP^2\)};
+  \end{scope}
+
+  % Arrow.
+  \draw[very thick,-{Latex[length=2.6mm]},DictionaryBlue]
+    (-1.25,1.45) -- (1.25,1.45)
+    node[midway,above] {same incidence pattern};
+
+  % Lattice triangle.
+  \begin{scope}[xshift=4.6cm]
+    \fill[PastelYellow] (0,0) -- (3.0,0) -- (0,3.0) -- cycle;
+    \draw[very thick,SurfaceGreen] (0,0) -- (3.0,0);
+    \draw[very thick,WarningRed] (3.0,0) -- (0,3.0);
+    \draw[very thick,ExampleGold] (0,3.0) -- (0,0);
+
+    \fill[DictionaryBlue] (0,0) circle (2.2pt);
+    \fill[DictionaryBlue] (3.0,0) circle (2.2pt);
+    \fill[DictionaryBlue] (0,3.0) circle (2.2pt);
+
+    \node at (0.9,0.9) {\(\Delta\)};
+    \node[below] at (1.5,-0.45) {faces of \(\Delta\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The coordinate triangle in \(\PP^2\) and the lattice triangle
+\(\Delta\) are different mathematical objects, but their strata have
+the same incidence pattern. Matching colors indicate the
+corresponding one-dimensional strata.}
+\label{fig:p2-orbits-faces}
+\end{figure}
+
+\begin{warningbox}
+A lattice point in the interior of \(d\Delta\) does not by itself
+represent a torus orbit. Individual lattice points index monomial
+sections. Torus orbits correspond to faces of the polytope: the whole
+polytope, its edges, and its vertices.
+\end{warningbox}
+
+\begin{threedictionaries}
+The orbit decomposition of \(\PP^2\) can be read in three parallel
+languages.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+Record which of
+\[
+x_0,\ x_1,\ x_2
+\]
+vanish. The vanishing set is constant along an orbit.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+The vanishing pattern determines one torus orbit:
+\[
+T,\quad O_i,\quad\text{or}\quad p_i.
+\]
+Allowing additional coordinates to vanish describes orbit closure.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+The orbit corresponds to the relative interior of a face of
+\(\Delta\). Orbit closure corresponds to replacing that cell by its
+closed face.
+\end{minipage}
+
+\medskip
+
+\[
+\begin{array}{c@{\quad\longleftrightarrow\quad}c
+              @{\quad\longleftrightarrow\quad}c}
+\text{vanishing pattern}
+&
+\text{torus orbit}
+&
+\text{cell of }\Delta
+\end{array}
+\]
+\end{threedictionaries}
+
+\begin{guidingquestion}
+The triangle \(\Delta\) explains the orbit structure beautifully, but
+it lives in the space of monomial exponents. Is there another
+combinatorial object that records how the three affine charts of
+\(\PP^2\) fit together?
+\end{guidingquestion}
+
+
+\section{The triangle and the fan}
+\label{sec:p2-triangle-fan}
+\index{fan!of the projective plane}
+\index{normal fan}
+\index{one-parameter subgroup!limits}
+
+The lattice triangle
+\[
+\Delta=\Conv\{(0,0),(1,0),(0,1)\}\subseteq M_{\RR}
+\]
+has already encoded two global features of \(\PP^2\): its monomial
+sections and its torus orbits. We now extract a second combinatorial
+object from the same triangle.
+
+There is one important change of viewpoint. The triangle lives in
+\(M_{\RR}\), the space of monomial exponents, whereas the new object
+lives in the paired vector space \(N_{\RR}\), where we record
+one-parameter motions. Its job is different as well: rather than
+recording sections, it remembers the three affine charts of
+\(\PP^2\) and how they fit together.
+
+\subsection{Three sides, three inward directions}
+
+Write a point of \(M_{\RR}\) as \(m=(a,b)\). The triangle \(\Delta\)
+is cut out by the inequalities
+\[
+a\geq0,\qquad b\geq0,\qquad a+b\leq1.
+\]
+Its three edges are
+\[
+F_0=\{a+b=1\},\qquad
+F_1=\{a=0\},\qquad
+F_2=\{b=0\}.
+\]
+
+Each edge has a distinguished primitive direction pointing into the
+triangle:
+\[
+v_0=(-1,-1),\qquad
+v_1=(1,0),\qquad
+v_2=(0,1).
+\]
+Indeed, moving in the direction \(v_1\) increases \(a\), moving in the
+direction \(v_2\) increases \(b\), and moving in the direction \(v_0\)
+decreases \(a+b\). Thus \(v_i\) points inward from the edge \(F_i\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.45]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3.2,0);
+  \coordinate (C) at (0,3.2);
+
+  \fill[PastelYellow] (A) -- (B) -- (C) -- cycle;
+  \draw[very thick,SurfaceGreen] (A) -- (B);
+  \draw[very thick,WarningRed] (B) -- (C);
+  \draw[very thick,ExampleGold] (C) -- (A);
+
+  \fill[DictionaryBlue] (A) circle (2pt);
+  \fill[DictionaryBlue] (B) circle (2pt);
+  \fill[DictionaryBlue] (C) circle (2pt);
+
+  \node[below left] at (A) {\((0,0)\)};
+  \node[below right] at (B) {\((1,0)\)};
+  \node[above left] at (C) {\((0,1)\)};
+
+  \draw[very thick,-{Latex[length=2.5mm]},WarningRed]
+    (2.05,1.15) -- (1.50,0.60);
+  \node[right,WarningRed] at (2.12,1.28) {\(v_0=(-1,-1)\)};
+
+  \draw[very thick,-{Latex[length=2.5mm]},ExampleGold]
+    (0,1.55) -- (0.70,1.55);
+  \node[left,ExampleGold!75!black] at (-0.05,1.55) {\(v_1=(1,0)\)};
+
+  \draw[very thick,-{Latex[length=2.5mm]},SurfaceGreen]
+    (1.55,0) -- (1.55,0.70);
+  \node[below,SurfaceGreen!70!black] at (1.55,-0.08)
+    {\(v_2=(0,1)\)};
+\end{tikzpicture}
+\caption{The three primitive inward normals of the standard triangle.
+The colors match the coordinate lines \(D_i\) and the corresponding
+edges \(F_i\).}
+\label{fig:p2-inward-normals}
+\end{figure}
+
+There is a mild abuse hidden in this picture. The triangle lies in
+\(M_{\RR}\), while the normal vectors lie in \(N_{\RR}\). After
+choosing dual bases, both spaces look like \(\RR^2\), so it is useful
+to draw the vectors next to the triangle. Conceptually, however, they
+belong to paired spaces.
+
+\subsection{A direction asks a question of the triangle}
+
+Let \(n=(u,v)\in N_{\RR}\). Pairing with \(n\) produces a linear
+function on the triangle:
+\[
+m=(a,b)\longmapsto\pair{m}{n}=au+bv.
+\]
+We ask:
+
+\begin{center}
+\emph{On which part of \(\Delta\) is this linear function smallest?}
+\end{center}
+
+The answer depends only on the direction of \(n\).
+
+For example, if \(n=v_1=(1,0)\), then
+\[
+\pair{(a,b)}{v_1}=a.
+\]
+Its minimum is attained on the entire edge \(F_1=\{a=0\}\). Similarly,
+\(v_2\) singles out \(F_2\), while \(v_0\) singles out \(F_0\).
+
+A more general direction can single out a vertex. If \(u>0\) and
+\(v>0\), then \(au+bv\) is smallest uniquely at \((0,0)\). The set of
+all such directions, together with its boundary, is the cone
+\[
+\sigma_0=\Cone{v_1,v_2}.
+\]
+Likewise,
+\[
+\sigma_1=\Cone{v_2,v_0}
+\]
+is the set of directions whose minimum is attained at \((1,0)\), and
+\[
+\sigma_2=\Cone{v_0,v_1}
+\]
+is the set of directions whose minimum is attained at \((0,1)\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.2]
+  % Colored maximal cones.
+  \fill[PastelYellow] (0,0) -- (3.0,0) -- (0,3.0) -- cycle;
+  \fill[DictionaryBlue!9] (0,0) -- (0,3.0) -- (-2.7,-2.7) -- cycle;
+  \fill[SurfaceGreen!10] (0,0) -- (-2.7,-2.7) -- (3.0,0) -- cycle;
+
+  % Rays.
+  \draw[very thick,-{Latex[length=2.8mm]},WarningRed]
+    (0,0) -- (-2.9,-2.9);
+  \draw[very thick,-{Latex[length=2.8mm]},ExampleGold]
+    (0,0) -- (3.25,0);
+  \draw[very thick,-{Latex[length=2.8mm]},SurfaceGreen]
+    (0,0) -- (0,3.25);
+
+  % Labels for rays.
+  \node[below left,WarningRed] at (-2.65,-2.65) {\(\rho_0\)};
+  \node[below,ExampleGold!75!black] at (2.65,0) {\(\rho_1\)};
+  \node[left,SurfaceGreen!70!black] at (0,2.65) {\(\rho_2\)};
+
+  % Labels for cones.
+  \node at (1.15,1.05) {\(\sigma_0\)};
+  \node at (-1.05,0.65) {\(\sigma_1\)};
+  \node at (0.55,-1.20) {\(\sigma_2\)};
+
+  \fill (0,0) circle (1.7pt);
+  \node[above right] at (0.08,0.08) {\(\{0\}\)};
+\end{tikzpicture}
+\caption{The normal fan of \(\Delta\). The rays are
+\(\rho_i=\RR_{\geq0}v_i\), and the three two-dimensional cones are
+\(\sigma_0,\sigma_1,\sigma_2\). Together they cover \(N_{\RR}\).}
+\label{fig:p2-normal-fan}
+\end{figure}
+
+The collection
+\[
+\Sigma_{\Delta}
+=
+\bigl\{
+\{0\},
+\rho_0,\rho_1,\rho_2,
+\sigma_0,\sigma_1,\sigma_2
+\bigr\}
+\]
+is called the \emph{normal fan} of \(\Delta\). Here
+\[
+\rho_i=\RR_{\geq0}v_i.
+\]
+The word \emph{fan} refers to a collection of cones meeting cleanly
+along common faces. In this example, the three two-dimensional cones
+fit around the origin like the sectors of a fan and cover the whole
+plane \(N_{\RR}\).
+
+There is an intuitive reason they cover everything. Every linear
+function on the compact triangle \(\Delta\) attains a minimum
+somewhere: at a vertex, along an edge, or on all of \(\Delta\) if the
+function is constant. The normal fan records exactly where that
+minimum occurs.
+
+\subsection{Faces of the triangle and cones of the fan}
+
+The passage from a face of \(\Delta\) to its normal cone reverses
+dimensions:
+\[
+\begin{array}{c|c}
+\text{face of }\Delta & \text{normal cone in }\Sigma_\Delta\\
+\hline
+\Delta & \{0\}\\
+F_i & \rho_i\\
+\text{a vertex} & \text{a two-dimensional cone}.
+\end{array}
+\]
+More explicitly,
+\[
+\begin{array}{c|c}
+\text{face of }\Delta & \text{normal cone}\\
+\hline
+\Delta & \{0\}\\
+F_0=\{a+b=1\} & \rho_0=\RR_{\geq0}v_0\\
+F_1=\{a=0\} & \rho_1=\RR_{\geq0}v_1\\
+F_2=\{b=0\} & \rho_2=\RR_{\geq0}v_2\\
+(0,0) & \sigma_0=\Cone{v_1,v_2}\\
+(1,0) & \sigma_1=\Cone{v_2,v_0}\\
+(0,1) & \sigma_2=\Cone{v_0,v_1}.
+\end{array}
+\]
+
+If one face is contained in another, the corresponding normal cones
+are contained in the opposite order. For example,
+\[
+(0,0)\in F_1
+\qquad\Longleftrightarrow\qquad
+\rho_1\subseteq\sigma_0.
+\]
+This reversal is not an accident. Requiring a linear function to be
+minimal along an entire edge is more restrictive than requiring it to
+be minimal at one of the edge's vertices. The larger face therefore
+has the smaller normal cone.
+
+\subsection{The fan and one-parameter limits}
+
+The fan packages the limit calculations of the previous section.
+
+A direction in the relative interior of a ray \(\rho_i\) leads to the
+one-dimensional orbit \(O_i\). For the primitive ray generators,
+\[
+\begin{aligned}
+v_0=(-1,-1)
+&:\quad
+[1:t^{-1}:t^{-1}]
+=
+[t:1:1]
+\longrightarrow[0:1:1]\in O_0,
+\\
+v_1=(1,0)
+&:\quad
+[1:t:1]
+\longrightarrow[1:0:1]\in O_1,
+\\
+v_2=(0,1)
+&:\quad
+[1:1:t]
+\longrightarrow[1:1:0]\in O_2.
+\end{aligned}
+\]
+
+A direction in the relative interior of a two-dimensional cone leads
+to the corresponding fixed point:
+\[
+\begin{array}{c|c}
+\text{cone containing }(u,v) & 
+\displaystyle\lim_{t\to0}[1:t^u:t^v]\\
+\hline
+\relint(\sigma_0) & p_0=[1:0:0]\\
+\relint(\sigma_1) & p_1=[0:1:0]\\
+\relint(\sigma_2) & p_2=[0:0:1].
+\end{array}
+\]
+Finally, the zero vector gives the constant point \([1:1:1]\) in the
+open orbit.
+
+Thus cones of dimension \(k\) correspond to orbits of dimension
+\(2-k\):
+\[
+\dim O(\sigma)=2-\dim\sigma.
+\]
+At this stage, the formula is a summary of the seven calculations
+above. Later it will become part of the general orbit--cone
+correspondence.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % Fan on left.
+  \begin{scope}[xshift=-4.5cm]
+    \fill[PastelYellow] (0,0) -- (2.6,0) -- (0,2.6) -- cycle;
+    \fill[DictionaryBlue!9] (0,0) -- (0,2.6) -- (-2.25,-2.25) -- cycle;
+    \fill[SurfaceGreen!10] (0,0) -- (-2.25,-2.25) -- (2.6,0) -- cycle;
+
+    \draw[very thick,WarningRed] (0,0) -- (-2.45,-2.45);
+    \draw[very thick,ExampleGold] (0,0) -- (2.8,0);
+    \draw[very thick,SurfaceGreen] (0,0) -- (0,2.8);
+    \fill (0,0) circle (1.5pt);
+
+    \node at (0.95,0.9) {\(\sigma_0\)};
+    \node at (-0.9,0.55) {\(\sigma_1\)};
+    \node at (0.45,-1.0) {\(\sigma_2\)};
+    \node[below] at (0,-2.9) {cones in \(N_{\RR}\)};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.6mm]},DictionaryBlue]
+    (-1.1,0.25) -- (1.1,0.25)
+    node[midway,above,align=center]
+    {one-parameter\\limits};
+
+  % Orbit triangle on right.
+  \begin{scope}[xshift=4.5cm]
+    \coordinate (P0) at (0,2.85);
+    \coordinate (P1) at (-2.55,0);
+    \coordinate (P2) at (2.55,0);
+
+    \fill[PastelYellow] (0,2.20) -- (-1.82,0.35) -- (1.82,0.35) -- cycle;
+    \draw[very thick,SurfaceGreen] (P0) -- (P1);
+    \draw[very thick,ExampleGold] (P0) -- (P2);
+    \draw[very thick,WarningRed] (P1) -- (P2);
+
+    \fill[DictionaryBlue] (P0) circle (2.1pt);
+    \fill[DictionaryBlue] (P1) circle (2.1pt);
+    \fill[DictionaryBlue] (P2) circle (2.1pt);
+
+    \node[above] at (P0) {\(p_0\)};
+    \node[below left] at (P1) {\(p_1\)};
+    \node[below right] at (P2) {\(p_2\)};
+    \node at (0,1.15) {\(T\)};
+    \node[below] at (0,-0.55) {orbits in \(\PP^2\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The cone containing a one-parameter direction determines the
+orbit in which the limit lies. Two-dimensional cones lead to fixed
+points, rays lead to one-dimensional orbits, and the zero cone
+corresponds to the open orbit.}
+\label{fig:p2-fan-orbits}
+\end{figure}
+
+\subsection{The three maximal cones recover the three affine charts}
+
+The fan remembers more than the orbit decomposition. Each
+two-dimensional cone recovers one of the standard affine charts.
+
+Start with
+\[
+\sigma_0=\Cone{v_1,v_2},
+\]
+the first quadrant in \(N_{\RR}\). A monomial \(z_1^az_2^b\) extends
+regularly along every one-parameter motion in \(\sigma_0\) precisely
+when
+\[
+a\geq0,\qquad b\geq0.
+\]
+These monomials form the polynomial ring
+\[
+\Bbbk[z_1,z_2],
+\]
+whose spectrum is the chart
+\[
+U_0\simeq\AAA^2.
+\]
+
+For the second cone,
+\[
+\sigma_1=\Cone{v_2,v_0},
+\]
+the extendable Laurent monomials are generated by
+\[
+z_1^{-1}
+\qquad\text{and}\qquad
+z_1^{-1}z_2.
+\]
+But these are exactly the affine coordinates on \(U_1\):
+\[
+w_0=\frac{x_0}{x_1}=z_1^{-1},
+\qquad
+w_2=\frac{x_2}{x_1}=z_1^{-1}z_2.
+\]
+Hence
+\[
+\Bbbk[\sigma_1^\vee\cap M]
+=
+\Bbbk[w_0,w_2],
+\qquad
+U_1\simeq\AAA^2.
+\]
+
+Similarly, for
+\[
+\sigma_2=\Cone{v_0,v_1},
+\]
+the extendable Laurent monomials are generated by
+\[
+z_2^{-1}
+\qquad\text{and}\qquad
+z_1z_2^{-1},
+\]
+which are the coordinates
+\[
+r_0=\frac{x_0}{x_2},
+\qquad
+r_1=\frac{x_1}{x_2}
+\]
+on \(U_2\). Thus
+\[
+\Bbbk[\sigma_2^\vee\cap M]
+=
+\Bbbk[r_0,r_1].
+\]
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Vertex of \(\Delta\)}
+&
+\textbf{Maximal cone}
+&
+\textbf{Affine coordinates}
+&
+\textbf{Chart and fixed point}
+\\
+\midrule
+\((0,0)\)
+&
+\(\sigma_0=\Cone{v_1,v_2}\)
+&
+\(z_1=x_1/x_0,\ z_2=x_2/x_0\)
+&
+\(U_0,\ p_0\)
+\\[1mm]
+\((1,0)\)
+&
+\(\sigma_1=\Cone{v_2,v_0}\)
+&
+\(w_0=x_0/x_1,\ w_2=x_2/x_1\)
+&
+\(U_1,\ p_1\)
+\\[1mm]
+\((0,1)\)
+&
+\(\sigma_2=\Cone{v_0,v_1}\)
+&
+\(r_0=x_0/x_2,\ r_1=x_1/x_2\)
+&
+\(U_2,\ p_2\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+This table is the first complete appearance of our three dictionaries:
+a vertex of the polytope determines a cone; the cone determines a
+semigroup of monomials; and those monomials form the coordinate ring
+of an affine chart.
+
+\subsection{What the fan remembers}
+
+For \(\PP^2\), the normal fan packages the following correspondences:
+\[
+\begin{array}{c@{\quad\longleftrightarrow\quad}c}
+\{0\} & \text{the dense torus }T,\\
+\rho_i & \text{the coordinate line }D_i,\\
+\sigma_i & \text{the affine chart }U_i
+            \text{ and its fixed point }p_i.
+\end{array}
+\]
+Containment of cones reverses containment of orbit closures. For
+example,
+\[
+\rho_1,\rho_2\subseteq\sigma_0
+\]
+records that
+\[
+p_0=D_1\cap D_2.
+\]
+
+\begin{threedictionaries}
+The normal fan translates between local algebra, projective geometry,
+and convex combinatorics.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+A cone \(\sigma_i\) selects the Laurent monomials that extend
+regularly. They form the coordinate ring
+\[
+\Bbbk[\sigma_i^\vee\cap M].
+\]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+That ring describes the affine chart \(U_i\). Faces of the cone
+describe the torus orbits meeting the chart.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+Vertices, edges, and the whole polytope have normal cones of
+dimensions \(2,1,0\), respectively.
+\end{minipage}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+Starting from
+\[
+\Delta=\Conv\{(0,0),(1,0),(0,1)\},
+\]
+perform the following reconstruction of \(\PP^2\).
+
+\begin{enumerate}
+\item Find the primitive inward normal to each edge of \(\Delta\).
+\item Form the three two-dimensional cones generated by adjacent
+normal vectors.
+\item For each maximal cone, determine the Laurent monomials that pair
+nonnegatively with it.
+\item Recognize the resulting three polynomial rings as the coordinate
+rings of \(U_0,U_1,U_2\).
+\end{enumerate}
+\end{surfacelaboratory}
+
+\begin{guidingquestion}
+If changing the fan changes the way affine charts fit together, what
+geometric operation should correspond to inserting a new ray into one
+of its two-dimensional cones?
+\end{guidingquestion}
+
+
+\section{Blowing up a torus-fixed point}
+\label{sec:p2-first-blowup}
+\index{blowup!of the projective plane}
+\index{star subdivision}
+\index{exceptional divisor}
+\index{self-intersection}
+
+The fan of \(\PP^2\) contains three two-dimensional cones, one for
+each torus-fixed point. We now modify one of these cones and watch the
+projective plane change.
+
+Our chosen point is
+\[
+p_0=[1:0:0].
+\]
+It lies in the affine chart
+\[
+U_0=\{x_0\neq0\}\simeq\AAA^2
+\]
+and becomes the origin in the affine coordinates
+\[
+z_1=\frac{x_1}{x_0},
+\qquad
+z_2=\frac{x_2}{x_0}.
+\]
+Thus blowing up \(p_0\) in \(\PP^2\) is, near \(p_0\), the familiar
+operation of blowing up the origin in the affine plane.
+
+\subsection{Replacing a point by its directions}
+
+The origin of \(\AAA^2\) has many possible directions of approach.
+A line through the origin is determined by a projective point
+\[
+[s:t]\in\PP^1.
+\]
+The blowup remembers this direction while approaching the origin.
+
+Concretely, define
+\[
+\widetilde{\AAA^2}
+=
+\left\{
+\bigl((z_1,z_2),[s:t]\bigr)\in\AAA^2\times\PP^1
+:
+z_1t=z_2s
+\right\}.
+\]
+The equation says that the vector \((z_1,z_2)\) lies on the line with
+direction \([s:t]\). Projection onto the first factor gives a map
+\[
+\pi:\widetilde{\AAA^2}\longrightarrow\AAA^2.
+\]
+
+If \((z_1,z_2)\neq(0,0)\), there is a unique compatible direction:
+\[
+[s:t]=[z_1:z_2].
+\]
+Hence \(\pi\) is an isomorphism away from the origin. Over the origin,
+however, the equation becomes
+\[
+0=0,
+\]
+so every direction is allowed:
+\[
+\pi^{-1}(0,0)\simeq\PP^1.
+\]
+The blowup therefore replaces the origin by a projective line
+parameterizing directions through it. This projective line is called
+the \emph{exceptional divisor} and will be denoted by \(E\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  % Before.
+  \begin{scope}[xshift=-4.3cm]
+    \draw[->,black!65] (-2.1,0) -- (2.2,0);
+    \draw[->,black!65] (0,-1.9) -- (0,2.1);
+    \draw[thick,DictionaryBlue] (-1.8,-0.9) -- (1.8,0.9);
+    \draw[thick,SurfaceGreen] (-1.0,-1.7) -- (1.0,1.7);
+    \draw[thick,ExampleGold] (-1.8,1.15) -- (1.8,-1.15);
+    \fill[WarningRed] (0,0) circle (2.5pt);
+    \node[below] at (0,-2.15) {\(\AAA^2\)};
+    \node[above right,WarningRed] at (0.1,0.1) {origin};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.8mm]},DictionaryBlue]
+    (-1.25,0) -- (1.25,0)
+    node[midway,above] {blow up};
+
+  % After.
+  \begin{scope}[xshift=4.3cm]
+    \draw[->,black!65] (-2.1,0) -- (2.2,0);
+    \draw[->,black!65] (0,-1.9) -- (0,2.1);
+
+    \draw[very thick,magenta!70!DictionaryBlue]
+      (0,-1.05) arc[start angle=-90,end angle=270,x radius=0.72,y radius=1.05];
+
+    \draw[thick,DictionaryBlue] (-1.85,-0.92) -- (-0.52,-0.26);
+    \draw[thick,DictionaryBlue] (0.52,0.26) -- (1.85,0.92);
+
+    \draw[thick,SurfaceGreen] (-1.02,-1.72) -- (-0.28,-0.48);
+    \draw[thick,SurfaceGreen] (0.28,0.48) -- (1.02,1.72);
+
+    \draw[thick,ExampleGold] (-1.82,1.16) -- (-0.48,0.31);
+    \draw[thick,ExampleGold] (0.48,-0.31) -- (1.82,-1.16);
+
+    \node[right,magenta!70!DictionaryBlue] at (0.78,0.95)
+      {\(E\simeq\PP^1\)};
+    \node[below] at (0,-2.15) {\(\widetilde{\AAA^2}\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The blowup replaces the origin by the projective line of
+directions through it. The drawing is schematic: different directions
+meet the exceptional divisor at different points.}
+\label{fig:a2-blowup-directions}
+\end{figure}
+
+\begin{observation}
+It is tempting to say that a blowup simply removes a point and inserts
+a copy of \(\PP^1\). This is a useful picture, but the morphism
+\(\pi\) carries more information: it explains how nearby points
+approach the exceptional divisor and which limiting direction they
+select.
+\end{observation}
+
+\subsection{The two affine charts of the blowup}
+
+The projective line of directions has two standard charts, and these
+give two affine charts on the blowup.
+
+On the chart \(s\neq0\), write
+\[
+q=\frac{t}{s}.
+\]
+The equation \(z_1t=z_2s\) becomes
+\[
+z_2=z_1q.
+\]
+Thus this part of the blowup has coordinates \((z_1,q)\), and the map
+to \(\AAA^2\) is
+\[
+(z_1,q)\longmapsto(z_1,z_1q).
+\]
+The exceptional divisor is given by
+\[
+z_1=0.
+\]
+
+On the chart \(t\neq0\), write
+\[
+p=\frac{s}{t}.
+\]
+The defining equation becomes
+\[
+z_1=pz_2.
+\]
+This chart has coordinates \((p,z_2)\), the blowup map is
+\[
+(p,z_2)\longmapsto(pz_2,z_2),
+\]
+and the exceptional divisor is given by
+\[
+z_2=0.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  chart/.style={
+    rounded corners,
+    minimum width=4.1cm,
+    minimum height=2.0cm,
+    align=center,
+    draw=black!55
+  }
+]
+  \node[chart,fill=PastelYellow] (A) at (-3.3,0)
+    {\(\displaystyle s\neq0\)\\[1mm]
+     \(\displaystyle z_2=z_1q\)\\
+     coordinates \((z_1,q)\)\\
+     \(E=\{z_1=0\}\)};
+
+  \node[chart,fill=DictionaryBlue!8] (B) at (3.3,0)
+    {\(\displaystyle t\neq0\)\\[1mm]
+     \(\displaystyle z_1=pz_2\)\\
+     coordinates \((p,z_2)\)\\
+     \(E=\{z_2=0\}\)};
+
+  \draw[thick,<->,magenta!70!DictionaryBlue]
+    (A) -- node[above,fill=white,inner sep=2pt]
+    {\(\displaystyle p=q^{-1}\)}
+    (B);
+\end{tikzpicture}
+\caption{The two affine charts of the blowup. On their overlap, the
+two coordinates \(p\) and \(q\) are reciprocal coordinates on the
+exceptional projective line.}
+\label{fig:a2-blowup-charts}
+\end{figure}
+
+The two coordinate axes through the origin are separated by the
+blowup. In \(U_0\), the coordinate lines through \(p_0\) are
+\[
+D_1\cap U_0=\{z_1=0\},
+\qquad
+D_2\cap U_0=\{z_2=0\}.
+\]
+Their strict transforms no longer meet one another. Instead, each
+meets \(E\) at the point corresponding to its own direction:
+\[
+\widetilde D_1\cap E=\{[s:t]=[0:1]\},
+\qquad
+\widetilde D_2\cap E=\{[s:t]=[1:0]\}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  % Before.
+  \begin{scope}[xshift=-3.8cm]
+    \draw[very thick,ExampleGold] (-2.0,0) -- (2.0,0);
+    \draw[very thick,SurfaceGreen] (0,-1.7) -- (0,1.7);
+    \fill[DictionaryBlue] (0,0) circle (2.4pt);
+    \node[below] at (0,-2.05) {\(D_1\cap D_2=\{p_0\}\)};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.6mm]},DictionaryBlue]
+    (-1.15,0) -- (1.15,0);
+
+  % After.
+  \begin{scope}[xshift=3.8cm]
+    \draw[very thick,magenta!70!DictionaryBlue] (0,-1.15) -- (0,1.15);
+    \draw[very thick,ExampleGold] (-2.0,0.78) -- (0,0.78);
+    \draw[very thick,SurfaceGreen] (0,-0.78) -- (2.0,-0.78);
+
+    \fill[DictionaryBlue] (0,0.78) circle (2.2pt);
+    \fill[DictionaryBlue] (0,-0.78) circle (2.2pt);
+
+    \node[left,ExampleGold!75!black] at (-1.2,0.78) {\(\widetilde D_1\)};
+    \node[right,SurfaceGreen!70!black] at (1.2,-0.78) {\(\widetilde D_2\)};
+    \node[right,magenta!70!DictionaryBlue] at (0.15,1.08) {\(E\)};
+    \node[below] at (0,-2.05)
+      {\(\widetilde D_1\cap\widetilde D_2=\varnothing\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Before the blowup, \(D_1\) and \(D_2\) meet at \(p_0\).
+Afterward, their strict transforms meet the exceptional divisor at
+two different points.}
+\label{fig:p2-blowup-separates-divisors}
+\end{figure}
+
+\subsection{The star subdivision of the fan}
+
+The fixed point \(p_0\) corresponds to the cone
+\[
+\sigma_0=\Cone{v_1,v_2},
+\qquad
+v_1=(1,0),\quad v_2=(0,1).
+\]
+Insert the new primitive vector
+\[
+v_E=v_1+v_2=(1,1)
+\]
+and the ray
+\[
+\rho_E=\RR_{\geq0}v_E.
+\]
+The old cone \(\sigma_0\) is replaced by two cones:
+\[
+\Cone{v_1,v_E}
+\qquad\text{and}\qquad
+\Cone{v_E,v_2}.
+\]
+All other cones of the fan are left unchanged.
+
+This operation is called the \emph{star subdivision} of
+\(\sigma_0\) by the ray \(\rho_E\). The resulting fan describes the
+blowup
+\[
+\pi:\Blp{\PP^2}{p_0}\longrightarrow\PP^2.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+  % Old fan.
+  \begin{scope}[xshift=-4.1cm]
+    \fill[PastelYellow] (0,0) -- (2.7,0) -- (0,2.7) -- cycle;
+    \fill[DictionaryBlue!8] (0,0) -- (0,2.7) -- (-2.3,-2.3) -- cycle;
+    \fill[SurfaceGreen!9] (0,0) -- (-2.3,-2.3) -- (2.7,0) -- cycle;
+
+    \draw[very thick,WarningRed] (0,0) -- (-2.55,-2.55);
+    \draw[very thick,ExampleGold] (0,0) -- (2.9,0);
+    \draw[very thick,SurfaceGreen] (0,0) -- (0,2.9);
+
+    \node at (1.05,1.0) {\(\sigma_0\)};
+    \node[below] at (0,-3.0) {fan of \(\PP^2\)};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.8mm]},DictionaryBlue]
+    (-1.2,0.2) -- (1.2,0.2)
+    node[midway,above,align=center]
+    {insert\\\(\rho_E\)};
+
+  % New fan.
+  \begin{scope}[xshift=4.1cm]
+    \fill[PastelYellow] (0,0) -- (2.7,0) -- (1.9,1.9) -- cycle;
+    \fill[magenta!12] (0,0) -- (1.9,1.9) -- (0,2.7) -- cycle;
+    \fill[DictionaryBlue!8] (0,0) -- (0,2.7) -- (-2.3,-2.3) -- cycle;
+    \fill[SurfaceGreen!9] (0,0) -- (-2.3,-2.3) -- (2.7,0) -- cycle;
+
+    \draw[very thick,WarningRed] (0,0) -- (-2.55,-2.55);
+    \draw[very thick,ExampleGold] (0,0) -- (2.9,0);
+    \draw[very thick,SurfaceGreen] (0,0) -- (0,2.9);
+    \draw[very thick,magenta!70!DictionaryBlue] (0,0) -- (2.25,2.25);
+
+    \node[below] at (0,-3.0)
+      {fan of \(\Blp{\PP^2}{p_0}\)};
+    \node[right,magenta!70!DictionaryBlue] at (1.72,1.72)
+      {\(\rho_E\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{The star subdivision replaces the cone for \(p_0\) by two
+cones separated by the new ray \(\rho_E\).}
+\label{fig:p2-star-subdivision}
+\end{figure}
+
+Why should the new vector be \(v_1+v_2\)? In the local chart
+\(U_0\simeq\AAA^2\), the rays generated by \(v_1\) and \(v_2\)
+represent the two coordinate directions. The vector \((1,1)\)
+records approaching the origin while both coordinates vanish at the
+same rate:
+\[
+t\longmapsto(t,t).
+\]
+It is the simplest integral direction lying strictly between the two
+old rays.
+
+\subsection{The exceptional divisor in the orbit picture}
+
+The new ray \(\rho_E\) corresponds to a new one-dimensional torus
+orbit and its closure, the exceptional divisor \(E\). The two new
+maximal cones correspond to the two torus-fixed points on \(E\):
+\[
+\Cone{v_1,v_E}
+\longleftrightarrow
+\widetilde D_1\cap E,
+\]
+and
+\[
+\Cone{v_E,v_2}
+\longleftrightarrow
+E\cap\widetilde D_2.
+\]
+
+The old fixed point \(p_0\) has disappeared. In its place we find the
+one-dimensional orbit inside \(E\) together with two new fixed points.
+The orbit count changes from
+\[
+1+3+3=7
+\]
+to
+\[
+1+4+4=9:
+\]
+one open orbit, four one-dimensional orbits, and four fixed points.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (A) at (-2.7,0);
+  \coordinate (B) at (2.7,0);
+  \coordinate (C) at (1.15,2.7);
+  \coordinate (D) at (-1.15,2.7);
+
+  \fill[PastelYellow] (-1.05,2.15) -- (-1.95,0.42) --
+    (1.95,0.42) -- (1.05,2.15) -- cycle;
+
+  \draw[very thick,WarningRed] (A) -- (B);
+  \draw[very thick,SurfaceGreen] (B) -- (C);
+  \draw[very thick,magenta!70!DictionaryBlue] (C) -- (D);
+  \draw[very thick,ExampleGold] (D) -- (A);
+
+  \fill[DictionaryBlue] (A) circle (2.3pt);
+  \fill[DictionaryBlue] (B) circle (2.3pt);
+  \fill[DictionaryBlue] (C) circle (2.3pt);
+  \fill[DictionaryBlue] (D) circle (2.3pt);
+
+  \node at (0,1.15) {\(T\)};
+  \node[above,magenta!70!DictionaryBlue] at (0,2.75) {\(E\)};
+  \node[below] at (0,-0.45)
+    {boundary incidence after blowing up \(p_0\)};
+\end{tikzpicture}
+\caption{The boundary incidence pattern after the blowup is a
+quadrilateral. The new side represents the exceptional divisor, and
+its two endpoints represent the two new fixed points.}
+\label{fig:p2-blowup-orbit-quadrilateral}
+\end{figure}
+
+\begin{observation}
+The surface \(\Blp{\PP^2}{p_0}\) is isomorphic to the first Hirzebruch
+surface \(\Hirz{1}\). Hirzebruch surfaces form the next natural family
+of smooth complete toric surfaces after \(\PP^2\), and they will give
+us a useful supply of examples.
+\end{observation}
+
+\subsection{The exceptional curve has self-intersection \texorpdfstring{\(-1\)}{-1}}
+
+One numerical feature of the exceptional divisor is worth previewing:
+\[
+E^2=-1.
+\]
+Intersection theory comes later, so this formula is a preview rather
+than a completed calculation.
+
+Geometrically, the negative self-intersection records that the
+exceptional curve can be contracted back to a smooth point. The
+blowup map
+\[
+\pi:\Blp{\PP^2}{p_0}\longrightarrow\PP^2
+\]
+does exactly this: it sends the whole curve \(E\) to \(p_0\) and is an
+isomorphism elsewhere. In the fan, contraction means deleting the ray
+\(\rho_E\) and restoring the original cone
+\(\Cone{v_1,v_2}\).
+
+\begin{threedictionaries}
+The blowup of \(p_0\) is one operation described in three languages.
+
+\medskip
+
+\noindent
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Algebra}\par
+\smallskip
+Locally, blow up the ideal
+\[
+(z_1,z_2)
+\]
+at the origin of
+\(\Spec\Bbbk[z_1,z_2]\).
+The two charts satisfy
+\[
+z_2=z_1q,\qquad z_1=pz_2.
+\]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Geometry}\par
+\smallskip
+Replace \(p_0\) by the exceptional curve
+\[
+E\simeq\PP^1,
+\]
+whose points record directions through \(p_0\).
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.30\linewidth}
+\centering
+\textbf{Combinatorics}\par
+\smallskip
+Insert the ray
+\[
+\rho_E=\RR_{\geq0}(v_1+v_2)
+\]
+and subdivide
+\(\Cone{v_1,v_2}\) into two cones.
+\end{minipage}
+\end{threedictionaries}
+
+\begin{surfacelaboratory}
+Track the blowup of \(p_0\) through the following parallel changes.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Before}
+&
+\textbf{Blowup operation}
+&
+\textbf{After}
+\\
+\midrule
+the ideal \((z_1,z_2)\)
+&
+record the ratio \([z_1:z_2]\)
+&
+two affine blowup charts
+\\[1mm]
+the point \(p_0=D_1\cap D_2\)
+&
+replace the point by its directions
+&
+\(E\simeq\PP^1\), meeting
+\(\widetilde D_1,\widetilde D_2\)
+\\[1mm]
+the cone \(\Cone{v_1,v_2}\)
+&
+insert \(v_E=v_1+v_2\)
+&
+two cones and one new ray.
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{surfacelaboratory}
+
+
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+\label{sec:p2-predictions}
+
+We have spent an entire chapter revisiting a single familiar surface.
+The point was not to make \(\PP^2\) look more complicated. It was to
+notice that several kinds of information we usually study separately
+are shadows of the same combinatorial structure.
+
+In \(\PP^2\), we have been able to check everything directly. The
+next chapters turn these observations into definitions and theorems
+for arbitrary toric varieties.
+
+\subsection*{The affine dictionary}
+
+For the affine plane, the first quadrant
+\[
+\sigma=\RR_{\geq0}^2\subseteq N_{\RR}
+\]
+controlled two complementary questions:
+
+\begin{itemize}
+\item which monomial curves acquire limits in \(\AAA^2\);
+\item which Laurent monomials extend to regular functions on
+\(\AAA^2\).
+\end{itemize}
+
+The corresponding algebra was
+\[
+\Bbbk[\sigma^\vee\cap M]
+=
+\Bbbk[x,y],
+\]
+and its spectrum was the affine plane.
+
+This suggests the general construction
+\[
+\sigma
+\quad\rightsquigarrow\quad
+\sigma^\vee\cap M
+\quad\rightsquigarrow\quad
+\Bbbk[\sigma^\vee\cap M]
+\quad\rightsquigarrow\quad
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+The general construction developed in the next chapters will show
+that rational polyhedral cones produce affine toric varieties in
+precisely this way.
+
+\subsection*{Fans as gluing instructions}
+
+The fan of \(\PP^2\) consisted of three maximal cones. Each maximal
+cone produced one affine chart, and shared faces produced the overlap
+data. This suggests that a fan should be understood as a set of
+instructions for gluing affine toric varieties.
+
+The orbit decomposition was visible in the same fan:
+\[
+\{0\}\longleftrightarrow T,\qquad
+\rho_i\longleftrightarrow O_i,\qquad
+\sigma_i\longleftrightarrow p_i.
+\]
+The dimensions added to \(2\):
+\[
+\dim\sigma+\dim O(\sigma)=2.
+\]
+In higher dimensions, the same pattern will become the
+orbit--cone correspondence.
+
+\subsection*{Polytopes, sections, and projective embeddings}
+
+The dilated triangle \(d\Delta\) indexed the monomial sections of
+\(\cO_{\PP^2}(d)\):
+\[
+x_0^{d-a-b}x_1^ax_2^b
+\longleftrightarrow
+(a,b)\in d\Delta\cap M.
+\]
+Counting global sections became counting lattice points.
+
+This suggests that lattice polytopes should encode projective
+geometry. Their lattice points should give monomial maps to projective
+space, their faces should record boundary behavior, and their normal
+fans should construct projective toric varieties.
+
+\begin{warningbox}
+Fans are more general than normal fans of polytopes. Every lattice
+polytope has a normal fan, but not every fan comes from a polytope.
+Consequently, not every toric variety is projective.
+\end{warningbox}
+
+\subsection*{Rays, divisors, and birational modifications}
+
+In the fan of \(\PP^2\), each ray corresponded to one coordinate line:
+\[
+\rho_i\longleftrightarrow D_i.
+\]
+After blowing up \(p_0\), the new ray corresponded to the exceptional
+divisor:
+\[
+\rho_E\longleftrightarrow E.
+\]
+This predicts a general correspondence between rays of a fan and
+torus-invariant prime divisors.
+
+The star subdivision also suggests that combinatorial refinements
+should produce geometric modifications:
+\[
+\text{subdivide a fan}
+\quad\rightsquigarrow\quad
+\text{modify a toric variety birationally}.
+\]
+For a smooth toric surface, inserting the ray generated by the sum of
+two adjacent primitive ray generators describes the blowup of the
+corresponding fixed point. When the reverse operation is allowed,
+deleting that ray contracts the exceptional curve.
+
+\subsection*{What we have seen, and what remains to prove}
+
+The following table separates the evidence supplied by \(\PP^2\) from
+the general theory still ahead.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Seen directly in \(\PP^2\)}
+&
+\textbf{General principle to be developed}
+\\
+\midrule
+The first-quadrant cone gives \(\AAA^2\).
+&
+A rational polyhedral cone gives an affine toric variety.
+\\[1mm]
+The three maximal cones give the three affine charts.
+&
+A fan glues affine toric varieties into a global toric variety.
+\\[1mm]
+Cones index the seven torus orbits.
+&
+Cones of a fan correspond to torus orbits, with complementary
+dimensions.
+\\[1mm]
+The three rays give the coordinate lines.
+&
+Rays correspond to torus-invariant prime divisors.
+\\[1mm]
+Lattice points in \(d\Delta\) index sections of
+\(\cO_{\PP^2}(d)\).
+&
+Lattice polytopes and polyhedra encode sections of toric line bundles.
+\\[1mm]
+The normal fan of \(\Delta\) recovers \(\PP^2\).
+&
+Normal fans connect lattice polytopes with projective toric varieties.
+\\[1mm]
+Adding the ray \((1,1)\) blows up \(p_0\).
+&
+Under suitable hypotheses, star subdivisions describe toric blowups
+of invariant strata.
+\\[1mm]
+Deleting the exceptional ray contracts \(E\).
+&
+Fan refinements and contractions organize toric birational geometry.
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The chapter's organizing principle may now be displayed in one
+picture. Algebra, geometry, and combinatorics are not three separate
+topics: they are three ways of reading the same constructions.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  mainbox/.style={
+    rounded corners,
+    text width=3.0cm,
+    minimum height=1.65cm,
+    align=center,
+    draw=black!55,
+    font=\small
+  }
+]
+  \node[mainbox,fill=DictionaryBlue!8] (alg) at (-4.0,0.25)
+    {\textbf{Algebra}\\[1mm]
+     monomials and semigroup rings\\
+     gradings and ideals};
+
+  \node[mainbox,fill=PastelYellow] (geo) at (0,0.25)
+    {\textbf{Geometry}\\[1mm]
+     charts, orbits, and divisors\\
+     line bundles and blowups};
+
+  \node[mainbox,fill=SurfaceGreen!9] (comb) at (4.0,0.25)
+    {\textbf{Combinatorics}\\[1mm]
+     lattices, cones, and fans\\
+     polytopes and subdivisions};
+
+  \draw[very thick,<->,ExampleGold]
+    (alg.east) -- (geo.west);
+  \draw[very thick,<->,magenta!70!DictionaryBlue]
+    (geo.east) -- (comb.west);
+
+  \draw[very thick,<->,WarningRed]
+    (alg.south) to[out=-35,in=-145]
+    node[midway,below=4mm,fill=white,inner sep=2pt]
+    {the three dictionaries}
+    (comb.south);
+\end{tikzpicture}
+\caption{The organizing principle of the course. None of the three
+languages is merely decorative: each makes some constructions
+transparent that are difficult to see in the other two.}
+\label{fig:p2-course-dictionaries}
+\end{figure}
+
+\begin{threedictionaries}
+The chapter may be compressed into four recurring translations.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\centering\arraybackslash}p{1.0cm}
+  >{\raggedright\arraybackslash}X
+  >{\centering\arraybackslash}p{1.0cm}
+  >{\raggedright\arraybackslash}X@{}}
+monomial functions
+&
+\(\longleftrightarrow\)
+&
+regular functions on torus charts
+&
+\(\longleftrightarrow\)
+&
+lattice points in dual cones
+\\[2mm]
+coordinate rings
+&
+\(\longleftrightarrow\)
+&
+affine toric charts
+&
+\(\longleftrightarrow\)
+&
+cones of a fan
+\\[2mm]
+graded monomials
+&
+\(\longleftrightarrow\)
+&
+sections of line bundles
+&
+\(\longleftrightarrow\)
+&
+lattice points in polytopes
+\\[2mm]
+blowup ideals
+&
+\(\longleftrightarrow\)
+&
+exceptional divisors
+&
+\(\longleftrightarrow\)
+&
+star subdivisions.
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\subsection*{A provisional picture of a toric variety}
+
+The examples suggest the following working picture. A toric variety
+is an algebraic variety containing an algebraic torus as a dense open
+subset, together with an action of that torus extending its
+multiplication on itself.
+
+This is not yet our formal starting point. We still need to understand
+algebraic tori, their monomial functions, and their one-parameter
+motions in a coordinate-free way. That is the task of the next
+chapter.
+
+\begin{guidingquestion}
+Which features of \(\Gm^n\) are intrinsic, and which arose only
+because we chose coordinates \(x_1,\ldots,x_n\)?
+\end{guidingquestion}
+
+
+\clearpage
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Determine which characters of \(T=\Gm^2\) extend to regular
+functions on \(\AAA^2\).
+
+\item Let \(\oneps{(u,v)}(t)=(t^u,t^v)\). Determine when this map
+extends to a morphism \(\AAA^1\to\AAA^2\).
+
+\item Write the transition maps between the three standard affine
+charts of \(\PP^2\).
+
+\item List all torus orbits in \(\PP^2\), compute their dimensions, and
+describe their closures.
+
+\item For \(d=2\) and \(d=3\), draw \(d\Delta\cap M\) and label each
+lattice point by its corresponding monomial section of
+\(\cO_{\PP^2}(d)\).
+
+\item Compute
+\[
+\dim_{\Bbbk}\Hzero{\PP^2}{\cO_{\PP^2}(d)}
+\]
+by counting lattice points in \(d\Delta\).
+
+\item Compute the inward-pointing primitive normal vector to each edge
+of \(\Delta\), and use these vectors to draw the normal fan.
+
+\item Draw the star subdivision corresponding to the blowup of each
+of the three torus-fixed points of \(\PP^2\).
+
+\item Explain why blowing up any one of the three torus-fixed points
+produces isomorphic toric surfaces.
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Compute the topological Euler characteristic of
+\(\PP^2(\CC)\) using the torus action.}
+
+\medskip
+
+The goal is to discover a map from \(\PP^2(\CC)\) to the triangle
+\[
+\Delta=\Conv\{(0,0),(1,0),(0,1)\}
+\]
+whose fibers reflect the orbit decomposition. Do not use the usual
+cell decomposition
+\(\PP^2=\CC^2\sqcup\CC\sqcup\{\mathrm{pt}\}\).
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item Consider the map
+\[
+\mu:\PP^2(\CC)\longrightarrow\RR^2,
+\qquad
+\mu([z_0:z_1:z_2])
+=
+\left(
+\frac{|z_1|^2}{|z_0|^2+|z_1|^2+|z_2|^2},
+\frac{|z_2|^2}{|z_0|^2+|z_1|^2+|z_2|^2}
+\right).
+\]
+Check that it is well defined on projective points and that its image
+is exactly \(\Delta\). This is the moment map for the compact torus
+\((S^1)^2\subset(\CC^\times)^2\), up to the usual harmless choices of
+normalization.
+
+\item Let \((a,b)\) lie in the interior of \(\Delta\). Fixing
+\(\mu([z_0:z_1:z_2])=(a,b)\) fixes the absolute values of the three
+homogeneous coordinates, up to common scaling. Determine which phase
+parameters remain. Show that the fiber is a real two-torus:
+\[
+\mu^{-1}(a,b)\simeq(S^1)^2.
+\]
+
+\item Now let \((a,b)\) lie in the relative interior of an edge of
+\(\Delta\). One homogeneous coordinate must vanish. Show that the
+fiber is a circle:
+\[
+\mu^{-1}(a,b)\simeq S^1.
+\]
+
+\item Determine the fibers over the three vertices of \(\Delta\).
+Show that they are the three torus-fixed points
+\[
+p_0,\qquad p_1,\qquad p_2.
+\]
+
+\item Stratify \(\Delta\) into the relative interiors of its face, its
+three edges, and its three vertices. Over each stratum, \(\mu\) is a
+locally trivial fibration of the type found above. Use additivity of
+Euler characteristic over a finite stratification and multiplicativity
+for locally trivial fibrations. On the noncompact strata, one may use
+compactly supported Euler characteristic; since \(\PP^2(\CC)\) is
+compact, the final result agrees with its ordinary Euler
+characteristic.
+
+\item Recall that
+\[
+\chi\bigl((S^1)^2\bigr)=0,
+\qquad
+\chi(S^1)=0,
+\qquad
+\chi(\{\mathrm{pt}\})=1.
+\]
+Conclude that only the fibers above the three vertices contribute.
+What is
+\[
+\chi\bigl(\PP^2(\CC)\bigr)?
+\]
+
+\item Now forget the special geometry of \(\PP^2\) for a moment and
+look only at its decomposition into torus orbits. Every
+positive-dimensional orbit is a copy of
+\((\CC^\times)^r\) for some \(r>0\), and hence has Euler
+characteristic zero. What conjecture does this suggest for the Euler
+characteristic of an arbitrary complex toric variety? For a
+noncomplete variety, you may formulate the conjecture first using
+compactly supported Euler characteristic. Can you express your answer
+in terms of torus-fixed points, or equivalently in terms of the
+full-dimensional cones of the fan?
+
+\end{enumerate}
+
+
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+This chapter is intentionally panoramic. It uses \(\PP^2\) to preview
+the constructions that will be defined and proved in the chapters
+that follow: affine toric varieties from cones, global varieties from
+fans, invariant divisors from rays, monomial sections from lattice
+points, and toric blowups from star subdivisions.
+
+For systematic introductions to these correspondences, see Fulton,
+\emph{Introduction to Toric Varieties}, Chapters~1--3, and
+Cox--Little--Schenck, \emph{Toric Varieties}, Chapters~1--4 and~6.
+The moment-map viewpoint used in the challenge is developed from
+first principles in Chapter~8 of these notes.

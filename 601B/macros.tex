@@ -1,0 +1,526 @@
+% macros.tex
+% Mathematical notation for graduate notes on toric varieties.
+%
+% The conventions are chosen to stay reasonably close to
+% Cox--Little--Schenck, Toric Varieties.
+%
+% Load this file after preamble.tex:
+%     \input{preamble}
+%     \input{macros}
+
+% ==========================================================================
+% General conventions
+% ==========================================================================
+
+% Base field.  The default is an algebraically closed field k.
+\providecommand{\Bbbk}{\mathbb{k}}
+
+% Standard number systems.
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+
+% Affine and projective space.
+\newcommand{\AAA}{\mathbb{A}}
+\newcommand{\PP}{\mathbb{P}}
+
+% Common script and calligraphic letters.
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+% Fraktur letters used occasionally for ideals and Lie algebras.
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\ft}{\mathfrak{t}}
+
+% Delimiters.
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\bracket}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\angles}{\langle}{\rangle}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Divisibility and restrictions.
+\newcommand{\divides}{\mathrel{\mid}}
+\newcommand{\ndivides}{\mathrel{\nmid}}
+\newcommand{\restr}[2]{\left.#1\right|_{#2}}
+
+% ==========================================================================
+% Operators
+% ==========================================================================
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\CaDiv}{CaDiv}
+\DeclareMathOperator{\WDiv}{WDiv}
+\DeclareMathOperator{\Prin}{Prin}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\cone}{Cone}
+\DeclareMathOperator{\Conv}{Conv}
+\DeclareMathOperator{\relint}{Relint}
+\DeclareMathOperator{\Aff}{Aff}
+\DeclareMathOperator{\vol}{Vol}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\kerop}{ker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\trdeg}{trdeg}
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\Reg}{Reg}
+\DeclareMathOperator{\Exc}{Exc}
+\DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\NE}{NE}
+\DeclareMathOperator{\Nef}{Nef}
+\DeclareMathOperator{\Eff}{Eff}
+\DeclareMathOperator{\Mov}{Mov}
+\DeclareMathOperator{\Amp}{Amp}
+\DeclareMathOperator{\Star}{Star}
+\DeclareMathOperator{\Link}{Link}
+\DeclareMathOperator{\Homog}{Homog}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\td}{td}
+
+% Prefer \ker for ordinary kernels; \kerop is supplied only when an operator
+% with explicit limits is useful.
+\renewcommand{\ker}{\operatorname{ker}}
+
+% ==========================================================================
+% Lattices, tori, characters, and one-parameter subgroups
+% ==========================================================================
+
+% CLS convention:
+%   N is the lattice of one-parameter subgroups,
+%   M = Hom_Z(N,Z) is the character lattice.
+\newcommand{\Nlattice}{N}
+\newcommand{\Mlattice}{M}
+
+\newcommand{\NR}{N_{\RR}}
+\newcommand{\NQ}{N_{\QQ}}
+\newcommand{\MR}{M_{\RR}}
+\newcommand{\MQ}{M_{\QQ}}
+
+\newcommand{\NRbar}{\overline{N}_{\RR}}
+\newcommand{\MRbar}{\overline{M}_{\RR}}
+
+% Tensor extension of an arbitrary lattice.
+\newcommand{\LR}[1]{#1_{\RR}}
+\newcommand{\LQ}[1]{#1_{\QQ}}
+
+% Dual lattice and dual vector space.
+\newcommand{\dual}[1]{#1^{\vee}}
+\newcommand{\ZZdual}[1]{\Hom_{\ZZ}(#1,\ZZ)}
+\newcommand{\RRdual}[1]{\Hom_{\RR}(#1,\RR)}
+
+% Pairing between M and N.
+\newcommand{\pair}[2]{\left\langle #1,#2\right\rangle}
+
+% Algebraic torus associated to N.
+\newcommand{\TN}{T_N}
+\newcommand{\TM}{T_M}
+\newcommand{\torus}{T_N}
+\newcommand{\Gm}{\mathbb{G}_{m}}
+\newcommand{\Ga}{\mathbb{G}_{a}}
+
+% Characters and one-parameter subgroups.
+\newcommand{\character}[1]{\chi^{#1}}
+\newcommand{\oneps}[1]{\lambda^{#1}}
+\newcommand{\chiM}{\chi^m}
+\newcommand{\lambdaU}{\lambda^u}
+
+% Character and cocharacter groups.
+\newcommand{\Xstar}[1]{X^{*}(#1)}
+\newcommand{\Xsubstar}[1]{X_{*}(#1)}
+
+% Group algebra / Laurent polynomial algebra.
+\newcommand{\groupalg}[1]{\Bbbk[#1]}
+\newcommand{\laurentring}[1]{\Bbbk[#1^{\pm 1}]}
+
+% Weight spaces and gradings.
+\newcommand{\weightspace}[2]{#1_{#2}}
+\newcommand{\gradedpiece}[2]{#1_{#2}}
+\newcommand{\wt}{\operatorname{wt}}
+
+% ==========================================================================
+% Semigroups, cones, and affine toric varieties
+% ==========================================================================
+
+% Semigroup generated by a subset A.
+\newcommand{\semigroup}[1]{\NN #1}
+\newcommand{\ZA}{\ZZ A}
+\newcommand{\NA}{\NN A}
+
+% Semigroup algebra.
+\newcommand{\semigroupalg}[1]{\Bbbk[#1]}
+
+% Dual cone and orthogonal complement.
+\newcommand{\dualcone}[1]{#1^{\vee}}
+\newcommand{\perpcone}[1]{#1^{\perp}}
+
+% Cone attached to generators.
+\newcommand{\Cone}[1]{\operatorname{Cone}(#1)}
+\newcommand{\pos}[1]{\operatorname{pos}(#1)}
+
+% Standard affine toric variety and semigroup associated to a cone.
+\newcommand{\Ssigma}{S_{\sigma}}
+\newcommand{\Usigma}{U_{\sigma}}
+\newcommand{\Uface}[1]{U_{#1}}
+\newcommand{\Xsigma}{X_{\sigma}}
+
+% Generic versions.
+\newcommand{\Scone}[1]{S_{#1}}
+\newcommand{\Ucone}[1]{U_{#1}}
+\newcommand{\Xcone}[1]{X_{#1}}
+
+% Distinguished monomial.
+\newcommand{\xmon}[1]{x^{#1}}
+
+% Toric ideal associated to A.
+\newcommand{\IA}{I_A}
+\newcommand{\Iconfig}[1]{I_{#1}}
+
+% Saturation.
+\newcommand{\sat}[1]{\overline{#1}}
+\newcommand{\saturation}[2]{#1:#2^{\infty}}
+
+% Faces.
+\newcommand{\faceleq}{\preceq}
+\newcommand{\facet}{\text{facet}}
+
+% ==========================================================================
+% Fans and global toric varieties
+% ==========================================================================
+
+\newcommand{\fan}{\Sigma}
+\newcommand{\fanp}{\Sigma'}
+\newcommand{\fanq}{\Sigma''}
+
+\newcommand{\Xfan}{X_{\Sigma}}
+\newcommand{\Xfanp}{X_{\Sigma'}}
+\newcommand{\Xof}[1]{X_{#1}}
+
+% Cones of a fixed dimension.
+\newcommand{\fancones}[1]{\Sigma(#1)}
+\newcommand{\fanrays}{\Sigma(1)}
+\newcommand{\fanmax}{\Sigma_{\max}}
+
+% Support of a fan.
+\newcommand{\fansupp}[1]{\lvert #1\rvert}
+
+% Ray generator.  For rho in Sigma(1), u_rho denotes the primitive generator.
+\newcommand{\urho}{u_{\rho}}
+\newcommand{\uray}[1]{u_{#1}}
+\newcommand{\vrho}{v_{\rho}}
+\newcommand{\vray}[1]{v_{#1}}
+
+% Orbit and orbit closure associated to a cone.
+\newcommand{\Osigma}{O(\sigma)}
+\newcommand{\Vsigma}{V(\sigma)}
+\newcommand{\Ocone}[1]{O(#1)}
+\newcommand{\Vcone}[1]{V(#1)}
+
+% Star of a cone and quotient fan.
+\newcommand{\starsigma}{\operatorname{Star}(\sigma)}
+\newcommand{\starcone}[1]{\operatorname{Star}(#1)}
+
+% Refinements and subdivisions.
+\newcommand{\refines}{\succ}
+\newcommand{\subdivision}[2]{#1 \to #2}
+
+% ==========================================================================
+% Polytopes and projective toric varieties
+% ==========================================================================
+
+\newcommand{\polytope}{P}
+\newcommand{\polytopeQ}{Q}
+\newcommand{\DeltaPoly}{\Delta}
+
+\newcommand{\conv}[1]{\operatorname{Conv}(#1)}
+\newcommand{\normalfan}[1]{\Sigma_{#1}}
+\newcommand{\face}[2]{F_{#1}(#2)}
+
+% Lattice points of a polytope.
+\newcommand{\latticepoints}[1]{#1\cap M}
+\newcommand{\numlatticepoints}[1]{\#(#1\cap M)}
+
+% Polyhedron associated to a torus-invariant divisor.
+\newcommand{\PD}{P_D}
+\newcommand{\Pdiv}[1]{P_{#1}}
+
+% Projective toric variety associated to a configuration or polytope.
+\newcommand{\XA}{X_A}
+\newcommand{\XP}{X_P}
+\newcommand{\Xpoly}[1]{X_{#1}}
+
+% Normal fan and support function.
+\newcommand{\psiD}{\psi_D}
+\newcommand{\supportfunction}[1]{\psi_{#1}}
+
+% ==========================================================================
+% Divisors, line bundles, and sections
+% ==========================================================================
+
+% Torus-invariant prime divisor associated to rho.
+\newcommand{\Drho}{D_{\rho}}
+\newcommand{\Dray}[1]{D_{#1}}
+
+% Generic torus-invariant divisor.
+\newcommand{\Dsum}{\sum_{\rho\in\Sigma(1)} a_{\rho}D_{\rho}}
+\newcommand{\Dtoric}{D=\sum_{\rho\in\Sigma(1)}a_{\rho}D_{\rho}}
+
+% Principal divisor of a character.
+\newcommand{\divchi}[1]{\operatorname{div}(\chi^{#1})}
+
+% Divisor and line-bundle notation.
+\newcommand{\OX}{\mathcal{O}_X}
+\newcommand{\OD}{\mathcal{O}_X(D)}
+\newcommand{\Odiv}[1]{\mathcal{O}_X(#1)}
+\newcommand{\Ldiv}[1]{\mathcal{L}(#1)}
+
+% Global sections and cohomology.
+\newcommand{\Hzero}[2]{H^{0}\!\left(#1,#2\right)}
+\newcommand{\Hi}[3]{H^{#1}\!\left(#2,#3\right)}
+\newcommand{\hzero}[2]{h^{0}\!\left(#1,#2\right)}
+\newcommand{\hi}[3]{h^{#1}\!\left(#2,#3\right)}
+
+% Canonical and anticanonical divisors.
+\newcommand{\KX}{K_X}
+\newcommand{\minusKX}{-K_X}
+\newcommand{\omegaX}{\omega_X}
+
+% Boundary divisor.
+\newcommand{\boundaryX}{\partial X}
+\newcommand{\toricboundary}{\sum_{\rho\in\Sigma(1)}D_{\rho}}
+
+% Divisor class groups and numerical spaces.
+\newcommand{\ClX}{\Cl(X)}
+\newcommand{\PicX}{\Pic(X)}
+\newcommand{\NSX}{\operatorname{NS}(X)}
+\newcommand{\NOne}[1]{N^{1}(#1)_{\RR}}
+\newcommand{\Ncurve}[1]{N_{1}(#1)_{\RR}}
+
+% Section ring.
+\newcommand{\sectionring}[2]{R(#1,#2)}
+\newcommand{\RofD}{R(X,D)}
+
+% ==========================================================================
+% Cox rings and homogeneous coordinates
+% ==========================================================================
+
+\newcommand{\Cox}[1]{\operatorname{Cox}(#1)}
+\newcommand{\CoxX}{\operatorname{Cox}(X_{\Sigma})}
+\newcommand{\Scox}{S}
+\newcommand{\Bfan}{B(\Sigma)}
+\newcommand{\Zfan}{Z(\Sigma)}
+\newcommand{\Uhat}{\widehat{X}}
+\newcommand{\Gfan}{G_{\Sigma}}
+
+% Cox variables.
+\newcommand{\xrho}{x_{\rho}}
+\newcommand{\xhat}[1]{\widehat{x}_{#1}}
+
+% Homogeneous piece of degree alpha.
+\newcommand{\Salpha}{S_{\alpha}}
+\newcommand{\Sdegree}[1]{S_{#1}}
+
+% ==========================================================================
+% Toric surfaces and blowups
+% ==========================================================================
+
+% Hirzebruch surfaces.
+\newcommand{\Hirz}[1]{\mathbb{F}_{#1}}
+\newcommand{\Fn}{\mathbb{F}_{n}}
+
+% Blowups.
+\newcommand{\Blp}[2]{\operatorname{Bl}_{#2}(#1)}
+\newcommand{\blowupmap}{\pi\colon \widetilde{X}\to X}
+\newcommand{\Xtilde}{\widetilde{X}}
+\newcommand{\Dtilde}{\widetilde{D}}
+\newcommand{\Eexc}{E}
+
+% Standard divisor classes on blowups of P^2.
+\newcommand{\Hclass}{H}
+\newcommand{\Eclass}[1]{E_{#1}}
+
+% Self-intersection.
+\newcommand{\selfint}[1]{#1^{2}}
+\newcommand{\intersection}[2]{#1\cdot #2}
+
+% Cyclically ordered primitive ray generators on a surface.
+\newcommand{\vi}{v_i}
+\newcommand{\vip}{v_{i+1}}
+\newcommand{\vim}{v_{i-1}}
+
+% ==========================================================================
+% Singularities, resolutions, and birational geometry
+% ==========================================================================
+
+\newcommand{\resolution}{\pi\colon \widetilde{X}\to X}
+\newcommand{\exceptional}{\operatorname{Exc}(\pi)}
+
+\newcommand{\QCartier}{\QQ\text{-Cartier}}
+\newcommand{\Qfactorial}{\QQ\text{-factorial}}
+\newcommand{\QGorenstein}{\QQ\text{-Gorenstein}}
+
+\newcommand{\MMP}{\mathrm{MMP}}
+\newcommand{\NEbar}[1]{\overline{\operatorname{NE}}(#1)}
+\newcommand{\Effbar}[1]{\overline{\operatorname{Eff}}(#1)}
+\newcommand{\Movbar}[1]{\overline{\operatorname{Mov}}(#1)}
+
+% Discrepancy notation.
+\newcommand{\discrepancy}[2]{a(#1,#2)}
+
+% ==========================================================================
+% Intersection theory and Chow groups
+% ==========================================================================
+
+\newcommand{\Astar}[1]{A^{*}(#1)}
+\newcommand{\Aunder}[1]{A_{*}(#1)}
+\newcommand{\Ak}[2]{A^{#1}(#2)}
+\newcommand{\Acycle}[2]{A_{#1}(#2)}
+
+\newcommand{\chowring}[1]{A^{*}(#1)}
+\newcommand{\cycleclass}[1]{[#1]}
+\newcommand{\degree}{\operatorname{deg}}
+
+% Stanley--Reisner and linear-relation ideals.
+\newcommand{\ISR}{I_{\mathrm{SR}}}
+\newcommand{\Ilin}{I_{\mathrm{lin}}}
+
+% ==========================================================================
+% Topology and compact torus notation
+% ==========================================================================
+
+\newcommand{\compacttorus}{(S^{1})^{n}}
+\newcommand{\momentmap}{\mu}
+\newcommand{\momentpolytope}{\Delta}
+
+\newcommand{\piOne}[1]{\pi_{1}(#1)}
+\newcommand{\Euler}[1]{\chi(#1)}
+
+% ==========================================================================
+% Morphisms and categorical notation
+% ==========================================================================
+
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\longfrom}{\longleftarrow}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\isoto}{\xrightarrow{\sim}}
+\newcommand{\birat}{\dashrightarrow}
+
+\newcommand{\map}[3]{#1\colon #2\longrightarrow #3}
+\newcommand{\rmap}[3]{#1\colon #2\dashrightarrow #3}
+
+% Pullback and pushforward.
+\newcommand{\pullback}[1]{#1^{*}}
+\newcommand{\pushforward}[1]{#1_{*}}
+
+% ==========================================================================
+% Frequently used equations and constructions
+% ==========================================================================
+
+% The standard exact sequence for torus-invariant divisors:
+%     M -> Z^{Sigma(1)} -> Cl(X_Sigma) -> 0.
+\newcommand{\divisorsequence}{%
+  M \longrightarrow \ZZ^{\Sigma(1)}
+    \longrightarrow \Cl(X_{\Sigma}) \longrightarrow 0%
+}
+
+% Smooth toric divisor sequence:
+\newcommand{\picardsequence}{%
+  M \longrightarrow \ZZ^{\Sigma(1)}
+    \longrightarrow \Pic(X_{\Sigma}) \longrightarrow 0%
+}
+
+% Character divisor formula.
+\newcommand{\characterdivisorformula}{%
+  \operatorname{div}(\chi^{m})
+  =
+  \sum_{\rho\in\Sigma(1)}
+  \langle m,u_{\rho}\rangle D_{\rho}%
+}
+
+% Canonical divisor formula.
+\newcommand{\canonicaldivisorformula}{%
+  K_{X_{\Sigma}}
+  =
+  -\sum_{\rho\in\Sigma(1)}D_{\rho}%
+}
+
+% ==========================================================================
+% Textual abbreviations
+% ==========================================================================
+
+\newcommand{\ie}{i.e.\ }
+\newcommand{\eg}{e.g.\ }
+\newcommand{\cf}{cf.\ }
+\newcommand{\resp}{respectively}
+\newcommand{\withoutloss}{without loss of generality}
+\newcommand{\Withoutloss}{Without loss of generality}
+\newcommand{\WLOG}{\text{without loss of generality}}
+
+% ==========================================================================
+% Optional notation aliases
+% ==========================================================================
+%
+% These aliases are convenient but somewhat terse.  Keeping them grouped here
+% makes it easy to remove them if a notation conflict appears later.
+
+\newcommand{\Sig}{\Sigma}
+\newcommand{\sig}{\sigma}
+\newcommand{\taut}{\tau}
+\newcommand{\rhoRay}{\rho}
+
+% End of macros.tex

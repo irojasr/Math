@@ -1,0 +1,403 @@
+% preamble.tex
+% Shared package imports and environment definitions for the course notes.
+% This file is intended to be loaded from main.tex via
+%     \input{preamble}
+
+% --------------------------------------------------------------------------
+% Encoding, fonts, and typography
+% --------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % Harmless on modern LaTeX; useful on older systems.
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% --------------------------------------------------------------------------
+% Page layout and document structure
+% --------------------------------------------------------------------------
+
+\usepackage[
+  letterpaper,
+  inner=1.25in,
+  outer=1.00in,
+  top=1.00in,
+  bottom=1.10in,
+  headheight=15pt
+]{geometry}
+
+\usepackage{setspace}
+\setstretch{1.05}
+
+\usepackage{emptypage}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\thepage}
+\fancyhead[RO]{\small\thepage}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\small\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}
+  {\Large Chapter \thechapter}
+  {0.5ex}
+  {\Huge}
+
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {\Huge}
+
+\titlespacing*{\chapter}{0pt}{-10pt}{30pt}
+
+% --------------------------------------------------------------------------
+% Mathematics
+% --------------------------------------------------------------------------
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{dsfont}
+
+\numberwithin{equation}{chapter}
+
+% --------------------------------------------------------------------------
+% Lists, tables, and general utilities
+% --------------------------------------------------------------------------
+
+\usepackage{enumitem}
+\setlist{
+  itemsep=2pt,
+  topsep=4pt,
+  parsep=0pt
+}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{ragged2e}
+
+\usepackage{xcolor}
+\usepackage{xparse}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage{comment}
+
+% --------------------------------------------------------------------------
+% Graphics, diagrams, and commutative diagrams
+% --------------------------------------------------------------------------
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows.meta,
+  calc,
+  decorations.markings,
+  intersections,
+  matrix,
+  patterns,
+  positioning,
+  shapes.geometric
+}
+
+\usepackage{tikz-cd}
+
+% Basic TikZ styles for fans, lattices, and polytopes.
+\tikzset{
+  lattice point/.style={
+    circle,
+    fill,
+    inner sep=1.4pt
+  },
+  ray/.style={
+    -{Latex[length=2.2mm]},
+    thick
+  },
+  fan cone/.style={
+    fill=black!8,
+    draw=black!55
+  },
+  polytope/.style={
+    thick
+  },
+  toric divisor/.style={
+    thick,
+    dashed
+  }
+}
+
+% --------------------------------------------------------------------------
+% Color palette
+% --------------------------------------------------------------------------
+
+\definecolor{DictionaryBlue}{HTML}{1F4E79}
+\definecolor{SurfaceGreen}{HTML}{3F6B4F}
+\definecolor{WarningRed}{HTML}{8B2E2E}
+\definecolor{ExampleGold}{HTML}{8A641B}
+\definecolor{LightGray}{HTML}{F4F4F4}
+\definecolor{PastelYellow}{HTML}{FFF8CC}
+\definecolor{PausePurple}{HTML}{6F5A8A}
+\definecolor{PredictionTeal}{HTML}{287D7A}
+\definecolor{CheatsheetSlate}{HTML}{536878}
+
+% --------------------------------------------------------------------------
+% Boxed pedagogical environments
+% --------------------------------------------------------------------------
+
+\usepackage[most]{tcolorbox}
+
+\tcbset{
+  enhanced,
+  breakable,
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=2mm,
+  right=2mm,
+  top=1.5mm,
+  bottom=1.5mm,
+  before skip=8pt,
+  after skip=8pt
+}
+
+\newtcolorbox{chapteroverview}{
+  colback=PastelYellow,
+  colframe=ExampleGold!70!black,
+  title={Chapter overview},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{threedictionaries}{
+  colback=DictionaryBlue!4,
+  colframe=DictionaryBlue,
+  title={The three dictionaries},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{surfacelaboratory}{
+  colback=SurfaceGreen!5,
+  colframe=SurfaceGreen,
+  title={Surface laboratory},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warningbox}{
+  colback=WarningRed!4,
+  colframe=WarningRed,
+  title={Warning},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{guidingquestion}{
+  colback=ExampleGold!5,
+  colframe=ExampleGold,
+  title={Guiding question},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{pauseandthink}{
+  colback=PausePurple!5,
+  colframe=PausePurple,
+  title={Pause and think},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{prediction}{
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={Prediction},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{dictionarytable}{
+  colback=DictionaryBlue!3,
+  colframe=DictionaryBlue,
+  title={Dictionary summary},
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{agcheatsheet}{
+  colback=CheatsheetSlate!5,
+  colframe=CheatsheetSlate,
+  title={Algebraic geometry cheatsheet},
+  fonttitle=\bfseries
+}
+
+% --------------------------------------------------------------------------
+% Theorem environments
+% --------------------------------------------------------------------------
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{question}[theorem]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{notation}[theorem]{Notation}
+
+% Unnumbered variants.
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+
+% --------------------------------------------------------------------------
+% Exercises and solutions
+% --------------------------------------------------------------------------
+
+\newcounter{exerciseblock}[chapter]
+\renewcommand{\theexerciseblock}{\thechapter.\arabic{exerciseblock}}
+
+\NewDocumentEnvironment{exercises}{O{Exercises}}
+{
+  \section*{#1}
+  \addcontentsline{toc}{section}{#1}
+  \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},wide=0pt]
+}
+{
+  \end{enumerate}
+}
+
+\newif\ifshowsolutions
+\showsolutionsfalse
+% To compile instructor solutions, change the previous line to:
+% \showsolutionstrue
+
+\NewDocumentEnvironment{solution}{}
+{
+  \ifshowsolutions
+    \par\smallskip
+    \noindent\textbf{Solution. }\ignorespaces
+  \else
+    \expandafter\comment
+  \fi
+}
+{
+  \ifshowsolutions
+    \par\smallskip
+  \else
+    \expandafter\endcomment
+  \fi
+}
+
+% --------------------------------------------------------------------------
+% Cross-references
+% --------------------------------------------------------------------------
+
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=DictionaryBlue,
+  citecolor=SurfaceGreen,
+  urlcolor=WarningRed,
+  pdfauthor={},
+  pdftitle={The Three Dictionaries of Toric Geometry},
+  pdfsubject={Notes for Renzo's Fall 2026 course at Colorado State University},
+  bookmarksopen=true,
+  bookmarksnumbered=true
+}
+
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+
+\crefname{theorem}{theorem}{theorems}
+\crefname{proposition}{proposition}{propositions}
+\crefname{lemma}{lemma}{lemmas}
+\crefname{corollary}{corollary}{corollaries}
+\crefname{definition}{definition}{definitions}
+\crefname{construction}{construction}{constructions}
+\crefname{example}{example}{examples}
+\crefname{exercise}{exercise}{exercises}
+\crefname{question}{question}{questions}
+\crefname{remark}{remark}{remarks}
+\crefname{observation}{observation}{observations}
+\crefname{convention}{convention}{conventions}
+\crefname{notation}{notation}{notations}
+
+% --------------------------------------------------------------------------
+% Bibliography
+% --------------------------------------------------------------------------
+
+\usepackage[
+  backend=biber,
+  style=alphabetic,
+  sorting=nyt,
+  maxbibnames=99
+]{biblatex}
+
+% The present notes use chapter-level prose references rather than citation
+% commands.  This guard keeps the project ready for a future bibliography
+% without requiring an empty references.bib file in the current release.
+\IfFileExists{references.bib}{\addbibresource{references.bib}}{}
+
+% --------------------------------------------------------------------------
+% Index
+% --------------------------------------------------------------------------
+
+\usepackage{makeidx}
+\makeindex
+
+% --------------------------------------------------------------------------
+% Drafting tools
+% --------------------------------------------------------------------------
+
+% Margin notes can be used during development:
+%     \marginnote{Check this proof.}
+\usepackage{marginnote}
+
+\newcommand{\todo}[1]{%
+  \marginpar{\raggedright\scriptsize\color{WarningRed}\textbf{TODO:} #1}%
+}
+
+% Set to true while drafting to display labels in the margins.
+\newif\ifshowlabels
+\showlabelsfalse
+
+\ifshowlabels
+  \usepackage{showkeys}
+\fi
+
+% --------------------------------------------------------------------------
+% Miscellaneous formatting
+% --------------------------------------------------------------------------
+
+\allowdisplaybreaks
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\renewcommand{\qedsymbol}{\(\square\)}
+
+% Prevent isolated lines at page boundaries.
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000

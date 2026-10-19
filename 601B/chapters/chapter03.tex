@@ -1,0 +1,3575 @@
+\chapter[Fans and Toric Varieties]
+{Fans and Toric Varieties:\\ Gluing Affine Pieces}
+\label{chap:fans-and-toric-varieties}
+
+\begin{chapteroverview}
+A single strongly convex rational cone
+\[
+\sigma\subseteq N_{\RR}
+\]
+produces one normal affine toric variety
+\[
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M].
+\]
+But many of the toric varieties we care about most—projective spaces,
+Hirzebruch surfaces, and blowups—are not affine. They cannot be
+described by one cone.
+
+The solution is local-to-global. Several cones will provide several
+affine toric charts, and common faces will provide the affine open
+subsets along which those charts are glued. A compatible collection
+of cones is called a \emph{fan}.
+
+This chapter develops the passage
+\[
+\begin{array}{c}
+\text{cones and common faces}
+\\[-1mm]
+\downarrow
+\\[-1mm]
+\text{affine toric charts and common open subsets}
+\\[-1mm]
+\downarrow
+\\[-1mm]
+\text{a global toric variety }X_\Sigma.
+\end{array}
+\]
+The running examples will be toric curves and surfaces, especially
+\(\PP^1\), \(\PP^2\), products, and blowups.
+\end{chapteroverview}
+
+\begin{threedictionaries}
+The global theory adds one new operation to each dictionary.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+semigroup algebras
+\(\Bbbk[\sigma^\vee\cap M]\)
+&
+affine charts \(U_\sigma\)
+&
+cones \(\sigma\subseteq N_{\RR}\)
+\\[1mm]
+localization at characters
+&
+common affine open subsets
+&
+common faces
+\\[1mm]
+compatible restriction maps
+&
+gluing affine charts
+&
+a fan \(\Sigma\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\section{Why one cone is not enough}
+\label{sec:why-one-cone-not-enough}
+\index{affine chart!toric}
+\index{gluing!affine toric charts}
+
+Every cone gives an affine variety. This is a strength of the
+construction
+\[
+\sigma\longmapsto
+U_\sigma
+=
+\Spec\Bbbk[\sigma^\vee\cap M],
+\]
+but it is also a limitation. Neither \(\PP^1\) nor \(\PP^2\) is
+affine, so neither can come from a single cone.
+
+They are, however, covered by affine toric varieties. The question is
+therefore not how to replace cones, but how to use several of them at
+once.
+
+\begin{guidingquestion}
+How can several cones encode affine toric charts together with the
+instructions for gluing those charts?
+\end{guidingquestion}
+
+\subsection{The affine construction is a local model}
+
+Let
+\[
+\tau\preceq\sigma
+\]
+be a face. Chapter~2 showed that
+\[
+U_\tau\subseteq U_\sigma
+\]
+is a torus-invariant affine open subset. More precisely, if
+\[
+\tau=\sigma\cap m^\perp
+\qquad
+\text{for }m\in\sigma^\vee\cap M,
+\]
+then
+\[
+U_\tau
+=
+D(\character{m})
+\subseteq U_\sigma.
+\]
+
+Thus a face already carries gluing information:
+
+\[
+\boxed{
+\text{a face of a cone}
+\quad\longleftrightarrow\quad
+\text{an affine open subset of the corresponding chart}.
+}
+\]
+
+Suppose now that two cones \(\sigma_1,\sigma_2\subseteq N_{\RR}\)
+meet in a cone
+\[
+\tau=\sigma_1\cap\sigma_2
+\]
+that is a face of both. Then the same affine toric variety \(U_\tau\)
+appears as an open subset of both:
+\[
+U_{\sigma_1}
+\supseteq
+U_\tau
+\subseteq
+U_{\sigma_2}.
+\]
+The identity on the common dense torus identifies these two copies of
+\(U_\tau\). This gives exactly the kind of overlap needed to glue the
+two affine charts.
+
+We first watch this happen in dimension one.
+
+\subsection{\texorpdfstring{\(\PP^1\)}{P1} from two affine lines}
+
+Take
+\[
+N=\ZZ,
+\qquad
+M=\ZZ,
+\]
+and let \(t=\character{1}\) be the coordinate on the torus
+\[
+T=\Gm.
+\]
+Consider the two rays
+\[
+\sigma_+=\RR_{\geq0},
+\qquad
+\sigma_-=\RR_{\leq0},
+\]
+whose intersection is the zero cone
+\[
+\tau=\{0\}.
+\]
+
+Their dual semigroups are
+\[
+\sigma_+^\vee\cap M=\NN,
+\qquad
+\sigma_-^\vee\cap M=-\NN,
+\qquad
+\tau^\vee\cap M=\ZZ.
+\]
+Consequently,
+\[
+U_{\sigma_+}
+=
+\Spec\Bbbk[t]
+\simeq\AAA^1,
+\]
+\[
+U_{\sigma_-}
+=
+\Spec\Bbbk[t^{-1}]
+\simeq\AAA^1,
+\]
+and
+\[
+U_\tau
+=
+\Spec\Bbbk[t,t^{-1}]
+=
+\Gm.
+\]
+
+The face inclusions identify \(U_\tau\) with
+\[
+D(t)\subseteq U_{\sigma_+}
+\]
+and
+\[
+D(t^{-1})\subseteq U_{\sigma_-}.
+\]
+If we write
+\[
+x=t
+\qquad\text{on }U_{\sigma_+},
+\]
+and
+\[
+y=t^{-1}
+\qquad\text{on }U_{\sigma_-},
+\]
+then the transition function on the overlap is
+\[
+y=x^{-1}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  chart/.style={
+    rounded corners,
+    draw=black!55,
+    minimum width=3.1cm,
+    minimum height=1.35cm,
+    align=center,
+    inner sep=5pt
+  }
+]
+  % fan
+  \begin{scope}[xshift=-4.8cm]
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}]
+      (0,0)--(2.4,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}]
+      (0,0)--(-2.4,0);
+    \fill[WarningRed] (0,0) circle (2.7pt);
+    \node[DictionaryBlue,above] at (1.45,0)
+      {\(\sigma_+\)};
+    \node[SurfaceGreen,above] at (-1.45,0)
+      {\(\sigma_-\)};
+    \node[WarningRed,below] at (0,-0.05)
+      {\(\tau=\{0\}\)};
+    \node[font=\bfseries] at (0,1.15)
+      {cones in \(N_{\RR}\)};
+  \end{scope}
+
+  % charts
+  \node[chart,fill=DictionaryBlue!7] (plus) at (2.2,1.1)
+    {\(U_{\sigma_+}\simeq\AAA^1_x\)};
+  \node[chart,fill=SurfaceGreen!7] (minus) at (2.2,-1.1)
+    {\(U_{\sigma_-}\simeq\AAA^1_y\)};
+  \node[
+    rounded corners,
+    draw=PredictionTeal,
+    fill=PredictionTeal!5,
+    align=center,
+    minimum width=2.5cm,
+    minimum height=1.0cm
+  ] (torus) at (6.0,0)
+    {\(U_\tau=\Gm\)\\ \(y=x^{-1}\)};
+
+  \draw[very thick,-{Latex[length=2.3mm]},DictionaryBlue]
+    (plus.east)--(torus.north west);
+  \draw[very thick,-{Latex[length=2.3mm]},SurfaceGreen]
+    (minus.east)--(torus.south west);
+\end{tikzpicture}
+\caption{The two rays give affine-line charts, while their common
+zero face gives the torus on which the charts overlap.}
+\label{fig:p1-two-cones-two-charts}
+\end{figure}
+
+Gluing these two affine lines along \(\Gm\) using
+\[
+y=x^{-1}
+\]
+produces \(\PP^1\). Indeed, the maps
+\[
+\AAA^1_x\longrightarrow\PP^1,
+\qquad
+x\longmapsto[1:x],
+\]
+and
+\[
+\AAA^1_y\longrightarrow\PP^1,
+\qquad
+y\longmapsto[y:1],
+\]
+agree on the overlap precisely because \(y=x^{-1}\).
+
+\noindent
+\textit{Reference.}
+This is the one-dimensional case of Cox--Little--Schenck,
+Examples~3.1.10 and~3.1.11. The general affine gluing model for
+projective space is developed in \S3.0.
+
+\begin{pauseandthink}
+The point \(0\in\AAA^1_x\) becomes \([1:0]\), while
+\(0\in\AAA^1_y\) becomes \([0:1]\). Why are these two points not part
+of the overlap? Explain how the two origins supply the two boundary
+points of
+\[
+\PP^1\setminus\Gm.
+\]
+\end{pauseandthink}
+
+This first example contains the global construction in miniature:
+
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+\sigma_+,\sigma_-
+&
+\AAA^1_x,\AAA^1_y
+\\[1mm]
+\sigma_+\cap\sigma_-=\{0\}
+&
+\AAA^1_x\cap\AAA^1_y=\Gm.
+\end{array}
+\]
+
+\subsection{Common faces are the transition charts}
+
+The gluing in the previous example was not chosen independently of
+the cones. It was forced by the shared face.
+
+For a face
+\[
+\tau\preceq\sigma,
+\]
+the inclusion
+\[
+U_\tau\hookrightarrow U_\sigma
+\]
+restricts to the identity on the dense torus \(T\). Hence whenever
+\[
+\tau=\sigma_1\cap\sigma_2
+\]
+is a face of both cones, the diagram
+\[
+\begin{tikzcd}[column sep=large]
+&
+U_\tau
+\arrow[dl,hook']
+\arrow[dr,hook]
+&
+\\
+U_{\sigma_1}
+&&
+U_{\sigma_2}
+\end{tikzcd}
+\]
+provides canonical gluing data.
+
+On coordinate rings, these open embeddings come from localizations.
+If
+\[
+\tau
+=
+\sigma_1\cap m^\perp
+=
+\sigma_2\cap(-m)^\perp
+\]
+for a suitable \(m\in M\), then
+\[
+\Bbbk[U_\tau]
+=
+\Bbbk[U_{\sigma_1}]_{\character{m}}
+=
+\Bbbk[U_{\sigma_2}]_{\character{-m}}.
+\]
+The transition map is the identity inside the common Laurent
+polynomial ring \(\Bbbk[M]\).
+
+\begin{prediction}
+Suppose a finite collection of cones is meant to describe affine
+charts of one global toric variety.
+
+What conditions should be imposed so that every boundary piece needed
+for an overlap is present, and so that the intersection of any two
+charts is represented by one common face rather than by incompatible
+pieces?
+\end{prediction}
+
+\subsection{\texorpdfstring{\(\PP^2\)}{P2} from three affine planes}
+
+Let
+\[
+N=\ZZ^2,
+\qquad
+e_0=-e_1-e_2,
+\]
+and consider
+\[
+\sigma_0=\Cone{e_1,e_2},
+\qquad
+\sigma_1=\Cone{e_0,e_2},
+\qquad
+\sigma_2=\Cone{e_1,e_0}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.1]
+  \fill[DictionaryBlue!9]
+    (0,0)--(2.35,0)--(0,2.35)--cycle;
+  \fill[SurfaceGreen!9]
+    (0,0)--(0,2.35)--(-1.8,-1.8)--cycle;
+  \fill[ExampleGold!13]
+    (0,0)--(-1.8,-1.8)--(2.35,0)--cycle;
+
+  \draw[very thick,DictionaryBlue,-{Latex[length=2.4mm]}]
+    (0,0)--(2.7,0);
+  \draw[very thick,SurfaceGreen,-{Latex[length=2.4mm]}]
+    (0,0)--(0,2.7);
+  \draw[very thick,ExampleGold,-{Latex[length=2.4mm]}]
+    (0,0)--(-2.15,-2.15);
+
+  \node[DictionaryBlue,below] at (2.55,0) {\(e_1\)};
+  \node[SurfaceGreen,left] at (0,2.55) {\(e_2\)};
+  \node[ExampleGold,above left] at (-2.0,-2.0)
+    {\(e_0=-e_1-e_2\)};
+
+  \node at (0.75,0.8) {\(\sigma_0\)};
+  \node at (-0.75,0.65) {\(\sigma_1\)};
+  \node at (0.2,-0.85) {\(\sigma_2\)};
+\end{tikzpicture}
+\caption{The three maximal cones for \(\PP^2\). Their rays and the
+zero cone encode all chart intersections.}
+\label{fig:p2-three-cones}
+\end{figure}
+
+Let \(m_1,m_2\) be dual to \(e_1,e_2\), and write
+\[
+x=\character{m_1},
+\qquad
+y=\character{m_2}.
+\]
+The complete affine atlas is contained in the following table.
+
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.21\linewidth}
+  >{\raggedright\arraybackslash}p{0.31\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Cone or common face}
+&
+\textbf{Affine toric piece}
+&
+\textbf{Projective interpretation}
+\\
+\midrule
+\(\sigma_0=\Cone{e_1,e_2}\)
+&
+\(\Bbbk[x,y]\), hence \(U_{\sigma_0}\simeq\AAA^2\)
+&
+\(V_0=\{z_0\neq0\}\);
+\(\ (x,y)=(z_1/z_0,z_2/z_0)\)
+\\
+\(\sigma_1=\Cone{e_0,e_2}\)
+&
+\(\Bbbk[x^{-1},x^{-1}y]\), hence
+\(U_{\sigma_1}\simeq\AAA^2\)
+&
+\(V_1=\{z_1\neq0\}\);
+\(\ (x^{-1},x^{-1}y)=(z_0/z_1,z_2/z_1)\)
+\\
+\(\sigma_2=\Cone{e_1,e_0}\)
+&
+\(\Bbbk[y^{-1},xy^{-1}]\), hence
+\(U_{\sigma_2}\simeq\AAA^2\)
+&
+\(V_2=\{z_2\neq0\}\);
+\(\ (y^{-1},xy^{-1})=(z_0/z_2,z_1/z_2)\)
+\\
+\midrule
+\(\sigma_0\cap\sigma_1=\Cone{e_2}\)
+&
+\(\Bbbk[x^{\pm1},y]\simeq
+\Bbbk[x^{-1},x^{-1}y]_{x^{-1}}\)
+&
+\(V_0\cap V_1\);
+\(\ (x,y)\mapsto(x^{-1},y/x)\)
+\\
+\(\sigma_0\cap\sigma_2=\Cone{e_1}\)
+&
+\(\Bbbk[x,y^{\pm1}]\)
+&
+\(V_0\cap V_2\);
+\(\ (x,y)\mapsto(y^{-1},x/y)\)
+\\
+\(\sigma_1\cap\sigma_2=\Cone{e_0}\)
+&
+\(\Bbbk[a,b^{\pm1}]\), with
+\(a=x^{-1}\), \(b=x^{-1}y\)
+&
+\(V_1\cap V_2\);
+\(\ (a,b)\mapsto(a/b,1/b)\)
+\\
+\(\sigma_0\cap\sigma_1\cap\sigma_2=\{0\}\)
+&
+\(\Bbbk[x^{\pm1},y^{\pm1}]\), so \(U_{\{0\}}=\Gm^2\)
+&
+\(V_0\cap V_1\cap V_2\), the dense torus
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Example~3.1.9. Its
+\(n\)-dimensional generalization is Example~3.1.10.
+
+\begin{surfacelaboratory}
+Read the atlas directly from the table.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify that each maximal-cone ring is a polynomial ring in two
+variables.
+
+\item For each pair of charts, identify which character is inverted
+and derive the displayed transition map from the two coordinate
+systems.
+
+\item Explain why every pairwise overlap is
+\(\AAA^1\times\Gm\), while the triple overlap is \(\Gm^2\).
+
+\item What two compatibility rules on a collection of cones are
+suggested by this atlas? Your rules should ensure that all needed
+overlap charts are present and that the intersection of any two
+maximal charts is represented by one common cone.
+\end{enumerate}
+\end{surfacelaboratory}
+
+The examples of \(\PP^1\) and \(\PP^2\) therefore lead directly to
+the next definition: a compatible collection of cones should contain
+all faces and should have the property that the intersection of any
+two cones is a face of each.
+
+\begin{guidingquestion}
+How should we define such a collection precisely, and which features
+of a global toric variety can already be read from the arrangement of
+its cones?
+\end{guidingquestion}
+
+
+\section{Fans and their basic language}
+\label{sec:fans-basic-language}
+\index{fan!definition}
+\index{fan!support}
+\index{complete fan}
+\index{subfan}
+
+The examples of \(\PP^1\) and \(\PP^2\) forced two compatibility
+conditions: faces must be retained, and intersections must be common
+faces. We now make those conditions precise.
+
+\subsection{The definition}
+
+\begin{definition}[Fan]
+\label{def:fan}
+A \emph{fan} \(\Sigma\) in \(N_{\RR}\) is a finite collection of
+cones such that:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item every \(\sigma\in\Sigma\) is a strongly convex rational
+polyhedral cone;
+\item if \(\sigma\in\Sigma\) and \(\tau\preceq\sigma\), then
+\(\tau\in\Sigma\);
+\item if \(\sigma_1,\sigma_2\in\Sigma\), then
+\[
+\sigma_1\cap\sigma_2
+\]
+is a face of both \(\sigma_1\) and \(\sigma_2\).
+\end{enumerate}
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~3.1.2.
+
+The zero cone belongs to every nonempty fan, because it is a face of
+every strongly convex cone.
+
+The first condition ensures that every cone produces a normal affine
+toric variety. The second ensures that every torus-invariant affine
+open subset needed for gluing is represented. The third ensures that
+two affine charts have one canonical common chart:
+\[
+\sigma_1\cap\sigma_2=\tau
+\quad\leadsto\quad
+U_{\sigma_1}\supseteq U_\tau\subseteq U_{\sigma_2}.
+\]
+
+\begin{example}[The affine fan of a cone]
+Let \(\sigma\subseteq N_{\RR}\) be a strongly convex rational
+polyhedral cone. Then
+\[
+\Sigma_\sigma
+=
+\{\tau:\tau\preceq\sigma\}
+\]
+is a fan. It consists of \(\sigma\) together with all of its faces.
+
+The toric variety associated to this fan will be the affine variety
+\(U_\sigma\).
+\end{example}
+
+\subsection{What can go wrong?}
+
+Each part of \cref{def:fan} is necessary.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.84]
+  % Good fan
+  \begin{scope}[xshift=-6.0cm]
+    \fill[DictionaryBlue!9]
+      (0,0)--(2.2,0)--(0,2.2)--cycle;
+    \fill[SurfaceGreen!9]
+      (0,0)--(0,2.2)--(-1.7,-1.7)--cycle;
+    \fill[ExampleGold!12]
+      (0,0)--(-1.7,-1.7)--(2.2,0)--cycle;
+    \draw[very thick,DictionaryBlue] (0,0)--(2.45,0);
+    \draw[very thick,SurfaceGreen] (0,0)--(0,2.45);
+    \draw[very thick,ExampleGold] (0,0)--(-1.95,-1.95);
+    \fill (0,0) circle (2pt);
+    \node[font=\bfseries] at (0,3.0) {a fan};
+    \node[align=center] at (0,-2.65)
+      {cones meet\\along common faces};
+  \end{scope}
+
+  % Missing faces
+  \begin{scope}
+    \fill[PastelYellow]
+      (0,0)--(2.2,0)--(0,2.2)--cycle;
+    \draw[very thick,WarningRed,dashed] (0,0)--(2.45,0);
+    \draw[very thick,WarningRed,dashed] (0,0)--(0,2.45);
+    \fill (0,0) circle (2pt);
+    \node[font=\bfseries] at (0,3.0) {not a fan};
+    \node[align=center] at (0,-2.65)
+      {the cone is listed,\\but its rays are missing};
+  \end{scope}
+
+  % Bad intersection
+  \begin{scope}[xshift=6.0cm]
+    \fill[DictionaryBlue!11]
+      (0,0)--(2.4,0)--(0,2.4)--cycle;
+    \fill[SurfaceGreen!12,opacity=0.85]
+      (0,0)--(1.7,1.7)--(-1.7,1.7)--cycle;
+    \draw[very thick,DictionaryBlue] (0,0)--(2.55,0);
+    \draw[very thick,DictionaryBlue] (0,0)--(0,2.55);
+    \draw[very thick,SurfaceGreen] (0,0)--(1.9,1.9);
+    \draw[very thick,SurfaceGreen] (0,0)--(-1.9,1.9);
+    \draw[very thick,WarningRed] (0,0)--(1.65,1.65);
+    \node[font=\bfseries] at (0,3.0) {not a fan};
+    \node[align=center] at (0,-2.65)
+      {the intersection is not\\a face of the blue cone};
+  \end{scope}
+\end{tikzpicture}
+\caption{The face and intersection conditions distinguish fans from
+arbitrary collections of cones.}
+\label{fig:fan-and-two-nonfans}
+\end{figure}
+
+A cone containing a line also fails the definition: it is not strongly
+convex, and the associated affine construction does not contain the
+chosen torus as its dense torus in the required way.
+
+\begin{pauseandthink}
+Let
+\[
+\sigma_1=\Cone{(1,0),(0,1)}
+\]
+and
+\[
+\sigma_2=\Cone{(1,1),(-1,1)}.
+\]
+Compute \(\sigma_1\cap\sigma_2\). Why is it not a face of
+\(\sigma_1\)? Which new ray would have to be inserted to subdivide
+\(\sigma_1\) so that the two regions could become part of one fan?
+\end{pauseandthink}
+
+\subsection{Support and cones of each dimension}
+
+\begin{definition}
+Let \(\Sigma\) be a fan in \(N_{\RR}\).
+
+Its \emph{support} is
+\[
+|\Sigma|
+=
+\bigcup_{\sigma\in\Sigma}\sigma
+\subseteq N_{\RR}.
+\]
+
+For \(r\geq0\), we write
+\[
+\Sigma(r)
+=
+\{\sigma\in\Sigma:\dim\sigma=r\}.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+See Cox--Little--Schenck, immediately after Definition~3.1.2.
+
+The set
+\[
+\Sigma(1)
+\]
+is the set of rays of the fan. For each ray \(\rho\in\Sigma(1)\), we
+write
+\[
+u_\rho\in N
+\]
+for its primitive lattice generator.
+
+A cone \(\sigma\in\Sigma\) is \emph{maximal} if it is not properly
+contained in another cone of \(\Sigma\). We denote the set of maximal
+cones by
+\[
+\Sigma_{\max}.
+\]
+
+Because the fan is finite, every cone lies in a maximal cone. Since
+all faces of every maximal cone must be present, a fan is completely
+determined by its maximal cones.
+
+\begin{proposition}[Relative interiors partition the support]
+\label{prop:relative-interiors-partition-fan}
+For every fan \(\Sigma\),
+\[
+|\Sigma|
+=
+\bigsqcup_{\sigma\in\Sigma}
+\relint(\sigma).
+\]
+Equivalently, every point of the support lies in the relative interior
+of a unique cone of the fan.
+\end{proposition}
+
+\begin{proof}
+Choose \(u\in|\Sigma|\), and let \(\sigma\in\Sigma\) contain \(u\).
+Every point of a polyhedral cone lies in the relative interior of a
+unique face of that cone. Hence
+\[
+u\in\relint(\tau)
+\]
+for a unique face \(\tau\preceq\sigma\), and \(\tau\in\Sigma\).
+
+Suppose also that
+\[
+u\in\relint(\tau')
+\]
+for another cone \(\tau'\in\Sigma\). The intersection
+\[
+\tau\cap\tau'
+\]
+is a face of both. Since a relative-interior point cannot lie in a
+proper face, we must have
+\[
+\tau=\tau\cap\tau'=\tau'.
+\]
+\end{proof}
+
+Thus a fan is not merely a union of cones. It decomposes its support
+into nonoverlapping pieces:
+\[
+\relint(\sigma),
+\qquad
+\sigma\in\Sigma.
+\]
+
+\begin{observation}
+This partition is the combinatorial shadow of the orbit decomposition
+that will appear later:
+\[
+\text{one cone}
+\quad\longleftrightarrow\quad
+\text{one torus orbit}.
+\]
+For now, it simply tells us that a direction \(u\in|\Sigma|\) belongs
+unambiguously to one cone at the level of relative interiors.
+\end{observation}
+
+\subsection{The dimension of a fan}
+
+We define
+\[
+\dim\Sigma
+=
+\max_{\sigma\in\Sigma}\dim\sigma
+=
+\dim|\Sigma|.
+\]
+The second equality holds because \(\Sigma\) is finite.
+
+A fan is \emph{pure of dimension \(r\)} if every maximal cone has
+dimension \(r\). The fans of \(\PP^1\) and \(\PP^2\) are pure of
+dimensions \(1\) and \(2\), respectively.
+
+\begin{warningbox}
+The dimension of the fan need not equal the dimension of its toric
+variety.
+
+The fan
+\[
+\Sigma_{\Cone{(1,0)}}\subseteq\RR^2
+\]
+has dimension \(1\), but its affine toric variety is
+\[
+\AAA^1\times\Gm,
+\]
+which has dimension \(2\). The variety always has dimension
+\(\rank N\); a lower-dimensional fan signals a torus factor.
+\end{warningbox}
+
+\subsection{Subfans}
+
+\begin{definition}
+A \emph{subfan} of \(\Sigma\) is a subset
+\[
+\Sigma'\subseteq\Sigma
+\]
+that is itself a fan.
+\end{definition}
+
+The phrase “itself a fan” matters. One may not remove a face while
+retaining a cone that contains it.
+
+A convenient way to produce a subfan is to choose some cones and then
+include all of their faces. The intersection condition is inherited
+from \(\Sigma\).
+
+\begin{example}
+Let \(\Sigma_{\PP^2}\) be the fan of \(\PP^2\), with maximal cones
+\[
+\sigma_0,\sigma_1,\sigma_2.
+\]
+The collection consisting of
+\[
+\sigma_0,\sigma_1
+\]
+and all of their faces is a subfan. Geometrically, it will correspond
+to the union of the two affine charts
+\[
+V_0\cup V_1
+=
+\PP^2\setminus\{[0:0:1]\}.
+\]
+\end{example}
+
+This example previews a general rule:
+\[
+\text{subfan}
+\quad\leadsto\quad
+\text{torus-invariant open subvariety}.
+\]
+We will prove it after constructing \(X_\Sigma\).
+
+\begin{pauseandthink}
+Starting with the fan of \(\PP^2\), decide whether each of the
+following collections is a subfan:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item one maximal cone and all of its faces;
+\item the three rays and the zero cone;
+\item the three maximal cones and the zero cone, but no rays;
+\item two maximal cones together with only their common ray and the
+zero cone.
+\end{enumerate}
+\end{pauseandthink}
+
+\subsection{Complete fans}
+
+\begin{definition}
+A fan \(\Sigma\) in \(N_{\RR}\) is \emph{complete} if
+\[
+|\Sigma|=N_{\RR}.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~3.1.18(c).
+
+The fans of \(\PP^1\) and \(\PP^2\) are complete: their cones cover
+the entire one-parameter subgroup space.
+
+By contrast, the affine fan
+\[
+\Sigma_\sigma
+=
+\{\text{faces of }\sigma\}
+\]
+has support \(\sigma\), so in positive dimension it is not complete.
+
+Completeness has a direct interpretation through one-parameter
+subgroups. If \(\Sigma\) is complete, every vector
+\[
+u\in N
+\]
+lies in some cone \(\sigma\in\Sigma\). Therefore
+\[
+\oneps{u}
+\]
+has a limit in the affine chart \(U_\sigma\). No one-parameter
+direction can escape all of the charts.
+
+\begin{prediction}
+For \(\PP^1\) and \(\PP^2\), completeness of the fan accompanies
+completeness of the variety. Formulate the general relationship you
+expect between
+\[
+|\Sigma|=N_{\RR}
+\]
+and the geometric property that \(X_\Sigma\) has no points “at
+infinity” still missing.
+
+Why might the existence of limits for every one-parameter subgroup be
+relevant?
+\end{prediction}
+
+\begin{threedictionaries}
+The basic fan terminology anticipates global geometry.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+semigroup algebras for maximal cones
+&
+an affine open cover
+&
+\(\Sigma_{\max}\)
+\\[1mm]
+localizations of those algebras
+&
+chart intersections
+&
+common faces
+\\[1mm]
+restriction to selected charts
+&
+a torus-invariant open subvariety
+&
+a subfan
+\\[1mm]
+every one-parameter subgroup acquires a limit somewhere
+&
+no direction at infinity is missing
+&
+\(|\Sigma|=N_{\RR}\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Given a fan \(\Sigma\), how do the affine varieties \(U_\sigma\) glue
+to form a normal separated toric variety \(X_\Sigma\)?
+\end{guidingquestion}
+
+
+\section{Gluing affine toric varieties}
+\label{sec:gluing-affine-toric-varieties}
+\index{gluing!affine toric varieties}
+\index{separation lemma}
+\index{toric variety!from a fan}
+
+Let \(\Sigma\) be a fan in \(N_{\RR}\). Every cone
+\[
+\sigma\in\Sigma
+\]
+gives a normal affine toric variety
+\[
+U_\sigma
+=
+\Spec\Bbbk[S_\sigma],
+\qquad
+S_\sigma=\sigma^\vee\cap M.
+\]
+We now glue these affine pieces into one global variety.
+
+The construction is canonical: the fan has already specified every
+overlap and every transition map.
+
+\subsection{The canonical overlap of two charts}
+
+Take
+\[
+\sigma_1,\sigma_2\in\Sigma,
+\qquad
+\tau=\sigma_1\cap\sigma_2.
+\]
+By the definition of a fan, \(\tau\) is a face of both cones. Hence
+\[
+U_{\sigma_1}\supseteq U_\tau\subseteq U_{\sigma_2}
+\]
+are affine open embeddings.
+
+More explicitly, one can choose
+\[
+m\in
+\sigma_1^\vee\cap(-\sigma_2)^\vee\cap M
+\]
+such that
+\[
+\tau
+=
+\sigma_1\cap m^\perp
+=
+\sigma_2\cap m^\perp.
+\]
+Then
+\[
+U_\tau
+=
+(U_{\sigma_1})_{\character{m}}
+=
+(U_{\sigma_2})_{\character{-m}}.
+\]
+
+Both copies of \(U_\tau\) have the same coordinate ring
+\[
+\Bbbk[S_\tau]
+\subseteq
+\Bbbk[M].
+\]
+The transition map
+\[
+g_{\sigma_2,\sigma_1}:
+(U_{\sigma_1})_{\character{m}}
+\longrightarrow
+(U_{\sigma_2})_{\character{-m}}
+\]
+is therefore induced by the identity map on
+\(\Bbbk[S_\tau]\). In particular, it restricts to the identity on the
+common dense torus
+\[
+T=\Spec\Bbbk[M].
+\]
+
+\begin{center}
+\begin{tikzcd}[column sep=huge,row sep=large]
+&
+U_\tau
+\arrow[dl,hook']
+\arrow[dr,hook]
+&
+\\
+U_{\sigma_1}
+\arrow[rr,dashed,"\text{glue along }U_\tau"']
+&&
+U_{\sigma_2}.
+\end{tikzcd}
+\end{center}
+
+No extra coordinate change has to be invented. It is already encoded
+by viewing the same characters in two different affine coordinate
+rings.
+
+\subsection{The separation lemma}
+
+The following equality is stronger than merely saying that
+\(U_\tau\) is open in both charts.
+
+\begin{proposition}[Separation lemma]
+\label{prop:separation-lemma-fans}
+Let
+\[
+\sigma_1,\sigma_2\in\Sigma,
+\qquad
+\tau=\sigma_1\cap\sigma_2.
+\]
+Then
+\[
+S_\tau
+=
+S_{\sigma_1}+S_{\sigma_2},
+\]
+where the right-hand side is the Minkowski sum of semigroups.
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~3.1.3.
+
+\begin{proof}
+Since
+\[
+\sigma_i^\vee\subseteq\tau^\vee,
+\]
+we immediately have
+\[
+S_{\sigma_1}+S_{\sigma_2}
+\subseteq
+S_\tau.
+\]
+
+For the reverse inclusion, choose
+\[
+m\in
+\sigma_1^\vee\cap(-\sigma_2)^\vee\cap M
+\]
+cutting out the common face \(\tau\). Let \(p\in S_\tau\). Because
+\(\tau\preceq\sigma_1\), the face-localization equality gives
+\[
+S_\tau
+=
+S_{\sigma_1}+\ZZ(-m).
+\]
+Thus
+\[
+p=q+\ell(-m)
+\]
+for some \(q\in S_{\sigma_1}\) and some \(\ell\in\ZZ\).
+
+If \(\ell\geq0\), then
+\[
+-m\in\sigma_2^\vee\cap M=S_{\sigma_2}
+\]
+implies
+\[
+\ell(-m)\in S_{\sigma_2}.
+\]
+If \(\ell<0\), then
+\[
+p=q+(-\ell)m\in S_{\sigma_1},
+\]
+because \(m\in S_{\sigma_1}\). In either case,
+\[
+p\in S_{\sigma_1}+S_{\sigma_2}.
+\]
+\end{proof}
+
+The lemma says that every character regular on the overlap can be
+written as a product of one character regular on the first chart and
+one regular on the second:
+\[
+\character{p}
+=
+\character{q}\character{r},
+\qquad
+q\in S_{\sigma_1},
+\quad
+r\in S_{\sigma_2}.
+\]
+
+This algebraic statement will be the key to separatedness.
+
+\subsection{The cocycle condition is automatic}
+
+Suppose
+\[
+\sigma_1,\sigma_2,\sigma_3\in\Sigma.
+\]
+Their triple intersection
+\[
+\omega
+=
+\sigma_1\cap\sigma_2\cap\sigma_3
+\]
+is a common face, and
+\[
+U_\omega
+\]
+is an affine open subset of every pairwise overlap.
+
+On \(U_\omega\), all transition maps are induced by the identity on
+\[
+\Bbbk[S_\omega]\subseteq\Bbbk[M].
+\]
+Consequently,
+\[
+g_{\sigma_3,\sigma_2}
+\circ
+g_{\sigma_2,\sigma_1}
+=
+g_{\sigma_3,\sigma_1}
+\]
+wherever all three maps are defined.
+
+Thus the gluing maps satisfy the cocycle condition without an
+additional calculation: they are all restrictions of the identity on
+the dense torus and its Laurent coordinate ring.
+
+\subsection{Constructing \texorpdfstring{\(X_\Sigma\)}{X Sigma}}
+
+Form the disjoint union
+\[
+\bigsqcup_{\sigma\in\Sigma}U_\sigma.
+\]
+Whenever
+\[
+p\in U_{\sigma_1}
+\qquad\text{and}\qquad
+q\in U_{\sigma_2}
+\]
+come from the same point of
+\[
+U_{\sigma_1\cap\sigma_2},
+\]
+identify \(p\) and \(q\). The cocycle condition makes this an
+equivalence relation.
+
+\begin{definition}
+The variety obtained by gluing the affine toric varieties
+\[
+\{U_\sigma:\sigma\in\Sigma\}
+\]
+along the canonical common opens
+\[
+U_{\sigma_1\cap\sigma_2}
+\]
+is denoted
+\[
+X_\Sigma.
+\]
+It is called the \emph{toric variety of the fan \(\Sigma\)}.
+\end{definition}
+
+Every \(U_\sigma\) maps isomorphically onto an affine open subset of
+\(X_\Sigma\), and
+\[
+U_{\sigma_1}\cap U_{\sigma_2}
+=
+U_{\sigma_1\cap\sigma_2}.
+\]
+
+Only maximal cones are needed to cover the result:
+\[
+X_\Sigma
+=
+\bigcup_{\sigma\in\Sigma_{\max}}U_\sigma.
+\]
+Indeed, every cone \(\tau\in\Sigma\) is a face of some maximal cone
+\(\sigma\), and then
+\[
+U_\tau\subseteq U_\sigma.
+\]
+
+\begin{agcheatsheet}
+A variety is \emph{separated} when its diagonal
+\[
+\Delta_X:X\longrightarrow X\times X,
+\qquad
+p\longmapsto(p,p),
+\]
+has closed image.
+
+This is the algebraic-geometric replacement for the Hausdorff
+condition. Affine varieties are separated, but an arbitrary gluing of
+affine varieties need not be.
+
+To prove that a variety assembled from affine charts is separated, it
+is enough to check that the diagonal is closed on every product of two
+charts.
+\end{agcheatsheet}
+
+\subsection{The toric variety of a fan}
+
+We use the global version of the definition from Chapter~2.
+
+\begin{definition}
+A \emph{toric variety} with torus \(T\) is an irreducible variety
+\(X\) containing \(T\) as a dense open subset such that the
+multiplication action of \(T\) on itself extends to an algebraic
+action
+\[
+T\times X\longrightarrow X.
+\]
+\end{definition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Definition~3.1.1.
+
+\begin{theorem}[The toric variety of a fan]
+\label{thm:toric-variety-of-fan}
+Let \(\Sigma\) be a fan in \(N_{\RR}\). Then \(X_\Sigma\) is a normal
+separated toric variety with dense torus
+\[
+T=\Spec\Bbbk[M].
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~3.1.5. The proof there is written
+over \(\CC\); the same algebraic argument works over our base field
+\(\Bbbk\).
+
+\begin{proof}[Conceptual proof sketch]
+The proof has four parts.
+
+\smallskip
+
+\noindent
+\textbf{The torus and its action.}
+The zero cone is a face of every cone in \(\Sigma\), so every chart
+contains the same open torus
+\[
+U_{\{0\}}=T.
+\]
+The gluing maps identify these copies by the identity. The torus
+actions on the affine charts agree on every overlap and therefore glue
+to an action on \(X_\Sigma\).
+
+\smallskip
+
+\noindent
+\textbf{Irreducibility.}
+Every chart \(U_\sigma\) is irreducible and contains the same dense
+open torus. Their union is therefore irreducible, with \(T\) dense.
+
+\smallskip
+
+\noindent
+\textbf{Normality.}
+Each \(U_\sigma\) is normal because
+\[
+S_\sigma=\sigma^\vee\cap M
+\]
+is saturated. Normality is local, so \(X_\Sigma\) is normal.
+
+\smallskip
+
+\noindent
+\textbf{Separatedness.}
+For
+\[
+\tau=\sigma_1\cap\sigma_2,
+\]
+consider the diagonal on the two charts:
+\[
+\Delta:
+U_\tau
+\longrightarrow
+U_{\sigma_1}\times U_{\sigma_2}.
+\]
+On coordinate rings it is induced by
+\[
+\Delta^*:
+\Bbbk[S_{\sigma_1}]
+\otimes_\Bbbk
+\Bbbk[S_{\sigma_2}]
+\longrightarrow
+\Bbbk[S_\tau],
+\]
+\[
+\character{m}\otimes\character{n}
+\longmapsto
+\character{m+n}.
+\]
+The separation lemma says
+\[
+S_\tau=S_{\sigma_1}+S_{\sigma_2},
+\]
+so \(\Delta^*\) is surjective. Hence \(\Delta(U_\tau)\) is closed in
+\[
+U_{\sigma_1}\times U_{\sigma_2}.
+\]
+Checking this for every pair of affine charts proves that
+\(X_\Sigma\) is separated.
+\end{proof}
+
+\begin{warningbox}
+The affine pieces alone do not guarantee separatedness.
+
+If two copies of \(\AAA^1\) are glued along
+\[
+\Gm=\AAA^1\setminus\{0\}
+\]
+by the identity, the result has two distinct origins that cannot be
+separated by disjoint open sets. This is the \emph{affine line with
+doubled origin}, and it is not separated.
+
+The fan construction rules out this pathology. Its canonical
+overlaps satisfy the separation lemma, which forces the diagonal to
+be closed.
+\end{warningbox}
+
+
+\begin{example}[The toric blowup of \texorpdfstring{\(\AAA^2\)}{A2} at the origin]
+\label{ex:blowup-a2-origin-fan}
+Start with the affine fan of the first quadrant
+\[
+\Sigma_{\AAA^2}
+=
+\bigl\{
+\{0\},\rho_1,\rho_2,\sigma
+\bigr\},
+\qquad
+\rho_1=\Cone{e_1},\ \rho_2=\Cone{e_2},\ 
+\sigma=\Cone{e_1,e_2}.
+\]
+Insert the new ray
+\[
+\rho=\Cone{e_1+e_2}.
+\]
+This subdivides \(\sigma\) into two smooth cones
+\[
+\sigma_1=\Cone{e_1,e_1+e_2},
+\qquad
+\sigma_2=\Cone{e_1+e_2,e_2}.
+\]
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.08]
+  % left: original fan
+  \begin{scope}[xshift=-4.5cm]
+    \fill[PastelYellow] (0,0)--(2.5,0)--(0,2.5)--cycle;
+    \draw[->,black!50] (-0.35,0)--(3.0,0);
+    \draw[->,black!50] (0,-0.35)--(0,3.0);
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}] (0,0)--(2.7,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}] (0,0)--(0,2.7);
+    \node[DictionaryBlue,below] at (2.55,0) {\(\rho_1\)};
+    \node[SurfaceGreen,left] at (0,2.55) {\(\rho_2\)};
+    \node at (0.8,0.8) {\(\sigma\)};
+    \node[font=\bfseries] at (0.8,3.25) {fan of \(\AAA^2\)};
+  \end{scope}
+
+  % arrow
+  \draw[very thick,-{Latex[length=2.6mm]}] (-0.75,0.8)--(0.75,0.8);
+  \node[align=center] at (0,1.25) {star\\ subdivision};
+
+  % right: blowup fan
+  \begin{scope}[xshift=4.5cm]
+    \fill[DictionaryBlue!10] (0,0)--(2.5,0)--(1.25,1.25)--cycle;
+    \fill[SurfaceGreen!10] (0,0)--(1.25,1.25)--(0,2.5)--cycle;
+    \draw[->,black!50] (-0.35,0)--(3.0,0);
+    \draw[->,black!50] (0,-0.35)--(0,3.0);
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}] (0,0)--(2.7,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}] (0,0)--(0,2.7);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}] (0,0)--(2.15,2.15);
+    \node[DictionaryBlue,below] at (2.55,0) {\(\rho_1\)};
+    \node[SurfaceGreen,left] at (0,2.55) {\(\rho_2\)};
+    \node[PredictionTeal,above right] at (1.95,1.95) {\(\rho\)};
+    \node at (1.55,0.45) {\(\sigma_1\)};
+    \node at (0.45,1.55) {\(\sigma_2\)};
+    \node[font=\bfseries] at (1.0,3.25)
+      {fan of \(\Bl_0(\AAA^2)\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Subdividing the first quadrant by the ray through
+\(e_1+e_2\) produces the fan of the toric blowup of \(\AAA^2\) at the
+origin.}
+\label{fig:fan-blowup-a2-origin}
+\end{figure}
+
+Each maximal cone is smooth, so each affine chart is isomorphic to
+\(\AAA^2\). Indeed,
+\[
+U_{\sigma_1}\simeq\Spec\Bbbk[x,xy^{-1}],
+\qquad
+U_{\sigma_2}\simeq\Spec\Bbbk[y,x^{-1}y].
+\]
+The identity map of lattices
+\[
+N\longrightarrow N
+\]
+is compatible from the subdivided fan to the single-cone fan of
+\(\AAA^2\), so it induces a toric morphism
+\[
+\pi:X_{\Sigma'}\longrightarrow \AAA^2.
+\]
+
+Geometrically, \(\pi\) is the blowup of the origin. The new ray
+\(\rho\) contributes a new one-dimensional orbit; its closure is the
+exceptional divisor
+\[
+V(\rho)\simeq\PP^1.
+\]
+The old rays still correspond to the strict transforms of the two
+coordinate axes.
+\end{example}
+
+\begin{threedictionaries}
+The gluing construction is the global form of the three dictionaries.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+\(\Bbbk[S_\sigma]\)
+&
+an affine chart \(U_\sigma\)
+&
+a cone \(\sigma\)
+\\[1mm]
+localization to
+\(\Bbbk[S_{\sigma_1\cap\sigma_2}]\)
+&
+the overlap
+\(U_{\sigma_1}\cap U_{\sigma_2}\)
+&
+the common face
+\(\sigma_1\cap\sigma_2\)
+\\[1mm]
+identity maps inside \(\Bbbk[M]\)
+&
+transition maps satisfying the cocycle condition
+&
+fan compatibility
+\\[1mm]
+surjectivity from
+\(S_{\sigma_1\cap\sigma_2}
+=S_{\sigma_1}+S_{\sigma_2}\)
+&
+separatedness
+&
+the separation lemma
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Once the affine pieces have been glued, how are the torus orbits of
+\(X_\Sigma\) indexed by the cones of the fan, and how do face
+relations control orbit closures?
+\end{guidingquestion}
+
+
+\section{The orbit--cone correspondence}
+\label{sec:orbit-cone-correspondence}
+\index{orbit--cone correspondence}
+\index{torus orbit}
+\index{orbit closure}
+\index{star of a cone}
+
+A fan is more than an atlas of affine charts. Its individual cones
+also index the torus orbits of the glued variety.
+
+The starting point is the distinguished limit attached to a cone.
+
+\subsection{Distinguished points}
+
+Let
+\[
+\sigma\in\Sigma,
+\qquad
+S_\sigma=\sigma^\vee\cap M.
+\]
+Define a point
+\[
+\gamma_\sigma\in U_\sigma
+\]
+by the semigroup homomorphism
+\[
+\gamma_\sigma(m)
+=
+\begin{cases}
+1,&m\in\sigma^\perp\cap M,\\
+0,&m\notin\sigma^\perp.
+\end{cases}
+\]
+
+This is the \emph{distinguished point} corresponding to \(\sigma\).
+
+If
+\[
+u\in\relint(\sigma)\cap N,
+\]
+then the one-parameter subgroup criterion from Chapter~2 gives
+\[
+\lim_{t\to0}\oneps{u}(t)=\gamma_\sigma.
+\]
+Thus every lattice direction in the relative interior of \(\sigma\)
+selects the same distinguished point.
+
+\noindent
+\textit{Reference.}
+The distinguished point and its interpretation by one-parameter
+limits are Cox--Little--Schenck, Proposition~3.2.2 and the discussion
+preceding it.
+
+Now let the torus move this point.
+
+\begin{definition}
+For \(\sigma\in\Sigma\), define
+\[
+O(\sigma)
+=
+T\cdot\gamma_\sigma
+\subseteq X_\Sigma.
+\]
+\end{definition}
+
+\subsection{What kind of torus is \texorpdfstring{\(O(\sigma)\)}{O(sigma)}?}
+
+Let
+\[
+N_\sigma
+=
+N\cap\Span_{\RR}(\sigma)
+\]
+and set
+\[
+N(\sigma)=N/N_\sigma.
+\]
+The lattice dual to \(N(\sigma)\) is
+\[
+\sigma^\perp\cap M.
+\]
+
+\begin{proposition}[The orbit attached to a cone]
+\label{prop:orbit-attached-to-cone}
+There are natural isomorphisms
+\[
+O(\sigma)
+\simeq
+\Hom_{\ZZ}
+\bigl(\sigma^\perp\cap M,\Bbbk^\times\bigr)
+\simeq
+T_{N(\sigma)}.
+\]
+Consequently,
+\[
+\dim O(\sigma)
+=
+\rank N-\dim\sigma.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Lemmas~3.2.4 and~3.2.5.
+
+\begin{proof}[Conceptual proof sketch]
+A point of \(U_\sigma\) is a semigroup homomorphism
+\[
+\gamma:S_\sigma\longrightarrow\Bbbk.
+\]
+The orbit of \(\gamma_\sigma\) consists exactly of those \(\gamma\)
+satisfying
+\[
+\gamma(m)\neq0
+\quad\Longleftrightarrow\quad
+m\in\sigma^\perp\cap M.
+\]
+Restricting such a \(\gamma\) to
+\(\sigma^\perp\cap M\) gives a group homomorphism to
+\(\Bbbk^\times\), and every such group homomorphism extends by zero
+outside \(\sigma^\perp\).
+
+The perfect pairing
+\[
+(\sigma^\perp\cap M)\times N(\sigma)\longrightarrow\ZZ
+\]
+identifies this group of homomorphisms with the torus \(T_{N(\sigma)}\).
+Its dimension is
+\[
+\rank N(\sigma)
+=
+\rank N-\rank N_\sigma
+=
+\rank N-\dim\sigma.
+\]
+\end{proof}
+
+Two extreme cases are already familiar:
+\[
+O(\{0\})=T,
+\]
+while a full-dimensional cone gives a zero-dimensional orbit, hence a
+torus-fixed point.
+
+\begin{pauseandthink}
+Let \(\Sigma\) be a fan in a rank-\(n\) lattice.
+
+What orbit dimensions correspond to:
+\[
+\text{the zero cone},\qquad
+\text{a ray},\qquad
+\text{a maximal \(n\)-dimensional cone}?
+\]
+What geometric strata should the rays represent?
+\end{pauseandthink}
+
+\subsection{The theorem}
+
+\begin{theorem}[Orbit--cone correspondence]
+\label{thm:orbit-cone-correspondence}
+Let \(X_\Sigma\) be the toric variety of a fan
+\(\Sigma\subseteq N_{\RR}\). Then:
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item The assignment
+\[
+\sigma\longmapsto O(\sigma)
+\]
+is a bijection
+\[
+\{\text{cones of }\Sigma\}
+\longleftrightarrow
+\{\text{\(T\)-orbits in }X_\Sigma\}.
+\]
+
+\item For every cone,
+\[
+\dim O(\sigma)
+=
+\rank N-\dim\sigma.
+\]
+
+\item Each affine chart decomposes as
+\[
+U_\sigma
+=
+\bigsqcup_{\tau\preceq\sigma}O(\tau).
+\]
+
+\item Face relations reverse under orbit closure:
+\[
+\tau\preceq\sigma
+\quad\Longleftrightarrow\quad
+O(\sigma)\subseteq\overline{O(\tau)}.
+\]
+In particular,
+\[
+\overline{O(\tau)}
+=
+\bigsqcup_{\tau\preceq\sigma}O(\sigma).
+\]
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~3.2.6.
+
+\begin{proof}[Conceptual proof sketch]
+The previous proposition constructs one orbit \(O(\sigma)\) for every
+cone.
+
+Conversely, let \(O\) be any orbit. Among the cones whose affine
+charts meet \(O\), choose a minimal one, say \(\sigma\). Represent a
+point of \(O\cap U_\sigma\) by a semigroup homomorphism
+\[
+\gamma:S_\sigma\to\Bbbk.
+\]
+The set of exponents on which \(\gamma\) is nonzero is the lattice
+part of a face of \(\sigma^\vee\). Duality identifies that face with
+a face \(\tau\preceq\sigma\), and then the point lies in \(U_\tau\).
+Minimality forces
+\[
+\tau=\sigma,
+\]
+so the orbit is \(O(\sigma)\). This proves the bijection.
+
+The dimension formula follows from
+\[
+O(\sigma)\simeq T_{N(\sigma)}.
+\]
+The description of \(U_\sigma\) follows because its orbits are exactly
+those indexed by faces of \(\sigma\).
+
+Finally, if \(\tau\preceq\sigma\), move the distinguished point
+\(\gamma_\tau\) by a one-parameter subgroup whose lattice vector lies
+in \(\relint(\sigma)\). Its limit lies in
+\(O(\sigma)\), showing
+\[
+O(\sigma)\subseteq\overline{O(\tau)}.
+\]
+The converse follows from the affine-chart decomposition. The
+technical part of the complete proof verifies that the displayed
+union is Zariski closed.
+\end{proof}
+
+The theorem reverses both dimension and incidence:
+\[
+\begin{array}{c@{\qquad\longleftrightarrow\qquad}c}
+\text{larger cone}
+&
+\text{smaller orbit}
+\\[1mm]
+\tau\preceq\sigma
+&
+O(\sigma)\subseteq\overline{O(\tau)}.
+\end{array}
+\]
+
+\begin{corollary}
+\label{cor:closed-orbit-affine-chart}
+For every cone \(\sigma\in\Sigma\), the affine chart \(U_\sigma\)
+contains a unique closed torus orbit, namely \(O(\sigma)\).
+\end{corollary}
+
+\begin{proof}
+The chart contains precisely the orbits \(O(\tau)\) with
+\(\tau\preceq\sigma\). The closure of every such orbit contains
+\(O(\sigma)\), while no strictly larger cone belongs to the affine fan
+of \(\sigma\).
+\end{proof}
+
+
+\subsection{Reading the blowup fan}
+\label{subsec:reading-blowup-fan}
+
+Return to the blowup fan from \cref{ex:blowup-a2-origin-fan}. It has
+three rays
+\[
+\rho_1=\Cone{e_1},
+\qquad
+\rho=\Cone{e_1+e_2},
+\qquad
+\rho_2=\Cone{e_2},
+\]
+and two maximal cones
+\[
+\sigma_1=\Cone{e_1,e_1+e_2},
+\qquad
+\sigma_2=\Cone{e_1+e_2,e_2}.
+\]
+
+The orbit--cone correspondence can be read directly from the picture.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0,
+  orbitbox/.style={rounded corners, draw=black!50, inner sep=4pt, align=center},
+  hasse/.style={circle, draw=black!50, inner sep=1.5pt, minimum size=7mm}
+]
+  % Fan picture
+  \begin{scope}[xshift=-4.8cm]
+    \fill[DictionaryBlue!12] (0,0)--(2.6,0)--(1.3,1.3)--cycle;
+    \fill[SurfaceGreen!12] (0,0)--(1.3,1.3)--(0,2.6)--cycle;
+    \draw[->,black!50] (-0.35,0)--(3.0,0);
+    \draw[->,black!50] (0,-0.35)--(0,3.0);
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.3mm]}] (0,0)--(2.8,0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}] (0,0)--(2.2,2.2);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.3mm]}] (0,0)--(0,2.8);
+
+    \node[DictionaryBlue,below] at (2.62,0) {\(\rho_1\)};
+    \node[PredictionTeal,above right] at (1.98,1.98) {\(\rho\)};
+    \node[SurfaceGreen,left] at (0,2.62) {\(\rho_2\)};
+
+    \node[fill=DictionaryBlue!18,rounded corners,inner sep=2pt] at (1.7,0.45) {\(\sigma_1\)};
+    \node[fill=SurfaceGreen!18,rounded corners,inner sep=2pt] at (0.45,1.7) {\(\sigma_2\)};
+    \node[fill=white,rounded corners,inner sep=2pt] at (-0.38,-0.22) {\(\{0\}\)};
+    \node[font=\bfseries] at (0.95,3.3) {cones in the fan};
+  \end{scope}
+
+  % Bijection symbol
+  \node[font=\Large] at (0,0.55) {\(\longleftrightarrow\)};
+
+  % Hasse diagram for orbit closures
+  \begin{scope}[xshift=4.9cm]
+    \node[font=\bfseries] at (0,3.3) {orbit-closure poset};
+
+    % nodes
+    \node[hasse, fill=white] (T) at (0,2.5) {\(\Gm^2\)};
+    \node[hasse, fill=DictionaryBlue!12] (R1) at (-2.0,1.1) {\(O(\rho_1)\)};
+    \node[hasse, fill=PredictionTeal!12] (R) at (0,1.1) {\(O(\rho)\)};
+    \node[hasse, fill=SurfaceGreen!12] (R2) at (2.0,1.1) {\(O(\rho_2)\)};
+    \node[hasse, fill=DictionaryBlue!18] (S1) at (-1.0,-0.3) {\(O(\sigma_1)\)};
+    \node[hasse, fill=SurfaceGreen!18] (S2) at (1.0,-0.3) {\(O(\sigma_2)\)};
+
+    % edges showing covering relations in closure order
+    \draw[black!65] (T)--(R1);
+    \draw[black!65] (T)--(R);
+    \draw[black!65] (T)--(R2);
+    \draw[black!65] (R1)--(S1);
+    \draw[black!65] (R)--(S1);
+    \draw[black!65] (R)--(S2);
+    \draw[black!65] (R2)--(S2);
+
+    % side labels
+    
+  \end{scope}
+\end{tikzpicture}
+\caption{Color-coded orbit--cone correspondence for the fan of
+\(\Bl_0(\AAA^2)\). The colors and labels establish the bijection
+between cones and orbits, while the Hasse diagram records the
+orbit-closure order. Ordering cones by inclusion and orbit closures by
+reverse inclusion, the correspondence is an isomorphism of posets.}
+\label{fig:blowup-orbit-cone-bijection}
+\end{figure}
+
+The figure makes three features visible at once.
+
+\begin{itemize}
+\item The zero cone corresponds to the dense torus.
+\item The three rays correspond to the three boundary curves: the two
+strict transforms of the coordinate axes and the exceptional divisor.
+\item The two maximal cones correspond to the two torus-fixed points,
+which lie on the exceptional divisor.
+\end{itemize}
+
+This is a good first reminder that the orbit decomposition is not only
+a list of strata: it also remembers how those strata fit together.
+
+\subsection{Reading the fan of \texorpdfstring{\(\PP^2\)}{P2}}
+
+Let
+\[
+\rho_i=\Cone{e_i},
+\qquad
+i=0,1,2,
+\]
+and let \(\sigma_0,\sigma_1,\sigma_2\) be the three maximal cones from
+Section~3.1. The complete orbit decomposition is:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.19\linewidth}
+  >{\raggedright\arraybackslash}p{0.13\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}p{0.23\linewidth}@{}}
+\toprule
+\textbf{Cones}
+&
+\textbf{Orbit dimension}
+&
+\textbf{Orbit in \(\PP^2\)}
+&
+\textbf{Orbit closure}
+\\
+\midrule
+\(\{0\}\)
+&
+\(2\)
+&
+\(\{[z_0:z_1:z_2]:z_0z_1z_2\neq0\}\simeq\Gm^2\)
+&
+\(\PP^2\)
+\\
+\(\rho_0,\rho_1,\rho_2\)
+&
+\(1\)
+&
+a coordinate line with its two coordinate points removed
+&
+a coordinate line \(\simeq\PP^1\)
+\\
+\(\sigma_0,\sigma_1,\sigma_2\)
+&
+\(0\)
+&
+the three coordinate points
+&
+the point itself
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{surfacelaboratory}
+Use the fan and the table to answer the following.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Why does each ray belong to exactly two maximal cones, and how
+does this predict that the closure of the corresponding
+one-dimensional orbit contains exactly two fixed points?
+
+\item Choose one maximal cone \(\sigma_i\). List its faces and recover
+the three orbit types appearing in its affine-plane chart.
+
+\item Starting from a coordinate line in \(\PP^2\), identify its open
+torus orbit and the two lower-dimensional orbits in its boundary.
+
+\item Count the orbits of each dimension directly from
+\[
+\Sigma(0),\qquad\Sigma(1),\qquad\Sigma(2).
+\]
+\end{enumerate}
+\end{surfacelaboratory}
+
+\subsection{Orbit closures are toric varieties}
+
+For \(\tau\in\Sigma\), write
+\[
+V(\tau)=\overline{O(\tau)}.
+\]
+The theorem gives
+\[
+V(\tau)
+=
+\bigsqcup_{\tau\preceq\sigma}O(\sigma).
+\]
+
+To describe \(V(\tau)\) by a fan, project every cone containing
+\(\tau\) to
+\[
+N(\tau)_{\RR}
+=
+N_{\RR}/\Span_{\RR}(\tau).
+\]
+If \(\overline{\sigma}\) denotes the image of \(\sigma\), define
+\[
+\Star(\tau)
+=
+\left\{
+\overline{\sigma}\subseteq N(\tau)_{\RR}:
+\tau\preceq\sigma\in\Sigma
+\right\}.
+\]
+
+\begin{proposition}[The fan of an orbit closure]
+\label{prop:fan-of-orbit-closure}
+The collection \(\Star(\tau)\) is a fan, and
+\[
+V(\tau)
+\simeq
+X_{\Star(\tau)}.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~3.2.7.
+
+\begin{proof}[Conceptual proof sketch]
+The orbit \(O(\tau)\) is the torus with one-parameter subgroup lattice
+\[
+N(\tau)=N/N_\tau.
+\]
+The orbits contained in its closure are indexed exactly by the cones
+\(\sigma\) containing \(\tau\). After quotienting by the directions of
+\(\tau\), these cones form the fan \(\Star(\tau)\).
+The orbit--cone correspondence for that quotient fan reproduces the
+same orbits and the same incidence relations as \(V(\tau)\).
+\end{proof}
+
+For a ray \(\rho\) in a surface fan,
+\[
+N(\rho)
+\]
+has rank one. Hence \(V(\rho)\) is a toric curve. In the fan of
+\(\PP^2\), the two maximal cones containing \(\rho\) project to the two
+opposite rays in \(N(\rho)_{\RR}\), so
+\[
+V(\rho)\simeq\PP^1.
+\]
+
+\begin{threedictionaries}
+The orbit--cone correspondence translates the face structure of the
+fan into the stratification of the variety.
+
+\medskip
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Algebra}
+&
+\textbf{Geometry}
+&
+\textbf{Combinatorics}
+\\
+\midrule
+characters in \(\sigma^\perp\cap M\)
+&
+the torus \(O(\sigma)\)
+&
+a cone \(\sigma\)
+\\[1mm]
+rank of \(\sigma^\perp\cap M\)
+&
+\(\dim O(\sigma)\)
+&
+\(\rank N-\dim\sigma\)
+\\[1mm]
+vanishing of additional characters
+&
+movement toward the boundary
+&
+passing to a larger cone
+\\[1mm]
+quotient character and one-parameter lattices
+&
+the orbit closure \(V(\tau)\)
+&
+the fan \(\Star(\tau)\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{threedictionaries}
+
+\begin{guidingquestion}
+Which global geometric properties of \(X_\Sigma\)—smoothness,
+completeness, products, and morphisms—can be recognized directly from
+the fan?
+\end{guidingquestion}
+
+
+\section{Properties read from the fan}
+\label{sec:properties-read-from-fan}
+\index{smoothness criterion!fan}
+\index{completeness!fan criterion}
+\index{product fan}
+\index{toric morphism!fan criterion}
+
+The construction
+\[
+\Sigma\longmapsto X_\Sigma
+\]
+turns combinatorial conditions into geometric properties. The most
+basic entries are:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{0.92\linewidth}{@{}
+  >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Geometry of \(X_\Sigma\)}
+&
+\textbf{Combinatorics of \(\Sigma\)}
+\\
+\midrule
+smooth
+&
+every cone is smooth
+\\
+finite quotient singularities
+&
+every cone is simplicial
+\\
+complete
+&
+\(|\Sigma|=N_{\RR}\)
+\\
+product
+&
+product fan
+\\
+toric morphism
+&
+a compatible lattice map
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+We now explain these correspondences, concentrating on the criterion
+and the idea behind it.
+
+\subsection{Smoothness is checked cone by cone}
+
+\begin{definition}
+A fan \(\Sigma\) is \emph{smooth} if every cone
+\(\sigma\in\Sigma\) is smooth: the primitive generators of its rays
+form part of a basis of \(N\).
+
+A fan is \emph{simplicial} if every cone is generated by linearly
+independent vectors.
+\end{definition}
+
+In dimension two, every strongly convex cone is simplicial, but it
+need not be smooth. If
+\[
+\sigma=\Cone{u_1,u_2}
+\]
+has primitive ray generators, then
+\[
+\sigma\text{ is smooth}
+\quad\Longleftrightarrow\quad
+|\det(u_1,u_2)|=1.
+\]
+
+\begin{theorem}[Global smoothness criterion]
+\label{thm:global-smoothness-criterion}
+The toric variety \(X_\Sigma\) is smooth if and only if the fan
+\(\Sigma\) is smooth.
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~3.1.19(a).
+
+\begin{proof}
+The affine charts \(U_\sigma\), for
+\(\sigma\in\Sigma_{\max}\), cover \(X_\Sigma\). Smoothness is local,
+and the affine smoothness criterion gives
+\[
+U_\sigma\text{ smooth}
+\quad\Longleftrightarrow\quad
+\sigma\text{ smooth}.
+\]
+Thus every point of \(X_\Sigma\) is smooth exactly when every maximal
+cone is smooth. Since every cone is a face of a maximal cone, this is
+equivalent to smoothness of the entire fan.
+\end{proof}
+
+\begin{observation}
+Over a field of characteristic zero, one also has
+\[
+X_\Sigma\text{ has only finite quotient singularities}
+\quad\Longleftrightarrow\quad
+\Sigma\text{ is simplicial}.
+\]
+This is Cox--Little--Schenck, Theorem~3.1.19(b). Its proof requires
+more singularity theory than we need here and will be revisited later.
+
+The cyclic quotient surface from the challenge exercise of Chapter~2
+is the local model: the cone is simplicial, but its primitive
+generators need not form a basis of the chosen lattice.
+\end{observation}
+
+\begin{pauseandthink}
+Let \(\Sigma\) be a two-dimensional fan. Explain why its singular
+points can occur only at the zero-dimensional orbits associated to
+nonsmooth maximal cones.
+
+Why can the one-dimensional orbits not be singular?
+\end{pauseandthink}
+
+\subsection{Completeness and one-parameter limits}
+
+Recall that a fan is complete when
+\[
+|\Sigma|=N_{\RR}.
+\]
+This condition has an exact geometric meaning.
+
+\begin{agcheatsheet}
+A variety \(X\) is \emph{complete} if its structure morphism
+\[
+X\longrightarrow\Spec\Bbbk
+\]
+is proper.
+
+Over \(\CC\), complete varieties are precisely those whose complex
+points are compact in the classical topology. Every projective variety
+is complete, although a complete variety need not be projective.
+\end{agcheatsheet}
+
+\begin{theorem}[Completeness criterion]
+\label{thm:completeness-criterion-fan}
+For a toric variety \(X_\Sigma\), the following are equivalent:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(X_\Sigma\) is complete;
+\item every one-parameter subgroup
+\[
+\oneps{u}:\Gm\longrightarrow T,
+\qquad
+u\in N,
+\]
+has a limit in \(X_\Sigma\) as \(t\to0\);
+\item the fan is complete:
+\[
+|\Sigma|=N_{\RR}.
+\]
+\end{enumerate}
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Theorem~3.4.6.
+
+\begin{proof}[Conceptual proof sketch]
+The equivalence of (b) and (c) is the one-parameter subgroup
+criterion applied chart by chart:
+\[
+\lim_{t\to0}\oneps{u}(t)\text{ exists in }U_\sigma
+\quad\Longleftrightarrow\quad
+u\in\sigma.
+\]
+Therefore the limit exists somewhere in \(X_\Sigma\) exactly when
+\[
+u\in|\Sigma|.
+\]
+
+If the support is not all of \(N_{\RR}\), rationality and finiteness
+of the fan allow us to choose a lattice vector
+\[
+u\notin|\Sigma|.
+\]
+The corresponding map \(\oneps{u}\) has no extension across \(t=0\),
+so the valuative criterion rules out completeness.
+
+Conversely, if the support is complete, every one-parameter subgroup
+has a limit in some affine chart. The substantive part of the proof
+uses the valuative criterion to show that, for toric varieties, these
+torus limits suffice to establish properness.
+\end{proof}
+
+This criterion makes the pictures of \(\AAA^2\) and \(\PP^2\)
+immediately different. The affine-plane fan occupies only one
+quadrant, while the three maximal cones of the projective-plane fan
+cover all of \(N_{\RR}\).
+
+\begin{prediction}
+A complete fan in \(\RR^2\) must surround the origin. What is the
+smallest possible number of rays in a complete two-dimensional fan?
+What toric surface should the smallest smooth example produce?
+\end{prediction}
+
+\subsection{Product fans}
+
+Let \(\Sigma_1\) and \(\Sigma_2\) be fans in
+\((N_1)_{\RR}\) and \((N_2)_{\RR}\).
+
+\begin{definition}
+Their \emph{product fan} is
+\[
+\Sigma_1\times\Sigma_2
+=
+\left\{
+\sigma_1\times\sigma_2:
+\sigma_i\in\Sigma_i
+\right\}
+\]
+in
+\[
+(N_1\oplus N_2)_{\RR}.
+\]
+\end{definition}
+
+Faces and intersections are computed factor by factor, so this is
+indeed a fan.
+
+\begin{proposition}[Products]
+\label{prop:product-fans}
+There is a canonical isomorphism
+\[
+X_{\Sigma_1\times\Sigma_2}
+\simeq
+X_{\Sigma_1}\times X_{\Sigma_2}.
+\]
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is Cox--Little--Schenck, Proposition~3.1.14.
+
+\begin{proof}
+For a product cone,
+\[
+(\sigma_1\times\sigma_2)^\vee
+=
+\sigma_1^\vee\times\sigma_2^\vee,
+\]
+and hence
+\[
+S_{\sigma_1\times\sigma_2}
+=
+S_{\sigma_1}\oplus S_{\sigma_2}.
+\]
+Therefore
+\[
+\Bbbk[S_{\sigma_1\times\sigma_2}]
+\simeq
+\Bbbk[S_{\sigma_1}]
+\otimes_\Bbbk
+\Bbbk[S_{\sigma_2}],
+\]
+which gives
+\[
+U_{\sigma_1\times\sigma_2}
+\simeq
+U_{\sigma_1}\times U_{\sigma_2}.
+\]
+These affine isomorphisms agree on common face charts and therefore
+glue.
+\end{proof}
+
+Smoothness and completeness behave as expected:
+\[
+\Sigma_1\times\Sigma_2\text{ is smooth}
+\quad\Longleftrightarrow\quad
+\Sigma_1,\Sigma_2\text{ are smooth},
+\]
+and
+\[
+|\Sigma_1\times\Sigma_2|
+=
+|\Sigma_1|\times|\Sigma_2|.
+\]
+
+\subsection{Toric morphisms from lattice maps}
+
+Let \(\Sigma_i\) be a fan in \((N_i)_{\RR}\), and let
+\[
+F:N_1\longrightarrow N_2
+\]
+be a lattice homomorphism.
+
+\begin{definition}
+The map \(F\) is \emph{compatible with the fans}
+\(\Sigma_1,\Sigma_2\) if, for every cone
+\(\sigma\in\Sigma_1\), there is a cone
+\(\sigma'\in\Sigma_2\) such that
+\[
+F_{\RR}(\sigma)\subseteq\sigma'.
+\]
+\end{definition}
+
+This is the global version of the affine cone criterion.
+
+\begin{theorem}[Toric morphisms and maps of fans]
+\label{thm:toric-morphisms-maps-of-fans}
+Compatible lattice maps
+\[
+F:(N_1,\Sigma_1)\longrightarrow(N_2,\Sigma_2)
+\]
+are in natural correspondence with toric morphisms
+\[
+\phi_F:X_{\Sigma_1}\longrightarrow X_{\Sigma_2}.
+\]
+\end{theorem}
+
+\noindent
+\textit{Reference.}
+The definition of toric morphism is Cox--Little--Schenck,
+Definition~3.3.3, and the correspondence is Theorem~3.3.4.
+
+\begin{proof}[Conceptual proof sketch]
+Suppose \(F\) is compatible. For every
+\(\sigma\in\Sigma_1\), choose
+\(\sigma'\in\Sigma_2\) with
+\[
+F_{\RR}(\sigma)\subseteq\sigma'.
+\]
+The affine cone criterion produces a toric morphism
+\[
+U_\sigma\longrightarrow U_{\sigma'}.
+\]
+All of these maps restrict to the same torus homomorphism, so they
+agree on common face charts and glue to a global morphism.
+
+Conversely, a toric morphism restricts on the dense tori to a group
+homomorphism, hence induces a lattice map
+\[
+F:N_1\to N_2.
+\]
+The image of each affine chart \(U_\sigma\) meets a suitable affine
+chart of the target. Applying the affine cone criterion shows that
+\(F_{\RR}(\sigma)\) lies in a cone of \(\Sigma_2\).
+
+The bookkeeping needed to choose target charts and verify gluing is
+the only global step.
+\end{proof}
+
+The product projections are the basic examples. The lattice map
+\[
+\operatorname{pr}_1:
+N_1\oplus N_2\longrightarrow N_1
+\]
+sends
+\[
+\sigma_1\times\sigma_2
+\longmapsto
+\sigma_1,
+\]
+so it induces
+\[
+X_{\Sigma_1}\times X_{\Sigma_2}
+\longrightarrow
+X_{\Sigma_1}.
+\]
+
+\begin{observation}
+Finite-index changes of lattice fit the same theorem. If
+\[
+N'\subseteq N
+\]
+has finite index and the same real fan \(\Sigma\) is viewed in both
+lattices, then the inclusion is compatible and induces
+\[
+X_{\Sigma,N'}
+\longrightarrow
+X_{\Sigma,N}.
+\]
+This is the global version of the lattice change behind the cyclic
+quotient orbifolds in the Chapter~2 challenge.
+\end{observation}
+
+\begin{surfacelaboratory}
+Let \(\Sigma_{\square}\) be the fan in \(\RR^2\) whose rays are
+\[
+\RR_{\geq0}e_1,\quad
+\RR_{\geq0}e_2,\quad
+\RR_{\geq0}(-e_1),\quad
+\RR_{\geq0}(-e_2),
+\]
+and whose maximal cones are the four quadrants.
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify directly that \(\Sigma_{\square}\) is smooth and
+complete.
+
+\item Show that it is the product of two copies of the fan of
+\(\PP^1\).
+
+\item Deduce that
+\[
+X_{\Sigma_{\square}}
+\simeq
+\PP^1\times\PP^1.
+\]
+
+\item Use the coordinate projections
+\[
+\ZZ^2\longrightarrow\ZZ
+\]
+to recover the two morphisms
+\[
+\PP^1\times\PP^1\longrightarrow\PP^1.
+\]
+
+\item Count the two-dimensional, one-dimensional, and zero-dimensional
+torus orbits directly from the fan.
+\end{enumerate}
+\end{surfacelaboratory}
+
+\begin{guidingquestion}
+How do the standard fans of projective spaces, products, weighted
+projective surfaces, and blowups display these properties in concrete
+pictures?
+\end{guidingquestion}
+
+
+\section{A catalogue of fans and toric surfaces}
+\label{sec:catalogue-fans-toric-surfaces}
+\index{projective plane!fan}
+\index{weighted projective plane}
+\index{Hirzebruch surface}
+\index{blowup!star subdivision}
+
+We finish the chapter by collecting a small number of surface fans
+that will reappear throughout the course. The goal is not to memorize
+the pictures, but to learn which features should be read immediately:
+
+\[
+\text{support},\qquad
+\text{primitive ray generators},\qquad
+\text{determinants of adjacent rays},\qquad
+\text{subdivisions}.
+\]
+
+\subsection{Four recurring complete fans}
+
+The following four fans form a useful visual vocabulary.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.78]
+  % P2
+  \begin{scope}[xshift=-5.4cm,yshift=3.7cm]
+    \fill[DictionaryBlue!9] (0,0)--(2.1,0)--(0,2.1)--cycle;
+    \fill[SurfaceGreen!9] (0,0)--(0,2.1)--(-1.55,-1.55)--cycle;
+    \fill[ExampleGold!12] (0,0)--(-1.55,-1.55)--(2.1,0)--cycle;
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.2mm]}] (0,0)--(2.4,0);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.2mm]}] (0,0)--(0,2.4);
+    \draw[very thick,ExampleGold,-{Latex[length=2.2mm]}] (0,0)--(-1.8,-1.8);
+    \node[font=\bfseries] at (0.35,2.95) {\(\PP^2\)};
+    \node[below] at (2.2,0) {\((1,0)\)};
+    \node[left] at (0,2.2) {\((0,1)\)};
+    \node[above left] at (-1.65,-1.65) {\((-1,-1)\)};
+  \end{scope}
+
+  % P1xP1
+  \begin{scope}[xshift=4.8cm,yshift=3.7cm]
+    \fill[DictionaryBlue!8] (0,0)--(2.1,0)--(0,2.1)--cycle;
+    \fill[SurfaceGreen!8] (0,0)--(0,2.1)--(-2.1,0)--cycle;
+    \fill[ExampleGold!10] (0,0)--(-2.1,0)--(0,-2.1)--cycle;
+    \fill[PredictionTeal!9] (0,0)--(0,-2.1)--(2.1,0)--cycle;
+    \draw[very thick] (-2.4,0)--(2.4,0);
+    \draw[very thick] (0,-2.4)--(0,2.4);
+    \node[font=\bfseries] at (0,2.95) {\(\PP^1\times\PP^1\)};
+    \node[below] at (2.15,0) {\(e_1\)};
+    \node[left] at (0,2.15) {\(e_2\)};
+    \node[below] at (-2.15,0) {\(-e_1\)};
+    \node[left] at (0,-2.15) {\(-e_2\)};
+  \end{scope}
+
+  % weighted projective plane
+  \begin{scope}[xshift=-5.4cm,yshift=-3.3cm]
+    \fill[WarningRed!8] (0,0)--(2.2,0)--(-1.45,2.15)--cycle;
+    \fill[SurfaceGreen!8] (0,0)--(-1.45,2.15)--(0,-2.2)--cycle;
+    \fill[DictionaryBlue!8] (0,0)--(0,-2.2)--(2.2,0)--cycle;
+    \draw[very thick,DictionaryBlue,-{Latex[length=2.2mm]}] (0,0)--(2.5,0);
+    \draw[very thick,WarningRed,-{Latex[length=2.2mm]}] (0,0)--(-1.7,2.5);
+    \draw[very thick,SurfaceGreen,-{Latex[length=2.2mm]}] (0,0)--(0,-2.5);
+    \node[font=\bfseries] at (0.2,3.0) {\(\PP(1,1,n)\)};
+    \node[below] at (2.3,0) {\(u_0=(1,0)\)};
+    \node[above left] at (-1.55,2.25) {\(u_1=(-1,n)\)};
+    \node[left] at (0,-2.3) {\(u_2=(0,-1)\)};
+    \node[WarningRed,fill=white,rounded corners,inner sep=2pt]
+      at (0.0,1.0) {\(|\det(u_0,u_1)|=n\)};
+  \end{scope}
+
+  % Hirzebruch
+  \begin{scope}[xshift=4.8cm,yshift=-3.3cm]
+    \fill[DictionaryBlue!8] (0,0)--(2.2,0)--(0,2.2)--cycle;
+    \fill[SurfaceGreen!8] (0,0)--(0,2.2)--(-1.75,1.75)--cycle;
+    \fill[ExampleGold!10] (0,0)--(-1.75,1.75)--(0,-2.2)--cycle;
+    \fill[PredictionTeal!9] (0,0)--(0,-2.2)--(2.2,0)--cycle;
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(2.5,0);
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(0,2.5);
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(-2.0,2.0);
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(0,-2.5);
+    \node[font=\bfseries] at (0,3.0) {\(\mathbb F_r\)};
+    \node[below] at (2.3,0) {\((1,0)\)};
+    \node[right] at (0,2.25) {\((0,1)\)};
+    \node[above left] at (-1.85,1.85) {\((-1,r)\)};
+    \node[right] at (0,-2.3) {\((0,-1)\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Four standard complete surface fans. The first, second, and
+fourth are smooth. The weighted projective fan is simplicial but has
+one nonsmooth maximal cone when \(n>1\).}
+\label{fig:four-standard-surface-fans}
+\end{figure}
+
+The first two fans are already familiar. Their primitive rays are
+\[
+\begin{array}{c|c}
+\PP^2
+&
+(1,0),\ (0,1),\ (-1,-1)
+\\
+\PP^1\times\PP^1
+&
+(1,0),\ (0,1),\ (-1,0),\ (0,-1).
+\end{array}
+\]
+Every adjacent determinant has absolute value \(1\), and both supports
+fill \(\RR^2\). Thus both surfaces are smooth and complete.
+
+\noindent
+\textit{Reference.}
+These are Cox--Little--Schenck, Examples~3.1.9 and~3.1.12.
+
+\subsection{A weighted projective plane}
+
+Fix \(n\geq2\), and consider the three primitive rays generated by
+\[
+u_0=(1,0),
+\qquad
+u_1=(-1,n),
+\qquad
+u_2=(0,-1).
+\]
+They satisfy the weighted relation
+\[
+u_0+u_1+n u_2=0.
+\]
+Taking the cones generated by each proper subset gives the standard
+fan of
+\[
+\PP(1,1,n).
+\]
+
+The fan is complete and simplicial. Two maximal cones are smooth:
+\[
+|\det(u_1,u_2)|=1,
+\qquad
+|\det(u_2,u_0)|=1.
+\]
+The third has
+\[
+|\det(u_0,u_1)|=n,
+\]
+so the corresponding torus-fixed point is singular when \(n>1\).
+
+This is the global version of the cyclic quotient phenomenon from
+Chapter~2: the real cone is simple, but the primitive generators span
+a sublattice of index \(n\).
+
+\begin{example}
+For \(n=2\), the singular affine chart is the quadratic cone
+\[
+V(ac-b^2)\subseteq\AAA^3.
+\]
+Thus \(\PP(1,1,2)\) is complete and has exactly one singular
+torus-fixed point.
+\end{example}
+
+\noindent
+\textit{Reference.}
+Weighted projective fans are Cox--Little--Schenck,
+Example~3.1.17. The special case \(\PP(1,1,2)\) and its quadratic-cone
+chart are worked out there explicitly.
+
+\begin{pauseandthink}
+Use the orbit--cone correspondence to count the torus orbits of
+\(\PP(1,1,n)\). Which orbit contains the singular point, and which
+cone detects it?
+\end{pauseandthink}
+
+\subsection{Hirzebruch surfaces}
+
+For \(r\geq0\), let \(\Sigma_r\) be the complete fan whose rays, in
+cyclic order, are
+\[
+v_1=(1,0),
+\qquad
+v_2=(0,1),
+\qquad
+v_3=(-1,r),
+\qquad
+v_4=(0,-1).
+\]
+The associated toric surface is the \emph{\(r\)-th Hirzebruch
+surface}
+\[
+\mathbb F_r=X_{\Sigma_r}.
+\]
+
+Every adjacent determinant has absolute value \(1\):
+\[
+\det(v_1,v_2)
+=
+\det(v_2,v_3)
+=
+\det(v_3,v_4)
+=
+\det(v_4,v_1)
+=
+1.
+\]
+Hence every \(\mathbb F_r\) is smooth. The fan is complete, so every
+\(\mathbb F_r\) is complete.
+
+The lattice projection
+\[
+p:N=\ZZ^2\longrightarrow\ZZ,
+\qquad
+p(a,b)=a,
+\]
+is compatible with the fan of \(\PP^1\). It therefore induces a toric
+morphism
+\[
+\mathbb F_r\longrightarrow\PP^1.
+\]
+This is the ruling of the Hirzebruch surface.
+
+When \(r=0\), the four rays are the coordinate rays, so
+\[
+\mathbb F_0\simeq\PP^1\times\PP^1.
+\]
+
+\noindent
+\textit{Reference.}
+This family is Cox--Little--Schenck, Example~3.1.16.
+
+\begin{surfacelaboratory}
+For the fan of \(\mathbb F_r\):
+
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify the four determinant calculations.
+
+\item Check compatibility of
+\[
+p(a,b)=a
+\]
+with the two rays in the fan of \(\PP^1\).
+
+\item Count the torus orbits of dimensions \(2,1,0\).
+
+\item Compare the fans of \(\mathbb F_0\) and
+\(\PP^1\times\PP^1\). Why are they literally the same fan?
+\end{enumerate}
+\end{surfacelaboratory}
+
+\subsection{Blowing up a torus-fixed point}
+
+The blowup of \(\AAA^2\) from Section~3.3 is the local model for a
+general operation.
+
+Let
+\[
+\sigma=\Cone{u_1,u_2}
+\]
+be a smooth two-dimensional cone in a fan. Insert the ray
+\[
+\rho=\Cone{u_1+u_2}
+\]
+and replace \(\sigma\) by
+\[
+\Cone{u_1,u_1+u_2},
+\qquad
+\Cone{u_1+u_2,u_2}.
+\]
+This operation is the \emph{star subdivision} of the fan at
+\(\sigma\).
+
+\begin{proposition}[Star subdivision and blowup]
+\label{prop:surface-star-subdivision-blowup}
+The toric morphism from the subdivided fan to the original fan is the
+blowup of the torus-fixed point \(O(\sigma)\).
+\end{proposition}
+
+\noindent
+\textit{Reference.}
+This is the two-dimensional case of Cox--Little--Schenck,
+Proposition~3.3.15.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % P2
+  \begin{scope}[xshift=-4.5cm]
+    \fill[DictionaryBlue!9] (0,0)--(2.3,0)--(0,2.3)--cycle;
+    \fill[SurfaceGreen!9] (0,0)--(0,2.3)--(-1.7,-1.7)--cycle;
+    \fill[ExampleGold!10] (0,0)--(-1.7,-1.7)--(2.3,0)--cycle;
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(2.6,0);
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(0,2.6);
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(-2.0,-2.0);
+    \node[font=\bfseries] at (0.3,3.15) {\(\PP^2\)};
+    \node[WarningRed,fill=white,rounded corners,inner sep=2pt]
+      at (0.8,0.8) {blow up this fixed point};
+  \end{scope}
+
+  \draw[very thick,-{Latex[length=2.6mm]}] (-0.7,0.5)--(0.7,0.5);
+  \node[above] at (0,0.5) {insert \(e_1+e_2\)};
+
+  % blowup
+  \begin{scope}[xshift=4.5cm]
+    \fill[DictionaryBlue!9] (0,0)--(2.3,0)--(1.15,1.15)--cycle;
+    \fill[PredictionTeal!10] (0,0)--(1.15,1.15)--(0,2.3)--cycle;
+    \fill[SurfaceGreen!9] (0,0)--(0,2.3)--(-1.7,-1.7)--cycle;
+    \fill[ExampleGold!10] (0,0)--(-1.7,-1.7)--(2.3,0)--cycle;
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(2.6,0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}] (0,0)--(2.0,2.0);
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(0,2.6);
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(-2.0,-2.0);
+    \node[PredictionTeal,above right] at (1.8,1.8) {new ray};
+    \node[font=\bfseries] at (0.2,3.15)
+      {\(\Bl_p(\PP^2)\simeq\mathbb F_1\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Blowing up a torus-fixed point of \(\PP^2\) inserts one ray
+and replaces one maximal cone by two. The resulting fan is equivalent
+by a lattice change to the fan of \(\mathbb F_1\).}
+\label{fig:p2-blowup-f1}
+\end{figure}
+
+For the fixed point corresponding to
+\[
+\Cone{e_1,e_2},
+\]
+the new fan has rays
+\[
+e_1,\qquad
+e_1+e_2,\qquad
+e_2,\qquad
+-e_1-e_2.
+\]
+The matrix
+\[
+\begin{pmatrix}
+1&-1\\
+0&1
+\end{pmatrix}
+\in\operatorname{GL}(2,\ZZ)
+\]
+takes these rays to
+\[
+(1,0),\qquad
+(0,1),\qquad
+(-1,1),\qquad
+(0,-1),
+\]
+the fan of \(\mathbb F_1\). Hence
+\[
+\Bl_p(\PP^2)\simeq\mathbb F_1
+\]
+for a torus-fixed point \(p\).
+
+\begin{prediction}
+Each blowup at a torus-fixed point inserts one new ray and one new
+torus-invariant boundary curve. What combinatorial patterns might
+arise after repeatedly blowing up fixed points of a smooth complete
+toric surface?
+\end{prediction}
+
+\subsection{A compact recognition table}
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.22}
+\begin{tabularx}{\linewidth}{@{}
+  >{\raggedright\arraybackslash}p{0.15\linewidth}
+  >{\raggedright\arraybackslash}X
+  >{\centering\arraybackslash}p{0.09\linewidth}
+  >{\centering\arraybackslash}p{0.10\linewidth}
+  >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Surface}
+&
+\textbf{Rays}
+&
+\textbf{Smooth}
+&
+\textbf{Complete}
+&
+\textbf{Feature to recognize}
+\\
+\midrule
+\(\PP^2\)
+&
+\(e_1,e_2,-e_1-e_2\)
+&
+yes
+&
+yes
+&
+three rays and three fixed points
+\\
+\(\PP^1\times\PP^1\)
+&
+\(\pm e_1,\pm e_2\)
+&
+yes
+&
+yes
+&
+product fan
+\\
+\(\PP(1,1,n)\)
+&
+\((1,0),(-1,n),(0,-1)\)
+&
+only if \(n=1\)
+&
+yes
+&
+one cone of determinant \(n\)
+\\
+\(\mathbb F_r\)
+&
+\((1,0),(0,1),(-1,r),(0,-1)\)
+&
+yes
+&
+yes
+&
+a toric ruling to \(\PP^1\)
+\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{guidingquestion}
+How do divisor classes, torus-invariant divisors, and line bundles
+translate the rays of these fans into intersection theory and
+projective embeddings?
+\end{guidingquestion}
+
+\clearpage
+\section*{What this chapter has accomplished}
+\addcontentsline{toc}{section}{What this chapter has accomplished}
+\markboth{What this chapter has accomplished}{What this chapter has accomplished}
+
+A single cone gives one affine toric chart. A fan records how many such
+charts fit together and how they overlap. The chapter has developed
+the global dictionary
+\[
+\boxed{
+\text{fan }\Sigma
+\quad\longleftrightarrow\quad
+\text{normal separated toric variety }X_\Sigma.
+}
+\]
+
+More precisely, we have seen that:
+\[
+\begin{array}{c@{\quad\longleftrightarrow\quad}c}
+\sigma\in\Sigma
+&
+U_\sigma\subseteq X_\Sigma
+\\[1mm]
+\sigma\cap\tau
+&
+U_\sigma\cap U_\tau
+\\[1mm]
+\sigma
+&
+O(\sigma)
+\\[1mm]
+\tau\preceq\sigma
+&
+O(\sigma)\subseteq\overline{O(\tau)}
+\\[1mm]
+|\Sigma|=N_{\RR}
+&
+X_\Sigma\text{ complete}
+\\[1mm]
+\Sigma\text{ smooth}
+&
+X_\Sigma\text{ smooth}.
+\end{array}
+\]
+
+The surface laboratory supplied a second thread:
+\[
+\PP^2,\qquad
+\PP^1\times\PP^1,\qquad
+\PP(1,1,n),\qquad
+\mathbb F_r,\qquad
+\Bl_p(\PP^2).
+\]
+In these examples, rays became boundary curves, maximal cones became
+fixed points, and subdivisions became blowups.
+
+The next chapter will attach divisor classes and equations to this
+combinatorial skeleton.
+
+\begin{exercises}[Comprehension exercises]
+\markboth{Comprehension exercises}{Comprehension exercises}
+
+\item Let
+\[
+\sigma_1=\Cone{(1,0),(0,1)},
+\qquad
+\sigma_2=\Cone{(1,1),(-1,2)}.
+\]
+Compute \(\sigma_1\cap\sigma_2\). Decide whether the two cones and all
+of their faces form a fan. If not, add the smallest possible
+collection of rays and cones that repairs the problem.
+
+\item Let \(\sigma\subseteq N_{\RR}\) be a strongly convex rational
+polyhedral cone, and let
+\[
+\Sigma_\sigma=\{\tau:\tau\preceq\sigma\}.
+\]
+Show directly from the gluing construction that
+\[
+X_{\Sigma_\sigma}\simeq U_\sigma.
+\]
+In other words, explain why gluing all face charts adds no new points.
+
+\item Let \(\Sigma'\subseteq\Sigma\) be a subfan. Prove that the
+canonical map
+\[
+X_{\Sigma'}\longrightarrow X_\Sigma
+\]
+identifies \(X_{\Sigma'}\) with the torus-invariant open subset
+\[
+\bigcup_{\sigma\in\Sigma'}U_\sigma.
+\]
+
+\item Consider the fan of \(\PP^2\). Remove one maximal cone and every
+face that belongs only to that cone.
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify that the remaining collection is a subfan.
+\item Identify the corresponding open subvariety of \(\PP^2\).
+\item List its torus orbits and their closure relations.
+\end{enumerate}
+
+\item Let \(\Sigma'\) be the fan of \(\Bl_0(\AAA^2)\), with rays
+generated by
+\[
+e_1,\qquad e_1+e_2,\qquad e_2.
+\]
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Compute the coordinate rings of the two maximal-cone charts.
+\item Compute their common open chart.
+\item Identify the three one-dimensional orbits and the two
+zero-dimensional orbits.
+\item Use the orbit--cone correspondence to explain why the closure of
+the orbit corresponding to \(e_1+e_2\) is a copy of \(\PP^1\).
+\end{enumerate}
+
+\item Let \(\Sigma\) be a fan in a rank-\(3\) lattice with
+\[
+|\Sigma|=N_{\RR}.
+\]
+Suppose it has \(6\) rays, \(10\) two-dimensional cones, and \(6\)
+maximal three-dimensional cones. Determine the number of torus orbits
+of each dimension. Which orbits are closed?
+
+\item For each of the following fans, decide whether it is smooth and
+whether it is complete:
+\[
+\begin{array}{ll}
+\text{(a)}&
+\Cone{(1,0),(1,2)}\text{ and its faces};
+\\[1mm]
+\text{(b)}&
+\text{the complete fan with rays }
+(1,0),(0,1),(-1,0),(0,-1);
+\\[1mm]
+\text{(c)}&
+\text{the complete fan with rays }
+(1,0),(-1,3),(0,-1).
+\end{array}
+\]
+For every nonsmooth maximal cone, compute the absolute determinant of
+its primitive ray generators.
+
+\item Let \(\Sigma_r\) be the fan of the Hirzebruch surface
+\(\mathbb F_r\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Verify that the lattice map
+\[
+p(a,b)=a
+\]
+is compatible with the fan of \(\PP^1\).
+\item Determine the image under \(p\) of every ray and every maximal
+cone.
+\item Describe the induced toric morphism
+\[
+\mathbb F_r\longrightarrow\PP^1
+\]
+on the dense tori.
+\end{enumerate}
+
+\item Let \(\Sigma_1,\Sigma_2\) be fans. Prove directly from the
+orbit--cone correspondence that
+\[
+O(\sigma_1\times\sigma_2)
+\simeq
+O(\sigma_1)\times O(\sigma_2).
+\]
+Use this to recover the orbit decomposition of
+\(\PP^1\times\PP^1\).
+
+\item Let
+\[
+F:\ZZ^2\longrightarrow\ZZ,
+\qquad
+F(a,b)=a.
+\]
+Determine whether \(F\) is compatible with:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item the fan of \(\AAA^2\) and the fan of \(\AAA^1\);
+\item the fan of \(\PP^1\times\PP^1\) and the fan of \(\PP^1\);
+\item the fan of \(\PP^2\) and the fan of \(\PP^1\).
+\end{enumerate}
+Whenever it is compatible, describe the induced map on the dense
+tori.
+
+\item Start with the fan of \(\PP^2\), and subdivide the cone
+\[
+\Cone{e_1,e_2}
+\]
+by the ray through \(e_1+e_2\).
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item Check that the resulting fan is smooth and complete.
+\item Count its torus orbits.
+\item Identify its toric surface in two different ways:
+as a blowup of \(\PP^2\), and as a Hirzebruch surface.
+\end{enumerate}
+
+\end{exercises}
+
+\clearpage
+\section*{Challenge exercise}
+\addcontentsline{toc}{section}{Challenge exercise}
+\markboth{Challenge exercise}{Challenge exercise}
+
+\noindent
+\textbf{Weighted toric blowups and the resolution of an
+\(\boldsymbol{A_{n-1}}\) singularity.}
+
+\medskip
+
+Assume throughout that \(\Bbbk=\CC\). Consider the Gorenstein cyclic
+quotient
+\[
+X_n
+=
+\AAA^2/\mu_n,
+\qquad
+\zeta\cdot(x,y)=(\zeta x,\zeta^{-1}y).
+\]
+As in the Chapter~2 challenge,
+\[
+X_n
+\simeq
+V(uv-w^n)\subseteq\AAA^3,
+\]
+the \(A_{n-1}\) surface singularity. Torically, it is the affine
+variety of the first-quadrant cone
+\[
+\sigma=\Cone{e_1,e_2}
+\]
+in the enlarged lattice
+\[
+N
+=
+\ZZ^2+
+\ZZ\left(\frac1n(1,n-1)\right).
+\]
+
+The goal is to resolve the singularity by inserting the primitive
+lattice rays lying between \(e_2\) and \(e_1\). Each insertion is a
+toric weighted blowup, and the new rays will produce a chain of
+rational exceptional curves.
+
+\begin{warningbox}
+In this exercise, a \emph{toric weighted blowup} means the proper
+birational toric morphism produced by inserting one primitive
+interior ray into a two-dimensional cone.
+
+You may use:
+\begin{enumerate}[label=(\roman*),wide=0pt]
+\item a refinement with the same support induces a proper birational
+toric morphism;
+\item the toric variety of the complete one-dimensional fan is
+\(\PP^1\);
+\item a two-dimensional cone is smooth exactly when its primitive ray
+generators form a basis of the lattice.
+\end{enumerate}
+\end{warningbox}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+  % One weighted blowup
+  \begin{scope}[xshift=-4.8cm]
+    \fill[DictionaryBlue!10] (0,0)--(2.8,0)--(1.55,1.1)--cycle;
+    \fill[SurfaceGreen!10] (0,0)--(1.55,1.1)--(0,2.8)--cycle;
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(3.0,0);
+    \draw[very thick,-{Latex[length=2.3mm]}] (0,0)--(0,3.0);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.3mm]}]
+      (0,0)--(2.45,1.74);
+    \node[below] at (2.8,0) {\(v_1\)};
+    \node[left] at (0,2.8) {\(v_0\)};
+    \node[PredictionTeal,above right] at (2.15,1.55)
+      {\(w=av_0+bv_1\)};
+    \node[font=\bfseries] at (0.8,3.55)
+      {one weighted blowup};
+  \end{scope}
+
+  % A_n resolution
+  \begin{scope}[xshift=4.6cm]
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(3.05,0);
+    \draw[very thick,-{Latex[length=2.2mm]}] (0,0)--(0.15,3.05);
+
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(0.65,2.9);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(1.15,2.65);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(1.65,2.25);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(2.15,1.65);
+    \draw[very thick,PredictionTeal,-{Latex[length=2.2mm]}]
+      (0,0)--(2.65,0.85);
+
+    \node[left] at (0.15,2.85) {\(u_0=e_2\)};
+    \node[above left] at (0.65,2.75) {\(u_1\)};
+    \node[above] at (1.15,2.5) {\(u_2\)};
+    \node at (1.75,1.75) {\(\cdots\)};
+    \node[above right] at (2.55,0.8) {\(u_{n-1}\)};
+    \node[below] at (2.85,0) {\(u_n=e_1\)};
+
+    \node[font=\bfseries] at (1.45,3.55)
+      {smooth refinement of \(X_n\)};
+
+    \node[draw=PredictionTeal,circle,inner sep=2pt] (E1)
+      at (0.35,-1.0) {\(E_1\)};
+    \node[draw=PredictionTeal,circle,inner sep=2pt] (E2)
+      at (1.2,-1.0) {\(E_2\)};
+    \node at (2.0,-1.0) {\(\cdots\)};
+    \node[draw=PredictionTeal,circle,inner sep=2pt] (En)
+      at (2.9,-1.0) {\(E_{n-1}\)};
+    \draw[thick] (E1)--(E2);
+    \draw[thick] (E2)--(1.65,-1.0);
+    \draw[thick] (2.35,-1.0)--(En);
+    \node at (1.6,-1.65)
+      {a chain of \(n-1\) rational curves};
+  \end{scope}
+\end{tikzpicture}
+\caption{A primitive interior ray gives a toric weighted blowup. For
+the \(A_{n-1}\) singularity, inserting all intermediate primitive rays
+produces a smooth fan and an exceptional chain.}
+\label{fig:challenge-an-weighted-blowups}
+\end{figure}
+
+\begin{enumerate}[label=\textbf{Hint \arabic*.},wide=0pt]
+
+\item Let
+\[
+\tau=\Cone{v_0,v_1}
+\]
+be a smooth two-dimensional cone, and let
+\[
+w=av_0+bv_1
+\]
+be a primitive interior lattice vector, where
+\[
+a,b>0,
+\qquad
+\gcd(a,b)=1.
+\]
+Insert the ray \(\rho_w=\Cone{w}\).
+
+Show that the two new maximal cones are
+\[
+\Cone{v_0,w},
+\qquad
+\Cone{w,v_1}.
+\]
+In the basis \(v_0,v_1\), compute
+\[
+|\det(v_0,w)|=b,
+\qquad
+|\det(w,v_1)|=a.
+\]
+Explain why the ordinary blowup corresponds to \(a=b=1\), while
+general weights may leave quotient singularities in the two new
+charts.
+
+\item Let
+\[
+\pi_w:Y_w\longrightarrow U_\tau
+\]
+be the morphism defined by this subdivision. Use the orbit--cone
+correspondence to show that:
+\begin{enumerate}[label=(\alph*),wide=0pt]
+\item \(\pi_w\) is an isomorphism away from the fixed point
+\(O(\tau)\);
+\item the fiber over \(O(\tau)\) is
+\[
+E=V(\rho_w);
+\]
+\item the star of \(\rho_w\) is the complete one-dimensional fan.
+\end{enumerate}
+Deduce that
+\[
+E\simeq\PP^1.
+\]
+
+\item Return to \(X_n\). Set
+\[
+f_1=\frac1n(1,n-1),
+\qquad
+f_2=e_2.
+\]
+Show that \(f_1,f_2\) form a basis of \(N\), and that
+\[
+e_1=nf_1-(n-1)f_2.
+\]
+
+For \(0\leq i\leq n\), define
+\[
+u_i
+=
+i f_1-(i-1)f_2.
+\]
+Verify the simpler formula
+\[
+u_i
+=
+\left(\frac{i}{n},\frac{n-i}{n}\right).
+\]
+In particular,
+\[
+u_0=e_2,
+\qquad
+u_n=e_1.
+\]
+
+\item Show that the vectors
+\[
+u_1,\ldots,u_{n-1}
+\]
+are the primitive lattice points on the line segment joining \(e_2\)
+to \(e_1\), ordered from left to right.
+
+Now compute, in the basis \(f_1,f_2\),
+\[
+\det(u_{i-1},u_i)=-1
+\qquad
+(1\leq i\leq n).
+\]
+Conclude that every cone
+\[
+\Cone{u_{i-1},u_i}
+\]
+is smooth.
+
+\item Let \(\Sigma'\) be the fan whose rays are
+\[
+\rho_i=\Cone{u_i},
+\qquad
+0\leq i\leq n,
+\]
+and whose maximal cones are
+\[
+\Cone{u_{i-1},u_i},
+\qquad
+1\leq i\leq n.
+\]
+Show that
+\[
+|\Sigma'|=\sigma.
+\]
+Therefore the identity map of \(N\) induces a proper birational toric
+morphism
+\[
+\pi:Y=X_{\Sigma'}\longrightarrow X_n.
+\]
+Why is \(Y\) smooth? Why does this make \(\pi\) a resolution of
+singularities?
+
+Explain how the refinement can be built by inserting
+\[
+\rho_1,\rho_2,\ldots,\rho_{n-1}
+\]
+one at a time. Interpret \(\pi\) as a sequence of toric weighted
+blowups of torus-fixed points.
+
+\item For \(1\leq i\leq n-1\), let
+\[
+E_i=V(\rho_i).
+\]
+Show that the star fan of \(\rho_i\) has two opposite rays. Deduce
+\[
+E_i\simeq\PP^1.
+\]
+
+Use the orbit--cone correspondence to prove
+\[
+E_i\cap E_j\neq\varnothing
+\quad\Longleftrightarrow\quad
+|i-j|=1.
+\]
+When \(|i-j|=1\), identify the unique fixed point in the
+intersection.
+
+Conclude that the exceptional fiber is the chain
+\[
+E_1-E_2-\cdots-E_{n-1}.
+\]
+
+\item Verify the relation
+\[
+u_{i-1}+u_{i+1}=2u_i
+\qquad
+(1\leq i\leq n-1).
+\]
+A formula from the intersection theory of smooth toric surfaces,
+proved later in the course, says that this relation implies
+\[
+E_i^2=-2.
+\]
+Record the intersection matrix
+\[
+E_i\cdot E_j
+=
+\begin{cases}
+-2,&i=j,\\
+1,&|i-j|=1,\\
+0,&\text{otherwise}.
+\end{cases}
+\]
+
+Thus the resolution of
+\[
+V(uv-w^n)
+\]
+has an exceptional fiber consisting of \(n-1\) rational
+\((-2)\)-curves arranged in a chain.
+
+\item Work out the case \(n=5\). List
+\[
+u_0,u_1,\ldots,u_5,
+\]
+draw the refined fan, and draw the corresponding chain
+\[
+E_1-E_2-E_3-E_4.
+\]
+Mark the five torus-fixed points of the resolution on your picture.
+\end{enumerate}
+
+\begin{tcolorbox}[
+  colback=PredictionTeal!5,
+  colframe=PredictionTeal,
+  title={Beyond the Gorenstein case},
+  fonttitle=\bfseries
+]
+For a general quotient
+\(\AAA^2/\tfrac1n(1,q)\), the same strategy gives a chain of rational
+curves, but the rays need not be equally spaced. The
+Hirzebruch--Jung expansion
+\(\frac nq=[\![b_1,\ldots,b_r]\!]\) determines relations
+\(u_{i-1}+u_{i+1}=b_i u_i\), and hence
+\(E_i^2=-b_i\). In the Gorenstein case \(q=n-1\), all the \(b_i\) are
+\(2\).
+\end{tcolorbox}
+
+\noindent
+\textit{Reference.}
+See Cox--Little--Schenck, Theorem~3.4.11 and
+Theorems~10.2.3, 10.2.5, and~10.4.4.
+
+
+\clearpage
+\section*{Notes and references}
+\addcontentsline{toc}{section}{Notes and references}
+\markboth{Notes and references}{Notes and references}
+
+The construction of \(X_\Sigma\), the orbit--cone correspondence,
+toric morphisms, and completeness follow Cox--Little--Schenck,
+Chapter~3. The surface examples in the final catalogue are drawn from
+Examples~3.1.9, 3.1.12, 3.1.16, and 3.1.17.
+
+The blowup examples illustrate the general principle that refinements
+of fans give proper birational toric morphisms. The challenge exercise
+looks ahead to Cox--Little--Schenck, Chapter~10, where cyclic quotient
+surface singularities, Hirzebruch--Jung continued fractions, and their
+minimal toric resolutions are developed systematically.
+
+The next chapter turns from the orbit stratification to divisors.
+Every ray
+\[
+\rho\in\Sigma(1)
+\]
+will determine a torus-invariant prime divisor
+\[
+D_\rho=V(\rho),
+\]
+and linear relations among the primitive ray generators will begin to
+control divisor classes and intersection numbers.

@@ -1,0 +1,176 @@
+% Additional questions only: two examples in each of seven topic categories.
+% The conceptual lists are inspired by HW4 S.pdf, Question 27, but ask
+% whether a definite numerical value remains, not whether a setup is valid.
+% No instructor-only outline, grading rubric, answers, or point values.
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{newtxtext,newtxmath}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\integralchoice}[2]{%
+  \par\noindent\makebox[1.8em][l]{(#1)}%
+  $\displaystyle #2$\par\vspace{1.2em}}
+
+\begin{document}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em,labelsep=0.6em,
+                  itemsep=1.1em,parsep=0pt,topsep=0pt]
+
+% Double integrals: direct iteration and order reversal.
+\item Sketch the region of integration and evaluate
+\[
+  \int_0^2\int_0^{x/2}6xy^2\,\dd y\,\dd x.
+\]
+
+\item Sketch the region of integration and evaluate
+\[
+  \int_0^1\int_y^1 x\cos(x^3)\,\dd x\,\dd y.
+\]
+
+% Volume setups: compare coordinate choices without evaluating.
+\item A solid lies inside the cylinder $x^2+y^2=4$, above $z=0$, and
+below $z=3+x$. Sketch the solid or a labeled cross-section. Set up,
+but do not evaluate, a triple integral for its volume in a coordinate
+system of your choice. Then write an equivalent setup in a second
+coordinate system.
+
+\item A solid lies inside the sphere $x^2+y^2+z^2=4$ and above $z=1$.
+Sketch the solid or a labeled cross-section. Set up, but do not evaluate,
+a triple integral for its volume in a coordinate system of your choice.
+Then write an equivalent setup in a second coordinate system.
+
+% Mass setups: nonnegative densities and two convenient coordinate choices.
+\item A solid lies above $z=0$ and below $z=4-x^2-y^2$, with density
+$\delta(x,y,z)=1+z$. Sketch the solid or a labeled cross-section.
+Set up, but do not evaluate, a triple integral for its mass in a
+coordinate system of your choice. Then write an equivalent setup in
+a second coordinate system.
+
+\item A solid lies inside the sphere $x^2+y^2+z^2=4$ and above the
+cone $z=\sqrt{x^2+y^2}$, with density
+$\delta(x,y,z)=x^2+y^2+z^2$. Sketch the solid or a labeled cross-section.
+Set up, but do not evaluate, a triple integral for its mass in a
+coordinate system of your choice. Then write an equivalent setup in
+a second coordinate system.
+
+% Scalar line integrals: the spatial parametrizations are supplied.
+\item A wire follows
+\[
+  \vec r(t)=(2\cos t,2\sin t,t^2),\qquad 0\leq t\leq\frac\pi2,
+\]
+and has density $\delta(x,y,z)=1+z$. Set up, but do not evaluate,
+a line integral representing its mass.
+
+\item A wire follows
+\[
+  \vec r(t)=(t,t^2,e^{2t}),\qquad 0\leq t\leq1,
+\]
+and has density $\delta(x,y,z)=x^2+z$. Set up, but do not evaluate,
+a line integral representing its mass.
+
+% Work: students must supply their own parametrizations; both fields are 2D.
+\item Find the work done by $\vec F(x,y)=(y,x^2)$ along the parabola
+$y=x^2$, from $(0,0)$ to $(1,1)$. Parametrize the curve, set up the
+line integral, and evaluate it.
+
+\item Find the work done by $\vec F(x,y)=(-y,2x)$ around the ellipse
+$x^2/4+y^2=1$, traversed once \textbf{counterclockwise}.
+Parametrize the curve, set up the line integral, and evaluate it.
+
+% Conservative fields: complicated paths, simple endpoints; all fields are 2D.
+\item Let $C$ be the curve given below, oriented by increasing $t$:
+\[
+\begin{aligned}
+  \vec F(x,y)&=\bigl(2xy+ye^{xy},\,x^2+xe^{xy}\bigr),\\
+  \vec r(t)&=\bigl(t+\sin(2\pi t),\,t^2+\sin(\pi t)\bigr),
+  \qquad 0\leq t\leq1.
+\end{aligned}
+\]
+\begin{enumerate}[label=(\alph*),leftmargin=1.8em,topsep=0.3em,itemsep=0.2em]
+  \item Determine whether $\vec F$ is conservative and justify your answer.
+  \item Using part (a), evaluate $\displaystyle\int_C\vec F\cdot\dd\vec r$.
+\end{enumerate}
+
+\item Let $C$ be the curve given below, oriented by increasing $t$:
+\[
+\begin{aligned}
+  \vec F(x,y)&=\bigl(x^2+y^2,\,2xy+\cos y\bigr),\\
+  \vec r(t)&=\left(1+\sin(2\pi t),\,\frac{\pi t}{2}+t(1-t)e^t\right),
+  \qquad 0\leq t\leq1.
+\end{aligned}
+\]
+\begin{enumerate}[label=(\alph*),leftmargin=1.8em,topsep=0.3em,itemsep=0.2em]
+  \item Determine whether $\vec F$ is conservative and justify your answer.
+  \item Using part (a), evaluate $\displaystyle\int_C\vec F\cdot\dd\vec r$.
+\end{enumerate}
+
+% Conceptual questions: a number versus a function of free variables.
+% Deliberate same-symbol bounds must be read with their actual binding scope.
+\item Which of the following integrals evaluate to a finite real
+number, with no variables remaining? \textbf{Select all that apply.}
+You do not
+need to compute the numerical values. 
+
+\medskip
+\noindent\begin{minipage}[t]{0.49\linewidth}
+\integralchoice{a}{
+  \int_0^1\int_0^z\int_0^{y+z}(1+x)\,\dd x\,\dd y\,\dd z}
+\integralchoice{c}{
+  \int_0^{2\pi}\int_0^1\int_0^{1-r^2}r\,\dd z\,\dd r\,\dd\theta}
+\integralchoice{e}{
+  \int_0^{2\pi}\int_0^{\phi}\int_0^1
+  \rho^2\sin\phi\,\dd\rho\,\dd\phi\,\dd\theta}
+\integralchoice{g}{
+  \int_0^1\int_0^x\int_0^1(1+y)\,\dd x\,\dd y\,\dd z}
+\integralchoice{i}{
+  \int_0^{2\pi}\int_0^1\int_0^{1-r^2}
+  r(1+r^2)\,\dd z\,\dd r\,\dd\theta}
+\integralchoice{k}{
+  \int_0^{2\pi}\int_0^{\pi/2}\int_0^1
+  \rho^2\sin\phi\,\dd\rho\,\dd\phi\,\dd\theta}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}
+\integralchoice{b}{
+  \int_0^1\int_0^z\int_0^x 1\,\dd x\,\dd y\,\dd z}
+\integralchoice{d}{
+  \int_0^{2\pi}\int_0^z\int_0^1 r\,\dd z\,\dd r\,\dd\theta}
+\integralchoice{f}{
+  \int_0^{2\pi}\int_0^{\pi/2}\int_0^{2\cos\phi}
+  \rho^2\sin\phi\,\dd\rho\,\dd\phi\,\dd\theta}
+\integralchoice{h}{
+  \int_0^1\int_0^{1-x}\int_0^{x+y}(1+z)\,\dd z\,\dd y\,\dd x}
+\integralchoice{j}{
+  \int_0^{2\pi}\int_0^1\int_0^{1-r^2}1\,\dd z\,\dd r\,\dd\theta}
+\integralchoice{l}{
+  \int_0^{2\pi}\int_0^{\rho}\int_0^1
+  \rho^2\sin\phi\,\dd\rho\,\dd\phi\,\dd\theta}
+\end{minipage}
+
+% Fundamental Theorem of Line Integrals: applicability, not evaluation.
+\item For each pair $\vec F$ and $C$ below, mark the following statement
+\textbf{True or False} and give a brief reason:
+\emph{The Fundamental Theorem of Line Integrals can be used to evaluate
+$\int_C\vec F\cdot\dd\vec r$ from a potential for the given field and the
+endpoints of $C$.} Do not evaluate the integrals.
+
+\begin{enumerate}[label=(\alph*),leftmargin=1.8em,topsep=0.5em,itemsep=0.5em]
+  \item $\vec F(x,y)=(2xy,x^2+2y)$; $C$ is the line segment from
+        $(0,0)$ to $(1,2)$.
+  \item $\vec F(x,y)=(-y,x)$; $C$ is the unit circle $x^2+y^2=1$,
+        traversed once counterclockwise.
+  \item $\vec F(x,y)=(y,2x)$; $C$ is the line segment from
+        $(0,0)$ to $(1,1)$.
+  \item $\vec F(x,y)=(ye^x,e^x)$; $C$ is the unit circle $x^2+y^2=1$,
+        traversed once counterclockwise.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
