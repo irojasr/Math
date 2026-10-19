@@ -1,0 +1,276 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Keep each labeled final-answer area together on the page.
+\newcommand{\answerbox}[3][\linewidth]{%
+  \begingroup
+  \setlength{\fboxsep}{7pt}%
+  \fbox{\begin{minipage}[t][#3][t]{\dimexpr#1-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{#2}\par
+  \end{minipage}}%
+  \endgroup
+}
+\newcommand{\threeanswers}[1]{%
+  \par\noindent
+  \answerbox[0.31\linewidth]{(a) Divergence}{0.65in}\hfill
+  \answerbox[0.36\linewidth]{(b) #1}{0.65in}\hfill
+  \answerbox[0.29\linewidth]{(c) Conservative?}{0.65in}\par
+}
+\newcommand{\curlanddivergence}{%
+  \par\noindent
+  \answerbox[0.56\linewidth]{Curl}{0.65in}\hfill
+  \answerbox[0.40\linewidth]{Divergence}{0.65in}\par
+}
+\newcommand{\finalanswer}[1]{%
+  \par\noindent\hfill\answerbox[0.78\linewidth]{#1}{0.65in}\par
+}
+\newcommand{\greenanswers}{%
+  \par\noindent
+  \answerbox[0.48\linewidth]{Direct line integral}{0.65in}\hfill
+  \answerbox[0.48\linewidth]{Green's Theorem result}{0.65in}\par
+}
+
+\begin{document}
+
+\noindent\textbf{MATH 261, Homework Set 7} \hfill Name: \underline{\hspace{6cm}}
+
+\bigskip
+
+\begin{enumerate}
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = 2xy\,\mathbf{i} + (x^2 + y^2)\,\mathbf{j}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the $k$-component of the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{$k$-component of curl}
+\bigskip
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = \sin(x^2)\,\mathbf{i} + (x + e^{y^2})\,\mathbf{j}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the $k$-component of the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{$k$-component of curl}
+\newpage
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = x^2\,\mathbf{i} + z^2\,\mathbf{j} + xy\,\mathbf{k}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{Curl}
+\bigskip
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = x^3\,\mathbf{k}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{Curl}
+\newpage
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = yz\,\mathbf{i} + xz\,\mathbf{j} + xy\,\mathbf{k}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{Curl}
+\bigskip
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F}(x,y,z)
+= z\cos(y)\,\mathbf{i} - xz\sin(y)\,\mathbf{j} + x\cos(y)\,\mathbf{k}$.
+\begin{enumerate}
+\item Compute the divergence of $\mathbf{F}$.
+\item Compute the curl of $\mathbf{F}$.
+\item Is this vector field conservative?
+\end{enumerate}
+\vfill
+\threeanswers{Curl}
+
+\newpage
+
+% ---------------------------------------------------------
+\item Find the curl and divergence for
+$\mathbf{F}(x,y,z)
+= x^2z\,\mathbf{i} - 2y^2z^2\,\mathbf{j} + xy^2z\,\mathbf{k}$ at the point $(1,-1,1)$.
+\vfill
+\curlanddivergence
+\bigskip
+
+% ---------------------------------------------------------
+\item Find the curl and divergence for
+$\mathbf{F}(x,y,z)
+= xz^3\,\mathbf{i} - 2x^2yz\,\mathbf{j} + 2yz^4\,\mathbf{k}$ at $(1,-1,1)$.
+\vfill
+\curlanddivergence
+\newpage
+
+% ---------------------------------------------------------
+\item Find a potential function for $\mathbf{F} = 2x\,\mathbf{i} + 3\,\mathbf{j} + 4z\,\mathbf{k}$.
+\vfill
+\finalanswer{Potential function}
+\bigskip
+
+% ---------------------------------------------------------
+\item Find a potential function for
+$\mathbf{F} = y^2\,\mathbf{i} + (2xy + e^z)\,\mathbf{j} +
+ye^z\,\mathbf{k}$.
+\vfill
+\finalanswer{Potential function}
+\newpage
+
+% ---------------------------------------------------------
+\item Find a potential function for
+$\mathbf{F} = \cos z\,\mathbf{i} + 2y\,\mathbf{j} - x\sin(z)\,\mathbf{k}$.
+\vfill
+\finalanswer{Potential function}
+\bigskip
+
+% ---------------------------------------------------------
+\item Use FTOLI to evaluate
+\[
+\int_C \mathbf{F} \cdot d\mathbf{r}
+\]
+where $\mathbf{F} = 2xyz\,\mathbf{i} + x^2z\,\mathbf{j} + x^2y\,\mathbf{k}$
+and
+$\mathbf{r}(t) = \langle t^2,\ \sin(\pi t/4),\ e^{t^2 - 2t} \rangle$, $0 \le t \le 2$.
+\vfill
+\finalanswer{Line integral}
+
+\newpage
+
+% ---------------------------------------------------------
+\item Use FTOLI to evaluate
+\[
+\int_C \mathbf{F} \cdot d\mathbf{r}
+\]
+where $\mathbf{F} = x\,\mathbf{i} + z\cos(y)\,\mathbf{j} + \sin(y)\,\mathbf{k}$
+and $C$ is the ellipse $4x^2 + 9y^2 = 36$, traversed clockwise.
+\vspace{1.5in}
+\finalanswer{Line integral}
+\bigskip
+
+% ---------------------------------------------------------
+\item Let $\mathbf{F} = (x-y)\mathbf{i} + (x+y)\mathbf{j}$ and let $C$ be the
+  circle with radius 1 traversed counterclockwise.
+  Verify Green’s Theorem for $\int_C \mathbf{F} \cdot \mathbf{T}ds$
+  (First compute the line integral directly then use Green's Theorem and verify
+  that both methods give you the same answer)
+\vfill
+\greenanswers
+
+% ---------------------------------------------------------
+\newpage
+\item Let $\mathbf{F} = y\mathbf{i} + x\mathbf{j}$ and let $C$ be the triangle
+  with vertices $(0,0),(1,0),(1,1)$ traversed counterclockwise.
+  Verify Green’s Theorem for $\int_C \mathbf{F} \cdot \mathbf{T}ds$.
+\vfill
+\greenanswers
+\newpage
+
+
+% ---------------------------------------------------------
+\item Use Green’s Theorem to compute
+  $\int_C \mathbf{F} \cdot \mathbf{T} ds$,
+$\mathbf{F} = xy^5\,\mathbf{i} + (y^2 + x^2)\mathbf{j}$
+on the rectangle with vertices $(0,0),(0,1),(1,0),(1,1)$, traversed
+counterclockwise.
+\vfill
+\finalanswer{Circulation}
+\bigskip
+
+% ---------------------------------------------------------
+\item Now compute
+  $\int_C \mathbf{F} \cdot \mathbf{N} ds$
+for the same $\mathbf{F}$ and rectangle of the previous exercise.
+\vfill
+\finalanswer{Flux}
+\newpage
+
+% ---------------------------------------------------------
+\item Use Green’s Theorem to compute
+  $\int_C \mathbf{F} \cdot \mathbf{T} ds$,
+$\mathbf{F} = ye^x\,\mathbf{i} + (y^2 + x^2)\mathbf{j}$
+on the rectangle with vertices $(0,0),(0,3),(5,0),(5,3)$, traversed
+counterclockwise.
+\vfill
+\finalanswer{Circulation}
+\bigskip
+
+% ---------------------------------------------------------
+\item Repeat the previous exercise but now compute
+  $\int_C \mathbf{F} \cdot \mathbf{N} ds$ instead.
+\vfill
+\finalanswer{Flux}
+\newpage
+
+% ---------------------------------------------------------
+\item Use Green’s Theorem to evaluate
+  $\int_C \mathbf{F} \cdot \mathbf{T} ds$,
+$\mathbf{F} = (x^2 + y)\mathbf{i} + (y^2 - x)\mathbf{j}$
+on the triangle $(0,0),(-1,0),(-1,1)$, traversed counterclockwise.
+\vfill
+\finalanswer{Circulation}
+\bigskip
+
+% ---------------------------------------------------------
+\item Repeat the previous exercise but now compute
+  $\int_C \mathbf{F} \cdot \mathbf{N} ds$ instead.
+\vfill
+\finalanswer{Flux}
+\newpage
+
+% ---------------------------------------------------------
+\item Use Green’s Theorem to find the work done by
+$\mathbf{F}(x,y) = (x+y)\mathbf{i} + xy^2\mathbf{j}$
+in moving a particle from the origin along the x-axis to (1,0), then along a
+line segment to (0,1), and then back to the origin along the y-axis.
+\vfill
+\finalanswer{Work}
+\bigskip
+% ---------------------------------------------------------
+\item Use Green’s Theorem to find the work done by
+$\mathbf{F}(x,y) = x^2 y\,\mathbf{i} + xy^2\mathbf{j}$
+in moving a particle down from the origin along the line $y=-x$ to the point
+(1,-1), then up along a line segment to (1,1), and then back to the origin along
+the line $y=x$.
+\vfill
+\finalanswer{Work}
+\newpage
+
+% ---------------------------------------------------------
+\item Use Green's Theorem to find the flux of the vector field $\mathbf{F}(x,y)
+  = x^2\mathbf{i} + y^2\mathbf{j}$ across the circle $x^2 + y^2 = 1$.
+\vfill
+\finalanswer{Flux}
+\bigskip
+
+% ---------------------------------------------------------
+\item Use Green's Theorem to find the flux of
+  $\mathbf{F}(x,y) = x\,\mathbf{i} + y^2\,\mathbf{j}$ across the curve obtained
+  by following the graph of $y=x^2$ from (0,0) to (1,1), the line $y=1$ from
+  (1,1) to (0,1), and the line $x=0$ from (0,1) to (0,0).
+\vfill
+\finalanswer{Flux}
+\end{enumerate}
+
+\end{document}
