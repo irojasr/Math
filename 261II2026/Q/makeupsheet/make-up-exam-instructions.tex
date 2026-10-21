@@ -1,0 +1,72 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.35in]{geometry}
+\usepackage{newtxtext}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\newcommand{\blankfield}[1]{%
+  \noindent#1\ \hrulefill\par\vspace{7pt}%
+}
+\newcommand{\checkbox}{%
+  \begingroup
+  \setlength{\fboxsep}{0pt}%
+  \setlength{\fboxrule}{0.7pt}%
+  \raisebox{-1pt}{\fbox{\rule{0pt}{9pt}\rule{9pt}{0pt}}}%
+  \endgroup
+}
+
+% Each quarter-page contains the same blank form transcribed from the photo.
+\newcommand{\makeupsheet}{%
+  \begin{minipage}[t][4.8in][t]{3.55in}
+    \fontsize{10.95}{13}\selectfont\bfseries
+    \begin{center}
+      {\fontsize{15}{18}\selectfont Make-up Exam Instructions}
+    \end{center}
+    \vspace{4pt}
+    \blankfield{Student Name:}
+    \blankfield{Instructor:}
+    \blankfield{Course:}
+    \blankfield{Exam Date(s):}
+    \blankfield{Time Limit:}
+    \vspace{2pt}
+    \begin{tabularx}{\linewidth}{@{}l@{\hspace{5pt}}c@{\hspace{7pt}}X@{}}
+      Calculator: & \checkbox & \textit{Not allowed} \\[9pt]
+                  & \checkbox & Precalc Center \textit{calculator ONLY} \\[9pt]
+                  & \checkbox & \textit{Personal calculator OK} \\[17pt]
+      References: & \checkbox & \textit{Not allowed} \\[9pt]
+                  & \checkbox & \textit{May use:} (fill in) \\[17pt]
+                  &           & \hrulefill \\[17pt]
+                  &           & \hrulefill
+    \end{tabularx}
+  \end{minipage}%
+}
+
+\begin{document}
+\noindent
+\begin{tikzpicture}[remember picture,overlay]
+  % Light cutting guides divide the letter-size page into equal quarters.
+  \draw[gray!60,dashed,line width=0.3pt]
+    ([yshift=-0.15in]current page.north) --
+    ([yshift=0.15in]current page.south);
+  \draw[gray!60,dashed,line width=0.3pt]
+    ([xshift=0.15in]current page.west) --
+    ([xshift=-0.15in]current page.east);
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+    at ([xshift=0.35in,yshift=-0.35in]current page.north west)
+    {\makeupsheet};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+    at ([xshift=4.6in,yshift=-0.35in]current page.north west)
+    {\makeupsheet};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+    at ([xshift=0.35in,yshift=-5.85in]current page.north west)
+    {\makeupsheet};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+    at ([xshift=4.6in,yshift=-5.85in]current page.north west)
+    {\makeupsheet};
+\end{tikzpicture}%
+\null
+\end{document}

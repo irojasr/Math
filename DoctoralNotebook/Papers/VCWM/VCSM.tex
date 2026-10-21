@@ -65,6 +65,250 @@
 \newcommand{\CC}[4]{{\mathcal C}_{#1,#2}(#3,#4)}
 \newcommand{\QQ}[4]{\overline{\mathcal Q}_{#1,#2}(#3,#4)}
 
+% ======================================================================
+% BEGIN INLINE STUDY TOOLS
+% Selected from headerVarillyDiff.tex and the Stacks notebook. Do not input
+% the full header here: keep SIGMA's fonts, page layout, headings, lists,
+% existing mathematical commands, theorem counters, and diagrams unchanged.
+% ======================================================================
+
+% AMS mathematics, graphics, hyperlinks, TikZ/TikZ-CD, Xy-pic, and xcolor
+% are already loaded by sigma.cls and the original article preamble.
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{booktabs,tabularx}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage[normalem]{ulem}
+
+% Keep the header's \st=\sout convention when loading soul.
+\providecommand{\st}{\sout}
+\let\notesheaderst\st
+\let\st\relax
+\usepackage{soul}
+\let\st\notesheaderst
+\soulregister\ref7
+
+% Useful notation. Existing article definitions always take precedence.
+\providecommand{\cat}[1]{\mathsf{#1}}
+\providecommand{\lie}[1]{\mathfrak{#1}}
+\providecommand{\Sch}{\cat{Sch}}
+\providecommand{\Curves}{\cat{Curves}}
+\providecommand{\AlgSp}{\cat{AlgSp}}
+\providecommand{\isom}{\simeq}
+\providecommand{\x}{\times}
+\providecommand{\vir}{\mathrm{vir}}
+\providecommand{\defeq}{\coloneqq}
+\providecommand{\ov}{\overline}
+\providecommand{\un}{\underline}
+\providecommand{\wh}{\widehat}
+\providecommand{\Id}{\mathrm{Id}}
+\providecommand{\set}[1]{\{\,#1\,\}}
+\providecommand{\Set}[1]{\bigl\{\,#1\,\bigr\}}
+\providecommand{\nm}[1]{\left\|#1\right\|}
+\providecommand{\snm}[1]{\|#1\|}
+\providecommand{\floor}[1]{\lfloor#1\rfloor}
+\providecommand{\roof}[1]{\lceil#1\rceil}
+\providecommand{\hookto}{\hookrightarrow}
+\providecommand{\into}{\rightarrowtail}
+\providecommand{\onto}{\twoheadrightarrow}
+\providecommand{\To}{\Rightarrow}
+\providecommand{\ox}{\otimes}
+\providecommand{\less}{\setminus}
+\providecommand{\pullb}{\lrcorner}
+\providecommand{\pushf}{\ulcorner}
+
+% Blackboard and calligraphic shorthand; \CC remains the article's
+% four-argument universal curve macro. Use \bC for the complex numbers.
+\providecommand{\bA}{\mathbb{A}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bE}{\mathbb{E}}
+\providecommand{\bF}{\mathbb{F}}
+\providecommand{\bK}{\mathbb{K}}
+\providecommand{\bL}{\mathbb{L}}
+\providecommand{\bN}{\mathbb{N}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bQ}{\mathbb{Q}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cJ}{\mathcal{J}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cZ}{\mathcal{Z}}
+
+% Greek abbreviations from the shared header.
+\providecommand{\al}{\alpha}
+\providecommand{\bt}{\beta}
+\providecommand{\Dl}{\Delta}
+\providecommand{\dl}{\delta}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\Ga}{\Gamma}
+\providecommand{\ga}{\gamma}
+\providecommand{\kp}{\kappa}
+\providecommand{\La}{\Lambda}
+\providecommand{\la}{\lambda}
+\providecommand{\Om}{\Omega}
+\providecommand{\om}{\omega}
+\providecommand{\Sg}{\Sigma}
+\providecommand{\sg}{\sigma}
+\providecommand{\Te}{\Theta}
+\providecommand{\te}{\theta}
+\providecommand{\vf}{\varphi}
+\providecommand{\vsg}{\varsigma}
+\providecommand{\vte}{\vartheta}
+
+% Additional operators. Reuse the article's Def/Defo, Der, End, Ext,
+% Hilb, Spec, Proj, rk, codim, etc.; do not declare them a second time.
+\providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\Isom}{\operatorname{Isom}}
+\providecommand{\Pic}{\operatorname{Pic}}
+\providecommand{\Mor}{\operatorname{Mor}}
+\providecommand{\Ob}{\operatorname{Ob}}
+\providecommand{\ch}{\operatorname{ch}}
+\providecommand{\coker}{\operatorname{coker}}
+\providecommand{\image}{\operatorname{image}}
+\providecommand{\id}{\operatorname{id}}
+\providecommand{\length}{\operatorname{length}}
+\providecommand{\supp}{\operatorname{supp}}
+\providecommand{\Sym}{\operatorname{Sym}}
+\providecommand{\Rees}{\operatorname{Rees}}
+\providecommand{\gr}{\operatorname{gr}}
+\providecommand{\Ann}{\operatorname{Ann}}
+\providecommand{\Ass}{\operatorname{Ass}}
+\providecommand{\Frac}{\operatorname{Frac}}
+\providecommand{\Quot}{\operatorname{Quot}}
+\providecommand{\Gr}{\operatorname{Gr}}
+\providecommand{\Bl}{\mathcal{B}\!\ell}
+\providecommand{\ev}{\operatorname{ev}}
+\providecommand{\DefB}{\operatorname{Def}}
+
+% Separate study-result counter: using these environments does not shift
+% any of the authors' theorem/definition/example numbers.
+\begingroup
+\theoremstyle{plain}
+\newtheorem{Th}{Theorem}[section]
+\newtheorem{Prop}[Th]{Proposition}
+\newtheorem{Lem}[Th]{Lemma}
+\newtheorem{Cor}[Th]{Corollary}
+\newtheorem*{nonum-Th}{Theorem}
+\newtheorem*{nonum-Prop}{Proposition}
+\newtheorem*{nonum-Cor}{Corollary}
+\theoremstyle{definition}
+% \Def is already the author's deformation operator: it stays untouched.
+\newtheorem{NotesDef}[Th]{Definition}
+\newtheorem{Ex}[Th]{Example}
+\newtheorem{Ej}[Th]{Exercise}
+\newtheorem*{nonum-Def}{Definition}
+\newtheorem*{nonum-Ex}{Example}
+\newtheorem*{nonum-Ej}{Exercise}
+\theoremstyle{remark}
+\newtheorem{Rmk}[Th]{Remark}
+\newtheorem*{nonum-Rmk}{Remark}
+\newtheorem*{Qn}{Question}
+\endgroup
+\renewcommand{\theTh}{N\thesection.\arabic{Th}}
+
+% Readable diagram settings apply only inside ptcb, or when explicitly
+% requested with \begin{tikzcd}[study diagram]. Existing diagrams keep
+% their original settings.
+\tikzcdset{study diagram/.style={
+  font=\large,row sep=large,column sep=large,
+  labels={font=\normalsize},arrows={line width=.6pt}
+}}
+\newtcolorbox{ptcb}[1][]{
+  colframe=black,colback=white,breakable,enhanced,
+  before upper={\tikzcdset{every diagram/.append style={study diagram}}},
+  #1
+}
+\providecommand{\red}[1]{\textcolor{red}{#1}}
+
+% Unnumbered table legend, matching the notebook's \legend convention.
+% Use tabular/tabularx directly inside ptcb to keep the table with the note.
+\providecommand{\legend}[1]{%
+  \par\smallskip
+  {\centering\small #1\par}%
+}
+
+% Rounded highlights from the Stacks notebook; colors have no fixed meaning.
+% Inside highlights, use $...$ for inline math.
+\definecolor{noteblue}{HTML}{00C0F3}
+\definecolor{notegreen}{HTML}{6DC067}
+\definecolor{notepink}{HTML}{F07DAA}
+\makeatletter
+\newcommand{\roundedhighlight}[1]{%
+  \begingroup
+  \setuloverlap{2pt}%
+  \def\SOUL@ulunderline##1{{%
+    \setbox\z@\hbox{##1}%
+    \rlap{\SOUL@ulcolor{\tikz[overlay,blend mode=darken]{%
+      \fill[rounded corners=2pt]
+        (-\SOUL@uloverlap,-\SOUL@uldp)
+        rectangle (\dimexpr\wd\z@+\SOUL@uloverlap\relax,\SOUL@ulht);%
+    }}}%
+    \unhcopy\z@
+  }}%
+  \hl{#1}%
+  \endgroup
+}
+\makeatother
+\DeclareRobustCommand{\hlblue}[1]{{\sethlcolor{noteblue}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlgreen}[1]{{\sethlcolor{notegreen}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlpink}[1]{{\sethlcolor{notepink}\roundedhighlight{#1}}}
+
+% After a passage use \passagemark\label{passage:descriptive-name};
+% refer back with \ref{passage:descriptive-name}.
+\newcounter{passage}
+\newcommand{\passagemark}{%
+  \refstepcounter{passage}%
+  \textsuperscript{\normalfont[\thepassage]}%
+}
+
+% Extend the article's manual bibliography system in this same file.
+% The optional environment prints a separate Notes Bibliography with N1,
+% N2, ... labels. Use unique keys beginning notes: for genuine new sources.
+% Existing references are already available, e.g. \cite[Chapter~4]{Fulton}.
+\makeatletter
+\newenvironment{notesbibliography}{%
+  \begingroup
+  \renewcommand{\refname}{Notes Bibliography}%
+  \begin{thebibliography}{N99}%
+  \renewcommand{\theenumiv}{N\arabic{enumiv}}%
+  % Supply explicit labels locally: hyperref otherwise writes bare numbers
+  % for automatic bibitems, even after changing \theenumiv.
+  \def\@bibitem##1{%
+    \stepcounter{enumiv}%
+    \@lbibitem[\theenumiv]{##1}%
+  }%
+  \footnotesize\setlength{\itemsep}{0pt}%
+}{%
+  \end{thebibliography}%
+  \endgroup
+}
+\makeatother
+
+% END INLINE STUDY TOOLS
+% ======================================================================
+
 \begin{document}
 
 \allowdisplaybreaks
@@ -77,11 +321,12 @@
 
 \FirstPageHeading
 
-\ShortArticleName{Virtual Classes for the Working Mathematician}
+\ShortArticleName{Virtual Classes for the \sout{Working} Stupid Mathematician}
 
-\ArticleName{Virtual Classes for the Working Mathematician\footnote{This paper is a~contribution to the Special Issue on Integrability, Geometry, Moduli in honor of Motohico Mulase for his 65th birthday. The full collection is available at \href{https://www.emis.de/journals/SIGMA/Mulase.html}{https://www.emis.de/journals/SIGMA/Mulase.html}}}
+\ArticleName{Virtual Classes for the \sout{Working} Stupid Mathematician\footnote{This paper is a~contribution to the Special Issue on Integrability, Geometry, Moduli in honor of Motohico Mulase for his 65th birthday. The full collection is available at \href{https://www.emis.de/journals/SIGMA/Mulase.html}{https://www.emis.de/journals/SIGMA/Mulase.html}}}
 
 \Author{Luca BATTISTELLA~$^\dag$, Francesca CAROCCI~$^\ddag$ and Cristina MANOLACHE~$^\S$}
+\noindent{\small\itshape \hlblue{Study notes by Ignacio Rojas (Oct. 2026).}}\par
 
 \AuthorNameForHeading{L.~Battistella, F.~Carocci and C.~Manolache}
 
@@ -107,6 +352,15 @@
 
 \section{Introduction}
 Virtual classes have been introduced by Li--Tian \cite{litian} and Behrend--Fantechi \cite{BerFan} and are a key tool in enumerative geometry. However, virtual classes are usually considered to be difficult, possibly because there are very few explicit computations. The goal of this note is to show that virtual classes of well understood schemes are usually computable. The main reason for the lack of computations is not the definition of virtual classes -- which may indeed look unsuited for computations -- but the poor understanding of spaces on which we are usually interested to compute virtual classes. The main examples of spaces with virtual classes are moduli spaces of curves on a given variety such as moduli spaces of stable maps, Hilbert schemes, etc. All these spaces have the same major drawback: we typically know very little about their geometry. We expect that if we had a space with known cohomology and equations of this space inside a smooth ambient space, then the computation of its virtual class would be possible (see Section~\ref{algorithms}).
+
+% --- Inline annotations: insert ptcb after any passage. ---
+% \begin{ptcb}
+% \begin{Qn}
+% Write your question here.
+% \end{Qn}
+% \end{ptcb}
+% Use nonum-Def or NotesDef for a note definition; \Def remains an operator.
+% --- End annotation insertion example (nothing is printed). ---
 
 We now briefly describe the content of this paper. One of the ingredients in the construction of virtual classes is the normal cone. In Section~\ref{normalcones} we give examples of explicit computations of normal cones and we list properties of normal cones and their Segre classes. The second ingredient is a choice of a perfect obstruction theory. We define obstruction theories first in Section~\ref{gysinmorphism} and then more generally in Section~\ref{gluingobs}. In Section~\ref{gluingobs} an obstruction theory $E_{X/V}$ on a~scheme or DM stack $X$ is given by the following data:
 \begin{itemize}\itemsep=0pt
@@ -146,7 +400,7 @@ To express the tangency condition, consider the line $L=\{x_0=0\}$. A conic is t
 \]
 This gives a quadric $Q$ in $\mathbb P^5$. We might expect that the number of conics tangent to five lines in general position is given by intersecting the corresponding five quadrics. If $H$ denotes the hyperplane class in $A_*\big(\mathbb P^5\big)$, then the intersection of five general quadrics is \begin{gather*}(2[H])^5=2^5=32.\end{gather*} This is wrong: the correct number of conics tangent to five given lines is 1 (dually, it is the number of conics through five points). The reason why this count gives the wrong answer is that the intersection $\bigcap_{i=1}^5 Q_i$ is not transverse: it contains the positive-dimensional locus of double lines $Z\simeq \mathbb P^{2*}$. The contribution of~$Z$ to the intersection product $(2[H])^5$ can be computed via residual intersections (see \cite[Chapter~9]{Fulton}). We compute this contribution in Example~\ref{conics lines revised}.
 
-\subsection{A line and a plane}
+\subsection{A line and a plane}\label{section:line-plane}
 Let us now look at a virtual class on a space with components of different dimensions. The algebraic construction will be done in Section \ref{gysinmorphism}. This example is modelled on a certain moduli space of stable maps (see Section \ref{applications}).
 
 Consider $X=V(xz,yz)\subset\PP^3$, which is the union of the plane $H=(z=0)$ and the line $L=(x=y=0)$. Note that $X$ is the zero locus of two non transverse sections of $\OO_{\PP^3}(2)$. If the two sections were transverse, their intersection would have been a curve of degree~4 in $\PP^3$. We would like to define a virtual class in $A_*(X)$ which is related to the transverse intersection. Such a class on $X$ can be constructed in the following way. Deforming the equations which define $X$ to $\big(xz-\epsilon y^2,yz-2\epsilon x^2\big)$ we get the union $L\cup C_{\epsilon}$, where $C_{\epsilon}$ is a twisted cubic in $\mathbb P^3$. Taking the limit for $\epsilon$ going to zero, we get the union of the class of $L$ and the class of a degree~3 plane curve. Since virtual classes are supposed to be deformation invariants, the class of this limit in~$A_*(X)$ is a good candidate for the virtual class of~$X$. We will denote it by $[X]^{\vv}$.
@@ -482,13 +736,55 @@ The virtual class on $X$ is given by
  \\&=(D+A+B)\cdot[D]+[P].
 \end{align*}
 \end{Example}
-\begin{Example}Let us now look at a smooth surface $Y$, and $A$, $B$, $D$ effective Cartier divisors on $Y$ as before, but now let $A$ and $B$ meet transversally at a smooth point $P\in D$. For example, consider $Y=\PP^2$ with homogeneous coordinates $[x:y:z]$, $A=\{y=0\}$, $B=\{x-y=0\}$, $D=\{x=0\}$. We then have that the ideal of $A'\cap B'$ is $(xy, x(x-y))$ or equivalently $\big(xy, x^2\big)$. This shows that $A'\cap B'$ is isomorphic to $X$ in Example~\ref{doublepoint}. Although the set theoretic intersection of $A'$ and $B'$ is $D$, the scheme theoretic intersection is different and the virtual class is different from $D$. This is compatible with the fact that we can deform $A$ and $B$ in Example~\ref{exteriorpoint} such that in the limit $P\in D$ and virtual classes are deformation invariant. We can easily check deformation invariance in this case. If we take $A$, $B$, $D$ in Example~\ref{exteriorpoint} to be lines, we get $[X]^{\vv}= 4[P]$. This agrees with Example~\ref{doublepoint}.
+\begin{Example}\label{example:common-divisor-specialization}Let us now look at a smooth surface $Y$, and $A$, $B$, $D$ effective Cartier divisors on $Y$ as before, but now let $A$ and $B$ meet transversally at a smooth point $P\in D$. For example, consider $Y=\PP^2$ with homogeneous coordinates $[x:y:z]$, $A=\{y=0\}$, $B=\{x-y=0\}$, $D=\{x=0\}$. We then have that the ideal of $A'\cap B'$ is $(xy, x(x-y))$ or equivalently $\big(xy, x^2\big)$. This shows that $A'\cap B'$ is isomorphic to $X$ in Example~\ref{doublepoint}. Although the set theoretic intersection of $A'$ and $B'$ is $D$, the scheme theoretic intersection is different and the virtual class is different from $D$. This is compatible with the fact that we can deform $A$ and $B$ in Example~\ref{exteriorpoint} such that in the limit $P\in D$ and virtual classes are deformation invariant. We can easily check deformation invariance in this case. If we take $A$, $B$, $D$ in Example~\ref{exteriorpoint} to be lines, we get $[X]^{\vv}= 4[P]$. This agrees with Example~\ref{doublepoint}.
 \end{Example}
 
 \section{Gluing obstruction bundles}\label{gluingobs}
 In this section we motivate and define obstruction theories. We give the general definition of virtual classes as it appears in \cite{BerFan}. For many aspects in \cite{BerFan} which we do not discuss here, we refer to the original paper by Behrend and Fantechi. We refer to~\cite{Kstacks} and~\cite{vir-pull} for details regarding the stacky version of virtual pull-backs.
 
-For what we have seen so far, it is often easy to define a virtual class on a scheme. What is difficult is to define a virtual class of a given \emph{expected dimension} (see Section~\ref{obsdefth}). Recall that the dimension of the virtual cycle $[X]_{E_{X/Y}}^{\vv}$ depends on the rank of the obstruction bundle~$E_{X/Y}$. Obstruction bundles induced by generators of an ideal as in Section~\ref{section:obs} may often lead to trivial virtual classes. It is then natural to look for obstruction bundles of lower rank. Let us see what can go wrong in an example.
+For what we have seen so far, it is often easy to define a virtual class on a scheme. \hlpink{What is difficult is to define a virtual class of a given \emph{expected dimension}}\passagemark\label{passage:WhyDifficultVCExpDim} (see Section~\ref{obsdefth}). 
+
+\begin{ptcb}
+Regarding passage \ref{passage:WhyDifficultVCExpDim}, let us make a tableau summarizing the virtual classes we've computed in previous examples here, their dimension and then their expected dimension.
+
+In Construction~\ref{naive}, fix an embedding $X\hookrightarrow Y$ with
+$Y$ pure of dimension $d$, and a rank-$r$ obstruction bundle $E$ containing
+$C_{X/Y}$. Then
+\[
+ [X]^{\vv}_E\in A_{d-r}(X),\qquad
+ \operatorname{vdim}_E X=d-r.
+\]
+The index in $A_k(X)$ records the dimension of cycles. This virtual
+dimension need not equal $\dim X$. For a zero locus described by $r$
+equations in a smooth $d$-dimensional ambient space, $d-r$ is also the
+dimension predicted by treating those equations as transverse.
+
+\begingroup
+\small
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}l>{\centering\arraybackslash}Xrrr@{}}
+\toprule
+Example & $[X]^{\vv}_E$ & $\dim X$ &
+\shortstack{Virtual\\dimension} &
+\shortstack{Expected\\$d-r$}\\
+\midrule
+Section~\ref{section:line-plane}
+  & $[L]+[C_3]$ & $2$ & $1$ & $3-2=1$\\
+Example~\ref{excess}
+  & $c_{r-c}(F)\cap[X]$ & $d-c$ & $d-r$ & $d-r$\\
+Example~\ref{doublepoint}
+  & $4[P]$ & $1$ & $0$ & $2-2=0$\\
+Example~\ref{exteriorpoint}
+  & $(D+A+B)\cdot[D]+[P]$ & $1$ & $0$ & $2-2=0$\\
+Example~\ref{example:common-divisor-specialization}
+  & $4[P]$ & $1$ & $0$ & $2-2=0$\\
+\bottomrule
+\end{tabularx}
+\endgroup
+\end{ptcb}
+
+Recall that the dimension of the virtual cycle $[X]_{E_{X/Y}}^{\vv}$ depends on the rank of the obstruction bundle~$E_{X/Y}$. Obstruction bundles induced by generators of an ideal as in Section~\ref{section:obs} may often lead to trivial virtual classes. It is then natural to look for obstruction bundles of lower rank. Let us see what can go wrong in an example.
 \begin{Example}
 Consider the embedding of the twisted cubic
 \[
@@ -540,6 +836,27 @@ Here $\bar{\phi}_{ij}$ is the canonical isomorphism, and the horizontal maps are
 \end{enumerate}
 
  \end{Definition}
+
+\begin{ptcb}
+  Let us guide this definition through our example of curves. The space of maps embeds into the one of prestable curves, let's follow the definition through.
+  \begin{Ex}
+    In this scenario 
+    \begin{itemize}
+      \item \(X=\ov{M}_{g,n}(X,\bt)\) is the DM stack of maps to \(X\) with image class \(\bt\).
+      \item \(V=\lie{M}_{g,n}\) is the smooth Artin stack of prestable curves. 
+    \end{itemize}
+    The embedding \(X\hookto V\) is given by forgetting the map and retaining only the source. Explicitly
+    \[
+      \ov{M}_{g,n}(X,\bt)\hookto\lie{M}_{g,n},\quad (C,\un{p},f)\mapsto (C,\un{p})
+    \]
+    is the \emph{source} map forgetting the information about the map and only retaining the source curve.
+
+    \begin{Qn}
+      ¿What would be the covering of \(\lie{M}_{g,n}\) by open sets in this case?\par
+      Further, I understand that the embedding just forgets the source map. ¿Is this embedding also surjective? In other words, ¿are all the prestable curves a possible source curve for a stable map? In any case, ¿what would the \(U_i\)'s be?
+    \end{Qn}
+  \end{Ex}
+\end{ptcb}
 \begin{Remark} Given $X$ in $V$ as above and equations of $X$ in $V$, everything in the definition above is explicit. We have seen that cones can be described explicitly inside the corresponding obstruction bundles and gluing data can be given in terms of relations between generators of~$I_{U_i/V_i}$ and~$I_{U_j/V_j}$.
 \end{Remark}
 In conclusion, if we want to get reasonable virtual cycles, we need a lot of information: local equations of our space in a smooth ambient space, and gluing data for local obstruction bundles. In this way computations get quickly very messy. The information we want can be encoded more efficiently in a stacky gadget that we describe below. For this, we remark that given the embedding $X\hookrightarrow Y$, the na\"ive obstruction bundle $E_{X/Y}=\bigoplus \mathcal O_X(D_i)$ comes with a~piece of extra data we did not use so far. We have a morphism
@@ -1515,6 +1832,14 @@ Zinger A., The reduced genus 1 {G}romov--{W}itten invariants of {C}alabi--{Y}au
  \href{https://arxiv.org/abs/0705.2397}{arXiv:0705.2397}.
 
 
-\end{thebibliography}\LastPageEnding
+\end{thebibliography}
+% --- Ignacio's Notes Bibliography insertion point. ---
+% Uncomment the environment only when adding genuine new \bibitem entries.
+% Give their keys the notes: prefix; labels N1, N2, ... are automatic.
+% Cite those keys with \cite, as for the article's existing references.
+% \begin{notesbibliography}
+% \end{notesbibliography}
+% --- End Notes Bibliography insertion point. ---
+\LastPageEnding
 
 \end{document} 

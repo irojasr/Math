@@ -754,6 +754,27 @@ linear system gives a closed embedding into projective space. It is
 is very ample.
 \end{agcheatsheet}
 
+% BEGIN CLASSROOM ADDITION: notes/20261014.tex (evaluation and ratios).
+\begin{observation}[Evaluation in a one-dimensional fiber]
+\label{obs:classroom-evaluation-ratios}
+Intrinsically, evaluation at \(x\) is a linear map
+\[
+\operatorname{ev}_x:V\longrightarrow\mathcal L|_x.
+\]
+Its target is the fiber, rather than a canonically chosen copy of
+\(\Bbbk\). When evaluation is nonzero, identifying that fiber with
+\(\Bbbk\) gives a nonzero element of \(V^\vee\), well defined up to
+scalar. This explains the point of \(\PP(V^\vee)\) without choosing
+coordinates on the fiber.
+
+On the open set where \(s_j\ne0\), the affine coordinates of the
+projective map are the regular ratios \(s_i/s_j\). Thus division
+requires a nonvanishing denominator. The basepoints of a chosen
+subspace \(V\) concern that subspace; a line bundle is basepoint free
+when its entire space of global sections has no common zero.
+\end{observation}
+% END CLASSROOM ADDITION
+
 Let \(X_\Sigma\) be a complete toric variety, and let
 \[
 D=\sum_{\rho\in\Sigma(1)} a_\rho D_\rho
@@ -904,6 +925,40 @@ Thus dilating the triangle produces the familiar projective embedding
 by degree-\(d\) plane curves.
 \end{example}
 
+% BEGIN CLASSROOM ADDITION: notes/20261014.tex (the square and Segre map).
+\begin{example}[The unit square and the Segre quadric]
+\label{ex:classroom-segre-square}
+On \(\PP^1\times\PP^1\), take the rays
+\(e_1,e_2,-e_1,-e_2\), with divisor coefficients \(0,0,1,1\),
+respectively. The associated line bundle is \(\mathcal O(1,1)\), and
+\[
+P_D=[0,1]^2.
+\]
+The four lattice points give the torus map
+\[
+(s,t)\longmapsto[1:s:t:st].
+\]
+In homogeneous coordinates this extends to
+\[
+\begin{aligned}
+\PP^1\times\PP^1&\longrightarrow\PP^3,\\
+([u_0:u_1],[v_0:v_1])
+&\longmapsto[u_0v_0:u_1v_0:u_0v_1:u_1v_1].
+\end{aligned}
+\]
+The image is the quadric
+\[
+z_0z_3=z_1z_2.
+\]
+Indeed, its coordinates form a nonzero rank-one matrix
+\(\left(\begin{smallmatrix}z_0&z_2\\z_1&z_3\end{smallmatrix}\right)\).
+Such a matrix recovers its two projective factors uniquely, and this
+recovery is regular on the standard coordinate charts. Thus the map
+is the Segre embedding. The square therefore gives both a familiar
+surface and a concrete equation for its projective image.
+\end{example}
+% END CLASSROOM ADDITION
+
 \begin{example}[A blowup map from a truncated triangle]
 On
 \[
@@ -940,6 +995,58 @@ Compared with the full triangle for \(2H\), the missing lattice point
 \((0,0)\) reflects the vanishing condition imposed at the blown-up
 point.
 \end{example}
+
+% BEGIN CLASSROOM ADDITION: notes/20261014.tex (projection and its resolution).
+% The lecture uses [0:0:1]; coordinates are permuted to the chapter's [1:0:0].
+\begin{example}[Resolving projection from a point]
+\label{ex:classroom-projection-pencil}
+Keep the chapter's coordinates \(p=[1:0:0]\), and consider the
+two-dimensional subsystem
+\[
+V=\langle z_1,z_2\rangle\subset H^0(\PP^2,\mathcal O(1)).
+\]
+It defines the rational projection
+\[
+\phi_V:\PP^2\dashrightarrow\PP^1,\qquad
+[z_0:z_1:z_2]\longmapsto[z_1:z_2],
+\]
+whose basepoint is \(p\). Geometrically, it records the line through
+\(p\) and the chosen point. The segment with endpoints \(e_1,e_2\)
+indexes this subsystem of \(|H|\), rather than its complete set of
+sections on \(\PP^2\).
+
+On the blowup \(X=\Blp{\PP^2}{p}\), removing the common exceptional
+factor from the pullbacks of \(z_1,z_2\) gives two generating sections
+of \(H-E\). Here the complete section polytope is exactly
+\[
+P_{H-E}=\{(a,b):a,b\geq0,\ a+b=1\}.
+\]
+The rational projection has become a morphism:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X \arrow[d,"\pi"'] \arrow[dr,"\phi_{H-E}"] & \\
+\PP^2 \arrow[r,dashed,"\phi_V"'] & \PP^1.
+\end{tikzcd}
+\]
+An explicit model makes the two arrows easy to distinguish:
+\[
+X\cong
+\bigl\{([z_0:z_1:z_2],[u:v])\in\PP^2\times\PP^1:
+z_1v=z_2u\bigr\}.
+\]
+The first projection is \(\pi\), and the second is
+\(\phi_{H-E}\). Its fiber over \([u:v]\) is the strict transform of
+the line \(z_1v=z_2u\) through \(p\), hence a copy of \(\PP^1\).
+The exceptional curve is \(E=\{p\}\times\PP^1\). The map \(\pi\)
+contracts it to \(p\), whereas \(\phi_{H-E}|_E\) is an isomorphism
+onto the target \(\PP^1\): a point of \(E\) records a tangent
+direction at \(p\).
+
+Thus resolving the basepoint makes the map regular, but does not make
+it injective. The whole strict transform of each line remains one
+fiber. We return to this boundary case in the positivity discussion.
+\end{example}
+% END CLASSROOM ADDITION
 
 \begin{pauseandthink}
 What happens if one starts with a finite subset
@@ -1114,6 +1221,20 @@ m-m_\sigma=0.
 \]
 \end{proof}
 
+% BEGIN CLASSROOM ADDITION: notes/20261016.tex (why eigensections matter).
+\begin{observation}[The monomial hypothesis matters]
+\label{obs:classroom-eigensection-hypothesis}
+The preceding fixed-point argument is specific to monomial sections.
+A general regular section nonzero at \(x_\sigma\) need only be a
+frame near that point: \(1+x\) on \(\AAA^1\) is nonzero at \(0\)
+but vanishes at \(-1\). Nor do boundary orders alone determine the
+value of an arbitrary section at a fixed point: \(x+y\) vanishes at
+the origin of \(\AAA^2\), although it has order zero along both
+coordinate axes. Passing to a nonvanishing weight component is what
+makes the monomial criterion applicable to global generation.
+\end{observation}
+% END CLASSROOM ADDITION
+
 This lemma gives a useful interpretation of the Cartier datum:
 \[
 \boxed{
@@ -1124,6 +1245,40 @@ This lemma gives a useful interpretation of the Cartier datum:
 \]
 The only question is whether that exponent actually lies in \(P_D\),
 so that the local frame extends to a global section.
+
+% BEGIN CLASSROOM ADDITION: notes/20261016.tex (the local model x^2/y).
+\begin{example}[A local equation and its reciprocal frame]
+\label{ex:classroom-reciprocal-frame}
+Suppose \(U_\sigma\simeq\AAA^2\), with boundary divisors
+\(V(x),V(y)\), and
+\[
+D|_{U_\sigma}=2V(x)-V(y)
+=\operatorname{div}\!\left(\frac{x^2}{y}\right).
+\]
+The local defining equation has a zero of order two along \(V(x)\)
+and a pole of order one along \(V(y)\). Its reciprocal is a frame of
+\(\mathcal O(D)\): in the rational-function realization used here,
+\[
+m_\sigma=(-2,1),\qquad e_\sigma=\character{m_\sigma}=\frac{y}{x^2}.
+\]
+Every regular section on this chart is
+\[
+f=p(x,y)e_\sigma=p(x,y)\frac{y}{x^2},
+\qquad p\in\Bbbk[x,y].
+\]
+Its value in the line-bundle fiber at \(x_\sigma=(0,0)\) is nonzero
+exactly when \(p(0,0)\ne0\). In that case,
+\[
+\ord_{V(x)}(f)=-2,\qquad \ord_{V(y)}(f)=1.
+\]
+The rational function \(f\) can therefore have a pole while still
+representing a regular section of \(\mathcal O(D)\). The coefficient
+\(p\), not the numerical value of \(f\), is evaluated in this frame.
+The monomial frame extends globally exactly when
+\((-2,1)\in P_D\); rays outside \(\sigma\) supply the remaining
+inequalities for that extension.
+\end{example}
+% END CLASSROOM ADDITION
 
 \subsection{Convex support functions and global generation}
 
@@ -1155,6 +1310,25 @@ functions, some books on convex analysis would call it concave or
 upper convex. We follow the standard toric convention used by
 Cox--Little--Schenck: this condition is called convex.
 \end{warningbox}
+
+% BEGIN CLASSROOM ADDITION: notes/20261016.tex (the classroom sign convention).
+\begin{observation}[Translating the classroom maximum formula]
+\label{obs:classroom-support-sign}
+If the local defining equation is written as
+\(\character{q_\sigma}\), then \(q_\sigma=-m_\sigma\).
+The opposite support function \(\eta_D=-\psi_D\) has
+\(\eta_D(u_\rho)=a_\rho\), and
+\[
+\psi_D(u)=\min_\sigma\langle m_\sigma,u\rangle
+\quad\Longleftrightarrow\quad
+\eta_D(u)=\max_\sigma\langle q_\sigma,u\rangle.
+\]
+This is the maximum formula used in class, with the local-equation
+exponents in place of the frame exponents. Throughout this chapter,
+\(\psi_D\) retains the minimum convention. Both formulas express the
+same global-generation condition.
+\end{observation}
+% END CLASSROOM ADDITION
 
 \begin{theorem}[Basepoint freeness equals convexity]
 \label{thm:basepoint-free-convex}
@@ -1231,6 +1405,32 @@ piecewise-linear function:
 \psi_D\text{ bends convexly across every wall.}
 }
 \]
+
+% BEGIN CLASSROOM ADDITION: notes/20261016.tex (the three linear pieces on P^2).
+\begin{example}[The support function of a line on \(\PP^2\)]
+\label{ex:classroom-p2-support-function}
+For the ray generators \(u_0=-e_1-e_2,u_1=e_1,u_2=e_2\), take
+\(D=D_0\). Its polytope is \(\Delta_2\), and its Cartier data and
+linear pieces are
+\[
+\begin{array}{c|c|c}
+\sigma&m_\sigma&\psi_D(x,y)\text{ on }\sigma\\ \hline
+\Cone{e_1,e_2}&(0,0)&0\\
+\Cone{e_2,-e_1-e_2}&(1,0)&x\\
+\Cone{-e_1-e_2,e_1}&(0,1)&y
+\end{array}
+\]
+All three Cartier data lie in \(\Delta_2\). On each cone, the
+listed linear piece is the smallest of \(0,x,y\), so
+\[
+\psi_D(x,y)=\min(0,x,y).
+\]
+The classroom expression \(\max(0,-x,-y)\) is its negative, as in
+\cref{obs:classroom-support-sign}. Along a common ray the neighboring
+formulas agree, making continuity and the convexity criterion
+visible in this example.
+\end{example}
+% END CLASSROOM ADDITION
 
 \begin{observation}
 There is also a numerical name for this condition. A Cartier divisor
@@ -1487,6 +1687,20 @@ wall.
 \item When \(r=d\), the polytope loses dimension. The linear system
 remembers only the pencil of lines through the blown-up point.
 \end{itemize}
+
+% BEGIN CLASSROOM ADDITION: notes/20261014.tex (the two boundary maps).
+The classroom projection in \cref{ex:classroom-projection-pencil}
+also makes both boundary cases explicit. For every \(k\geq1\),
+\[
+\phi_{kH}=\nu_k\circ\pi,\qquad
+\phi_{k(H-E)}=\nu_k\circ\phi_{H-E},
+\]
+where the Veronese maps are those of \(\PP^2\) and \(\PP^1\),
+respectively. Thus every positive multiple of \(H\) still contracts
+\(E\), and every positive multiple of \(H-E\) still contracts the
+strict transforms of the lines through \(p\). These divisors are
+basepoint free without becoming very ample after scaling.
+% END CLASSROOM ADDITION
 
 \begin{pauseandthink}
 On \(\PP^1\times\PP^1\), show that the polytope of
@@ -1817,6 +2031,338 @@ Choose a vector in the interior of your predicted cone and determine
 where its linear function is minimized on \(P\). Then compare your
 answer with \cref{fig:truncated-triangle-normal-fan}.
 \end{prediction}
+
+% BEGIN CLASSROOM ADDITION: notes/20261016.tex (the trapezoid vertex charts).
+\subsection{Recovering a variety from its vertex charts}
+
+\begin{example}[The five-monomial trapezoid]
+\label{ex:classroom-trapezoid-charts}
+The classroom question ``which variety does a polytope produce?'' can
+be answered directly in affine coordinates. Consider
+\[
+P=\Conv\{(0,0),(2,0),(1,1),(0,1)\}
+\]
+and its five lattice points, ordered as
+\[
+m_0=(0,0),\quad m_1=(1,0),\quad m_2=(0,1),\quad
+m_3=(2,0),\quad m_4=(1,1).
+\]
+Writing \((s,t)\) for coordinates on the torus, set
+\[
+\phi_P(s,t)=[1:s:t:s^2:st],\qquad
+Y=\overline{\phi_P(T)}\subseteq\PP^4.
+\]
+Let \(Y_i=Y\cap\{x_i\ne0\}\). On the chart \(i=0\),
+the image has coordinates \((s,t,s^2,st)\). Its closure is the graph
+of the polynomial map \((s,t)\mapsto(s^2,st)\), so
+\[
+Y_0=V(z_3-z_1^2,z_4-z_1z_2)\cong\AAA^2,
+\qquad z_j=x_j/x_0.
+\]
+The remaining vertex charts work in the same way. In each tuple below,
+the coordinates \(x_j/x_i\) appear in increasing order of \(j\ne i\).
+\[
+\begin{array}{c|c|c|c}
+i&m_i&\text{parameters }(u,v)&\text{normalized image}\\ \hline
+0&(0,0)&(s,t)&(u,v,u^2,uv)\\
+2&(0,1)&(s,t^{-1})&(v,uv,u^2v,u)\\
+3&(2,0)&(s^{-1},t/s)&(u^2,u,uv,v)\\
+4&(1,1)&(s^{-1},s/t)&(u^2v,uv,u,v)
+\end{array}
+\]
+Each tuple contains \(u,v\) themselves, with the other entries
+polynomial in them. Thus each of these four charts is an affine plane.
+
+Why do normal cones appear? Dividing by the coordinate of a vertex
+\(m_i\) replaces each character \(\character{m}\) by
+\(\character{m-m_i}\). Their exponents generate the tangent cone
+\[
+\sigma_i^\vee=\Cone{P-m_i}\subseteq M_\RR.
+\]
+Its dual is precisely the inward normal cone at \(m_i\):
+\[
+\sigma_i=\{u\in N_\RR:
+\langle m-m_i,u\rangle\geq0\text{ for every }m\in P\}.
+\]
+The tangent cone lies in the character space, whereas the normal
+cone lies in the dual space. In the present example the normal cones
+are
+\[
+\begin{aligned}
+\sigma_0&=\Cone{e_1,e_2},&
+\sigma_2&=\Cone{e_1,-e_2},\\
+\sigma_3&=\Cone{e_2,-e_1-e_2},&
+\sigma_4&=\Cone{-e_1-e_2,-e_2}.
+\end{aligned}
+\]
+At each vertex the two parameter exponents form a lattice basis, so
+the displayed coordinate ring is exactly
+\(\Bbbk[\sigma_i^\vee\cap M]\).
+
+The lattice point \((1,0)\) is not a vertex. Its chart has coordinates
+\[
+(s^{-1},t/s,s,t)=(u^{-1},v,u,uv),
+\]
+and therefore
+\[
+Y_1\cong\Spec\Bbbk[u,u^{-1},v]\cong\Gm\times\AAA^1.
+\]
+The relation \(x_1^2=x_0x_3\) on \(Y\) gives
+\(Y_1=Y_0\cap Y_3\). Consequently the four vertex charts cover \(Y\).
+They glue through their common torus characters; for example, on
+\(Y_0\cap Y_3\) the coordinate change is
+\((s,t)\mapsto(s^{-1},t/s)\). These are the affine charts and gluing
+maps of the normal fan, so
+\[
+Y\cong X_{\Sigma_P}.
+\]
+
+This is also the earlier \(2H-E\) example in different lattice
+coordinates: the affine lattice transformation
+\[
+(r,q)\longmapsto(a,b)=(2-r-q,r)
+\]
+sends \(P\) to
+\(\{a,b\geq0:1\leq a+b\leq2\}=P_{2H-E}\).
+The linear part of this transformation has determinant one. The chart
+calculation therefore explains concretely why the five sections of
+\(2H-E\) embed the blowup into \(\PP^4\).
+\end{example}
+
+\begin{observation}[The semigroup check]
+\label{obs:classroom-vertex-semigroups}
+For a finite set \(A\) affinely spanning \(M_\RR\) and a vertex
+\(v\) of its convex hull, the
+corresponding affine chart of the orbit closure has coordinate ring
+\[
+\Bbbk[S_v],\qquad S_v=\NN\{m-v:m\in A\}.
+\]
+By \cref{thm:normality-saturation-cone}, its cone alone need not determine this ring: the semigroup may have
+missing lattice points. When the differences in \(A\) generate \(M\),
+saturating these semigroups gives the affine charts of
+\(X_{\Sigma_{\Conv(A)}}\), hence the normalization of
+the orbit closure. If they generate a proper sublattice, that
+sublattice is the character lattice of the image torus and must be
+used in the normalization statement. In the trapezoid example the
+parameter calculations verify saturation in \(M\) at every vertex,
+so no normalization is needed.
+\end{observation}
+% END CLASSROOM ADDITION
+
+% BEGIN CLASSROOM ADDITION: notes/20261019.tex (local functions and very ampleness).
+\begin{observation}[Local functions versus normalized global sections]
+In the trapezoid example, let \(D\) be the invariant Cartier divisor
+with \(P_D=P\), and take
+\(\sigma=\Cone{e_2,-e_1-e_2}\), whose Cartier datum is
+\(m_\sigma=(2,0)\). The monomial frame is
+\label{obs:classroom-oct19-local-global}
+\(e_\sigma=s^2s_D\), and division by it identifies
+\[
+H^0(U_\sigma,\mathcal O(D))
+\xrightarrow{\ \widetilde s\mapsto\widetilde s/e_\sigma\ }
+\Bbbk[\sigma^\vee\cap M]
+=\Bbbk[s^{-1},t/s].
+\]
+The translated lattice points \((P_D\cap M)-m_\sigma\) record the
+normalized \emph{global} sections; the whole cone records all local
+regular monomials. For example, \(s^{-3}\) is regular on this chart,
+but
+\[
+s^{-3}e_\sigma=s^{-1}s_D
+\]
+does not extend to a global regular section, since \((-1,0)\notin P_D\).
+Thus trivializing the bundle and extending a section globally are
+different operations.
+\end{observation}
+
+\subsection{When the vertex coordinates give an embedding}
+
+The semigroup check also makes the distinction between ample and very
+ample precise. Let \(P\subseteq M_\RR\) be a full-dimensional lattice
+polytope, and let
+\(D_P\) be its ample Cartier divisor on \(X_{\Sigma_P}\). At a vertex
+\(v\), write
+\[
+S_v=\NN\{m-v:m\in P\cap M\},\qquad
+\sigma_v^\vee=\Cone{P-v}.
+\]
+The normalized projective coordinates generate \(\Bbbk[S_v]\), whereas
+the coordinate ring of the prescribed normal affine chart is
+\(\Bbbk[\sigma_v^\vee\cap M]\). Consequently,
+\[
+\boxed{
+D_P\text{ is very ample}
+\quad\Longleftrightarrow\quad
+S_v=\sigma_v^\vee\cap M\text{ at every vertex }v.
+}
+\]
+Indeed, the nonvanishing locus of the vertex section is
+\(U_{\sigma_v}\). On this open set, a closed embedding is equivalent
+to surjectivity of the coordinate-ring map, which is exactly the
+displayed semigroup equality. These vertex opens cover the variety
+and the corresponding affine target opens cover its image. That
+image is closed because \(X_{\Sigma_P}\) is projective.
+Equality of the \emph{real cones} alone does not ensure equality of
+their integral semigroups.
+
+Every lattice polygon satisfies this condition: it admits a
+triangulation into unimodular lattice triangles, and dilating those
+triangles shows that every lattice point of \(kP\) is a sum of \(k\)
+lattice points of \(P\). Applied near a vertex, this also gives the
+displayed tangent-semigroup equality. In dimension three the equality
+can fail, even for an ample divisor.
+
+\begin{example}[An ample divisor that needs to be doubled]
+\label{ex:classroom-oct19-reeve}
+For this example work over \(\CC\), as in the lecture, and take
+\[
+M=\ZZ^3,\qquad w=(1,1,2),\qquad
+P=\Conv\{0,e_1,e_2,w\}.
+\]
+This is the height-two Reeve tetrahedron. Its only lattice points are
+its four vertices, so its complete linear system restricts on the
+torus to
+\[
+\phi_{D_P}(s,t,u)=[1:s:t:stu^2].
+\]
+The points \((s,t,u)\) and \((s,t,-u)\) have the same image. Moreover,
+every \([1:a:b:c]\) with \(abc\ne0\) is obtained by choosing
+\(u^2=c/(ab)\). Hence the projective image is all of \(\PP^3\).
+The exponent differences generate
+\[
+M'=\ZZ e_1+\ZZ e_2+\ZZ w
+=\{(a,b,c)\in M:c\text{ is even}\},
+\]
+an index-two sublattice. Thus the map
+\(X_{\Sigma_P}\to\PP^3\) is finite of degree two, and is not an
+embedding. This is the lattice issue in
+Observation~\ref{obs:classroom-vertex-semigroups}, rather than a normalization of
+\(\PP^3\).
+
+At the vertex \(0\), the missing lattice point
+\[
+h=(1,1,1)=\tfrac12(e_1+e_2+w)
+\]
+lies in the tangent cone but not in \(S_0\). Its character is \(stu\).
+The cone semigroup is generated by \(e_1,e_2,w,h\), so the normal-fan
+chart is
+\[
+\Spec\CC[s,t,stu^2,stu]
+\cong\Spec\CC[a,b,c,d]/(d^2-abc).
+\]
+Its origin is singular, whereas the image chart
+\(\Spec\CC[s,t,stu^2]\) is an affine three-space. In particular,
+smoothness of the image does not imply smoothness of the prescribed
+normal-fan variety.
+
+% Classroom addition from notes/20261019.tex, Diagrams 5--6.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,line join=round]
+  % Equal display sizes; the coordinates in the right panel are twice as large.
+  \begin{scope}[
+    x={(1.7325cm,-0.42cm)},
+    y={(-0.9975cm,0.315cm)},
+    z={(0.105cm,1.155cm)}]
+    \coordinate (O) at (0,0,0);
+    \coordinate (A) at (1,0,0);
+    \coordinate (B) at (0,1,0);
+    \coordinate (W) at (1,1,2);
+    \fill[DictionaryBlue!7] (O)--(A)--(W)--cycle;
+    \fill[DictionaryBlue!13] (O)--(B)--(W)--cycle;
+    \draw[DictionaryBlue,thick,dashed] (A)--(B);
+    \draw[DictionaryBlue,very thick] (O)--(A)--(W)--(B)--cycle;
+    \draw[DictionaryBlue,thick] (O)--(W);
+    \foreach \point in {O,A,B,W}
+      \fill[DictionaryBlue] (\point) circle (2pt);
+    \node[below left] at (O) {\(0\)};
+    \node[below right] at (A) {\(e_1\)};
+    \node[above left] at (B) {\(e_2\)};
+    \node[above right] at (W) {\(w=(1,1,2)\)};
+  \end{scope}
+  \node[font=\bfseries] at (0.40,2.95) {\(P\)};
+  \node at (0.40,-0.95) {four lattice points};
+
+  \begin{scope}[xshift=5.8cm,
+    x={(0.86625cm,-0.21cm)},
+    y={(-0.49875cm,0.1575cm)},
+    z={(0.0525cm,0.5775cm)}]
+    \coordinate (OO) at (0,0,0);
+    \coordinate (AA) at (2,0,0);
+    \coordinate (BB) at (0,2,0);
+    \coordinate (WW) at (2,2,4);
+    \coordinate (H) at (1,1,1);
+    \coordinate (Qzero) at (1,1,0);
+    \coordinate (Qtwo) at (1,1,2);
+    \fill[PredictionTeal!7] (OO)--(AA)--(WW)--cycle;
+    \fill[PredictionTeal!13] (OO)--(BB)--(WW)--cycle;
+    \draw[PredictionTeal,thick,dashed] (AA)--(BB);
+    \draw[PredictionTeal,very thick] (OO)--(AA)--(WW)--(BB)--cycle;
+    \draw[PredictionTeal,thick] (OO)--(WW);
+    \draw[black!50,densely dotted] (Qzero)--(Qtwo);
+    % All six edge midpoints, including (2,1,2) and (1,2,2).
+    \foreach \point in {(1,0,0),(0,1,0),(1,1,0),
+                          (1,1,2),(2,1,2),(1,2,2)}
+      \fill[black!75] \point circle (1.8pt);
+    \foreach \point in {OO,AA,BB,WW}
+      \fill[PredictionTeal] (\point) circle (2pt);
+    \fill[white] (H) circle (3.6pt);
+    \filldraw[fill=ExampleGold!28,draw=ExampleGold,thick]
+      (H) circle (2.7pt);
+    \node[below left] at (OO) {\(0\)};
+    \node[below right] at (AA) {\(2e_1\)};
+    \node[above left] at (BB) {\(2e_2\)};
+    \node[above right] at (WW) {\(2w\)};
+  \end{scope}
+  \draw[ExampleGold,thin] (6.28,0.54)--(7.32,0.85);
+  \node[right,text=ExampleGold,fill=white,inner sep=1.5pt]
+    at (7.32,0.85) {\(h=(1,1,1)\)};
+  \node[font=\bfseries] at (6.20,2.95) {\(2P\)};
+  \node at (6.20,-0.95) {eleven lattice points};
+\end{tikzpicture}
+\caption{The height-two Reeve tetrahedron and its dilation, drawn at
+matching display sizes. The only lattice points of \(P\) are its four
+vertices. The eleven lattice points of \(2P\) consist of four vertices,
+six edge midpoints, and the highlighted interior point \(h\), which
+supplies the missing character \(\chi^h=stu\). Dashed edges are hidden.}
+\label{fig:classroom-oct19-reeve}
+\end{figure}
+
+Now replace \(P\) by \(2P\), keeping the same normal fan. If \(V\)
+denotes the set of four vertices of \(P\), then
+\[
+2P\cap M
+=\{v+v':v,v'\in V\}\cup\{h\}.
+\]
+There are eleven points: four vertices, six edge midpoints, and the
+interior point \(h\). They give the map to \(\PP^{10}\) with
+coordinates
+\[
+[1:s:t:st:stu:stu^2:s^2:t^2:s^2tu^2:st^2u^2:s^2t^2u^4].
+\]
+The new coordinates recover \(u=(stu)/(st)\) on the torus. If the
+coordinates corresponding to \(st,stu,stu^2\) are \(X_3,X_4,X_5\),
+then \(X_4^2=X_3X_5\); this is one relation, rather than a complete
+set of defining equations.
+
+To check the boundary as well, let \(v\in V\), and let
+\(r_1,r_2,r_3\) be its differences to the other three vertices. Their
+determinant has absolute value two. The half-open fundamental
+parallelepiped contains precisely \(0\) and
+\[
+h_v=h-2v=\tfrac12(r_1+r_2+r_3).
+\]
+Subtracting integer parts of the cone coefficients gives
+\[
+\Cone{P-v}\cap M
+=\NN r_1+\NN r_2+\NN r_3+\NN h_v.
+\]
+All four generators occur in \((2P\cap M)-2v\): use the points
+\(v+v_i\) and \(h\). The vertex criterion therefore proves that
+\(2D_P\) is very ample. Doubling supplies the missing local
+generators; it changes neither the fan nor the singularities.
+\end{example}
+% END CLASSROOM ADDITION: notes/20261019.tex
 
 \subsection{What changes the normal fan?}
 
@@ -2257,6 +2803,17 @@ charts.
 A lattice polygon satisfying this condition is often called a
 \emph{smooth} or \emph{Delzant} polygon.
 
+% BEGIN CLASSROOM ADDITION: notes/20261019.tex (primitive directions in Diagram 8).
+\begin{observation}[Use primitive edge directions]
+At \((2,0)\) in the polygon of
+Example~\ref{ex:classroom-trapezoid-charts}, the primitive outgoing
+directions are \((-1,0)\) and \((-1,1)\), with determinant \(-1\).
+The entire bottom-edge vector is \((-2,0)\); using it would
+incorrectly multiply the determinant by two. The smoothness test
+records directions in the lattice, independently of edge lengths.
+\end{observation}
+% END CLASSROOM ADDITION: notes/20261019.tex
+
 \begin{example}[A singular triangle]
 The triangle
 \[
@@ -2293,6 +2850,76 @@ If \(D\) gives a projective embedding, then \(D\cdot C\) is the degree
 of the image of \(C\) with respect to a hyperplane. The
 self-intersection \(D^2\) is the degree of the embedded surface.
 \end{agcheatsheet}
+
+% BEGIN CLASSROOM ADDITION: notes/20261019.tex (the geometric restriction picture).
+\begin{observation}[Count zeros after restricting the bundle]
+\label{obs:classroom-oct19-restrict-section}
+Suppose \(C\) is smooth and a nonzero regular section
+\(\widetilde s\) of \(L=\mathcal O_X(D)\) has zero divisor \(A\).
+If \(C\) is not a component of \(A\), then
+\[
+D\cdot C=\deg(L|_C)
+=\sum_{p\in C}\ord_p(\widetilde s|_C).
+\]
+Geometrically, intersect the section graph with the zero section,
+then restrict to \(C\). Transverse intersections contribute one;
+all intersections are counted with multiplicity.
+
+If \(C\) is a component of \(A\), the restricted section is
+identically zero, although the restricted line bundle still exists.
+Choose another section when the linear system permits it; basepoint
+freeness guarantees a section not vanishing identically on \(C\).
+Any two nonzero rational sections differ by a rational function:
+\[
+\widetilde s'=g\widetilde s,\qquad
+\operatorname{div}(\widetilde s')
+=A+\operatorname{div}(g).
+\]
+This is the section interpretation of changing the divisor by a
+principal divisor. The replacement is regular exactly when its
+section divisor is effective. Without such a regular replacement,
+one can use a rational section avoiding \(C\) at its generic point;
+its restriction computes degree as zeros \emph{minus} poles. Thus
+moving a divisor does not require pretending every line bundle is
+basepoint free.
+\end{observation}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>=Latex]
+  \begin{scope}[xshift=-3.5cm]
+    \filldraw[fill=DictionaryBlue!3,draw=black!35]
+      (-2.3,0.3) rectangle (2.3,2.3);
+    \draw[DictionaryBlue,thick] (-2.3,1)--(2.3,1)
+      node[right] {\(0_C\)};
+    \draw[WarningRed,very thick,domain=-2.1:2.1,samples=60]
+      plot (\x,{1+0.25*(\x*\x-1)});
+    \node[WarningRed] at (0,1.85) {\(\widetilde s|_C\)};
+    \draw[thick] (-2.3,-0.4)--(2.3,-0.4) node[right] {\(C\)};
+    \foreach \p in {-1,1} {
+      \draw[dashed,black!45] (\p,1)--(\p,-0.4);
+      \fill (\p,1) circle (1.8pt);
+      \fill (\p,-0.4) circle (1.8pt);
+    }
+    \node[above] at (0,2.3) {\(L|_C\): isolated zeros};
+  \end{scope}
+  \begin{scope}[xshift=3.5cm]
+    \filldraw[fill=DictionaryBlue!3,draw=black!35]
+      (-2.3,0.3) rectangle (2.3,2.3);
+    \draw[DictionaryBlue,line width=2pt] (-2.3,1)--(2.3,1);
+    \draw[WarningRed,very thick,dashed] (-2.3,1)--(2.3,1);
+    \node[WarningRed] at (0,1.85) {\(\widetilde s|_C\equiv0\)};
+    \draw[thick] (-2.3,-0.4)--(2.3,-0.4) node[right] {\(C\)};
+    \node[above] at (0,2.3) {a component of the zero divisor};
+  \end{scope}
+\end{tikzpicture}
+\caption{Schematic slices of the restricted line bundle. On the left,
+the section gives a finite zero divisor on the curve. On the right,
+it coincides with the zero section, so a different rational or regular
+representative is needed to compute degree by points.}
+\label{fig:classroom-oct19-bundle-restriction}
+\end{figure}
+% END CLASSROOM ADDITION: notes/20261019.tex
 
 For an edge \(F\) of a lattice polygon, define its \emph{lattice
 length} by
@@ -2379,6 +3006,230 @@ Which lengths vanish when \(a=0\) or \(b=0\), and which toric curves
 should the corresponding projective map contract?
 \end{surfacelaboratory}
 
+% BEGIN CLASSROOM ADDITION: notes/20261019.tex (Hirzebruch classes and restriction).
+\subsection{Supplementary example: the classroom trapezoid}
+\label{subsec:classroom-oct19-hirzebruch-restriction}
+
+Return to the polygon from Example~\ref{ex:classroom-trapezoid-charts}, in
+the same lattice coordinates:
+\[
+P=\Conv\{(0,0),(2,0),(1,1),(0,1)\}.
+\]
+Its inward normal rays are \(e_1,e_2,-e_1-e_2,-e_2\). Their fan is
+the fan of \(X=\Hirz{1}\cong\Blp{\PP^2}{p}\). Name the four
+invariant curves
+\[
+F=D_{e_1},\qquad B=D_{e_2},\qquad
+F'=D_{-e_1-e_2},\qquad E=D_{-e_2}.
+\]
+The notation \(D_u\) here means the divisor of the ray generated by
+\(u\). The coefficients of the divisor defining \(P\) are
+\[
+D=2F'+E,\qquad
+P_D=\{(r,q):r,q\geq0,\ q\leq1,\ r+q\leq2\}.
+\]
+These coordinates differ from the earlier Hirzebruch catalogue:
+the affine lattice transformation \((r,q)\mapsto(r,1-q)\) sends
+this polygon to \(\Conv\{(0,0),(1,0),(2,1),(0,1)\}\).
+Its linear part reflects the normal fan. In particular, the names
+of the upper and lower section curves must be matched through that
+reflection.
+
+\begin{example}[Recover the intersections from the class group]
+\label{ex:classroom-oct19-hirzebruch-classes}
+Write \(s=\character{(1,0)}\) and \(t=\character{(0,1)}\).
+The character-divisor formula gives
+\[
+\operatorname{div}(s)=F-F',\qquad
+\operatorname{div}(t)=B-F'-E.
+\]
+Thus \(F'\sim F\) and \(B\sim E+F\). The divisor-class sequence
+from Chapter~4 gives
+\[
+\Cl(X)=\Pic(X)=\ZZ[F]\oplus\ZZ[E].
+\]
+Here \(F,F'\) are distinct fibers of the ruling, \(E\) is its
+negative section, and \(B\) is a disjoint section. Adjacent invariant
+curves meet transversely once, while nonadjacent ones are disjoint.
+It follows that
+\[
+F^2=F\cdot F'=0,\qquad E\cdot F=1,\qquad
+0=E\cdot B=E\cdot(E+F),
+\]
+so \(E^2=-1\) and \(B^2=(E+F)^2=1\). The full intersection table is
+\[
+\begin{array}{c|rrrr}
+\cdot&F&B&F'&E\\ \hline
+F &0&1&0&1\\
+B &1&1&1&0\\
+F'&0&1&0&1\\
+E &1&0&1&-1
+\end{array}
+\]
+Taking \(H=B\), the pullback of a line on \(\PP^2\), recovers
+\[
+D\sim2F+E=2H-E.
+\]
+Thus the class-group calculation gives exactly the polygon lengths:
+\[
+\begin{array}{c|c|c}
+\text{curve}&\text{dual edge of }P_D&D\cdot\text{curve}\\ \hline
+F &r=0&1\\
+B &q=0&2\\
+F'&r+q=2&1\\
+E &q=1&1
+\end{array}
+\]
+For instance, \(F\cdot(2F+E)=1\), whereas
+\(B\cdot(2F+E)=2\). The four numbers come from the same divisor
+class, even though its chosen invariant representative visibly
+contains only \(F'\) and \(E\).
+\end{example}
+
+\begin{example}[Restrict using the star fan]
+\label{ex:classroom-oct19-star-restriction}
+The invariant curve \(C=V(\rho)\) is the \emph{closure} of the orbit
+\(O(\rho)\cong\Gm\), and here \(C\cong\PP^1\). By
+Proposition~\ref{prop:fan-of-orbit-closure}, its fan is formed by retaining only
+cones containing \(\rho\), then taking their images in
+\[
+N_\rho=N/\ZZ u_\rho.
+\]
+One must restrict to this star before taking the quotient; projecting
+every ray can include a divisor that does not meet \(C\).
+
+First let \(C=F\). Its coefficient in \(D=2F'+E\) is zero, so
+the canonical section does not vanish identically on it. The
+neighboring rays are \(e_2\) and \(-e_2\), and the quotient map
+\(q(a,b)=b\) sends them to \(+1\) and \(-1\). Their coefficients
+are \(0\) and \(1\). Hence
+\[
+D|_F=[E\cap F],\qquad
+\mathcal O_X(D)|_F\cong\mathcal O_{\PP^1}(1).
+\]
+Although \(-e_1-e_2\) also maps to \(-1\), its divisor \(F'\) is
+disjoint from \(F\) and contributes nothing.
+
+% Classroom addition: notes/20261019.tex, Diagram 11 (restriction to a fiber).
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\small,>={Latex[length=2.2mm]},line join=round]
+  % Retain only the two maximal cones containing rho_F.
+  \fill[SurfaceGreen!9] (0,0) rectangle (1.75,1.75);
+  \fill[PausePurple!9] (0,0) rectangle (1.75,-1.75);
+  \draw[very thick,DictionaryBlue,->] (0,0)--(1.95,0)
+    node[right] {\(F:e_1\)};
+  \draw[very thick,SurfaceGreen,->] (0,0)--(0,1.95)
+    node[above] {\(B:e_2\)};
+  \draw[very thick,PausePurple,->] (0,0)--(0,-1.95)
+    node[below] {\(E:-e_2\)};
+  \draw[thick,WarningRed!55!black,densely dashed,->]
+    (0,0)--(-1.35,-1.35)
+    node[below left] {\(F'\)};
+  \fill (0,0) circle (1.5pt);
+  \node[DictionaryBlue,below] at (1.05,-0.10) {\(a_F=0\)};
+  \node[SurfaceGreen,left] at (-0.12,1.15) {\(a_B=0\)};
+  \node[PausePurple,left] at (-0.12,-1.50) {\(a_E=1\)};
+  \node[WarningRed!65!black,left] at (-0.55,-0.48) {\(a_{F'}=2\)};
+  \node at (0,2.75) {\(\Sigma_P\)};
+  \node[align=center] at (0,-2.78)
+    {\(D=2F'+E\)\\shaded: cones containing \(\rho_F\)};
+
+  \draw[thick,->] (3.25,0.18)--(5.10,0.18)
+    node[midway,above] {\(q(a,b)=b\)}
+    node[midway,below] {\(e_1\mapsto0\)};
+
+  \begin{scope}[xshift=6.55cm]
+    \draw[very thick,SurfaceGreen,->] (0,0)--(0,1.90)
+      node[above] {\(+1\)};
+    \draw[very thick,PausePurple,->] (0,0)--(0,-1.90)
+      node[below] {\(-1\)};
+    \fill (0,0) circle (1.5pt);
+    \node[left] at (-0.12,0) {\(0\)};
+    \node[SurfaceGreen,right] at (0.15,1.12) {\(a_B=0\)};
+    \node[PausePurple,right] at (0.15,-1.12) {\(a_E=1\)};
+    \node at (0,2.75) {\(\operatorname{Star}(\rho_F)\)};
+    \node[align=center] at (0,-2.78)
+      {\(N/\ZZ e_1\cong\ZZ\)\\\(D|_F=[E\cap F]\)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Restrict first to the cones containing \(\rho_F\), then quotient
+by \(\ZZ e_1\). The resulting fan describes the orbit closure
+\(F=V(\rho_F)\cong\PP^1\), whose dense orbit is \(O(\rho_F)\cong\Gm\).
+Since \(a_F=0\), the adjacent coefficients \(0,1\) descend directly,
+giving a divisor of degree one. The dashed ray of the disjoint fiber
+\(F'\) is outside this star and contributes nothing.}
+\label{fig:classroom-oct19-star-restriction}
+\end{figure}
+
+Next take \(C=F'\). The canonical section now vanishes identically
+on \(C\), since its coefficient in \(D\) is two. The characters
+\(st\) and \(s^2\) give two regular replacements:
+\[
+\begin{aligned}
+A_1&=D+\operatorname{div}(st)=F+B,\\
+A_2&=D+\operatorname{div}(s^2)=2F+E.
+\end{aligned}
+\]
+Both are effective and have coefficient zero on \(F'\). This is the
+board's instruction to add a linear function. In the chapter's
+support-function convention the precise formula is
+\[
+\psi_{D+\operatorname{div}(\character{m})}(u)
+=\psi_D(u)-\langle m,u\rangle.
+\]
+Equivalently, the opposite function \(\eta_D=-\psi_D\) from
+Observation~\ref{obs:classroom-support-sign} gains \(x+y\) or \(2x\).
+Both have value \(-2\) at \((-1,-1)\), cancelling the coefficient
+two there. The new linear pieces on the star annihilate that ray
+and descend to the quotient.
+
+For \(F'\), use \(q'(a,b)=b-a\). The neighboring rays of \(B\)
+and \(E\) map to \(+1\) and \(-1\); the other fiber \(F\) is
+disjoint. With \(p_B=B\cap F'\), \(p_E=E\cap F'\), we obtain
+\[
+A_1|_{F'}=p_B,\qquad A_2|_{F'}=p_E.
+\]
+The coefficient pairs \((1,0)\) and \((0,1)\) both represent
+\(\mathcal O_{\PP^1}(1)\). They differ by the principal divisor
+of the quotient character \(z=(t/s)|_{F'}\):
+\[
+\operatorname{div}_{F'}(z)=p_B-p_E.
+\]
+This explains why different choices of moving section give the same
+intersection number.
+
+On the polygon side, the edge dual to \(F'\) is
+\(G=[(2,0),(1,1)]\). Translating by the two character exponents puts
+it into the character lattice of the curve:
+\[
+M\cap(-1,-1)^\perp=\ZZ(-1,1).
+\]
+In that lattice,
+\[
+\begin{aligned}
+G-(1,1)&=[(1,-1),(0,0)]\cong[-1,0],\\
+G-(2,0)&=[(0,0),(-1,1)]\cong[0,1].
+\end{aligned}
+\]
+The two intervals differ by a lattice translation and both have
+length one, recovering \(D\cdot F'=1\).
+\end{example}
+
+\begin{observation}[Why a negative self-intersection needs a pole]
+\label{obs:classroom-oct19-negative-section}
+Apply the same procedure to \(\mathcal O_X(E)|_E\). Since
+\[
+E+\operatorname{div}(t)=B-F',
+\]
+a rational replacement has coefficient zero on \(E\). Restricting
+gives \(-[E\cap F']\), because \(B\) is disjoint from \(E\).
+There is one pole and no zero, so the degree is \(-1\). This is
+\(E^2=-1\); no nonzero regular section of the restricted line bundle
+could have that degree.
+\end{observation}
+% END CLASSROOM ADDITION: notes/20261019.tex
+
 \subsection{Area is self-intersection}
 
 Normalize area so that a fundamental lattice parallelogram in
@@ -2422,6 +3273,18 @@ On the geometric side, the leading term of the Hilbert polynomial is
 Comparing the leading coefficients gives the area formula. Comparing
 the linear coefficients gives the boundary formula.
 \end{proof}
+
+% BEGIN CLASSROOM ADDITION: notes/20261019.tex (degree of the classroom embedding).
+For the classroom trapezoid in
+\cref{subsec:classroom-oct19-hirzebruch-restriction}, the area is
+\(3/2\). Thus
+\[
+D^2=2\operatorname{Area}(P_D)=3,
+\]
+also obtained from \((2F+E)^2=4(F\cdot E)+E^2=3\).
+The embedding by its five sections therefore realizes
+\(\Hirz{1}\) as a degree-three surface in \(\PP^4\).
+% END CLASSROOM ADDITION: notes/20261019.tex
 
 When \(P_D\) is two-dimensional, combining these identities with
 Pick's theorem,

@@ -255,7 +255,7 @@ We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles
 
 \begin{ptcb}
     \textbf{Category of Curves}:\par
-    This is the simplest of our guiding example. The category of \(\Curves\) is defined as follows~\cite{notes:stacks-curves}:
+    This is the simplest of our guiding examples. The category of \(\Curves\) is defined as follows~\cite{notes:stacks-curves}:
     \begin{itemize}
         \item Its \textbf{objects} are \emph{families of curves}, morphisms \(E\xrightarrow{\pi}S\) where \(S\) is a scheme, the total space \(E\) is an \emph{algebraic space} and \(\pi\) is flat, proper, of finite presentation and has relative dimension \(\leq 1\).
         \item A \textbf{morphism} is a cartesian diagram
@@ -271,38 +271,35 @@ We define the category $V_r$ as follows. Its objects are rank $r$ vector bundles
 \end{ptcb}
 
 \begin{ptcb}
-    \textbf{Prestable curves: \(\lie{M}_{g,n}\)}\red{RECHECK}\label{here}\par
-    Changing the preceding example, we restrict the conditions to:
+    \textbf{Prestable curves: \(\lie{M}_{g,n}\)}\par
+    From the preceding example, we restrict the conditions to:
     \begin{itemize}
         \item curves with at most nodal singularities,
         \item having a fixed genus, and
         \item adding marks.
     \end{itemize}
-    Please note~\cite{notes:stacks-prestable,notes:fantechi-gw}. Formally:
+    Please note~\cite{notes:stacks-prestable,notes:fantechi-gw}. Formally, fix integers \(g,n\geq 0\):
     \begin{itemize}
-        \item \textbf{Object} are families of curves of genus \(g\) with \(n\) marks with at worst nodal singularities:
+        \item \textbf{Objects} are families of curves as above:
         \[
             \left(\pi:E\to S,(\sg_i)_{i=1}^n\right).
         \]
-        Here \(E\) is an algebraic space,\(\pi\) is flat, proper, and of finite presentation.\par
-        Every geometric fiber \(E_{x}\) must be a connected, reduced curve of dimension \(1\), with at worst nodes (ordinary double points) and arithmetic genus \(g\).\par
-        The markings are sections \(\sigma_i:S\to E\), so \(\pi\circ\sigma_i=\id_S\), with pairwise disjoint images contained in the smooth locus of \(\pi\). Thus each geometric fiber has \(n\) distinct, labeled smooth marked points. The condition ``at worst nodes'' permits smooth fibers. It only requires that every singular point, if present, be a node. A prestable family may have both smooth fibers and fibers with nodes.
-        \item A \textbf{morphism} over \(f:T\to S\) is a cartesian square
+        Every geometric fiber \(E_{x}\) is a connected, reduced curve of dimension \(1\), with at worst nodal singularities and arithmetic genus \(g\).\par
+        The markings are sections \(\sigma_i:S\to E\), so \(\pi\circ\sigma_i=\id_S\), with pairwise disjoint images contained in the smooth locus of \(\pi\).\par 
+        \item A \textbf{morphism} is a cartesian square
         \[
             \begin{tikzcd}
-                C_T \arrow[r, "\bar f"] \arrow[d, "\pi_T"']
-                    & C \arrow[d, "\pi"] \\
-                T \arrow[r, "f"'] & S
+                E_T \arrow[d, "\pi_T"'] \arrow[r, "\bar f"]              & E \arrow[d, "\pi"]                   \\
+                T \arrow[r, "f"'] \arrow[u, "{\sg_{i,T}}", bend left=60] & S \arrow[u, "\sg_i"', bend right=60]
             \end{tikzcd}
         \]
         preserving every marking:
         \[
-            \bar f\circ\sigma_{a,T}=\sigma_a\circ f,
-            \qquad a=1,\ldots,n.
+            \bar f\circ\sigma_{i,T}=\sigma_i\circ f,
+            \word{with} i=1,\ldots,n.
         \]
         In particular, \(C_T\isom C\x_S T\), with the markings pulled back as well.
     \end{itemize}
-    No stability condition is imposed in \(\lie{M}_{g,n}\).
 \end{ptcb}
 
 \begin{ptcb}
