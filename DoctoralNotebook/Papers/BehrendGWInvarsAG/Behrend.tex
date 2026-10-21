@@ -21,7 +21,9 @@
 \usepackage[hidelinks]{hyperref}
 
 \title{Gromov-Witten Invariants in Algebraic Geometry}
-\author{K. Behrend}
+% Keep article authorship distinct from the study-notes credit.
+\author{K. Behrend\\[.65em]
+  {\small Study notes by Ignacio Rojas --- October 2026}}
 \setcounter{secnumdepth}{0}
 \emergencystretch=2em
 
@@ -127,6 +129,9 @@
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\defeq}{\coloneqq}
+% Set and Greek-letter shortcuts used in the graph notes (shared-header notation).
+\newcommand{\set}[1]{\{\,#1\,\}}
+\newcommand{\Ga}{\Gamma}
 \DeclareMathOperator{\vdim}{vdim}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \let\notesred\red
@@ -395,10 +400,215 @@ discussions about the constructions in this paper.
 \subsection{Preliminaries on Prestable Curves}
 
 Let \(k\) be a field. We shall work over the category of locally noetherian
-\(k\)-schemes (with the fppf-topology). For a modular graph \(\tau\) (see
+\(k\)-schemes (with the fppf-topology). For a \hlblue{modular graph} \(\tau\) (see
 \cite{BM},
 Definition~1.5) let \(\MM(\tau)\) denote the \(k\)-stack of \(\tau\)-marked prestable
 curves (which are defined in \cite{BM}, Definition~2.6).
+
+\begin{ptcb}
+% --- BEGIN NOTES: modular graphs in ordinary graph language. ---
+\begin{Def}[Modular graph]
+\label{notes:def:modular-graph}
+Following \cite[Definitions~1.1 and~1.5]{BM}, a modular graph
+\(\Ga=(V,H,E;\del,j,g)\) has finite sets
+\begin{itemize}
+  \item \(V\) of vertices, and
+  \item \(H\) of half-edges (or flags).
+\end{itemize}
+The maps are
+\begin{itemize}
+  \item \(\del:H\to V\), recording the vertex of each flag;
+  \item \(j:H\to H\), an involution pairing flags;
+  \item \(g:V\to\bZ_{\geq0}\), recording each vertex genus.
+\end{itemize}
+With the maps we build:
+\begin{itemize}
+  \item The set of legs \(L=\set{h\in H: j(h)=h}\).
+  \item And the set of edges \(E=\set{\set{h,j(h)}:h\in H,\ j(h)\neq h}\).
+\end{itemize}
+
+The valence of \(v\) is
+\[
+|v|=|\del^{-1}(v)|.
+\]
+\end{Def}
+
+For a connected graph, the total genus is
+\[
+g(\Ga)=\sum_{v\in V}g(v)+\#E-\#V+1.
+\]
+
+\begin{nonum-Rmk}
+This definition is equivalent to Schmitt and van Zelm's \cite[Definition~2.2]{notes:schmitt-vanzelm2018} after dropping its stability and connectedness requirements. The set \(H\) is separated into \(L\cup H\) and two new functions act restrictions of \(\del\) to such sets.
+\end{nonum-Rmk}
+
+In \texttt{admcycles} (\cite{notes:admcycles-docs}) we have the command
+\begin{center}
+\texttt{StableGraph(genera, legs, edges)}
+\end{center}
+which builds a graph with \(|\texttt{genera}|=|\texttt{legs}|\) vertices. Such vertices are assigned a genus and half-edges to vertices and to other half-edges themselves. Half-edges not used in edges are fixed by \(j\), hence are legs.
+
+\begin{Ex}[One loop and one tail]
+\label{notes:ex:loop-and-leg}
+\begin{quote}\small\ttfamily\raggedright
+StableGraph([0], [[1,2,3]], [(2,3)])
+\end{quote}
+\[
+V=\{v_0\},\qquad H=\{1,2,3\},\qquad E=\bigl\{\{2,3\}\bigr\}.
+\]
+\[
+\del^{-1}(v_0)=H,\qquad j=(1)(2\ 3),\qquad g^{-1}(0)=\{v_0\}.
+\]
+\begin{center}
+\begin{tikzpicture}[line width=.6pt]
+\draw (-.20,.12) .. controls (-1.05,1.5) and (1.05,1.5) .. (.20,.12);
+\draw (0,-.2)--(0,-1.05);
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] at (0,0) {\(0\)};
+\node[left] at (-.48,.48) {\(2\)};
+\node[right] at (.48,.48) {\(3\)};
+\node[below] at (0,-1.05) {\(1\)};
+\node[right] at (.4,-.12) {\(v_0\)};
+\end{tikzpicture}
+\end{center}
+The valence is three, and the total genus is \(0+1-1+1=1\).
+\end{Ex}
+
+\begin{Ex}[Three vertices]
+\label{notes:ex:admcycles-411}
+\begin{quote}\small\ttfamily\raggedright
+StableGraph([2,1,1], [[1,2,3],[4],[5]], [(2,4),(3,5)])
+\end{quote}
+\[
+V=\{v_0,v_1,v_2\},\qquad H=\{1,\ldots,5\},\qquad
+E=\bigl\{\{2,4\},\{3,5\}\bigr\}.
+\]
+\[
+\del^{-1}(v_0)=\{1,2,3\},\quad
+\del^{-1}(v_1)=\{4\},\quad \del^{-1}(v_2)=\{5\}.
+\]
+\[
+j=(1)(2\ 4)(3\ 5),\qquad
+ g^{-1}(2)=\{v_0\},\qquad g^{-1}(1)=\{v_1,v_2\}.
+\]
+\begin{center}
+\begin{tikzpicture}[line width=.6pt]
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (c) at (0,0) {\(2\)};
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (l) at (-2.2,0) {\(1\)};
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (r) at (2.2,0) {\(1\)};
+\draw (l.east)--(c.west);
+\draw (c.east)--(r.west);
+\draw (c.north)--(0,1.1) node[above] {\(1\)};
+\node[above] at (-1.75,0) {\(4\)};
+\node[above] at (-.55,0) {\(2\)};
+\node[above] at (.55,0) {\(3\)};
+\node[above] at (1.75,0) {\(5\)};
+\node[below=4pt] at (l.south) {\(v_1\)};
+\node[below=4pt] at (c.south) {\(v_0\)};
+\node[below=4pt] at (r.south) {\(v_2\)};
+\end{tikzpicture}
+\end{center}
+The total genus is \(2+1+1+(2-3+1)=4\), with one tail, labelled \(1\).
+\end{Ex}
+
+\begin{Ex}[Two vertices]
+\label{notes:ex:admcycles-14}
+\begin{quote}\small\ttfamily\raggedright
+StableGraph([0,1], [[1,2,3,4],[5,6]], [(4,5)])
+\end{quote}
+\[
+V=\{v_0,v_1\},\qquad H=\{1,\ldots,6\},\qquad E=\bigl\{\{4,5\}\bigr\}.
+\]
+\[
+\del^{-1}(v_0)=\{1,2,3,4\},\qquad \del^{-1}(v_1)=\{5,6\}.
+\]
+\[
+j=(1)(2)(3)(4\ 5)(6),\qquad
+ g^{-1}(0)=\{v_0\},\qquad g^{-1}(1)=\{v_1\}.
+\]
+\begin{center}
+\begin{tikzpicture}[line width=.6pt]
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (l) at (-1.1,0) {\(0\)};
+\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (r) at (1.1,0) {\(1\)};
+\draw (l.east)--(r.west);
+\draw (l.north west)--(-2.25,.85) node[above left] {\(1\)};
+\draw (l.west)--(-2.35,0) node[left] {\(2\)};
+\draw (l.south west)--(-2.25,-.85) node[below left] {\(3\)};
+\draw (r.east)--(2.35,0) node[right] {\(6\)};
+\node[above] at (-.55,0) {\(4\)};
+\node[above] at (.55,0) {\(5\)};
+\node[below=4pt] at (l.south) {\(v_0\)};
+\node[below=4pt] at (r.south) {\(v_1\)};
+\end{tikzpicture}
+\end{center}
+The total genus is \(0+1+(1-2+1)=1\), with four tails, labelled
+\(1,2,3,6\).
+\end{Ex}
+
+\begin{Ex}[Bollob\'as's Figure~1.1]
+\label{notes:ex:bollobas-modular}
+Let \(G=(V,E_G)\) be the graph in
+\cite[Figure~1.1]{notes:bollobas1998}, with \(V=\{1,\ldots,9\}\).
+Writing \(ij=\{i,j\}\), its ordinary edges are
+\[
+E_G=\left\{
+\begin{gathered}
+12,23,34,45,56,61,\;17,72,29,\\
+95,57,74,48,83,39,96,68,81
+\end{gathered}
+\right\}.
+\]
+Our flag and edge sets are
+\[
+H=\set{(v,e)\in V\times E_G:v\in e},\qquad
+E=\set{\{(u,e),(v,e)\}:e=\{u,v\}\in E_G}.
+\]
+The maps are specified by
+\[
+\del^{-1}(v)=\set{(v,e):e\in E_G,\ v\in e},\qquad
+j(u,\{u,v\})=(v,\{u,v\}),\qquad g^{-1}(0)=V.
+\]
+\begin{center}
+\begin{tikzpicture}[x=1.05cm,y=1.05cm,line width=.55pt]
+\coordinate (v1) at (-1.8,-1.1);
+\coordinate (v2) at (0,-1.6);
+\coordinate (v3) at (1.8,-1.1);
+\coordinate (v4) at (1.3,.8);
+\coordinate (v5) at (0,2.2);
+\coordinate (v6) at (-1.3,.8);
+\coordinate (v7) at (-.45,.35);
+\coordinate (v8) at (0,-.6);
+\coordinate (v9) at (.55,.35);
+\foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/1,1/7,7/2,2/9,
+                    9/5,5/7,7/4,4/8,8/3,3/9,9/6,6/8,8/1}
+  \draw (v\a)--(v\b);
+\foreach \v in {1,...,9} \fill (v\v) circle (1.25pt);
+\node[below left] at (v1) {\(1\)};
+\node[below] at (v2) {\(2\)};
+\node[below right] at (v3) {\(3\)};
+\node[above right] at (v4) {\(4\)};
+\node[above] at (v5) {\(5\)};
+\node[above left] at (v6) {\(6\)};
+\node[fill=white,inner sep=1pt,above left=2pt] at (v7) {\(7\)};
+\node[fill=white,inner sep=1pt,below=2pt] at (v8) {\(8\)};
+\node[fill=white,inner sep=1pt,above right=2pt] at (v9) {\(9\)};
+\end{tikzpicture}
+\end{center}
+There are nine vertices, thirty-six flags, eighteen edges, and no tails.
+Every vertex has valence four. The total genus is \(18-9+1=10\).
+\end{Ex}
+
+\begin{nonum-Rmk}[Comparison with Bollob\'as]
+Bollob\'as's definition \(G=(V,E_G)\), with \(E_G\subseteq\binom V2\),
+describes a finite simple graph (\cite[\S I.1]{notes:bollobas1998}).
+Our definition additionally allows loops, parallel edges, and tails, and
+assigns a genus to each vertex. To recover his notion, exclude those
+three possibilities and forget the genus labels. Conversely, any graph
+in his sense becomes a modular graph by replacing each edge with its two
+incident flags and choosing vertex genera, for example all zero. The
+flags repackage the incidence data; the genera add information.
+\end{nonum-Rmk}
+% --- END NOTES: modular graphs in ordinary graph language. ---
+\end{ptcb}
 
 \begin{lem}\label{soss}
 The algebraic \(k\)-stack \(\ol{M}(\tau)\) of stable \(\tau\)-marked curves
@@ -1357,7 +1567,21 @@ M.~Kontsevich and Yu. Manin.
 % Append genuine new \bibitem entries here with unique notes: keys.
 % Cite those keys with \cite, just like the original five references.
 % If the total reaches ten entries, widen the bibliography template {1}.
-% Leave this block empty until a real supplementary source is used.
+\bibitem{notes:bollobas1998}
+B.~Bollob\'as.
+\newblock {\em Modern Graph Theory}.
+\newblock Graduate Texts in Mathematics, vol.~184. Springer, 1998.
+
+\bibitem{notes:schmitt-vanzelm2018}
+J.~Schmitt and J.~van Zelm.
+\newblock Intersections of loci of admissible covers with tautological classes.
+\newblock Preprint, 2018. arXiv:1808.05817.
+
+\bibitem{notes:admcycles-docs}
+\emph{admcycles} documentation.
+\newblock Module stable graph; Tutorial, stable-graph representation.
+\newblock \url{https://modulispaces.gitlab.io/admcycles/stable_graph.html};
+\url{https://modulispaces.gitlab.io/admcycles/tutorial.html}.
 % --- END NOTES REFERENCES insertion point. ---
 \end{thebibliography}
 
