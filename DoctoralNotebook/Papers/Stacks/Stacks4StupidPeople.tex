@@ -390,7 +390,7 @@ Note then that
 \[
 g(hg)=(gh)g=\id_{E'}g=g,\word{and}\pi(hg)=(\pi h)g=\pi'g=\pi
 \]
-where we have used the previous diagram's condition \(pi'g=pi\). Applying the universal property but now \(E\) on itself, we get the unique map \(\id_E\) which satisfies \(g\id_E=g\) and \(\pi\id_E=\pi\). We conclude that \(hg=\id_E\).
+where we have used the previous diagram's condition \(\pi'g=\pi\). Applying the universal property but now \(E\) on itself, we get the unique map \(\id_E\) which satisfies \(g\id_E=g\) and \(\pi\id_E=\pi\). We conclude that \(hg=\id_E\).
 \end{ptcb}
 
 To a scheme $S$ we can associate a category \hlpink{$\mathfrak{S}/S$ (the category of $S$-schemes) over $\mathfrak{S}$}\passagemark\label{passage:CategoryOfSSchemes} as follows: the objects are morphisms with target $S$ in $\mathfrak{S}$; a morphism from $f\colon T \to S$ to $f'\colon T' \to S$ is a $g\colon T \to T'$ such that $f = f' \circ g$; \hlblue{the projection functor sends the object $T \to S$ to $T$ and a morphism $g$ to itself}\passagemark\label{passage:GoverSImplicitFunctor}.
@@ -905,7 +905,7 @@ Let $G$ be an algebraic group (or a Lie group, or a topological group, as you pr
 
 \begin{ptcb}
     Let's recall some definitions:
-    \begin{nonum-Def}
+    \begin{nonum-Def}\phantomsection\label{def:PrincipalBundle}
         A \term{principal \(G\)-bundle} is a fiber bundle \(E\xrightarrow{\pi}B\) with a right action of \(G\) on \(E\) such that
         \begin{enumerate}
             \item The action of \(G\) on \(E\) is continuous and \(\pi(e\.g)=\pi(e)\).
@@ -1662,8 +1662,80 @@ Lemma \ref{lem:4.6} implies that $p \to V_r$ is representable, smooth and surjec
     \end{nonum-Rmk}
 \end{ptcb}
 
-The stack $V_r$ is a special case of quotient stack. Let $G$ be an algebraic group acting on a scheme $S$ on the left. Let $[S/G]$ be the following category over $\mathfrak{S}$: its objects are principal homogeneous $G$-bundles with a $G$-equivariant morphism to $S$. In analogy with $V_r$, its morphisms are those pullback diagrams which are compatible with the morphism to $S$. If $S$ is a point $p$, with the trivial $G$ action, then $[p/G]$ is $BG$ defined before.
+The stack $V_r$ is a special case of \hlpink{quotient stack}\passagemark\label{passage:QuotStackName}. Let $G$ be an algebraic group acting on a scheme $S$ on the left. \hlblue{Let $[S/G]$ be the following category}\passagemark\label{passage:QuotStack} over $\mathfrak{S}$: its objects are principal homogeneous $G$-bundles with a $G$-equivariant morphism to $S$. In analogy with $V_r$, its morphisms are those pullback diagrams which are compatible with the morphism to $S$. If $S$ is a point $p$, with the trivial $G$ action, then $[p/G]$ is $BG$ defined before.
 
+\begin{ptcb}
+    Let us unpack the quotient-stack category in passage
+    \ref{passage:QuotStack}, recalling the
+    \hyperref[def:PrincipalBundle]{definition of a principal bundle}.
+    \begin{itemize}
+        \item An \textbf{object over \(B\)} is a principal bundle \(\pi:E\to B\), together with a chosen equivariant
+        morphism \(f:E\to S\). This is, in pair notation
+        \[
+            (E\xrightarrow{\pi}B,\ f:E\to S).
+        \]
+        The equivariance condition for \(f\) is
+        \[
+            f(x\cdot g)=g^{-1}\cdot f(x).
+        \]
+        The inverse appears because the bundle action is on the right,
+        whereas the action on \(S\) is on the left.
+        \item Given two objects, a \textbf{morphism}
+        \[
+            (E'\to B',f')\longrightarrow(E\to B,f)
+        \]
+        is a pair \((\bar h,h)\) as in the diagram:
+        \[
+        \begin{tikzpicture}[
+            arrows={-{Latex[length=1.6mm]}},
+            line width=.6pt,
+            every node/.style={inner sep=2pt,font=\large}
+        ]
+            % The skew square and the upper triangle follow the hand sketch.
+            \node (Ep) at (0,3)     {$E'$};
+            \node (E)  at (3,2)     {$E$};
+            \node (Bp) at (0,-.6)   {$B'$};
+            \node (B)  at (3,-1.6)  {$B$};
+            \node (S)  at (4,3.9)   {$S$};
+
+            \begin{scope}[every node/.append style={font=\normalsize}]
+            \draw (Ep) -- node[midway,above,yshift=.25em] {$\bar h$} (E);
+            \draw (Ep) -- node[midway,left,xshift=-.3em] {$\pi'$} (Bp);
+            \draw (E)  -- node[midway,right,xshift=.3em] {$\pi$} (B);
+            \draw (Bp) -- node[midway,below,yshift=-.25em] {$h$} (B);
+            \draw (Ep) -- node[pos=.48,above,yshift=.3em] {$f'$} (S);
+            \draw (E)  -- node[pos=.48,right,xshift=.3em] {$f$} (S);
+            \end{scope}
+        \end{tikzpicture}
+        \]
+        The lower square is cartesian, so
+        \(E'\cong B'\times_B E\).
+        The map \(\bar h\) respects the two right \(G\)-actions:
+        \[
+            \bar h(x\cdot g)=\bar h(x)\cdot g.
+        \]
+        The upper triangle commutes, which explicitly means
+        \[
+            f'=f\circ\bar h.
+        \]
+    \end{itemize}
+    Identities and composition are defined componentwise. The projection
+    \([S/G]\to\Sch\) sends \((E\to B,f)\) to \(B\) and
+    \((\bar h,h)\) to \(h\). In the fiber over a fixed \(B\), the
+    arrows are equivariant bundle isomorphisms preserving the maps to \(S\).
+\end{ptcb}
+
+\begin{ptcb}
+    \begin{Qn}
+        ¿How is the name of a quotient stack motivated as in passage \ref{passage:QuotStackName}?
+    \end{Qn}
+    \tcbline 
+    If \([S/G]\simeq\Sch/Q\) for a scheme \(Q\), then \(Q\)
+    represents the quotient sheaf \(S/G\). In particular, this quotient
+    is a scheme and \(Q\cong S/G\). This follows from
+    \cite[Lemmas~78.19.4 and~78.22.2]{notes:stacks-quotient-scheme},
+    using the surjective presentation of Theorem~\ref{thm:5.3}. (\red{PENDING})
+\end{ptcb}
 \begin{Th}\label{thm:5.3}
 The category $[S/G]$ is an algebraic stack, there is a presentation $S \to [S/G]$ which is smooth and surjective of relative dimension $\dim G$.
 \end{Th}
@@ -1795,6 +1867,12 @@ The Stacks Project Authors, \emph{The stack of curves}, Situation~99.15.1.
 \bibitem[SP7]{notes:stacks-prestable}
 The Stacks Project Authors, \emph{Prestable curves}, Section~109.20.
 \href{https://stacks.math.columbia.edu/tag/0E6S}{Tag 0E6S}.
+
+\bibitem[SP8]{notes:stacks-quotient-scheme}
+The Stacks Project Authors, Lemma~78.19.4 (a criterion for representing a
+quotient sheaf) and Lemma~78.22.2 (the cartesian square of a quotient stack).
+\href{https://stacks.math.columbia.edu/tag/044M}{Tag 044M};
+\href{https://stacks.math.columbia.edu/tag/04M9}{Tag 04M9}.
 
 \bibitem[Fan]{notes:fantechi-gw}
 Barbara Fantechi, \emph{Defining Gromov--Witten invariants}, Chennai Mathematical Institute, February--March~2016.

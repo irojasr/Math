@@ -1,0 +1,225 @@
+% Native TikZ diagrams copied from Stacks4StupidPeople.tex.
+% Required in the parent preamble: tikz with arrows.meta, the color
+% noteblue defined as HTML 00C0F3, and \isom defined as \simeq.
+% Object and arrow-label fonts, geometry, and line widths match the notes.
+% These macros contain only displays; they introduce no cross-reference labels.
+
+\newcommand{\TalkDDDiagram}{%
+\[
+\begin{tikzpicture}[
+    y=.86cm,
+    arrows={-{Latex[length=1.6mm]}},
+    line width=.6pt,
+    every node/.style={inner sep=2pt,font=\large},
+    projection/.style={densely dotted,draw=gray!75},
+    comparison/.style={draw=noteblue,line width=.8pt}
+]
+    % The covering and its overlap form the floor.
+    \node (Si)  at (0,0)       {$S_i$};
+    \node (Sij) at (2.8,1.4)   {$S_{ij}$};
+    \node (Sj)  at (7,.6)      {$S_j$};
+    \node (S)   at (4.2,-.8)   {$S$};
+
+    % Descent data supplies these local objects, with no global E.
+    \node (Ei)   at (0,4.7)    {$E_i$};
+    \node (Eiij) at (1.2,5.9)  {$E_i\mid S_{ij}$};
+    \node (Ejij) at (4.4,6.3)  {$E_j\mid S_{ij}$};
+    \node (Ej)   at (7,5.3)    {$E_j$};
+
+    \begin{scope}[every node/.append style={font=\normalsize}]
+    \draw (Sij) -- node[above left] {$p_i$} (Si);
+    \draw (Sij) -- node[pos=.72,above] {$p_j$} (Sj);
+    \draw (Sij) -- node[pos=.55,left,xshift=-.2em] {$v$} (S);
+
+    % Dotted connectors depict the action of the single functor pi.
+    \draw[projection] (Eiij) -- (Sij);
+    \draw[projection] (Ejij) -- (Sij);
+    \draw[projection] (Ei) -- (Si);
+    \draw[projection] (Ej) -- (Sj);
+
+    \draw (Eiij) --
+        node[left,xshift=-.25em,yshift=.4em] {$r_i$} (Ei);
+    \draw (Ejij) --
+        node[pos=.55,above right,xshift=.2em] {$r_j$} (Ej);
+    \draw[comparison] (Eiij) --
+        node[above,yshift=.4em] {$\alpha_{ij}$}
+        node[below,yshift=-.2em] {$\isom$} (Ejij);
+
+    \draw (Si) -- node[below,yshift=-.2em] {$u_i$} (S);
+    \draw (Sj) -- node[below,yshift=-.2em] {$u_j$} (S);
+    \end{scope}
+\end{tikzpicture}
+\]%
+}
+
+\newcommand{\TalkDDEDiagram}{%
+\[
+\begin{tikzpicture}[
+    y=.86cm,
+    arrows={-{Latex[length=1.6mm]}},
+    line width=.6pt,
+    every node/.style={inner sep=2pt,font=\large},
+    projection/.style={densely dotted,draw=gray!75},
+    comparison/.style={draw=noteblue,line width=.8pt},
+    foreground/.style={preaction={draw=white,line width=3pt,arrows=-}}
+]
+    % The floor sits directly below the square of E-pullbacks:
+    % each base vertex is translated by (0,-4.4) from its lift.
+    \node (Si)  at (3,.45)     {$S_i$};
+    \node (Sij) at (5,2.1)     {$S_{ij}$};
+    \node (Sj)  at (8,.95)     {$S_j$};
+    \node (S)   at (6,-.7)     {$S$};
+
+    % The upper face separates the supplied local objects from
+    % the pullbacks of a global object realizing the descent datum.
+    \node (Ei)   at (0,6)       {$E_i$};
+    \node (Eiij) at (2,7.65)    {$E_i\mid S_{ij}$};
+    \node (Ejij) at (7,8.15)    {$E_j\mid S_{ij}$};
+    \node (Ej)   at (10,7)      {$E_j$};
+    \node (C)    at (5,6.5)     {$E\mid S_{ij}$};
+    \node (Bi)   at (3,4.85)    {$E\mid S_i$};
+    \node (Bj)   at (8,5.35)    {$E\mid S_j$};
+    \node (E)    at (6,3.7)     {$E$};
+
+    \begin{scope}[every node/.append style={font=\normalsize}]
+    \draw (Sij) -- node[above left] {$p_i$} (Si);
+    \draw (Sij) -- node[pos=.72,above] {$p_j$} (Sj);
+    \draw (Si) -- node[below,yshift=-.2em] {$u_i$} (S);
+    \draw (Sj) -- node[below,yshift=-.2em] {$u_j$} (S);
+
+    % Dotted connectors show the action of pi on objects.
+    \draw[projection] (Eiij) -- (Sij);
+    \draw[projection] (Ejij) -- (Sij);
+    \draw[projection] (C) -- (Sij);
+    \draw[projection] (Ei) -- (Si);
+    \draw[projection] (Bi) -- (Si);
+    \draw[projection] (Ej) -- (Sj);
+    \draw[projection] (Bj) -- (Sj);
+    \draw[projection,foreground] (E) -- (S);
+
+    % Existing pullback maps and the two newly named maps s_i,s_j.
+    \draw[foreground] (Eiij) --
+        node[left,xshift=-.25em,yshift=.4em] {$r_i$} (Ei);
+    \draw[foreground] (Ejij) --
+        node[pos=.55,above right,yshift=.2em] {$r_j$} (Ej);
+    \draw[foreground] (C) --
+        node[midway,above left,xshift=-.15em,yshift=.15em] {$s_i$} (Bi);
+    \draw[foreground] (C) --
+        node[midway,above right,xshift=.15em,yshift=.15em] {$s_j$} (Bj);
+    \draw[foreground] (Bi) --
+        node[pos=.45,below,yshift=-.2em] {$q_i$} (E);
+    \draw[foreground] (Bj) --
+        node[below,yshift=-.2em] {$q_j$} (E);
+
+    % Every blue arrow is labeled by its map and an isomorphism symbol.
+    \draw[foreground,comparison] (Eiij) --
+        node[above,yshift=.3em] {$\alpha_{ij}$}
+        node[below,yshift=-.2em] {$\isom$} (Ejij);
+    \draw[foreground,comparison] (C) --
+        node[pos=.3,above,yshift=.3em] {$\isom$}
+        node[pos=.55,below,yshift=-.2em] {$\alpha_i|_{S_{ij}}$} (Eiij);
+    \draw[foreground,comparison] (C) --
+        node[pos=.32,right,xshift=.8em,yshift=-.15em] {$\alpha_j|_{S_{ij}}$}
+        node[pos=.6,left,xshift=-.1em] {$\isom$} (Ejij);
+    \draw[foreground,comparison] (Bi) --
+        node[pos=.4,above,yshift=.25em] {$\alpha_i$}
+        node[pos=.55,below,yshift=-.2em] {$\isom$} (Ei);
+    \draw[foreground,comparison] (Bj) --
+        node[pos=.45,above,yshift=.25em] {$\alpha_j$}
+        node[pos=.4,below,yshift=-.2em] {$\isom$} (Ej);
+    \end{scope}
+\end{tikzpicture}
+\]%
+}
+
+\newcommand{\TalkISDiagram}{%
+\[
+\begin{tikzpicture}[
+    % Orthographic view from t(2,-3,1), with z pointing upward.
+    % Screen coordinates: ((3x+2y)/sqrt(13),(-2x+3y+13z)/sqrt(182)).
+    % The common physical scale is .8 cm per projected unit.
+    x={(.665640cm,-.118600cm)},
+    y={(.443760cm,.177900cm)},
+    z={(0cm,.770899cm)},
+    arrows={-{Latex[length=1.6mm]}},
+    line width=.6pt,
+    every node/.style={inner sep=2pt,font=\large},
+    projection/.style={densely dotted,draw=gray!75},
+    comparison/.style={draw=noteblue,line width=.8pt}
+]
+    \pgfdeclarelayer{isom-objects}
+    \pgfsetlayers{main,isom-objects}
+    % Object labels remain legible above intersecting arrows.
+    \begin{pgfonlayer}{isom-objects}
+    % A parallel scheme floor, centered below each E/E' pair.
+    \node[fill=white] (Si)  at (1.25,1.25,-3) {$S_i$};
+    \node[fill=white] (S)   at (10.25,1.25,-3) {$S$};
+    \node[fill=white] (Sij) at (1.25,10.25,-3) {$S_{ij}$};
+    \node[fill=white] (Sj)  at (10.25,10.25,-3) {$S_j$};
+
+    % The requested upper square: A, A+9i, A+9j, A+9i+9j.
+    \node[fill=white] (Bi) at (0,0,2) {$E\mid S_i$};
+    \node[fill=white] (E)  at (9,0,2) {$E$};
+    \node[fill=white] (A)  at (0,9,2) {$E\mid S_{ij}$};
+    \node[fill=white] (Bj) at (9,9,2) {$E\mid S_j$};
+    % Its primed copy is translated by (2.5,2.5,0) in the same plane.
+    \node[fill=white] (Bip) at (2.5,2.5,2) {$E'\mid S_i$};
+    \node[fill=white] (Ep)  at (11.5,2.5,2) {$E'$};
+    \node[fill=white] (Ap)  at (2.5,11.5,2) {$E'\mid S_{ij}$};
+    \node[fill=white] (Bjp) at (11.5,11.5,2) {$E'\mid S_j$};
+    \end{pgfonlayer}
+
+    \begin{scope}[every node/.append style={font=\normalsize,fill=white,inner sep=1pt}]
+    \draw (Sij) -- node[above left,xshift=-.15em,yshift=.1em] {$p_i$} (Si);
+    \draw (Sij) -- node[above,yshift=.25em] {$p_j$} (Sj);
+    \draw (Si) -- node[below,yshift=-.25em] {$u_i$} (S);
+    \draw (Sj) -- node[below right,xshift=.15em,yshift=-.1em] {$u_j$} (S);
+
+    % Dotted connectors indicate the projection functor on objects.
+    \draw[projection] (A) -- (Sij);
+    \draw[projection] (Ap) -- (Sij);
+    \draw[projection] (Bi) -- (Si);
+    \draw[projection] (Bip) -- (Si);
+    \draw[projection] (Bj) -- (Sj);
+    \draw[projection] (Bjp) -- (Sj);
+    \draw[projection] (E) -- (S);
+    \draw[projection] (Ep) -- (S);
+
+    % All black pullback maps are straight.
+    \draw (Ap) --
+        node[pos=.9,below right,xshift=.4em,yshift=-.1em] {$r_i'$} (Bip);
+    \draw (Ap) --
+        node[pos=.5,above,yshift=.3em] {$r_j'$} (Bjp);
+    \draw (Bip) --
+        node[pos=.65,above,yshift=.3em] {$q_i'$} (Ep);
+    \draw (Bjp) --
+        node[pos=.55,below right,xshift=.25em,yshift=-.2em] {$q_j'$} (Ep);
+    \draw (A) --
+        node[pos=.5,above left,xshift=-.25em,yshift=.2em] {$r_i$} (Bi);
+    \draw (A) --
+        node[pos=.6,below,yshift=-.3em] {$r_j$} (Bj);
+    \draw (Bi) --
+        node[pos=.5,below,yshift=-.3em] {$q_i$} (E);
+    \draw (Bj) --
+        node[pos=.55,above left,xshift=-.25em,yshift=.2em] {$q_j$} (E);
+
+    % The same overlap morphism is depicted twice, as a visible lens.
+    \draw[comparison] (A) to[bend left=50]
+        node[pos=.5,above,yshift=.3em]
+            {$\alpha_i|_{S_{ij}}\;\isom$} (Ap);
+    \draw[comparison] (A) to[bend right=50]
+        node[pos=.5,above,yshift=.25em]
+            {$\alpha_j|_{S_{ij}}\;\isom$} (Ap);
+    \node[fill=white,inner sep=1pt] at (1.25,10.25,2) {$=$};
+
+    \draw[comparison] (Bi) --
+        node[pos=.5,below,yshift=-.35em] {$\alpha_i\;\isom$} (Bip);
+    \draw[comparison] (Bj) --
+        node[pos=.5,above,yshift=.8em] {$\alpha_j\;\isom$} (Bjp);
+    % The dashed global isomorphism is supplied by the sheaf condition.
+    \draw[comparison,dashed] (E) --
+        node[pos=.5,below,yshift=-.35em] {$\alpha\;\isom?$} (Ep);
+    \end{scope}
+\end{tikzpicture}
+\]%
+}

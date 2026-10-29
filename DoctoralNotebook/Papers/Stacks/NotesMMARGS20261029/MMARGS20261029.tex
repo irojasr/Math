@@ -1,0 +1,875 @@
+\documentclass[12pt,openany]{memoir}
+
+\def\nsemestre{II}
+\def\nterm{Fall}
+\def\nyear{2026}
+\def\nprofesor{Barbara Fantechi}
+\def\nauthor{Ignacio Rojas}
+\def\nsigla{MMARGS}
+\def\nsiglahead{Stacks: de las familias a los espacios de módulos}
+% No definimos \nlang: así el encabezado compartido activa el español.
+\PassOptionsToPackage{es-noshorthands,es-noquoting}{babel}
+\let\footruleskip\relax
+% This document is one directory deeper than Stacks4StupidPeople.tex.
+\input{../../../../headerVarillyDiff}
+
+% The local additions match the working article notes. The shared header
+% supplies the theorem environments, ptcb boxes, Sch, Curves, and isom.
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usetikzlibrary{babel}
+\tikzcdset{
+  every diagram/.append style={font=\large,row sep=large,column sep=large},
+  labels={font=\normalsize},
+  arrows={line width=.6pt}
+}
+
+\let\headerst\st
+\let\st\relax
+\usepackage{soul}
+\let\st\headerst
+\soulregister\ref7
+\counterwithout{section}{chapter}
+\counterwithout{figure}{chapter}
+\setsecnumdepth{subsection}
+\settocdepth{section}
+% Short running heads keep long section names from colliding with the title.
+\makeoddhead{ruled}{\small MMARGS}{}{\small\rightmark}
+\makeevenhead{ruled}{\small MMARGS}{}{\small\rightmark}
+
+\definecolor{noteblue}{HTML}{00C0F3}
+\definecolor{notegreen}{HTML}{6DC067}
+\definecolor{notepink}{HTML}{F07DAA}
+\makeatletter
+\newcommand{\roundedhighlight}[1]{%
+  \begingroup
+  \setuloverlap{2pt}%
+  \def\SOUL@ulunderline##1{{%
+    \setbox\z@\hbox{##1}%
+    \rlap{\SOUL@ulcolor{\tikz[overlay,blend mode=darken]{%
+      \fill[rounded corners=2pt]
+        (-\SOUL@uloverlap,-\SOUL@uldp)
+        rectangle (\dimexpr\wd\z@+\SOUL@uloverlap\relax,\SOUL@ulht);%
+    }}}%
+    \unhcopy\z@
+  }}%
+  \hl{#1}%
+  \endgroup
+}
+\makeatother
+\DeclareRobustCommand{\hlblue}[1]{{\sethlcolor{noteblue}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlgreen}[1]{{\sethlcolor{notegreen}\roundedhighlight{#1}}}
+\DeclareRobustCommand{\hlpink}[1]{{\sethlcolor{notepink}\roundedhighlight{#1}}}
+\newcounter{passage}
+\newcommand{\passagemark}{%
+  \refstepcounter{passage}\textsuperscript{\normalfont[\thepassage]}%
+}
+\input{StackDescentDiagrams}
+\hypersetup{
+  pdftitle={Stacks: de las familias a los espacios de módulos -- MMARGS, 29 de octubre de 2026},
+  pdfauthor={Ignacio Rojas},
+  pdfsubject={Notas de presentación basadas en Stacks for everybody, de Barbara Fantechi}
+}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{center}
+  {\LARGE\bfseries Stacks: de las familias\\ a los espacios de módulos}\par
+  \vspace{.5em}
+  {\large MMARGS --- 29 de octubre de 2026}\par
+  \vspace{.35em}
+  Ignacio Rojas\par
+  {\small\itshape Borrador para la presentación, basado en nuestro estudio de
+  \emph{Stacks for everybody}, de Barbara Fantechi.}
+\end{center}
+
+\begin{ptcb}
+\textbf{La idea que queremos conservar.}
+Un stack es una categoría de objetos geométricos que
+\hlgreen{admiten cambios de base como las familias} y
+\hlblue{se pegan como las familias}. Un stack algebraico admite, además,
+\hlpink{una presentación mediante un esquema}.
+\end{ptcb}
+
+La exposición sigue a Fantechi~\cite{fantechi}. Nuestros ejemplos principales
+son un esquema visto como la categoría \(\Sch/S\), y la categoría
+\(\Curves\) de familias de curvas. Primero explicaremos las condiciones de
+stack, después añadiremos la algebraicidad y finalmente relacionaremos estas
+construcciones con los problemas de módulos. La verificación para un esquema,
+incluido el espacio proyectivo, está en la Sección~\ref{sec:scheme-stack}.
+
+\begin{ptcb}
+\textbf{Una ruta para seguir la charla sin leer todas las fórmulas.}
+Los recuadros de intuición ofrecen una explicación que se puede contar en voz
+alta; las definiciones y fórmulas precisan esa explicación. Como primera
+imagen, pueden pensar en figuras descritas por ecuaciones y en cómo esas
+figuras cambian al variar ciertos parámetros. Un isomorfismo identifica dos
+descripciones conservando la estructura que estamos estudiando; no significa
+que las descripciones sean literalmente iguales.
+\end{ptcb}
+
+\section{¿Qué objetos y qué cubrimientos?}
+\label{sec:site}
+
+Una categoría tiene objetos, morfismos, identidades y una composición
+asociativa. Por ejemplo, \(\Sch\) tiene esquemas como objetos y morfismos de
+esquemas como flechas. Un funtor actúa sobre objetos y flechas, conservando
+las identidades y la composición. Durante la charla, los esquemas están
+definidos sobre \(\mathbb C\), y todos los morfismos y productos fibrados
+respetan esa base.
+
+\begin{ptcb}
+\textbf{Intuición: un catálogo con relaciones.}
+Pensemos en un catálogo de objetos junto con las comparaciones permitidas
+entre ellos. Una categoría registra también cómo encadenar esas comparaciones.
+Un funtor traduce el catálogo a otro, respetando ese encadenamiento.
+En esta charla, ``esquema'' nombra el tipo de espacio geométrico con el que
+trabajamos; como imagen inicial, pueden imaginar figuras descritas por
+ecuaciones polinómicas y modelos locales que se pegan.
+\end{ptcb}
+
+\begin{ptcb}
+Coloquialmente, una \textbf{topología de Grothendieck} especifica qué familias
+\(\{S_i\to S\}\) cuentan como cubrimientos. Así, la frase ``estos mapas
+cubren \(S\)'' tiene un significado determinado. Los cubrimientos deben ser
+compatibles con el cambio de base y con la composición de cubrimientos.
+Una categoría con una topología de este tipo se llama \textbf{sitio}.
+\end{ptcb}
+
+En la topología de Zariski, los mapas son inmersiones abiertas cuyas imágenes
+cubren \(S\). En la \textbf{topología \'etale}, son morfismos \'etale con
+imágenes conjuntamente sobreyectivas. No tienen que ser inmersiones abiertas.
+
+Como intuición, entre esquemas complejos lisos, un mapa \'etale tiene
+diferencial invertible en cada punto complejo:
+\[
+  d f_x:T_xU\xrightarrow{\sim}T_{f(x)}S.
+\]
+Es el análogo algebraico de un difeomorfismo local. Esta descripción mediante
+el diferencial se refiere a esquemas lisos; en general, un morfismo \'etale
+es un morfismo liso de dimensión relativa cero. Los mapas lisos desempeñan
+el papel de las submersiones. Véase~\cite{sp:etale,sp:covers}.
+
+Para un cubrimiento \(u_i:S_i\to S\), los solapamientos son productos
+fibrados:
+\[
+  S_{ij}=S_i\times_S S_j,
+  \qquad S_{ijk}=S_i\times_S S_j\times_S S_k.
+\]
+Para inmersiones abiertas, son las intersecciones habituales. Para
+cubrimientos \'etale generales, los productos fibrados sustituyen a esas
+intersecciones.
+
+\begin{ptcb}
+\textbf{Intuición: varias hojas de un mapa.}
+Podemos estudiar un territorio usando varias hojas de un mapa. Un lugar
+puede aparecer en más de una hoja, por lo que debemos comparar sus
+descripciones. El cubrimiento garantiza que las hojas alcanzan todo el
+territorio. En geometría algebraica ampliamos qué puede contar como una
+``hoja'': no siempre tiene que ser un simple subconjunto de la base.
+\end{ptcb}
+
+\section{Categorías sobre esquemas}
+\label{sec:over}
+
+\begin{Def}
+Una \textbf{categoría sobre \(\Sch\)} es una categoría \(X\) con un funtor
+covariante fijo \(p:X\to\Sch\). Un objeto \(E\) está sobre \(S\) si
+\(p(E)=S\), y una flecha \(a\) está sobre \(f\) si \(p(a)=f\).
+La \textbf{fibra} \(X_S\) contiene los objetos sobre \(S\) y las flechas
+sobre \(\id_S\).
+\end{Def}
+
+Una sola categoría registra familias sobre muchos esquemas de parámetros.
+La proyección recuerda la base de cada familia y el mapa entre las bases
+de cada flecha. La fibra sobre un \(S\) fijo compara familias sobre esa
+base particular.
+
+\begin{Ex}[Un esquema como categoría sobre esquemas]
+Fijemos un esquema \(S\). Los objetos de \(\Sch/S\) son morfismos
+\(f:T\to S\). Una flecha de \(f:T\to S\) a \(f':T'\to S\) es un
+morfismo de esquemas \(h:T\to T'\) tal que \(f=f'\circ h\):
+\[
+\begin{tikzcd}
+ T \arrow[rr,"h"] \arrow[dr,"f"'] && T' \arrow[dl,"f'"] \\
+ & S
+\end{tikzcd}
+\]
+Su proyección es el \textbf{funtor origen}
+\[
+ \operatorname{source}_S:\Sch/S\longrightarrow\Sch,
+ \qquad (f:T\to S)\longmapsto T,\qquad h\longmapsto h.
+\]
+En particular, \(f:T\to S\), visto como objeto de esta categoría, está
+sobre \(T\). El destino fijo \(S\) es parte de la construcción de la
+categoría de objetos sobre \(S\).
+\end{Ex}
+
+\begin{Ex}[Familias de curvas]
+Un objeto de \(\Curves\) es un morfismo \(\pi:E\to S\), donde \(S\)
+es un esquema, \(E\) es un espacio algebraico y \(\pi\) es plano,
+propio, de presentación finita y de dimensión relativa a lo sumo uno.
+Una flecha es un diagrama cartesiano
+\[
+\begin{tikzcd}
+ E_T \arrow[r,"\bar f"] \arrow[d,"\pi_T"'] & E \arrow[d,"\pi"] \\
+ T \arrow[r,"f"'] & S .
+\end{tikzcd}
+\]
+Así, \(E_T\cong E\times_S T\), de forma compatible con los mapas del
+diagrama. El funtor \(\operatorname{Target}:\Curves\to\Sch\), que
+recuerda el destino de la familia, envía la familia a \(S\) y el diagrama
+a \(f\). Aquí \(\pi\) es la proyección de una familia, mientras que
+\(\operatorname{Target}\) es un funtor entre categorías.
+Esta es la categoría amplia de curvas de~\cite{sp:curves}; todavía no
+imponemos género fijo, conexidad ni estabilidad.
+\end{Ex}
+
+\begin{ptcb}
+\textbf{Intuición: un tablero de parámetros.}
+La base \(S\) funciona como un tablero de parámetros. Una familia reúne
+los objetos que aparecen al variar esos parámetros. Un mapa \(T\to S\)
+permite usar un nuevo tablero: el cambio de base selecciona la familia
+correspondiente sobre \(T\). Elegir un solo punto del tablero recupera
+un objeto individual de la familia.
+\end{ptcb}
+
+\section{Categorías fibradas en grupoides}
+\label{sec:cfg}
+
+\begin{ptcb}
+Ser una categoría sobre \(\Sch\) nos dice sobre qué bases están los
+objetos. Ser \textbf{fibrada} garantiza además que podemos efectuar cambios
+de base a lo largo de cualquier mapa de bases. Tener \textbf{fibras que son
+grupoides} significa que, sobre una base fija, las flechas son isomorfismos.
+\end{ptcb}
+
+\begin{Def}
+Una categoría \(p:X\to\Sch\) es \textbf{fibrada} si, para todo
+\(f:T\to S\) y todo \(E\in X_S\), existe una flecha cartesiana
+\[
+ f_E:f^*E\longrightarrow E
+ \qquad\text{sobre }f.
+\]
+Aquí \textbf{cartesiana} expresa la siguiente propiedad universal.
+Si \(D\in X_R\), \(g:R\to T\) y \(a:D\to E\) está sobre
+\(f\circ g\), existe un único \(b:D\to f^*E\) sobre \(g\) con
+\(f_E\circ b=a\). Una \textbf{categoría fibrada en grupoides} (CFG) es
+una categoría fibrada tal que cada fibra \(X_S\) es un grupoide.
+\end{Def}
+
+Este es el significado categórico general de un levantamiento cartesiano.
+En nuestros ejemplos de familias, el levantamiento se representa mediante
+el cuadrado usual de cambio de base. En una CFG, toda flecha es cartesiana;
+esto se deduce de la condición de grupoide y no forma parte de la
+definición de una categoría arbitraria sobre \(\Sch\).
+Los cambios de base elegidos son únicos salvo un único isomorfismo
+compatible con sus mapas a \(E\). En general,
+\(g^*f^*E\cong(f\circ g)^*E\), en lugar de una igualdad literal.
+
+\begin{ptcb}
+\textbf{Intuición: cambiar parámetros e identificar descripciones.}
+Queremos poder cambiar siempre de tablero de parámetros. El resultado queda
+determinado salvo una identificación única que respeta los mapas de la
+construcción. La condición de grupoide dice que, sobre una base fija, las
+comparaciones admitidas son reversibles. Son identificaciones que conservan
+la estructura del objeto.
+\end{ptcb}
+
+\begin{Ex}[Los dos ejemplos principales son CFG]
+Para \(\Sch/S\), el cambio de base por \(u:T'\to T\) lleva el objeto
+\(f:T\to S\) a \(f\circ u:T'\to S\). La flecha correspondiente está
+representada por \(u\). La fibra sobre \(T\) es discreta: una flecha sobre
+\(\id_T\) existe únicamente entre mapas iguales \(T\to S\), y entonces
+es la identidad.
+
+Para \(\Curves\), el cambio de base de \(E\to S\) es
+\(E\times_S T\to T\). Las condiciones que definen una familia se
+conservan bajo cambio de base. Sobre \(\id_S\), el cuadrado cartesiano
+identifica su flecha superior con un isomorfismo de familias. Por tanto,
+sus fibras son grupoides.
+\end{Ex}
+
+\section{Datos de descenso y efectividad}
+\label{sec:descent}
+
+Fijemos una CFG \(p:X\to\Sch\) y un cubrimiento
+\(\{u_i:S_i\to S\}\). Escribimos \(E|_T\) para un cambio de base
+elegido de \(E\) a \(T\). Todas las comparaciones entre cambios de base
+sucesivos usan sus identificaciones canónicas.
+
+\begin{Def}
+Un \textbf{dato de descenso} consiste en objetos locales
+\(E_i\in X_{S_i}\) e isomorfismos
+\[
+ \alpha_{ij}:E_i|_{S_{ij}}\xrightarrow{\sim}E_j|_{S_{ij}}
+\]
+sobre \(\id_{S_{ij}}\), que satisfacen la \textbf{condición de cociclo}
+\[
+ \alpha_{jk}|_{S_{ijk}}\circ\alpha_{ij}|_{S_{ijk}}
+   =\alpha_{ik}|_{S_{ijk}}.
+\]
+\end{Def}
+
+\begin{ptcb}
+Los objetos locales no tienen que ser iguales en los solapamientos.
+Disponemos de isomorfismos especificados entre sus cambios de base.
+La condición de cociclo exige que dos identificaciones sucesivas coincidan
+con la identificación directa.
+\end{ptcb}
+
+\begin{ptcb}
+\textbf{Intuición: piezas e instrucciones de ensamblaje.}
+Tenemos piezas locales e instrucciones precisas para identificar sus zonas
+comunes. Con tres piezas, pasar de la primera a la segunda y luego a la
+tercera debe coincidir con ir directamente de la primera a la tercera.
+La efectividad pregunta si las piezas y esas instrucciones provienen de
+una construcción global.
+\end{ptcb}
+
+\begin{figure}[htbp]
+\centering
+\TalkDDDiagram
+\caption{Datos de descenso: objetos locales e identificaciones sobre los
+solapamientos. Todavía no se ha proporcionado un objeto global sobre \(S\).}
+\label{fig:descent-data}
+\end{figure}
+
+En un solapamiento triple, la condición de cociclo es la conmutatividad
+del triángulo
+\[
+\begin{tikzcd}[column sep=huge]
+ E_i|_{S_{ijk}} \arrow[rr,"\alpha_{ij}"]
+   \arrow[dr,"\alpha_{ik}"'] && E_j|_{S_{ijk}} \arrow[dl,"\alpha_{jk}"] \\
+ & E_k|_{S_{ijk}} .
+\end{tikzcd}
+\]
+En las etiquetas de las flechas de este triángulo omitimos las restricciones.
+
+\begin{Def}
+El dato es \textbf{efectivo} si existen un objeto \(E\in X_S\) e
+isomorfismos \(\alpha_i:E|_{S_i}\xrightarrow{\sim}E_i\) tales que
+\begin{equation}\label{eq:effective-compatibility}
+ \alpha_{ij}
+   =(\alpha_j|_{S_{ij}})\circ(\alpha_i|_{S_{ij}})^{-1}.
+\end{equation}
+\end{Def}
+
+La compatibilidad es esencial: el objeto global debe reproducir las
+identificaciones \emph{dadas}; no basta con que sus cambios de base sean
+localmente isomorfos a los objetos originales. El recorrido de
+\eqref{eq:effective-compatibility} va de \(E_i|_{S_{ij}}\) hacia
+\(E|_{S_{ij}}\) y después hacia \(E_j|_{S_{ij}}\).
+
+\begin{figure}[htbp]
+\centering
+\TalkDDEDiagram
+\caption{Un dato efectivo: el objeto global y sus identificaciones con los
+objetos locales dados. El triángulo azul expresa la compatibilidad.}
+\label{fig:effective-descent}
+\end{figure}
+
+En las Figuras~\ref{fig:descent-data}--\ref{fig:effective-descent}, las
+líneas punteadas indican el funtor de proyección sobre objetos; no son
+flechas adicionales de \(X\). Los mapas \(r_i,r_j,q_i,q_j,s_i,s_j\)
+son flechas cartesianas de cambio de base, y las flechas azules son
+isomorfismos en las fibras. Partir de un objeto global \(E\) siempre
+produce un dato efectivo, usando las comparaciones canónicas entre sus
+cambios de base. El axioma de stack pide efectividad de \emph{todo} dato de
+descenso, incluidos los que se especifican sin un objeto global.
+
+\section{Los isomorfismos forman un haz}
+\label{sec:isom-sheaf}
+
+Esta vez ya tenemos dos objetos globales \(E,E'\in X_S\). Supongamos
+que también tenemos isomorfismos locales
+\[
+ \alpha_i:E|_{S_i}\xrightarrow{\sim}E'|_{S_i}
+\]
+cuyas restricciones son la misma flecha en cada solapamiento:
+\[
+ \alpha_i|_{S_{ij}}=\alpha_j|_{S_{ij}}:
+ E|_{S_{ij}}\longrightarrow E'|_{S_{ij}}.
+\]
+
+\begin{Def}
+Decimos que \textbf{los isomorfismos forman un haz} si toda colección
+compatible de este tipo proviene de un único isomorfismo
+\(\alpha:E\xrightarrow{\sim}E'\) sobre \(\id_S\), con
+\(\alpha|_{S_i}=\alpha_i\).
+\end{Def}
+
+\begin{figure}[htbp]
+\centering
+\TalkISDiagram
+\caption{Los isomorfismos forman un haz. Las flechas azules locales dadas
+coinciden en el solapamiento; la flecha global discontinua debe existir
+y ser única.}
+\label{fig:isom-sheaf}
+\end{figure}
+
+\begin{ptcb}
+\textbf{Intuición: comparar dos construcciones ya terminadas.}
+Ahora las dos construcciones globales ya existen. En cada zona sabemos
+cómo identificar una con la otra. Si estas identificaciones coinciden en
+las zonas comunes, deben reunirse en una única identificación global.
+Estamos pegando las comparaciones entre las construcciones.
+\end{ptcb}
+
+\begin{ptcb}
+\textbf{Distinguir las dos preguntas de pegado.}
+La efectividad pega \emph{objetos locales con identificaciones especificadas}.
+La condición de haz pega \emph{isomorfismos locales compatibles entre dos
+objetos globales que ya existen}. Saber únicamente que dos objetos son
+localmente isomorfos no basta: los isomorfismos locales elegidos deben
+coincidir en los solapamientos.
+\end{ptcb}
+
+\section{La definición de stack y las primeras verificaciones}
+\label{sec:stack}
+
+\begin{Def}
+Un \textbf{stack en grupoides} sobre nuestro sitio es una CFG para la cual
+los isomorfismos forman un haz y todo dato de descenso es efectivo.
+\end{Def}
+
+En esta charla, ``stack'' significa stack en grupoides. La definición tiene
+sentido sobre cualquier sitio, no solo sobre esquemas: se sustituye
+\(\Sch\) por una categoría \(\mathcal C\) con una topología de
+Grothendieck y se usan sus cubrimientos. Véase~\cite{sp:stack}.
+
+\subsection{Un esquema visto como stack}
+\label{sec:scheme-stack}
+
+\begin{Prop}
+Para todo esquema \(S\), la categoría \(\Sch/S\) es un stack para la
+topología \'etale.
+\end{Prop}
+
+\begin{proof}
+Es una CFG por la Sección~\ref{sec:cfg}. Sobre un esquema de prueba \(T\),
+sus objetos son mapas \(f:T\to S\) y su fibra es discreta.
+Los isomorfismos locales entre dos de estos objetos afirman que los dos
+mapas coinciden localmente. Por tanto, coinciden globalmente, y el
+isomorfismo resultante es único. Esto prueba la condición de haz para los
+isomorfismos.
+
+Un dato de descenso consiste en mapas \(f_i:T_i\to S\) cuyos cambios de
+base a \(T_i\times_T T_j\) coinciden. Estos se pegan de forma única
+en un morfismo \(f:T\to S\), lo que hace efectivo el dato.
+Para cubrimientos de Zariski, es el pegado usual de morfismos de esquemas.
+Para cubrimientos \'etale, usamos el teorema estándar que afirma que los
+morfismos hacia un esquema satisfacen descenso~\cite{sp:morphism-descent}.
+\end{proof}
+
+\textbf{El espacio proyectivo es un ejemplo inmediato:}
+\(\Sch/\mathbb P^n\) es un stack. Sus objetos sobre \(T\) son mapas
+\(T\to\mathbb P^n\), y los mapas locales compatibles se pegan.
+Así, el ejemplo sugerido por el organizador se verifica usando exactamente
+los dos axiomas anteriores.
+
+\subsection{La categoría de curvas es un stack}
+
+La afirmación para \(\Curves\) es un verdadero teorema de descenso.
+Las familias locales compatibles de curvas se pegan respetando las
+identificaciones dadas en los solapamientos; los isomorfismos compatibles
+entre familias se pegan de forma única. Usar espacios algebraicos como
+espacios totales permite el pegado necesario. La familia resultante sigue
+siendo plana, propia, de presentación finita y de dimensión relativa a lo
+sumo uno. Citamos este teorema, sin desarrollar durante la charla la prueba
+del descenso efectivo para espacios algebraicos~\cite{sp:curves}.
+
+En cualquier stack, entre dos realizaciones del mismo dato de descenso
+existe un único isomorfismo \emph{compatible con las identificaciones
+locales elegidas}. La efectividad da la existencia; la condición de haz
+para los isomorfismos proporciona esta unicidad al pegar las comparaciones
+locales.
+
+\section{Representabilidad y morfismos de stacks}
+\label{sec:representability}
+
+Abreviamos el stack \(\Sch/S\) por \(S\) cuando el contexto es claro.
+Escribir un esquema como un stack incluye siempre su proyección al origen
+hacia \(\Sch\).
+
+\begin{Def}
+Siguiendo la convención de Fantechi, un stack \(X\) es
+\textbf{representable por un esquema} si
+\(X\simeq\Sch/S\) para algún esquema \(S\). Aquí \(\simeq\) significa
+una equivalencia sobre \(\Sch\), compatible con la estructura categórica.
+\end{Def}
+
+Un \textbf{morfismo de stacks} \(F:X\to Y\) es un funtor sobre la base:
+\(p_Y\circ F=p_X\). Esta condición se aplica tanto a las flechas como
+a los objetos. Es un funtor entre las categorías de familias.
+
+Por ejemplo, un morfismo \(\Sch/S\to X\) determina el objeto
+\(F(\id_S)\in X_S\). Recíprocamente, un objeto \(E\in X_S\) da el
+funtor que envía \(f:T\to S\) a \(f^*E\), con la acción inducida sobre
+las flechas. Estas construcciones son inversas salvo los isomorfismos
+naturales correspondientes.
+
+\begin{Def}
+Un morfismo \(F:X\to Y\) es \textbf{representable por esquemas} si, para
+todo esquema \(T\) y todo morfismo \(G:\Sch/T\to Y\), el producto
+fibrado \((\Sch/T)\times_Y X\) está representado por un esquema \(Z_G\).
+\end{Def}
+
+Así, examinamos \(F\) mediante el siguiente diagrama:
+\begin{equation}\label{eq:test-representability}
+\begin{tikzcd}[column sep=3.5em]
+ Z_G \arrow[d,"\rho_G"',""{name=scheme-column,anchor=center}]
+ & (\Sch/T)\times_Y X
+     \arrow[d,"\pr"',""{name=stack-column,anchor=center}] \arrow[r]
+ & X \arrow[d,"F"] \\
+ T & \Sch/T \arrow[r,"G"'] & Y
+ \arrow[from=scheme-column,to=stack-column,dashed,
+   shorten <=.5em,shorten >=1em,
+   "\text{representa}"{xshift=-.25em}]
+\end{tikzcd}
+\end{equation}
+Solo el cuadrado derecho es el producto fibrado de stacks; la flecha
+discontinua explica cómo el morfismo de esquemas de la izquierda representa
+su proyección. El esquema \(Z_G\) y el morfismo \(\rho_G\) dependen de
+\(F\) y del morfismo de prueba \(G\). No se exige que \(X\) o \(Y\)
+sean representables.
+
+\begin{ptcb}
+\textbf{Intuición: examinar con parámetros conocidos.}
+Aunque \(X\) e \(Y\) sean stacks, podemos mirar \(F\) usando una
+familia parametrizada por un esquema ordinario \(T\). La representabilidad
+dice que, después de esta prueba, obtenemos de nuevo un esquema
+\(Z_G\). Esto permite estudiar el morfismo usando geometría de esquemas.
+\end{ptcb}
+
+El producto fibrado cumple el papel esperado de un cambio de base, con la
+conmutatividad entendida salvo un isomorfismo natural especificado.
+Concretamente, sobre \(T\), un objeto de \(X\times_Y X'\) consiste en
+objetos \(E\in X_T\), \(E'\in X'_T\), junto con un isomorfismo entre
+sus imágenes en \(Y_T\). Este isomorfismo adicional permite que el
+producto fibrado conserve los automorfismos. Esta descripción basta aquí,
+sin desarrollar todo el formalismo de las \(2\)-categorías.
+
+Si \(P\) es una propiedad de los morfismos de esquemas que se conserva
+por cambio de base, un morfismo representable \(F\) tiene \(P\) cuando
+todo \(\rho_G\) en \eqref{eq:test-representability} tiene \(P\). Así se
+definen la propiedad de ser liso, la propiedad de ser étale y la sobreyectividad de
+nuestros morfismos representables.
+
+\begin{ptcb}
+\textbf{Sobreyectividad de un morfismo de stacks.}
+La condición es que todo morfismo de esquemas de prueba
+\(\rho_G:Z_G\to T\) sea sobreyectivo. El funtor subyacente no tiene por
+qué alcanzar todos los objetos globales.
+Para un atlas liso o étale y sobreyectivo, todo objeto proviene del atlas
+\emph{localmente}, salvo isomorfismo. Por ejemplo, el atlas
+\(\operatorname{Spec}\mathbb C\to V_r\) proporciona fibrados triviales,
+y todo fibrado vectorial de rango \(r\) es localmente trivial.
+\end{ptcb}
+
+\section{Presentaciones: Artin y Deligne--Mumford}
+\label{sec:algebraic}
+
+\begin{Def}
+Un stack \(X\) es \textbf{algebraico en el sentido de Artin} si existe
+un esquema \(U\) y un morfismo representable, \emph{liso y sobreyectivo}
+\(U\to X\). Es \textbf{Deligne--Mumford} (DM) si puede elegirse tal
+morfismo \emph{étale y sobreyectivo}. Un morfismo así es una
+\textbf{presentación}, también llamada \textbf{atlas} liso o étale.
+\end{Def}
+
+Todo stack DM es Artin, pues los morfismos étale son lisos. Un morfismo
+representable \(U\to X\), por sí solo, no es una presentación: son
+esenciales la condición de propiedad de ser liso o de ser étale y la
+\emph{sobreyectividad}.
+
+La terminología de atlas recuerda al atlas de una variedad diferencial:
+las inversas de las cartas coordenadas
+\(V_a\subseteq\mathbb R^n\to M\) se reúnen en un difeomorfismo local
+sobreyectivo \(\coprod_a V_a\to M\). Un atlas étale cumple un papel
+similar. Sus intersecciones \(U\times_X U\) recuerdan isomorfismos entre
+las descripciones en cartas, incluidos los automorfismos, y no solamente
+intersecciones de subconjuntos abiertos.
+
+\begin{nonum-Rmk}[Convención para el teorema de las curvas]
+La definición moderna permite que ``representable'' signifique
+representable por \emph{espacios algebraicos}; también incluye
+explícitamente la representabilidad de la diagonal. Un atlas representable,
+liso y sobreyectivo proporciona esa condición sobre la diagonal. Fantechi
+usa la convención más restrictiva de esquemas y restringe la categoría
+base. Usamos la convención habitual de espacios algebraicos al citar el
+teorema de que el stack completo \(\Curves\) es Artin, y permitimos
+esquemas complejos generales como bases. Las formulaciones étale y fppf
+dan los mismos stacks algebraicos.
+Referencias:~\cite{sp:algebraic,sp:atlas,sp:etale-fppf}.
+\end{nonum-Rmk}
+
+\begin{Th}[El criterio de la diagonal]
+Para un stack \(X\) que ya sabemos que es Artin,
+\[
+  X\text{ es DM}
+  \quad\Longleftrightarrow\quad
+  \Delta_X:X\longrightarrow X\times X\text{ es no ramificada}.
+\]
+\end{Th}
+
+Aquí la diagonal envía un objeto al par formado por ese mismo objeto dos
+veces. Su cambio de base a lo largo de un par \(E,E'\in X_T\)
+parametriza isomorfismos de \(E\) a \(E'\). En particular, tomando
+\(E=E'\), obtenemos su grupo de automorfismos. El criterio es un teorema,
+no un axioma adicional que deba comprobarse después de encontrar un atlas
+étale~\cite{sp:dm}.
+
+Equivalentemente, los estabilizadores geométricos deben ser no
+ramificados. Sobre \(\mathbb C\), si estos estabilizadores son de tipo
+finito, esto equivale a que todo objeto geométrico tenga un número finito
+de automorfismos. Estas hipótesis se cumplen en los ejemplos de curvas
+que veremos. Así, ``automorfismos finitos'' es un criterio \emph{entre
+stacks que ya sabemos que son algebraicos}, y no una definición que por
+sí sola produzca algebraicidad~\cite{sp:dm-locus,sp:curve-aut}.
+
+\begin{ptcb}
+\textbf{Intuición: simetrías finitas frente a simetrías continuas.}
+Como imagen intuitiva, un triángulo equilátero tiene un número finito de
+simetrías rígidas, mientras que un círculo admite una familia continua
+de rotaciones. Esta es solo una comparación geométrica: el criterio DM
+se refiere a los estabilizadores algebraicos y requiere las hipótesis
+anteriores. En los ejemplos sobre \(\mathbb C\), ayuda a distinguir
+simetrías finitas de familias continuas de automorfismos.
+\end{ptcb}
+
+\subsection{Retomamos los ejemplos}
+
+\begin{Ex}[Los esquemas ya son stacks DM]
+Para todo esquema \(S\), la presentación identidad
+\(\Sch/S\to\Sch/S\) es representable, étale y sobreyectiva.
+Por tanto, \(\Sch/S\) es DM y Artin, incluso cuando \(S\) es singular.
+Esta afirmación se refiere al atlas identidad, y no a la propiedad de ser liso de
+\(S\to\operatorname{Spec}\mathbb C\).
+Para el espacio proyectivo, sus cartas afines habituales dan el atlas
+étale más visual \(\coprod_{i=0}^n\mathbb A^n\to\mathbb P^n\).
+\end{Ex}
+
+\begin{Th}[El stack de curvas]
+El stack \(\Curves\) es Artin. En general, no es DM.
+\end{Th}
+
+La algebraicidad es un teorema sustancial~\cite{sp:curves}. Para ver que
+la condición DM puede fallar, consideremos el objeto
+\(\mathbb P^1\to\operatorname{Spec}\mathbb C\) de \(\Curves\).
+Su grupo de automorfismos es \(\operatorname{PGL}_2\), de dimensión
+tres, por lo que no cumple la condición de no ramificación sobre
+\(\mathbb C\)~\cite{sp:curve-aut}.
+
+\begin{ptcb}
+El stack representable \(\Sch/\mathbb P^1\) es DM.
+La curva \(\mathbb P^1\), como \emph{objeto de \(\Curves\)}, tiene
+automorfismos continuos no triviales. Estas afirmaciones se refieren a
+categorías diferentes: la primera clasifica morfismos \emph{hacia}
+\(\mathbb P^1\); la segunda categoría clasifica familias de curvas.
+\end{ptcb}
+
+Para el ejemplo estable con puntos marcados, fijemos \(g,n\geq0\) con
+\(2g-2+n>0\). La categoría \(\overline{\mathcal M}_{g,n}\) tiene como
+objetos familias de curvas como las anteriores, equipadas con marcas
+\((E\to S;\sigma_1,\ldots,\sigma_n)\), cuyas fibras geométricas son
+conexas y nodales, de género aritmético \(g\), con marcas etiquetadas y
+disjuntas en el lugar liso, y que satisfacen la condición de estabilidad
+\[
+  2g(D)-2+m_D>0
+\]
+en cada componente \(D\) de la normalización de una fibra geométrica;
+\(m_D\) cuenta las marcas y las ramas de nodos sobre esa componente.
+También se permiten fibras lisas, sin nodos.
+Los morfismos son diagramas cartesianos que conservan las marcas.
+
+\begin{Th}[Curvas estables con puntos marcados]
+La categoría \(\overline{\mathcal M}_{g,n}\) es un stack DM.
+\end{Th}
+
+El teorema incluye la algebraicidad. La estabilidad hace que el grupo de
+automorfismos de toda curva geométrica con puntos marcados sea finito;
+los automorfismos deben conservar \emph{cada marca etiquetada}.
+Véase~\cite[\S6.3 y Teorema~6.4.16]{alper}.
+Para \(n>0\), este es un problema de módulos con puntos marcados:
+olvidar las marcas da un morfismo hacia \(\Curves\), pero la categoría
+con marcas no es literalmente una subcategoría con los mismos objetos
+que \(\Curves\).
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Stack & ¿Artin? & ¿DM? \\
+\midrule
+\(\Sch/S\) & Sí & Sí \\
+\(\Curves\) & Sí & En general, no \\
+\(\overline{\mathcal M}_{g,n}\), \(2g-2+n>0\) & Sí & Sí \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Si queda tiempo: problemas de módulos y espacio proyectivo}
+\label{sec:moduli}
+
+Un \textbf{problema de módulos} busca clasificar un tipo especificado de
+objetos geométricos, con sus condiciones y los isomorfismos permitidos,
+y describir sus familias de forma compatible con el cambio de base.
+La categoría de todas esas familias sobre \(\Sch\) codifica el problema.
+Probar el descenso y la algebraicidad le da la estructura de un stack
+algebraico de módulos.
+
+\begin{ptcb}
+\textbf{Intuición: clasificar formas y permitir que varíen.}
+Primero decidimos qué objetos estudiamos y cuándo dos descripciones
+representan el mismo objeto: por ejemplo, mediante un isomorfismo que
+respete las marcas. Después preguntamos cómo pueden variar esos objetos
+en familias. El problema de módulos reúne la clasificación y esa variación,
+junto con las simetrías de cada objeto.
+\end{ptcb}
+
+Para curvas estables con puntos marcados, la pregunta es: fijados \(g,n\),
+clasificar las curvas estables de género \(g\) con \(n\) puntos lisos
+marcados y etiquetados, salvo isomorfismos que conserven las marcas,
+y entender cómo varían en familias.
+El stack \(X=\overline{\mathcal M}_{g,n}\) conserva las familias, sus
+isomorfismos y sus relaciones de cambio de base. Un morfismo de stacks
+\(S\to X\) es una familia sobre \(S\); en la descripción mediante
+funtores, esa familia es la imagen de \(\id_S\).
+
+Al pasar a clases de isomorfismo obtenemos un \textbf{funtor de módulos}
+con valores en conjuntos:
+\[
+ F_X:\Sch^{\mathrm{op}}\longrightarrow\mathbf{Sets},
+ \qquad S\longmapsto\{\text{objetos de }X_S\}/\cong,
+\]
+donde \(u:T\to S\) actúa mediante \([E]\mapsto[u^*E]\).
+Este funtor contravariante es diferente de la proyección covariante
+\(p:X\to\Sch\). Conservar los grupoides \(X_S\), en lugar de solo sus
+clases de isomorfismo, permite conservar también los automorfismos.
+
+Un \textbf{espacio de módulos fino} para el funtor con valores en conjuntos
+es un esquema \(M\) con biyecciones naturales
+\[
+ F_X(S)\cong\operatorname{Hom}_{\Sch}(S,M)
+\]
+para todas las bases \(S\), compatibles con el cambio de base. No basta con
+hacer corresponder las clases de isomorfismo sobre
+\(\operatorname{Spec}\mathbb C\). Un espacio de módulos grueso satisface
+una propiedad universal más débil y clasifica las clases de isomorfismo
+geométricas; no tiene por qué clasificar familias arbitrarias de esta
+manera. Escribir \(\overline{\mathcal M}_{g,n}\) para el stack y
+\(\overline M_{g,n}\) para su espacio de módulos grueso mantiene visible
+la distinción.
+
+\subsection{El problema de módulos concreto representado por el espacio proyectivo}
+
+Además de la comprobación directa de la condición de stack en la
+Sección~\ref{sec:scheme-stack}, el espacio proyectivo tiene la siguiente
+interpretación de módulos:
+\[
+ \operatorname{Hom}(T,\mathbb P^n)
+ \cong
+ \left\{
+   \mathcal O_T^{\oplus(n+1)}\twoheadrightarrow L
+   \;:\;L\text{ es un fibrado en rectas}
+ \right\}\big/\cong.
+\]
+Aquí los isomorfismos conmutan con los morfismos cociente. Equivalentemente,
+se especifica un fibrado en rectas con \(n+1\) secciones globales
+ordenadas que lo generan. Estos datos se transportan por cambio de base a lo
+largo de morfismos de esquemas de parámetros~\cite{sp:projective}.
+
+Un automorfismo de \(L\) que conserve el cociente debe ser la identidad,
+pues las secciones generadoras lo determinan. Junto con la biyección
+natural mostrada, esto prueba que el problema con valores en grupoides
+está representado por \(\Sch/\mathbb P^n\). Si, en cambio, clasificamos
+\emph{todos} los fibrados en rectas, sin generadores elegidos ni condición
+de generación, obtenemos el stack conocido \(V_1\simeq B\mathbb G_m\).
+La multiplicación por un escalar no nulo ya es un automorfismo sobre
+\(\operatorname{Spec}\mathbb C\).
+
+\begin{ptcb}
+\textbf{Posible frase de cierre.}
+Un esquema puede verse como un stack de morfismos hacia él. Un stack de
+módulos permite hacer geometría con familias y sus isomorfismos cuando
+un esquema ordinario de parámetros no conserva la información que
+necesitamos.
+\end{ptcb}
+
+\begin{thebibliography}{SP10}
+\bibitem[F]{fantechi}
+Barbara Fantechi, \emph{Stacks for everybody}, European Congress of
+Mathematics, 2001. Fuente principal para la progresión de definiciones;
+el presente texto es un borrador independiente para una exposición.
+
+\bibitem[SP1]{sp:etale}
+The Stacks Project Authors, \emph{\'Etale morphisms} y
+\emph{\'Etale and smooth morphisms}.
+\href{https://stacks.math.columbia.edu/tag/02GH}{Tag 02GH};
+\href{https://stacks.math.columbia.edu/tag/039P}{Tag 039P}.
+
+\bibitem[SP2]{sp:covers}
+The Stacks Project Authors, \emph{The \'etale topology}.
+\href{https://stacks.math.columbia.edu/tag/0214}{Tag 0214}.
+
+\bibitem[SP3]{sp:stack}
+The Stacks Project Authors, \emph{Stacks in groupoids}, Definición~8.5.1.
+\href{https://stacks.math.columbia.edu/tag/02ZH}{Tag 02ZH}.
+
+\bibitem[SP4]{sp:morphism-descent}
+The Stacks Project Authors, Lema~35.13.7: los funtores representables
+satisfacen el descenso para cubrimientos fpqc y, por tanto, para
+cubrimientos étale.
+\href{https://stacks.math.columbia.edu/tag/023Q}{Tag 023Q}.
+
+\bibitem[SP5]{sp:curves}
+The Stacks Project Authors, \emph{The stack of curves},
+Situación~99.15.1, los lemas de CFG y descenso, y Teorema~99.15.11.
+\href{https://stacks.math.columbia.edu/tag/0D4Y}{Tag 0D4Y}.
+
+\bibitem[SP6]{sp:algebraic}
+The Stacks Project Authors, definiciones de stacks algebraicos y
+Deligne--Mumford.
+\href{https://stacks.math.columbia.edu/tag/026O}{Tag 026O};
+\href{https://stacks.math.columbia.edu/tag/03YO}{Tag 03YO}.
+
+\bibitem[SP7]{sp:atlas}
+The Stacks Project Authors, Lema~94.15.3: algebraicidad a partir de un
+cubrimiento representable, liso y sobreyectivo.
+\href{https://stacks.math.columbia.edu/tag/05UL}{Tag 05UL}.
+
+\bibitem[SP8]{sp:etale-fppf}
+The Stacks Project Authors, \emph{Algebraic stacks in the \'etale topology},
+Lema~97.19.1.
+\href{https://stacks.math.columbia.edu/tag/076U}{Tag 076U}.
+
+\bibitem[SP9]{sp:dm}
+The Stacks Project Authors, Definición~101.4.1 y Teorema~101.21.6:
+diagonal no ramificada y presentaciones étale.
+\href{https://stacks.math.columbia.edu/tag/04YW}{Tag 04YW};
+\href{https://stacks.math.columbia.edu/tag/06N3}{Tag 06N3}.
+
+\bibitem[SP10]{sp:dm-locus}
+The Stacks Project Authors, Lema~101.22.2: el lugar DM y los
+estabilizadores geométricos.
+\href{https://stacks.math.columbia.edu/tag/0DSL}{Tag 0DSL}.
+
+\bibitem[SP11]{sp:curve-aut}
+The Stacks Project Authors, \emph{Curves with finite reduced automorphism
+groups}, en particular el Ejemplo~109.7.2 y el Lema~109.7.3.
+\href{https://stacks.math.columbia.edu/tag/0DST}{Tag 0DST}.
+
+\bibitem[SP12]{sp:projective}
+The Stacks Project Authors, Lemas~27.13.1 y 27.13.3: la interpretación de
+módulos y las cartas afines habituales del espacio proyectivo.
+\href{https://stacks.math.columbia.edu/tag/01NE}{Tag 01NE};
+\href{https://stacks.math.columbia.edu/tag/01NG}{Tag 01NG}.
+
+\bibitem[A]{alper}
+Jarod Alper, \emph{Stacks and Moduli}, Capítulo~6, en particular \S6.3 y
+Teorema~6.4.16 (curvas estables con puntos marcados).
+\href{https://sites.math.washington.edu/~jarod/moduli.pdf}{Notas del autor}.
+\end{thebibliography}
+
+\end{document}
