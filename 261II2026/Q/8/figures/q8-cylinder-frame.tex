@@ -1,0 +1,44 @@
+\documentclass[tikz,border=4pt]{standalone}
+\usepackage{libertine}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\usetikzlibrary{arrows.meta}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  view={45}{25},
+  x={(1.3435cm,-0.5677cm)},y={(1.3435cm,0.5677cm)},z={(0cm,1.7220cm)},
+  xmin=-1.35,xmax=1.9,ymin=-0.25,ymax=2.5,zmin=-1.4,zmax=1.4,
+  axis lines=none,ticks=none,clip=false,
+  axis line style={gray!65,thin,-{Stealth[length=1.5mm]}},
+  every axis label/.style={font=\small},
+  z buffer=sort]
+\addplot3[surf,shader=flat,draw=gray!50,fill=gray!14,
+  samples=25,samples y=9,domain=0:360,y domain=0:2]
+  ({cos(x)},{y},{-sin(x)});
+% The cylinder has no end caps. P=(1,1,0).
+\draw[white,line width=3.5pt] (axis cs:1,1,0)--(axis cs:1,1.85,0);
+\draw[black,dashed,line width=1.1pt,-{Stealth[length=2.5mm]}]
+  (axis cs:1,1,0)--(axis cs:1,1.85,0)
+  node[above right,fill=white,inner sep=1pt] {$\vec f_t$};
+\draw[white,line width=3.5pt] (axis cs:1,1,0)--(axis cs:1,1,-0.9);
+\draw[black,dash dot,line width=1.1pt,-{Stealth[length=2.5mm]}]
+  (axis cs:1,1,0)--(axis cs:1,1,-0.9)
+  node[below,fill=white,inner sep=1pt] {$\vec f_\theta$};
+\draw[white,line width=4pt] (axis cs:1,1,0)--(axis cs:1.85,1,0);
+\draw[black,line width=1.55pt,-{Stealth[length=2.8mm]}]
+  (axis cs:1,1,0)--(axis cs:1.85,1,0)
+  node[below left,fill=white,inner sep=1pt] {$\vec n$};
+\fill (axis cs:1,1,0) circle (1.7pt)
+  node[above left,fill=white,inner sep=1pt] {$P$};
+\end{axis}
+% Small coordinate triad, separated from the surface and frame arrows.
+\begin{scope}[shift={(current bounding box.south west)},x=1cm,y=1cm]
+\coordinate (O) at (-.55,.45);
+\draw[gray!75,thin,-{Stealth[length=1.4mm]}] (O)--++(.5,-.2) node[below right,text=black,font=\small] {$x$};
+\draw[gray!75,thin,-{Stealth[length=1.4mm]}] (O)--++(.5,.2) node[above right,text=black,font=\small] {$y$};
+\draw[gray!75,thin,-{Stealth[length=1.4mm]}] (O)--++(0,.65) node[above,text=black,font=\small] {$z$};
+\end{scope}
+\end{tikzpicture}
+\end{document}

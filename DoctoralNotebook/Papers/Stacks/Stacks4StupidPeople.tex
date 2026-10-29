@@ -84,7 +84,7 @@
 % --- Source PDF page 1 ---
 
 \begin{center}
-{\LARGE\bfseries Stacks for \sout{Everybody} for Stupid People} (\red{here}\ref{here})
+{\LARGE\bfseries Stacks for \sout{Everybody} Stupid People} (\red{here}\ref{here})
 \end{center}
 
 \vspace{1em}
@@ -533,7 +533,7 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     \endgroup
 \end{ptcb}
 
-\begin{nonum-Ex}
+\begin{nonum-Ex}\phantomsection\label{ex:morphOverCategoriesSchSToVr}
     For instance, to every morphism $\mathfrak{S}/S \to V_r$ we can associate a vector bundle $E$ over $S$. Conversely, given the associated vector bundle $E$, a morphism $\mathfrak{S}/S \to V_r$ is determined by the datum, for every $T \to S$, of a vector bundle $F$ over $T$, together with a pullback diagram \eqref{eq:vector-bundle-pullback} (to prove this, use that every object $f\colon T \to S$ in $\mathfrak{S}/S$ has a unique morphism to $\id_S$, namely $f$ itself).
 \end{nonum-Ex}
 
@@ -657,7 +657,7 @@ Let $S$ be a scheme, $X$ a category over $\mathfrak{S}$, $f\colon \mathfrak{S}/S
     as desired, and thus, there exists a unique morphism \(h: f^\ast E\to (f')^\ast E\) over \(g\) as desired. 
 \end{ptcb}
 
-If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, \hlpink{then the associated object is a morphism $g\colon T \to S$}\passagemark\label{passage:MorphOfCatsOverGBothSchOverASch}, and $f$ is \hlpink{uniquely determined}\passagemark\label{passage:determinedUniquely} by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism.
+If $S$ and $T$ are schemes, and $f\colon \mathfrak{S}/T \to \mathfrak{S}/S$ is a morphism of categories over $\mathfrak{S}$, \hlpink{then the associated object is a morphism $g\colon T \to S$}\passagemark\label{passage:MorphOfCatsOverGBothSchOverASch}, and $f$ is \hlpink{uniquely determined}\passagemark\label{passage:determinedUniquely} by $g$. Hence, morphisms of categories over $\mathfrak{S}$ from $\mathfrak{S}/T$ to $\mathfrak{S}/S$ are the same as morphisms of schemes $T \to S$: therefore, \hlgreen{the category $\mathfrak{S}/S$ determines the scheme $S$ up to isomorphism}\passagemark\label{passage:SchSDetsS}.
 
 \begin{ptcb}
     Let's unpack the idea of passage \ref{passage:MorphOfCatsOverGBothSchOverASch}. A morphism between these categories over \(\Sch\) is the diagram
@@ -768,7 +768,7 @@ From now on we will use the same letter to indicate a scheme $S$ and the stack $
 If $X$ and $Y$ are categories over $\mathfrak{S}$, and $f$, $g$ are morphisms from $X$ to $Y$, a \emph{2-morphism} $f \to g$ is a natural transformation over the identity functor on $\mathfrak{S}$.
 
 \begin{ptcb}
-    Diagramatically a 2-morphism of categories over \(\Sch\) looks like 
+    Diagrammatically a 2-morphism of categories over \(\Sch\) looks like 
     \[
     \begin{tikzcd}[column sep=large, row sep=large]
         X
@@ -1446,23 +1446,60 @@ Let $X$ be a category fibered in groupoids over $\mathfrak{S}$. We say that \emp
 A \emph{stack} is a category fibered in groupoids over $\mathfrak{S}$ such that isomorphisms are a sheaf and every descent datum is effective.
 \end{Def}
 
-If $X$ is a stack, then for every descent datum as in Definition \ref{def:4.1}, the $(E, \alpha_i)$ whose existence \hlpink{follows by effectivity}\passagemark\label{passage:FollowsByEffectivity} are essentially unique: i.e., for any other possibility $(E', \alpha'_i)$ there exists a unique isomorphism $\beta\colon E' \to E$ in the fiber such that $\alpha'_i = \alpha_i \circ \beta$.
+If $X$ is a stack, then for every descent datum as in Definition \ref{def:4.1}, the $(E, \alpha_i)$ whose existence follows by effectivity are essentially unique: i.e., for any other possibility $(E', \alpha'_i)$ \hlblue{there exists a unique isomorphism}\passagemark\label{ExistsIsomDiffEDD} $\beta\colon E' \to E$ in the fiber such that $\alpha'_i = \alpha_i \circ \beta$.
 
 \begin{ptcb}
-    \begin{Qn}
-        In the sense of passage \ref{passage:FollowsByEffectivity}, ¿is there a way to have effective descent data without actually having descent data? Or does the passage mean to say that if we have a global object from which we can construct the pullbacks and the isomorphisms, and we then verify the DD conditions, ¿is that a descent datum that follows from effectivity?
-    \end{Qn}
+   The passage before was a bit confusing on my first readthrough, paraphrasing:\par
+   Given a stack \(X\) and descent datum, there exists a global object \((E,\al_i)\) because of effectivity. If another global object \(((E',\al_i'))\) were to exist, it'd be isomorphic to the original \(E\) via an isomorphism in the fiber. This raises the question:
+
+   \begin{Qn}
+    ¿Why would \((E,\al_i)\) and \((E',\al_i')\) be isomorphic as in passage \ref{ExistsIsomDiffEDD}?
+   \end{Qn}
+
+   In the setting we're in, it's because \(X\) is a stack and therefore the isomorphisms are a sheaf. Both of these objects realize the same descent datum. They come with maps 
+   \[
+   \begin{cases}
+    \al_i: E\mid S_i\to E_i,\\
+    \al_i': E'\mid S_i\to E_i,
+   \end{cases}
+   \]
+   so that their pullbacks are isomorphic via
+   \[
+    \bt_i=\al_i^{-1}\al_i':E'\mid S_i\to E\mid S_i.
+   \]
+   They agree on overlaps as
+   \[
+        \begin{aligned}
+            \beta_j|S_{ij}&=(\alpha_j|S_{ij})^{-1}\circ(\alpha_j'|S_{ij})\\
+            &=(\alpha_i|S_{ij})^{-1}
+            \circ\alpha_{ij}^{-1}\circ\alpha_{ij}
+            \circ(\alpha_i'|S_{ij})\\
+            &=\beta_i|S_{ij}.
+        \end{aligned}
+    \]
+    In this fashion we have a unique isomorphism over \(\id_S\), \(\bt:E'\to E\) such that \(\al_i'=\al_i\circ (\bt\mid S_i)\). 
 \end{ptcb}
 
-Morphisms of stacks are defined to be morphisms of categories over $\mathfrak{S}$, and the same for 2-morphisms and isomorphisms.
+\hlgreen{Morphisms of stacks are defined to be morphisms of categories over $\mathfrak{S}$}\passagemark\label{passage:DefnMorphOfStacks}, and the same for 2-morphisms and isomorphisms.
 
 \subsection{Representable stacks and morphisms}
 
-The category $\mathfrak{S}/S$ is always fibered in groupoids over $\mathfrak{S}$, but not a priori a stack: this depends on the topology. It is true, and easy to prove, for each $\mathfrak{S}$ we mentioned (schemes, varieties, complex analytic spaces, manifolds, topological spaces, etc) with the usual topology. It is also true for schemes with the \'etale topology.
+The category $\mathfrak{S}/S$ is always fibered in groupoids over $\mathfrak{S}$, but not a priori a stack: this depends on the topology. It is true, \hlpink{and easy to prove}, for each $\mathfrak{S}$ we mentioned (schemes, varieties, complex analytic spaces, manifolds, topological spaces, etc) with the usual topology. It is also true for schemes with the \'etale topology.
+
+\begin{ptcb}
+    Let's recall really quick, because it's been a minute: the category \(\Sch/S\) is the category of \(S\)-schemes, whose objects are morphisms from schemes to \(S\) and morphisms are morphisms over \(\id_S\). We may recall this from passage \ref{passage:CategoryOfSSchemes}.
+\end{ptcb}
 
 \begin{Def}\label{def:4.4}
 A stack $X$ over $\mathfrak{S}$ is \emph{representable} if it is isomorphic to the stack $\mathfrak{S}/S$ induced by a scheme $S$ (see also \S~\ref{sec:strictly-speaking}).
 \end{Def}
+
+\begin{ptcb}
+    Recall passage \ref{passage:SchSDetsS} in which \(\Sch/S\) was determined by \(S\). In this fashion, if a stack \(X\) is isomorphic to \(\Sch/S\) which in turn, is induced by \(S\), then we get a relation between a stack and a scheme as:
+    \[
+        X\xlongrightarrow[X \text{is representable}]{\isom}\Sch/S\xlongrightarrow[\text{determines}/\isom]{}S,
+    \]
+\end{ptcb}
 
 Informally speaking, a representable morphism of stacks is one whose fibers are schemes.
 
@@ -1470,11 +1507,108 @@ Informally speaking, a representable morphism of stacks is one whose fibers are 
 A morphism $X \to Y$ of stacks is \emph{representable} if, for every morphism $S \to Y$ with $S$ (the stack associated to) a scheme, the fiber product $S \times_Y X$ is representable.
 \end{Def}
 
+\begin{ptcb}
+    The notion of a morphism of stacks was mentioned in passage \ref{passage:DefnMorphOfStacks}. It is the same notion of a morphism of categories over \(\Sch\). In this fashion, rephrasing the above, consider the diagram:
+        \[
+            \begin{tikzcd}
+                S\x_YX \arrow[r] \arrow[d] & X \arrow[d] \\
+                S \arrow[r]                & Y          
+            \end{tikzcd}
+        \]
+    Here \(S\) represents the stack \(\Sch/S\). We will say that \(X\to Y\) is representable (as a morphism) if \(S\x_YX \) is representable (as a stack).
+\end{ptcb}
+
 Oops! I didn't tell you what the fiber product of stacks is, did I? Well, it was done on purpose. The definition can be found in the last section; think of it for the moment as enjoying a universal property analogous to the one we saw for schemes. The proof of the next lemma is in \S~\ref{sec:proof-frame-bundle}.
 
 \begin{Lem}\label{lem:4.6}
-Let $W$ be a vector space of dimension $r$. Define a morphism $p \to V_r$ (recall that $p$ is the category $\mathfrak{S}/p$) mapping every scheme $T$ to the trivial bundle $T \times W$, and every morphism to the obvious pullback diagram. Then for every scheme $S$ and every morphism $S \to V_r$ (with associated bundle $E$ on $S$), the fiber product $S \times_{V_r} p$ is a representable stack, isomorphic to the frame bundle of $E$. Hence, the morphism $p \to V_r$ is representable.
+Let $W$ be a vector space of dimension $r$. Define a morphism $p \to V_r$ (recall that $p$ is the category $\mathfrak{S}/p$) mapping every scheme $T$ to the trivial bundle $T \times W$, and every morphism to the obvious pullback diagram. Then for every scheme $S$ and every morphism $S \to V_r$ (with associated bundle $E$ on $S$), the fiber product $S \times_{V_r} p$ is a representable stack, isomorphic to the frame bundle of $E$. Hence, \hlgreen{the morphism $p \to V_r$ is representable}.
 \end{Lem}
+
+\begin{ptcb}
+    The previous lemma is an example of a representable morphism. Concretely, write \(F\) for the functor
+    \[
+        F:\Sch/p\to V_r,\qquad
+        (T\to p)\mapsto(T\x W\to T).
+    \]
+    It sends the \(p\)-scheme \(T\) to a trivial bundle \(T\x W\) over it. Its action on morphisms is
+    \[
+    \begin{tikzcd}
+        T'\arrow[dr,"c'"'] \arrow[rr,"f"] && T\arrow[dl,"c"] \\
+        & p
+    \end{tikzcd}
+    \mapsto
+    \begin{tikzcd}
+        T'\x W \arrow[d] \arrow[r, "f\x\id_W"] & T\x W \arrow[d] \\
+        T' \arrow[r, "f"'] & T.
+    \end{tikzcd}
+    \]
+    In pair notation, \(F(f,\id_p)=(f\x\id_W,f)\). Here it holds that 
+    \[
+    T'\x W\isom T'\x_T(T\x W)
+    \]
+    as vector bundles over \(T'\).\par
+    Now consider a scheme \(S\) and a morphism of stacks \(G:S\to V_r\). This is the same situation as in passage \ref{passage:morphOverCategories} and the \hyperref[ex:morphOverCategoriesSchSToVr]{example on vector bundles}. Explicitly, this is a functor
+    \[
+        G:\Sch/S\to V_r,\qquad
+        (g:T\to S)\mapsto(E_g\to T).
+    \]
+    The associated bundle over \(S\) is the image
+    \[
+        (E\to S):=G(\id_S).
+    \]
+    For every \(S\)-scheme \((g:T\to S)\), the unique morphism from \(g\) to \(\id_S\) is sent by \(G\) to a pullback diagram, so \(E_g\isom g^*E\) as vector bundles over \(T\).\par
+    A morphism from \((g':T'\to S)\) to \((g:T\to S)\) in \(\Sch/S\), represented by \(h:T'\to T\) with \(g'=g\circ h\), is sent by \(G\) to a morphism of vector bundles represented by the cartesian square
+    \[
+        \begin{tikzcd}
+            E_{g'} \arrow[r, "\bar h"] \arrow[d] & E_g \arrow[d] \\
+            T' \arrow[r, "h"'] & T.
+        \end{tikzcd}
+    \]
+    In pair notation, 
+    \[
+        (h,\id_S)\xrightarrow{G}(\bar h,h).
+    \]
+    To ask whether \(F:p\to V_r\) is representable is to ask whether, for \emph{every} scheme \(S\) and \emph{every} morphism \(G:S\to V_r\), the stack \(S\x_{V_r}p\), determined by \(G\) and \(F\), is representable. Diagrammatically this is
+    \[
+        \begin{tikzcd}
+            S\x_{V_r}p \arrow[r] \arrow[d] & p \arrow[d, "F"] \\
+            S \arrow[r, "G"'] & V_r.
+        \end{tikzcd}
+    \]
+    The lemma guarantees this. More precisely, for the bundle \((E\to S)=G(\id_S)\) associated to \(G\), the representing scheme is \(\operatorname{Fr}(E)\). So we have
+    \[
+        S\x_{V_r}p\isom\Sch/\operatorname{Fr}(E)
+    \]
+    as stacks over \(\Sch\).
+    \tcbline 
+    \begin{nonum-Rmk}
+        Recall the correspondence between a representable stack \(X\) and a scheme \(S\) via
+        \[
+            X\xlongrightarrow[X \text{is representable}]{\isom}\Sch/S\xlongrightarrow[\text{determines}/\isom]{}S,
+        \]
+        where the association from \(S\)-schemes to \(S\) comes from passage \ref{passage:SchSDetsS}. The case for a representable morphism is different. When we want \(F:X\to Y\), a morphism of stacks, to be representable, we are asking \emph{any} cartesian diagram like the following:
+        \begin{equation}\label{eq:representable-morphism-test}
+            \begin{tikzcd}[column sep=5em]
+                T \arrow[d, "\pi"', ""{name=scheme-column, anchor=center}]
+                & \Sch/S\x_YX
+                    \arrow[d, "\pr"', ""{name=stack-column, anchor=center}]
+                    \arrow[r]
+                & X \arrow[d, "F"] \\
+                S & \Sch/S \arrow[r, "G"'] & Y
+                % This is an explanatory annotation between columns.
+                \arrow[from=scheme-column, to=stack-column, dashed,
+                    shorten <=1em, shorten >=2em,
+                    "\text{represents}"{xshift=-.5em}]
+            \end{tikzcd}
+        \end{equation}
+        to have the property that the fibered product \(\Sch/S\x_YX\) is representable. Here \(T\) (or \(\Sch/T\) as a stack) is the scheme representing \(\Sch/S\x_YX\). Note that \(T\) depends on the choice of \(G\) in the sense that, for different test-schemes \(S\), we'd have a different \(T\). The morphism \(\pi\) satisfies 
+        \[
+            \pi=\pr(\eps(\id_T)),\word{where}\Sch/T\xrightarrow[\eps]{\isom}\Sch/S\x_YX.
+        \]
+        As such, the morphism of schemes \(\pi:T\to S\) represents the base change \(\pr\) of \(F\).\par
+        This \emph{does not} require \(X\) nor \(Y\) to have been representable in the first place.
+    \end{nonum-Rmk}
+\end{ptcb}
 
 \section{Algebraic Stacks and Groupoid Schemes}
 
@@ -1486,7 +1620,13 @@ Let $P$ be a property of morphisms of schemes which is invariant under base chan
 
 % --- Source PDF page 8 ---
 
-As an example, among such properties there are smooth, \'etale, proper, an open embedding, a closed embedding. If you're not an algebraic geometer, smooth is essentially the same as submersion, that is morphism of manifolds with surjective differential at every point.
+As an example, among such properties there are smooth, \'etale, proper, an open embedding, a closed embedding. 
+
+\begin{ptcb}
+    Restating this, assume \(F:X\to Y\) is representable. Then \(F\) is smooth, étale, proper, surjective,\dots if and only if, for every test-scheme \(S\) and every morphism \(G:\Sch/S\to Y\), the scheme morphism \(\pi:T\to S\) in diagram \eqref{eq:representable-morphism-test} is smooth, étale, proper, surjective,\dots, respectively.
+\end{ptcb}
+
+If you're not an algebraic geometer, smooth is essentially the same as submersion, that is morphism of manifolds with surjective differential at every point.
 
 From now on, $\mathfrak{S}$ is the category of quasiprojective schemes over the complex numbers, with the \'etale topology. Many other choices are possible in the context of algebraic geometry, but we are striving for clearness and not for generality. If you want to keep thinking that $\mathfrak{S}$ is complex analytic spaces, manifolds, etc, with the usual topology, you can do so, as most of what follows still makes sense: however, I don't know whether there is an official definition of analytic or differentiable stack.
 
@@ -1494,7 +1634,33 @@ From now on, $\mathfrak{S}$ is the category of quasiprojective schemes over the 
 A stack $X$ over $\mathfrak{S}$ is \emph{algebraic in the sense of Deligne and Mumford (resp.\ Artin)} if there exists an \'etale (resp.\ smooth) and surjective representable morphism $S \to X$ where $S$ is (the stack associated to) a scheme: we say $S \to X$ is a \emph{presentation of $X$}.
 \end{Def}
 
+\begin{ptcb}
+    Diagrammatically, if \(F:S\to X\) is an étale presentation of \(X\), this means that \(F\) is representable as in
+    \[
+    \begin{tikzcd}[column sep=5em]
+        Z \arrow[d, "\pi"', ""{name=scheme-column, anchor=center}]
+        & \Sch/S\x_X\Sch/T
+            \arrow[d, "\pr"', ""{name=stack-column, anchor=center}]
+            \arrow[r]
+        & \Sch/S \arrow[d, "F"] \\
+        T & \Sch/T \arrow[r, "G"'] & X
+        % This is an explanatory annotation between columns.
+        \arrow[from=scheme-column, to=stack-column, dashed,
+            shorten <=1em, shorten >=2em,
+            "\text{represents}"{xshift=-.5em}]
+    \end{tikzcd}
+    \]
+    for any choice of \((T,G)\) and that \(\pi\) is étale and surjective.
+\end{ptcb}
+
 Lemma \ref{lem:4.6} implies that $p \to V_r$ is representable, smooth and surjective. Hence, the stack $V_r$ is algebraic in the sense of Artin, and the morphism $p \to V_r$ is a presentation.
+
+\begin{ptcb}
+    \begin{nonum-Rmk}
+        Note that this doesn't mean that \(p\to V_r\) is a surjective functor! It is a smooth and surjective \emph{presentation} or as a \emph{morphism of stacks}.\par
+        This because, the image of this map is all the trivial bundles up to isomorphism. Being surjective in this sense, means that the map is already representable and all base changes are represented by surjective scheme morphisms.
+    \end{nonum-Rmk}
+\end{ptcb}
 
 The stack $V_r$ is a special case of quotient stack. Let $G$ be an algebraic group acting on a scheme $S$ on the left. Let $[S/G]$ be the following category over $\mathfrak{S}$: its objects are principal homogeneous $G$-bundles with a $G$-equivariant morphism to $S$. In analogy with $V_r$, its morphisms are those pullback diagrams which are compatible with the morphism to $S$. If $S$ is a point $p$, with the trivial $G$ action, then $[p/G]$ is $BG$ defined before.
 

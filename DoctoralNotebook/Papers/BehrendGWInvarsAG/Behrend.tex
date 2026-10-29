@@ -402,15 +402,15 @@ discussions about the constructions in this paper.
 Let \(k\) be a field. We shall work over the category of locally noetherian
 \(k\)-schemes (with the fppf-topology). For a \hlblue{modular graph} \(\tau\) (see
 \cite{BM},
-Definition~1.5) let \(\MM(\tau)\) denote the \(k\)-stack of \(\tau\)-marked prestable
-curves (which are defined in \cite{BM}, Definition~2.6).
+Definition~1.5) let \hlpink{\(\MM(\tau)\) denote the \(k\)-stack of \(\tau\)-marked prestable
+curves} (which are defined in \cite{BM}, Definition~2.6).
 
 \begin{ptcb}
 % --- BEGIN NOTES: modular graphs in ordinary graph language. ---
-\begin{Def}[Modular graph]
+\begin{Def}
 \label{notes:def:modular-graph}
 Following \cite[Definitions~1.1 and~1.5]{BM}, a modular graph
-\(\Ga=(V,H,E;\del,j,g)\) has finite sets
+\(\Ga=(V,H;\del,j,g)\) has finite sets
 \begin{itemize}
   \item \(V\) of vertices, and
   \item \(H\) of half-edges (or flags).
@@ -439,7 +439,7 @@ g(\Ga)=\sum_{v\in V}g(v)+\#E-\#V+1.
 \]
 
 \begin{nonum-Rmk}
-This definition is equivalent to Schmitt and van Zelm's \cite[Definition~2.2]{notes:schmitt-vanzelm2018} after dropping its stability and connectedness requirements. The set \(H\) is separated into \(L\cup H\) and two new functions act restrictions of \(\del\) to such sets.
+This definition (plus stability and connectedness) is equivalent to Schmitt and van Zelm's \cite[Definition~2.2]{notes:schmitt-vanzelm2018}. The set \(H\) is separated into \(L\cup H\) and two new functions act restrictions of \(\del\) to such sets.
 \end{nonum-Rmk}
 
 In \texttt{admcycles} (\cite{notes:admcycles-docs}) we have the command
@@ -448,17 +448,12 @@ In \texttt{admcycles} (\cite{notes:admcycles-docs}) we have the command
 \end{center}
 which builds a graph with \(|\texttt{genera}|=|\texttt{legs}|\) vertices. Such vertices are assigned a genus and half-edges to vertices and to other half-edges themselves. Half-edges not used in edges are fixed by \(j\), hence are legs.
 
-\begin{Ex}[One loop and one tail]
-\label{notes:ex:loop-and-leg}
-\begin{quote}\small\ttfamily\raggedright
-StableGraph([0], [[1,2,3]], [(2,3)])
-\end{quote}
+\begin{Ex}\label{notes:ex:loop-and-leg}
+Consider the graph \texttt{StableGraph([0], [[1,2,3]], [(2,3)])}, this reads: There is only a genus zero vertex with half-edges \(1,2,3\) and \(2,3\) are connected into an edge. Explicitly:
 \[
-V=\{v_0\},\qquad H=\{1,2,3\},\qquad E=\bigl\{\{2,3\}\bigr\}.
+V=\{v\},\qquad H=\{1,2,3\},\qquad \del^{-1}(v_0)=H,\qquad j=(1)(2\ 3),\qquad g^{-1}(0)=\{v\}.
 \]
-\[
-\del^{-1}(v_0)=H,\qquad j=(1)(2\ 3),\qquad g^{-1}(0)=\{v_0\}.
-\]
+So we have \(|v|=3\), the only edge is \(\set{2,3}\) and the total genus is \(0+1-1+1=1\). The graph can be visualized as:
 \begin{center}
 \begin{tikzpicture}[line width=.6pt]
 \draw (-.20,.12) .. controls (-1.05,1.5) and (1.05,1.5) .. (.20,.12);
@@ -467,20 +462,16 @@ V=\{v_0\},\qquad H=\{1,2,3\},\qquad E=\bigl\{\{2,3\}\bigr\}.
 \node[left] at (-.48,.48) {\(2\)};
 \node[right] at (.48,.48) {\(3\)};
 \node[below] at (0,-1.05) {\(1\)};
-\node[right] at (.4,-.12) {\(v_0\)};
+\node[right] at (.4,-.12) {\(v\)};
 \end{tikzpicture}
 \end{center}
-The valence is three, and the total genus is \(0+1-1+1=1\).
 \end{Ex}
 
-\begin{Ex}[Three vertices]
-\label{notes:ex:admcycles-411}
-\begin{quote}\small\ttfamily\raggedright
-StableGraph([2,1,1], [[1,2,3],[4],[5]], [(2,4),(3,5)])
-\end{quote}
+\begin{Ex}\label{notes:ex:admcycles-411}
+For \texttt{StableGraph([2,1,1], [[1,2,3],[4],[5]], [(2,4),(3,5)])}
+we have
 \[
-V=\{v_0,v_1,v_2\},\qquad H=\{1,\ldots,5\},\qquad
-E=\bigl\{\{2,4\},\{3,5\}\bigr\}.
+V=\{v_0,v_1,v_2\},\qquad H=\{1,\ldots,5\}.
 \]
 \[
 \del^{-1}(v_0)=\{1,2,3\},\quad
@@ -509,107 +500,40 @@ j=(1)(2\ 4)(3\ 5),\qquad
 \end{center}
 The total genus is \(2+1+1+(2-3+1)=4\), with one tail, labelled \(1\).
 \end{Ex}
-
-\begin{Ex}[Two vertices]
-\label{notes:ex:admcycles-14}
-\begin{quote}\small\ttfamily\raggedright
-StableGraph([0,1], [[1,2,3,4],[5,6]], [(4,5)])
-\end{quote}
-\[
-V=\{v_0,v_1\},\qquad H=\{1,\ldots,6\},\qquad E=\bigl\{\{4,5\}\bigr\}.
-\]
-\[
-\del^{-1}(v_0)=\{1,2,3,4\},\qquad \del^{-1}(v_1)=\{5,6\}.
-\]
-\[
-j=(1)(2)(3)(4\ 5)(6),\qquad
- g^{-1}(0)=\{v_0\},\qquad g^{-1}(1)=\{v_1\}.
-\]
-\begin{center}
-\begin{tikzpicture}[line width=.6pt]
-\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (l) at (-1.1,0) {\(0\)};
-\node[circle,draw,fill=white,minimum size=7mm,inner sep=0pt] (r) at (1.1,0) {\(1\)};
-\draw (l.east)--(r.west);
-\draw (l.north west)--(-2.25,.85) node[above left] {\(1\)};
-\draw (l.west)--(-2.35,0) node[left] {\(2\)};
-\draw (l.south west)--(-2.25,-.85) node[below left] {\(3\)};
-\draw (r.east)--(2.35,0) node[right] {\(6\)};
-\node[above] at (-.55,0) {\(4\)};
-\node[above] at (.55,0) {\(5\)};
-\node[below=4pt] at (l.south) {\(v_0\)};
-\node[below=4pt] at (r.south) {\(v_1\)};
-\end{tikzpicture}
-\end{center}
-The total genus is \(0+1+(1-2+1)=1\), with four tails, labelled
-\(1,2,3,6\).
-\end{Ex}
-
-\begin{Ex}[Bollob\'as's Figure~1.1]
-\label{notes:ex:bollobas-modular}
-Let \(G=(V,E_G)\) be the graph in
-\cite[Figure~1.1]{notes:bollobas1998}, with \(V=\{1,\ldots,9\}\).
-Writing \(ij=\{i,j\}\), its ordinary edges are
-\[
-E_G=\left\{
-\begin{gathered}
-12,23,34,45,56,61,\;17,72,29,\\
-95,57,74,48,83,39,96,68,81
-\end{gathered}
-\right\}.
-\]
-Our flag and edge sets are
-\[
-H=\set{(v,e)\in V\times E_G:v\in e},\qquad
-E=\set{\{(u,e),(v,e)\}:e=\{u,v\}\in E_G}.
-\]
-The maps are specified by
-\[
-\del^{-1}(v)=\set{(v,e):e\in E_G,\ v\in e},\qquad
-j(u,\{u,v\})=(v,\{u,v\}),\qquad g^{-1}(0)=V.
-\]
-\begin{center}
-\begin{tikzpicture}[x=1.05cm,y=1.05cm,line width=.55pt]
-\coordinate (v1) at (-1.8,-1.1);
-\coordinate (v2) at (0,-1.6);
-\coordinate (v3) at (1.8,-1.1);
-\coordinate (v4) at (1.3,.8);
-\coordinate (v5) at (0,2.2);
-\coordinate (v6) at (-1.3,.8);
-\coordinate (v7) at (-.45,.35);
-\coordinate (v8) at (0,-.6);
-\coordinate (v9) at (.55,.35);
-\foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/1,1/7,7/2,2/9,
-                    9/5,5/7,7/4,4/8,8/3,3/9,9/6,6/8,8/1}
-  \draw (v\a)--(v\b);
-\foreach \v in {1,...,9} \fill (v\v) circle (1.25pt);
-\node[below left] at (v1) {\(1\)};
-\node[below] at (v2) {\(2\)};
-\node[below right] at (v3) {\(3\)};
-\node[above right] at (v4) {\(4\)};
-\node[above] at (v5) {\(5\)};
-\node[above left] at (v6) {\(6\)};
-\node[fill=white,inner sep=1pt,above left=2pt] at (v7) {\(7\)};
-\node[fill=white,inner sep=1pt,below=2pt] at (v8) {\(8\)};
-\node[fill=white,inner sep=1pt,above right=2pt] at (v9) {\(9\)};
-\end{tikzpicture}
-\end{center}
-There are nine vertices, thirty-six flags, eighteen edges, and no tails.
-Every vertex has valence four. The total genus is \(18-9+1=10\).
-\end{Ex}
-
-\begin{nonum-Rmk}[Comparison with Bollob\'as]
-Bollob\'as's definition \(G=(V,E_G)\), with \(E_G\subseteq\binom V2\),
-describes a finite simple graph (\cite[\S I.1]{notes:bollobas1998}).
-Our definition additionally allows loops, parallel edges, and tails, and
-assigns a genus to each vertex. To recover his notion, exclude those
-three possibilities and forget the genus labels. Conversely, any graph
-in his sense becomes a modular graph by replacing each edge with its two
-incident flags and choosing vertex genera, for example all zero. The
-flags repackage the incidence data; the genera add information.
-\end{nonum-Rmk}
-% --- END NOTES: modular graphs in ordinary graph language. ---
 \end{ptcb}
 
+\begin{ptcb}
+% Definition 2.6, with H in place of Behrend--Manin's flag set F.
+\begin{Def}\label{notes:def:tau-marked-prestable-curve}
+Let \(\tau\) be a modular graph, and \(T\) a \(k\)-scheme. Following
+\cite[Definition~2.6]{BM}, a \emph{\(\tau\)-marked prestable curve over \(T\)}
+is a pair \((C,\un{p})\) consisting of
+\begin{itemize}
+  \item prestable curves \(C=(C_v)_{v\in V_\tau}\), with structure maps
+  \(\pi_v:C_v\to T\);
+  \item sections \(\un{p}=(p_i)_{i\in H}\), with
+  \(p_i:T\to C_{\del(i)}\).
+\end{itemize}
+Here each \(\pi_v\) is flat and proper, with reduced, connected,
+one-dimensional geometric fibers having at most nodes as singularities.
+For every geometric point \(\bar t:\operatorname{Spec}\Omega\to T\),
+the following conditions hold:
+\begin{enumerate}
+  \item Each \(x_h(\bar t)\) lies in the smooth locus of
+  \(C_{\del_\tau(h),\bar t}\).
+  \item For each vertex \(v\), the points
+  \(x_h(\bar t)\), \(h\in\del_\tau^{-1}(v)\), are pairwise distinct.
+  \item Each vertex curve has the prescribed arithmetic genus:
+  \[
+  \dim_\Omega H^1(C_{v,\bar t},\O_{C_{v,\bar t}})=g_\tau(v).
+  \]
+\end{enumerate}
+\end{Def}
+Thus \(\MM(\tau)(T)\) is the groupoid of these families, with
+componentwise \(T\)-isomorphisms preserving every labelled section.
+All flags index sections, including both flags of each edge; those
+sections are not yet glued in this definition.
+\end{ptcb}
 \begin{lem}\label{soss}
 The algebraic \(k\)-stack \(\ol{M}(\tau)\) of stable \(\tau\)-marked curves
 is an open substack of \(\MM(\tau)\).
