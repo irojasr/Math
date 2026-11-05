@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+
+\tcbuselibrary{skins,breakable}
+
+% ---------- macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bn}{\mathbf{n}}
+\newcommand{\bi}{\mathbf{i}}
+\newcommand{\bj}{\mathbf{j}}
+\newcommand{\bk}{\mathbf{k}}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\dA}{\,dA}
+
+% question counter (continues across parts)
+\newcounter{qn}
+\newcommand{\Q}{\par\vspace{6pt}\stepcounter{qn}\textbf{\theqn.}\ }
+
+\newtcolorbox{keybox}[1][]{
+  breakable, colback=blue!4, colframe=blue!50!black,
+  boxrule=0.6pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt, #1}
+
+\newtcolorbox{studentwork}{
+  breakable, colback=gray!8, colframe=gray!60,
+  boxrule=0.5pt, arc=2pt, left=6pt, right=6pt, top=3pt, bottom=3pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{{Prequiz Review} \\ \\
+Surface Integrals of Vector Fields and Stokes' Theorem}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%---------------------------------------------------------------
+\section*{Summary: Flux Integrals and Stokes' Theorem}
+
+Read this summary before you start. It collects the formulas and rules this prequiz covers.
+
+\subsection*{Key formulas}
+\begin{itemize}[nosep]
+  \item \textbf{Scalar surface integral:} $\displaystyle\iint_S f\,d\sigma=\iint_D f(\br(u,v))\,\lvert\br_u\times\br_v\rvert\dA$. If $S$ lies in the $xy$-plane, $d\sigma=dA$ and this is a regular double integral.
+  \item \textbf{Flux:} $\displaystyle\iint_S\bF\cdot d\mathbf{S}=\iint_S(\bF\cdot\bn)\,d\sigma=\iint_D\bF(\br(u,v))\cdot(\br_u\times\br_v)\dA$, where $d\mathbf{S}=\bn\,d\sigma$.
+  \item \textbf{Test-point rule:} $\br_u\times\br_v$ and $\br_v\times\br_u$ are opposite. Evaluate $\br_u\times\br_v$ at one point where the required direction (outward, upward, \dots) is obvious, and swap the order if it points the wrong way.
+  \item \textbf{Curl:} $\curl\bF=\langle R_y-Q_z,\;P_z-R_x,\;Q_x-P_y\rangle$.
+\end{itemize}
+
+\subsection*{Stokes' Theorem}
+
+Let $S$ be an oriented surface with boundary curve $C=\partial S$, and let $\bF$ be a 3D field with continuous first partial derivatives on and around $S$. Then
+\begin{keybox}
+\[
+  \oint_C\bF\cdot d\br=\iint_S(\curl\bF)\cdot d\mathbf{S}.
+\]
+\end{keybox}
+\begin{itemize}[nosep]
+  \item It converts the integral of $\bF$ along a \textbf{closed} curve into the surface integral of $\curl\bF$ over any convenient surface bounded by $C$, and the other way round.
+  \item It does not apply to a curve that is not closed.
+  \item If $S$ is a closed surface (no boundary), then $\iint_S(\curl\bF)\cdot d\mathbf{S}=0$.
+\end{itemize}
+
+\subsection*{Orientation rules for Stokes' Theorem}
+\begin{itemize}[nosep]
+  \item \textbf{Right-hand rule:} thumb along $\bn$, fingers curl in the direction of travel along $\partial S$.
+  \item \textbf{Surface on your left:} walk along $\partial S$ with your head along $\bn$, and the surface is on your left. For a surface with holes, the outer boundary is counterclockwise (from above, for $\bn=\bk$) and each inner boundary is clockwise.
+  \item Reversing $\bn$ reverses the direction of $\partial S$, and both sides of Stokes' formula change sign.
+\end{itemize}
+
+%---------------------------------------------------------------
+\section*{Part A: Conceptual, Multiple Choice (3 questions)}
+
+\Q Which statement correctly compares $\iint_S f\,d\sigma$ and $\iint_S\bF\cdot d\mathbf{S}$? \emph{(Choose one.)}
+\begin{enumerate}[label=(\Alph*),nosep]
+  \item Both integrate scalar functions, and both change sign when $\bn$ is reversed.
+  \item $\iint_S f\,d\sigma$ integrates a scalar function against area and does not depend on orientation. $\iint_S\bF\cdot d\mathbf{S}$ is the flux, depends on orientation, and $d\mathbf{S}=\bn\,d\sigma$.
+  \item $\iint_S f\,d\sigma$ depends on orientation, while $\iint_S\bF\cdot d\mathbf{S}$ does not.
+  \item $d\sigma=\bn\,d\mathbf{S}$, so the two integrals always have equal absolute value.
+\end{enumerate}
+
+\Q Which statement about $\iint_S(\curl\bF)\cdot d\mathbf{S}$ is correct? \emph{(Choose one.)}
+\begin{enumerate}[label=(\Alph*),nosep]
+  \item It equals zero for every oriented surface $S$.
+  \item It equals zero when $S$ is closed, and it equals $\oint_{\partial S}\bF\cdot d\br$ when $S$ is open with boundary $\partial S$.
+  \item It equals $\oint_{\partial S}\bF\cdot d\br$ only if $\bF$ is conservative.
+  \item It is nonzero for every closed surface.
+\end{enumerate}
+
+\Q Which statements about the orientation of $S$ and of its boundary $\partial S$ in Stokes' Theorem are correct? \emph{(Select all that apply.)}
+\begin{enumerate}[label=(\Alph*),nosep]
+  \item With the thumb of your right hand along $\bn$, your fingers curl in the direction of travel along $\partial S$.
+  \item Walking along $\partial S$ with your head along $\bn$, the surface is on your right.
+  \item The direction of travel along $\partial S$ does not depend on the choice of $\bn$.
+  \item Walking along $\partial S$ with your head along $\bn$, the surface is on your left.
+  \item Reversing $\bn$ reverses the direction of $\partial S$, and both sides of Stokes' formula change sign.
+\end{enumerate}
+
+%---------------------------------------------------------------
+\section*{Part B: Setup (3 questions)}
+
+Set up these integrals completely, including the parametrization, the cross product, the direction check, and the limits. \textbf{Do not evaluate}.
+
+\Q Set up the flux integral of $\bF=\langle xz,\,y,\,x^2\rangle$ through the part of the cylinder $x^2+y^2=4$ with $0\le z\le3$, oriented outward (sides only). Show how a test point decides the order of the cross product.
+
+\Q Let $C$ be the triangle with vertices $(1,0,0)$, $(0,1,0)$, $(0,0,1)$, traversed in that order, and let $\bF=\langle z,x,y\rangle$.
+\begin{enumerate}[label=(\alph*),nosep]
+  \item Decide whether the surface $S$ bounded by $C$ (the flat triangle) should have an upward or downward normal. Use either orientation rule.
+  \item Write $\oint_C\bF\cdot d\br$ as a double integral over a region $D$ in the $xy$-plane. Give $D$ and the integrand, and do not evaluate.
+\end{enumerate}
+
+\Q Let $S$ be the annulus $1\le x^2+y^2\le4$ in the $xy$-plane with normal $\bn=\bk$, and let $\bF=\langle-y^3,\,x^3,\,0\rangle$.
+\begin{enumerate}[label=(\alph*),nosep]
+  \item State the direction (counterclockwise or clockwise, viewed from above) of each boundary circle.
+  \item Write $\iint_S(\curl\bF)\cdot d\mathbf{S}$ in two forms: as a sum of line integrals over the boundary circles, and as a double integral in polar coordinates. Do not evaluate.
+\end{enumerate}
+
+%---------------------------------------------------------------
+\section*{Part C: Short Computation (3 questions)}
+
+\Q Let $S$ be the unit disk in the $xy$-plane. Evaluate $\iint_S(x^2+y^2)\,d\sigma$.
+
+\Q Find the flux of $\bF=\langle0,0,z\rangle$ through $S$: $z=x^2+y^2$, $x^2+y^2\le1$, oriented \textbf{downward}. Use $\br(x,y)=\langle x,y,x^2+y^2\rangle$. Show $\br_x\times\br_y$, check its direction with a test point, and fix the order if needed.
+
+\Q Use Stokes' Theorem to evaluate $\oint_C\bF\cdot d\br$, where $\bF=\langle-y,\,x,\,z\rangle$ and $C$ is the circle $x^2+y^2=4$ in the plane $z=3$, counterclockwise when viewed from above.
+
+%===============================================================
+\newpage
+\section*{Answer Key}
+
+\subsection*{Part A}
+
+\textbf{1.} \textbf{(B).} $\iint f\,d\sigma$ integrates a scalar function against area (total mass if $f$ is a density, surface area if $f=1$) and does not depend on orientation. $\iint\bF\cdot d\mathbf{S}$ integrates the normal component of a vector field, so it is the flux, it depends on orientation, and $d\mathbf{S}=\bn\,d\sigma=(\br_u\times\br_v)\dA$. (A) and (C) mix up which integral depends on orientation, and in (D) the relation is reversed. \emph{Common misconception:} treating both as the same type of integral.
+
+\textbf{2.} \textbf{(B).} For a closed surface the integral is $0$. For an open surface Stokes' Theorem gives $\oint_{\partial S}\bF\cdot d\br$, which is usually nonzero (for $\bF=\langle z,x,y\rangle$ on the upper unit hemisphere it is $\pi$). (C) is wrong because the identity holds for any $\bF$ with continuous first partial derivatives; a conservative $\bF$ just makes both sides $0$. (A) and (D) are false for the reasons above.
+
+\textbf{3.} \textbf{(A), (D), (E).} The right-hand rule and the ``surface on your left'' rule are two descriptions of the same convention. (B) has the sides swapped. (C) is false: the direction of $\partial S$ is determined by $\bn$, and reversing one reverses the other.
+
+\subsection*{Part B}
+
+\textbf{4.} $\br(\theta,z)=\langle2\cos\theta,\,2\sin\theta,\,z\rangle$, $0\le\theta\le2\pi$, $0\le z\le3$. Then $\br_\theta=\langle-2\sin\theta,\,2\cos\theta,\,0\rangle$, $\br_z=\langle0,0,1\rangle$, and $\br_\theta\times\br_z=\langle2\cos\theta,\,2\sin\theta,\,0\rangle$. Test point $\theta=0$, the point $(2,0,z)$: outward is $+x$, and $\br_\theta\times\br_z=\langle2,0,0\rangle$ points in $+x$, so the order is correct. $\bF(\br)=\langle2z\cos\theta,\,2\sin\theta,\,4\cos^2\theta\rangle$, so $\bF\cdot d\mathbf{S}=(4z\cos^2\theta+4\sin^2\theta)\,d\theta\,dz$. Setup:
+\[
+  \int_0^{2\pi}\!\!\int_0^3(4z\cos^2\theta+4\sin^2\theta)\,dz\,d\theta .
+\]
+(For a check, the value is $18\pi+12\pi=30\pi$.)
+
+\textbf{5.} (a) Projected onto the $xy$-plane, $(1,0)\to(0,1)\to(0,0)$ is counterclockwise as seen from above. By the right-hand rule (or because the triangle is on your left), $\bn$ points \textbf{upward}. (b) The plane is $z=1-x-y$, so $g_x=g_y=-1$ and the upward normal vector is $\langle-g_x,-g_y,1\rangle=\langle1,1,1\rangle$. $\curl\bF=\langle1,1,1\rangle$, so the integrand is $3$. $D$ is the triangle $0\le x\le1$, $0\le y\le1-x$. Setup:
+\[
+  \iint_D 3\dA=\int_0^1\!\!\int_0^{1-x}3\,dy\,dx .
+\]
+(Value: $3/2$.)
+
+\textbf{6.} (a) With $\bn=\bk$, the surface must be on your left, so the outer circle (radius $2$) is \textbf{counterclockwise} and the inner circle (radius $1$) is \textbf{clockwise}. (b) $\curl\bF=\langle0,0,3(x^2+y^2)\rangle$, so
+\[
+  \iint_S(\curl\bF)\cdot d\mathbf{S}=\oint_{\text{outer, ccw}}\bF\cdot d\br+\oint_{\text{inner, cw}}\bF\cdot d\br
+  =\iint_S3(x^2+y^2)\dA=\int_0^{2\pi}\!\!\int_1^2 3r^2\cdot r\,dr\,d\theta .
+\]
+(Value: $45\pi/2$.)
+
+\subsection*{Part C}
+
+\textbf{7.} The disk lies in the $xy$-plane, so $d\sigma=dA$.
+\[
+  \iint(x^2+y^2)\dA=\int_0^{2\pi}\!\!\int_0^1r^2\cdot r\,dr\,d\theta=\frac{2\pi}{4}=\boxed{\tfrac{\pi}{2}} .
+\]
+
+\textbf{8.} $\br_x=\langle1,0,2x\rangle$ and $\br_y=\langle0,1,2y\rangle$, so $\br_x\times\br_y=\langle-2x,-2y,1\rangle$. Test point $(0,0)$: $\br_x\times\br_y=\langle0,0,1\rangle$ points up, which is the wrong side. Swap the order: $d\mathbf{S}=\br_y\times\br_x\dA=\langle2x,2y,-1\rangle\dA$. Then $\bF\cdot d\mathbf{S}=-z\dA=-(x^2+y^2)\dA$, and the flux is
+\[
+  -\int_0^{2\pi}\!\!\int_0^1r^3\,dr\,d\theta=\boxed{-\tfrac{\pi}{2}} .
+\]
+
+\textbf{9.} $\curl\bF=\langle0,0,1-(-1)\rangle=\langle0,0,2\rangle$. Take $S$ to be the disk $x^2+y^2\le4$ in the plane $z=3$ with $\bn=\bk$ (counterclockwise from above, so $\bn$ is upward). Then
+\[
+  \iint_S 2\dA=2\cdot4\pi=\boxed{8\pi} .
+\]
+
+\end{document}

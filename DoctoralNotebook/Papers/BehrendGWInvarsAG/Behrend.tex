@@ -122,6 +122,7 @@
 \newcommand{\vir}{\mathrm{vir}}
 \newcommand{\ps}{\mathrm{ps}}
 \newcommand{\bt}{\beta}
+\newcommand{\sg}{\sigma}
 \newcommand{\om}{\omega}
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bC}{\mathbb{C}}
@@ -129,6 +130,7 @@
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\defeq}{\coloneqq}
+\newcommand{\To}{\Rightarrow}
 % Set and Greek-letter shortcuts used in the graph notes (shared-header notation).
 \newcommand{\set}[1]{\{\,#1\,\}}
 \newcommand{\Ga}{\Gamma}
@@ -516,24 +518,181 @@ is a pair \((C,\un{p})\) consisting of
 \end{itemize}
 Here each \(\pi_v\) is flat and proper, with reduced, connected,
 one-dimensional geometric fibers having at most nodes as singularities.
-For every geometric point \(\bar t:\operatorname{Spec}\Omega\to T\),
-the following conditions hold:
+For every geometric point \(t\in T\), the following conditions hold:
 \begin{enumerate}
-  \item Each \(x_h(\bar t)\) lies in the smooth locus of
-  \(C_{\del_\tau(h),\bar t}\).
+  \item Each \(p_i(t)\) lies in the smooth locus of
+  \(C_{\del(i),t}\).
   \item For each vertex \(v\), the points
-  \(x_h(\bar t)\), \(h\in\del_\tau^{-1}(v)\), are pairwise distinct.
+  \(p_i(t)\), \(i\in\del^{-1}(v)\), are pairwise distinct.
   \item Each vertex curve has the prescribed arithmetic genus:
   \[
-  \dim_\Omega H^1(C_{v,\bar t},\O_{C_{v,\bar t}})=g_\tau(v).
+  \dim_\Omega H^1(C_{v,t},\O_{C_{v,t}})=g(v).
   \]
 \end{enumerate}
 \end{Def}
-Thus \(\MM(\tau)(T)\) is the groupoid of these families, with
-componentwise \(T\)-isomorphisms preserving every labelled section.
-All flags index sections, including both flags of each edge; those
-sections are not yet glued in this definition.
+
+\begin{Ex}\label{notes:ex:two-vertex-families}
+  For the graph
+  \[
+    \tau=\texttt{StableGraph([1,1],[[1,2],[3,4]],[(2,3)])}
+  \]
+  we have two families over the same scheme \(T\):
+  \[
+    (\pi_1:C_1\to T;\ p_1,p_2),
+    \qquad
+    (\pi_2:C_2\to T;\ p_3,p_4).
+  \]
+  Each fiber has arithmetic genus \(1\), with two distinct
+  smooth markings. It may be smooth, nodal, or reducible, and the whole curve over \(T\) is determined by gluing the fibers according the edge information.
+
+  % --- BEGIN NOTES FIGURE: two vertex families before gluing. ---
+  % Native TikZ tracing of the supplied drawing, in image coordinates.
+  % The colored curves retain their original placement and are not sections.
+  \begin{center}
+  \definecolor{familysketchorange}{HTML}{FF701E}
+  \definecolor{familysketchochre}{HTML}{B9700C}
+  \begin{tikzpicture}[
+    x=.0055cm,y=-.0055cm,line cap=round,line join=round,
+    family frame/.style={draw=black,line width=2.5pt},
+    cyan fiber/.style={draw=noteblue,line width=1.5pt},
+    green fiber/.style={draw=notegreen,line width=1.5pt},
+    orange fiber/.style={draw=familysketchorange,line width=1.5pt},
+    ochre fiber/.style={draw=familysketchochre,line width=1.5pt}
+  ]
+  % The square left panel and skew right panel.
+  \draw[family frame] (135,285) rectangle (860,1015);
+  \draw[family frame] (1180,225)--(1960,350)--(1860,995)
+    --(1070,1015)--cycle;
+  \node[font=\LARGE] at (570,150) {\(C_1\)};
+  \node[font=\LARGE] at (1620,165) {\(C_2\)};
+
+  % C_1: the tilted black elliptic curve, with two markings.
+  \draw[black,line width=3pt] (190,505)
+    .. controls (160,435) and (270,352) .. (350,343)
+    .. controls (440,318) and (489,365) .. (463,420)
+    .. controls (436,490) and (344,550) .. (260,556)
+    .. controls (214,558) and (181,542) .. (190,505);
+  \draw[black,line width=2.3pt] (268,472)
+    .. controls (296,520) and (369,495) .. (386,432);
+  \draw[black,line width=2pt] (277,479)
+    .. controls (285,441) and (335,435) .. (368,453);
+  \fill (302,420) circle[radius=9];
+  \fill (416,390) circle[radius=9];
+
+  % C_1: the cyan rational--elliptic pair, with markings on the rational part.
+  \draw[cyan fiber] (260,760) ellipse (65 and 40);
+  \draw[cyan fiber] (378,767) ellipse (53 and 36);
+  \draw[cyan fiber] (356,765)
+    .. controls (368,784) and (396,782) .. (402,764);
+  \draw[cyan fiber] (365,768)
+    .. controls (374,752) and (388,752) .. (396,769);
+  \fill[noteblue] (235,750) circle[radius=5.5];
+  \fill[noteblue] (256,772) circle[radius=5.5];
+
+  % C_1: the smaller green elliptic curve in the upper right.
+  \draw[green fiber] (688,528)
+    .. controls (660,496) and (712,442) .. (757,425)
+    .. controls (807,404) and (845,426) .. (829,463)
+    .. controls (814,499) and (756,542) .. (716,551)
+    .. controls (698,557) and (680,545) .. (688,528);
+  \draw[green fiber] (690,523)
+    .. controls (727,465) and (764,460) .. (777,487)
+    .. controls (756,528) and (722,542) .. (690,523);
+  \fill[notegreen] (787,450) circle[radius=5];
+  \fill[notegreen] (814,457) circle[radius=5];
+
+  % C_1: the long green and cyan components and their highlighted nodes.
+  \draw[notegreen,line width=3pt] (651,438)
+    .. controls (622,550) and (619,614) .. (668,687)
+    .. controls (625,805) and (622,888) .. (644,950);
+  \draw[notegreen,line width=2.7pt] (668,687)
+    .. controls (705,625) and (755,620) .. (735,671)
+    .. controls (722,706) and (690,719) .. (668,687);
+  \draw[noteblue,line width=3pt] (231,925)
+    .. controls (348,767) and (428,881) .. (511,912)
+    .. controls (589,941) and (711,938) .. (766,868);
+  \fill[familysketchochre] (668,687) circle[radius=23];
+  \fill[familysketchorange] (632,925) circle[radius=24];
+
+  % C_2: the vertically arranged orange rational--elliptic pair.
+  \draw[orange fiber] (1410,622) ellipse (55 and 69);
+  \draw[orange fiber] (1414,705)
+    .. controls (1380,747) and (1411,790) .. (1463,791)
+    .. controls (1527,785) and (1514,736) .. (1471,708)
+    .. controls (1448,692) and (1420,695) .. (1414,705);
+  \draw[orange fiber] (1476,775)
+    .. controls (1444,762) and (1435,723) .. (1453,730)
+    .. controls (1472,739) and (1485,758) .. (1476,775);
+  \fill[familysketchorange] (1397,606) circle[radius=6];
+  \fill[familysketchorange] (1438,606) circle[radius=6];
+
+  % C_2: the ochre two-component curve above the orange pair.
+  \draw[ochre fiber] (1584,510) ellipse (68 and 70);
+  \draw[ochre fiber] (1584,510) ellipse (22 and 70);
+  \fill[familysketchochre] (1543,510) circle[radius=6];
+  \fill[familysketchochre] (1628,510) circle[radius=6];
+
+  % C_2: the long green and cyan components and their highlighted nodes.
+  \draw[notegreen,line width=3pt] (1784,405)
+    .. controls (1699,537) and (1665,650) .. (1705,695)
+    .. controls (1664,795) and (1643,898) .. (1652,965);
+  \draw[notegreen,line width=2.7pt] (1705,695)
+    .. controls (1751,641) and (1808,636) .. (1786,687)
+    .. controls (1773,718) and (1732,729) .. (1705,695);
+  \draw[noteblue,line width=3pt] (1208,879)
+    .. controls (1357,740) and (1469,860) .. (1630,887)
+    .. controls (1693,901) and (1761,897) .. (1780,879);
+  \fill[familysketchochre] (1705,695) circle[radius=23];
+  \fill[familysketchorange] (1630,887) circle[radius=24];
+
+  % Projection arrows and the common wavy base, as in the original sketch.
+  \draw[-{Stealth[length=4mm,width=3.5mm]},line width=3pt]
+    (650,1130)--(766,1495);
+  \draw[-{Stealth[length=4mm,width=3.5mm]},line width=3pt]
+    (1460,1100)--(1370,1500);
+  \node[font=\Large] at (470,1330) {\(\pi_1\)};
+  \node[font=\Large] at (1600,1330) {\(\pi_2\)};
+  \draw[black,line width=4pt] (425,1730)
+    .. controls (650,1450) and (1050,1675) .. (1235,1690)
+    .. controls (1460,1715) and (1690,1645) .. (1810,1595);
+  \node[font=\LARGE] at (260,1750) {\(T\)};
+  \end{tikzpicture}
+  \end{center}
+  %\legend{Schematic drawing of the two families \(C_1,C_2\) over \(T\),before gluing. Not all markings are shown.}
+  % --- END NOTES FIGURE: two vertex families before gluing. ---
+\end{Ex}
 \end{ptcb}
+
+\begin{ptcb}
+  \begin{Ej}
+  Define the stack of \(\tau\) marked pre-\emph{pseudostable} curves \(\MM^{\leq A_2}(\tau)\) following the idea of \(\MM(\tau)\).
+  \end{Ej}
+  \tcbline
+  \begin{Def}
+    A prepseudostable genus \(g\), \(n\) marked curve (or an \emph{at-most-}\(A_2\) curve) over a \(k\)-scheme \(S\) is 
+    \[
+      \bigl(\pi:C\to S, (\sg_i)_{i=1}^n\bigr)
+    \]
+    such that \(C\) is an algebraic space, \(\pi\) is finitely presented, proper, flat and has relative dimension \(\leq 1\). Additionally, every geometric fiber \(C_x\) is a connected, with \emph{at-worst} nodal and cuspidal singularities and arithmetic genus \(g\).\par
+    The markings are sections \(\sg_i:S\to C\) with pairwise disjoint images contained in the smooth locus of \(\pi\).
+  \end{Def}
+  In the same fashion as the prestable curves:
+
+  \begin{Def}
+    Let \(\tau\) be a modular graph and \(S\) a \(k\)-scheme. A family of \(\tau\)-marked prepseudostable curve over \(S\) is determined by the pair \(((C_v)_{v\in \tau},(p_i)_{i\in H})\) such that:
+  \begin{itemize}
+    \item Each \(\pi_v: C_v\to S\) is a prepseudostable genus \(g(v)\), \(|\del^{-1}(v)|\) marked curve.
+    \item The markings on each curve are determined by smooth, pairwise disjoint sections \(p_i:S\to C_{\del(i)}\).
+  \end{itemize}
+  The curve \(C\to S\) is determined as 
+  \[
+    C\defeq \left(\bigsqcup_{v\in\tau}C_v\right)/((i,j)\in E(\tau)\To p_i(s)\sim p_j(s)).
+  \]
+  In other words, the gluing data is determined by the edges of the graph \(\tau\).
+  \end{Def}
+  
+\end{ptcb}
+
 \begin{lem}\label{soss}
 The algebraic \(k\)-stack \(\ol{M}(\tau)\) of stable \(\tau\)-marked curves
 is an open substack of \(\MM(\tau)\).
@@ -546,6 +705,16 @@ over which all \(p_v:\cC_v\to\tilde{\cC}_v\) are isomorphisms. This is
 open because the \(\cC_v\) are proper over \(\MM(\tau)\).
 \end{pf}
 
+\begin{ptcb}
+  \begin{Ej} Do the following:
+    \begin{enumerate}
+      \item  Define the stack \(\ol{M}^{\ps}(\tau)\) of pseudostable \(\tau\)-marked curves.
+      \item Convince yourself that \(\ol{M}^{\ps}(\tau)\) is algebraic, i.e. it has a smooth presentation. 
+      \item Show that \(\ol{M}^{\ps}(\tau)\subseteq\MM^{\leq A_2}(\tau)\) as an open substack.
+    \end{enumerate}    
+  \end{Ej}
+\end{ptcb}
+
 Now consider a modular graph \(\tau'\) obtained from \(\tau\) by adding
 some tails. We get an induced morphism of \(k\)-stacks
 \(\MM(\tau')\to\MM(\tau)\) which simply forgets the markings
@@ -556,6 +725,10 @@ curve, hence representable and smooth of relative dimension 1. So by
 induction, \(\MM(\tau')\to\MM(\tau)\) is representable and smooth of
 relative dimension \(\#(S_{\tau'}-S_{\tau})\). By Lemma~\ref{soss} the
 same is true for \(\ol{M}(\tau')\to\MM(\tau)\).
+
+\begin{ptcb}
+  Understand this previous passage!
+\end{ptcb}
 
 \begin{prop}  The stack \(\MM(\tau)\) is a smooth algebraic \(k\)-stack of
 dimension
@@ -573,6 +746,11 @@ contains this given point in its image. Thus
 showing that \(\MM(\tau)\) is algebraic.
 \end{pf}
 
+\begin{ptcb}
+  \begin{Ej}
+    Show that the stack \(\MM^{\leq A_2}(\tau)\) is smooth and algebraic (\emph{i.e. has a smooth presentation}). Find its dimension.
+  \end{Ej}
+\end{ptcb}
 Now let \(\tau^s\) be the stabilization of \(\tau\). Stabilization defines
 a morphism of algebraic \(k\)-stacks
 \[
@@ -593,6 +771,20 @@ The morphism \(s:\MM(\tau)\rightarrow \ol{M}(\tau^s)\) is flat.
 This follows by descent since the morphism \(\ol{M}(\phi)\) for various
 \(\phi:\tau'\rightarrow \tau^s\) as above are flat.
 \end{pf}
+
+\begin{ptcb}
+  \begin{Ex}
+    Do the following:
+    \begin{enumerate}
+      \item Define the \emph{pseudostabilization} \(\tau^{\ps}\) of a graph \(\tau\). 
+      \item Show that this induces a morphism of algebraic \(k\)-stacks
+      \[
+        \text{pstab}:\MM^{\leq A_2}\to\ol{M}(\tau^{\ps}).
+      \]
+      \item Finally show that the previous morphism is flat using descent theory.
+    \end{enumerate}
+  \end{Ex}
+\end{ptcb}
 
 \subsection{The Virtual Fundamental Classes}
 
