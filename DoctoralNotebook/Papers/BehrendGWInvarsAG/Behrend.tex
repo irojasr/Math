@@ -118,8 +118,10 @@
 \newcommand{\un}{\underline}
 \newcommand{\wh}{\widehat}
 \newcommand{\isom}{\simeq}
+\newcommand{\hookto}{\hookrightarrow}
 \newcommand{\x}{\times}
 \newcommand{\vir}{\mathrm{vir}}
+\newcommand{\gl}{\mathrm{gl}}
 \newcommand{\ps}{\mathrm{ps}}
 \newcommand{\bt}{\beta}
 \newcommand{\sg}{\sigma}
@@ -131,6 +133,8 @@
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\defeq}{\coloneqq}
 \newcommand{\To}{\Rightarrow}
+\newcommand{\ox}{\otimes}
+\newcommand{\word}[1]{\quad\text{#1}\quad}
 % Set and Greek-letter shortcuts used in the graph notes (shared-header notation).
 \newcommand{\set}[1]{\{\,#1\,\}}
 \newcommand{\Ga}{\Gamma}
@@ -543,7 +547,7 @@ For every geometric point \(t\in T\), the following conditions hold:
     (\pi_2:C_2\to T;\ p_3,p_4).
   \]
   Each fiber has arithmetic genus \(1\), with two distinct
-  smooth markings. It may be smooth, nodal, or reducible, and the whole curve over \(T\) is determined by gluing the fibers according the edge information.
+  smooth markings. It may be smooth, nodal, or reducible.
 
   % --- BEGIN NOTES FIGURE: two vertex families before gluing. ---
   % Native TikZ tracing of the supplied drawing, in image coordinates.
@@ -661,6 +665,37 @@ For every geometric point \(t\in T\), the following conditions hold:
   %\legend{Schematic drawing of the two families \(C_1,C_2\) over \(T\),before gluing. Not all markings are shown.}
   % --- END NOTES FIGURE: two vertex families before gluing. ---
 \end{Ex}
+
+Intuitively, we'd like to \emph{glue} this two curves over \(T\). We can indeed associate a curve \(C_{\gl}\in\MM_{2,2}\) to this two families as follows:
+
+\begin{Ex}
+  Proposition 2.4 in \cite{BM} guarantees the existence of \(C_{\gl}\) a prestable curve over \(T\) with \(T\) morphisms \(f_i:C_i\to C\) such that 
+  \begin{enumerate}
+    \item \(f_1(p_1)=f_2(p_2)\)
+    \item \(C_{\gl}\) is universal among all \(T\)-schemes with this property. 
+  \end{enumerate}
+  This means that if \(D\) is another \(T\)-scheme with 
+  We wish to build a curve \(C_{\gl}\in\MM_{2,2}\) and a morphism from our family
+  \[
+  \begin{tikzcd}
+    C_1\coprod C_2\arrow[dr] \arrow[rr,"q",dashed] && C_{\gl}\arrow[dl] \\
+    & S  \\
+  \end{tikzcd}
+  \]
+\end{Ex}
+Let 
+\[
+\bigl((C_v\to S),(p_i)\bigr)\in\MM(\tau)(S),
+\]
+we can construct an associated prestable curve \(C_{\gl}\) in \(\MM_{g(\tau),|\tau|}(S)\) as follows.
+\begin{enumerate}
+  \item Consider the disjoint union of all such curves \(\coprod_vC_v\) and a maps .
+  \item Define sections onto this union as 
+  \[
+    \tilde{p}_i:S\xrightarrow{p_i}C_{\del(i)}\hookto D
+  \]
+  such that for every edge \((i,j)\) 
+\end{enumerate}
 \end{ptcb}
 
 \begin{ptcb}
@@ -688,10 +723,12 @@ For every geometric point \(t\in T\), the following conditions hold:
   \[
     C\defeq \left(\bigsqcup_{v\in\tau}C_v\right)/((i,j)\in E(\tau)\To p_i(s)\sim p_j(s)).
   \]
-  In other words, the gluing data is determined by the edges of the graph \(\tau\).\par
-  \red{Make more precise with the gluing family idea},
+  In other words, the gluing data is determined by the edges of the graph \(\tau\).
   \end{Def}
   
+  \begin{Qn}
+    ¿Is this a precise enough definition?
+  \end{Qn}
 \end{ptcb}
 
 \begin{lem}\label{soss}
@@ -715,22 +752,32 @@ open because the \(\cC_v\) are proper over \(\MM(\tau)\).
     \end{enumerate}    
   \end{Ej}
   \tcbline
-  Let's continue under the setting of prepseudostable \((g,n)\) curves. 
-  \begin{Def}
-    A prepseudostable curve becomes \textrm{pseudostable} when \(g+n>2\), or equivalently if
-    \[
-      \bigl(\om_{C_s}(\sum p_i)\bigr)^{\ox 2}\word{is very ample for every geometric point}s\in S.
-    \]
-  \end{Def}
+  Let us intuitively talk about pseudostable curves. The numerical requirement is
+  \[
+    C_{s}\word{is pseudostable iff} g+n>2.
+  \]
+  This condition is equivalent to 
+  \[
+    \left(\om_{C_s}(\sum p_i)\right)^{\ox 2}\word{is very ample for every geometric point}s\in S.
+  \]
+  The formal condition is explained in @CGRVOW22 or CavalieriWilliams24.\par
+  To this effect we define \(\ol{M}^{\ps}(\tau)\) formally, in a similar fashion as \(\MM^{\leq A_2}(\tau)\):
 
-  In a similar fashion as \(\MM^{\leq A_2}(\tau)\), we can define \(\ol{M}^{\ps}(\tau)\).
-
   \begin{Def}
-    For a modular graph \(\tau\) and \(S\) a \(k\)-scheme, we define families of pseudostable curves over \(S\) as determined by the data
+    Let \(\tau\) be  a modular graph, \(S\) a \(k\)-scheme, and consider the data
     \[
       ((C_v)_{v\in\tau},(p_i)_{i\in H}).
     \]
-    
+    \begin{itemize}
+    \item Each \(\pi_v: C_v\to S\) is a \emph{pseudostable} genus \(g(v)\), \(|\del^{-1}(v)|\) marked curve.
+    \item The markings on each curve are determined by smooth, pairwise disjoint sections \(p_i:S\to C_{\del(i)}\).
+  \end{itemize}
+  We define a family of \(\tau\)-marked pseudostable \red{HERE}
+  The curve \(C\to S\) is determined as 
+  \[
+    C\defeq \left(\bigsqcup_{v\in\tau}C_v\right)/((i,j)\in E(\tau)\To p_i(s)\sim p_j(s)).
+  \]
+  In other words, the gluing data is determined by the edges of the graph \(\tau\).
   \end{Def}
 \end{ptcb}
 

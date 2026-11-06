@@ -1385,6 +1385,42 @@ where \(\tau\) is a modular graph and
 \((C,x)\) a \(\tau\)-marked prestable curve over \(T\).
 \end{defn}
 
+\begin{ptcb}
+  We will see an example of a \(\tau\)-marked prestable curve and the gluings obtained from it.
+
+  \begin{Ex}
+    Consider the graph
+    \[
+      \tau=\texttt{StableGraph}([1,0],[[1,2],[3,4,5,6]],[(2,3),(4,5)]).
+    \]
+    This can be pictured as:
+    \begin{center}
+    \begin{tikzpicture}[
+      font=\normalsize,line width=.7pt,
+      vertex/.style={circle,draw,minimum size=7mm,inner sep=0pt}
+    ]
+      \node[vertex] (v1) at (0,0) {\(1\)};
+      \node[vertex] (v2) at (3,0) {\(0\)};
+      % Tails 1 and 6; the connecting edge pairs flags 2 and 3.
+      \draw (v1.west)--(-1.25,0) node[above] {\(1\)};
+      \draw (v1.east)--(v2.west)
+        node[pos=.12,above] {\(2\)}
+        node[pos=.88,above] {\(3\)};
+      \draw (v2.east)--(4.25,0) node[above] {\(6\)};
+      % Flags 4 and 5 form a loop on the genus-zero vertex.
+      \draw (v2.north west)
+        .. controls (2,1.9) and (4,1.9) .. (v2.north east)
+        node[pos=.08,left] {\(4\)}
+        node[pos=.92,right] {\(5\)};
+      \node[below=4pt] at (v1.south) {\(v_1\)};
+      \node[below=4pt] at (v2.south) {\(v_2\)};
+    \end{tikzpicture}
+    \end{center}
+    From it we can build \(((C_1,C_2),(p_1,\dots,p_6))\), two prestable curves. Notice that \(p_2,p_3\) are sections in the smooth locus of both 
+  \end{Ex}
+
+\end{ptcb}
+
 \section{Stable Maps}
 
 We now come to the definition of stable maps, the central concept of this work,
