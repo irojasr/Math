@@ -59,8 +59,8 @@
 \item Stokes' theorem replaces the flux of the curl through the
 hemisphere by the line integral of the original field along its boundary:
 \[
-\iint_S(\operatorname{curl}\vec F)\cdot\vec N\,d\sigma
-=\oint_{\partial S}\vec F\cdot\vec T\,ds.
+\iint_H(\operatorname{curl}\vec F)\cdot\vec N\,d\sigma
+=\oint_{\partial H}\vec F\cdot\vec T\,ds.
 \]
 The boundary is the circle $x^2+y^2=4$, $z=0$. The outward orientation
 of the upper hemisphere induces counterclockwise traversal as viewed
@@ -70,11 +70,11 @@ not a line integral of its curl.
 \item Stokes' theorem replaces the line integral by the surface integral
 of the curl:
 \[
-\oint_C\vec G\cdot\vec T\,ds
+\oint_T\vec G\cdot\vec T\,ds
 =\iint_{S_T}(\operatorname{curl}\vec G)\cdot\vec N\,d\sigma.
 \]
-One suitable surface $S_T$ is the flat triangular sheet in
-$x+y+z=2$ with the three stated vertices. The traversal
+One suitable surface $S_T$, with boundary $T$, is the flat triangular sheet
+in $x+y+z=2$ with the three stated vertices. The traversal
 $(2,0,0)\to(0,2,0)\to(0,0,2)\to(2,0,0)$ induces an upward normal.
 Thus the replacement is a \emph{surface integral of
 $\operatorname{curl}\vec G$}, not the flux of $\vec G$ itself.
@@ -86,36 +86,39 @@ integral changes when passing to the other side of Stokes' theorem.
 \bigskip
 \item \textbf{Final answers:}
 \[
-\boxed{\begin{gathered}
-\text{Outer: }x^2+y^2=4,\ z=0;\\
-\text{counterclockwise from above}
-\end{gathered}}
+\boxed{\vec c_{\mathrm{out}}(t)=(2\cos t,-2\sin t,4)},
 \qquad
-\boxed{\begin{gathered}
-\text{Inner: }x^2+y^2=1,\ z=0;\\
-\text{clockwise from above}
-\end{gathered}}.
+\boxed{\vec c_{\mathrm{in}}(t)=(\cos t,\sin t,1)},
+\qquad0\le t\le2\pi.
 \]
 
 \noindent\begin{minipage}[c]{0.53\linewidth}
-The annulus has two boundary components. With the unit normal
-$\vec N=(0,0,1)$ pointing upward, the annular surface must stay on the
-left as each component is traversed.
+The paraboloid band has two boundary circles. At $z=4$, the outer circle
+has radius $2$; at $z=1$, the inner circle has radius $1$.
 
 \medskip
-This gives counterclockwise traversal along the outer circle and
-clockwise traversal along the inner circle. The edge of the hole is part
-of the boundary just as the outer circle is.
-
-\medskip
-Equivalently, positively oriented parametrizations are
+An outward normal, pointing away from the $z$-axis, is
 \[
-\begin{aligned}
-\vec c_{\mathrm{out}}(t)&=(2\cos t,2\sin t,0),\\
-\vec c_{\mathrm{in}}(t)&=(\cos t,-\sin t,0),
-\end{aligned}
-\qquad0\le t\le2\pi.
+\vec n=(2x,2y,-1).
 \]
+It has a negative $z$-component. Thus the projection is an annulus with
+\emph{downward} orientation: the outer circle is \textbf{clockwise}
+and the inner circle is \textbf{counterclockwise}, viewed from above.
+
+\medskip
+To check the normal directly, use
+\[
+\vec r(r,\theta)=(r\cos\theta,r\sin\theta,r^2),
+\qquad1\le r\le2.
+\]
+Here $0\le\theta\le2\pi$. The outward cross product is
+\[
+\vec r_\theta\times\vec r_r
+=(2r^2\cos\theta,2r^2\sin\theta,-r).
+\]
+The displayed boundary parametrizations have the required directions
+and the correct heights. The shaded annulus $D$ is the $xy$-projection
+of the curved surface $S$.
 \end{minipage}\hfill
 \begin{minipage}[c]{0.43\linewidth}
 \centering
@@ -123,12 +126,12 @@ Equivalently, positively oriented parametrizations are
 \fill[gray!18,even odd rule] (0,0) circle (2) (0,0) circle (1);
 \draw[thick] (0,0) circle (2);
 \draw[thick] (0,0) circle (1);
-\draw[->,line width=1.3pt] (20:2) arc[start angle=20,end angle=80,radius=2];
-\draw[->,line width=1.3pt] (155:1) arc[start angle=155,end angle=85,radius=1];
+\draw[->,line width=1.3pt] (80:2) arc[start angle=80,end angle=20,radius=2];
+\draw[->,line width=1.3pt] (85:1) arc[start angle=85,end angle=155,radius=1];
 \node[right] at (2.05,0) {$C_{\mathrm{out}}$};
 \node at (0,-0.15) {$C_{\mathrm{in}}$};
-\node at (-1.4,-0.55) {$S$};
-\node at (0,-2.45) {View from above; $\vec N=(0,0,1)$.};
+\node at (-1.4,-0.55) {$D$};
+\node at (0,-2.45) {View from above; $N_z<0$.};
 \end{tikzpicture}
 \end{minipage}
 
@@ -189,7 +192,7 @@ Since
 \[
 (Q-P)\times(R-P)=(-2,2,0)\times(-2,0,2)=(4,4,4),
 \]
-the stated traversal $P\to Q\to R\to P$ matches an upward normal.
+the stated traversal of $T$, $P\to Q\to R\to P$, matches an upward normal.
 Parametrize the triangle by
 \[
 \vec r(x,y)=(x,y,2-x-y),\qquad
@@ -203,7 +206,7 @@ Parametrize the triangle by
 Then $\vec r_x\times\vec r_y=(1,1,1)$. By Stokes' theorem,
 \[
 \begin{aligned}
-\oint_C\vec F\cdot\vec T\,ds
+\oint_T\vec F\cdot\vec T\,ds
 &=\iint_{S_T}(\operatorname{curl}\vec F)\cdot\vec N\,d\sigma\\
 &=\int_0^2\int_0^{2-x}(1,1,1)\cdot(1,1,1)\,dy\,dx\\
 &=\int_0^2\int_0^{2-x}3\,dy\,dx

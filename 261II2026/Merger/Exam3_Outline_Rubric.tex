@@ -1,0 +1,165 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage[colorlinks=false]{hyperref}
+ 
+\definecolor{hd}{HTML}{1F3864}
+\titleformat{\section}{\large\bfseries\color{hd}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{14pt}{4pt}
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+ 
+\newcommand{\curl}{\nabla\times}
+\newcommand{\dv}{\nabla\cdot}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+ 
+\begin{document}
+ 
+{\LARGE\bfseries Exam 3 Outline}\\[2pt]
+\textit{(For instructors only, to help lead the review. Do not share with students.)}
+ 
+\textbf{Total: 100 points}
+ 
+%------------------------------------------------------------
+\section*{1. Calculate $\curl\vec F$ and $\dv\vec F$, and determine whether $\vec F$ is conservative (10 points)}
+\begin{itemize}
+  \item 4 pts: each calculation ($\curl\vec F$ and $\dv\vec F$).
+  \item 2 pts: correctly determining whether $\vec F$ is conservative.
+\end{itemize}
+ 
+\section*{2. Use Green's Theorem to compute a line integral (12 points)}
+\begin{itemize}
+  \item 4 pts: Calculate the $\mathbf{k}$-component of $\curl\vec F$.
+  \item 4 pts: Set up the double integral correctly (bounds of integration).
+  \item 4 pts: Evaluate the double integral correctly.
+  \item Note: No credit if Green's Theorem is stated incorrectly or if the line integral is computed by direct parameterization.
+  \item Review reminder: Have students practice evaluating double integrals in both Cartesian and polar coordinates. Students often got stuck on this step in previous semesters.
+\end{itemize}
+ 
+\section*{3. Find a parameterization for each surface (12 points)}
+\textit{(Similar to HW9, Problem 2)}
+ 
+Three surfaces are given. Each parameterization is worth 4 points:
+\begin{itemize}
+  \item 3 pts: Correct parameterization $\vec r(u,v)$ of the surface.
+  \item 1 pt: Correct bounds for each parameter.
+  \item No credit for a parameterization that uses anything other than two parameters.
+  \item Review reminders: (1) Review parameterizations of common surfaces: cone, cylinder, sphere, plane, and surface of revolution. (2) A surface parameterization has exactly two parameters, and bounds must be given for each.
+\end{itemize}
+ 
+\section*{4. Set up, but do not evaluate, a surface integral of a scalar function (12 points)}
+The parameterization $\vec r(u,v)$ is given.
+\begin{itemize}
+  \item \textbf{5 pts: Overall procedure} (presence and sequence, not correctness):
+  \begin{itemize}
+    \item 1 pt: Find $\vec r_u$ and $\vec r_v$.
+    \item 1 pt: Find $\vec r_u\times\vec r_v$.
+    \item 1 pt: Find the magnitude $|\vec r_u\times\vec r_v|$.
+    \item 1 pt: Substitute $\vec r(u,v)$ into $f(x,y,z)$.
+    \item 1 pt: Give bounds for $u$ and $v$ and write the double integral.
+  \end{itemize}
+  \item \textbf{7 pts: Accuracy of each step} (graded independently against the key):
+  \begin{itemize}
+    \item 2 pts: Find $\vec r_u\times\vec r_v$ correctly (including $\vec r_u$ and $\vec r_v$).
+    \item 1 pt: Find $|\vec r_u\times\vec r_v|$ correctly.
+    \item 2 pts: Substitute $\vec r(u,v)$ into $f$ correctly.
+    \item 2 pts: Give correct bounds for $u$ and $v$ and write the correct double integral (including the factor $|\vec r_u\times\vec r_v|$ and $du\,dv$).
+  \end{itemize}
+  \item \textbf{Policy:} See the Grader Notes. Algebraic-error cap: 1 pt per independent slip, maximum deduction 3 pts, minimum score 9/12. If any conceptual or setup error is present (e.g., wrong bounds, omitting $|\vec r_u\times\vec r_v|$, or integrating a vector expression instead of a scalar), the cap does not apply and each step is graded against the key.
+\end{itemize}
+ 
+\section*{5. Compute a flux integral of a vector field: set up and evaluate (20 points)}
+\begin{itemize}
+  \item \textbf{8 pts: Overall procedure} (presence and sequence, not correctness):
+  \begin{itemize}
+    \item 1 pt: Set up $\vec r(u,v)$ for the oriented surface.
+    \item 2 pts: Find $\vec r_u\times\vec r_v$ and check orientation.
+    \item 1 pt: Substitute $\vec r(u,v)$ into $\vec F$.
+    \item 1 pt: Take the dot product.
+    \item 1 pt: Give bounds for $u$ and $v$.
+    \item 2 pts: Set up and attempt the double integral.
+  \end{itemize}
+  \item \textbf{12 pts: Accuracy of each step} (graded independently against the key):
+  \begin{itemize}
+    \item 2 pts: Set up $\vec r(u,v)$ correctly.
+    \item 4 pts: Find $\vec r_u\times\vec r_v$ correctly and check orientation ($-2$ if orientation is not checked).
+    \item 3 pts: Dot product and bounds:
+    \begin{itemize}
+      \item 2 pts: Compute $\vec F(\vec r(u,v))\cdot(\vec r_u\times\vec r_v)$ correctly.
+      \item 1 pt: Give correct bounds for $u$ and $v$.
+    \end{itemize}
+    \item 3 pts: Evaluate the double integral correctly.
+  \end{itemize}
+  \item \textbf{Policy:} See the Grader Notes. Algebraic-error cap: 2 pts per independent slip, maximum deduction 6 pts, minimum score 14/20. If any conceptual or setup error is present, the cap does not apply and each step is graded against the key. Partial credit for method comes from the procedure points.
+  \item \textit{Grader examples:}
+  \begin{itemize}
+    \item A correct $\vec r$ and orientation check, but a sign error in $\vec r_u\times\vec r_v$ carried through: one slip, so 18/20.
+    \item A sign error in the dot product plus an arithmetic slip in the final integral: two independent slips, so 16/20.
+  \end{itemize}
+\end{itemize}
+ \newpage
+\section*{6. Use Stokes' Theorem to evaluate $\displaystyle\iint_S (\curl\vec F)\cdot d\vec S$ (20 points)}
+\begin{itemize}
+  \item No credit if Stokes' Theorem is not used.
+  \item \textbf{8 pts: Overall procedure} (presence and sequence, not correctness):
+  \begin{itemize}
+    \item 1 pt: Identify the boundary curve.
+    \item 1 pt: Parameterize the curve with one parameter.
+    \item 1 pt: Find $\vec r\,'(t)$.
+    \item 1 pt: Substitute $\vec r(t)$ into $\vec F$.
+    \item 1 pt: Take the dot product.
+    \item 1 pt: Give bounds for $t$.
+    \item 2 pts: Set up and attempt the single-variable integral.
+    \item If $\vec r(t)$ uses more than one parameter, cap procedure credit at 4 pts.
+  \end{itemize}
+  \item \textbf{12 pts: Accuracy of each step} (graded independently against the key):
+  \begin{itemize}
+    \item 3 pts: Identify the boundary curve and give a one-parameter $\vec r(t)$ correctly.
+    \item 2 pts: Find $\vec r\,'(t)$ correctly.
+    \item 2 pts: Substitute $\vec r(t)$ into $\vec F$ correctly.
+    \item 2 pts: Compute $\vec F(\vec r(t))\cdot\vec r\,'(t)$ correctly.
+    \item 3 pts: Evaluate the single-variable integral correctly (including correct bounds for $t$).
+  \end{itemize}
+  \item \textbf{Policy:} Same as Problem 5 (see the Grader Notes). Algebraic-error cap: 2 pts per independent slip, maximum deduction 6 pts, minimum score 14/20. Wrong bounds for $t$ is a setup error, so the cap does not apply in that case.
+  \item Review reminder: Tell students that solving $\iint_S(\curl\vec F)\cdot d\vec S$ by direct parameterization of the surface, rather than by Stokes' Theorem, earns no credit.
+\end{itemize}
+ 
+\section*{7. Conceptual questions ($\sim$14 points)}
+Questions are to be determined; suggestions welcome. Possible topics:
+\begin{itemize}
+  \item Choosing among the Fundamental Theorem of Line Integrals, Green's Theorem, Stokes' Theorem, and direct parameterization: select all methods that could be used to evaluate a given line integral.
+  \item The physical meaning of curl (rotation) and divergence (source or sink).
+  \item Identifying which expressions involving the gradient, curl, and divergence are well-defined: select all that apply (similar to HW9, Problem 19).
+\end{itemize}
+Practice problems for the conceptual questions will be added to the current exam practice materials, which will be sent out today.
+ 
+%------------------------------------------------------------
+\clearpage
+\section*{Grader Notes (Problems 4, 5, and 6)}
+ 
+\textbf{Grading policy.} Grade each accuracy step independently against the answer key. Grading does not stop after an error, but a later step that is correct only relative to the student's own earlier error earns no accuracy credit. Procedure points reward a real attempt at each step in the correct order, so grade them for presence and sequence, not correctness. Do not award a step's procedure points if the work shown is nonsensical or unrelated to the problem.
+ 
+\textbf{Algebraic-error cap.} If all errors are algebraic or arithmetic (e.g., a sign error, a dropped factor, a miscomputed derivative, a wrong simplification, or an arithmetic slip in evaluating the integral), deduct a fixed amount per independent slip, up to a maximum deduction. Do not penalize the same slip again in later steps.
+ 
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Problem} & \textbf{Points} & \textbf{Deduction per slip} & \textbf{Max deduction} & \textbf{Minimum score}\\
+\hline
+4 & 12 & 1 pt & 3 pts & 9/12\\
+5 & 20 & 2 pts & 6 pts & 14/20\\
+6 & 20 & 2 pts & 6 pts & 14/20\\
+\hline
+\end{tabular}
+\end{center}
+ 
+\textbf{The cap does not apply} if there is any conceptual or setup error, such as a wrong $\vec r(u,v)$ or $\vec r(t)$, the wrong number of parameters, wrong bounds, a missing or incorrect orientation check, a wrong formula, or not using the required theorem. In that case, grade each step against the key with no cap.
+ 
+\end{document}

@@ -1,0 +1,130 @@
+\begin{center}
+\resizebox{!}{0.98\textheight}{%
+\begin{tikzpicture}[x=1cm,y=-1cm,font=\sffamily\small]
+  \path[use as bounding box] (0,0) rectangle (19.5,26.4);
+  \node[anchor=north west,font=\sffamily\bfseries\fontsize{27}{30}\selectfont,text=Green]
+    at (.35,.12) {Calculus 3};
+  \node[anchor=north west,font=\sffamily\fontsize{15}{18}\selectfont,text=Ink]
+    at (.4,1.18) {Exam 3 | Surface integrals};
+  \node[anchor=north east,align=right,font=\sffamily\footnotesize,text=Muted]
+    at (19.2,.15) {\qtag{1}\ Curl and divergence\\[5pt]
+      \qtag{36}\ Surface parametrizations\\[5pt]
+      \qtag{37--41}\ Concepts and method choice};
+  \begin{scope}[shift={(-20,0)}]
+  \begin{scope}[on background layer]
+    \filldraw[fill=Panel,draw=Rule,line width=.5pt,rounded corners=4pt]
+      (20,2.3) rectangle (39.5,24.3);
+  \end{scope}
+  \node[panelhead,text width=18.7cm] (Rhead) at (20,2.3)
+    {SURFACE INTEGRALS \hfill $\displaystyle\iint_S$};
+
+  \node[type,text width=6.8cm] (Rscalar) at (24.5,4.15) {Scalar field $f$};
+  \node[type,text width=9cm] (Rvector) at (34.4,4.15) {Vector field};
+  \draw[flow] (29.75,3.2) -- (29.75,3.6) -| (Rscalar.north);
+  \draw[flow] (29.75,3.6) -| (Rvector.north);
+
+  \node[card,text width=7.5cm,minimum height=5.65cm] (Rscalarformula) at (20.5,4.9) {
+    \cardtitle{Direct parametrization}
+    Parametrize $S$ by $\rr(u,v)$, $(u,v)\in D$.
+    \par\medskip
+    $\displaystyle\iint_S f\,dS$
+    \par\smallskip
+    $\displaystyle\quad=\iint_D f(\rr(u,v))$
+    \par\smallskip
+    $\displaystyle\qquad\qquad\cdot\|\rr_u\times\rr_v\|\,du\,dv.$
+    \par\medskip
+    \textbf{Surface area:} set $f=1$.\\[5pt]
+    \textbf{Mass:} use $f=\rho$ (surface density).
+    \par\medskip
+    Orientation does not affect a scalar surface integral.
+    \par\medskip
+    \qtag{14--22}
+  };
+  \draw[flow] (Rscalar.south) -- (Rscalarformula.north);
+
+  \node[decision,text width=5.5cm] (whichflux) at (34.4,6.15) {
+    \textbf{Which flux is given?}\\[2pt]
+    The flux of $\F$, or the flux of $\nabla\times\F$?
+  };
+  \draw[flow] (Rvector.south) -- (whichflux.north);
+
+  \node[card,text width=7.2cm,minimum height=6.6cm] (Rflux) at (31.65,8.1) {
+    \cardtitle{Surface flux of $\F$}
+    $\displaystyle\iint_S\F\cdot\nn\,dS$
+    \par\smallskip
+    $\displaystyle\quad=\iint_D\F(\rr(u,v))$
+    \par\smallskip
+    $\displaystyle\qquad\qquad\cdot(\rr_u\times\rr_v)\,du\,dv.$
+    \par\medskip
+    Choose the cross product to match the specified orientation. Reverse it if necessary.
+    \par\medskip
+    This flux \textbf{can be nonzero on a closed surface}.
+    \par\smallskip
+    {\footnotesize Coordinator's example: HW9, question 8.}
+    \par\medskip
+    \qtag{23--28}
+  };
+  \draw[flow] (whichflux.east) -- (38.5,6.15) -- (38.5,7.45) -| (Rflux.north);
+  \node[branch] at (38.5,6.85) {$\F$};
+
+  \node[decision,text width=4.9cm] (closedsurface) at (26.7,13.5) {
+    \textbf{Is $S$ closed?}\\[2pt]
+    $\partial S=\varnothing$ (no boundary)
+  };
+  \draw[flow] (whichflux.west) -- (30.1,6.15) -- (30.1,12.35)
+    -| (closedsurface.north);
+  \node[branch,anchor=west] at (30.12,9.1) {$\nabla\times\F$};
+
+  \node[card,text width=6.8cm,minimum height=2.65cm] (zero) at (20.5,15.4) {
+    \cardtitle{Closed-surface curl flux}
+    $\displaystyle\iint_S(\curl\F)\cdot\nn\,dS=0.$
+    \par\medskip
+    No boundary, hence no boundary circulation.
+    \par\smallskip
+    The field must be defined and smooth near all of $S$.\par\medskip
+    \qtag{34--35}
+  };
+  \draw[flow] (closedsurface.south) -- (26.7,14.8) -| (zero.north);
+  \node[branch] at (25.15,14.8) {Yes};
+
+  \node[card,text width=8.7cm,minimum height=3.7cm] (Rstokes) at (30.0,16.1) {
+    \cardtitle{Stokes' theorem}
+    For $C=\partial S$ with compatible orientations,
+    \par\medskip
+    $\displaystyle\iint_S(\curl\F)\cdot\nn\,dS
+       =\oint_C\F\cdot d\rr.$
+    \par\medskip
+    Compute the boundary circulation, or replace $S$ by an easier spanning surface.
+    \par\medskip
+    \qtag{29--33}
+  };
+  \draw[flow] (closedsurface.east) -- (30.15,13.5) -- (30.15,15.45)
+    -| (Rstokes.north);
+  \node[branch] at (30.15,14.7) {No};
+
+  \node[note,text width=18cm,minimum height=2.85cm] (Rnote) at (20.5,21.05) {
+    \cardtitle{Same oriented boundary: change the surface, not the answer}
+    $\displaystyle\partial S=\partial\widetilde S=C
+      \quad\Longrightarrow\quad
+      \iint_S(\curl\F)\cdot\nn\,dS
+      =\iint_{\widetilde S}(\curl\F)\cdot\widetilde\nn\,dS.$
+    \par\medskip
+    Example: an upward-oriented hemisphere can be replaced by its upward-oriented equatorial disk.
+    The field must be smooth near both surfaces. This rule concerns \textbf{curl flux}, not arbitrary flux.
+  };
+
+  \end{scope}
+  \draw[Rule,line width=.6pt] (.4,24.8) -- (19.1,24.8);
+  \node[anchor=north west,text width=18.7cm,align=left,font=\sffamily\footnotesize,text=Muted]
+    at (.4,25.0) {
+      \textbf{Notation.} $\rr(u,v)$ parametrizes $S$ over $D$; $\nn$ is the specified unit normal.
+      In flux formulas, the oriented cross product includes the area factor.
+      \\[4pt]
+      \textbf{Conditions.} Use smooth fields near the surfaces and compatible boundary orientations.
+      For practice 29, use the intended hemisphere including its rim ($z\ge0$).
+      \\[4pt]
+      \textbf{References.} Scalar surfaces: 14--22. Flux: 23--28. Stokes: 29--35.
+    };
+\end{tikzpicture}%
+}
+\end{center}

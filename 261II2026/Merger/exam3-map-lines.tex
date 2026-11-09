@@ -1,0 +1,137 @@
+\begin{center}
+\resizebox{!}{0.98\textheight}{%
+\begin{tikzpicture}[x=1cm,y=-1cm,font=\sffamily\small]
+  \path[use as bounding box] (0,0) rectangle (19.5,26.4);
+  \node[anchor=north west,font=\sffamily\bfseries\fontsize{27}{30}\selectfont,text=Green]
+    at (.35,.12) {Calculus 3};
+  \node[anchor=north west,font=\sffamily\fontsize{15}{18}\selectfont,text=Ink]
+    at (.4,1.18) {Exam 3 | Line integrals};
+  \node[anchor=north east,align=right,font=\sffamily\footnotesize,text=Muted]
+    at (19.2,.15) {\qtag{1}\ Curl and divergence\\[5pt]
+      \qtag{36}\ Surface parametrizations\\[5pt]
+      \qtag{37--41}\ Concepts and method choice};
+  \begin{scope}[on background layer]
+    \filldraw[fill=Panel,draw=Rule,line width=.5pt,rounded corners=4pt]
+      (0,2.3) rectangle (19.5,24.3);
+  \end{scope}
+  \node[panelhead,text width=18.7cm] (Lhead) at (0,2.3)
+    {LINE INTEGRALS \hfill $\displaystyle\int_C$};
+
+  \node[type,text width=6.1cm] (Lscalar) at (3.8,4.15) {Scalar field $f$};
+  \node[type,text width=9cm] (Lvector) at (13.3,4.15) {Vector field: circulation / work};
+  \draw[flow] (9.75,3.2) -- (9.75,3.6) -| (Lscalar.north);
+  \draw[flow] (9.75,3.6) -| (Lvector.north);
+
+  \node[card,text width=6cm,minimum height=3.6cm] (Lscalarformula) at (.5,4.9) {
+    \cardtitle{Direct parametrization}
+    $\displaystyle\int_C f\,ds$
+    \par\smallskip
+    $\displaystyle\quad=\int_a^b f(\rr(t))\,\|\rr'(t)\|\,dt.$
+    \par\medskip
+    Arc length: $f=1$.\\[3pt]
+    Wire mass: $f=\rho$ (linear density).
+    \par\medskip
+    \qtag{Exam 2 review}
+  };
+  \draw[flow] (Lscalar.south) -- (Lscalarformula.north);
+
+  \node[decision,text width=5.3cm] (conservative) at (13.3,6.15) {
+    \textbf{Is $\F$ conservative?}\\[2pt]
+    Is there a potential $\phi$ with $\F=\nabla\phi$?
+  };
+  \draw[flow] (Lvector.south) -- (conservative.north);
+
+  \node[decision,text width=4.3cm] (closedcurve) at (9.85,9.3) {
+    \textbf{Is $C$ a closed curve?}\\[2pt]
+    Same starting and ending point?
+  };
+  \draw[flow] (conservative.west) -- (9.85,6.15) -- (closedcurve.north);
+  \node[branch] at (9.85,7.35) {No};
+
+  \node[card,text width=6.1cm,minimum height=3.6cm] (ftoli) at (12.6,8.4) {
+    \cardtitle{Fundamental theorem\\of line integrals}
+    $\displaystyle\int_C\F\cdot d\rr$
+    \par\smallskip
+    $\displaystyle\quad=\phi(\rr(b))-\phi(\rr(a)).$
+    \par\medskip
+    If $C$ is closed, the integral is $0$.
+    \par\medskip
+    \qtag{2--5}\quad\qtag{41(2), (6): closed curves}
+  };
+  \draw[flow] (conservative.east) -- (17.2,6.15) -- (17.2,7.5)
+    -| (ftoli.north);
+  \node[branch] at (17.2,6.85) {Yes};
+
+  \node[card,text width=6.1cm,minimum height=3.1cm] (Ldirect) at (.5,10.8) {
+    \cardtitle{Direct parametrization}
+    $\displaystyle\int_C\F\cdot d\rr$
+    \par\smallskip
+    $\displaystyle\quad=\int_a^b\F(\rr(t))\cdot\rr'(t)\,dt.$
+    \par\medskip
+    Works for open \emph{or} closed curves.\\[3pt]
+    Also $d\rr=\TT\,ds$.
+  };
+  \draw[flow] (closedcurve.west) -- (7.3,9.3) -- (7.3,10.35) -| (Ldirect.north);
+  \node[branch] at (5.3,10.35) {No};
+
+  \node[decision,text width=5.2cm] (spanning) at (10.6,13.9) {
+    \textbf{Choose a simpler spanning\\region or surface.}
+  };
+  \draw[flow] (closedcurve.south) -- (9.85,12.5) -| (spanning.north);
+  \node[branch] at (9.85,11.65) {Yes};
+
+  \node[card,text width=8.2cm,minimum height=4.75cm] (green) at (.5,15.6) {
+    \cardtitle{Green's theorem}
+    $\F=\langle P,Q\rangle$ and $C=\partial D$.
+    \par\medskip
+    \textbf{Circulation:} $C$ counterclockwise
+    \par\smallskip
+    $\displaystyle\oint_C\F\cdot d\rr
+       =\iint_D(Q_x-P_y)\,dA.$
+    \par\medskip
+    \textbf{Also, planar flux:} $\nn$ the outward unit normal
+    \par\smallskip
+    $\displaystyle\oint_C\F\cdot\nn\,ds
+       =\iint_D(P_x+Q_y)\,dA.$
+    \par\medskip
+    \qtag{6--13}
+  };
+  \node[card,text width=8.1cm,minimum height=3.8cm] (Lstokes) at (10.2,15.6) {
+    \cardtitle{Stokes' theorem}
+    For $C=\partial S$ with compatible orientations,
+    \par\medskip
+    $\displaystyle\oint_C\F\cdot d\rr
+      =\iint_S(\curl\F)\cdot\nn\,dS.$
+    \par\medskip
+    Choose a spanning surface that makes the curl flux easy to compute.
+    \par\medskip
+    Stokes' theorem also applies to planar surfaces.\par\medskip
+    \qtag{41: method choice}
+  };
+  \draw[flow] (spanning.south) -- (10.6,15.1) -| (green.north);
+  \draw[flow] (10.6,15.1) -| (Lstokes.north);
+  \node[branch] at (6.65,15.1) {Planar (2D)};
+  \node[branch] at (13.45,15.1) {Spatial (3D)};
+
+  \node[note,text width=17.8cm,minimum height=2.35cm] (Lnote) at (.5,21.4) {
+    \cardtitle{Check the domain before using a potential}
+    For a $C^1$ field on an open, simply connected domain, zero curl implies a potential.
+    In two dimensions, use $Q_x=P_y$. Without the domain hypothesis, zero curl need not imply conservative.
+    \par\medskip
+    \textbf{Method choice:} direct parametrization works for closed curves too. Closed does \emph{not} mean zero circulation.
+  };
+
+  \draw[Rule,line width=.6pt] (.4,24.8) -- (19.1,24.8);
+  \node[anchor=north west,text width=18.7cm,align=left,font=\sffamily\footnotesize,text=Muted]
+    at (.4,25.0) {
+      \textbf{References.} FTLI: 2--5. Green's theorem: 6--13.
+      Conceptual method selection: 40--41. Scalar line integrals are Exam 2 review.
+      \\[4pt]
+      \textbf{Question 41 convention.} The listed choices refer to direct use of the formulas on the given integral.
+      Rewriting a spatial line integral in planar form can make additional methods available.
+      \\[4pt]
+      \textbf{Conditions.} Use smooth fields and piecewise smooth curves; Green's circulation uses the positive boundary orientation.
+    };
+\end{tikzpicture}%
+}
+\end{center}

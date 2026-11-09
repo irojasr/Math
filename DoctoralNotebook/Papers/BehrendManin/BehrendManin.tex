@@ -219,6 +219,8 @@ D--53225 Bonn}
 \newcommand{\bR}{\mathbb{R}}
 \newcommand{\bZ}{\mathbb{Z}}
 \newcommand{\defeq}{\coloneqq}
+\newcommand{\word}[1]{\quad\text{#1}\quad}
+
 % Set and Greek-letter shortcuts used in the graph notes (shared-header notation).
 \newcommand{\set}[1]{\{\,#1\,\}}
 \newcommand{\Ga}{\Gamma}
@@ -1416,7 +1418,24 @@ where \(\tau\) is a modular graph and
       \node[below=4pt] at (v2.south) {\(v_2\)};
     \end{tikzpicture}
     \end{center}
-    From it we can build \(((C_1,C_2),(p_1,\dots,p_6))\), two prestable curves. Notice that \(p_2,p_3\) are sections in the smooth locus of both 
+    From it we can build \(((C_1,C_2),(p_1,\dots,p_6))\), two prestable curves over a scheme \(S\). Notice that \(p_2,p_3\) are sections in the smooth locus of any fiber, this means we can glue them into \(C\) with maps 
+    \[
+      f_i:C_i\to C,\word{such that}f_1(p_2)=f_2(p_3)
+    \]
+    and \(C\) is universal among all \(S\)-schemes with this property. In other words, if theres an \(S\)-scheme \(D\) such that there are maps 
+    \[
+      g_i:C_i\to D,\word{such that}g_1(p_2)=g_2(p_3),
+    \]
+    then there exists a unique morphism of \(S\)-schemes \(C\to D\) such that the respective diagrams commute. This is expressed in the diagram
+    \[
+    \begin{tikzcd}[column sep=large,row sep=large]
+      S \arrow[r,"p_2"] \arrow[d,"p_3"']
+        & C_1 \arrow[d,"f_1"] \arrow[ddr,"g_1",bend left=20] & \\
+      C_2 \arrow[r,"f_2"'] \arrow[drr,"g_2"',bend right=20]
+        & C \arrow[dr,dashed,"\exists!\,h"] & \\
+        & & D
+  \end{tikzcd}
+    \]
   \end{Ex}
 
 \end{ptcb}

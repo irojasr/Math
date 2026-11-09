@@ -1,0 +1,1594 @@
+\documentclass[11pt,letterpaper]{article}
+% Standalone combined source: all content and formatting are embedded.
+% Compact questions/solutions layout matching Versions A--C.
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{hypertexnames=false}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{1.5em}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{3pt}
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=4pt,topsep=4pt}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\dv}{\nabla\cdot}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\grad}{\nabla}
+\allowdisplaybreaks[2]
+\pagestyle{plain}
+
+\newcommand{\examproblem}[3]{%
+  \par\medskip\Needspace{5\baselineskip}
+  \noindent\textbf{#1. #2}\par\nobreak
+}
+\newcommand{\solutionproblem}[3]{%
+  \par\bigskip\Needspace{7\baselineskip}
+  \noindent\textbf{#1. #2}\par\nobreak
+}
+\newcommand{\insight}[1]{\par\textbf{Key observation.} #1\par}
+\newcommand{\verification}[1]{\par\textbf{Check.} #1\par}
+\newcommand{\alternative}[1]{\par\textbf{Alternative.} #1\par}
+
+\begin{document}
+{\large\bfseries Mock Exam 3 --- Version A --- Solutions}
+\smallskip
+% Worked solutions; provenance notes are retained in comments below.
+\solutionproblem{1}{Curl, divergence, and conservativity}{10}
+\insight{The $\sin z$ and $\cos z$ terms come from the gradient of
+$xy\sin z$; the remaining planar rotation supplies a nonzero curl.}
+Writing $\vec F=(P,Q,R)$ gives
+\[
+\begin{aligned}
+R_y-Q_z&=x\cos z-x\cos z=0,\\
+P_z-R_x&=y\cos z-y\cos z=0,\\
+Q_x-P_y&=(\sin z+1)-(\sin z-1)=2.
+\end{aligned}
+\]
+Therefore
+\[
+\boxed{\curl\vec F=(0,0,2)},\qquad
+\boxed{\dv\vec F=-xy\sin z}.
+\]
+The divergence follows from $P_x=Q_y=0$ and $R_z=-xy\sin z$.
+The field is \textbf{not conservative}: a gradient field with continuous
+second partial derivatives has zero curl, whereas this curl is nonzero
+everywhere.
+\verification{The decomposition
+$\vec F=\nabla(xy\sin z)+(-y,x,0)$ independently gives the curl
+$(0,0,2)$ and divergence $-xy\sin z$.}
+\alternative{Computing all six mixed-component derivatives directly is
+fully sufficient; recognizing the decomposition is optional.}
+
+\solutionproblem{2}{Green's theorem}{12}
+\insight{The exponential terms have equal mixed derivatives. After
+they cancel, the integral depends only on areas and a first moment of
+an off-center hole. The outer disk's odd moment is zero, but the hole's
+moment is not.}
+Let $P=ye^{xy}-y$ and $Q=xe^{xy}+3x^2+x$. Then
+\[
+Q_x=e^{xy}+xye^{xy}+6x+1,\qquad
+P_y=e^{xy}+xye^{xy}-1,
+\]
+so $Q_x-P_y=6x+2$. The given orientation is positive: the outer circle
+is counterclockwise and the inner circle clockwise. Green's theorem gives
+\[
+\oint_C P\,\dd x+Q\,\dd y=\iint_D(6x+2)\,\dd A.
+\]
+The smaller disk lies strictly inside the larger one because
+$1+1/2<2$. An explicit setup is
+\[
+\begin{aligned}
+\iint_D(6x+2)\,\dd A
+={}&\int_0^{2\pi}\int_0^2(6r\cos\theta+2)r\,\dd r\,\dd\theta\\
+&-\int_0^{2\pi}\int_0^{1/2}
+\bigl(6(1+s\cos\theta)+2\bigr)s\,\dd s\,\dd\theta.
+\end{aligned}
+\]
+The second integral uses coordinates centered at $(1,0)$, not at the
+origin. Terms containing $\cos\theta$ integrate to zero. Thus
+\[
+\oint_C P\,\dd x+Q\,\dd y
+=2(4\pi)-8\left(\frac\pi4\right)
+=\boxed{6\pi}.
+\]
+\verification{The area of $D$ is $15\pi/4$ and
+$\iint_D x\,\dd A=0-(1)(\pi/4)=-\pi/4$; hence
+$6(-\pi/4)+2(15\pi/4)=6\pi$.}
+\alternative{Cartesian bounds, splitting the vertical slices through
+the hole, are valid. Translating the small disk and using its symmetry
+avoids that split. A proof of the first-moment calculation by integrating
+in the displayed translated coordinates is already given above.}
+
+\solutionproblem{3}{Three surface parametrizations}{12}
+\insight{Use coordinates suited to the geometry, then translate every
+extra condition into a parameter bound. No surface-area calculation is
+needed.}
+\begin{enumerate}[label=(\alph*)]
+\item In polar coordinates the cylinder condition becomes
+\[
+(r\cos\theta-1)^2+r^2\sin^2\theta\le1
+\quad\Longleftrightarrow\quad r(r-2\cos\theta)\le0.
+\]
+Thus one parametrization is
+\[
+\boxed{\vec r(r,\theta)=(r\cos\theta,r\sin\theta,r)},\qquad
+\left\{\begin{aligned}
+&-\pi/2\le\theta\le\pi/2,\\
+&0\le r\le2\cos\theta.
+\end{aligned}\right.
+\]
+The cone's tip is a boundary point; degeneracy of polar coordinates
+there does not affect the image.
+
+\item Scale spherical coordinates to the ellipsoid:
+\[
+\boxed{\vec r(\phi,\theta)
+=(2\sin\phi\cos\theta,3\sin\phi\sin\theta,\cos\phi)},\qquad
+\left\{\begin{aligned}
+&0\le\phi\le\pi/4,\\
+&0\le\theta\le\pi.
+\end{aligned}\right.
+\]
+The cone-like inequality is $\cos\phi\ge\sin\phi$, so it forces
+$0\le\phi\le\pi/4$; $y\ge0$ then gives the stated azimuthal range.
+
+\item A parametrization using the taught $y$-axis revolution convention is
+\[
+\boxed{\vec r(s,\theta)
+=\bigl((2+\cos s)\cos\theta,\sin s,-(2+\cos s)\sin\theta\bigr)},
+\]
+\[
+\left\{\begin{aligned}
+&-\pi/2\le s\le\pi/2,\\
+&0\le\theta\le2\pi.
+\end{aligned}\right.
+\]
+Here the distance to the $y$-axis is $2+\cos s\ge2$, so this is an
+ordinary surface of revolution without a crossing of the axis.
+\end{enumerate}
+\verification{In (a), $z=r=\sqrt{x^2+y^2}$. In (b), substitution gives
+$x^2/4+y^2/9+z^2=1$ exactly. In (c), setting $\theta=0$ recovers the
+given generating arc, and varying $\theta$ preserves its height and
+distance from the axis.}
+\alternative{Any two-parameter descriptions with the same images and
+correct complete bounds are valid. Reversing angular direction, shifting
+angles by $2\pi$, using a different pair of parameter names, and different
+once-around representations are equivalent. No orientation is requested.}
+
+\solutionproblem{4}{A scalar surface integral: setup only}{12}
+\insight{On the supplied surface, $x^2-y^2=4z$, so the exponential
+collapses to 1 before the scalar integrand is multiplied by the area
+factor.}
+The given parametrization has
+\[
+\vec r_u=(1,1,v),\qquad \vec r_v=(1,-1,u),
+\]
+\[
+\vec r_u\times\vec r_v=(u+v,v-u,-2),\qquad
+\lVert\vec r_u\times\vec r_v\rVert=\sqrt{4+2u^2+2v^2}.
+\]
+The scalar substitution is
+\[
+f(\vec r(u,v))
+=e^{(u+v)^2-(u-v)^2-4uv}+uv
+=1+uv.
+\]
+Consequently the requested setup is
+\[
+\boxed{\iint_S f\,\dd\sigma
+=\int_0^1\int_0^{1-u}(1+uv)\sqrt{4+2u^2+2v^2}\,\dd v\,\dd u}.
+\]
+\verification{The squared cross-product norm is
+$(u+v)^2+(v-u)^2+4=4+2u^2+2v^2>0$. The first two surface coordinates
+uniquely recover $u=(x+y)/2$ and $v=(x-y)/2$, so the patch is not
+multiply covered. The density $1+uv$ is nonnegative on the parameter
+triangle.}
+\alternative{Reversing the integration order gives bounds
+$0\le v\le1$, $0\le u\le1-v$ with the same scalar integrand. The
+opposite cross-product order is valid because its magnitude is unchanged.}
+
+\solutionproblem{5}{Direct flux through a curved surface}{20}
+\insight{The terms involving $e^{z^2}$ describe motion around the axis,
+so their normal contribution cancels. A second cancellation uses
+$z=x^2+y^2$; the surviving integral has the derivative needed for
+$e^{r^2}$.}
+Choose
+\[
+\vec r(r,\theta)=(r\cos\theta,r\sin\theta,r^2),\qquad
+\left\{\begin{aligned}
+&1\le r\le2,\\
+&0\le\theta\le2\pi.
+\end{aligned}\right.
+\]
+The tangent vectors and outward cross product are
+\[
+\vec r_r=(\cos\theta,\sin\theta,2r),\qquad
+\vec r_\theta=(-r\sin\theta,r\cos\theta,0),
+\]
+\[
+\vec n=\vec r_\theta\times\vec r_r
+=(2r^2\cos\theta,2r^2\sin\theta,-r).
+\]
+At $(r,\theta)=(1,0)$ this gives $(2,0,-1)$, whose radial component
+points away from the $z$-axis. More generally,
+$\vec n\cdot(r\cos\theta,r\sin\theta,0)=2r^3>0$, verifying the
+required orientation.
+
+Set $c=\cos\theta$, $s=\sin\theta$. Substitution gives
+\[
+\vec F(\vec r)=
+\bigl(rc-rs e^{r^4},\ rs+rc e^{r^4},\ 2r^2-e^{r^2}\bigr).
+\]
+The dot product simplifies before any integration:
+\[
+\begin{aligned}
+\vec F(\vec r)\cdot\vec n
+&=2r^3c^2-2r^3sc e^{r^4}
+ +2r^3s^2+2r^3sc e^{r^4}
+ -2r^3+r e^{r^2}\\
+&=r e^{r^2}.
+\end{aligned}
+\]
+Thus
+\[
+\boxed{\iint_S\vec F\cdot\vec N\,\dd\sigma
+=\int_0^{2\pi}\int_1^2r e^{r^2}\,\dd r\,\dd\theta
+=\pi(e^4-e)}.
+\]
+\verification{The vector $(x,y,2z)$ is tangent to $z=x^2+y^2$ because
+its dot product with $(2x,2y,-1)$ is zero on that surface.
+The rotation vector $(-y,x,0)$ is also tangent. Only $(0,0,-e^z)$
+contributes to the outward flux, and its downward component agrees with
+the downward component of the outward normal, yielding positive flux.}
+\alternative{A direct graph parametrization $(x,y,x^2+y^2)$ with
+outward vector $(2x,2y,-1)$ produces integrand $e^{x^2+y^2}$ over
+$1\le x^2+y^2\le4$. Converting that double integral to polar gives
+the same result. Both methods directly parametrize the stated surface.}
+
+\solutionproblem{6}{Stokes' theorem and the whole boundary}{20}
+\insight{The lateral cone has two boundary circles, at different heights.
+Their induced directions are opposite, and the coefficient $z+1$ takes
+a different value on each. The third component of the field contributes
+nothing because both circles have $\dd z=0$.}
+An outward normal on the upper cone is proportional to
+$(\cos\theta,\sin\theta,-1)$, so it points downward. Consequently the
+outer circle at $z=3$ is clockwise from above, and the inner circle at
+$z=1$ is counterclockwise.
+
+One-parameter parametrizations with the induced orientations are
+\[
+\begin{aligned}
+\vec c_o(t)&=(3\cos t,-3\sin t,3),\\
+\vec c_i(t)&=(\cos t,\sin t,1),
+\end{aligned}
+\qquad0\le t\le2\pi.
+\]
+Their derivatives and substituted fields are
+\[
+\begin{aligned}
+\vec c_o'(t)&=(-3\sin t,-3\cos t,0),&
+\vec F(\vec c_o(t))&=(12\sin t,12\cos t,e^{27}),\\
+\vec c_i'(t)&=(-\sin t,\cos t,0),&
+\vec F(\vec c_i(t))&=(-2\sin t,2\cos t,e).
+\end{aligned}
+\]
+Thus
+\[
+\vec F(\vec c_o(t))\cdot\vec c_o'(t)=-36,\qquad
+\vec F(\vec c_i(t))\cdot\vec c_i'(t)=2.
+\]
+Stokes' theorem, with the whole oriented boundary, gives
+\[
+\begin{aligned}
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma
+&=\oint_{C_o}\vec F\cdot\dd\vec r
+ +\oint_{C_i}\vec F\cdot\dd\vec r\\
+&=\int_0^{2\pi}(-36)\,\dd t
+ +\int_0^{2\pi}2\,\dd t
+=\boxed{-68\pi}.
+\end{aligned}
+\]
+\verification{On a counterclockwise circle of radius $R$ at height $h$,
+the first two field components give circulation
+$2\pi(h+1)R^2$. Reversing the outer circle therefore gives
+$-2\pi(4)(9)+2\pi(2)(1)=-68\pi$, confirming both signs and radii.}
+\alternative{Using counterclockwise parametrizations for both circles
+and subtracting the outer-circle integral is equivalent. A direct
+surface calculation also verifies the number independently.}
+
+\solutionproblem{7}{Conceptual decisions}{14}
+\begin{enumerate}[label=(\alph*)]
+\item \[
+\begin{array}{c|c|c}
+\text{Expression}&\text{Type}&\text{Necessarily zero?}\\\hline
+\curl(f\vec G)&\text{vector field}&\text{No}\\
+\dv(\curl\vec G)&\text{scalar field}&\text{Yes}\\
+\curl(\dv\vec G)&\text{undefined}&\text{not applicable}
+\end{array}
+\]
+For the first row, $f=1$ and $\vec G=(-y,x,0)$ give curl $(0,0,2)$,
+so a universal zero claim is false. The second row is the identity
+$\dv(\curl\vec G)=0$. In the third row, divergence produces a scalar,
+but curl takes a vector field as its input.
+
+\item The only directly applicable listed method is
+\textbf{direct parametrization}. The curve is open, so Green's and
+Stokes' theorems do not directly apply. Although
+\[
+\curl(0,xy,0)=(0,0,y)
+\]
+vanishes along $C$, it is nonzero at points with $y\ne0$, including
+points arbitrarily close to the curve. Hence the stated field is not
+conservative on an open neighborhood of $C$, and FTLI cannot be invoked
+for it. The fact that its particular line integral happens to equal zero
+does not supply the missing FTLI hypothesis.
+
+\item The negative divergence indicates a local
+\textbf{sink}, or local net inflow. The directed rotation axis is
+\textbf{positive $z$}, and the right-hand rule gives
+\textbf{counterclockwise} rotation viewed from the positive $z$-axis.
+These are local conclusions at $p$, not global statements about the flow.
+\end{enumerate}
+\verification{For (b), direct substitution gives $\vec F(t,0,0)=\vec0$,
+so direct evaluation is possible even though FTLI is not applicable to
+the given nonconservative field. For (c), the signs and axis are read
+from the supplied values, without needing a field formula.}
+\alternative{Any equivalent physical wording for net local inflow and
+the positive-$z$ right-hand-rule sense is acceptable. No global behavior
+or trajectory shape is determined by those two local measurements.}
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Mock Exam 3 --- Version B --- Solutions}
+\smallskip
+% Worked solutions; provenance notes are retained in comments below.
+\solutionproblem{1}{Curl, divergence, and conservativity}{10}
+\insight{The exponential and trigonometric pieces have matching mixed
+partials. Their cancellations must be performed before deciding whether
+the remaining curl vanishes everywhere.}
+Writing $\vec F=(P,Q,R)$ gives
+\[
+\begin{aligned}
+R_y-Q_z&=2z-(2z+x)=-x,\\
+P_z-R_x&=(\cos x-y)-\cos x=-y,\\
+Q_x-P_y&=(e^{xy}+xye^{xy}+z)
+ -(e^{xy}+xye^{xy}-z)=2z.
+\end{aligned}
+\]
+Consequently
+\[
+\boxed{\curl\vec F=(-x,-y,2z)},\qquad
+\boxed{\dv\vec F=(x^2+y^2)e^{xy}-z\sin x+2y}.
+\]
+The field is \textbf{not conservative} on $\mathbb R^3$, since its curl
+is not identically zero; for example, it equals $(-1,0,0)$ at $(1,0,0)$.
+Its zero curl at the origin alone cannot establish conservativity.
+\verification{The first three terms form
+$\grad(e^{xy}+z\sin x+yz^2)$. The remaining field
+$(-yz,xz,0)$ has curl $(-x,-y,2z)$ and divergence zero, independently
+confirming both the cancellation structure and the final formulas.}
+\alternative{Differentiate the three components directly, as above. A
+potential need not be found because the nonzero curl already rules one
+out.}
+
+\solutionproblem{2}{Green's theorem on an unfinished curve}{12}
+\insight{Close the missing diagonal, use the clockwise orientation of the
+resulting curve, and subtract the nonzero integral on that diagonal.}
+Let $L$ be the segment from $(2,1)$ back to $(1,0)$. The closed curve
+$C+L$ traverses its region clockwise. The enclosed region is
+\[
+D:\qquad
+\left\{
+\begin{aligned}
+&0\le y\le1,\\
+&y^2\le x\le1+y.
+\end{aligned}
+\right.
+\]
+For $P=ye^{xy}-y^2/2$ and $Q=xe^{xy}+2x$,
+\[
+Q_x-P_y=(e^{xy}+xye^{xy}+2)
+ -(e^{xy}+xye^{xy}-y)=2+y.
+\]
+Green's theorem, with the clockwise sign, gives
+\[
+\begin{aligned}
+\int_C\vec F\cdot\dd\vec r+\int_L\vec F\cdot\dd\vec r
+&=-\int_0^1\int_{y^2}^{1+y}(2+y)\,\dd x\,\dd y\\
+&=-\int_0^1(2+3y-y^2-y^3)\,\dd y=-\frac{35}{12}.
+\end{aligned}
+\]
+Parametrize the closing segment by
+$\vec\ell(t)=(1+t,t)$, with $t$ decreasing from $1$ to $0$. Then
+\[
+\begin{aligned}
+\int_L\vec F\cdot\dd\vec r
+&=\int_1^0\left((1+2t)e^{t+t^2}-\frac{t^2}{2}+2+2t\right)\dd t\\
+&=\left[e^{t+t^2}-\frac{t^3}{6}+2t+t^2\right]_1^0
+=-e^2-\frac{11}{6}.
+\end{aligned}
+\]
+Therefore
+\[
+\boxed{\displaystyle\int_C\vec F\cdot\dd\vec r
+=-\frac{35}{12}-\left(-e^2-\frac{11}{6}\right)
+=e^2-\frac{13}{12}}.
+\]
+\verification{For an independent check, the original three pieces have
+integrals $0$, $e-7/12$, and $e^2-e-1/2$. Their sum agrees with the
+answer. This directly confirms the result.}
+\alternative{One may close by an easier two-segment polygonal route,
+provided every auxiliary integral and the resulting oriented region are
+accounted for. The diagonal gives a single closing integral.}
+
+\solutionproblem{3}{Surface parametrizations and intersection bounds}{12}
+\insight{The equations determine parameter bounds by intersections, not
+just by identifying a familiar surface.}
+\textbf{(a)} One parametrization is
+\[
+\boxed{\vec r(\theta,\phi)
+=(2\sin\phi\cos\theta,2\sin\phi\sin\theta,2\cos\phi)},
+\qquad
+\boxed{0\le\theta\le2\pi,\quad\pi/6\le\phi\le\pi/2}.
+\]
+The outside-cylinder condition is $4\sin^2\phi\ge1$. Since $z\ge0$,
+$0\le\phi\le\pi/2$, so this becomes $\phi\ge\pi/6$.
+
+\textbf{(b)} A convenient parametrization and bounds are
+\[
+\boxed{\vec r(\theta,v)=(\cos\theta,\sin\theta,v)},\qquad
+\boxed{0\le\theta\le2\pi,\quad\sin\theta\le v\le2+\cos\theta}.
+\]
+The upper plane is always above the lower one because
+$2+\cos\theta-\sin\theta\ge2-\sqrt2>0$.
+
+\textbf{(c)} Using the radius as a parameter,
+\[
+\boxed{\vec r(u,\theta)=(u\cos\theta,u\sin\theta,u)},\qquad
+\boxed{1\le u\le\sqrt2,\quad0\le\theta\le2\pi}.
+\]
+On the cone, the sphere condition becomes $2u^2\le4$, while $z\ge1$
+becomes $u\ge1$.
+\verification{Substitution gives the sphere, cylinder, and cone equations
+respectively. Their bounds include each required limiting intersection
+and add no caps.}
+\alternative{In (b), one can instead use
+\[
+\vec r(\theta,t)=(\cos\theta,\sin\theta,
+\sin\theta+t(2+\cos\theta-\sin\theta)),
+\]
+with
+$0\le\theta\le2\pi$, $0\le t\le1$. Other correct two-parameter maps
+with equivalent domains are valid.}
+
+\solutionproblem{4}{Set up a scalar surface integral}{12}
+\insight{The given coordinates make $y-x^2=v$ and $z/x=v$. The latter
+identity is legitimate because $x=u\ge1$ everywhere on the patch.}
+The tangent vectors and cross product are
+\[
+\begin{aligned}
+\vec r_u&=(1,2u,v),\qquad \vec r_v=(0,1,u),\\
+\vec r_u\times\vec r_v&=(2u^2-v,-u,1),\\
+\left|\vec r_u\times\vec r_v\right|
+&=\sqrt{(2u^2-v)^2+u^2+1}.
+\end{aligned}
+\]
+Substitution gives
+\[
+f(\vec r(u,v))=e^{(u^2+v)-u^2}
++\left(\frac{uv}{u}\right)^2=e^v+v^2.
+\]
+Thus the requested setup is
+\[
+\boxed{\displaystyle\int_1^2\int_0^{2-u}
+(e^v+v^2)\sqrt{(2u^2-v)^2+u^2+1}\,\dd v\,\dd u}.
+\]
+It should not be evaluated.
+\verification{The third component of the cross product is $1$, so the
+patch is regular throughout its domain. Also $u=x$ and $v=y-x^2$
+recover the parameters uniquely; the map does not cover the surface
+multiple times.}
+\alternative{Reversing the cross-product order gives the same magnitude.
+The equivalent bounds $0\le v\le1$, $1\le u\le2-v$ are also valid.}
+
+\solutionproblem{5}{Flux through a curved sheet}{20}
+\insight{The first-quadrant lens is unchanged by exchanging $x$ and $y$.
+After forming the correctly oriented flux integrand, its antisymmetric
+part integrates to zero.}
+The two boundary curves meet at $(0,0)$ and $(1,1)$. The region has bounds
+\[
+D:\qquad
+\left\{
+\begin{aligned}
+&0\le x\le1,\\
+&x^2\le y\le\sqrt x.
+\end{aligned}
+\right.
+\]
+Use $\vec r(x,y)=(x,y,xy)$. Then
+\[
+\vec r_x=(1,0,y),\qquad \vec r_y=(0,1,x),\qquad
+\vec r_x\times\vec r_y=(-y,-x,1).
+\]
+This cross product points upward. The required downward oriented area
+vector is therefore $\vec r_y\times\vec r_x=(y,x,-1)$; its third
+component is negative at every point.
+
+The field and dot product become
+\[
+\begin{aligned}
+\vec F(\vec r)&=(x+1,y-1,3xy+x-y),\\
+\vec F(\vec r)\cdot(y,x,-1)
+&=(x+1)y+(y-1)x-(3xy+x-y)\\
+&=-xy-2x+2y.
+\end{aligned}
+\]
+The complete flux setup is
+\[
+\iint_S\vec F\cdot\vec N\,\dd\sigma
+=\int_0^1\int_{x^2}^{\sqrt x}(-xy-2x+2y)\,\dd y\,\dd x.
+\]
+Because $D$ is symmetric under $x\leftrightarrow y$,
+$\iint_D(-2x+2y)\,\dd A=0$. Hence
+\[
+\begin{aligned}
+\iint_S\vec F\cdot\vec N\,\dd\sigma
+&=-\int_0^1\int_{x^2}^{\sqrt x}xy\,\dd y\,\dd x\\
+&=-\frac12\int_0^1(x^2-x^5)\,\dd x
+=-\frac12\left(\frac13-\frac16\right)
+=\boxed{-\frac1{12}}.
+\end{aligned}
+\]
+\verification{Direct integration gives
+$\iint_D x\,\dd A=\iint_D y\,\dd A=3/20$ and
+$\iint_D xy\,\dd A=1/12$, confirming the cancellation and sign.}
+\alternative{Evaluate the displayed double integral without symmetry, or
+reverse the order using $0\le y\le1$, $y^2\le x\le\sqrt y$. Both
+retain the direct surface-parametrization method.}
+
+\solutionproblem{6}{Stokes' theorem with a nonplanar boundary}{20}
+\insight{On the boundary $x^2+y^2=1$, two complicated field terms vanish.
+The remaining third component becomes a function of $z$ alone, so its
+line-integral contribution is a total derivative around a closed curve.}
+The boundary is
+\[
+C:\qquad x^2+y^2=1,\qquad z=x^2-y^2.
+\]
+The upward orientation induces counterclockwise traversal of its
+$xy$-projection. Thus a matching one-parameter parametrization is
+\[
+\vec c(t)=(\cos t,\sin t,\cos2t),\qquad0\le t\le2\pi,
+\]
+with
+\[
+\vec c\,'(t)=(-\sin t,\cos t,-2\sin2t).
+\]
+Stokes' theorem gives
+\[
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma
+=\int_0^{2\pi}\vec F(\vec c(t))\cdot\vec c\,'(t)\,\dd t.
+\]
+Put $z(t)=\cos2t$. Since $1-x^2-y^2=0$ on $C$,
+\[
+\vec F(\vec c(t))
+=\bigl(-\sin t\,z(t)^2,\ \cos t\,z(t)^2,\ e+z(t)e^{z(t)}\bigr).
+\]
+Consequently the dot product is
+\[
+z(t)^2+(e+z(t)e^{z(t)})z'(t)
+=\cos^2 2t-2\sin2t\left(e+\cos2t\,e^{\cos2t}\right).
+\]
+The primitive
+\[
+\Phi(z)=ez+(z-1)e^z
+\quad\text{satisfies}\quad
+\Phi'(z)=e+ze^z.
+\]
+Since $z(0)=z(2\pi)=1$, the second term integrates to zero. Therefore
+\[
+\boxed{\displaystyle
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma
+=\int_0^{2\pi}\cos^2 2t\,\dd t
+ +[\Phi(z(t))]_0^{2\pi}=\pi}.
+\]
+\verification{The terms multiplied by $1-x^2-y^2$ are exactly zero on
+every boundary point. For the remaining field, a separate surface check
+has integrand $6(x^2-y^2)^2-8xye^{x^2+y^2}$ over the unit disk. The odd
+term vanishes and the first term integrates to $\pi$. This confirms the answer.}
+\alternative{Split the boundary integral into
+$\int z^2(-y\,\dd x+x\,\dd y)$ and
+$\int(e+ze^z)\,\dd z$. The second is an exact one-variable differential,
+and the first becomes $\int_0^{2\pi}\cos^2 2t\,\dd t$. This is the same
+Stokes-to-boundary method in differential notation.}
+
+\solutionproblem{7}{Operators, physical meaning, and choice of method}{14}
+\textbf{(a)} In order, the answers are
+\[
+\boxed{\text{vector},\quad\text{scalar},\quad\text{undefined},\quad\text{scalar}}.
+\]
+Both $\grad f$ and $\vec F$ are vectors, so their cross product is a
+vector and its curl is a vector. A dot product of two vectors is scalar.
+The divergence of $\vec F$ is scalar, so taking its curl is undefined.
+The curl of $\vec F$ is vector-valued, and taking its divergence is
+well-defined and scalar (in fact, identically zero).
+
+\textbf{(b)} For $\vec V=(-y,x,z)$,
+\[
+\dv\vec V=1>0,\qquad\curl\vec V=(0,0,2).
+\]
+Thus there is \textbf{local volume expansion}, and the local rotation is
+\textbf{counterclockwise viewed from the positive $z$-axis}. The field
+vanishes at the origin, but these derivative-based local behaviors do not.
+
+\textbf{(c)} \textbf{All four methods apply.} The curve is smooth, closed,
+and lies in $z=0$, while the field is smooth on all of $\mathbb R^3$.
+Direct parametrization therefore applies. Also
+\[
+\vec W=\grad\left(x^2y+\frac{z^2}{2}\right),
+\]
+so FTLI applies. On $z=0$, the first two components form the smooth
+planar field $(2xy,x^2)$, so Green's theorem applies over the unit disk.
+The same upward-oriented disk is a spanning surface for Stokes' theorem.
+Both the planar scalar curl and the full curl vanish. No integral value
+is requested; every method would give zero.
+\verification{The potential's three derivatives are $(2xy,x^2,z)$.
+For the physical part, the positive $z$-component of curl follows the
+right-hand rule for the planar pair $(-y,x)$.}
+\alternative{For (c), checking zero curl on all of $\mathbb R^3$ also
+establishes conservativity, since this domain is simply connected; the
+explicit potential is the shortest justification.}
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Mock Exam 3 --- Version C --- Solutions}
+\smallskip
+% Worked solutions; provenance notes are retained in comments below.
+\solutionproblem{1}{Curl, divergence, and conservativity}{10}
+\insight{The three rational terms have the same positive denominator.
+Their mixed derivatives cancel, and the polynomial part is also a gradient.}
+Put $q=x^2+y^2+z^2$, so $D=1+q$. If $\vec F=(P,Q,R)$, then
+\[
+P_y=Q_x=z-\frac{4xy}{D^2},\qquad
+P_z=R_x=y-\frac{4xz}{D^2},\qquad
+Q_z=R_y=x-\frac{4yz}{D^2}.
+\]
+Consequently
+\[
+\boxed{\curl\vec F=\vec0}.
+\]
+For the divergence,
+\[
+\begin{aligned}
+\dv\vec F
+&=\left(\frac2D-\frac{4x^2}{D^2}\right)
++\left(\frac2D-\frac{4y^2}{D^2}\right)
++\left(\frac2D-\frac{4z^2}{D^2}\right)\\
+&=\frac6D-\frac{4q}{D^2}
+=\boxed{\frac{2(q+3)}{(1+q)^2}}.
+\end{aligned}
+\]
+The field is $C^1$ on all of $\mathbb R^3$, so its zero curl implies
+conservativity here. A direct verification is
+\[
+\boxed{\vec F=\grad\bigl(xyz+\log(1+x^2+y^2+z^2)\bigr)}.
+\]
+\verification{Differentiating the displayed potential recovers all three
+components. At the origin the divergence is $6$, agreeing with the
+unsimplified derivative sum.}
+\alternative{Recognize the potential first, then calculate the divergence
+by summing its three second partial derivatives. The requested curl and
+divergence still need to be supplied.}
+
+\solutionproblem{2}{Green's theorem}{12}
+\insight{The exponential terms cancel in the scalar curl. Completing
+the square locates the disk; polar coordinates centered at $(1,0)$
+make the remaining odd term integrate to zero.}
+For $P=ye^{xy}$ and $Q=xe^{xy}+x^3/3+xy^2$,
+\[
+Q_x=e^{xy}+xye^{xy}+x^2+y^2,\qquad
+P_y=e^{xy}+xye^{xy},
+\]
+so $Q_x-P_y=x^2+y^2$. Since $C$ is positively oriented and the field
+is smooth on and inside $C$, Green's theorem gives
+\[
+\oint_C P\,\dd x+Q\,\dd y=\iint_R(x^2+y^2)\,\dd A.
+\]
+The region is $(x-1)^2+y^2\leq1$, $y\geq0$. Set
+\[
+x=1+\rho\cos\theta,\qquad y=\rho\sin\theta,\qquad
+\left\{\begin{aligned}
+&0\leq\theta\leq\pi,\\
+&0\leq\rho\leq1.
+\end{aligned}\right.
+\]
+The Jacobian is $\rho$, so
+\[
+\begin{aligned}
+\iint_R(x^2+y^2)\,\dd A
+&=\int_0^\pi\int_0^1(1+2\rho\cos\theta+\rho^2)\rho\,\dd\rho\,\dd\theta\\
+&=\int_0^\pi\left(\frac12+\frac23\cos\theta+\frac14\right)\dd\theta
+=\boxed{\frac{3\pi}{4}}.
+\end{aligned}
+\]
+\verification{Ordinary polar coordinates instead give
+$0\leq\theta\leq\pi/2$, $0\leq r\leq2\cos\theta$, and
+\[
+\int_0^{\pi/2}4\cos^4\theta\,\dd\theta=\frac{3\pi}{4}.
+\]}
+\alternative{Cartesian bounds $0\leq x\leq2$,
+$0\leq y\leq\sqrt{2x-x^2}$ are correct. Any correct evaluation of
+the resulting Green double integral is acceptable.}
+
+\solutionproblem{3}{Surface parametrizations}{12}
+\begin{enumerate}[label=(\alph*)]
+\item The ellipsoid parametrization is
+\[
+\boxed{\vec r(\theta,\phi)=
+(3\sin\phi\cos\theta,\ 2\sin\phi\sin\theta,\ \cos\phi)},\qquad
+\left\{\begin{aligned}
+&0\leq\theta\leq2\pi,\\
+&0\leq\phi\leq\pi/6.
+\end{aligned}\right.
+\]
+Indeed, $x^2/9+y^2/4=\sin^2\phi$. On the upper half,
+$0\leq\phi\leq\pi/2$, the cylinder condition is
+$\sin\phi\leq1/2$, hence $\phi\leq\pi/6$.
+
+\item Use $\vec r(r,\theta)=(r\cos\theta,r\sin\theta,r)$. The first
+octant initially gives $0\leq\theta\leq\pi/2$. The plane condition is
+\[
+r\geq r\sin\theta+1
+\quad\Longleftrightarrow\quad
+r\geq\frac1{1-\sin\theta}.
+\]
+This is compatible with $r\leq2$ exactly when
+$\sin\theta\leq1/2$. Thus a complete answer is
+\[
+\boxed{\vec r(r,\theta)=(r\cos\theta,r\sin\theta,r)},\qquad
+\left\{\begin{aligned}
+&0\leq\theta\leq\pi/6,\\
+&\frac1{1-\sin\theta}\leq r\leq2.
+\end{aligned}\right.
+\]
+
+\item Interpolate between the two corresponding endpoints:
+\[
+\boxed{\vec r(s,t)=(1-t)\vec a(s)+t\vec b(s)
+=(s(1-t),\ st,\ s(1-t)+2t)},
+\]
+with $0\leq s\leq1$, $0\leq t\leq1$.
+At $t=0$ and $t=1$ the two specified lines are recovered; fixing $s$
+and varying $t$ gives their joining segment.
+\end{enumerate}
+\verification{In (a), substitution gives the ellipsoid equation. In
+(b), the lower bound is exactly the slanted plane and the upper bound
+is $z=2$. In (c), recover $s=x+y$ and $t=(z-x)/2$, so the interior
+is not multiply covered. Standard seam/pole coincidences on parameter
+boundaries in (a) do not change the covered surface.}
+\alternative{Any equivalent two-parameter representation with the
+correct image and full domain is valid. For example, graph coordinates
+are possible in (a), and the order of the two parameters may be reversed.}
+
+\solutionproblem{4}{Scalar surface integral: setup only}{12}
+\insight{The radial coordinate is $u>0$, so the exponential's quotient
+becomes $v$. The mixed trigonometric terms in the area factor cancel
+after squaring, but the parameter region is still triangular.}
+Write $c=\cos v$, $s=\sin v$. Then
+\[
+\vec r_u=(c,s,v),\qquad \vec r_v=(-us,uc,u),
+\]
+and
+\[
+\vec r_u\times\vec r_v
+=u(s-vc,-c-vs,1).
+\]
+Its magnitude is
+\[
+\begin{aligned}
+\|\vec r_u\times\vec r_v\|
+&=u\sqrt{(s-vc)^2+(c+vs)^2+1}\\
+&=u\sqrt{2+v^2}.
+\end{aligned}
+\]
+Since $x^2+y^2=u^2$ and $z/\sqrt{x^2+y^2}=uv/u=v$,
+\[
+f(\vec r(u,v))=u^2e^v.
+\]
+Therefore the requested setup is
+\[
+\boxed{\iint_S f\,\dd\sigma
+=\int_1^2\int_0^{u-1}u^3e^v\sqrt{2+v^2}\,\dd v\,\dd u}.
+\]
+No evaluation is requested.
+\verification{The cross product's third component is $u\geq1$, so the
+map is regular. The radius $u$ and angle $0\leq v\leq1$ identify each
+surface point uniquely. The displayed integrand is a nonnegative scalar.}
+\alternative{Reversing integration order gives
+$\int_0^1\int_{v+1}^2 u^3e^v\sqrt{2+v^2}\,\dd u\,\dd v$.
+Reversing the cross-product order gives the same magnitude.}
+
+\solutionproblem{5}{Direct computation of oriented flux}{20}
+\insight{The cylinder is sheared in the $x$ direction as $z$ changes.
+The exponential part of the field is parallel to the cylinder's ruling
+direction $(1,0,1)$, so it contributes no normal flux.}
+Parametrize by
+\[
+\vec r(\theta,z)=(z+\cos\theta,\sin\theta,z),\qquad
+\left\{\begin{aligned}
+&0\leq\theta\leq2\pi,\\
+&0\leq z\leq2+\sin\theta.
+\end{aligned}\right.
+\]
+The height bound is positive for every $\theta$. The tangent vectors are
+\[
+\vec r_\theta=(-\sin\theta,\cos\theta,0),\qquad
+\vec r_z=(1,0,1),
+\]
+so
+\[
+\vec n=\vec r_\theta\times\vec r_z
+=(\cos\theta,\sin\theta,-\cos\theta).
+\]
+For $g(x,y,z)=(x-z)^2+y^2$, this equals $\tfrac12\grad g$ on $S$,
+so it points toward the exterior $g>1$. At $\theta=0$, $z=1$, for
+example, the point is $(2,0,1)$ and $\vec n=(1,0,-1)$ points outward.
+
+Put $c=\cos\theta$, $s=\sin\theta$ and $E=e^{2z+c+s}$. Substitution gives
+\[
+\vec F(\vec r)=(zc+E,zs,E),\qquad
+\vec F(\vec r)\cdot\vec n
+=zc^2+Ec+zs^2-Ec=z.
+\]
+Thus
+\[
+\begin{aligned}
+\iint_S\vec F\cdot\vec N\,\dd\sigma
+&=\int_0^{2\pi}\int_0^{2+\sin\theta}z\,\dd z\,\dd\theta\\
+&=\frac12\int_0^{2\pi}(2+\sin\theta)^2\,\dd\theta\\
+&=\frac12(8\pi+0+\pi)=\boxed{\frac{9\pi}{2}}.
+\end{aligned}
+\]
+\verification{The exponential vector is $E(1,0,1)$, whose dot product
+with $\vec n$ is zero. The remaining field has dot product $z$, agreeing
+with the explicit substitution. All $z$ values are nonnegative, so the
+positive final sign is also consistent.}
+\alternative{A second parameter $v\in[0,1]$ may encode height through
+$z=v(2+\sin\theta)$. The corresponding cross product and Jacobian must
+then be included. It produces the same flux by direct parametrization.}
+
+\solutionproblem{6}{Stokes' theorem}{20}
+\insight{The diagonal edge of the base triangle lifts to a parabolic
+arc, not a straight segment in the plane $z=0$. On that arc the difficult
+terms form a one-variable total derivative whose endpoint values agree.}
+The downward orientation induces a clockwise boundary when projected
+onto the $xy$-plane. A single piecewise parametrization following
+$(0,0,0)\to(0,1,0)\to(1,0,0)\to(0,0,0)$ is
+\[
+\vec c(t)=
+\begin{cases}
+(0,t,0),&0\leq t\leq1,\\
+(s,1-s,s(1-s)),\quad s=t-1,&1\leq t\leq2,\\
+(3-t,0,0),&2\leq t\leq3.
+\end{cases}
+\]
+Each piece is on $S$, and the second piece is the lift of $x+y=1$.
+Its derivative, piece by piece, is
+\[
+\vec c\,'(t)=
+\begin{cases}
+(0,1,0),&0<t<1,\\
+(1,-1,1-2s),&1<t<2,\\
+(-1,0,0),&2<t<3.
+\end{cases}
+\]
+On the first and last pieces, respectively,
+\[
+\vec F(\vec c(t))=(t,0,0),\qquad
+\vec F(\vec c(t))=(0,3-t,0),
+\]
+so both dot products are zero. On the middle piece put $w=s(1-s)$.
+Then
+\[
+\vec F(\vec c(t))=
+\bigl((1-s)(e^w+w^2),\ s(e^w+w^2)+w,\ 2w^2\bigr),
+\]
+and
+\[
+\begin{aligned}
+\vec F(\vec c(t))\cdot\vec c\,'(t)
+&=(1-2s)(e^w+3w^2)-w\\
+&=\frac{\dd}{\dd s}(e^w+w^3)-w.
+\end{aligned}
+\]
+Stokes' theorem now gives the required boundary line integral:
+\[
+\begin{aligned}
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma
+&=\oint_{\partial S}\vec F\cdot\dd\vec r\\
+&=\int_0^1\left[\frac{\dd}{\dd s}(e^{s(1-s)}+s^3(1-s)^3)
+-s(1-s)\right]\dd s\\
+&=\bigl[e^w+w^3\bigr]_{s=0}^{s=1}
+-\left[\frac{s^2}{2}-\frac{s^3}{3}\right]_0^1
+=\boxed{-\frac16}.
+\end{aligned}
+\]
+\verification{For an independent check only,
+$\vec F=\grad(e^{xy}+xyz^2)+(0,z,0)$, so $\curl\vec F=(-1,0,0)$.
+The downward area vector of the graph is $(y,x,-1)\,\dd x\,\dd y$.
+Its dot product with this curl is $-y$, whose integral over the base
+triangle is $-1/6$. }
+\alternative{After identifying and parametrizing the boundary, recognize
+the displayed potential decomposition. Its gradient contribution has
+zero closed-curve integral, leaving $\oint z\,\dd y$, which is
+$-\int_0^1s(1-s)\,\dd s$.}
+
+\solutionproblem{7}{Conceptual questions}{14}
+\begin{enumerate}[label=(\alph*)]
+\item The answers are
+\[
+\begin{array}{c|c|c}
+\text{Expression}&\text{Type}&\text{Must be zero?}\\\hline
+\text{(i)}&\text{scalar}&\text{yes}\\
+\text{(ii)}&\text{undefined}&\text{not applicable}\\
+\text{(iii)}&\text{scalar}&\text{no}
+\end{array}
+\]
+The field $f\vec V$ is a vector field, and the divergence of its curl
+is zero. In (ii), $\dv\vec V$ is scalar, so taking its curl is not a
+defined operation in the course. For (iii), $f\grad f$ is vector-valued;
+its divergence need not vanish. The choice $f=x$ gives
+$\dv(f\grad f)=\dv(x,0,0)=1$.
+
+\item The correct selections are \textbf{A and B}. Direct parametrization
+applies to the given smooth curve. Also
+$\vec H=\grad(xyz)$, so the Fundamental Theorem of Line Integrals applies.
+The curve is open: its endpoints are $(0,0,0)$ and $(1,1,1)$.
+Neither Green's theorem nor Stokes' theorem applies directly to it as
+stated. No integral evaluation was requested.
+
+\item The local rotational axis is the positive $x$ direction, with
+\textbf{counterclockwise} tendency viewed from the positive $x$-axis.
+Zero divergence indicates \textbf{neither} local net volume expansion
+nor local net volume compression. It does not force the curl to vanish.
+Likewise, a zero velocity at one point does not force its spatial
+derivatives to vanish.
+\end{enumerate}
+\verification{The local data in (c) are consistent, for example, with
+$\vec v=(0,-z,y)$ at the origin: its curl is $(2,0,0)$ and
+its divergence is zero.}
+\alternative{Equivalent physical language such as local contraction
+instead of sink is valid. Part (c) does not ask for angular speed.}
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Version D --- Complete solutions}
+\par\textit{Instructor material. Key observations and checks are included
+for every problem. Sources and scope notes follow the solutions.}
+
+\solutionproblem{1}{Curl, divergence, and global conservativity}{10}
+\insight{The domain omits the whole line $x=z$, $y=0$.
+Zero curl on this domain does not, by itself, settle global conservativity.}
+Put $a=x-z$ and write
+\[
+\vec F_\lambda=\grad(xy+z^2)+\lambda\vec W,
+\qquad \vec W=\left(-\frac yq,\frac aq,\frac yq\right),
+\qquad q=a^2+2y^2.
+\]
+Here $q_x=2a$, $q_y=4y$, and $q_z=-2a$. The mixed-component
+derivatives satisfy
+\[
+\begin{aligned}
+(W_3)_y=(W_2)_z&=\frac{a^2-2y^2}{q^2},\\
+(W_1)_z=(W_3)_x&=-\frac{2ay}{q^2},\\
+(W_2)_x=(W_1)_y&=\frac{2y^2-a^2}{q^2}.
+\end{aligned}
+\]
+Thus $\curl\vec W=\vec0$, and
+\[
+\dv\vec W=\frac{2ay-4ay+2ay}{q^2}=0.
+\]
+Since the base gradient has divergence $2$,
+\[
+\boxed{\curl\vec F_\lambda=\vec0,\qquad
+\dv\vec F_\lambda=2\quad\hbox{for every }\lambda.}
+\]
+To decide conservativity, use the closed ellipse
+\[
+\vec c(t)=\left(\cos t,\frac{\sin t}{\sqrt2},0\right),
+\quad0\le t\le2\pi,\qquad
+\vec c\,'(t)=\left(-\sin t,\frac{\cos t}{\sqrt2},0\right).
+\]
+It lies entirely in $U$ because $q(\vec c(t))=1$. Direct substitution gives
+\[
+\vec W(\vec c(t))\cdot\vec c\,'(t)=\frac1{\sqrt2},\qquad
+\oint_c\grad(xy+z^2)\cdot\dd\vec r=0.
+\]
+Consequently
+\[
+\oint_c\vec F_\lambda\cdot\dd\vec r=\lambda\sqrt2\pi.
+\]
+A conservative field has zero integral around every closed curve.
+Hence $\lambda\ne0$ is impossible. For $\lambda=0$, the displayed
+base potential works on all of $U$. The complete answer is
+\[
+\boxed{\vec F_\lambda\text{ is conservative on }U
+\ \Longleftrightarrow\ \lambda=0,\qquad f=xy+z^2+C.}
+\]
+\verification{The same obstruction is visible in orthonormal coordinates
+$X=(x-z)/\sqrt2$, $Y=y$, $Z=(x+z)/\sqrt2$:
+\[
+\vec W\cdot\dd\vec r
+=\frac1{\sqrt2}\frac{-Y\,\dd X+X\,\dd Y}{X^2+Y^2}.
+\]
+A once-around circle in the $XY$-plane therefore has circulation
+$\sqrt2\pi$, agreeing with the explicit ellipse calculation. This
+coordinate observation is a check, not a needed topological theorem.}
+
+\solutionproblem{2}{Green's theorem}{12}
+\insight{Green's theorem removes the exponential. The resulting
+single-variable integral is best paired with itself after a substitution.}
+With $P=ye^{xy}-y/(1+x^2)$ and $Q=xe^{xy}$,
+\[
+Q_x=e^{xy}+xye^{xy},\qquad
+P_y=e^{xy}+xye^{xy}-\frac1{1+x^2}.
+\]
+The field is smooth near the whole region, and the prescribed boundary
+orientation is positive. Therefore
+\[
+\begin{aligned}
+I&=\oint_C P\,\dd x+Q\,\dd y
+=\int_0^1\int_0^{\ln(1+x)}\frac1{1+x^2}\,\dd y\,\dd x\\
+&=\int_0^1\frac{\ln(1+x)}{1+x^2}\,\dd x.
+\end{aligned}
+\]
+Use $x=(1-t)/(1+t)$, which exchanges $0$ and $1$. Then
+\[
+\frac{\dd x}{1+x^2}=-\frac{\dd t}{1+t^2},\qquad
+\ln(1+x)=\ln2-\ln(1+t).
+\]
+Thus
+\[
+I=\int_0^1\frac{\ln2-\ln(1+t)}{1+t^2}\,\dd t
+=\frac\pi4\ln2-I,
+\]
+and
+\[
+\boxed{I=\frac{\pi\ln2}{8}.}
+\]
+\verification{Independently set $x=\tan\theta$, $0\le\theta\le\pi/4$.
+If $h(\theta)=\ln(1+\tan\theta)$, the tangent subtraction formula gives
+$h(\theta)+h(\pi/4-\theta)=\ln2$. Integrating the pair gives the same
+answer. Numerically the value is approximately $0.2721982613$.}
+\alternative{The reflection in the check is an equally valid evaluation
+of the double integral after Green's theorem has been used. Direct
+boundary integration alone does not meet the requested method.}
+
+\solutionproblem{3}{Three surface parametrizations}{12}
+\insight{Use orthogonal projection for the tilted axis, straight rulings
+for the hyperboloid, and a dependent angular bound for the sphere.}
+\begin{enumerate}[label=(\alph*)]
+\item Let
+\[
+\vec e=\frac{(1,1,0)}{\sqrt2},\qquad
+\vec b=\frac{(1,-1,0)}{\sqrt2},\qquad \vec k=(0,0,1).
+\]
+The axis is parallel to $\vec e$, while $\vec b$ and $\vec k$ form
+an orthonormal basis of its perpendicular plane. The projection of
+$\vec c(t)$ onto the axis and its distance from the axis are
+\[
+\vec p(t)=(\vec c(t)\cdot\vec e)\vec e
+=\left(\frac t2,\frac t2,0\right),\qquad
+R(t)=\sqrt{\frac{t^2}{2}+t^4}.
+\]
+Rotating a point about the axis sweeps the entire circle with this center
+and radius. Hence one answer is
+\[
+\boxed{\vec r(t,\theta)=\vec p(t)+R(t)
+\bigl(\vec b\cos\theta+\vec k\sin\theta\bigr)},\qquad
+\left\{\begin{aligned}
+&1\le t\le2,\\
+&0\le\theta\le2\pi.
+\end{aligned}\right.
+\]
+Its angular starting point need not be the original generating point;
+each whole circle is unchanged by a shift of angular origin. For a
+parametrization with $\vec r(t,0)=\vec c(t)$ instead, one can use
+\[
+\vec r(t,\theta)=\vec p(t)
++\left(\frac t{\sqrt2}\cos\theta+t^2\sin\theta\right)\vec b
++\left(t^2\cos\theta-\frac t{\sqrt2}\sin\theta\right)\vec k.
+\]
+This rotates the perpendicular vector
+$(t/\sqrt2)\vec b+t^2\vec k$ with unchanged length.
+
+\item Start at $(\cos u,\sin u,0)$ and take a straight line with
+direction $(-\sin u,\cos u,1)$. This yields
+\[
+\boxed{\vec r(u,v)=(\cos u-v\sin u,\ \sin u+v\cos u,\ v)},
+\qquad
+\left\{\begin{aligned}
+&0\le u\le2\pi,\\
+&0\le v\le1.
+\end{aligned}\right.
+\]
+At fixed $u$ this is affine in $v$, as required. Moreover,
+\[
+x^2+y^2=(\cos u-v\sin u)^2+(\sin u+v\cos u)^2=1+v^2,
+\]
+so it lies on the hyperboloid. At each height $z=v$, the first two
+coordinates are a rotation and dilation of the unit circle, and thus
+cover the complete circle $x^2+y^2=1+v^2$. This proves full coverage.
+
+\item Use the usual sphere parametrization
+\[
+\boxed{\vec r(\phi,\theta)
+=(2\sin\phi\cos\theta,2\sin\phi\sin\theta,2\cos\phi)}.
+\]
+The extra inequality forces $z\ge0$, so $0\le\phi\le\pi/2$. It becomes
+\[
+\cos\phi\ge\sin\phi\bigl(|\cos\theta|+|\sin\theta|\bigr).
+\]
+The complete bounds are therefore
+\[
+\boxed{\left\{\begin{aligned}
+&0\le\theta\le2\pi,\\
+&0\le\phi\le\arctan\!\left(
+\frac1{|\cos\theta|+|\sin\theta|}\right).
+\end{aligned}\right.}
+\]
+The denominator is at least $1$, so this expression is defined at every
+azimuth and correctly includes all four quadrants.
+\end{enumerate}
+\verification{For (a), $\vec r\cdot\vec e=t/\sqrt2$ and
+$\|\vec r-\vec p(t)\|=R(t)$, precisely the invariants of each rotation
+orbit; the axis coordinate is strictly increasing with $t$. For (b),
+$\vec r_u\times\vec r_v=(\cos u-v\sin u,\sin u+v\cos u,-v)$ has squared
+norm $1+2v^2>0$. For (c), substitution gives sphere radius $2$, and the
+inequality was transformed equivalently, so the bounds neither omit nor
+add a patch. The usual pole and angular-seam repetitions are harmless.}
+\alternative{In (b), the other family of straight rulings, obtained by
+reversing the tangential horizontal direction, is also valid. A generic
+height-and-angle parametrization without straight parameter curves does
+not meet that part's additional condition. Equivalent two-parameter
+maps and equivalent complete bounds are otherwise valid.}
+
+\solutionproblem{4}{A scalar surface integral: setup only}{12}
+\insight{The map doubles the polar angle. Its full parameter annulus
+covers the same conical surface twice, and $\sqrt{u^2}$ is $|u|$.}
+The required derivatives are
+\[
+\vec r_u=(2u,2v,2u),\qquad \vec r_v=(-2v,2u,2v),
+\]
+\[
+\vec r_u\times\vec r_v
+=(4v^2-4u^2,-8uv,4u^2+4v^2),\qquad
+\|\vec r_u\times\vec r_v\|=4\sqrt2(u^2+v^2).
+\]
+The substituted function is
+\[
+f(\vec r(u,v))=\sqrt{2u^2}+e^{u^2+v^2}
+=\sqrt2|u|+e^{u^2+v^2}.
+\]
+To examine coverage, put $u=s\cos\alpha$, $v=s\sin\alpha$. Then
+\[
+\vec r=(s^2\cos2\alpha,s^2\sin2\alpha,s^2),\qquad1\le s\le2.
+\]
+The full range $0\le\alpha\le2\pi$ travels around each surface circle
+twice. The half-annulus $v\ge0$, equivalently $0\le\alpha\le\pi$,
+covers the geometric surface once except on its seam. Its image is
+$z=\sqrt{x^2+y^2}$, $1\le z\le4$.
+
+The polar Jacobian in the \emph{parameter plane} is $s$, in addition
+to the already computed surface factor. Thus a complete unevaluated
+setup is
+\[
+\boxed{\iint_S f\,\dd\sigma
+=\int_0^\pi\int_1^2
+\bigl(\sqrt2 s|\cos\alpha|+e^{s^2}\bigr)
+4\sqrt2 s^3\,\dd s\,\dd\alpha.}
+\]
+\verification{The cross-product norm never vanishes on the annulus.
+Equality of two images forces the same $s$ and angles differing by a
+multiple of $\pi$, so there are exactly two preimages in the full annulus
+away from seams. As a separate check, the once-around cone map
+$(w\cos\beta,w\sin\beta,w)$ has area factor $\sqrt2 w$;
+$w=s^2$, $\beta=2\alpha$ reproduce $4\sqrt2 s^3\,\dd s\,\dd\alpha$.}
+\alternative{One-half of the full-annulus parameter integral is equivalent:
+\[
+\frac12\int_0^{2\pi}\int_1^2
+\bigl(\sqrt2 s|\cos\alpha|+e^{s^2}\bigr)
+4\sqrt2 s^3\,\dd s\,\dd\alpha.
+\]
+This is a correction for repeated coverage, not for orientation. A
+scalar surface integral uses the cross-product magnitude.}
+
+\solutionproblem{5}{Direct flux}{20}
+\insight{The field is radial, but the upward normal changes from pointing
+partly with the field to pointing partly against it. Reciprocal radii
+pair these contributions exactly.}
+Use the direct parametrization
+\[
+\vec r(r,\theta)=(r\cos\theta,r\sin\theta,1+r^2),\qquad
+\left\{\begin{aligned}
+&\tfrac12\le r\le2,\\
+&0\le\theta\le2\pi.
+\end{aligned}\right.
+\]
+Then
+\[
+\vec r_r=(\cos\theta,\sin\theta,2r),\quad
+\vec r_\theta=(-r\sin\theta,r\cos\theta,0),
+\]
+\[
+\vec n=\vec r_r\times\vec r_\theta
+=(-2r^2\cos\theta,-2r^2\sin\theta,r).
+\]
+Its third component $r$ is positive everywhere on the parameter domain,
+so it gives the required upward orientation. With $D(r)=r^4+3r^2+1$,
+\[
+\vec H(\vec r)=
+\frac{(r\cos\theta,r\sin\theta,1+r^2)}{D(r)^{3/2}},\qquad
+\vec H(\vec r)\cdot\vec n
+=\frac{r(1-r^2)}{D(r)^{3/2}}.
+\]
+Therefore the flux is
+\[
+\Phi=\int_0^{2\pi}\int_{1/2}^2
+\frac{r(1-r^2)}{(r^4+3r^2+1)^{3/2}}\,\dd r\,\dd\theta.
+\]
+One way to evaluate it is to observe that
+\[
+\frac{\dd}{\dd r}\frac{1+r^2}{\sqrt{r^4+3r^2+1}}
+=\frac{r(r^2-1)}{(r^4+3r^2+1)^{3/2}}.
+\]
+The endpoint values of this primitive are both $5/\sqrt{29}$:
+\[
+\boxed{\Phi=-2\pi\left[
+\frac{1+r^2}{\sqrt{r^4+3r^2+1}}\right]_{1/2}^2=0.}
+\]
+\verification{There is an independent evaluation without guessing a
+primitive. Put $g(r)=r(1-r^2)/(r^4+3r^2+1)^{3/2}$. Direct algebra gives
+\[
+\frac{g(1/s)}{s^2}=-g(s),\qquad
+\int_1^2g(r)\,\dd r=-\int_{1/2}^1g(s)\,\dd s.
+\]
+The two radial integrals cancel. The signed density is positive for
+$r<1$ and negative for $r>1$, so zero is compatible with the field being
+nonzero everywhere. Numerical integration also gives zero to numerical
+precision. No divergence theorem or added surface is used.}
+
+\solutionproblem{6}{Stokes' theorem}{20}
+\insight{The sphere and cylinder intersect in a nonplanar curve. A
+half-angle identity makes its height elementary and nonnegative.}
+The cylindrical condition is $x^2+y^2\le2x$. Its boundary on the sphere
+has
+\[
+x^2+y^2=2x,\qquad z^2=4-2x,\qquad z\ge0.
+\]
+Parametrize the projected circle by $x=1+\cos t$, $y=\sin t$.
+Then
+\[
+z=\sqrt{2-2\cos t}=2\sin(t/2),\qquad0\le t\le2\pi,
+\]
+where the sine is nonnegative on this interval. Hence the complete
+boundary is
+\[
+\vec c(t)=(1+\cos t,\sin t,2\sin(t/2)),\qquad0\le t\le2\pi.
+\]
+There is no additional equatorial arc: on $z=0$, the sphere has
+$x^2+y^2=4$, while the cylinder inequality demands $4\le2x$;
+the only possible point is $(2,0,0)$. This is already the starting and
+ending point of $\vec c$.
+
+On the rest of $S$ the outward sphere normal has positive third component.
+Thus the counterclockwise projected circle gives the induced boundary
+orientation. The corner of the closed boundary at $(2,0,0)$ is allowed
+for a piecewise smooth boundary. Its derivative is
+\[
+\vec c\,'(t)=(-\sin t,\cos t,\cos(t/2)).
+\]
+Write $s=\sin(t/2)$, $c=\cos(t/2)$. On this curve,
+\[
+\vec F(\vec c(t))=(0,4s^2,-4s^2c),
+\]
+and
+\[
+\vec F(\vec c(t))\cdot\vec c\,'(t)
+=4s^2(c^2-s^2)-4s^2c^2=-4s^4.
+\]
+Stokes' theorem therefore gives
+\[
+\begin{aligned}
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma
+&=\oint_{\partial S}\vec F\cdot\dd\vec r
+=-4\int_0^{2\pi}\sin^4(t/2)\,\dd t\\
+&=-8\int_0^\pi\sin^4u\,\dd u
+=\boxed{-3\pi}.
+\end{aligned}
+\]
+For the last integral, $\sin^4u=(3-4\cos2u+\cos4u)/8$ gives
+$\int_0^\pi\sin^4u\,\dd u=3\pi/8$.
+\verification{Independently, $\curl\vec F=(-3z,0,0)$. On the upper
+sphere graph, the outward area vector is $(x/z,y/z,1)\,\dd x\,\dd y$
+where $z>0$. The dot product is $-3x$, which extends continuously to
+the lone equatorial boundary point. Over the disk centered at $(1,0)$
+of radius $1$, its integral is $-3\pi$. This check agrees with Stokes;
+the required solution above actually uses the boundary line integral.}
+
+\solutionproblem{7}{Operators, physical meaning, and a global obstruction}{14}
+\insight{Multiplying a curl by a variable scalar can create divergence.
+Also, a global vector potential requires more than local zero divergence
+on a domain with an excluded point.}
+\begin{enumerate}[label=(\alph*)]
+\item The expression is a defined \textbf{scalar field}. The divergence
+product rule and the identity $\dv(\curl\vec G)=0$ give
+\[
+\boxed{\dv(f\,\curl\vec G)=\grad f\cdot(\curl\vec G).}
+\]
+It need not vanish. For example,
+\[
+f=z,\qquad \vec G=(-y/2,x/2,0),\qquad
+\curl\vec G=(0,0,1),
+\]
+so $\dv(f\,\curl\vec G)=\dv(0,0,z)=1$.
+
+\item Put $\rho=\sqrt{x^2+y^2+z^2}>0$. Direct differentiation gives
+\[
+\dv\vec H
+=\left(\rho^{-3}-3x^2\rho^{-5}\right)
++\left(\rho^{-3}-3y^2\rho^{-5}\right)
++\left(\rho^{-3}-3z^2\rho^{-5}\right)=0.
+\]
+Also $\vec H=\grad(-1/\rho)$, so $\curl\vec H=\vec0$ on $U_0$.
+Thus at every point of $U_0$ these operators predict \textbf{neither
+local volume expansion nor compression, and no local rotational tendency}.
+They do not say that the velocity is zero or that the motion cannot stretch
+in some directions while compressing in others.
+
+For a sphere of radius $R$ about the origin, however,
+\[
+\vec H\cdot\vec N=\frac1{R^2},\qquad
+\iint_{\rho=R}\vec H\cdot\vec N\,\dd\sigma=4\pi.
+\]
+This outward flux encloses the excluded origin. No conclusion of zero
+flux through such a sphere follows just from divergence zero at every
+point where the field is defined. There is no contradiction with the
+local source-free interpretation away from the origin.
+
+\item \textbf{No such global $\vec A$ exists.} Suppose it did. Split the
+unit sphere into its upper and lower hemispheres $S_+$ and $S_-$, both
+oriented outward. Their common equator is counterclockwise when induced
+by $S_+$ and clockwise when induced by $S_-$. Since $\vec A$ would be
+smooth near both hemispheres, Stokes' theorem would imply
+\[
+\begin{aligned}
+\iint_{S^2}\vec H\cdot\vec N\,\dd\sigma
+&=\iint_{S_+}\curl\vec A\cdot\vec N\,\dd\sigma
++\iint_{S_-}\curl\vec A\cdot\vec N\,\dd\sigma\\
+&=\oint_{C}\vec A\cdot\dd\vec r
++\oint_{-C}\vec A\cdot\dd\vec r=0.
+\end{aligned}
+\]
+But the actual flux, computed in (b), is $4\pi$. This contradiction
+rules out a $C^2$ vector potential defined on all of $U_0$. The argument
+uses only Stokes on two ordinary smooth hemispheres and cancellation of
+their common oriented boundary.
+\end{enumerate}
+\verification{For the unit sphere the flux calculation can be checked
+directly with
+$\vec r(\phi,\theta)=(\sin\phi\cos\theta,\sin\phi\sin\theta,\cos\phi)$:
+the outward cross product $\vec r_\phi\times\vec r_\theta
+=\sin\phi\,\vec r$ gives
+$\int_0^{2\pi}\int_0^\pi\sin\phi\,\dd\phi\,\dd\theta=4\pi$.
+This proves the necessary obstruction without a theorem about domains
+or a divergence-theorem argument.}
+
+% ================= INSTRUCTOR-ONLY PROVENANCE / SCOPE =================
+\clearpage
+{\large\bfseries Version D --- Instructor notes}
+\par\textit{Not part of the student-facing questions.}
+
+\textbf{Purpose and alignment.}
+This is an untimed challenge set, deliberately above the expected actual
+Exam 3 level. It preserves the outline's seven sections and nominal
+weights $10+12+12+12+20+20+14=100$, while following the revised compact
+A--C practice format without displayed point counts or answer boxes.
+Problem 3 has three two-parameter maps; Problem 4 supplies its map and
+asks only for a setup; Problem 5 requires a direct oriented-flux
+calculation; Problem 6 requires Stokes and an actual one-parameter
+boundary integral. Green's theorem is required in Problem 2. For Problem
+7, a possible division is $4+4+6$. No timing claim is made.
+
+\textbf{What exceeds normal expectations.}
+\begin{enumerate}[label=\textbf{\arabic*.},itemsep=5pt]
+\item The zero-curl test must be distinguished from global conservativity
+on a domain missing a tilted line. Students must construct an obstructing
+closed curve. No fundamental-group or topology theorem is assumed.
+\item The final integral requires discovery of a fractional-linear
+substitution, or its trigonometric-reflection equivalent. This is a
+contest-level integration observation after an ordinary Green setup.
+\item Rotation about an oblique axis requires constructing circle centers
+and radii. The hyperboloid must be recognized as ruled, not merely
+parametrized in the most familiar way. The sphere has a genuinely
+azimuth-dependent angular bound. Each uses elementary vectors and algebra.
+\item The supplied regular map is not one-to-one on its full domain.
+Correcting multiplicity and preserving an absolute value exceed the
+routine surface-integral setups in the outline. The prompt explicitly
+requires counting the geometric image once.
+\item The signed radial flux cancels under reciprocal radii. The insight
+is in the evaluation, not a large field or lengthy cross product.
+No divergence theorem or solid-angle theorem is assumed.
+\item The boundary is a sphere--cylinder intersection with a corner, not
+a standard horizontal circle. Discovering the half-angle parametrization
+and ruling out an extra equatorial component are the extensions.
+\item The product identity itself is familiar. The contrast between
+local zero divergence and a global obstruction to being a curl is beyond
+ordinary Exam 3 practice. Two applications of the already taught Stokes
+theorem supply the complete argument; no cohomology result is needed.
+\end{enumerate}
+
+\textbf{Origins and adaptations.}
+The following notes distinguish specific mathematical seeds from original
+constructions. None of the student prompts is copied from a contest.
+
+\begin{itemize}[itemsep=5pt]
+\item \textbf{Problem 1: original construction.} The tilted-line field
+was constructed so its curl vanishes and its divergence is constant for
+every $\lambda$, while a closed ellipse detects its nonzero circulation.
+It uses the standard circulation obstruction also underlying the source
+listed for Problem 7.
+\item \textbf{Problem 2: Putnam 2005, A5.}
+\url{https://kskedlaya.org/putnam-archive/2005.pdf}
+The final one-variable logarithmic integral and the involutive substitution
+are the specific borrowed seed. The region, vector field, Green's-theorem
+formulation, and required intermediate setup are an original adaptation.
+\item \textbf{Problems 3--4: original constructions.} The chosen oblique
+revolution, ruled-hyperboloid requirement, sphere patch, and double-covered
+conical annulus were constructed for this version. The complex-square
+coordinate identity in Problem 4 is used only as elementary real algebra;
+students need no complex analysis.
+\item \textbf{Problem 5: strategy inspired by Putnam 1985, B5.}
+\url{https://kskedlaya.org/putnam-archive/1985.pdf}
+The borrowed strategy is reciprocal-variable pairing. The paraboloid,
+annular bounds, inverse-square field, and direct flux calculation are
+new. None of that source's Gaussian-integral machinery is used.
+\item \textbf{Problem 6: Viviani-curve geometry.} Oliver Knill,
+Harvard Math 136, Unit 1 homework, Problem 1.1:
+\url{https://people.math.harvard.edu/~knill/teaching/math136/handouts/homework01.pdf}
+The sphere--cylinder intersection is the geometric seed, rescaled and
+restricted to its upper loop. The field, flux question, boundary
+orientation task, and Stokes calculation are new. Curvature and torsion
+from that source are irrelevant here and are not assumed.
+\item \textbf{Problem 7(c): inspired by Putnam 1987, A5.}
+\url{https://kskedlaya.org/putnam-archive/1987.pdf}
+That problem uses a nonzero-circulation obstruction to a curl-free
+extension. Here the analogous obstruction is nonzero sphere flux,
+excluding a global vector potential. The proof uses two hemispheres
+and ordinary Stokes. Parts (a)--(b) and their linkage with Problem 5
+are original.
+\end{itemize}
+
+\textbf{Other research consulted, not directly adapted.}
+The official IMC 2026 Problem 7 materials
+(\url{https://www.imc-math.org.uk/?item=prob7s&section=problems&year=2026})
+were considered for overlap and ruled-region ideas; its inequality is not
+used. The official ETS \emph{GRE Mathematics Practice Book}, form GR3768,
+including the symmetry integral in Question 63, was checked as a comparison
+for observation-based calculus:
+\url{https://www.ets.org/content/dam/ets-org/pdfs/gre/practice-book-math.pdf}.
+The official IMO 1961 set
+(\url{https://www.imo-official.org/assets/documents/problems/1961/1961_eng.pdf})
+and Kyoto University's 2018 master's entrance basic-mathematics paper,
+especially its first improper-integral problem
+(\url{https://www.math.kyoto-u.ac.jp/files/master_exams/2017math_kiso.pdf}),
+were also considered. Their original questions were not inserted: the
+selected tasks keep the Exam 3 vector-calculus topics central.
+
+\textbf{Verification record.}
+Each solution was recomputed independently by a second reader. Checks
+include the explicit circulation obstruction in Problem 1, two evaluations
+of Problem 2, algebra and coverage tests for all three maps in Problem 3,
+an independent cone parametrization for Problem 4, both a primitive and
+reciprocal pairing for Problem 5, a direct surface check of Problem 6,
+and direct sphere flux plus two-hemisphere Stokes for Problem 7.
+Numerical quadrature independently agrees with
+$\pi\ln2/8$, $0$, and $-3\pi$ in Problems 2, 5, and 6.
+The mathematical content of Versions A--C and the original outline is unchanged.
+% Instructor-only provenance retained from the original A--C solution sources.
+% Version A
+% \source{Original field design using the curl/divergence and
+% conservativity tasks in \nolinkurl{261II2026/HW/789/HW7_withSpace.tex},
+% Problems 1--8, and the product/cancellation ideas in
+% \nolinkurl{261II2026/Q/7/q7-261-II2026.tex}.}
+% \source{Original off-center-hole and translated-moment construction.
+% The cancellation of mixed exponential derivatives is inspired by
+% \nolinkurl{261II2026/Q/7/q7-261-II2026.tex}, Problem 4. Multiple positively
+% oriented boundary components are covered in
+% \nolinkurl{261II2026/Q/9/BaohuaQ9Review.tex}, Problem 6, and the corresponding
+% boundary-orientation questions in HW9.}
+% \source{Original combinations of the five parametrization families
+% taught in class. Polar descriptions of shifted circular regions build
+% on \nolinkurl{261II2026/Q/5/q5-261-II2026.tex}; scaled spherical
+% parametrizations and generating-curve revolutions build on
+% \nolinkurl{261II2026/Q/8/q8-261-II2026.tex} and HW8, Problems 1 and 5--9.
+% Part (c) needs only the supplied curve and the taught rotation formula;
+% no facts about a torus are assumed.}
+% \source{Original implicit-relation cancellation on a two-parameter
+% patch. The task and required steps follow
+% \nolinkurl{261II2026/HW/789/HW8_withSpace.tex}, Problems 3--4, and
+% \nolinkurl{261II2026/Merger/e33.pdf}, Problems 14--15.}
+% \source{Original tangent-field cancellation construction. The direct
+% flux procedure is the one in HW9, Problems 2 and 6; the geometry and
+% outward/downward orientation align with the revised
+% \nolinkurl{261II2026/Q/9/q9-261-II2026.tex}, Problem 2.}
+% \source{Original field and numerical combination based on the two-rim
+% Stokes geometry in \nolinkurl{261II2026/HW/789/HW9_withSpace.tex},
+% Problems 16--17, and the course's right-hand-rule treatment of surface
+% boundaries. No additional theorem is required.}
+% \source{Original conceptual examples aligned with
+% \nolinkurl{261II2026/HW/789/HW9_withSpace.tex}, Problem 19, and
+% \nolinkurl{261II2026/Merger/e33.pdf}, Problems 37--41. The distinction
+% between curl on a curve and a conservative field on an open region uses
+% only the usual FTLI hypotheses; no topology counterexample is needed.}
+% Version B
+% \source{Original construction based on mixed-partial cancellation
+% and the curl and divergence computations in HW7, Problems 1--8. No outside
+% contest problem is used.}
+% \source{Original field and curved region. The missing-segment strategy
+% is adapted from Quiz 7 (2026), Problem 4; this version adds a nonconstant
+% Green integrand, a clockwise closure, and a diagonal correction.}
+% \source{Original intersection-bound variations of HW8, Problem 1, and
+% the common-surface parametrizations in Merger/e33.pdf, Problem 36.}
+% \source{Original patch and scalar function, using the setup format with
+% a supplied parametrization in HW8, Problems 3--4. The inverse
+% coordinate identities are the intended observation.}
+% \source{Original synthesis of the graph-flux procedure in
+% Merger/e33.pdf, Problems 27--28, with a symmetric parabolic lens.
+% The antisymmetric cancellation and downward orientation are new.}
+% \source{Original nonplanar graph and field. The strategy of simplifying
+% a complicated field on the boundary is inspired by Quiz 9 (2025),
+% Problem 4. The boundary is now nonplanar and the remaining $\dd z$ term
+% requires a one-variable exact-derivative observation.}
+% \source{Original scenarios aligned with HW9, Problem 19, and
+% Merger/e33.pdf, Problems 38--41. The zero velocity at the origin is
+% deliberately contrasted with nonzero local rotation and expansion.}
+% Version C
+% \source{Original construction combining the potential-function tasks
+% in 2026 HW7, Problems 9--13, with the curl/divergence work in Problems
+% 1--8. The rational radial gradient is new; no domain or topology
+% exception is needed because $D>0$ everywhere.}
+% \source{Original combination of the off-center circular-region ideas
+% in the 2026 polar-coordinate materials and the Green calculations in
+% HW7, Problems 14--25. The translation and the cancellation in the field
+% are newly constructed rather than a numerical variant of an old question.}
+% \source{Original cropped surfaces using the ellipsoid, cone, and ruled
+% surface methods taught for Quiz 8. HW8, Problem 1(e), supplies the basic
+% cone representation; 2025 Quiz 9, Problem 2, supplies the interpolation
+% idea. The elliptical cylinder, slanted cone cut, and skew-line pairing
+% are new geometric constraints.}
+% \source{Original given-parametrization setup in the style of HW8,
+% Problems 3--4, and the Merger practice set e33, Problems 14--15.
+% The radius-dependent height and nonrectangular parameter domain are new.}
+% \source{Original extension of the cylinder-under-a-sloping-plane
+% geometry in HW8, Problem 8. The cylinder is now sheared, and the added
+% tangent component is constructed to vanish from flux. This uses only
+% ordinary surface parametrization and a dot product.}
+% \source{Original combination of graph surfaces from HW8, Problem 1(d),
+% the boundary conversion in HW9, Problems 13--18, and the conservative
+% field ideas in HW7. The total-derivative identity follows from the
+% ordinary single-variable chain rule, with no additional theorem.}
+% \source{Original conceptual combinations based on HW9, Problem 19,
+% the product-rule discussion accompanying 2026 Quiz 7, and Merger e33,
+% Problems 37--41. The local-data example separates velocity from its
+% derivatives, using only the taught curl/divergence interpretations.}
+\end{document}

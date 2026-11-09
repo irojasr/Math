@@ -1,0 +1,557 @@
+\documentclass[11pt,letterpaper]{article}
+% Standalone combined source: all content and formatting are embedded.
+% Compact questions/solutions layout matching Versions A--C.
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{hypertexnames=false}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{1.5em}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{3pt}
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=4pt,topsep=4pt}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\dv}{\nabla\cdot}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\grad}{\nabla}
+\allowdisplaybreaks[2]
+\pagestyle{plain}
+
+\newcommand{\examproblem}[3]{%
+  \par\medskip\Needspace{5\baselineskip}
+  \noindent\textbf{#1. #2}\par\nobreak
+}
+\newcommand{\solutionproblem}[3]{%
+  \par\bigskip\Needspace{7\baselineskip}
+  \noindent\textbf{#1. #2}\par\nobreak
+}
+\newcommand{\insight}[1]{\par\textbf{Key observation.} #1\par}
+\newcommand{\verification}[1]{\par\textbf{Check.} #1\par}
+\newcommand{\alternative}[1]{\par\textbf{Alternative.} #1\par}
+
+\begin{document}
+{\large\bfseries Mock Exam 3 --- Version A}
+\smallskip
+% Questions only.
+\examproblem{1}{Curl, divergence, and conservativity}{10}
+On all of $\mathbb R^3$, let
+\[
+\vec F(x,y,z)=\bigl(y(\sin z-1),\ x(\sin z+1),\ xy\cos z\bigr).
+\]
+Compute $\curl\vec F$ and $\dv\vec F$. Determine whether $\vec F$ is
+conservative, and justify your conclusion.
+
+\examproblem{2}{Green's theorem}{12}
+Let $D$ be the region
+\[
+x^2+y^2\le4,\qquad (x-1)^2+y^2\ge\frac14.
+\]
+Its boundary $C$ consists of both circles, oriented so that $D$ stays on
+your left as you traverse each component. Use \textbf{Green's theorem}
+to evaluate
+\[
+\oint_C\bigl(ye^{xy}-y\bigr)\,\dd x
++\bigl(xe^{xy}+3x^2+x\bigr)\,\dd y.
+\]
+Show the double-integral setup and its bounds.
+
+\examproblem{3}{Three surface parametrizations}{12}
+For each surface, give a parametrization using \textbf{exactly two
+parameters}, together with bounds for both parameters. No orientation is required.
+
+\begin{enumerate}[label=(\alph*)]
+\item The portion of the cone $z=\sqrt{x^2+y^2}$ inside the cylinder
+$(x-1)^2+y^2\le1$.
+
+\item The portion of the ellipsoid
+\[
+\frac{x^2}{4}+\frac{y^2}{9}+z^2=1
+\]
+satisfying $y\ge0$ and
+$\displaystyle z\ge\sqrt{\frac{x^2}{4}+\frac{y^2}{9}}$.
+
+\item The surface obtained by rotating the planar arc
+\[
+(x,y)=(2+\cos s,\sin s),\qquad-\frac\pi2\le s\le\frac\pi2,
+\]
+once about the $y$-axis.
+
+\end{enumerate}
+
+\examproblem{4}{A scalar surface integral: setup only}{12}
+The surface $S$ is parametrized by
+\[
+\vec r(u,v)=(u+v,u-v,uv),\qquad
+u\ge0,\quad v\ge0,\quad u+v\le1.
+\]
+For
+\[
+f(x,y,z)=e^{x^2-y^2-4z}+z,
+\]
+set up, but \textbf{do not evaluate}, the scalar surface integral
+$\displaystyle\iint_S f\,\dd\sigma$.
+Show the two tangent vectors, their cross product, its magnitude, the
+substituted scalar function, and the final double integral with bounds.
+
+\examproblem{5}{Direct flux through a curved surface}{20}
+Let $S$ be the portion of the paraboloid
+\[
+z=x^2+y^2,\qquad1\le z\le4,
+\]
+oriented \textbf{outward, away from the $z$-axis}. Let
+\[
+\vec F(x,y,z)=\bigl(x-ye^{z^2},\ y+xe^{z^2},\ 2z-e^z\bigr).
+\]
+Set up and evaluate $\displaystyle\iint_S\vec F\cdot\vec N\,\dd\sigma$
+by parametrizing $S$ directly. Show your tangent cross product, check
+its orientation, substitute the field, and evaluate the resulting
+double integral. Include only the curved surface; do not add end caps.
+
+\examproblem{6}{Stokes' theorem and the whole boundary}{20}
+Let $S$ be the portion of the cone
+\[
+z=\sqrt{x^2+y^2},\qquad1\le z\le3,
+\]
+oriented \textbf{outward, away from the $z$-axis}, and let
+\[
+\vec F(x,y,z)=\bigl(-(z+1)y,\ (z+1)x,\ e^{z(x^2+y^2)}\bigr).
+\]
+Use \textbf{Stokes' theorem} to evaluate
+\[
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma.
+\]
+Identify every boundary component and its induced direction. Use one
+parameter on each component, show the boundary line-integral setup, and
+evaluate it.
+
+\examproblem{7}{Conceptual decisions}{14}
+\begin{enumerate}[label=(\alph*)]
+\item Let $f$ be a scalar field and $\vec G$ a vector
+field, both with continuous second partial derivatives on $\mathbb R^3$.
+For each expression, state whether it is a scalar field, a vector field,
+or undefined. For each defined expression, also state whether it is
+\emph{necessarily} zero.
+\[
+\text{(i) }\curl(f\vec G),\qquad
+\text{(ii) }\dv(\curl\vec G),\qquad
+\text{(iii) }\curl(\dv\vec G).
+\]
+
+\item Let $\vec F=(0,xy,0)$ and let
+$C$ be $\vec r(t)=(t,0,0)$, $0\le t\le1$. Select all methods that apply
+\emph{directly to $\int_C\vec F\cdot\dd\vec r$ with the stated field and curve}, and
+give a one-sentence justification:
+\[
+\text{direct parametrization,\quad FTLI,\quad Green's theorem,\quad Stokes' theorem.}
+\]
+Here FTLI means the Fundamental Theorem of Line Integrals. Do not add
+auxiliary curves or surfaces. In particular, consider whether knowing
+that the curl vanishes \emph{on $C$} is sufficient for FTLI.
+
+\item At a point $p$ in a fluid velocity field,
+\[
+(\dv\vec V)(p)=-2,\qquad(\curl\vec V)(p)=(0,0,4).
+\]
+Does the divergence indicate a local source or sink? Give the directed
+axis of local rotation and its clockwise/counterclockwise sense when
+viewed from the positive $z$-axis.
+
+\end{enumerate}
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Mock Exam 3 --- Version B}
+\smallskip
+% Questions only.
+\examproblem{1}{Curl, divergence, and conservativity}{10}
+Let the vector field below be defined on all of $\mathbb R^3$:
+\[
+\vec F(x,y,z)=
+\bigl(ye^{xy}+z\cos x-yz,\;
+xe^{xy}+z^2+xz,\;
+\sin x+2yz\bigr).
+\]
+Calculate $\curl\vec F$ and $\dv\vec F$. Determine whether $\vec F$
+is conservative, and justify your conclusion.
+
+\examproblem{2}{Green's theorem on an unfinished curve}{12}
+Let
+\[
+\vec F(x,y)=\left(ye^{xy}-\frac{y^2}{2},\;xe^{xy}+2x\right).
+\]
+The path $C$ follows these pieces in order:
+\begin{itemize}
+\item the straight segment from $(1,0)$ to $(0,0)$;
+\item the parabola $x=y^2$ from $(0,0)$ to $(1,1)$;
+\item the straight segment from $(1,1)$ to $(2,1)$.
+\end{itemize}
+Use \textbf{Green's theorem} to evaluate
+\[
+\int_C\vec F\cdot\dd\vec r.
+\]
+Show the closed curve and region to which you apply the theorem, and
+account for any additional path you introduce.
+
+\examproblem{3}{Surface parametrizations and intersection bounds}{12}
+For each surface, give a parametrization using \textbf{exactly two
+parameters}, together with bounds for both parameters. Include only the
+specified surface, without any additional caps.
+
+\textbf{(a)} The part of the sphere $x^2+y^2+z^2=4$ that is outside the
+cylinder $x^2+y^2=1$ and satisfies $z\ge0$.
+
+\textbf{(b)} The part of the cylinder $x^2+y^2=1$ between the planes
+$z=y$ and $z=2+x$.
+
+\textbf{(c)} The part of the cone $z=\sqrt{x^2+y^2}$ inside the sphere
+$x^2+y^2+z^2=4$ and at or above the plane $z=1$.
+
+\examproblem{4}{Set up a scalar surface integral}{12}
+A surface $S$ is parametrized by
+\[
+\vec r(u,v)=(u,u^2+v,uv),\qquad
+\left\{
+\begin{aligned}
+&1\le u\le2,\\
+&0\le v\le2-u.
+\end{aligned}
+\right.
+\]
+Set up, but \textbf{do not evaluate}, the scalar surface integral
+\[
+\iint_S f(x,y,z)\,\dd\sigma,
+\qquad
+f(x,y,z)=e^{\,y-x^2}+\left(\frac{z}{x}\right)^2.
+\]
+Show the tangent vectors, their cross product, its magnitude, the
+substitution into $f$, and the complete double integral.
+
+\examproblem{5}{Flux through a curved sheet}{20}
+Let $S$ be the portion of the graph $z=xy$ above the planar region
+enclosed by $y=x^2$ and $x=y^2$ in the first quadrant. Orient $S$
+\textbf{downward}. For
+\[
+\vec F(x,y,z)=(x+1,y-1,3z+x-y),
+\]
+set up and evaluate
+\[
+\iint_S\vec F\cdot\vec N\,\dd\sigma.
+\]
+Use a direct surface parametrization. Show the cross product, check its
+orientation, substitute the field, and give the complete double integral.
+
+\examproblem{6}{Stokes' theorem with a nonplanar boundary}{20}
+Let $S$ be the graph
+\[
+z=x^2-y^2,\qquad x^2+y^2\le1,
+\]
+oriented upward. Define
+\[
+\begin{aligned}
+\vec F(x,y,z)=\bigl(&-yz^2+(1-x^2-y^2)e^{xyz},\\
+&xz^2+(1-x^2-y^2)\sin(e^{xz}),\\
+&e^{x^2+y^2}+ze^z\bigr).
+\end{aligned}
+\]
+Use \textbf{Stokes' theorem} to evaluate
+\[
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma.
+\]
+Identify and orient the boundary, give a one-parameter parametrization,
+and evaluate the resulting line integral.
+
+\examproblem{7}{Operators, physical meaning, and choice of method}{14}
+Assume that all scalar and vector fields in this problem are smooth on
+$\mathbb R^3$.
+
+\textbf{(a)} For each expression, state whether it is a scalar
+field, a vector field, or undefined. Here $f$ is scalar and $\vec F$ is
+vector-valued.
+\[
+\begin{array}{ll}
+\text{(i) }\curl\bigl((\grad f)\times\vec F\bigr),&
+\text{(ii) }(\grad f)\cdot(\curl\vec F),\\[3pt]
+\text{(iii) }\curl(\dv\vec F),&
+\text{(iv) }\dv(\curl\vec F).
+\end{array}
+\]
+
+\textbf{(b)} For $\vec V=(-y,x,z)$ near the origin, determine
+whether a small fluid element experiences local volume expansion,
+compression, or neither. Determine whether its local rotation is
+clockwise, counterclockwise, or neither as viewed from the positive
+$z$-axis. Justify both answers with divergence and curl.
+
+\textbf{(c)} Consider $\vec W=(2xy,x^2,z)$ along
+\[
+\vec c(t)=(\cos t,\sin t,0),\qquad0\le t\le2\pi.
+\]
+Which of the following methods can be applied \textbf{directly, without
+adding any auxiliary path}, to evaluate
+$\int_C\vec W\cdot\dd\vec r$? Select all that apply and briefly justify
+the selections and exclusions: direct parametrization; Fundamental
+Theorem of Line Integrals; Green's theorem; Stokes' theorem.
+For Green's theorem, use the planar field formed by the first two
+components on $z=0$.
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Mock Exam 3 --- Version C}
+\smallskip
+% Questions only.
+\examproblem{1}{Curl, divergence, and conservativity}{10}
+Let $D=1+x^2+y^2+z^2$ and define the field on all of $\mathbb R^3$ by
+\[
+\vec F(x,y,z)=\left(yz+\frac{2x}{D},\ xz+\frac{2y}{D},\ xy+\frac{2z}{D}\right).
+\]
+Calculate $\curl\vec F$ and $\dv\vec F$. Determine whether $\vec F$ is
+conservative and justify your conclusion.
+
+\examproblem{2}{Green's theorem}{12}
+Let $C$ be the positively oriented boundary of
+\[
+R=\{(x,y):x^2+y^2\leq2x,\ y\geq0\}.
+\]
+Use \textbf{Green's theorem} to evaluate
+\[
+\oint_C ye^{xy}\,\dd x+
+\left(xe^{xy}+\frac{x^3}{3}+xy^2\right)\dd y.
+\]
+Show the scalar curl, the region and bounds for your double integral,
+and its evaluation.
+
+\examproblem{3}{Surface parametrizations}{12}
+Give a parametrization with \textbf{exactly two parameters}, including
+the bounds for both parameters, for each surface.
+
+\begin{enumerate}[label=(\alph*)]
+\item The portion of the ellipsoid
+\[
+\frac{x^2}{9}+\frac{y^2}{4}+z^2=1
+\]
+that satisfies $z\geq0$ and $x^2/9+y^2/4\leq1/4$.
+
+\item The portion of the cone $z=\sqrt{x^2+y^2}$ in the first octant
+that lies above $z=y+1$ and below $z=2$.
+
+\item The ruled surface formed by joining the corresponding points
+\[
+\vec a(s)=(s,0,s),\qquad \vec b(s)=(0,s,2),\qquad0\leq s\leq1,
+\]
+by straight line segments.
+
+\end{enumerate}
+
+\examproblem{4}{Scalar surface integral: setup only}{12}
+The surface $S$ is given by
+\[
+\vec r(u,v)=(u\cos v,\ u\sin v,\ uv),\qquad
+\left\{\begin{aligned}
+&1\leq u\leq2,\\
+&0\leq v\leq u-1.
+\end{aligned}\right.
+\]
+For
+\[
+f(x,y,z)=(x^2+y^2)
+\exp\!\left(\frac{z}{\sqrt{x^2+y^2}}\right),
+\]
+set up, but \textbf{do not evaluate}, $\displaystyle\iint_S f\,\dd\sigma$.
+Show both tangent vectors, their cross product and its magnitude, and
+the substituted scalar function before writing your integral.
+
+\examproblem{5}{Direct computation of oriented flux}{20}
+Let $S$ be the curved cylindrical wall
+\[
+(x-z)^2+y^2=1,\qquad0\leq z\leq2+y.
+\]
+Orient $S$ outward, away from the axis $x=z$, $y=0$, and include
+\textbf{only the curved wall}. Let
+\[
+\vec F(x,y,z)=
+\left(z(x-z)+e^{x+y+z},\ yz,\ e^{x+y+z}\right).
+\]
+By \textbf{direct surface parametrization}, set up and evaluate
+\[
+\iint_S\vec F\cdot\vec N\,\dd\sigma.
+\]
+Show a parametrization, the oriented cross product, a check of its
+direction, the substituted field, the dot product, and the integration bounds.
+
+\examproblem{6}{Stokes' theorem}{20}
+Let $S$ be the graph $z=xy$ over the triangle
+\[
+D=\{(x,y):x\geq0,\ y\geq0,\ x+y\leq1\},
+\]
+oriented \textbf{downward}. For
+\[
+\vec F(x,y,z)=
+\left(ye^{xy}+yz^2,\ xe^{xy}+xz^2+z,\ 2xyz\right),
+\]
+use \textbf{Stokes' theorem} to evaluate
+\[
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma.
+\]
+Identify the induced boundary and give a one-parameter parametrization
+of it, which may be piecewise. Show the derivative, substitution, dot
+product, and evaluation of the boundary line integral.
+
+\examproblem{7}{Conceptual questions}{14}
+\begin{enumerate}[label=(\alph*)]
+\item Let $f$ be a $C^3$ scalar function and $\vec V$
+a $C^2$ vector field on $\mathbb R^3$. For each expression, state whether
+it is a scalar, a vector, or undefined. For a defined expression, also
+state whether it must always be zero.
+\[
+\text{(i) }\dv\bigl(\curl(f\vec V)\bigr),\qquad
+\text{(ii) }\curl(\dv\vec V),\qquad
+\text{(iii) }\dv(f\grad f).
+\]
+
+\item For $\vec H=(yz,xz,xy)$ and the curve
+\[
+\vec c(t)=(t,t^2,t^3),\qquad0\leq t\leq1,
+\]
+select \textbf{all} methods that apply directly to
+$\displaystyle\int_C\vec H\cdot\dd\vec r$ as stated, without adding
+curves or changing the field. Briefly justify your choices.
+\begin{enumerate}[label=\Alph*.,itemsep=0pt,topsep=3pt]
+\item Direct parametrization
+\item Fundamental Theorem of Line Integrals
+\item Green's theorem
+\item Stokes' theorem
+\end{enumerate}
+
+\item A velocity field has, at a point $P$,
+\[
+\vec v(P)=\vec0,\qquad (\curl\vec v)(P)=(2,0,0),\qquad
+(\dv\vec v)(P)=0.
+\]
+Give the axis and sense of its local rotational tendency, viewed from
+the positive $x$-axis, and state whether its divergence indicates a
+local source, a local sink, or neither at $P$.
+\end{enumerate}
+
+\clearpage
+\setcounter{page}{1}
+{\large\bfseries Challenge Mock Exam 3 --- Version D}
+\smallskip
+
+\textit{Intentionally harder than the actual Exam 3. Work untimed and
+justify your answers.}
+
+\examproblem{1}{Curl, divergence, and global conservativity}{10}
+For a real constant $\lambda$, let
+\[
+q=(x-z)^2+2y^2,\qquad U=\{(x,y,z):q>0\},
+\]
+\[
+\vec F_\lambda(x,y,z)=
+\left(y-\frac{\lambda y}{q},\quad
+x+\frac{\lambda(x-z)}q,\quad
+2z+\frac{\lambda y}q\right).
+\]
+Calculate $\curl\vec F_\lambda$ and $\dv\vec F_\lambda$ on $U$.
+Find all $\lambda$ for which the field is conservative on \emph{all of}
+$U$. Give a potential when one exists and a decisive justification when
+one does not.
+
+\examproblem{2}{Green's theorem}{12}
+Let $C$ be the positively oriented boundary of
+\[
+\left\{\begin{aligned}
+&0\le x\le1,\\
+&0\le y\le\ln(1+x).
+\end{aligned}\right.
+\]
+Use \textbf{Green's theorem} to evaluate exactly
+\[
+\oint_C\left(ye^{xy}-\frac{y}{1+x^2}\right)\dd x
++xe^{xy}\,\dd y.
+\]
+Show the scalar curl, the double integral with bounds, and its evaluation.
+
+\examproblem{3}{Three surface parametrizations}{12}
+Give a parametrization with \textbf{exactly two parameters}, and complete
+bounds for both, for each surface. No orientation is required.
+\begin{enumerate}[label=(\alph*)]
+\item The surface obtained by rotating the arc
+\[
+\vec c(t)=(t,0,t^2),\qquad1\le t\le2,
+\]
+once about the line $L=\{(a,a,0):a\in\mathbb R\}$.
+\item The portion of $x^2+y^2-z^2=1$ with $0\le z\le1$.
+Your parametrization must have the additional property that holding its
+first parameter fixed traces a \textbf{straight line segment} as the
+second parameter varies.
+\item The portion of the sphere $x^2+y^2+z^2=4$ satisfying
+$z\ge |x|+|y|$.
+\end{enumerate}
+
+\examproblem{4}{A scalar surface integral: setup only}{12}
+Let $S$ be the image of
+\[
+\vec r(u,v)=(u^2-v^2,2uv,u^2+v^2),\qquad1\le u^2+v^2\le4.
+\]
+For $f(x,y,z)=\sqrt{z+x}+e^z$, set up, but \textbf{do not evaluate},
+$\displaystyle\iint_S f\,\dd\sigma$, counting each point of the
+\emph{geometric surface} once. Show the tangent vectors, their cross
+product and its magnitude, the substituted function, and explicit
+integration bounds. Account for any repeated coverage by the supplied map.
+
+\examproblem{5}{Direct flux}{20}
+Let $S$ be the portion of
+\[
+z=1+x^2+y^2,\qquad \frac14\le x^2+y^2\le4,
+\]
+oriented \textbf{upward}. For
+\[
+\vec H(x,y,z)=\frac{(x,y,z)}{(x^2+y^2+z^2)^{3/2}},
+\]
+set up and evaluate $\displaystyle\iint_S\vec H\cdot\vec N\,\dd\sigma$
+by \textbf{direct surface parametrization}. Show the oriented cross
+product, check its direction, substitute the field, and evaluate the
+resulting double integral. Include only the stated curved surface.
+
+\examproblem{6}{Stokes' theorem}{20}
+Let
+\[
+S=\{(x,y,z):x^2+y^2+z^2=4,\ z\ge0,\ (x-1)^2+y^2\le1\},
+\]
+oriented outward from the sphere, and let $\vec F=(0,z^2,-yz)$.
+Use \textbf{Stokes' theorem} to evaluate
+\[
+\iint_S(\curl\vec F)\cdot\vec N\,\dd\sigma.
+\]
+Identify the entire boundary and its induced direction. Give a
+one-parameter boundary parametrization, its derivative, the substituted
+field, the dot product, and the evaluated line integral.
+
+\examproblem{7}{Operators, physical meaning, and a global obstruction}{14}
+\begin{enumerate}[label=(\alph*)]
+\item Let $f$ be a $C^2$ scalar field and $\vec G$ a $C^2$ vector field
+on $\mathbb R^3$. Is $\dv(f\,\curl\vec G)$ a scalar field, a vector
+field, or undefined? Must it always be zero? Give a general formula and
+either a justification of zero or an explicit counterexample.
+\item Regard the field $\vec H$ from Problem 5 as a velocity field on
+$U_0=\mathbb R^3\setminus\{(0,0,0)\}$. Calculate its divergence and
+curl. At a point of $U_0$, do they indicate local volume expansion,
+compression, or neither, and a local rotational tendency or none?
+Reconcile your answer with the fact that $\vec H$ points outward on
+every sphere centered at the origin.
+\item Does there exist a $C^2$ vector field $\vec A$ on \emph{all of}
+$U_0$ such that $\curl\vec A=\vec H$? Justify your answer using
+\textbf{Stokes' theorem} and a suitable surface integral. No divergence
+theorem is needed.
+\end{enumerate}
+\end{document}

@@ -1,0 +1,64 @@
+% Calculus 3, Exam 3: integral concept map.
+% Compile with pdfLaTeX. No external images or custom fonts are required.
+% Two letter-sized concept-map pages, followed by letter-sized practice PDFs.
+% Question references have been checked against e33.pdf.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[letterpaper,margin=0.42in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usetikzlibrary{arrows.meta,calc,backgrounds}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+% Change these colors to restyle the diagram.
+\definecolor{Green}{HTML}{215B40}
+\definecolor{PaleGreen}{HTML}{EDF5EF}
+\definecolor{Ink}{HTML}{202D28}
+\definecolor{Muted}{HTML}{52615A}
+\definecolor{Rule}{HTML}{A9B9AE}
+\definecolor{Panel}{HTML}{FAFCFA}
+\definecolor{Marker}{HTML}{F3E894}
+\color{Ink}
+
+\newcommand{\F}{\mathbf F}
+\newcommand{\rr}{\mathbf r}
+\newcommand{\nn}{\mathbf n}
+\newcommand{\TT}{\mathbf T}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\cardtitle}[1]{{\color{Green}\bfseries\normalsize #1}\par\medskip}
+\newcommand{\qtag}[1]{{\setlength{\fboxsep}{3pt}\colorbox{Marker}{\strut\footnotesize\bfseries #1}}}
+
+\tikzset{
+  flow/.style={-{Latex[length=2.6mm,width=1.7mm]},draw=Green,line width=.9pt,rounded corners=2pt},
+  branch/.style={font=\sffamily\footnotesize\bfseries,text=Green,fill=white,inner sep=1.5pt},
+  card/.style={anchor=north west,draw=Rule,fill=white,line width=.65pt,rounded corners=2.5pt,
+    inner xsep=3mm,inner ysep=3mm,align=left,font=\sffamily\small},
+  type/.style={draw=Green,fill=PaleGreen,line width=.7pt,rounded corners=3pt,
+    minimum height=7mm,align=center,font=\sffamily\bfseries\normalsize,inner sep=2mm},
+  decision/.style={draw=Green,fill=PaleGreen,line width=.85pt,rounded corners=5mm,
+    align=center,font=\sffamily\small,inner xsep=3mm,inner ysep=2.5mm,minimum height=12mm},
+  note/.style={card,fill=PaleGreen,draw=PaleGreen},
+  panelhead/.style={anchor=north west,fill=Green,text=white,draw=Green,
+    rounded corners=3pt,minimum height=9mm,inner xsep=4mm,align=left,
+    font=\sffamily\bfseries\large},
+}
+
+\begin{document}
+\input{exam3-map-lines.tex}
+\clearpage
+\input{exam3-map-surfaces.tex}
+\clearpage
+
+\includepdf[pages=-,fitpaper=false]{e3.pdf}
+\includepdf[pages=-,fitpaper=false]{e31.pdf}
+\includepdf[pages=-,fitpaper=false]{e32-corrected.pdf}
+\includepdf[pages=-,fitpaper=false]{e33.pdf}
+\end{document}
